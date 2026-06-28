@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "onecool-os"
+version = "0.1.0"
+description = "Onecool OS - Personal Asset Operating System"
+readme = "README.md"
+requires-python = ">=3.11"
+authors = [{ name = "onecool-tw" }]
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[project.scripts]
+onecool-os = "onecool_os.__main__:main"
+
+[tool.setuptools.packages.find]
+include = ["onecool_os*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
