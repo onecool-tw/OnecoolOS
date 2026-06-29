@@ -89,6 +89,12 @@ Show Portfolio CLI demo:
 python -m onecool_os portfolio demo
 ```
 
+Load the demo portfolio from JSON:
+
+```bash
+python -m onecool_os portfolio import examples/portfolio_demo.json
+```
+
 Run tests:
 
 ```bash
@@ -341,10 +347,44 @@ python -m onecool_os portfolio demo
 The output includes position quantities, average costs, current prices, market
 values, unrealized PnL, total cost, total market value, and total unrealized PnL.
 
+### Portfolio JSON Import Demo
+
+Portfolio JSON import loads a demo portfolio into memory from a local JSON file.
+It validates the payload, prints a summary, and does not write to disk or use
+database persistence.
+
+Run the import demo:
+
+```bash
+python -m onecool_os portfolio import examples/portfolio_demo.json
+```
+
+The JSON root must include:
+
+- `portfolio_name`
+- `positions`
+
+Each position must include:
+
+- `asset_id`
+- `symbol`
+- `asset_type`
+- `name`
+- `currency`
+- `quantity`
+- `average_cost`
+- `current_price`
+
+The import command validates missing fields, invalid JSON, unsupported
+`asset_type` values, and invalid quantities. Output includes `Portfolio
+Summary`, total cost, total market value, and total unrealized PnL.
+
 ## Project Structure
 
 ```text
 .
+├── examples
+│   └── portfolio_demo.json
 ├── docs
 │   ├── architecture.md
 │   ├── coding-standard.md

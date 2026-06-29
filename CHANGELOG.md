@@ -13,6 +13,16 @@ Commits.
 - Architecture Decision Record for Core Engine architecture choices.
 - Contributing workflow documentation.
 
+## [0.4.3] - 2026-06-29
+
+### Added
+
+- Portfolio JSON import demo using the existing in-memory Portfolio models.
+- `PortfolioLoader` validation for required fields, asset types, quantities,
+  and invalid JSON.
+- Portfolio import CLI summary output.
+- Example portfolio JSON file under `examples/`.
+
 ## [0.4.2] - 2026-06-29
 
 ### Changed

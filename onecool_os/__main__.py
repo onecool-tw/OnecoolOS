@@ -16,6 +16,11 @@ from onecool_os.portfolio.engine import (
     create_portfolio_demo,
     create_portfolio_engine,
 )
+from onecool_os.portfolio.loader import (
+    PortfolioLoader,
+    PortfolioLoaderError,
+    portfolio_to_import_summary,
+)
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -83,6 +88,11 @@ def build_parser() -> argparse.ArgumentParser:
         "demo",
         help="Show an in-memory demo portfolio.",
     )
+    portfolio_import_parser = portfolio_subparsers.add_parser(
+        "import",
+        help="Load a demo portfolio from JSON.",
+    )
+    portfolio_import_parser.add_argument("json_path")
     return parser
 
 
@@ -173,6 +183,21 @@ def main(argv: list[str] | None = None) -> int:
         loaded_config = ConfigLoader.from_environment().load()
         if args.portfolio_command == "demo":
             print(json.dumps(create_portfolio_demo(loaded_config.config), indent=2))
+            return 0
+        if args.portfolio_command == "import":
+            try:
+                portfolio = PortfolioLoader().load(args.json_path)
+            except PortfolioLoaderError as exc:
+                print(json.dumps(
+                    {
+                        "portfolio_summary": "Portfolio Summary",
+                        "status": "failure",
+                        "error_message": str(exc),
+                    },
+                    indent=2,
+                ))
+                return 1
+            print(json.dumps(portfolio_to_import_summary(portfolio), indent=2))
             return 0
         portfolio_engine = create_portfolio_engine(loaded_config.config)
         if args.portfolio_command == "status":

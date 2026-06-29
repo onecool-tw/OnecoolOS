@@ -12,6 +12,7 @@ from onecool_os.core.config import (
     SystemConfig,
 )
 from onecool_os.portfolio.engine import PortfolioEngine
+from onecool_os.portfolio.loader import PortfolioLoader, PortfolioLoaderError
 from onecool_os.portfolio.models import Asset, Portfolio, PortfolioError, Position
 from onecool_os.portfolio.registry import PortfolioRegistry
 
@@ -266,6 +267,99 @@ def test_portfolio_engine_status_counts_positions(tmp_path: Path) -> None:
     assert status.position_count == 1
 
 
+def test_portfolio_loader_valid_json(tmp_path: Path) -> None:
+    json_path = write_portfolio_json(tmp_path)
+
+    portfolio = PortfolioLoader().load(json_path)
+
+    assert portfolio.name == "Loaded Portfolio"
+    assert len(portfolio.list_positions()) == 3
+    assert portfolio.total_cost() == Decimal("7900")
+    assert portfolio.total_market_value() == Decimal("8645")
+
+
+def test_portfolio_loader_invalid_json(tmp_path: Path) -> None:
+    json_path = tmp_path / "portfolio.json"
+    json_path.write_text("{invalid", encoding="utf-8")
+
+    try:
+        PortfolioLoader().load(json_path)
+    except PortfolioLoaderError as exc:
+        assert "Invalid portfolio JSON" in str(exc)
+    else:
+        raise AssertionError("Invalid JSON should be rejected.")
+
+
+def test_portfolio_loader_missing_fields(tmp_path: Path) -> None:
+    payload = portfolio_json_payload()
+    del payload["positions"][0]["symbol"]
+    json_path = write_portfolio_json(tmp_path, payload)
+
+    try:
+        PortfolioLoader().load(json_path)
+    except PortfolioLoaderError as exc:
+        assert "Missing required field" in str(exc)
+        assert "symbol" in str(exc)
+    else:
+        raise AssertionError("Missing fields should be rejected.")
+
+
+def test_portfolio_loader_invalid_asset_type(tmp_path: Path) -> None:
+    payload = portfolio_json_payload()
+    payload["positions"][0]["asset_type"] = "TICKER"
+    json_path = write_portfolio_json(tmp_path, payload)
+
+    try:
+        PortfolioLoader().load(json_path)
+    except PortfolioLoaderError as exc:
+        assert "Unsupported asset_type" in str(exc)
+    else:
+        raise AssertionError("Invalid asset_type should be rejected.")
+
+
+def test_portfolio_loader_invalid_quantity(tmp_path: Path) -> None:
+    payload = portfolio_json_payload()
+    payload["positions"][0]["quantity"] = "not-a-number"
+    json_path = write_portfolio_json(tmp_path, payload)
+
+    try:
+        PortfolioLoader().load(json_path)
+    except PortfolioLoaderError as exc:
+        assert "Invalid quantity" in str(exc)
+    else:
+        raise AssertionError("Invalid quantity should be rejected.")
+
+
+def test_portfolio_loader_totals_unchanged(tmp_path: Path) -> None:
+    portfolio = PortfolioLoader().load(write_portfolio_json(tmp_path))
+
+    total_unrealized_pnl = portfolio.total_market_value() - portfolio.total_cost()
+
+    assert portfolio.total_cost() == Decimal("7900")
+    assert portfolio.total_market_value() == Decimal("8645")
+    assert total_unrealized_pnl == Decimal("745")
+
+
+def test_cli_portfolio_import_outputs_summary(
+    tmp_path: Path,
+    monkeypatch,
+    capsys,
+) -> None:
+    config_dir = tmp_path / "config"
+    write_settings(config_dir, tmp_path)
+    monkeypatch.setenv("ONECOOL_OS_CONFIG_DIR", str(config_dir))
+    json_path = write_portfolio_json(tmp_path)
+
+    assert main(["portfolio", "import", str(json_path)]) == 0
+    payload = json.loads(capsys.readouterr().out)
+
+    assert payload["portfolio_summary"] == "Portfolio Summary"
+    assert payload["portfolio_name"] == "Loaded Portfolio"
+    assert payload["total_cost"] == "7900.00"
+    assert payload["total_market_value"] == "8645.00"
+    assert payload["total_unrealized_pnl"] == "745.00"
+
+
 def sample_position() -> Position:
     asset = Asset(
         asset_id="asset-1",
@@ -284,3 +378,53 @@ def sample_position() -> Position:
 
 def fail_network(*args: object, **kwargs: object) -> None:
     raise AssertionError("network should not be used")
+
+
+def portfolio_json_payload() -> dict[str, object]:
+    return {
+        "portfolio_name": "Loaded Portfolio",
+        "positions": [
+            {
+                "asset_id": "SPY",
+                "symbol": "SPY",
+                "asset_type": "ETF",
+                "name": "SPDR S&P 500 ETF Trust",
+                "currency": "USD",
+                "quantity": "10",
+                "average_cost": "420",
+                "current_price": "455",
+            },
+            {
+                "asset_id": "QQQ",
+                "symbol": "QQQ",
+                "asset_type": "ETF",
+                "name": "Invesco QQQ Trust",
+                "currency": "USD",
+                "quantity": "8",
+                "average_cost": "350",
+                "current_price": "390",
+            },
+            {
+                "asset_id": "GLD",
+                "symbol": "GLD",
+                "asset_type": "ETF",
+                "name": "SPDR Gold Shares",
+                "currency": "USD",
+                "quantity": "5",
+                "average_cost": "180",
+                "current_price": "195",
+            },
+        ],
+    }
+
+
+def write_portfolio_json(
+    tmp_path: Path,
+    payload: dict[str, object] | None = None,
+) -> Path:
+    json_path = tmp_path / "portfolio.json"
+    json_path.write_text(
+        json.dumps(payload or portfolio_json_payload()),
+        encoding="utf-8",
+    )
+    return json_path
