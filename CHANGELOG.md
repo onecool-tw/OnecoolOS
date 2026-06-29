@@ -9,6 +9,10 @@ Commits.
 
 ### Added
 
+- Real Estate asset module foundation under `onecool_os.assets.real_estate`.
+- Real estate asset and position models with JSON loader validation.
+- Real estate demo CLI command for sample property data.
+- Example real estate JSON file under `examples/`.
 - Sports Cards asset module foundation under
   `onecool_os.assets.sports_cards`.
 - Card asset and position models with JSON loader validation.

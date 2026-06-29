@@ -114,6 +114,12 @@ Show sample sports cards:
 python -m onecool_os cards demo
 ```
 
+Show sample real estate:
+
+```bash
+python -m onecool_os real-estate demo
+```
+
 Run tests:
 
 ```bash
@@ -494,6 +500,57 @@ The demo command validates missing fields, invalid JSON, invalid grades, and
 invalid quantities. Output includes player, card, grade, quantity, and purchase
 price.
 
+## Real Estate Module
+
+Onecool OS includes a Real Estate asset module foundation in
+`onecool_os.assets.real_estate`. The module is model-first and does not
+implement live real estate APIs, valuation engine, mortgage calculator, or
+database persistence.
+
+Current Real Estate components:
+
+- `RealEstateAsset`: Property identity, location, property type, area, building
+  age, floor information, parking flag, and currency.
+- `RealEstatePosition`: Quantity, purchase price, purchase date, optional
+  current estimated value, and notes.
+- `RealEstateLoader`: JSON loader for sample property holdings.
+
+Run the real estate demo:
+
+```bash
+python -m onecool_os real-estate demo
+```
+
+The real estate JSON root must include:
+
+- `properties`
+
+Each property must include:
+
+- `asset_id`
+- `asset_type`
+- `name`
+- `country`
+- `city`
+- `district`
+- `address_label`
+- `property_type`
+- `currency`
+- `area_ping`
+- `building_age_years`
+- `floor`
+- `total_floors`
+- `has_parking`
+- `quantity`
+- `purchase_price`
+- `purchase_date`
+- `current_estimated_value`
+- `notes`
+
+The demo command validates missing fields, invalid JSON, invalid area, and
+invalid price. Output includes property name, city/district, property type,
+area, purchase price, current estimated value, and unrealized PnL.
+
 ## Project Structure
 
 ```text
@@ -501,7 +558,8 @@ price.
 ├── examples
 │   ├── cards_demo.json
 │   ├── funds_demo.json
-│   └── portfolio_demo.json
+│   ├── portfolio_demo.json
+│   └── real_estate_demo.json
 ├── docs
 │   ├── architecture.md
 │   ├── coding-standard.md

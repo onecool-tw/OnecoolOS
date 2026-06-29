@@ -12,6 +12,11 @@ from onecool_os.assets.funds.loader import (
     FundLoaderError,
     fund_import_to_dict,
 )
+from onecool_os.assets.real_estate.loader import (
+    RealEstateLoader,
+    RealEstateLoaderError,
+    real_estate_import_to_dict,
+)
 from onecool_os.assets.sports_cards.loader import (
     CardLoader,
     CardLoaderError,
@@ -58,6 +63,18 @@ def build_parser() -> argparse.ArgumentParser:
     cards_subparsers.add_parser(
         "demo",
         help="Show sample sports cards from JSON.",
+    )
+    real_estate_parser = subparsers.add_parser(
+        "real-estate",
+        help="Manage Real Estate asset module.",
+    )
+    real_estate_subparsers = real_estate_parser.add_subparsers(
+        dest="real_estate_command",
+        required=True,
+    )
+    real_estate_subparsers.add_parser(
+        "demo",
+        help="Show sample real estate from JSON.",
     )
     funds_parser = subparsers.add_parser(
         "funds",
@@ -198,6 +215,28 @@ def main(argv: list[str] | None = None) -> int:
                 ))
                 return 1
             print(json.dumps(card_import_to_dict(result), indent=2))
+            return 0
+
+    if args.command == "real-estate":
+        loaded_config = ConfigLoader.from_environment().load()
+        logging_system = LoggingSystem(loaded_config.config)
+        logger = logging_system.get_logger("real_estate")
+        if args.real_estate_command == "demo":
+            try:
+                result = RealEstateLoader(logger=logger).load(
+                    Path("examples/real_estate_demo.json")
+                )
+            except RealEstateLoaderError as exc:
+                logger.error("Real estate demo failed: %s", exc)
+                print(json.dumps(
+                    {
+                        "status": "failure",
+                        "error_message": str(exc),
+                    },
+                    indent=2,
+                ))
+                return 1
+            print(json.dumps(real_estate_import_to_dict(result), indent=2))
             return 0
 
     if args.command == "funds":
