@@ -41,6 +41,12 @@ Show sanitized configuration:
 python -m onecool_os config
 ```
 
+Inspect logging status:
+
+```bash
+python -m onecool_os logs
+```
+
 Run tests:
 
 ```bash
@@ -85,8 +91,32 @@ Environment variables:
 - `ONECOOL_OS_DATA_DIR`, `ONECOOL_OS_CACHE_DIR`, `ONECOOL_OS_LOGS_DIR`,
   `ONECOOL_OS_EXPORTS_DIR`: Runtime paths.
 - `ONECOOL_OS_DEBUG`, `ONECOOL_OS_ENVIRONMENT`: Runtime behavior.
+- `ONECOOL_OS_LOG_LEVEL`: Logging level. Supported values are `DEBUG`, `INFO`,
+  `WARNING`, `ERROR`, and `CRITICAL`.
 - `ONECOOL_OS_PLUGIN_PATHS`: Additional plugin directories separated by the OS
   path separator.
+
+## Logging
+
+Onecool OS provides centralized logging through `onecool_os.core.logging`.
+Logging uses the configured `paths.logs_dir`, creates the directory safely when
+missing, writes rotating file logs, and also emits console output.
+
+Default log files:
+
+- `logs/system.log`
+- `logs/market.log`
+- `logs/decision.log`
+
+The current log level comes from `logging.level` when configured. If no explicit
+logging level is set, `runtime.debug: true` enables `DEBUG`; otherwise the
+default is `INFO`.
+
+Inspect logging configuration and available log files:
+
+```bash
+python -m onecool_os logs
+```
 
 ## Project Structure
 
@@ -105,6 +135,7 @@ Environment variables:
 ├── onecool_os
 │   ├── core
 │   └── plugins
+├── logs
 ├── tests
 ├── CHANGELOG.md
 ├── CONTRIBUTING.md

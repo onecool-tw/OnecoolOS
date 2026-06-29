@@ -13,6 +13,15 @@ Commits.
 - Architecture Decision Record for Core Engine architecture choices.
 - Contributing workflow documentation.
 
+## [0.2.1] - 2026-06-29
+
+### Added
+
+- Centralized logging system with system and module-specific loggers.
+- Rotating file log support with console output.
+- Logging CLI status command.
+- Logging tests.
+
 ## [0.2.0] - 2026-06-29
 
 ### Added

@@ -50,6 +50,13 @@ class RuntimeSettings:
 
 
 @dataclass(frozen=True)
+class LoggingSettings:
+    """Logging settings."""
+
+    level: str | None = None
+
+
+@dataclass(frozen=True)
 class SystemConfig:
     """Validated centralized Onecool OS configuration."""
 
@@ -57,6 +64,7 @@ class SystemConfig:
     database: DatabaseSettings
     paths: PathSettings
     runtime: RuntimeSettings
+    logging: LoggingSettings = field(default_factory=LoggingSettings)
 
     def to_sanitized_dict(self) -> ConfigDict:
         """Return configuration safe for CLI output."""
@@ -150,6 +158,7 @@ class ConfigLoader:
             "ONECOOL_OS_EXPORTS_DIR": ("paths", "exports_dir"),
             "ONECOOL_OS_DEBUG": ("runtime", "debug"),
             "ONECOOL_OS_ENVIRONMENT": ("runtime", "environment"),
+            "ONECOOL_OS_LOG_LEVEL": ("logging", "level"),
         }
         overrides: ConfigDict = {}
         for env_name, keys in mapping.items():
@@ -172,6 +181,7 @@ def _build_system_config(data: Mapping[str, Any]) -> SystemConfig:
     database = data["database"]
     paths = data["paths"]
     runtime = data["runtime"]
+    logging = data.get("logging", {})
     _validate_required(app, "app", ("name", "version", "timezone", "language"))
     _validate_required(database, "database", ("path",))
     _validate_required(
@@ -184,6 +194,18 @@ def _build_system_config(data: Mapping[str, Any]) -> SystemConfig:
     debug = runtime["debug"]
     if not isinstance(debug, bool):
         raise ConfigurationError("runtime.debug must be a boolean.")
+    if logging and not isinstance(logging, Mapping):
+        raise ConfigurationError("logging must be a mapping.")
+
+    log_level = logging.get("level") if isinstance(logging, Mapping) else None
+    if log_level is not None:
+        log_level = str(log_level).upper()
+        valid_levels = {"DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL"}
+        if log_level not in valid_levels:
+            raise ConfigurationError(
+                "logging.level must be DEBUG, INFO, WARNING, ERROR, "
+                "or CRITICAL."
+            )
 
     return SystemConfig(
         app=ApplicationSettings(
@@ -203,6 +225,7 @@ def _build_system_config(data: Mapping[str, Any]) -> SystemConfig:
             debug=debug,
             environment=str(runtime["environment"]),
         ),
+        logging=LoggingSettings(level=log_level),
     )
 
 
