@@ -8,6 +8,7 @@ from dataclasses import asdict
 from pathlib import Path
 
 from onecool_os.core import AppConfig, CoreEngine
+from onecool_os.core.config import ConfigLoader
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -22,6 +23,7 @@ def build_parser() -> argparse.ArgumentParser:
     subparsers.add_parser("init", help="Initialize the database.")
     subparsers.add_parser("status", help="Show Core Engine status.")
     subparsers.add_parser("plugins", help="List loaded plugins.")
+    subparsers.add_parser("config", help="Show sanitized configuration.")
     return parser
 
 
@@ -59,6 +61,11 @@ def main(argv: list[str] | None = None) -> int:
                 for plugin in engine.plugins.plugins
             ]
             print(json.dumps(plugins, indent=2))
+        return 0
+
+    if args.command == "config":
+        loaded_config = ConfigLoader.from_environment().load()
+        print(json.dumps(loaded_config.to_sanitized_dict(), indent=2))
         return 0
 
     parser.error(f"Unsupported command: {args.command}")

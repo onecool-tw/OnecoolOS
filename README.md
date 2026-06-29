@@ -35,6 +35,12 @@ List loaded plugins:
 python -m onecool_os plugins
 ```
 
+Show sanitized configuration:
+
+```bash
+python -m onecool_os config
+```
+
 Run tests:
 
 ```bash
@@ -43,10 +49,42 @@ python -m pytest
 
 ## Configuration
 
+Onecool OS loads configuration from `config/settings.yaml`, optional
+`config/user.yaml`, and environment variables. Missing `config/user.yaml` and
+`config/secrets.yaml` files are safe and do not stop startup.
+
+Configuration precedence:
+
+1. Default settings in `config/settings.yaml`
+2. User overrides in `config/user.yaml`
+3. Environment variables
+
+Required configuration sections:
+
+- `app`: `name`, `version`, `timezone`, `language`
+- `database`: `path`
+- `paths`: `data_dir`, `cache_dir`, `logs_dir`, `exports_dir`
+- `runtime`: `debug`, `environment`
+
+`config/user.yaml` is for local user preferences and should not contain
+credentials. `config/secrets.example.yaml` documents supported secret
+placeholders; copy it to a local `config/secrets.yaml` when needed and do not
+commit real secrets.
+
+The `python -m onecool_os config` command prints sanitized configuration and
+does not include secrets.
+
 Environment variables:
 
 - `ONECOOL_OS_DB_PATH`: SQLite database path. Defaults to
-  `data/onecool_os.sqlite3`.
+  `database.path` from configuration. This legacy variable remains supported.
+- `ONECOOL_OS_DATABASE_PATH`: SQLite database path.
+- `ONECOOL_OS_CONFIG_DIR`: Configuration directory. Defaults to `config`.
+- `ONECOOL_OS_APP_NAME`, `ONECOOL_OS_APP_VERSION`, `ONECOOL_OS_TIMEZONE`,
+  `ONECOOL_OS_LANGUAGE`: Application settings.
+- `ONECOOL_OS_DATA_DIR`, `ONECOOL_OS_CACHE_DIR`, `ONECOOL_OS_LOGS_DIR`,
+  `ONECOOL_OS_EXPORTS_DIR`: Runtime paths.
+- `ONECOOL_OS_DEBUG`, `ONECOOL_OS_ENVIRONMENT`: Runtime behavior.
 - `ONECOOL_OS_PLUGIN_PATHS`: Additional plugin directories separated by the OS
   path separator.
 
@@ -59,6 +97,10 @@ Environment variables:
 │   ├── coding-standard.md
 │   ├── decision-records
 │   └── roadmap.md
+├── config
+│   ├── settings.yaml
+│   ├── user.yaml
+│   └── secrets.example.yaml
 ├── migrations
 ├── onecool_os
 │   ├── core

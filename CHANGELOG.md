@@ -13,6 +13,16 @@ Commits.
 - Architecture Decision Record for Core Engine architecture choices.
 - Contributing workflow documentation.
 
+## [0.2.0] - 2026-06-29
+
+### Added
+
+- Centralized configuration files under `config/`.
+- Configuration loader with default settings, user overrides, environment
+  overrides, validation, and safe handling of missing optional files.
+- Sanitized `python -m onecool_os config` CLI output.
+- Config System tests.
+
 ## [0.1.0] - 2026-06-28
 
 ### Added
