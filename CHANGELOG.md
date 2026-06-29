@@ -9,6 +9,11 @@ Commits.
 
 ### Added
 
+- Sports Cards asset module foundation under
+  `onecool_os.assets.sports_cards`.
+- Card asset and position models with JSON loader validation.
+- Cards demo CLI command for sample card data.
+- Example sports cards JSON file under `examples/`.
 - Master project specification under `docs/master-spec.md`.
 - Project documentation under `docs/`.
 - Architecture Decision Record for Core Engine architecture choices.

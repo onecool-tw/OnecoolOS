@@ -108,6 +108,12 @@ Load sample funds from JSON:
 python -m onecool_os funds import examples/funds_demo.json
 ```
 
+Show sample sports cards:
+
+```bash
+python -m onecool_os cards demo
+```
+
 Run tests:
 
 ```bash
@@ -441,11 +447,59 @@ The import command validates missing fields, invalid JSON, unsupported
 `asset_type` values, and invalid quantities. Output includes the fund list,
 total cost, total market value, and total unrealized PnL.
 
+## Sports Cards Module
+
+Onecool OS includes a Sports Cards asset module foundation in
+`onecool_os.assets.sports_cards`. The module is model-first and does not
+implement Card Ladder, eBay integration, valuation, OCR, image processing, or
+database persistence.
+
+Current Sports Cards components:
+
+- `CardAsset`: Player, sport, set, card number, grader, grade, parallel, serial
+  number, and currency.
+- `CardPosition`: Quantity, purchase price, purchase date, and notes.
+- `CardLoader`: JSON loader for sample card holdings.
+
+Run the cards demo:
+
+```bash
+python -m onecool_os cards demo
+```
+
+The cards JSON root must include:
+
+- `cards`
+
+Each card must include:
+
+- `asset_id`
+- `player`
+- `sport`
+- `year`
+- `brand`
+- `set`
+- `card_number`
+- `grader`
+- `grade`
+- `parallel`
+- `serial_number`
+- `currency`
+- `quantity`
+- `purchase_price`
+- `purchase_date`
+- `notes`
+
+The demo command validates missing fields, invalid JSON, invalid grades, and
+invalid quantities. Output includes player, card, grade, quantity, and purchase
+price.
+
 ## Project Structure
 
 ```text
 .
 ├── examples
+│   ├── cards_demo.json
 │   ├── funds_demo.json
 │   └── portfolio_demo.json
 ├── docs
