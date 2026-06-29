@@ -59,6 +59,12 @@ Run a scheduler job manually:
 python -m onecool_os scheduler run core.health
 ```
 
+Show Market Engine status:
+
+```bash
+python -m onecool_os market status
+```
+
 Run tests:
 
 ```bash
@@ -170,6 +176,35 @@ Run a job manually:
 python -m onecool_os scheduler run core.health
 ```
 
+## Market Engine
+
+Onecool OS includes a lightweight Market Engine foundation in
+`onecool_os.market`. The Market Engine is provider-based so future market data
+sources can plug in without changing core infrastructure.
+
+Current Market Engine components:
+
+- `MarketEngine`: Coordinates market providers.
+- `MarketProvider`: Abstract provider interface.
+- `ProviderRegistry`: Registers and retrieves providers.
+- `MockProvider`: Built-in mock provider for local development and tests.
+
+Provider interface:
+
+- `connect()`
+- `health_check()`
+- `fetch()`
+- `disconnect()`
+
+The built-in `MockProvider` returns simple mock market data only. No real market
+data provider or external API is implemented in this sprint.
+
+Show Market Engine status:
+
+```bash
+python -m onecool_os market status
+```
+
 ## Project Structure
 
 ```text
@@ -186,6 +221,7 @@ python -m onecool_os scheduler run core.health
 ├── migrations
 ├── onecool_os
 │   ├── core
+│   ├── market
 │   └── plugins
 ├── logs
 ├── tests

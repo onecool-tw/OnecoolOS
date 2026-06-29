@@ -11,6 +11,7 @@ from onecool_os.core import AppConfig, CoreEngine
 from onecool_os.core.config import ConfigLoader
 from onecool_os.core.logging import initialize_logging
 from onecool_os.core.scheduler import create_scheduler
+from onecool_os.market.engine import create_market_engine
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -41,6 +42,15 @@ def build_parser() -> argparse.ArgumentParser:
         help="Run a scheduler job manually.",
     )
     scheduler_run_parser.add_argument("job_id")
+    market_parser = subparsers.add_parser(
+        "market",
+        help="Manage Market Engine.",
+    )
+    market_subparsers = market_parser.add_subparsers(
+        dest="market_command",
+        required=True,
+    )
+    market_subparsers.add_parser("status", help="Show Market Engine status.")
     return parser
 
 
@@ -101,6 +111,14 @@ def main(argv: list[str] | None = None) -> int:
         if args.scheduler_command == "run":
             job = scheduler.run_job(args.job_id)
             print(json.dumps(job.to_dict(), indent=2))
+            return 0
+
+    if args.command == "market":
+        loaded_config = ConfigLoader.from_environment().load()
+        market_engine = create_market_engine(loaded_config.config)
+        if args.market_command == "status":
+            print(json.dumps(market_engine.status().to_dict(), indent=2))
+            market_engine.shutdown()
             return 0
 
     parser.error(f"Unsupported command: {args.command}")

@@ -13,6 +13,16 @@ Commits.
 - Architecture Decision Record for Core Engine architecture choices.
 - Contributing workflow documentation.
 
+## [0.3.0] - 2026-06-29
+
+### Added
+
+- Market Engine foundation package.
+- Market provider abstraction and provider registry.
+- Built-in `MockProvider` for local development and tests.
+- Market Engine CLI status command.
+- Market Engine tests.
+
 ## [0.2.2] - 2026-06-29
 
 ### Added
