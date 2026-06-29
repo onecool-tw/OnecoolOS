@@ -13,6 +13,16 @@ Commits.
 - Architecture Decision Record for Core Engine architecture choices.
 - Contributing workflow documentation.
 
+## [0.2.2] - 2026-06-29
+
+### Added
+
+- Lightweight Scheduler System.
+- Manual, daily, weekly, and monthly job support.
+- Built-in `core.health` scheduler job.
+- Scheduler CLI commands for listing and running jobs.
+- Scheduler tests.
+
 ## [0.2.1] - 2026-06-29
 
 ### Added

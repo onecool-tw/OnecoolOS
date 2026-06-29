@@ -10,6 +10,7 @@ from pathlib import Path
 from onecool_os.core import AppConfig, CoreEngine
 from onecool_os.core.config import ConfigLoader
 from onecool_os.core.logging import initialize_logging
+from onecool_os.core.scheduler import create_scheduler
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -26,6 +27,20 @@ def build_parser() -> argparse.ArgumentParser:
     subparsers.add_parser("plugins", help="List loaded plugins.")
     subparsers.add_parser("config", help="Show sanitized configuration.")
     subparsers.add_parser("logs", help="Show logging status.")
+    scheduler_parser = subparsers.add_parser(
+        "scheduler",
+        help="Manage scheduler jobs.",
+    )
+    scheduler_subparsers = scheduler_parser.add_subparsers(
+        dest="scheduler_command",
+        required=True,
+    )
+    scheduler_subparsers.add_parser("list", help="List scheduler jobs.")
+    scheduler_run_parser = scheduler_subparsers.add_parser(
+        "run",
+        help="Run a scheduler job manually.",
+    )
+    scheduler_run_parser.add_argument("job_id")
     return parser
 
 
@@ -75,6 +90,18 @@ def main(argv: list[str] | None = None) -> int:
         logging_system = initialize_logging(loaded_config.config)
         print(json.dumps(asdict(logging_system.status()), indent=2))
         return 0
+
+    if args.command == "scheduler":
+        loaded_config = ConfigLoader.from_environment().load()
+        scheduler = create_scheduler(loaded_config.config)
+        if args.scheduler_command == "list":
+            jobs = [job.to_dict() for job in scheduler.list_jobs()]
+            print(json.dumps(jobs, indent=2))
+            return 0
+        if args.scheduler_command == "run":
+            job = scheduler.run_job(args.job_id)
+            print(json.dumps(job.to_dict(), indent=2))
+            return 0
 
     parser.error(f"Unsupported command: {args.command}")
     return 2

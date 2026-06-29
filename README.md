@@ -47,6 +47,18 @@ Inspect logging status:
 python -m onecool_os logs
 ```
 
+List scheduler jobs:
+
+```bash
+python -m onecool_os scheduler list
+```
+
+Run a scheduler job manually:
+
+```bash
+python -m onecool_os scheduler run core.health
+```
+
 Run tests:
 
 ```bash
@@ -116,6 +128,46 @@ Inspect logging configuration and available log files:
 
 ```bash
 python -m onecool_os logs
+```
+
+## Scheduler
+
+Onecool OS includes a lightweight scheduler in `onecool_os.core.scheduler`.
+The scheduler supports registering jobs, listing jobs, running a job manually,
+safe error handling, and logging execution through the centralized Logging
+System.
+
+Supported schedule types:
+
+- `manual`
+- `daily`
+- `weekly`
+- `monthly`
+
+Every job includes:
+
+- `job_id`
+- `name`
+- `schedule_type`
+- `enabled`
+- `last_run_at`
+- `next_run_at`
+- `status`
+- `error_message`
+
+The built-in `core.health` job verifies Core Engine health and writes a log
+entry.
+
+List jobs:
+
+```bash
+python -m onecool_os scheduler list
+```
+
+Run a job manually:
+
+```bash
+python -m onecool_os scheduler run core.health
 ```
 
 ## Project Structure
