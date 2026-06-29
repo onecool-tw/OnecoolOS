@@ -50,6 +50,27 @@ Environment variables:
 - `ONECOOL_OS_PLUGIN_PATHS`: Additional plugin directories separated by the OS
   path separator.
 
+## Project Structure
+
+```text
+.
+├── docs
+│   ├── architecture.md
+│   ├── coding-standard.md
+│   ├── decision-records
+│   └── roadmap.md
+├── migrations
+├── onecool_os
+│   ├── core
+│   └── plugins
+├── tests
+├── CHANGELOG.md
+├── CONTRIBUTING.md
+├── README.md
+├── pyproject.toml
+└── requirements.txt
+```
+
 ## Architecture
 
 Milestone 1 keeps the architecture intentionally small and modular:
@@ -82,3 +103,18 @@ packages can include a `plugin.json` file:
 ```
 
 The module still owns its runtime manifest through `create_plugin`.
+
+## Documentation
+
+- [Architecture](docs/architecture.md)
+- [Coding Standard](docs/coding-standard.md)
+- [Core Engine ADR](docs/decision-records/ADR-001-Core-Engine.md)
+- [Contributing](CONTRIBUTING.md)
+- [Changelog](CHANGELOG.md)
+
+## Roadmap
+
+The roadmap is maintained in [docs/roadmap.md](docs/roadmap.md). Current
+direction keeps Core Engine infrastructure independent from business modules and
+adds future areas such as Market, Funds, Cards, House, Emergency, and Dashboard
+as modular extensions.
