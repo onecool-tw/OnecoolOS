@@ -4,6 +4,13 @@ Onecool OS is a Python-based personal asset operating system. Milestone 1
 delivers the Core Engine: SQLite persistence, plugin loading, event publishing,
 service registration, and a command-line entry point.
 
+## Project Overview
+
+Onecool OS models personal assets, tracks portfolio value, validates market and
+asset data, and prepares the system for valuation, intelligence, reporting, and
+dashboard workflows. The official product specification is maintained in
+[docs/master-spec.md](docs/master-spec.md).
+
 ## Requirements
 
 - Python 3.11+
@@ -445,6 +452,7 @@ total cost, total market value, and total unrealized PnL.
 │   ├── architecture.md
 │   ├── coding-standard.md
 │   ├── decision-records
+│   ├── master-spec.md
 │   └── roadmap.md
 ├── config
 │   ├── settings.yaml
@@ -501,13 +509,14 @@ The module still owns its runtime manifest through `create_plugin`.
 
 ## Documentation
 
+- [Master Specification](docs/master-spec.md)
 - [Architecture](docs/architecture.md)
 - [Coding Standard](docs/coding-standard.md)
 - [Core Engine ADR](docs/decision-records/ADR-001-Core-Engine.md)
 - [Contributing](CONTRIBUTING.md)
 - [Changelog](CHANGELOG.md)
 
-## Roadmap
+## Product Roadmap
 
 The roadmap is maintained in [docs/roadmap.md](docs/roadmap.md). Current
 direction keeps Core Engine infrastructure independent from business modules and

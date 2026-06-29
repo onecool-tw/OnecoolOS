@@ -9,6 +9,7 @@ Commits.
 
 ### Added
 
+- Master project specification under `docs/master-spec.md`.
 - Project documentation under `docs/`.
 - Architecture Decision Record for Core Engine architecture choices.
 - Contributing workflow documentation.
