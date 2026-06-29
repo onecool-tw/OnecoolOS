@@ -12,6 +12,7 @@ from onecool_os.core.config import ConfigLoader
 from onecool_os.core.logging import initialize_logging
 from onecool_os.core.scheduler import create_scheduler
 from onecool_os.market.engine import create_market_engine
+from onecool_os.portfolio.engine import create_portfolio_engine
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -63,6 +64,18 @@ def build_parser() -> argparse.ArgumentParser:
     )
     market_validate_parser.add_argument("symbol")
     market_validate_parser.add_argument("--provider")
+    portfolio_parser = subparsers.add_parser(
+        "portfolio",
+        help="Manage Portfolio Engine.",
+    )
+    portfolio_subparsers = portfolio_parser.add_subparsers(
+        dest="portfolio_command",
+        required=True,
+    )
+    portfolio_subparsers.add_parser(
+        "status",
+        help="Show Portfolio Engine status.",
+    )
     return parser
 
 
@@ -147,6 +160,13 @@ def main(argv: list[str] | None = None) -> int:
             payload = market_engine.validate_fetch(provider_id, args.symbol)
             print(json.dumps(payload, indent=2))
             market_engine.shutdown()
+            return 0
+
+    if args.command == "portfolio":
+        loaded_config = ConfigLoader.from_environment().load()
+        portfolio_engine = create_portfolio_engine(loaded_config.config)
+        if args.portfolio_command == "status":
+            print(json.dumps(portfolio_engine.status().to_dict(), indent=2))
             return 0
 
     parser.error(f"Unsupported command: {args.command}")

@@ -77,6 +77,12 @@ Validate market data fetch:
 python -m onecool_os market validate SPY --provider yahoo
 ```
 
+Show Portfolio Engine status:
+
+```bash
+python -m onecool_os portfolio status
+```
+
 Run tests:
 
 ```bash
@@ -269,6 +275,28 @@ Show Market Engine status:
 python -m onecool_os market status
 ```
 
+## Portfolio Foundation
+
+Onecool OS includes a lightweight Portfolio Engine foundation in
+`onecool_os.portfolio`. It provides shared portfolio primitives for future asset
+classes without implementing any specific asset class or database persistence in
+this sprint.
+
+Current Portfolio components:
+
+- `PortfolioEngine`: Coordinates portfolio status.
+- `PortfolioRegistry`: Creates and retrieves portfolios.
+- `Portfolio`: Holds positions.
+- `Asset`: Generic asset metadata.
+- `Position`: Quantity, cost, optional current price, market value, and
+  unrealized PnL.
+
+Portfolio status:
+
+```bash
+python -m onecool_os portfolio status
+```
+
 ## Project Structure
 
 ```text
@@ -286,6 +314,7 @@ python -m onecool_os market status
 ├── onecool_os
 │   ├── core
 │   ├── market
+│   ├── portfolio
 │   └── plugins
 ├── logs
 ├── tests

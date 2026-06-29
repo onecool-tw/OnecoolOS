@@ -13,6 +13,15 @@ Commits.
 - Architecture Decision Record for Core Engine architecture choices.
 - Contributing workflow documentation.
 
+## [0.4.0] - 2026-06-29
+
+### Added
+
+- Portfolio Engine foundation package.
+- Generic Asset, Position, Portfolio, and PortfolioRegistry models.
+- Portfolio Engine CLI status command.
+- Portfolio foundation tests.
+
 ## [0.3.2] - 2026-06-29
 
 ### Added
