@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from datetime import UTC, datetime
 from typing import Any
 
 from onecool_os.core.config import SystemConfig
@@ -94,12 +95,56 @@ class MarketEngine:
             )
             return data
         except Exception:
-            self.logger.exception(
+            self.logger.error(
                 "Market data fetch failed for %s from %s",
                 symbol,
                 provider_id,
             )
             raise
+
+    def validate_fetch(self, provider_id: str, symbol: str) -> dict[str, Any]:
+        """Validate a market fetch and return a safe result payload."""
+
+        normalized_symbol = symbol.upper()
+        self.logger.info(
+            "Starting market validation for %s from %s",
+            normalized_symbol,
+            provider_id,
+        )
+        try:
+            data = self.fetch(provider_id, normalized_symbol)
+            payload = _validation_payload(
+                symbol=str(data.get("symbol", normalized_symbol)),
+                provider=str(data.get("provider", provider_id)),
+                status="success",
+                last_price=data.get("last_price"),
+                currency=data.get("currency"),
+                timestamp=data.get("timestamp"),
+                error_message=None,
+                raw=data.get("raw", {}),
+            )
+            self.logger.info(
+                "Market validation succeeded for %s from %s",
+                normalized_symbol,
+                provider_id,
+            )
+            return payload
+        except Exception as exc:  # noqa: BLE001 - validation must be safe.
+            self.logger.error(
+                "Market validation failed for %s from %s",
+                normalized_symbol,
+                provider_id,
+            )
+            return _validation_payload(
+                symbol=normalized_symbol,
+                provider=provider_id,
+                status="failure",
+                last_price=None,
+                currency=None,
+                timestamp=datetime.now(UTC).isoformat(),
+                error_message=str(exc),
+                raw={},
+            )
 
     def status(self) -> MarketEngineStatus:
         """Return Market Engine status."""
@@ -142,3 +187,25 @@ def _provider_enabled(
     if not isinstance(provider_config, dict):
         return default
     return bool(provider_config.get("enabled", default))
+
+
+def _validation_payload(
+    symbol: str,
+    provider: str,
+    status: str,
+    last_price: Any,
+    currency: Any,
+    timestamp: Any,
+    error_message: str | None,
+    raw: dict[str, Any],
+) -> dict[str, Any]:
+    return {
+        "symbol": symbol,
+        "provider": provider,
+        "last_price": last_price,
+        "currency": currency,
+        "timestamp": timestamp,
+        "status": status,
+        "error_message": error_message,
+        "raw": raw,
+    }

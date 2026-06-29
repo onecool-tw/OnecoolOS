@@ -13,6 +13,15 @@ Commits.
 - Architecture Decision Record for Core Engine architecture choices.
 - Contributing workflow documentation.
 
+## [0.3.2] - 2026-06-29
+
+### Added
+
+- Manual Yahoo Finance fetch validation workflow.
+- Safe validation output with status and error details.
+- Tests for mocked success, invalid symbols, network failures, and secret-safe
+  output.
+
 ## [0.3.1] - 2026-06-29
 
 ### Added

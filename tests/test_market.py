@@ -192,6 +192,108 @@ def test_cli_market_fetch_works(tmp_path: Path, monkeypatch, capsys) -> None:
     assert payload["last_price"] == 456.78
 
 
+def test_validate_command_works_with_mocked_yahoo_response(
+    tmp_path: Path,
+    monkeypatch,
+    capsys,
+) -> None:
+    monkeypatch.setitem(
+        sys.modules,
+        "yfinance",
+        SimpleNamespace(Ticker=FakeTicker),
+    )
+    config_dir = tmp_path / "config"
+    write_settings(config_dir, tmp_path)
+    monkeypatch.setenv("ONECOOL_OS_CONFIG_DIR", str(config_dir))
+
+    assert main(["market", "validate", "SPY", "--provider", "yahoo"]) == 0
+    payload = json.loads(capsys.readouterr().out)
+
+    assert payload["symbol"] == "SPY"
+    assert payload["provider"] == "yahoo"
+    assert payload["status"] == "success"
+    assert payload["error_message"] is None
+
+
+def test_validate_invalid_symbol_handled_safely(
+    tmp_path: Path,
+    monkeypatch,
+    capsys,
+) -> None:
+    monkeypatch.setitem(
+        sys.modules,
+        "yfinance",
+        SimpleNamespace(Ticker=FakeTicker),
+    )
+    config_dir = tmp_path / "config"
+    write_settings(config_dir, tmp_path)
+    monkeypatch.setenv("ONECOOL_OS_CONFIG_DIR", str(config_dir))
+
+    assert main(["market", "validate", "INVALID", "--provider", "yahoo"]) == 0
+    payload = json.loads(capsys.readouterr().out)
+
+    assert payload["symbol"] == "INVALID"
+    assert payload["status"] == "failure"
+    assert "Unsupported Yahoo Finance symbol" in payload["error_message"]
+
+
+def test_validate_network_failure_handled_safely(
+    tmp_path: Path,
+    monkeypatch,
+    capsys,
+) -> None:
+    monkeypatch.setitem(
+        sys.modules,
+        "yfinance",
+        SimpleNamespace(Ticker=FailingTicker),
+    )
+    config_dir = tmp_path / "config"
+    write_settings(config_dir, tmp_path)
+    monkeypatch.setenv("ONECOOL_OS_CONFIG_DIR", str(config_dir))
+
+    assert main(["market", "validate", "SPY", "--provider", "yahoo"]) == 0
+    payload = json.loads(capsys.readouterr().out)
+
+    assert payload["status"] == "failure"
+    assert "fetch failed for SPY" in payload["error_message"]
+
+
+def test_validate_output_includes_status(tmp_path: Path) -> None:
+    engine = MarketEngine(build_config(tmp_path)).initialize()
+
+    payload = engine.validate_fetch("mock", "SPY")
+
+    assert "status" in payload
+    assert payload["status"] == "success"
+
+
+def test_validate_output_does_not_print_secrets(
+    tmp_path: Path,
+    monkeypatch,
+    capsys,
+) -> None:
+    monkeypatch.setitem(
+        sys.modules,
+        "yfinance",
+        SimpleNamespace(Ticker=FakeTicker),
+    )
+    config_dir = tmp_path / "config"
+    write_settings(config_dir, tmp_path)
+    (config_dir / "secrets.yaml").write_text(
+        """
+secrets:
+  yahoo_token: never-print-this
+""".strip(),
+        encoding="utf-8",
+    )
+    monkeypatch.setenv("ONECOOL_OS_CONFIG_DIR", str(config_dir))
+
+    assert main(["market", "validate", "SPY", "--provider", "yahoo"]) == 0
+    output = capsys.readouterr().out
+
+    assert "never-print-this" not in output
+
+
 def test_yahoo_provider_failure_is_handled_safely(monkeypatch) -> None:
     monkeypatch.setitem(
         sys.modules,

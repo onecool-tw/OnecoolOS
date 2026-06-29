@@ -119,6 +119,10 @@ class YahooFinanceProvider(MarketProvider):
         """Fetch normalized market data from Yahoo Finance."""
 
         normalized_symbol = symbol.upper()
+        if not normalized_symbol:
+            message = "Yahoo Finance symbol is required."
+            self._log_error(message)
+            raise MarketProviderError(message)
         if normalized_symbol not in self.supported_symbols:
             message = f"Unsupported Yahoo Finance symbol: {normalized_symbol}"
             self._log_error(message)
@@ -129,6 +133,8 @@ class YahooFinanceProvider(MarketProvider):
         try:
             ticker = self._yfinance.Ticker(normalized_symbol)
             raw = _extract_fast_info(ticker)
+            if not raw:
+                raise MarketProviderError("Yahoo Finance returned empty data.")
             last_price = _extract_last_price(raw)
             currency = str(raw.get("currency") or "USD")
             if last_price is None:
@@ -181,5 +187,8 @@ def _extract_last_price(raw: dict[str, Any]) -> float | None:
     for key in ("last_price", "lastPrice", "regularMarketPrice"):
         value = raw.get(key)
         if value is not None:
-            return float(value)
+            try:
+                return float(value)
+            except (TypeError, ValueError) as exc:
+                raise MarketProviderError("Yahoo Finance price is invalid.") from exc
     return None

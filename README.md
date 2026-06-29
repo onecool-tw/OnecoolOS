@@ -71,6 +71,12 @@ Fetch market data:
 python -m onecool_os market fetch SPY --provider yahoo
 ```
 
+Validate market data fetch:
+
+```bash
+python -m onecool_os market validate SPY --provider yahoo
+```
+
 Run tests:
 
 ```bash
@@ -234,6 +240,28 @@ Fetch SPY:
 ```bash
 python -m onecool_os market fetch SPY --provider yahoo
 ```
+
+### Manual Market Validation
+
+Use the validation command to manually verify that the Yahoo Finance provider can
+fetch `SPY` safely:
+
+```bash
+python -m onecool_os market validate SPY --provider yahoo
+```
+
+The validation command prints normalized data and always includes:
+
+- `symbol`
+- `provider`
+- `last_price`
+- `currency`
+- `timestamp`
+- `status`
+- `error_message`
+
+Validation handles missing dependencies, network/API failures, invalid symbols,
+and empty responses without exposing secrets.
 
 Show Market Engine status:
 

@@ -57,6 +57,12 @@ def build_parser() -> argparse.ArgumentParser:
     )
     market_fetch_parser.add_argument("symbol")
     market_fetch_parser.add_argument("--provider")
+    market_validate_parser = market_subparsers.add_parser(
+        "validate",
+        help="Validate a market data fetch.",
+    )
+    market_validate_parser.add_argument("symbol")
+    market_validate_parser.add_argument("--provider")
     return parser
 
 
@@ -131,6 +137,14 @@ def main(argv: list[str] | None = None) -> int:
                 args.provider or loaded_config.config.market.default_provider
             )
             payload = market_engine.fetch(provider_id, args.symbol)
+            print(json.dumps(payload, indent=2))
+            market_engine.shutdown()
+            return 0
+        if args.market_command == "validate":
+            provider_id = (
+                args.provider or loaded_config.config.market.default_provider
+            )
+            payload = market_engine.validate_fetch(provider_id, args.symbol)
             print(json.dumps(payload, indent=2))
             market_engine.shutdown()
             return 0
