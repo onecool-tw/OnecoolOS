@@ -7,9 +7,14 @@ import json
 from dataclasses import asdict
 from pathlib import Path
 
+from onecool_os.assets.funds.loader import (
+    FundLoader,
+    FundLoaderError,
+    fund_import_to_dict,
+)
 from onecool_os.core import AppConfig, CoreEngine
 from onecool_os.core.config import ConfigLoader
-from onecool_os.core.logging import initialize_logging
+from onecool_os.core.logging import LoggingSystem, initialize_logging
 from onecool_os.core.scheduler import create_scheduler
 from onecool_os.market.engine import create_market_engine
 from onecool_os.portfolio.engine import (
@@ -37,6 +42,19 @@ def build_parser() -> argparse.ArgumentParser:
     subparsers.add_parser("plugins", help="List loaded plugins.")
     subparsers.add_parser("config", help="Show sanitized configuration.")
     subparsers.add_parser("logs", help="Show logging status.")
+    funds_parser = subparsers.add_parser(
+        "funds",
+        help="Manage Funds asset module.",
+    )
+    funds_subparsers = funds_parser.add_subparsers(
+        dest="funds_command",
+        required=True,
+    )
+    funds_import_parser = funds_subparsers.add_parser(
+        "import",
+        help="Load sample funds from JSON.",
+    )
+    funds_import_parser.add_argument("json_path")
     scheduler_parser = subparsers.add_parser(
         "scheduler",
         help="Manage scheduler jobs.",
@@ -142,6 +160,26 @@ def main(argv: list[str] | None = None) -> int:
         logging_system = initialize_logging(loaded_config.config)
         print(json.dumps(asdict(logging_system.status()), indent=2))
         return 0
+
+    if args.command == "funds":
+        loaded_config = ConfigLoader.from_environment().load()
+        logging_system = LoggingSystem(loaded_config.config)
+        logger = logging_system.get_logger("funds")
+        if args.funds_command == "import":
+            try:
+                result = FundLoader(logger=logger).load(args.json_path)
+            except FundLoaderError as exc:
+                logger.error("Funds import failed: %s", exc)
+                print(json.dumps(
+                    {
+                        "status": "failure",
+                        "error_message": str(exc),
+                    },
+                    indent=2,
+                ))
+                return 1
+            print(json.dumps(fund_import_to_dict(result), indent=2))
+            return 0
 
     if args.command == "scheduler":
         loaded_config = ConfigLoader.from_environment().load()

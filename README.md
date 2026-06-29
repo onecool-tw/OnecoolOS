@@ -95,6 +95,12 @@ Load the demo portfolio from JSON:
 python -m onecool_os portfolio import examples/portfolio_demo.json
 ```
 
+Load sample funds from JSON:
+
+```bash
+python -m onecool_os funds import examples/funds_demo.json
+```
+
 Run tests:
 
 ```bash
@@ -379,11 +385,61 @@ The import command validates missing fields, invalid JSON, unsupported
 `asset_type` values, and invalid quantities. Output includes `Portfolio
 Summary`, total cost, total market value, and total unrealized PnL.
 
+## Funds Module
+
+Onecool OS includes a Funds asset module foundation in
+`onecool_os.assets.funds`. The module maps fund-specific models into the shared
+Portfolio primitives and does not fetch live NAV data, call external APIs, or
+write to database storage.
+
+Current Funds components:
+
+- `FundAsset`: Mutual fund metadata mapped to Portfolio `Asset`.
+- `FundPosition`: Quantity, cost, optional current price, market value, and
+  unrealized PnL.
+- `FundLoader`: JSON loader for sample fund holdings.
+
+`FundAsset` always maps to:
+
+- `asset_type`: `MUTUAL_FUND`
+
+Optional fund metadata:
+
+- `fund_house`
+- `region`
+- `theme`
+
+Run the funds import demo:
+
+```bash
+python -m onecool_os funds import examples/funds_demo.json
+```
+
+The funds JSON root must include:
+
+- `funds`
+
+Each fund must include:
+
+- `asset_id`
+- `symbol`
+- `asset_type`
+- `name`
+- `currency`
+- `quantity`
+- `average_cost`
+- `current_price`
+
+The import command validates missing fields, invalid JSON, unsupported
+`asset_type` values, and invalid quantities. Output includes the fund list,
+total cost, total market value, and total unrealized PnL.
+
 ## Project Structure
 
 ```text
 .
 ├── examples
+│   ├── funds_demo.json
 │   └── portfolio_demo.json
 ├── docs
 │   ├── architecture.md
@@ -396,6 +452,7 @@ Summary`, total cost, total market value, and total unrealized PnL.
 │   └── secrets.example.yaml
 ├── migrations
 ├── onecool_os
+│   ├── assets
 │   ├── core
 │   ├── market
 │   ├── portfolio

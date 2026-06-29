@@ -13,6 +13,17 @@ Commits.
 - Architecture Decision Record for Core Engine architecture choices.
 - Contributing workflow documentation.
 
+## [0.5.0] - 2026-06-29
+
+### Added
+
+- Funds asset module foundation under `onecool_os.assets.funds`.
+- Fund asset and position models mapped to existing Portfolio primitives.
+- Funds JSON loader with validation for missing fields, asset type, quantity,
+  and invalid JSON.
+- Funds import CLI command for sample fund data.
+- Example funds JSON file under `examples/`.
+
 ## [0.4.3] - 2026-06-29
 
 ### Added
