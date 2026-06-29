@@ -12,7 +12,7 @@ from onecool_os.core.config import (
     SystemConfig,
 )
 from onecool_os.portfolio.engine import PortfolioEngine
-from onecool_os.portfolio.models import Asset, Portfolio, Position
+from onecool_os.portfolio.models import Asset, Portfolio, PortfolioError, Position
 from onecool_os.portfolio.registry import PortfolioRegistry
 
 
@@ -68,6 +68,33 @@ def test_portfolio_creation() -> None:
     assert portfolio.portfolio_id == "main"
     assert portfolio.name == "Main"
     assert portfolio.list_positions() == ()
+
+
+def test_asset_type_validation() -> None:
+    try:
+        Asset(
+            asset_id="bad",
+            symbol="BAD",
+            asset_type="invalid",
+            name="Invalid",
+            currency="USD",
+        )
+    except PortfolioError as exc:
+        assert "Unsupported asset_type" in str(exc)
+    else:
+        raise AssertionError("Invalid asset_type should be rejected.")
+
+
+def test_symbol_field_exists() -> None:
+    asset = Asset(
+        asset_id="spy",
+        symbol="spy",
+        asset_type="ETF",
+        name="SPDR S&P 500 ETF Trust",
+        currency="USD",
+    )
+
+    assert asset.symbol == "SPY"
 
 
 def test_add_remove_position() -> None:
@@ -176,6 +203,24 @@ def test_portfolio_demo_includes_unrealized_pnl(
     assert "unrealized_pnl" in payload["positions"][0]
 
 
+def test_portfolio_demo_output_shows_normalized_model(
+    tmp_path: Path,
+    monkeypatch,
+    capsys,
+) -> None:
+    config_dir = tmp_path / "config"
+    write_settings(config_dir, tmp_path)
+    monkeypatch.setenv("ONECOOL_OS_CONFIG_DIR", str(config_dir))
+
+    assert main(["portfolio", "demo"]) == 0
+    payload = json.loads(capsys.readouterr().out)
+
+    positions = {position["symbol"]: position for position in payload["positions"]}
+    assert positions["SPY"]["asset_type"] == "ETF"
+    assert positions["QQQ"]["asset_type"] == "ETF"
+    assert positions["GLD"]["asset_type"] == "ETF"
+
+
 def test_portfolio_demo_does_not_require_network(
     tmp_path: Path,
     monkeypatch,
@@ -224,7 +269,8 @@ def test_portfolio_engine_status_counts_positions(tmp_path: Path) -> None:
 def sample_position() -> Position:
     asset = Asset(
         asset_id="asset-1",
-        asset_type="generic",
+        symbol="GENERIC",
+        asset_type="OTHER",
         name="Generic Asset",
         currency="USD",
     )

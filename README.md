@@ -297,6 +297,26 @@ Current Portfolio components:
 - `Position`: Quantity, cost, optional current price, market value, and
   unrealized PnL.
 
+Asset model:
+
+- `asset_id`: Internal asset identifier.
+- `symbol`: Tradable or display symbol when available.
+- `asset_type`: Normalized asset category.
+- `name`: Human-readable asset name.
+- `currency`: Asset currency.
+
+Supported asset types:
+
+- `ETF`
+- `MUTUAL_FUND`
+- `STOCK`
+- `SPORTS_CARD`
+- `REAL_ESTATE`
+- `GOLD`
+- `CASH`
+- `CRYPTO`
+- `OTHER`
+
 Portfolio status:
 
 ```bash
@@ -308,6 +328,9 @@ python -m onecool_os portfolio status
 The portfolio demo creates a hardcoded in-memory portfolio with sample `SPY`,
 `QQQ`, and `GLD` positions. It does not fetch live prices, write files, or use
 database persistence.
+
+The demo uses normalized assets where `symbol` is the ticker and `asset_type`
+is the category. `SPY`, `QQQ`, and `GLD` are categorized as `ETF`.
 
 Run the demo:
 

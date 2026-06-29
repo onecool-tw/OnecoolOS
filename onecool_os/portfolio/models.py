@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from decimal import Decimal
+from enum import StrEnum
 
 from onecool_os.core.exceptions import OnecoolOSError
 
@@ -12,14 +13,38 @@ class PortfolioError(OnecoolOSError):
     """Raised for portfolio model errors."""
 
 
+class AssetType(StrEnum):
+    """Supported normalized asset categories."""
+
+    ETF = "ETF"
+    MUTUAL_FUND = "MUTUAL_FUND"
+    STOCK = "STOCK"
+    SPORTS_CARD = "SPORTS_CARD"
+    REAL_ESTATE = "REAL_ESTATE"
+    GOLD = "GOLD"
+    CASH = "CASH"
+    CRYPTO = "CRYPTO"
+    OTHER = "OTHER"
+
+
 @dataclass(frozen=True)
 class Asset:
     """A generic asset shared by future asset classes."""
 
     asset_id: str
+    symbol: str
     asset_type: str
     name: str
     currency: str
+
+    def __post_init__(self) -> None:
+        """Validate and normalize asset type."""
+
+        normalized_type = self.asset_type.upper()
+        if normalized_type not in AssetType:
+            raise PortfolioError(f"Unsupported asset_type: {self.asset_type}")
+        object.__setattr__(self, "asset_type", normalized_type)
+        object.__setattr__(self, "symbol", self.symbol.upper())
 
 
 @dataclass

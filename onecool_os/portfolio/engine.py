@@ -94,15 +94,17 @@ def build_demo_portfolio() -> Portfolio:
 
     portfolio = Portfolio(portfolio_id="demo", name="Demo Portfolio")
     samples = (
-        ("SPY", "SPY", "SPDR S&P 500 ETF Trust", "USD", "10", "420", "455"),
-        ("QQQ", "QQQ", "Invesco QQQ Trust", "USD", "8", "350", "390"),
-        ("GLD", "GLD", "SPDR Gold Shares", "USD", "5", "180", "195"),
+        ("SPY", "SPY", "ETF", "SPDR S&P 500 ETF Trust", "USD", "10", "420", "455"),
+        ("QQQ", "QQQ", "ETF", "Invesco QQQ Trust", "USD", "8", "350", "390"),
+        ("GLD", "GLD", "ETF", "SPDR Gold Shares", "USD", "5", "180", "195"),
     )
-    for asset_id, asset_type, name, currency, quantity, cost, price in samples:
+    for sample in samples:
+        asset_id, symbol, asset_type, name, currency, quantity, cost, price = sample
         portfolio.add_position(
             Position(
                 asset=Asset(
                     asset_id=asset_id,
+                    symbol=symbol,
                     asset_type=asset_type,
                     name=name,
                     currency=currency,
@@ -140,6 +142,7 @@ def position_to_demo_dict(position: Position) -> dict[str, str]:
 
     return {
         "asset_id": position.asset.asset_id,
+        "symbol": position.asset.symbol,
         "asset_type": position.asset.asset_type,
         "name": position.asset.name,
         "currency": position.asset.currency,

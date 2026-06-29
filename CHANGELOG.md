@@ -13,6 +13,14 @@ Commits.
 - Architecture Decision Record for Core Engine architecture choices.
 - Contributing workflow documentation.
 
+## [0.4.2] - 2026-06-29
+
+### Changed
+
+- Normalized Portfolio `Asset` model with a separate `symbol` field.
+- Added asset type validation.
+- Updated portfolio demo output to categorize SPY, QQQ, and GLD as `ETF`.
+
 ## [0.4.1] - 2026-06-29
 
 ### Added
