@@ -13,6 +13,16 @@ Commits.
 - Architecture Decision Record for Core Engine architecture choices.
 - Contributing workflow documentation.
 
+## [0.3.1] - 2026-06-29
+
+### Added
+
+- Yahoo Finance market provider backed by `yfinance`.
+- Normalized `SPY` fetch support.
+- Market fetch CLI command.
+- Market provider configuration.
+- Yahoo Finance provider tests with mocked yfinance calls.
+
 ## [0.3.0] - 2026-06-29
 
 ### Added

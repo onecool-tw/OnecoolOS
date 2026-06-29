@@ -1,4 +1,6 @@
 import json
+import sys
+from types import SimpleNamespace
 from pathlib import Path
 
 import pytest
@@ -13,7 +15,12 @@ from onecool_os.core.config import (
     SystemConfig,
 )
 from onecool_os.market.engine import MarketEngine
-from onecool_os.market.providers import MockProvider
+from onecool_os.market.providers import (
+    MarketProvider,
+    MarketProviderError,
+    MockProvider,
+    YahooFinanceProvider,
+)
 from onecool_os.market.registry import ProviderRegistry, ProviderRegistryError
 
 
@@ -58,6 +65,13 @@ runtime:
   environment: test
 logging:
   level: INFO
+market:
+  default_provider: yahoo
+  providers:
+    yahoo:
+      enabled: true
+    mock:
+      enabled: true
 """.strip(),
         encoding="utf-8",
     )
@@ -122,5 +136,83 @@ def test_cli_market_status(tmp_path: Path, monkeypatch, capsys) -> None:
     payload = json.loads(capsys.readouterr().out)
 
     assert payload["engine_status"] == "ready"
-    assert payload["registered_providers"] == ["mock"]
+    assert payload["registered_providers"] == ["mock", "yahoo"]
     assert payload["provider_health"]["mock"]["status"] == "ok"
+
+
+def test_yahoo_finance_provider_implements_market_provider() -> None:
+    provider = YahooFinanceProvider()
+
+    assert isinstance(provider, MarketProvider)
+    assert provider.provider_id == "yahoo"
+
+
+def test_yahoo_provider_can_be_registered() -> None:
+    registry = ProviderRegistry()
+    provider = YahooFinanceProvider()
+
+    registry.register_provider(provider)
+
+    assert registry.get_provider("yahoo") is provider
+
+
+def test_yahoo_fetch_returns_normalized_schema(monkeypatch) -> None:
+    monkeypatch.setitem(
+        sys.modules,
+        "yfinance",
+        SimpleNamespace(Ticker=FakeTicker),
+    )
+    provider = YahooFinanceProvider()
+
+    data = provider.fetch("SPY")
+
+    assert data["symbol"] == "SPY"
+    assert data["provider"] == "yahoo"
+    assert data["last_price"] == 456.78
+    assert data["currency"] == "USD"
+    assert data["timestamp"]
+    assert data["raw"]["last_price"] == 456.78
+
+
+def test_cli_market_fetch_works(tmp_path: Path, monkeypatch, capsys) -> None:
+    monkeypatch.setitem(
+        sys.modules,
+        "yfinance",
+        SimpleNamespace(Ticker=FakeTicker),
+    )
+    config_dir = tmp_path / "config"
+    write_settings(config_dir, tmp_path)
+    monkeypatch.setenv("ONECOOL_OS_CONFIG_DIR", str(config_dir))
+
+    assert main(["market", "fetch", "SPY", "--provider", "yahoo"]) == 0
+    payload = json.loads(capsys.readouterr().out)
+
+    assert payload["symbol"] == "SPY"
+    assert payload["provider"] == "yahoo"
+    assert payload["last_price"] == 456.78
+
+
+def test_yahoo_provider_failure_is_handled_safely(monkeypatch) -> None:
+    monkeypatch.setitem(
+        sys.modules,
+        "yfinance",
+        SimpleNamespace(Ticker=FailingTicker),
+    )
+    provider = YahooFinanceProvider()
+
+    with pytest.raises(MarketProviderError):
+        provider.fetch("SPY")
+
+
+class FakeTicker:
+    def __init__(self, symbol: str) -> None:
+        self.symbol = symbol
+        self.fast_info = {
+            "last_price": 456.78,
+            "currency": "USD",
+        }
+
+
+class FailingTicker:
+    def __init__(self, symbol: str) -> None:
+        raise RuntimeError(f"fetch failed for {symbol}")

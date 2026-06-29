@@ -7,7 +7,11 @@ from typing import Any
 
 from onecool_os.core.config import SystemConfig
 from onecool_os.core.logging import LoggingSystem
-from onecool_os.market.providers import MockProvider
+from onecool_os.market.providers import (
+    MarketProviderError,
+    MockProvider,
+    YahooFinanceProvider,
+)
 from onecool_os.market.registry import ProviderRegistry
 
 
@@ -48,13 +52,19 @@ class MarketEngine:
 
         if not self.started:
             if not self.registry.list_providers():
-                self.registry.register_provider(MockProvider())
+                self._register_builtin_providers()
             for provider in self.registry.list_providers():
-                provider.connect()
-                self.logger.info(
-                    "Connected market provider %s",
-                    provider.provider_id,
-                )
+                try:
+                    provider.connect()
+                    self.logger.info(
+                        "Connected market provider %s",
+                        provider.provider_id,
+                    )
+                except MarketProviderError:
+                    self.logger.warning(
+                        "Market provider %s is unavailable.",
+                        provider.provider_id,
+                    )
             self.started = True
         return self
 
@@ -75,13 +85,21 @@ class MarketEngine:
         provider = self.registry.get_provider(provider_id)
         if not self.started:
             provider.connect()
-        data = provider.fetch(symbol)
-        self.logger.info(
-            "Fetched mock market data for %s from %s",
-            symbol,
-            provider_id,
-        )
-        return data
+        try:
+            data = provider.fetch(symbol)
+            self.logger.info(
+                "Fetched market data for %s from %s",
+                symbol,
+                provider_id,
+            )
+            return data
+        except Exception:
+            self.logger.exception(
+                "Market data fetch failed for %s from %s",
+                symbol,
+                provider_id,
+            )
+            raise
 
     def status(self) -> MarketEngineStatus:
         """Return Market Engine status."""
@@ -99,8 +117,28 @@ class MarketEngine:
             provider_health=provider_health,
         )
 
+    def _register_builtin_providers(self) -> None:
+        providers_config = self.config.market.providers
+        mock_enabled = _provider_enabled(providers_config, "mock", True)
+        yahoo_enabled = _provider_enabled(providers_config, "yahoo", False)
+        if mock_enabled:
+            self.registry.register_provider(MockProvider())
+        if yahoo_enabled:
+            self.registry.register_provider(YahooFinanceProvider(self.logger))
+
 
 def create_market_engine(config: SystemConfig) -> MarketEngine:
     """Create and initialize the Market Engine."""
 
     return MarketEngine(config).initialize()
+
+
+def _provider_enabled(
+    providers_config: dict[str, Any],
+    provider_id: str,
+    default: bool,
+) -> bool:
+    provider_config = providers_config.get(provider_id, {})
+    if not isinstance(provider_config, dict):
+        return default
+    return bool(provider_config.get("enabled", default))

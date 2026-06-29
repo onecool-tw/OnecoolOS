@@ -65,6 +65,12 @@ Show Market Engine status:
 python -m onecool_os market status
 ```
 
+Fetch market data:
+
+```bash
+python -m onecool_os market fetch SPY --provider yahoo
+```
+
 Run tests:
 
 ```bash
@@ -198,6 +204,36 @@ Provider interface:
 
 The built-in `MockProvider` returns simple mock market data only. No real market
 data provider or external API is implemented in this sprint.
+
+### Yahoo Finance Provider
+
+Onecool OS includes a Yahoo Finance provider backed by `yfinance`. The initial
+supported symbol is `SPY`.
+
+Yahoo Finance output is normalized with:
+
+- `symbol`
+- `provider`
+- `last_price`
+- `currency`
+- `timestamp`
+- `raw`
+
+The provider is configured through `config/settings.yaml`:
+
+```yaml
+market:
+  default_provider: yahoo
+  providers:
+    yahoo:
+      enabled: true
+```
+
+Fetch SPY:
+
+```bash
+python -m onecool_os market fetch SPY --provider yahoo
+```
 
 Show Market Engine status:
 

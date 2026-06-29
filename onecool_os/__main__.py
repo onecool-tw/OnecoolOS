@@ -51,6 +51,12 @@ def build_parser() -> argparse.ArgumentParser:
         required=True,
     )
     market_subparsers.add_parser("status", help="Show Market Engine status.")
+    market_fetch_parser = market_subparsers.add_parser(
+        "fetch",
+        help="Fetch normalized market data.",
+    )
+    market_fetch_parser.add_argument("symbol")
+    market_fetch_parser.add_argument("--provider")
     return parser
 
 
@@ -118,6 +124,14 @@ def main(argv: list[str] | None = None) -> int:
         market_engine = create_market_engine(loaded_config.config)
         if args.market_command == "status":
             print(json.dumps(market_engine.status().to_dict(), indent=2))
+            market_engine.shutdown()
+            return 0
+        if args.market_command == "fetch":
+            provider_id = (
+                args.provider or loaded_config.config.market.default_provider
+            )
+            payload = market_engine.fetch(provider_id, args.symbol)
+            print(json.dumps(payload, indent=2))
             market_engine.shutdown()
             return 0
 

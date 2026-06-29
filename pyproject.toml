@@ -4,12 +4,12 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "onecool-os"
-version = "0.3.0"
+version = "0.3.1"
 description = "Onecool OS - Personal Asset Operating System"
 readme = "README.md"
 requires-python = ">=3.11"
 authors = [{ name = "onecool-tw" }]
-dependencies = []
+dependencies = ["yfinance>=0.2.40"]
 
 [project.optional-dependencies]
 dev = ["pytest>=8.0"]

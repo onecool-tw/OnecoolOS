@@ -57,6 +57,14 @@ class LoggingSettings:
 
 
 @dataclass(frozen=True)
+class MarketSettings:
+    """Market Engine settings."""
+
+    default_provider: str = "mock"
+    providers: ConfigDict = field(default_factory=dict)
+
+
+@dataclass(frozen=True)
 class SystemConfig:
     """Validated centralized Onecool OS configuration."""
 
@@ -65,6 +73,7 @@ class SystemConfig:
     paths: PathSettings
     runtime: RuntimeSettings
     logging: LoggingSettings = field(default_factory=LoggingSettings)
+    market: MarketSettings = field(default_factory=MarketSettings)
 
     def to_sanitized_dict(self) -> ConfigDict:
         """Return configuration safe for CLI output."""
@@ -182,6 +191,7 @@ def _build_system_config(data: Mapping[str, Any]) -> SystemConfig:
     paths = data["paths"]
     runtime = data["runtime"]
     logging = data.get("logging", {})
+    market = data.get("market", {})
     _validate_required(app, "app", ("name", "version", "timezone", "language"))
     _validate_required(database, "database", ("path",))
     _validate_required(
@@ -196,6 +206,8 @@ def _build_system_config(data: Mapping[str, Any]) -> SystemConfig:
         raise ConfigurationError("runtime.debug must be a boolean.")
     if logging and not isinstance(logging, Mapping):
         raise ConfigurationError("logging must be a mapping.")
+    if market and not isinstance(market, Mapping):
+        raise ConfigurationError("market must be a mapping.")
 
     log_level = logging.get("level") if isinstance(logging, Mapping) else None
     if log_level is not None:
@@ -226,6 +238,10 @@ def _build_system_config(data: Mapping[str, Any]) -> SystemConfig:
             environment=str(runtime["environment"]),
         ),
         logging=LoggingSettings(level=log_level),
+        market=MarketSettings(
+            default_provider=str(market.get("default_provider", "mock")),
+            providers=dict(market.get("providers", {})),
+        ),
     )
 
 
