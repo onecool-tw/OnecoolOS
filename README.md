@@ -83,6 +83,12 @@ Show Portfolio Engine status:
 python -m onecool_os portfolio status
 ```
 
+Show Portfolio CLI demo:
+
+```bash
+python -m onecool_os portfolio demo
+```
+
 Run tests:
 
 ```bash
@@ -296,6 +302,21 @@ Portfolio status:
 ```bash
 python -m onecool_os portfolio status
 ```
+
+### Portfolio CLI Demo
+
+The portfolio demo creates a hardcoded in-memory portfolio with sample `SPY`,
+`QQQ`, and `GLD` positions. It does not fetch live prices, write files, or use
+database persistence.
+
+Run the demo:
+
+```bash
+python -m onecool_os portfolio demo
+```
+
+The output includes position quantities, average costs, current prices, market
+values, unrealized PnL, total cost, total market value, and total unrealized PnL.
 
 ## Project Structure
 

@@ -50,12 +50,27 @@ class LoggingSystem:
     def get_logger(self, module_name: str) -> stdlib_logging.Logger:
         """Return a configured module logger."""
 
+        return self._build_logger(module_name, include_file_handler=True)
+
+    def get_console_logger(self, module_name: str) -> stdlib_logging.Logger:
+        """Return a configured module logger without file output."""
+
+        return self._build_logger(module_name, include_file_handler=False)
+
+    def _build_logger(
+        self,
+        module_name: str,
+        include_file_handler: bool,
+    ) -> stdlib_logging.Logger:
+        """Build a logger with optional file output."""
+
         logger_name = f"{LOGGER_PREFIX}.{module_name}"
         logger = stdlib_logging.getLogger(logger_name)
         logger.setLevel(self.level)
         logger.propagate = False
         self._clear_handlers(logger)
-        logger.addHandler(self._file_handler(module_name))
+        if include_file_handler:
+            logger.addHandler(self._file_handler(module_name))
         logger.addHandler(self._console_handler())
         return logger
 

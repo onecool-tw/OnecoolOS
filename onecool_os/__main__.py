@@ -12,7 +12,10 @@ from onecool_os.core.config import ConfigLoader
 from onecool_os.core.logging import initialize_logging
 from onecool_os.core.scheduler import create_scheduler
 from onecool_os.market.engine import create_market_engine
-from onecool_os.portfolio.engine import create_portfolio_engine
+from onecool_os.portfolio.engine import (
+    create_portfolio_demo,
+    create_portfolio_engine,
+)
 
 
 def build_parser() -> argparse.ArgumentParser:
@@ -75,6 +78,10 @@ def build_parser() -> argparse.ArgumentParser:
     portfolio_subparsers.add_parser(
         "status",
         help="Show Portfolio Engine status.",
+    )
+    portfolio_subparsers.add_parser(
+        "demo",
+        help="Show an in-memory demo portfolio.",
     )
     return parser
 
@@ -164,6 +171,9 @@ def main(argv: list[str] | None = None) -> int:
 
     if args.command == "portfolio":
         loaded_config = ConfigLoader.from_environment().load()
+        if args.portfolio_command == "demo":
+            print(json.dumps(create_portfolio_demo(loaded_config.config), indent=2))
+            return 0
         portfolio_engine = create_portfolio_engine(loaded_config.config)
         if args.portfolio_command == "status":
             print(json.dumps(portfolio_engine.status().to_dict(), indent=2))

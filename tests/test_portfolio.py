@@ -115,6 +115,100 @@ def test_cli_portfolio_status(tmp_path: Path, monkeypatch, capsys) -> None:
     assert payload["position_count"] == 0
 
 
+def test_portfolio_demo_command_runs(
+    tmp_path: Path,
+    monkeypatch,
+    capsys,
+) -> None:
+    config_dir = tmp_path / "config"
+    write_settings(config_dir, tmp_path)
+    monkeypatch.setenv("ONECOOL_OS_CONFIG_DIR", str(config_dir))
+
+    assert main(["portfolio", "demo"]) == 0
+    payload = json.loads(capsys.readouterr().out)
+
+    assert len(payload["positions"]) == 3
+
+
+def test_portfolio_demo_includes_portfolio_name(
+    tmp_path: Path,
+    monkeypatch,
+    capsys,
+) -> None:
+    config_dir = tmp_path / "config"
+    write_settings(config_dir, tmp_path)
+    monkeypatch.setenv("ONECOOL_OS_CONFIG_DIR", str(config_dir))
+
+    assert main(["portfolio", "demo"]) == 0
+    payload = json.loads(capsys.readouterr().out)
+
+    assert payload["portfolio_name"] == "Demo Portfolio"
+
+
+def test_portfolio_demo_includes_total_market_value(
+    tmp_path: Path,
+    monkeypatch,
+    capsys,
+) -> None:
+    config_dir = tmp_path / "config"
+    write_settings(config_dir, tmp_path)
+    monkeypatch.setenv("ONECOOL_OS_CONFIG_DIR", str(config_dir))
+
+    assert main(["portfolio", "demo"]) == 0
+    payload = json.loads(capsys.readouterr().out)
+
+    assert payload["total_market_value"] == "8645.00"
+
+
+def test_portfolio_demo_includes_unrealized_pnl(
+    tmp_path: Path,
+    monkeypatch,
+    capsys,
+) -> None:
+    config_dir = tmp_path / "config"
+    write_settings(config_dir, tmp_path)
+    monkeypatch.setenv("ONECOOL_OS_CONFIG_DIR", str(config_dir))
+
+    assert main(["portfolio", "demo"]) == 0
+    payload = json.loads(capsys.readouterr().out)
+
+    assert payload["total_unrealized_pnl"] == "745.00"
+    assert "unrealized_pnl" in payload["positions"][0]
+
+
+def test_portfolio_demo_does_not_require_network(
+    tmp_path: Path,
+    monkeypatch,
+    capsys,
+) -> None:
+    config_dir = tmp_path / "config"
+    write_settings(config_dir, tmp_path)
+    monkeypatch.setenv("ONECOOL_OS_CONFIG_DIR", str(config_dir))
+    monkeypatch.setattr("socket.create_connection", fail_network)
+
+    assert main(["portfolio", "demo"]) == 0
+    payload = json.loads(capsys.readouterr().out)
+
+    assert payload["portfolio_name"] == "Demo Portfolio"
+
+
+def test_portfolio_demo_does_not_write_files(
+    tmp_path: Path,
+    monkeypatch,
+    capsys,
+) -> None:
+    config_dir = tmp_path / "config"
+    write_settings(config_dir, tmp_path)
+    before = sorted(path.relative_to(tmp_path) for path in tmp_path.rglob("*"))
+    monkeypatch.setenv("ONECOOL_OS_CONFIG_DIR", str(config_dir))
+
+    assert main(["portfolio", "demo"]) == 0
+    capsys.readouterr()
+    after = sorted(path.relative_to(tmp_path) for path in tmp_path.rglob("*"))
+
+    assert after == before
+
+
 def test_portfolio_engine_status_counts_positions(tmp_path: Path) -> None:
     registry = PortfolioRegistry()
     portfolio = registry.create_portfolio("main", "Main")
@@ -140,3 +234,7 @@ def sample_position() -> Position:
         average_cost=Decimal("100"),
         current_price=Decimal("150"),
     )
+
+
+def fail_network(*args: object, **kwargs: object) -> None:
+    raise AssertionError("network should not be used")

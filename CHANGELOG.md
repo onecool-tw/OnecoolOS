@@ -13,6 +13,14 @@ Commits.
 - Architecture Decision Record for Core Engine architecture choices.
 - Contributing workflow documentation.
 
+## [0.4.1] - 2026-06-29
+
+### Added
+
+- In-memory Portfolio CLI demo with sample SPY, QQQ, and GLD positions.
+- Demo output for market value, total cost, and unrealized PnL.
+- Tests confirming the demo requires no network or file writes.
+
 ## [0.4.0] - 2026-06-29
 
 ### Added
