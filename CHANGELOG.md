@@ -31,6 +31,15 @@ Commits.
 - Architecture Decision Record for Core Engine architecture choices.
 - Contributing workflow documentation.
 
+## [0.6.0] - 2026-06-30
+
+### Added
+
+- Valuation Engine foundation under `onecool_os.intelligence.valuation`.
+- Demo valuator with mocked values for Funds, Sports Cards, Real Estate, and
+  Cash.
+- Valuation demo CLI command.
+
 ## [0.5.0] - 2026-06-29
 
 ### Added

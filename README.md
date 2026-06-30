@@ -126,6 +126,12 @@ Show sample cash balances:
 python -m onecool_os cash demo
 ```
 
+Show mocked valuation results:
+
+```bash
+python -m onecool_os valuation demo
+```
+
 Run tests:
 
 ```bash
@@ -624,6 +630,32 @@ Cards, Real Estate, and Cash do not share identical quantity, cost, or valuation
 fields yet. This keeps the model layer flexible before the Valuation Engine is
 introduced.
 
+## Valuation Engine
+
+Onecool OS includes a Valuation Engine foundation in
+`onecool_os.intelligence.valuation`. The framework coordinates valuation
+providers through a registry and returns normalized valuation results.
+
+Current Valuation Engine components:
+
+- `ValuationEngine`: Coordinates valuation providers.
+- `BaseValuator`: Abstract provider interface.
+- `ValuationResult`: Normalized valuation output.
+- `ValuationRegistry`: Registers and retrieves valuators.
+- `DemoValuator`: Built-in mock valuator for framework verification.
+
+The demo valuator supports Funds, Sports Cards, Real Estate, and Cash using
+mocked values only. It does not call Card Ladder, Yahoo pricing, real estate
+pricing services, fund NAV providers, FX APIs, or persistence.
+
+Run the valuation demo:
+
+```bash
+python -m onecool_os valuation demo
+```
+
+The demo output includes asset name, provider, estimated value, and confidence.
+
 ## Project Structure
 
 ```text
@@ -650,6 +682,7 @@ introduced.
 │   │   ├── base.py
 │   ├── cli
 │   ├── core
+│   ├── intelligence
 │   ├── market
 │   ├── portfolio
 │   └── plugins
