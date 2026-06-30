@@ -120,6 +120,12 @@ Show sample real estate:
 python -m onecool_os real-estate demo
 ```
 
+Show sample cash balances:
+
+```bash
+python -m onecool_os cash demo
+```
+
 Run tests:
 
 ```bash
@@ -551,12 +557,58 @@ The demo command validates missing fields, invalid JSON, invalid area, and
 invalid price. Output includes property name, city/district, property type,
 area, purchase price, current estimated value, and unrealized PnL.
 
+## Cash / FX Module
+
+Onecool OS includes a Cash / FX asset module foundation in
+`onecool_os.assets.cash`. The module is model-first and does not implement live
+FX APIs, valuation engine, or database persistence.
+
+Current Cash / FX components:
+
+- `CashAsset`: Cash account identity, currency, account type, optional
+  institution, and optional country.
+- `CashPosition`: Amount, currency, optional FX rate to base currency, base
+  currency, and notes.
+- `CashLoader`: JSON loader for sample cash balances.
+
+Run the cash demo:
+
+```bash
+python -m onecool_os cash demo
+```
+
+The cash JSON root must include:
+
+- `cash_accounts`
+
+Each cash account must include:
+
+- `asset_id`
+- `asset_type`
+- `name`
+- `currency`
+- `account_type`
+- `amount`
+- `fx_rate_to_base`
+- `base_currency`
+- `notes`
+
+Optional cash account metadata:
+
+- `institution`
+- `country`
+
+The demo command validates missing fields, invalid JSON, invalid amount,
+invalid currency, and invalid FX rate. Output includes cash account, currency,
+amount, FX rate to base, and base currency value.
+
 ## Project Structure
 
 ```text
 .
 ├── examples
 │   ├── cards_demo.json
+│   ├── cash_demo.json
 │   ├── funds_demo.json
 │   ├── portfolio_demo.json
 │   └── real_estate_demo.json

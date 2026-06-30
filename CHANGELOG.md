@@ -9,6 +9,10 @@ Commits.
 
 ### Added
 
+- Cash / FX asset module foundation under `onecool_os.assets.cash`.
+- Cash asset and position models with JSON loader validation.
+- Cash demo CLI command for sample cash balance data.
+- Example cash JSON file under `examples/`.
 - Real Estate asset module foundation under `onecool_os.assets.real_estate`.
 - Real estate asset and position models with JSON loader validation.
 - Real estate demo CLI command for sample property data.

@@ -7,6 +7,11 @@ import json
 from dataclasses import asdict
 from pathlib import Path
 
+from onecool_os.assets.cash.loader import (
+    CashLoader,
+    CashLoaderError,
+    cash_import_to_dict,
+)
 from onecool_os.assets.funds.loader import (
     FundLoader,
     FundLoaderError,
@@ -52,6 +57,18 @@ def build_parser() -> argparse.ArgumentParser:
     subparsers.add_parser("plugins", help="List loaded plugins.")
     subparsers.add_parser("config", help="Show sanitized configuration.")
     subparsers.add_parser("logs", help="Show logging status.")
+    cash_parser = subparsers.add_parser(
+        "cash",
+        help="Manage Cash / FX asset module.",
+    )
+    cash_subparsers = cash_parser.add_subparsers(
+        dest="cash_command",
+        required=True,
+    )
+    cash_subparsers.add_parser(
+        "demo",
+        help="Show sample cash balances from JSON.",
+    )
     cards_parser = subparsers.add_parser(
         "cards",
         help="Manage Sports Cards asset module.",
@@ -194,6 +211,28 @@ def main(argv: list[str] | None = None) -> int:
         logging_system = initialize_logging(loaded_config.config)
         print(json.dumps(asdict(logging_system.status()), indent=2))
         return 0
+
+    if args.command == "cash":
+        loaded_config = ConfigLoader.from_environment().load()
+        logging_system = LoggingSystem(loaded_config.config)
+        logger = logging_system.get_logger("cash")
+        if args.cash_command == "demo":
+            try:
+                result = CashLoader(logger=logger).load(
+                    Path("examples/cash_demo.json")
+                )
+            except CashLoaderError as exc:
+                logger.error("Cash demo failed: %s", exc)
+                print(json.dumps(
+                    {
+                        "status": "failure",
+                        "error_message": str(exc),
+                    },
+                    indent=2,
+                ))
+                return 1
+            print(json.dumps(cash_import_to_dict(result), indent=2))
+            return 0
 
     if args.command == "cards":
         loaded_config = ConfigLoader.from_environment().load()
