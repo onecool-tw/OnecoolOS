@@ -452,6 +452,51 @@ Run the funds import demo:
 python -m onecool_os funds import examples/funds_demo.json
 ```
 
+### Preparing Your Real Portfolio
+
+User-owned portfolio data belongs under `data/` and should not be committed to
+GitHub. A template is provided at `data/portfolio/funds.example.json`.
+
+Prepare a local real funds file:
+
+```bash
+cp data/portfolio/funds.example.json data/portfolio/funds.json
+```
+
+Then edit `data/portfolio/funds.json` locally and import it:
+
+```bash
+python -m onecool_os funds import data/portfolio/funds.json
+```
+
+If `data/portfolio/funds.json` does not exist, the CLI prints a friendly
+message that points back to the example template. The real local file is ignored
+by Git.
+
+Real funds JSON must include:
+
+- `portfolio_name`
+- `positions`
+
+Each position must include:
+
+- `asset_id`
+- `symbol`
+- `name`
+- `currency`
+- `quantity`
+- `average_cost`
+
+Optional fields:
+
+- `fund_house`
+- `theme`
+- `region`
+- `notes`
+
+`current_price` is not required for real fund imports. Current valuation will
+come from the Valuation Engine later.
+
 The funds JSON root must include:
 
 - `funds`

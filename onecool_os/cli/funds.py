@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
+from pathlib import Path
 
 from onecool_os.assets.funds.loader import (
     FundLoader,
@@ -40,8 +41,24 @@ def handle_funds_command(args: argparse.Namespace) -> int:
     logging_system = LoggingSystem(loaded_config.config)
     logger = logging_system.get_logger("funds")
     if args.funds_command == "import":
+        json_path = Path(args.json_path)
+        if not json_path.exists():
+            logger.error("Funds import file does not exist: %s", json_path)
+            print(json.dumps(
+                {
+                    "status": "failure",
+                    "error_message": (
+                        "Funds portfolio file not found. Copy "
+                        "data/portfolio/funds.example.json to "
+                        "data/portfolio/funds.json and update it with your "
+                        "local fund data."
+                    ),
+                },
+                indent=2,
+            ))
+            return 1
         try:
-            result = FundLoader(logger=logger).load(args.json_path)
+            result = FundLoader(logger=logger).load(json_path)
         except FundLoaderError as exc:
             logger.error("Funds import failed: %s", exc)
             print(json.dumps(

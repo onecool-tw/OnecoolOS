@@ -28,17 +28,16 @@ class FundImportResult:
 class FundLoader:
     """Load sample fund holdings into an in-memory portfolio."""
 
-    required_root_fields = frozenset({"funds"})
-    required_fund_fields = frozenset(
+    legacy_root_key = "funds"
+    portfolio_root_key = "positions"
+    required_position_fields = frozenset(
         {
             "asset_id",
             "symbol",
-            "asset_type",
             "name",
             "currency",
             "quantity",
             "average_cost",
-            "current_price",
         }
     )
 
@@ -51,15 +50,21 @@ class FundLoader:
         path = Path(json_path)
         self.logger.info("Starting funds import from %s", path)
         payload = self._read_payload(path)
-        self._validate_required_fields(payload, self.required_root_fields, "root")
-        funds_payload = payload["funds"]
+        portfolio_name = self._portfolio_name(payload)
+        funds_payload = self._positions_payload(payload)
         if not isinstance(funds_payload, list):
-            raise FundLoaderError("funds must be a list.")
+            raise FundLoaderError("positions must be a list.")
 
-        portfolio = Portfolio(portfolio_id="funds-import", name="Funds Import")
+        portfolio = Portfolio(portfolio_id="funds-import", name=portfolio_name)
         positions = []
+        asset_ids = set()
         for index, fund_payload in enumerate(funds_payload):
             position = self._load_position(fund_payload, index)
+            if position.asset.asset_id in asset_ids:
+                raise FundLoaderError(
+                    f"Duplicate asset_id: {position.asset.asset_id}"
+                )
+            asset_ids.add(position.asset.asset_id)
             positions.append(position)
             portfolio.add_position(position.to_position())
 
@@ -88,23 +93,36 @@ class FundLoader:
             raise FundLoaderError("Funds JSON root must be an object.")
         return payload
 
+    def _portfolio_name(self, payload: dict[str, Any]) -> str:
+        if self.portfolio_root_key not in payload:
+            return "Funds Import"
+        if "portfolio_name" not in payload:
+            raise FundLoaderError("Missing required field in root: portfolio_name")
+        return self._require_text(payload["portfolio_name"], "portfolio_name")
+
+    def _positions_payload(self, payload: dict[str, Any]) -> Any:
+        if self.portfolio_root_key in payload:
+            return payload[self.portfolio_root_key]
+        if self.legacy_root_key in payload:
+            return payload[self.legacy_root_key]
+        raise FundLoaderError("Missing required field in root: positions")
+
     def _load_position(self, payload: Any, index: int) -> FundPosition:
         if not isinstance(payload, dict):
-            raise FundLoaderError(f"funds[{index}] must be an object.")
+            raise FundLoaderError(f"positions[{index}] must be an object.")
         self._validate_required_fields(
             payload,
-            self.required_fund_fields,
-            f"funds[{index}]",
+            self.required_position_fields,
+            f"positions[{index}]",
         )
+        asset_type = self._optional_text(payload.get("asset_type"))
+        current_price = payload.get("current_price")
 
         try:
             asset = FundAsset(
                 asset_id=self._require_text(payload["asset_id"], "asset_id"),
                 symbol=self._require_text(payload["symbol"], "symbol"),
-                asset_type=self._require_text(
-                    payload["asset_type"],
-                    "asset_type",
-                ),
+                asset_type=asset_type or "MUTUAL_FUND",
                 name=self._require_text(payload["name"], "name"),
                 currency=self._require_text(payload["currency"], "currency"),
                 fund_house=self._optional_text(payload.get("fund_house")),
@@ -124,10 +142,12 @@ class FundLoader:
                 payload["average_cost"],
                 "average_cost",
             ),
-            current_price=self._parse_decimal(
-                payload["current_price"],
-                "current_price",
+            current_price=(
+                self._parse_decimal(current_price, "current_price")
+                if current_price is not None
+                else None
             ),
+            notes=self._optional_text(payload.get("notes")) or "",
         )
 
     def _validate_required_fields(
