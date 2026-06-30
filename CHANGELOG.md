@@ -9,6 +9,8 @@ Commits.
 
 ### Added
 
+- Modular CLI handlers under `onecool_os.cli`.
+- CLI delegation tests for core and module commands.
 - Shared asset base models under `onecool_os.assets.base`.
 - Asset standard tests for Funds, Sports Cards, Real Estate, and Cash.
 - Cash / FX asset module foundation under `onecool_os.assets.cash`.

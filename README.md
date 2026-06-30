@@ -648,6 +648,7 @@ introduced.
 ├── onecool_os
 │   ├── assets
 │   │   ├── base.py
+│   ├── cli
 │   ├── core
 │   ├── market
 │   ├── portfolio
