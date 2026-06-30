@@ -9,6 +9,10 @@ Commits.
 
 ### Added
 
+- Shared transaction framework under `onecool_os.transactions`.
+- Immutable base transaction records, transaction type enum, transaction
+  registry, and JSON loader.
+- Demo transaction template under `data/transactions/transactions.example.json`.
 - Securities asset module foundation under `onecool_os.assets.securities`.
 - Securities JSON loader and interactive portfolio creator.
 - Securities CLI commands for local import and portfolio file creation.

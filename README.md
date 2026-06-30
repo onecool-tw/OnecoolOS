@@ -785,6 +785,47 @@ python -m onecool_os allocation demo
 The demo output includes asset, asset type, market value, allocation percent,
 and portfolio total.
 
+## Transaction Framework
+
+Onecool OS includes a shared Transaction Framework in `onecool_os.transactions`.
+Transactions are immutable event records that describe what happened. They do
+not contain asset-specific quantity, units, or shares yet; those belong to
+future asset-specific transaction models.
+
+Current Transaction Framework components:
+
+- `BaseTransaction`: Immutable shared transaction record.
+- `TransactionType`: Shared transaction type enum.
+- `TransactionRegistry`: Registers and retrieves transactions.
+- `TransactionLoader`: Loads validated transaction records from JSON.
+
+Supported transaction types:
+
+- `BUY`
+- `SELL`
+- `DIVIDEND`
+- `INTEREST`
+- `DEPOSIT`
+- `WITHDRAW`
+- `TRANSFER`
+- `FEE`
+- `ADJUSTMENT`
+
+A demo template is provided at
+`data/transactions/transactions.example.json`. It contains only sample
+transactions and no real user data.
+
+Architecture relationship:
+
+- Transactions are immutable records.
+- Portfolio is derived from Transactions.
+- Assets describe identity.
+- Valuation estimates worth.
+- Allocation analyzes distribution.
+
+This sprint does not implement performance calculations, IRR, realized PnL,
+unrealized PnL, database persistence, or changes to Portfolio calculations.
+
 ## Project Structure
 
 ```text
@@ -816,6 +857,7 @@ and portfolio total.
 │   │   └── valuation
 │   ├── market
 │   ├── portfolio
+│   ├── transactions
 │   └── plugins
 ├── logs
 ├── tests
