@@ -5,6 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from decimal import Decimal
 
+from onecool_os.assets.base import BaseAsset, BasePosition
 from onecool_os.portfolio.models import Asset, PortfolioError
 
 
@@ -13,7 +14,7 @@ class CashError(PortfolioError):
 
 
 @dataclass(frozen=True)
-class CashAsset:
+class CashAsset(BaseAsset):
     """A cash account mapped to the shared Portfolio Asset model."""
 
     asset_id: str
@@ -42,7 +43,7 @@ class CashAsset:
 
 
 @dataclass(frozen=True)
-class CashPosition:
+class CashPosition(BasePosition):
     """A cash balance with optional base currency conversion."""
 
     asset: CashAsset

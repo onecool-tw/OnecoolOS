@@ -602,6 +602,28 @@ The demo command validates missing fields, invalid JSON, invalid amount,
 invalid currency, and invalid FX rate. Output includes cash account, currency,
 amount, FX rate to base, and base currency value.
 
+## Asset Standard
+
+Onecool OS defines shared asset base models in `onecool_os.assets.base`.
+`BaseAsset` establishes the minimum fields all asset modules should expose:
+
+- `asset_id`
+- `asset_type`
+- `name`
+- `currency`
+- `created_at`
+- `updated_at`
+
+`BasePosition` establishes the minimum position contract:
+
+- `asset`
+- `notes`
+
+Specific modules keep their own position structures because Funds, Sports
+Cards, Real Estate, and Cash do not share identical quantity, cost, or valuation
+fields yet. This keeps the model layer flexible before the Valuation Engine is
+introduced.
+
 ## Project Structure
 
 ```text
@@ -625,6 +647,7 @@ amount, FX rate to base, and base currency value.
 ├── migrations
 ├── onecool_os
 │   ├── assets
+│   │   ├── base.py
 │   ├── core
 │   ├── market
 │   ├── portfolio

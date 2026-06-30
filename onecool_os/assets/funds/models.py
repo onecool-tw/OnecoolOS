@@ -5,11 +5,12 @@ from __future__ import annotations
 from dataclasses import dataclass
 from decimal import Decimal
 
+from onecool_os.assets.base import BaseAsset, BasePosition
 from onecool_os.portfolio.models import Asset, PortfolioError, Position
 
 
 @dataclass(frozen=True)
-class FundAsset:
+class FundAsset(BaseAsset):
     """A mutual fund asset mapped to the shared Portfolio Asset model."""
 
     asset_id: str
@@ -40,13 +41,14 @@ class FundAsset:
 
 
 @dataclass(frozen=True)
-class FundPosition:
+class FundPosition(BasePosition):
     """A mutual fund holding."""
 
     asset: FundAsset
     quantity: Decimal
     average_cost: Decimal
     current_price: Decimal | None = None
+    notes: str = ""
 
     def market_value(self) -> Decimal:
         """Return current market value."""

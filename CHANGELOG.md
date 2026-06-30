@@ -9,6 +9,8 @@ Commits.
 
 ### Added
 
+- Shared asset base models under `onecool_os.assets.base`.
+- Asset standard tests for Funds, Sports Cards, Real Estate, and Cash.
 - Cash / FX asset module foundation under `onecool_os.assets.cash`.
 - Cash asset and position models with JSON loader validation.
 - Cash demo CLI command for sample cash balance data.

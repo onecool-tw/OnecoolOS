@@ -5,6 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from decimal import Decimal, InvalidOperation
 
+from onecool_os.assets.base import BaseAsset, BasePosition
 from onecool_os.portfolio.models import Asset, PortfolioError
 
 
@@ -13,7 +14,7 @@ class CardError(PortfolioError):
 
 
 @dataclass(frozen=True)
-class CardAsset:
+class CardAsset(BaseAsset):
     """A sports card asset mapped to the shared Portfolio Asset model."""
 
     asset_id: str
@@ -31,6 +32,18 @@ class CardAsset:
 
     def __post_init__(self) -> None:
         self._validate_grade()
+
+    @property
+    def asset_type(self) -> str:
+        """Return the normalized asset type."""
+
+        return "SPORTS_CARD"
+
+    @property
+    def name(self) -> str:
+        """Return the shared asset display name."""
+
+        return f"{self.player} {self.display_name()}"
 
     def display_name(self) -> str:
         """Return a human-readable card name."""
@@ -53,8 +66,8 @@ class CardAsset:
         return Asset(
             asset_id=self.asset_id,
             symbol=self.asset_id,
-            asset_type="SPORTS_CARD",
-            name=f"{self.player} {self.display_name()}",
+            asset_type=self.asset_type,
+            name=self.name,
             currency=self.currency,
         )
 
@@ -71,7 +84,7 @@ class CardAsset:
 
 
 @dataclass(frozen=True)
-class CardPosition:
+class CardPosition(BasePosition):
     """A held sports card position."""
 
     asset: CardAsset

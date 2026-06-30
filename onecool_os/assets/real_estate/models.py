@@ -5,6 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from decimal import Decimal
 
+from onecool_os.assets.base import BaseAsset, BasePosition
 from onecool_os.portfolio.models import Asset, PortfolioError
 
 
@@ -13,7 +14,7 @@ class RealEstateError(PortfolioError):
 
 
 @dataclass(frozen=True)
-class RealEstateAsset:
+class RealEstateAsset(BaseAsset):
     """A real estate asset mapped to the shared Portfolio Asset model."""
 
     asset_id: str
@@ -65,7 +66,7 @@ class RealEstateAsset:
 
 
 @dataclass(frozen=True)
-class RealEstatePosition:
+class RealEstatePosition(BasePosition):
     """A held real estate position."""
 
     asset: RealEstateAsset
