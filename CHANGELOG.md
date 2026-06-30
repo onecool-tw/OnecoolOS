@@ -9,6 +9,8 @@ Commits.
 
 ### Added
 
+- Interactive `python -m onecool_os funds create` wizard for local real fund
+  portfolio files.
 - Real fund portfolio import support from local `data/portfolio/funds.json`.
 - Template-only fund portfolio file at `data/portfolio/funds.example.json`.
 - Funds import validation for duplicate asset IDs and optional current prices.

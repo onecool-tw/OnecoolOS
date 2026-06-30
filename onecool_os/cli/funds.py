@@ -6,6 +6,7 @@ import argparse
 import json
 from pathlib import Path
 
+from onecool_os.assets.funds.creator import FundPortfolioCreator
 from onecool_os.assets.funds.loader import (
     FundLoader,
     FundLoaderError,
@@ -32,6 +33,10 @@ def add_funds_parser(subparsers: argparse._SubParsersAction) -> None:
         help="Load sample funds from JSON.",
     )
     funds_import_parser.add_argument("json_path")
+    funds_subparsers.add_parser(
+        "create",
+        help="Create or update a local real funds portfolio file.",
+    )
 
 
 def handle_funds_command(args: argparse.Namespace) -> int:
@@ -70,6 +75,21 @@ def handle_funds_command(args: argparse.Namespace) -> int:
             ))
             return 1
         print(json.dumps(fund_import_to_dict(result), indent=2))
+        return 0
+    if args.funds_command == "create":
+        try:
+            result = FundPortfolioCreator(logger=logger).create()
+        except FundLoaderError as exc:
+            logger.error("Funds portfolio create failed: %s", exc)
+            print(json.dumps(
+                {
+                    "status": "failure",
+                    "error_message": str(exc),
+                },
+                indent=2,
+            ))
+            return 1
+        print(json.dumps(result.to_dict(), indent=2))
         return 0
 
     raise ValueError(f"Unsupported funds command: {args.funds_command}")

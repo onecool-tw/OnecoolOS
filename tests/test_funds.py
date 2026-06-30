@@ -3,6 +3,7 @@ from decimal import Decimal
 from pathlib import Path
 
 from onecool_os.__main__ import main
+from onecool_os.assets.funds.creator import FundPortfolioCreator
 from onecool_os.assets.funds.loader import FundLoader, FundLoaderError
 from onecool_os.assets.funds.models import FundAsset, FundPosition
 from onecool_os.portfolio.models import PortfolioError
@@ -216,6 +217,204 @@ def test_cli_funds_import_missing_real_file_is_friendly(
     assert "funds.example.json" in payload["error_message"]
 
 
+def test_fund_creator_creates_new_file(tmp_path: Path) -> None:
+    json_path = tmp_path / "data" / "portfolio" / "funds.json"
+    creator = FundPortfolioCreator(
+        input_func=scripted_input(
+            [
+                "My Funds",
+                "abc123",
+                "Alpha Fund",
+                "TWD",
+                "10",
+                "12.50",
+                "Sample House",
+                "Growth",
+                "Taiwan",
+                "Core holding",
+                "N",
+            ]
+        )
+    )
+
+    result = creator.create(json_path)
+    payload = json.loads(json_path.read_text(encoding="utf-8"))
+
+    assert result.status == "success"
+    assert result.position_count == 1
+    assert payload["portfolio_name"] == "My Funds"
+    assert payload["positions"][0]["asset_id"] == "FUND-ABC123"
+    assert payload["positions"][0]["currency"] == "TWD"
+
+
+def test_fund_creator_appends_existing_file(tmp_path: Path) -> None:
+    json_path = write_real_funds_json(tmp_path)
+    creator = FundPortfolioCreator(
+        input_func=scripted_input(
+            [
+                "1",
+                "newfund",
+                "New Fund",
+                "USD",
+                "5",
+                "20",
+                "",
+                "",
+                "",
+                "",
+                "N",
+            ]
+        )
+    )
+
+    result = creator.create(json_path)
+    payload = json.loads(json_path.read_text(encoding="utf-8"))
+
+    assert result.status == "success"
+    assert payload["portfolio_name"] == "Real Funds"
+    assert len(payload["positions"]) == 3
+    assert payload["positions"][2]["asset_id"] == "FUND-NEWFUND"
+
+
+def test_fund_creator_replaces_existing_file(tmp_path: Path) -> None:
+    json_path = write_real_funds_json(tmp_path)
+    creator = FundPortfolioCreator(
+        input_func=scripted_input(
+            [
+                "2",
+                "Replacement Funds",
+                "",
+                "Replacement Fund",
+                "USD",
+                "3",
+                "11",
+                "",
+                "",
+                "",
+                "",
+                "N",
+            ]
+        )
+    )
+
+    result = creator.create(json_path)
+    payload = json.loads(json_path.read_text(encoding="utf-8"))
+
+    assert result.status == "success"
+    assert payload["portfolio_name"] == "Replacement Funds"
+    assert len(payload["positions"]) == 1
+    assert payload["positions"][0]["asset_id"] == "FUND-REPLACEMENT-FUND"
+
+
+def test_fund_creator_validates_input(tmp_path: Path) -> None:
+    json_path = tmp_path / "funds.json"
+    creator = FundPortfolioCreator(
+        input_func=scripted_input(
+            [
+                "Validated Funds",
+                "",
+                "",
+                "Validated Fund",
+                "EUR",
+                "USD",
+                "0",
+                "8",
+                "-1",
+                "10",
+                "",
+                "",
+                "",
+                "",
+                "N",
+            ]
+        )
+    )
+
+    result = creator.create(json_path)
+    payload = json.loads(json_path.read_text(encoding="utf-8"))
+
+    assert result.status == "success"
+    assert payload["positions"][0]["currency"] == "USD"
+    assert payload["positions"][0]["quantity"] == "8"
+    assert payload["positions"][0]["average_cost"] == "10"
+
+
+def test_fund_creator_prevents_duplicate_asset_id(tmp_path: Path) -> None:
+    json_path = write_real_funds_json(tmp_path)
+    creator = FundPortfolioCreator(
+        input_func=scripted_input(
+            [
+                "1",
+                "US-GROWTH",
+                "Duplicate Fund",
+                "fixed",
+                "Fixed Fund",
+                "USD",
+                "4",
+                "9",
+                "",
+                "",
+                "",
+                "",
+                "N",
+            ]
+        )
+    )
+
+    result = creator.create(json_path)
+    payload = json.loads(json_path.read_text(encoding="utf-8"))
+
+    assert result.status == "success"
+    assert len(payload["positions"]) == 3
+    assert payload["positions"][2]["asset_id"] == "FUND-FIXED"
+
+
+def test_fund_creator_cancel_flow_keeps_file(tmp_path: Path) -> None:
+    json_path = write_real_funds_json(tmp_path)
+    before = json_path.read_text(encoding="utf-8")
+    creator = FundPortfolioCreator(input_func=scripted_input(["3"]))
+
+    result = creator.create(json_path)
+
+    assert result.status == "cancelled"
+    assert json_path.read_text(encoding="utf-8") == before
+
+
+def test_cli_funds_create_writes_default_real_file(
+    tmp_path: Path,
+    monkeypatch,
+    capsys,
+) -> None:
+    config_dir = tmp_path / "config"
+    write_settings(config_dir, tmp_path)
+    monkeypatch.setenv("ONECOOL_OS_CONFIG_DIR", str(config_dir))
+    monkeypatch.chdir(tmp_path)
+    inputs = scripted_input(
+        [
+            "CLI Funds",
+            "cli001",
+            "CLI Fund",
+            "TWD",
+            "6",
+            "12",
+            "",
+            "",
+            "",
+            "",
+            "N",
+        ]
+    )
+    monkeypatch.setattr("builtins.input", inputs)
+
+    assert main(["funds", "create"]) == 0
+    payload = json.loads(capsys.readouterr().out)
+    json_path = tmp_path / "data" / "portfolio" / "funds.json"
+
+    assert payload["status"] == "success"
+    assert payload["position_count"] == 1
+    assert json_path.exists()
+
+
 def test_fund_loader_portfolio_totals_correct(tmp_path: Path) -> None:
     result = FundLoader().load(write_funds_json(tmp_path))
 
@@ -327,3 +526,12 @@ def write_real_funds_json(
         encoding="utf-8",
     )
     return json_path
+
+
+def scripted_input(values: list[str]):
+    iterator = iter(values)
+
+    def _input(_prompt: str) -> str:
+        return next(iterator)
+
+    return _input

@@ -469,6 +469,15 @@ Then edit `data/portfolio/funds.json` locally and import it:
 python -m onecool_os funds import data/portfolio/funds.json
 ```
 
+You can also create or update the local file with the interactive wizard:
+
+```bash
+python -m onecool_os funds create
+```
+
+When `data/portfolio/funds.json` already exists, the wizard lets you append a
+new fund, replace the portfolio, or cancel without changing the file.
+
 If `data/portfolio/funds.json` does not exist, the CLI prints a friendly
 message that points back to the example template. The real local file is ignored
 by Git.
