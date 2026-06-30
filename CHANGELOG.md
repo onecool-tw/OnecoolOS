@@ -31,6 +31,14 @@ Commits.
 - Architecture Decision Record for Core Engine architecture choices.
 - Contributing workflow documentation.
 
+## [0.6.1] - 2026-06-30
+
+### Added
+
+- Allocation Engine foundation under `onecool_os.intelligence.allocation`.
+- Allocation calculations from normalized `ValuationResult` records.
+- Allocation demo CLI command with mocked valuation results.
+
 ## [0.6.0] - 2026-06-30
 
 ### Added

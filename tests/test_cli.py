@@ -1,4 +1,5 @@
 from onecool_os.__main__ import build_parser
+from onecool_os.cli.allocation import handle_allocation_command
 from onecool_os.cli.cards import handle_cards_command
 from onecool_os.cli.cash import handle_cash_command
 from onecool_os.cli.core import handle_core_command
@@ -28,6 +29,7 @@ def test_cli_parser_delegates_to_module_handlers() -> None:
         (["real-estate", "demo"], handle_real_estate_command),
         (["scheduler", "list"], handle_scheduler_command),
         (["valuation", "demo"], handle_valuation_command),
+        (["allocation", "demo"], handle_allocation_command),
     )
 
     for argv, handler in cases:

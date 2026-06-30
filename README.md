@@ -132,6 +132,12 @@ Show mocked valuation results:
 python -m onecool_os valuation demo
 ```
 
+Show mocked allocation results:
+
+```bash
+python -m onecool_os allocation demo
+```
+
 Run tests:
 
 ```bash
@@ -656,6 +662,30 @@ python -m onecool_os valuation demo
 
 The demo output includes asset name, provider, estimated value, and confidence.
 
+## Allocation Engine
+
+Onecool OS includes an Allocation Engine foundation in
+`onecool_os.intelligence.allocation`. The engine takes normalized
+`ValuationResult` records and calculates portfolio market value allocation.
+
+Current Allocation Engine components:
+
+- `AllocationEngine`: Calculates portfolio totals and allocation percentages.
+- `AllocationResult`: Normalized allocation output.
+
+The allocation demo uses mocked valuation results only. It does not implement
+rebalancing, buy/sell recommendations, risk analysis, scenario analysis, or
+persistence.
+
+Run the allocation demo:
+
+```bash
+python -m onecool_os allocation demo
+```
+
+The demo output includes asset, asset type, market value, allocation percent,
+and portfolio total.
+
 ## Project Structure
 
 ```text
@@ -683,6 +713,8 @@ The demo output includes asset name, provider, estimated value, and confidence.
 │   ├── cli
 │   ├── core
 │   ├── intelligence
+│   │   ├── allocation
+│   │   └── valuation
 │   ├── market
 │   ├── portfolio
 │   └── plugins

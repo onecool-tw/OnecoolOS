@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 
+from onecool_os.cli.allocation import add_allocation_parser
 from onecool_os.cli.cards import add_cards_parser
 from onecool_os.cli.cash import add_cash_parser
 from onecool_os.cli.core import add_core_parsers
@@ -33,6 +34,7 @@ def build_parser() -> argparse.ArgumentParser:
     add_market_parser(subparsers)
     add_portfolio_parser(subparsers)
     add_valuation_parser(subparsers)
+    add_allocation_parser(subparsers)
     return parser
 
 
