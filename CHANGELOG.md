@@ -9,6 +9,9 @@ Commits.
 
 ### Added
 
+- Securities asset module foundation under `onecool_os.assets.securities`.
+- Securities JSON loader and interactive portfolio creator.
+- Securities CLI commands for local import and portfolio file creation.
 - Interactive `python -m onecool_os funds create` wizard for local real fund
   portfolio files.
 - Real fund portfolio import support from local `data/portfolio/funds.json`.

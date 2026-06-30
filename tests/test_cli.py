@@ -8,6 +8,7 @@ from onecool_os.cli.market import handle_market_command
 from onecool_os.cli.portfolio import handle_portfolio_command
 from onecool_os.cli.real_estate import handle_real_estate_command
 from onecool_os.cli.scheduler import handle_scheduler_command
+from onecool_os.cli.securities import handle_securities_command
 from onecool_os.cli.valuation import handle_valuation_command
 
 
@@ -27,6 +28,10 @@ def test_cli_parser_delegates_to_module_handlers() -> None:
         (["market", "status"], handle_market_command),
         (["portfolio", "status"], handle_portfolio_command),
         (["real-estate", "demo"], handle_real_estate_command),
+        (
+            ["securities", "import", "data/portfolio/securities.example.json"],
+            handle_securities_command,
+        ),
         (["scheduler", "list"], handle_scheduler_command),
         (["valuation", "demo"], handle_valuation_command),
         (["allocation", "demo"], handle_allocation_command),

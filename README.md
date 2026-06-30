@@ -525,6 +525,51 @@ The import command validates missing fields, invalid JSON, unsupported
 `asset_type` values, and invalid quantities. Output includes the fund list,
 total cost, total market value, and total unrealized PnL.
 
+## Securities Module
+
+Onecool OS includes a Securities asset module foundation in
+`onecool_os.assets.securities`. The module supports listed securities such as
+US stocks, US ETFs, Taiwan stocks, Taiwan ETFs, and other listed securities.
+It does not fetch live stock prices, call Yahoo Finance, change valuation logic,
+or write to database persistence.
+
+Current Securities components:
+
+- `SecurityAsset`: Listed security metadata.
+- `SecurityPosition`: Quantity, average cost, optional purchase date, and notes.
+- `SecurityLoader`: JSON loader for local securities portfolio files.
+- `SecurityCreator`: Interactive CLI creator for local securities data.
+
+Supported security asset types:
+
+- `STOCK`
+- `ETF`
+- `OTHER`
+
+Supported markets:
+
+- `US`
+- `TW`
+- `OTHER`
+
+A template is provided at `data/portfolio/securities.example.json`. Real user
+holdings belong in `data/portfolio/securities.json` and are ignored by Git.
+
+Import local securities:
+
+```bash
+python -m onecool_os securities import data/portfolio/securities.json
+```
+
+Create or update the local securities file interactively:
+
+```bash
+python -m onecool_os securities create
+```
+
+The import output includes security name, symbol, market, asset type, quantity,
+average cost, and total cost.
+
 ## Sports Cards Module
 
 Onecool OS includes a Sports Cards asset module foundation in

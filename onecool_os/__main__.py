@@ -13,6 +13,7 @@ from onecool_os.cli.market import add_market_parser
 from onecool_os.cli.portfolio import add_portfolio_parser
 from onecool_os.cli.real_estate import add_real_estate_parser
 from onecool_os.cli.scheduler import add_scheduler_parser
+from onecool_os.cli.securities import add_securities_parser
 from onecool_os.cli.valuation import add_valuation_parser
 
 
@@ -30,6 +31,7 @@ def build_parser() -> argparse.ArgumentParser:
     add_cards_parser(subparsers)
     add_real_estate_parser(subparsers)
     add_funds_parser(subparsers)
+    add_securities_parser(subparsers)
     add_scheduler_parser(subparsers)
     add_market_parser(subparsers)
     add_portfolio_parser(subparsers)
