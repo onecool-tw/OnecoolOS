@@ -166,6 +166,20 @@ Initial asset module families:
 Asset modules should preserve their domain-specific fields while mapping into
 the shared Portfolio Engine models for common calculations.
 
+Sports Cards are inventory-style assets. Each card is an individual asset and
+must not be aggregated simply because it has the same player, set, or card
+number as another card. Future valuation, transactions, grading, and sales
+workflows operate on individual card records.
+
+Default sports card valuation source priority:
+
+1. eBay Sold
+2. Card Ladder
+3. PWCC
+4. Goldin
+5. Fanatics
+6. Manual
+
 ## Versioning Rules
 
 Onecool OS follows Semantic Versioning.

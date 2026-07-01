@@ -31,6 +31,11 @@ def add_cards_parser(subparsers: argparse._SubParsersAction) -> None:
         "demo",
         help="Show sample sports cards from JSON.",
     )
+    cards_import_parser = cards_subparsers.add_parser(
+        "import",
+        help="Load local sports cards from JSON.",
+    )
+    cards_import_parser.add_argument("json_path")
 
 
 def handle_cards_command(args: argparse.Namespace) -> int:
@@ -46,6 +51,21 @@ def handle_cards_command(args: argparse.Namespace) -> int:
             )
         except CardLoaderError as exc:
             logger.error("Cards demo failed: %s", exc)
+            print(json.dumps(
+                {
+                    "status": "failure",
+                    "error_message": str(exc),
+                },
+                indent=2,
+            ))
+            return 1
+        print(json.dumps(card_import_to_dict(result), indent=2))
+        return 0
+    if args.cards_command == "import":
+        try:
+            result = CardLoader(logger=logger).load(Path(args.json_path))
+        except CardLoaderError as exc:
+            logger.error("Cards import failed: %s", exc)
             print(json.dumps(
                 {
                     "status": "failure",

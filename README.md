@@ -590,6 +590,52 @@ Run the cards demo:
 python -m onecool_os cards demo
 ```
 
+Import the local live sports cards portfolio:
+
+```bash
+python -m onecool_os cards import data/portfolio/sports_cards.json
+```
+
+Sports Cards are inventory-style assets: each card is an individual asset.
+Cards are not aggregated simply because they share the same player, set, or
+card number. Future valuation, transactions, grading, and sales workflows will
+operate on individual card records.
+
+The live sports cards portfolio supports common fields shared with Funds and
+Securities:
+
+- `account`
+- `asset_class`
+- `status`
+- `currency`
+- `base_currency`
+- `cost`
+
+Supported card statuses:
+
+- `Owned`
+- `Listed`
+- `Sold`
+- `Grading`
+- `Shipping`
+- `Reserved`
+
+Supported collection types:
+
+- `Core`
+- `Investment`
+- `Trading`
+- `PC`
+
+Default sports card valuation source priority:
+
+1. `eBay Sold`
+2. `Card Ladder`
+3. `PWCC`
+4. `Goldin`
+5. `Fanatics`
+6. `Manual`
+
 The cards JSON root must include:
 
 - `cards`

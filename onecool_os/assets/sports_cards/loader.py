@@ -13,6 +13,7 @@ from onecool_os.assets.sports_cards.models import (
     CardAsset,
     CardError,
     CardPosition,
+    VALUATION_SOURCE_PRIORITY,
 )
 from onecool_os.portfolio.models import PortfolioError
 
@@ -25,6 +26,8 @@ class CardLoaderError(PortfolioError):
 class CardImportResult:
     """Loaded sports card positions."""
 
+    portfolio_name: str | None
+    base_currency: str | None
     positions: tuple[CardPosition, ...]
 
 
@@ -63,6 +66,8 @@ class CardLoader:
         self.logger.info("Starting cards import from %s", path)
         payload = self._read_payload(path)
         self._validate_required_fields(payload, self.required_root_fields, "root")
+        portfolio_name = self._optional_text(payload.get("portfolio_name"))
+        base_currency = self._optional_text(payload.get("base_currency"))
         cards_payload = payload["cards"]
         if not isinstance(cards_payload, list):
             raise CardLoaderError("cards must be a list.")
@@ -72,7 +77,11 @@ class CardLoader:
             for index, card_payload in enumerate(cards_payload)
         )
         self.logger.info("Cards import completed with %s cards.", len(positions))
-        return CardImportResult(positions=positions)
+        return CardImportResult(
+            portfolio_name=portfolio_name,
+            base_currency=base_currency,
+            positions=positions,
+        )
 
     def _read_payload(self, path: Path) -> dict[str, Any]:
         try:
@@ -96,11 +105,9 @@ class CardLoader:
     def _load_position(self, payload: Any, index: int) -> CardPosition:
         if not isinstance(payload, dict):
             raise CardLoaderError(f"cards[{index}] must be an object.")
-        self._validate_required_fields(
-            payload,
-            self.required_card_fields,
-            f"cards[{index}]",
-        )
+        self._validate_card_fields(payload, index)
+        grade_company = payload.get("grade_company", payload.get("grader"))
+        purchase_price = payload.get("purchase_price", payload.get("cost"))
 
         try:
             asset = CardAsset(
@@ -114,7 +121,7 @@ class CardLoader:
                     payload["card_number"],
                     "card_number",
                 ),
-                grader=self._require_text(payload["grader"], "grader"),
+                grader=self._require_text(grade_company, "grade_company"),
                 grade=self._require_text(payload["grade"], "grade"),
                 parallel=self._optional_text(payload.get("parallel")),
                 serial_number=self._optional_text(
@@ -122,26 +129,57 @@ class CardLoader:
                 ),
                 currency=self._require_text(payload["currency"], "currency"),
             )
+            return CardPosition(
+                asset=asset,
+                quantity=self._parse_decimal(
+                    payload.get("quantity", "1"),
+                    "quantity",
+                    require_positive=True,
+                ),
+                purchase_price=self._parse_decimal(
+                    purchase_price,
+                    "purchase_price",
+                    require_positive=True,
+                ),
+                purchase_date=self._require_text(
+                    payload["purchase_date"],
+                    "purchase_date",
+                ),
+                notes=self._optional_text(payload.get("notes")),
+                account=self._optional_text(payload.get("account")),
+                asset_class=self._optional_text(payload.get("asset_class")),
+                status=self._optional_text(payload.get("status")),
+                base_currency=self._optional_text(payload.get("base_currency")),
+                cost=(
+                    self._parse_decimal(payload["cost"], "cost")
+                    if "cost" in payload
+                    else None
+                ),
+                purchase_platform=self._optional_text(
+                    payload.get("purchase_platform"),
+                ),
+                collection_type=self._optional_text(
+                    payload.get("collection_type"),
+                ),
+                valuation_source=self._optional_text(
+                    payload.get("valuation_source"),
+                ),
+            )
         except CardError as exc:
             raise CardLoaderError(str(exc)) from exc
 
-        return CardPosition(
-            asset=asset,
-            quantity=self._parse_decimal(
-                payload["quantity"],
-                "quantity",
-                require_positive=True,
-            ),
-            purchase_price=self._parse_decimal(
-                payload["purchase_price"],
-                "purchase_price",
-                require_positive=True,
-            ),
-            purchase_date=self._require_text(
-                payload["purchase_date"],
-                "purchase_date",
-            ),
-            notes=self._optional_text(payload.get("notes")),
+    def _validate_card_fields(self, payload: dict[str, Any], index: int) -> None:
+        required_fields = set(self.required_card_fields)
+        if "grade_company" in payload:
+            required_fields.discard("grader")
+        if "cost" in payload:
+            required_fields.discard("purchase_price")
+        required_fields.discard("notes")
+        required_fields.discard("quantity")
+        self._validate_required_fields(
+            payload,
+            frozenset(required_fields),
+            f"cards[{index}]",
         )
 
     def _validate_required_fields(
@@ -191,6 +229,9 @@ def card_import_to_dict(result: CardImportResult) -> dict[str, Any]:
     """Return JSON-safe cards demo output."""
 
     return {
+        "portfolio_name": result.portfolio_name,
+        "base_currency": result.base_currency,
+        "valuation_source_priority": list(VALUATION_SOURCE_PRIORITY),
         "cards": [
             _card_position_to_dict(position)
             for position in result.positions
@@ -198,11 +239,22 @@ def card_import_to_dict(result: CardImportResult) -> dict[str, Any]:
     }
 
 
-def _card_position_to_dict(position: CardPosition) -> dict[str, str]:
+def _card_position_to_dict(position: CardPosition) -> dict[str, Any]:
     return {
         "player": position.asset.player,
         "card": position.asset.display_name(),
-        "grade": f"{position.asset.grader} {position.asset.grade}",
+        "grade_company": position.asset.grade_company,
+        "grade": f"{position.asset.grade_company} {position.asset.grade}",
+        "account": position.account,
+        "asset_class": position.asset_class,
+        "status": position.status,
+        "currency": position.asset.currency,
+        "base_currency": position.base_currency,
+        "cost": _format_optional_decimal(position.cost),
+        "purchase_date": position.purchase_date,
+        "purchase_platform": position.purchase_platform,
+        "collection_type": position.collection_type,
+        "valuation_source": position.valuation_source,
         "quantity": _format_decimal(position.quantity),
         "purchase_price": _format_decimal(position.purchase_price),
     }
@@ -210,3 +262,9 @@ def _card_position_to_dict(position: CardPosition) -> dict[str, str]:
 
 def _format_decimal(value: Decimal) -> str:
     return f"{value.quantize(Decimal('0.01'))}"
+
+
+def _format_optional_decimal(value: Decimal | None) -> str | None:
+    if value is None:
+        return None
+    return _format_decimal(value)

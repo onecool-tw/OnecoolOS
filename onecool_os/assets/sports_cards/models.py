@@ -8,6 +8,21 @@ from decimal import Decimal, InvalidOperation
 from onecool_os.assets.base import BaseAsset, BasePosition
 from onecool_os.portfolio.models import Asset, PortfolioError
 
+SUPPORTED_CARD_STATUSES = frozenset(
+    {"Owned", "Listed", "Sold", "Grading", "Shipping", "Reserved"}
+)
+SUPPORTED_COLLECTION_TYPES = frozenset(
+    {"Core", "Investment", "Trading", "PC"}
+)
+VALUATION_SOURCE_PRIORITY = (
+    "eBay Sold",
+    "Card Ladder",
+    "PWCC",
+    "Goldin",
+    "Fanatics",
+    "Manual",
+)
+
 
 class CardError(PortfolioError):
     """Raised for sports card model errors."""
@@ -32,6 +47,12 @@ class CardAsset(BaseAsset):
 
     def __post_init__(self) -> None:
         self._validate_grade()
+
+    @property
+    def grade_company(self) -> str:
+        """Return the grading company using the live portfolio field name."""
+
+        return self.grader
 
     @property
     def asset_type(self) -> str:
@@ -92,6 +113,32 @@ class CardPosition(BasePosition):
     purchase_price: Decimal
     purchase_date: str
     notes: str
+    account: str | None = None
+    asset_class: str | None = None
+    status: str | None = None
+    base_currency: str | None = None
+    cost: Decimal | None = None
+    purchase_platform: str | None = None
+    collection_type: str | None = None
+    valuation_source: str | None = None
+
+    def __post_init__(self) -> None:
+        if self.status and self.status not in SUPPORTED_CARD_STATUSES:
+            raise CardError(f"Unsupported card status: {self.status}")
+        if (
+            self.collection_type
+            and self.collection_type not in SUPPORTED_COLLECTION_TYPES
+        ):
+            raise CardError(
+                f"Unsupported collection_type: {self.collection_type}"
+            )
+        if (
+            self.valuation_source
+            and self.valuation_source not in VALUATION_SOURCE_PRIORITY
+        ):
+            raise CardError(
+                f"Unsupported valuation_source: {self.valuation_source}"
+            )
 
     def total_purchase_cost(self) -> Decimal:
         """Return total purchase cost."""
