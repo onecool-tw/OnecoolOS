@@ -117,6 +117,7 @@ class FundLoader:
         )
         asset_type = self._optional_text(payload.get("asset_type"))
         current_price = payload.get("current_price")
+        cost = payload.get("cost")
 
         try:
             asset = FundAsset(
@@ -145,6 +146,15 @@ class FundLoader:
             current_price=(
                 self._parse_decimal(current_price, "current_price")
                 if current_price is not None
+                else None
+            ),
+            account=self._optional_text(payload.get("account")),
+            asset_class=self._optional_text(payload.get("asset_class")),
+            status=self._optional_text(payload.get("status")),
+            base_currency=self._optional_text(payload.get("base_currency")),
+            cost=(
+                self._parse_decimal(cost, "cost")
+                if cost is not None
                 else None
             ),
             notes=self._optional_text(payload.get("notes")) or "",
@@ -218,6 +228,11 @@ def _fund_position_to_dict(position: FundPosition) -> dict[str, str | None]:
         "asset_type": position.asset.asset_type,
         "name": position.asset.name,
         "currency": position.asset.currency,
+        "account": position.account,
+        "asset_class": position.asset_class,
+        "status": position.status,
+        "base_currency": position.base_currency,
+        "cost": _format_decimal(position.cost),
         "fund_house": position.asset.fund_house,
         "region": position.asset.region,
         "theme": position.asset.theme,

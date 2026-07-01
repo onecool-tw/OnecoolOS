@@ -101,6 +101,22 @@ def test_fund_loader_real_import_path_without_current_price(
     assert result.portfolio.total_market_value() == Decimal("0")
 
 
+def test_fund_loader_preserves_common_portfolio_fields(
+    tmp_path: Path,
+) -> None:
+    result = FundLoader().load(write_real_funds_json(tmp_path))
+    position = result.positions[0]
+    output = json.loads(json.dumps(fund_import_output(result)))
+
+    assert position.account == "AnueFund"
+    assert position.asset_class == "Fund"
+    assert position.status == "Active"
+    assert position.base_currency == "TWD"
+    assert position.cost == Decimal("1250")
+    assert output["funds"][0]["account"] == "AnueFund"
+    assert output["funds"][0]["cost"] == "1250.00"
+
+
 def test_fund_loader_invalid_json(tmp_path: Path) -> None:
     json_path = tmp_path / "funds.json"
     json_path.write_text("{invalid", encoding="utf-8")
@@ -476,12 +492,18 @@ def funds_json_payload() -> dict[str, object]:
 def real_funds_json_payload() -> dict[str, object]:
     return {
         "portfolio_name": "Real Funds",
+        "base_currency": "TWD",
         "positions": [
             {
+                "account": "AnueFund",
+                "asset_class": "Fund",
+                "status": "Active",
                 "asset_id": "FUND-US-GROWTH",
                 "symbol": "USGROWTH",
                 "name": "Sample US Growth Fund",
                 "currency": "USD",
+                "base_currency": "TWD",
+                "cost": "1250",
                 "fund_house": "Sample Funds",
                 "region": "US",
                 "theme": "Growth",
@@ -490,10 +512,15 @@ def real_funds_json_payload() -> dict[str, object]:
                 "notes": "Local user-owned data file.",
             },
             {
+                "account": "AnueFund",
+                "asset_class": "Fund",
+                "status": "Active",
                 "asset_id": "FUND-GLOBAL-INCOME",
                 "symbol": "GLBINCOME",
                 "name": "Sample Global Income Fund",
                 "currency": "USD",
+                "base_currency": "TWD",
+                "cost": "780",
                 "fund_house": "Example Asset Management",
                 "region": "Global",
                 "theme": "Income",
@@ -526,6 +553,12 @@ def write_real_funds_json(
         encoding="utf-8",
     )
     return json_path
+
+
+def fund_import_output(result):
+    from onecool_os.assets.funds.loader import fund_import_to_dict
+
+    return fund_import_to_dict(result)
 
 
 def scripted_input(values: list[str]):

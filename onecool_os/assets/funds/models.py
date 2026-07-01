@@ -48,6 +48,11 @@ class FundPosition(BasePosition):
     quantity: Decimal
     average_cost: Decimal
     current_price: Decimal | None = None
+    account: str | None = None
+    asset_class: str | None = None
+    status: str | None = None
+    base_currency: str | None = None
+    cost: Decimal | None = None
     notes: str = ""
 
     def market_value(self) -> Decimal:
