@@ -26,6 +26,7 @@ class SecurityImportResult:
     """Loaded securities positions."""
 
     portfolio_name: str
+    base_currency: str | None
     positions: tuple[SecurityPosition, ...]
 
 
@@ -60,6 +61,7 @@ class SecurityLoader:
             payload["portfolio_name"],
             "portfolio_name",
         )
+        base_currency = self._optional_text(payload.get("base_currency"))
         positions_payload = payload["positions"]
         if not isinstance(positions_payload, list):
             raise SecurityLoaderError("positions must be a list.")
@@ -81,6 +83,7 @@ class SecurityLoader:
         )
         return SecurityImportResult(
             portfolio_name=portfolio_name,
+            base_currency=base_currency,
             positions=tuple(positions),
         )
 
@@ -113,6 +116,7 @@ class SecurityLoader:
             self.required_position_fields,
             f"positions[{index}]",
         )
+        cost = payload.get("cost")
 
         try:
             asset = SecurityAsset(
@@ -143,6 +147,17 @@ class SecurityLoader:
                 ),
                 purchase_date=self._optional_text(
                     payload.get("purchase_date"),
+                ),
+                account=self._optional_text(payload.get("account")),
+                asset_class=self._optional_text(payload.get("asset_class")),
+                status=self._optional_text(payload.get("status")),
+                base_currency=self._optional_text(
+                    payload.get("base_currency"),
+                ),
+                cost=(
+                    self._parse_decimal(cost, "cost")
+                    if cost is not None
+                    else None
                 ),
                 notes=self._optional_text(payload.get("notes")) or "",
             )
@@ -190,6 +205,7 @@ def security_import_to_dict(result: SecurityImportResult) -> dict[str, Any]:
 
     return {
         "portfolio_name": result.portfolio_name,
+        "base_currency": result.base_currency,
         "securities": [
             _security_position_to_dict(position)
             for position in result.positions
@@ -205,6 +221,11 @@ def _security_position_to_dict(
         "symbol": position.asset.symbol,
         "market": position.asset.market,
         "asset_type": position.asset.asset_type,
+        "account": position.account,
+        "asset_class": position.asset_class,
+        "status": position.status,
+        "base_currency": position.base_currency,
+        "cost": _format_optional_decimal(position.cost),
         "quantity": _format_decimal(position.quantity),
         "average_cost": _format_decimal(position.average_cost),
         "total_cost": _format_decimal(position.total_cost()),
@@ -213,3 +234,9 @@ def _security_position_to_dict(
 
 def _format_decimal(value: Decimal) -> str:
     return f"{value.quantize(Decimal('0.01'))}"
+
+
+def _format_optional_decimal(value: Decimal | None) -> str | None:
+    if value is None:
+        return None
+    return _format_decimal(value)

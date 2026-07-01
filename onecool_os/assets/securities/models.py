@@ -72,6 +72,11 @@ class SecurityPosition(BasePosition):
     quantity: Decimal
     average_cost: Decimal
     purchase_date: str | None = None
+    account: str | None = None
+    asset_class: str | None = None
+    status: str | None = None
+    base_currency: str | None = None
+    cost: Decimal | None = None
     notes: str = ""
 
     def __post_init__(self) -> None:

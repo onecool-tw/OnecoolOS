@@ -89,8 +89,46 @@ def test_security_loader_valid_json(tmp_path: Path) -> None:
     result = SecurityLoader().load(write_securities_json(tmp_path))
 
     assert result.portfolio_name == "Securities"
+    assert result.base_currency == "TWD"
     assert len(result.positions) == 2
     assert result.positions[0].total_cost() == Decimal("5000")
+
+
+def test_security_loader_empty_live_portfolio(tmp_path: Path) -> None:
+    json_path = tmp_path / "securities.json"
+    json_path.write_text(
+        json.dumps(
+            {
+                "portfolio_name": "Onecool Securities",
+                "base_currency": "TWD",
+                "positions": [],
+            }
+        ),
+        encoding="utf-8",
+    )
+
+    result = SecurityLoader().load(json_path)
+
+    assert result.portfolio_name == "Onecool Securities"
+    assert result.base_currency == "TWD"
+    assert result.positions == ()
+
+
+def test_security_loader_preserves_common_portfolio_fields(
+    tmp_path: Path,
+) -> None:
+    result = SecurityLoader().load(write_securities_json(tmp_path))
+    position = result.positions[0]
+    payload = security_import_output(result)
+
+    assert position.account == "Brokerage"
+    assert position.asset_class == "ETF"
+    assert position.status == "Active"
+    assert position.base_currency == "TWD"
+    assert position.cost == Decimal("5000")
+    assert payload["base_currency"] == "TWD"
+    assert payload["securities"][0]["account"] == "Brokerage"
+    assert payload["securities"][0]["cost"] == "5000.00"
 
 
 def test_security_loader_invalid_json(tmp_path: Path) -> None:
@@ -352,6 +390,7 @@ def test_cli_securities_import_works(tmp_path: Path, monkeypatch, capsys) -> Non
     payload = json.loads(capsys.readouterr().out)
 
     assert payload["portfolio_name"] == "Securities"
+    assert payload["base_currency"] == "TWD"
     assert payload["securities"][0]["security"] == "SPDR S&P 500 ETF Trust"
     assert payload["securities"][0]["symbol"] == "SPY"
     assert payload["securities"][0]["total_cost"] == "5000.00"
@@ -432,13 +471,19 @@ def sample_security_asset() -> SecurityAsset:
 def securities_json_payload() -> dict[str, object]:
     return {
         "portfolio_name": "Securities",
+        "base_currency": "TWD",
         "positions": [
             {
+                "account": "Brokerage",
+                "asset_class": "ETF",
+                "status": "Active",
                 "asset_id": "SECURITY-US-SPY",
                 "symbol": "SPY",
                 "asset_type": "ETF",
                 "name": "SPDR S&P 500 ETF Trust",
                 "currency": "USD",
+                "base_currency": "TWD",
+                "cost": "5000",
                 "market": "US",
                 "exchange": "NYSEARCA",
                 "country": "United States",
@@ -450,11 +495,16 @@ def securities_json_payload() -> dict[str, object]:
                 "notes": "Sample holding.",
             },
             {
+                "account": "Brokerage",
+                "asset_class": "ETF",
+                "status": "Active",
                 "asset_id": "SECURITY-TW-0050",
                 "symbol": "0050",
                 "asset_type": "ETF",
                 "name": "Yuanta Taiwan Top 50 ETF",
                 "currency": "TWD",
+                "base_currency": "TWD",
+                "cost": "3000",
                 "market": "TW",
                 "exchange": "TWSE",
                 "country": "Taiwan",
@@ -477,6 +527,12 @@ def write_securities_json(
         encoding="utf-8",
     )
     return json_path
+
+
+def security_import_output(result):
+    from onecool_os.assets.securities.loader import security_import_to_dict
+
+    return security_import_to_dict(result)
 
 
 def scripted_input(values: list[str]):
