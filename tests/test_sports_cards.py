@@ -13,6 +13,10 @@ from onecool_os.assets.sports_cards.models import (
     CardPosition,
     VALUATION_SOURCE_PRIORITY,
 )
+from onecool_os.assets.sports_cards.psa_csv import (
+    PsaCsvImportError,
+    PsaCsvImporter,
+)
 
 
 def write_settings(config_dir: Path, root_dir: Path) -> None:
@@ -270,6 +274,99 @@ def test_cli_cards_import_works(tmp_path: Path, monkeypatch, capsys) -> None:
     assert payload["cards"][0]["grade_company"] == "PSA"
 
 
+def test_psa_csv_import_creates_live_portfolio(tmp_path: Path) -> None:
+    csv_path = write_psa_csv(tmp_path)
+    output_path = tmp_path / "sports_cards.json"
+
+    result = PsaCsvImporter().import_csv(csv_path, output_path)
+    loaded = CardLoader().load(output_path)
+    position = loaded.positions[0]
+
+    assert result.imported_count == 1
+    assert result.skipped_duplicates == 0
+    assert result.total_cards == 1
+    assert loaded.portfolio_name == "Onecool Sports Cards"
+    assert loaded.base_currency == "TWD"
+    assert position.asset.asset_id == "PSA-12345678"
+    assert position.asset.player == "Shohei Ohtani"
+    assert position.asset.serial_number == "12345678"
+    assert position.status == "Owned"
+    assert position.collection_type == "Investment"
+    assert position.valuation_source == "eBay Sold"
+    assert position.cost == Decimal("125.50")
+    assert position.purchase_platform == "PSA Collection"
+
+
+def test_psa_csv_import_does_not_overwrite_existing_cards(
+    tmp_path: Path,
+) -> None:
+    output_path = write_live_cards_json(tmp_path)
+    csv_path = write_psa_csv(tmp_path)
+
+    result = PsaCsvImporter().import_csv(csv_path, output_path)
+    loaded = CardLoader().load(output_path)
+
+    assert result.imported_count == 1
+    assert result.total_cards == 2
+    assert loaded.positions[0].asset.player == "Michael Jordan"
+    assert loaded.positions[1].asset.player == "Shohei Ohtani"
+
+
+def test_psa_csv_import_skips_duplicate_cert_number(tmp_path: Path) -> None:
+    csv_path = write_psa_csv(
+        tmp_path,
+        rows=[
+            psa_csv_row(cert_number="12345678"),
+            psa_csv_row(cert_number="12345678"),
+        ],
+    )
+    output_path = tmp_path / "sports_cards.json"
+
+    result = PsaCsvImporter().import_csv(csv_path, output_path)
+    loaded = CardLoader().load(output_path)
+
+    assert result.imported_count == 1
+    assert result.skipped_duplicates == 1
+    assert len(loaded.positions) == 1
+
+
+def test_psa_csv_import_rejects_missing_field(tmp_path: Path) -> None:
+    csv_path = tmp_path / "psa.csv"
+    csv_path.write_text(
+        "Item,Subject\nSample Card,Shohei Ohtani\n",
+        encoding="utf-8",
+    )
+
+    try:
+        PsaCsvImporter().import_csv(csv_path, tmp_path / "sports_cards.json")
+    except PsaCsvImportError as exc:
+        assert "Missing PSA CSV field" in str(exc)
+        assert "Cert Number" in str(exc)
+    else:
+        raise AssertionError("Missing PSA CSV fields should be rejected.")
+
+
+def test_cli_cards_import_csv_works(
+    tmp_path: Path,
+    monkeypatch,
+    capsys,
+) -> None:
+    config_dir = tmp_path / "config"
+    write_settings(config_dir, tmp_path)
+    monkeypatch.setenv("ONECOOL_OS_CONFIG_DIR", str(config_dir))
+    monkeypatch.chdir(tmp_path)
+    csv_path = write_psa_csv(tmp_path)
+
+    assert main(["cards", "import-csv", str(csv_path)]) == 0
+    payload = json.loads(capsys.readouterr().out)
+    loaded = CardLoader().load(tmp_path / "data/portfolio/sports_cards.json")
+
+    assert payload["status"] == "success"
+    assert payload["imported_count"] == 1
+    assert payload["output_path"] == "data/portfolio/sports_cards.json"
+    assert loaded.positions[0].asset.player == "Shohei Ohtani"
+
+
 def sample_card_asset() -> CardAsset:
     return CardAsset(
         asset_id="CARD-JORDAN-1986-FLEER-57-PSA9",
@@ -409,3 +506,49 @@ def card_import_output(result):
     from onecool_os.assets.sports_cards.loader import card_import_to_dict
 
     return card_import_to_dict(result)
+
+
+def write_psa_csv(
+    tmp_path: Path,
+    rows: list[dict[str, str]] | None = None,
+) -> Path:
+    csv_path = tmp_path / "psa.csv"
+    fieldnames = [
+        "Item",
+        "Subject",
+        "Year",
+        "Set",
+        "Card Number",
+        "Grade Issuer",
+        "Grade",
+        "Cert Number",
+        "My Cost",
+        "Date Acquired",
+        "Source",
+        "My Notes",
+    ]
+    csv_rows = rows or [psa_csv_row()]
+    lines = [",".join(fieldnames)]
+    lines.extend(
+        ",".join(row[field] for field in fieldnames)
+        for row in csv_rows
+    )
+    csv_path.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    return csv_path
+
+
+def psa_csv_row(cert_number: str = "12345678") -> dict[str, str]:
+    return {
+        "Item": "2018 Topps Chrome Shohei Ohtani #150",
+        "Subject": "Shohei Ohtani",
+        "Year": "2018",
+        "Set": "Topps Chrome",
+        "Card Number": "150",
+        "Grade Issuer": "PSA",
+        "Grade": "10",
+        "Cert Number": cert_number,
+        "My Cost": "125.50",
+        "Date Acquired": "2026-01-15",
+        "Source": "PSA Collection",
+        "My Notes": "CSV import sample",
+    }

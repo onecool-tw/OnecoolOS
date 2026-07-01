@@ -11,6 +11,10 @@ from onecool_os.assets.sports_cards.loader import (
     CardLoaderError,
     card_import_to_dict,
 )
+from onecool_os.assets.sports_cards.psa_csv import (
+    PsaCsvImportError,
+    PsaCsvImporter,
+)
 from onecool_os.core.config import ConfigLoader
 from onecool_os.core.logging import LoggingSystem
 
@@ -36,6 +40,11 @@ def add_cards_parser(subparsers: argparse._SubParsersAction) -> None:
         help="Load local sports cards from JSON.",
     )
     cards_import_parser.add_argument("json_path")
+    cards_csv_parser = cards_subparsers.add_parser(
+        "import-csv",
+        help="Import PSA Collection CSV into local sports cards JSON.",
+    )
+    cards_csv_parser.add_argument("csv_path")
 
 
 def handle_cards_command(args: argparse.Namespace) -> int:
@@ -75,6 +84,23 @@ def handle_cards_command(args: argparse.Namespace) -> int:
             ))
             return 1
         print(json.dumps(card_import_to_dict(result), indent=2))
+        return 0
+    if args.cards_command == "import-csv":
+        try:
+            result = PsaCsvImporter(logger=logger).import_csv(
+                Path(args.csv_path)
+            )
+        except PsaCsvImportError as exc:
+            logger.error("Cards CSV import failed: %s", exc)
+            print(json.dumps(
+                {
+                    "status": "failure",
+                    "error_message": str(exc),
+                },
+                indent=2,
+            ))
+            return 1
+        print(json.dumps(result.to_dict(), indent=2))
         return 0
 
     raise ValueError(f"Unsupported cards command: {args.cards_command}")
