@@ -114,6 +114,12 @@ Show sample sports cards:
 python -m onecool_os cards demo
 ```
 
+Import a PSA Collection CSV into the local sports cards portfolio:
+
+```bash
+python -m onecool_os cards import-csv path/to/psa_collection.csv
+```
+
 Show sample real estate:
 
 ```bash
@@ -570,6 +576,47 @@ python -m onecool_os securities create
 The import output includes security name, symbol, market, asset type, quantity,
 average cost, and total cost.
 
+## Connector Layer
+
+Onecool OS uses a Connector Layer to import or sync data from external
+platforms without putting vendor-specific parsing inside asset models,
+transactions, valuation, or allocation logic.
+
+Connector flow:
+
+```text
+Connector
+↓
+Assets
+↓
+Transactions
+↓
+Valuation
+↓
+Allocation
+↓
+Risk
+↓
+Scenario
+↓
+Decision
+```
+
+Connectors translate external files, APIs, or account exports into Onecool OS
+schemas. Asset modules describe what the user owns, Transactions record what
+happened, Valuation estimates worth, and Allocation analyzes distribution.
+
+Current connector:
+
+- PSA Collection CSV Connector
+
+Planned connectors:
+
+- eBay Orders Connector
+- Card Ladder Connector
+- BGS Connector
+- COMC Connector
+
 ## Sports Cards Module
 
 Onecool OS includes a Sports Cards asset module foundation in
@@ -583,6 +630,7 @@ Current Sports Cards components:
   number, and currency.
 - `CardPosition`: Quantity, purchase price, purchase date, and notes.
 - `CardLoader`: JSON loader for sample card holdings.
+- `PsaCsvImporter`: PSA Collection CSV Connector for local PSA exports.
 
 Run the cards demo:
 
@@ -595,6 +643,17 @@ Import the local live sports cards portfolio:
 ```bash
 python -m onecool_os cards import data/portfolio/sports_cards.json
 ```
+
+Import a PSA Collection CSV without overwriting existing cards:
+
+```bash
+python -m onecool_os cards import-csv path/to/psa_collection.csv
+```
+
+The PSA Collection CSV Connector maps `Item`, `Subject`, `Year`, `Set`,
+`Card Number`, `Grade Issuer`, `Grade`, `Cert Number`, `My Cost`,
+`Date Acquired`, `Source`, and `My Notes` into the Sports Cards live portfolio
+schema. Duplicate cards are detected by `Cert Number`.
 
 Sports Cards are inventory-style assets: each card is an individual asset.
 Cards are not aggregated simply because they share the same player, set, or

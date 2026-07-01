@@ -48,6 +48,45 @@ transparent, or the decision workflow more useful.
 
 ## Architecture
 
+Onecool OS data flow:
+
+```text
+Connector
+↓
+Assets
+↓
+Transactions
+↓
+Valuation
+↓
+Allocation
+↓
+Risk
+↓
+Scenario
+↓
+Decision
+```
+
+Connectors import or sync data from external platforms and local exports. They
+translate platform-specific files, APIs, or account views into Onecool OS
+formats without owning business logic.
+
+Assets describe what the user owns. They preserve identity, category,
+metadata, and ownership-specific fields for each asset class.
+
+Transactions record what happened. They are immutable event records used to
+derive portfolio state over time.
+
+Valuation estimates worth. It consumes assets, positions, market data, and
+connector-provided context to produce explainable valuation results.
+
+Allocation analyzes distribution. It uses valuation outputs to describe where
+capital is concentrated across assets, categories, currencies, and accounts.
+
+Risk, Scenario, and Decision layers build on validated asset, transaction,
+valuation, and allocation data. They must not bypass the lower layers.
+
 ### Core Engine
 
 Owns the application lifecycle, plugin loading, event publishing, service
@@ -77,6 +116,17 @@ and unrealized PnL.
 Represent specific asset classes such as funds, sports cards, real estate,
 cash, and gold. Asset modules map their domain models into Portfolio Engine
 models while preserving asset-specific metadata and validation.
+
+### Connector Layer
+
+Provides adapters for external platforms, downloaded CSV files, broker exports,
+valuation services, and future account sync workflows. Connectors normalize
+external data into asset module schemas, transaction records, or valuation
+inputs while keeping vendor-specific parsing isolated from asset business
+models.
+
+The current connector is the PSA Collection CSV Connector for Sports Cards.
+Planned connectors include eBay Orders, Card Ladder, BGS, and COMC.
 
 ### Intelligence Engine
 

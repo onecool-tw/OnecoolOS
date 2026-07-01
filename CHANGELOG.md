@@ -9,6 +9,8 @@ Commits.
 
 ### Added
 
+- Connector Layer documentation in the master specification and README.
+- PSA Collection CSV Connector documentation for Sports Cards.
 - Shared transaction framework under `onecool_os.transactions`.
 - Immutable base transaction records, transaction type enum, transaction
   registry, and JSON loader.
