@@ -53,6 +53,12 @@ Onecool OS data flow:
 ```text
 Connector
 ↓
+imports/
+↓
+Normalize
+↓
+data/portfolio/
+↓
 Assets
 ↓
 Transactions
@@ -71,6 +77,13 @@ Decision
 Connectors import or sync data from external platforms and local exports. They
 translate platform-specific files, APIs, or account views into Onecool OS
 formats without owning business logic.
+
+`imports/` contains raw files exported from external platforms. Raw imports are
+not Onecool OS internal data and should not be committed when they contain user
+portfolio information.
+
+Normalization converts connector input into Onecool OS internal schemas.
+Normalized user portfolio data belongs in `data/portfolio/`.
 
 Assets describe what the user owns. They preserve identity, category,
 metadata, and ownership-specific fields for each asset class.
@@ -124,6 +137,18 @@ valuation services, and future account sync workflows. Connectors normalize
 external data into asset module schemas, transaction records, or valuation
 inputs while keeping vendor-specific parsing isolated from asset business
 models.
+
+Connector input should live under provider-specific `imports/` directories:
+
+- `imports/psa/`
+- `imports/bgs/`
+- `imports/ebay/`
+- `imports/cardladder/`
+- `imports/comc/`
+
+Onecool OS internal normalized portfolio data should live under
+`data/portfolio/`, including local files such as `funds.json`,
+`securities.json`, `sports_cards.json`, `cash.json`, and `real_estate.json`.
 
 The current connector is the PSA Collection CSV Connector for Sports Cards.
 Planned connectors include eBay Orders, Card Ladder, BGS, and COMC.
@@ -225,6 +250,12 @@ Sports Cards inventory flow:
 
 ```text
 Connector
+↓
+imports/
+↓
+Normalize
+↓
+data/portfolio/
 ↓
 Inventory
 ↓

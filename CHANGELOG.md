@@ -9,6 +9,8 @@ Commits.
 
 ### Added
 
+- Repository import layout under `imports/` for raw external platform exports.
+- Documentation separating raw imports from normalized `data/portfolio/` files.
 - Sports Cards inventory foundation with inventory IDs, certificate numbers,
   quantity state, storage metadata, and last inventory update.
 - Connector Layer documentation in the master specification and README.

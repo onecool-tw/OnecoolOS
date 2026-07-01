@@ -117,7 +117,7 @@ python -m onecool_os cards demo
 Import a PSA Collection CSV into the local sports cards portfolio:
 
 ```bash
-python -m onecool_os cards import-csv path/to/psa_collection.csv
+python -m onecool_os cards import-csv imports/psa/psa_collection.csv
 ```
 
 Show sample real estate:
@@ -587,20 +587,39 @@ Connector flow:
 ```text
 Connector
 ↓
-Assets
+imports/
+↓
+Normalize
+↓
+data/portfolio/
+↓
+Inventory
 ↓
 Transactions
 ↓
 Valuation
 ↓
 Allocation
-↓
-Risk
-↓
-Scenario
-↓
-Decision
 ```
+
+Raw exported files belong under `imports/`. Onecool OS normalized local data
+belongs under `data/portfolio/`.
+
+Recommended raw import directories:
+
+- `imports/psa/`
+- `imports/bgs/`
+- `imports/ebay/`
+- `imports/cardladder/`
+- `imports/comc/`
+
+Recommended normalized portfolio files:
+
+- `data/portfolio/funds.json`
+- `data/portfolio/securities.json`
+- `data/portfolio/sports_cards.json`
+- `data/portfolio/cash.json`
+- `data/portfolio/real_estate.json`
 
 Connectors translate external files, APIs, or account exports into Onecool OS
 schemas. Asset modules describe what the user owns, Transactions record what
@@ -616,6 +635,18 @@ Planned connectors:
 - Card Ladder Connector
 - BGS Connector
 - COMC Connector
+
+Recommended PSA workflow:
+
+```text
+1. Export PSA Collection
+↓
+2. Save the raw CSV under imports/psa/
+↓
+3. Run python -m onecool_os cards import-csv imports/psa/<file>.csv
+↓
+4. data/portfolio/sports_cards.json is updated
+```
 
 ## Sports Cards Module
 
@@ -647,7 +678,7 @@ python -m onecool_os cards import data/portfolio/sports_cards.json
 Import a PSA Collection CSV without overwriting existing cards:
 
 ```bash
-python -m onecool_os cards import-csv path/to/psa_collection.csv
+python -m onecool_os cards import-csv imports/psa/psa_collection.csv
 ```
 
 The PSA Collection CSV Connector maps `Item`, `Subject`, `Year`, `Set`,
@@ -669,6 +700,12 @@ Sports Cards inventory flow:
 
 ```text
 Connector
+↓
+imports/
+↓
+Normalize
+↓
+data/portfolio/
 ↓
 Inventory
 ↓
@@ -987,6 +1024,15 @@ unrealized PnL, database persistence, or changes to Portfolio calculations.
 │   ├── funds_demo.json
 │   ├── portfolio_demo.json
 │   └── real_estate_demo.json
+├── imports
+│   ├── bgs
+│   ├── cardladder
+│   ├── comc
+│   ├── ebay
+│   └── psa
+├── data
+│   ├── portfolio
+│   └── transactions
 ├── docs
 │   ├── architecture.md
 │   ├── coding-standard.md
