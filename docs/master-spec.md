@@ -221,6 +221,25 @@ must not be aggregated simply because it has the same player, set, or card
 number as another card. Future valuation, transactions, grading, and sales
 workflows operate on individual card records.
 
+Sports Cards inventory flow:
+
+```text
+Connector
+↓
+Inventory
+↓
+Asset
+↓
+Transaction
+↓
+Valuation
+```
+
+Inventory extends the Sports Cards asset module. Each inventory item represents
+one physical graded card and may track certificate number, quantity state,
+storage location, and last inventory update. Inventory does not redesign the
+Portfolio Engine and does not replace immutable transaction records.
+
 Default sports card valuation source priority:
 
 1. eBay Sold

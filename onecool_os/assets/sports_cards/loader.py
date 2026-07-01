@@ -65,7 +65,11 @@ class CardLoader:
         path = Path(json_path)
         self.logger.info("Starting cards import from %s", path)
         payload = self._read_payload(path)
-        self._validate_required_fields(payload, self.required_root_fields, "root")
+        self._validate_required_fields(
+            payload,
+            self.required_root_fields,
+            "root",
+        )
         portfolio_name = self._optional_text(payload.get("portfolio_name"))
         base_currency = self._optional_text(payload.get("base_currency"))
         cards_payload = payload["cards"]
@@ -76,7 +80,10 @@ class CardLoader:
             self._load_position(card_payload, index)
             for index, card_payload in enumerate(cards_payload)
         )
-        self.logger.info("Cards import completed with %s cards.", len(positions))
+        self.logger.info(
+            "Cards import completed with %s cards.",
+            len(positions),
+        )
         return CardImportResult(
             portfolio_name=portfolio_name,
             base_currency=base_currency,
@@ -149,7 +156,9 @@ class CardLoader:
                 account=self._optional_text(payload.get("account")),
                 asset_class=self._optional_text(payload.get("asset_class")),
                 status=self._optional_text(payload.get("status")),
-                base_currency=self._optional_text(payload.get("base_currency")),
+                base_currency=self._optional_text(
+                    payload.get("base_currency"),
+                ),
                 cost=(
                     self._parse_decimal(payload["cost"], "cost")
                     if "cost" in payload
@@ -164,11 +173,45 @@ class CardLoader:
                 valuation_source=self._optional_text(
                     payload.get("valuation_source"),
                 ),
+                inventory_id=self._optional_text(payload.get("inventory_id")),
+                cert_number=self._optional_text(
+                    payload.get("cert_number")
+                    or payload.get("serial_number"),
+                ),
+                owned_quantity=self._parse_optional_decimal(
+                    payload.get("owned_quantity"),
+                    "owned_quantity",
+                    require_positive=True,
+                ),
+                available_quantity=self._parse_optional_decimal(
+                    payload.get("available_quantity"),
+                    "available_quantity",
+                ),
+                listed_quantity=self._parse_optional_decimal(
+                    payload.get("listed_quantity"),
+                    "listed_quantity",
+                ),
+                sold_quantity=self._parse_optional_decimal(
+                    payload.get("sold_quantity"),
+                    "sold_quantity",
+                ),
+                location=self._optional_text(payload.get("location")),
+                cabinet=self._optional_text(payload.get("cabinet")),
+                box=self._optional_text(payload.get("box")),
+                row=self._optional_text(payload.get("row")),
+                slot=self._optional_text(payload.get("slot")),
+                last_inventory_update=self._optional_text(
+                    payload.get("last_inventory_update"),
+                ),
             )
         except CardError as exc:
             raise CardLoaderError(str(exc)) from exc
 
-    def _validate_card_fields(self, payload: dict[str, Any], index: int) -> None:
+    def _validate_card_fields(
+        self,
+        payload: dict[str, Any],
+        index: int,
+    ) -> None:
         required_fields = set(self.required_card_fields)
         if "grade_company" in payload:
             required_fields.discard("grader")
@@ -224,6 +267,20 @@ class CardLoader:
             raise CardLoaderError(f"Invalid {field_name}: {value}")
         return decimal_value
 
+    def _parse_optional_decimal(
+        self,
+        value: Any,
+        field_name: str,
+        require_positive: bool = False,
+    ) -> Decimal | None:
+        if value is None or value == "":
+            return None
+        return self._parse_decimal(
+            value,
+            field_name,
+            require_positive=require_positive,
+        )
+
 
 def card_import_to_dict(result: CardImportResult) -> dict[str, Any]:
     """Return JSON-safe cards demo output."""
@@ -255,6 +312,20 @@ def _card_position_to_dict(position: CardPosition) -> dict[str, Any]:
         "purchase_platform": position.purchase_platform,
         "collection_type": position.collection_type,
         "valuation_source": position.valuation_source,
+        "inventory_id": position.inventory_id,
+        "cert_number": position.cert_number,
+        "owned_quantity": _format_optional_decimal(position.owned_quantity),
+        "available_quantity": _format_optional_decimal(
+            position.available_quantity,
+        ),
+        "listed_quantity": _format_optional_decimal(position.listed_quantity),
+        "sold_quantity": _format_optional_decimal(position.sold_quantity),
+        "location": position.location,
+        "cabinet": position.cabinet,
+        "box": position.box,
+        "row": position.row,
+        "slot": position.slot,
+        "last_inventory_update": position.last_inventory_update,
         "quantity": _format_decimal(position.quantity),
         "purchase_price": _format_decimal(position.purchase_price),
     }

@@ -9,6 +9,8 @@ Commits.
 
 ### Added
 
+- Sports Cards inventory foundation with inventory IDs, certificate numbers,
+  quantity state, storage metadata, and last inventory update.
 - Connector Layer documentation in the master specification and README.
 - PSA Collection CSV Connector documentation for Sports Cards.
 - Shared transaction framework under `onecool_os.transactions`.

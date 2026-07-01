@@ -660,6 +660,52 @@ Cards are not aggregated simply because they share the same player, set, or
 card number. Future valuation, transactions, grading, and sales workflows will
 operate on individual card records.
 
+### Sports Cards Inventory Layer
+
+The Sports Cards Inventory Layer extends the Sports Cards asset module without
+redesigning Portfolio. Each inventory item represents one physical graded card.
+
+Sports Cards inventory flow:
+
+```text
+Connector
+↓
+Inventory
+↓
+Asset
+↓
+Transaction
+↓
+Valuation
+```
+
+Inventory records can track:
+
+- `inventory_id`
+- `cert_number`
+- `owned_quantity`
+- `available_quantity`
+- `listed_quantity`
+- `sold_quantity`
+- `location`
+- `cabinet`
+- `box`
+- `row`
+- `slot`
+- `last_inventory_update`
+
+Supported inventory statuses:
+
+- `Owned`
+- `Listed`
+- `Reserved`
+- `Grading`
+- `Shipping`
+- `Sold`
+
+Storage metadata is optional. Use `cabinet`, `box`, `row`, and `slot` only when
+the card has a known storage location.
+
 The live sports cards portfolio supports common fields shared with Funds and
 Securities:
 

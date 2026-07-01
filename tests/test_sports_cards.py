@@ -11,6 +11,7 @@ from onecool_os.assets.sports_cards.models import (
     CardAsset,
     CardError,
     CardPosition,
+    SUPPORTED_INVENTORY_STATUSES,
     VALUATION_SOURCE_PRIORITY,
 )
 from onecool_os.assets.sports_cards.psa_csv import (
@@ -91,6 +92,57 @@ def test_card_position_creation() -> None:
     assert position.total_purchase_cost() == Decimal("17000")
 
 
+def test_card_position_supports_inventory_metadata() -> None:
+    position = CardPosition(
+        asset=sample_card_asset(),
+        quantity=Decimal("1"),
+        purchase_price=Decimal("8500"),
+        purchase_date="2026-01-15",
+        notes="Sample note.",
+        status="Owned",
+        inventory_id="INV-PSA-12345678",
+        cert_number="12345678",
+        owned_quantity=Decimal("1"),
+        available_quantity=Decimal("1"),
+        listed_quantity=Decimal("0"),
+        sold_quantity=Decimal("0"),
+        location="Vault",
+        cabinet="A",
+        box="B1",
+        row="R1",
+        slot="S1",
+        last_inventory_update="2026-01-16",
+    )
+
+    assert "Owned" in SUPPORTED_INVENTORY_STATUSES
+    assert position.inventory_id == "INV-PSA-12345678"
+    assert position.cert_number == "12345678"
+    assert position.available_quantity == Decimal("1")
+    assert position.location == "Vault"
+    assert position.box == "B1"
+
+
+def test_card_position_rejects_invalid_inventory_quantity() -> None:
+    try:
+        CardPosition(
+            asset=sample_card_asset(),
+            quantity=Decimal("1"),
+            purchase_price=Decimal("8500"),
+            purchase_date="2026-01-15",
+            notes="Sample note.",
+            owned_quantity=Decimal("1"),
+            available_quantity=Decimal("1"),
+            listed_quantity=Decimal("1"),
+            sold_quantity=Decimal("0"),
+        )
+    except CardError as exc:
+        assert "exceed owned_quantity" in str(exc)
+    else:
+        raise AssertionError(
+            "Invalid inventory allocation should be rejected."
+        )
+
+
 def test_card_loader_valid_json(tmp_path: Path) -> None:
     result = CardLoader().load(write_cards_json(tmp_path))
 
@@ -136,6 +188,18 @@ def test_card_loader_preserves_live_portfolio_metadata(
     assert position.collection_type == "Investment"
     assert position.valuation_source == "eBay Sold"
     assert position.asset.grade_company == "PSA"
+    assert position.inventory_id == "INV-CARD-JORDAN"
+    assert position.cert_number == "87654321"
+    assert position.owned_quantity == Decimal("1")
+    assert position.available_quantity == Decimal("1")
+    assert position.listed_quantity == Decimal("0")
+    assert position.sold_quantity == Decimal("0")
+    assert position.location == "Vault"
+    assert position.cabinet == "A"
+    assert position.box == "Box 1"
+    assert position.row == "Row 1"
+    assert position.slot == "Slot 1"
+    assert position.last_inventory_update == "2026-01-16"
 
 
 def test_card_import_output_includes_live_metadata(tmp_path: Path) -> None:
@@ -150,6 +214,11 @@ def test_card_import_output_includes_live_metadata(tmp_path: Path) -> None:
     assert payload["cards"][0]["account"] == "Vault"
     assert payload["cards"][0]["cost"] == "8500.00"
     assert payload["cards"][0]["valuation_source"] == "eBay Sold"
+    assert payload["cards"][0]["inventory_id"] == "INV-CARD-JORDAN"
+    assert payload["cards"][0]["cert_number"] == "87654321"
+    assert payload["cards"][0]["owned_quantity"] == "1.00"
+    assert payload["cards"][0]["available_quantity"] == "1.00"
+    assert payload["cards"][0]["location"] == "Vault"
 
 
 def test_card_loader_invalid_json(tmp_path: Path) -> None:
@@ -295,6 +364,13 @@ def test_psa_csv_import_creates_live_portfolio(tmp_path: Path) -> None:
     assert position.valuation_source == "eBay Sold"
     assert position.cost == Decimal("125.50")
     assert position.purchase_platform == "PSA Collection"
+    assert position.inventory_id == "INV-PSA-12345678"
+    assert position.cert_number == "12345678"
+    assert position.owned_quantity == Decimal("1")
+    assert position.available_quantity == Decimal("1")
+    assert position.listed_quantity == Decimal("0")
+    assert position.sold_quantity == Decimal("0")
+    assert position.last_inventory_update == "2026-01-15"
 
 
 def test_psa_csv_import_does_not_overwrite_existing_cards(
@@ -457,6 +533,18 @@ def live_cards_json_payload() -> dict[str, object]:
                 "currency": "USD",
                 "base_currency": "TWD",
                 "cost": "8500",
+                "inventory_id": "INV-CARD-JORDAN",
+                "cert_number": "87654321",
+                "owned_quantity": "1",
+                "available_quantity": "1",
+                "listed_quantity": "0",
+                "sold_quantity": "0",
+                "location": "Vault",
+                "cabinet": "A",
+                "box": "Box 1",
+                "row": "Row 1",
+                "slot": "Slot 1",
+                "last_inventory_update": "2026-01-16",
                 "asset_id": "CARD-JORDAN-1986-FLEER-57-PSA9",
                 "player": "Michael Jordan",
                 "year": "1986",

@@ -11,6 +11,7 @@ from onecool_os.portfolio.models import Asset, PortfolioError
 SUPPORTED_CARD_STATUSES = frozenset(
     {"Owned", "Listed", "Sold", "Grading", "Shipping", "Reserved"}
 )
+SUPPORTED_INVENTORY_STATUSES = SUPPORTED_CARD_STATUSES
 SUPPORTED_COLLECTION_TYPES = frozenset(
     {"Core", "Investment", "Trading", "PC"}
 )
@@ -121,9 +122,21 @@ class CardPosition(BasePosition):
     purchase_platform: str | None = None
     collection_type: str | None = None
     valuation_source: str | None = None
+    inventory_id: str | None = None
+    cert_number: str | None = None
+    owned_quantity: Decimal | None = None
+    available_quantity: Decimal | None = None
+    listed_quantity: Decimal | None = None
+    sold_quantity: Decimal | None = None
+    location: str | None = None
+    cabinet: str | None = None
+    box: str | None = None
+    row: str | None = None
+    slot: str | None = None
+    last_inventory_update: str | None = None
 
     def __post_init__(self) -> None:
-        if self.status and self.status not in SUPPORTED_CARD_STATUSES:
+        if self.status and self.status not in SUPPORTED_INVENTORY_STATUSES:
             raise CardError(f"Unsupported card status: {self.status}")
         if (
             self.collection_type
@@ -139,8 +152,34 @@ class CardPosition(BasePosition):
             raise CardError(
                 f"Unsupported valuation_source: {self.valuation_source}"
             )
+        self._validate_inventory_quantities()
 
     def total_purchase_cost(self) -> Decimal:
         """Return total purchase cost."""
 
         return self.quantity * self.purchase_price
+
+    def _validate_inventory_quantities(self) -> None:
+        if self.owned_quantity is not None and self.owned_quantity <= 0:
+            raise CardError("owned_quantity must be greater than 0.")
+
+        tracked_quantities = {
+            "available_quantity": self.available_quantity,
+            "listed_quantity": self.listed_quantity,
+            "sold_quantity": self.sold_quantity,
+        }
+        for field_name, value in tracked_quantities.items():
+            if value is not None and value < 0:
+                raise CardError(f"{field_name} must not be negative.")
+
+        if self.owned_quantity is None:
+            return
+
+        total_allocated = sum(
+            value or Decimal("0")
+            for value in tracked_quantities.values()
+        )
+        if total_allocated > self.owned_quantity:
+            raise CardError(
+                "available, listed, and sold quantities exceed owned_quantity."
+            )
