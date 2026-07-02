@@ -943,6 +943,64 @@ Cards, Real Estate, and Cash do not share identical quantity, cost, or valuation
 fields yet. This keeps the model layer flexible before the Valuation Engine is
 introduced.
 
+## Universal Valuation Platform
+
+Onecool OS includes a universal valuation record layer in
+`onecool_os.valuation`. Valuation is the source of truth for historical
+valuation records across asset classes. Records are append-style history and
+should not overwrite previous records.
+
+Multiple valuation records can exist for the same asset on the same date when
+they come from different sources. Portfolio and Dashboard consume valuation
+records, but they do not own valuation history.
+
+Current universal valuation components:
+
+- `ValuationRecord`: Immutable valuation history record.
+- `ValuationSource`: Supported valuation source enum.
+- `ValuationConfidence`: Confidence enum.
+- `ValuationLoader`: Loads validated valuation book JSON.
+- `ValuationImportResult`: Loaded valuation book metadata and records.
+
+Valuation JSON files use this shape:
+
+```json
+{
+  "valuation_book_name": "Onecool Valuation Book",
+  "base_currency": "TWD",
+  "valuations": []
+}
+```
+
+A demo template is provided at `data/valuation/valuation.example.json`. It
+contains only sample valuation records. Real valuation files belong under
+`data/valuation/` and should not be committed.
+
+Source priority rules:
+
+- Sports Cards: eBay Sold, Card Ladder, PWCC, Goldin, Fanatics, PSA Estimate,
+  Manual.
+- Securities: Yahoo, Polygon, Broker, Manual.
+- Funds: Fund NAV, Morningstar, Broker, Manual.
+- Real Estate: Real Estate Transaction, Bank Valuation, Manual.
+- Cash: Broker, Manual.
+
+Source of Truth:
+
+| Layer | Owns |
+| --- | --- |
+| Connector | Raw external input |
+| Normalize | Standardized records |
+| Assets | Asset identity |
+| Ledger | Transactions and lifecycle events |
+| Valuation | Valuation history |
+| Portfolio | Current holdings and calculated summaries |
+| Dashboard | No data, display only |
+| OFAI | Decisions and recommendations |
+
+Connector imports raw data. Normalize standardizes it. Valuation stores
+valuation records for later Portfolio, Dashboard, and OFAI consumption.
+
 ## Valuation Engine
 
 Onecool OS includes a Valuation Engine foundation in

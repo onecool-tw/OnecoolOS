@@ -61,17 +61,13 @@ Normalizer
 ↓
 Assets
 ↓
-Transactions / Ledger
+Ledger
 ↓
 Valuation
 ↓
 Portfolio
 ↓
-Allocation
-↓
-Risk
-↓
-Scenario
+Dashboard
 ↓
 OFAI
 ```
@@ -91,23 +87,37 @@ state. Normalized user portfolio data belongs in `data/portfolio/`.
 Assets describe what the user owns. They preserve identity, category,
 metadata, and ownership-specific fields for each asset class.
 
-Transactions / Ledger records what happened. Transactions capture financial
-changes. Events capture lifecycle changes. Together, the ledger is the source
-of truth for asset history and will be consumed by valuation and portfolio
-engines over time.
+Ledger records what happened. Transactions capture financial changes. Events
+capture lifecycle changes. Together, the ledger is the source of truth for
+asset history and will be consumed by valuation and portfolio engines over
+time.
 
-Valuation estimates worth. It consumes assets, positions, market data, and
-connector-provided context to produce explainable valuation results.
+Valuation owns valuation history. It stores historical valuation records from
+manual inputs, normalized connector data, and future market providers. Records
+are append-style history and should not overwrite previous records.
 
 Portfolio summarizes derived positions, costs, and totals from validated asset,
 ledger, and valuation data.
 
-Allocation analyzes distribution. It uses portfolio and valuation outputs to
-describe where capital is concentrated across assets, categories, currencies,
-and accounts.
+Dashboard displays validated asset, ledger, valuation, and portfolio data. It
+does not own source data.
 
-Risk, Scenario, and Decision layers build on validated asset, transaction,
-valuation, and allocation data. They must not bypass the lower layers.
+OFAI builds decisions and recommendations on validated lower-layer data. It
+must not bypass Connector, Normalize, Asset, Ledger, Valuation, or Portfolio
+records.
+
+### Source of Truth
+
+| Layer | Owns |
+| --- | --- |
+| Connector | Raw external input |
+| Normalize | Standardized records |
+| Assets | Asset identity |
+| Ledger | Transactions and lifecycle events |
+| Valuation | Valuation history |
+| Portfolio | Current holdings and calculated summaries |
+| Dashboard | No data, display only |
+| OFAI | Decisions and recommendations |
 
 ### Core Engine
 
@@ -145,6 +155,26 @@ valuation updates.
 The ledger is the source of truth for asset history. Asset modules should not
 own transaction history. Valuation and Portfolio engines will consume validated
 ledger data in later sprints.
+
+### Valuation Layer
+
+Provides immutable valuation history records for all asset classes. Valuation
+records include source, source priority, currency, value fields, dates,
+confidence, notes, URLs, and tags. Multiple valuation records can exist for the
+same asset on the same date when they come from different sources.
+
+Source priority rules are asset-specific:
+
+- Sports Cards: eBay Sold, Card Ladder, PWCC, Goldin, Fanatics, PSA Estimate,
+  Manual.
+- Securities: Yahoo, Polygon, Broker, Manual.
+- Funds: Fund NAV, Morningstar, Broker, Manual.
+- Real Estate: Real Estate Transaction, Bank Valuation, Manual.
+- Cash: Broker, Manual.
+
+Connectors import raw data. Normalize standardizes it. Valuation stores the
+resulting valuation records. Portfolio and Dashboard consume valuation records
+but do not own them.
 
 ### Asset Modules
 
@@ -216,8 +246,8 @@ logic.
 - v0.4 Portfolio: Portfolio Engine, asset normalization, demo portfolio, JSON
   import, and transaction ledger foundation.
 - v0.5 Asset Modules: Asset module package foundation, starting with Funds.
-- v0.6 Valuation: Shared valuation services, valuation inputs, and valuation
-  summaries.
+- v0.6 Valuation: Universal valuation records, source priority rules,
+  valuation inputs, and valuation summaries.
 - v0.7 Intelligence: Scenario analysis, signals, and decision support.
 - v0.8 Reporting: Reports, exports, summaries, and historical views.
 - v0.9 Dashboard: Daily operating dashboard and consolidated status.

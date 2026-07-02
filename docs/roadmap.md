@@ -56,10 +56,12 @@ Deliverables:
 Goals:
 
 - Unified valuation API
-- Card Ladder
-- eBay Sold
-- PSA
-- Yahoo Finance
+- Universal valuation record history
+- Source priority rules
+- Card Ladder valuation input
+- eBay Sold valuation input
+- PSA valuation input
+- Yahoo Finance valuation input
 - Real Estate valuation interface
 
 ### v0.6 Portfolio Dashboard

@@ -9,6 +9,10 @@ Commits.
 
 ### Added
 
+- Universal valuation platform under `onecool_os.valuation`.
+- Immutable valuation history records, source and confidence enums, source
+  priority rules, and valuation JSON loader.
+- Demo valuation book under `data/valuation/valuation.example.json`.
 - Transaction and Ledger foundation with immutable `Transaction` and `Event`
   records.
 - Shared `TransactionType`, `TransactionStatus`, and `EventType` enums.
