@@ -993,19 +993,31 @@ python -m onecool_os allocation demo
 The demo output includes asset, asset type, market value, allocation percent,
 and portfolio total.
 
-## Transaction Framework
+## Transaction & Ledger Foundation
 
-Onecool OS includes a shared Transaction Framework in `onecool_os.transactions`.
-Transactions are immutable event records that describe what happened. They do
-not contain asset-specific quantity, units, or shares yet; those belong to
-future asset-specific transaction models.
+Onecool OS includes a shared Transaction & Ledger foundation in
+`onecool_os.transactions`. The ledger is the source of truth for asset history
+across Funds, Securities, Sports Cards, Real Estate, Cash, Gold, Crypto, and
+future asset modules.
 
-Current Transaction Framework components:
+Transactions record financial changes such as buys, sells, dividends,
+deposits, fees, taxes, and transfers. Events record lifecycle changes such as
+listing, reserving, shipping, grading, renovations, valuation updates, and
+adjustments. Asset modules describe identity and ownership metadata; they
+should not own transaction history.
 
-- `BaseTransaction`: Immutable shared transaction record.
+Current Transaction & Ledger components:
+
+- `Transaction`: Immutable shared financial transaction record.
+- `Event`: Immutable shared asset lifecycle event record.
 - `TransactionType`: Shared transaction type enum.
-- `TransactionRegistry`: Registers and retrieves transactions.
-- `TransactionLoader`: Loads validated transaction records from JSON.
+- `TransactionStatus`: Shared transaction status enum.
+- `EventType`: Shared lifecycle event enum.
+- `TransactionRegistry`: Backward-compatible registry for existing base
+  transactions.
+- `TransactionLoader`: Loads validated ledger records from JSON.
+- `LedgerImportResult`: Loaded ledger name, base currency, transactions, and
+  events.
 
 Supported transaction types:
 
@@ -1015,20 +1027,47 @@ Supported transaction types:
 - `INTEREST`
 - `DEPOSIT`
 - `WITHDRAW`
-- `TRANSFER`
+- `TRANSFER_IN`
+- `TRANSFER_OUT`
+- `SPLIT`
+- `MERGE`
 - `FEE`
+- `TAX`
 - `ADJUSTMENT`
 
-A demo template is provided at
-`data/transactions/transactions.example.json`. It contains only sample
-transactions and no real user data.
+Supported transaction statuses:
+
+- `PENDING`
+- `COMPLETED`
+- `CANCELLED`
+
+Supported lifecycle event types include purchase, sale, listing, reservation,
+shipping, grading, dividends, splits, merges, loan and refinance events,
+renovations, valuation updates, and adjustments.
+
+Ledger JSON files use this shape:
+
+```json
+{
+  "ledger_name": "Onecool Ledger",
+  "base_currency": "TWD",
+  "transactions": [],
+  "events": []
+}
+```
+
+A demo template is provided at `data/transactions/ledger.example.json`. It
+contains only sample transactions and events. Real ledger files belong under
+`data/transactions/` and should not be committed.
 
 Architecture relationship:
 
-- Transactions are immutable records.
-- Portfolio is derived from Transactions.
 - Assets describe identity.
+- Transactions are immutable records.
+- Events are immutable lifecycle records.
+- Portfolio state will be derived from ledger data.
 - Valuation estimates worth.
+- Portfolio summarizes positions and totals.
 - Allocation analyzes distribution.
 
 This sprint does not implement performance calculations, IRR, realized PnL,

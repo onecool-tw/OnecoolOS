@@ -59,13 +59,13 @@ Connector
 ↓
 Normalizer
 ↓
-data/portfolio/
-↓
 Assets
 ↓
-Transactions
+Transactions / Ledger
 ↓
 Valuation
+↓
+Portfolio
 ↓
 Allocation
 ↓
@@ -73,7 +73,7 @@ Risk
 ↓
 Scenario
 ↓
-Decision
+OFAI
 ```
 
 Connectors import or sync data from external platforms and local exports. They
@@ -91,14 +91,20 @@ state. Normalized user portfolio data belongs in `data/portfolio/`.
 Assets describe what the user owns. They preserve identity, category,
 metadata, and ownership-specific fields for each asset class.
 
-Transactions record what happened. They are immutable event records used to
-derive portfolio state over time.
+Transactions / Ledger records what happened. Transactions capture financial
+changes. Events capture lifecycle changes. Together, the ledger is the source
+of truth for asset history and will be consumed by valuation and portfolio
+engines over time.
 
 Valuation estimates worth. It consumes assets, positions, market data, and
 connector-provided context to produce explainable valuation results.
 
-Allocation analyzes distribution. It uses valuation outputs to describe where
-capital is concentrated across assets, categories, currencies, and accounts.
+Portfolio summarizes derived positions, costs, and totals from validated asset,
+ledger, and valuation data.
+
+Allocation analyzes distribution. It uses portfolio and valuation outputs to
+describe where capital is concentrated across assets, categories, currencies,
+and accounts.
 
 Risk, Scenario, and Decision layers build on validated asset, transaction,
 valuation, and allocation data. They must not bypass the lower layers.
@@ -126,6 +132,19 @@ portfolio and asset modules.
 Provides shared asset, position, portfolio, registry, and loader primitives.
 Portfolio Engine owns common valuation math such as cost basis, market value,
 and unrealized PnL.
+
+### Transaction & Ledger Layer
+
+Provides immutable transaction and lifecycle event records for all asset
+classes. Transactions record financial changes such as buys, sells, dividends,
+interest, deposits, withdrawals, transfers, fees, taxes, splits, merges, and
+adjustments. Events record asset lifecycle changes such as listings,
+reservations, shipping, grading, property renovations, refinance events, and
+valuation updates.
+
+The ledger is the source of truth for asset history. Asset modules should not
+own transaction history. Valuation and Portfolio engines will consume validated
+ledger data in later sprints.
 
 ### Asset Modules
 
@@ -194,8 +213,8 @@ logic.
   foundations.
 - v0.3 Market: Market Engine provider framework and initial Yahoo Finance
   provider.
-- v0.4 Portfolio: Portfolio Engine, asset normalization, demo portfolio, and
-  JSON import.
+- v0.4 Portfolio: Portfolio Engine, asset normalization, demo portfolio, JSON
+  import, and transaction ledger foundation.
 - v0.5 Asset Modules: Asset module package foundation, starting with Funds.
 - v0.6 Valuation: Shared valuation services, valuation inputs, and valuation
   summaries.

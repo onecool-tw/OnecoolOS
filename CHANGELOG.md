@@ -9,6 +9,11 @@ Commits.
 
 ### Added
 
+- Transaction and Ledger foundation with immutable `Transaction` and `Event`
+  records.
+- Shared `TransactionType`, `TransactionStatus`, and `EventType` enums.
+- Ledger JSON loader with transaction and event validation.
+- Demo ledger template under `data/transactions/ledger.example.json`.
 - Official project roadmap and version planning documentation.
 - Canonical Normalize Layer foundation under
   `onecool_os.connectors.normalize`.

@@ -1,0 +1,71 @@
+{
+  "ledger_name": "Onecool Ledger",
+  "base_currency": "TWD",
+  "transactions": [
+    {
+      "transaction_id": "TXN-DEMO-FUND-BUY-001",
+      "asset_id": "FUND-DEMO-001",
+      "asset_type": "MUTUAL_FUND",
+      "portfolio_id": "PORTFOLIO-DEMO",
+      "trade_date": "2026-01-05",
+      "settlement_date": "2026-01-07",
+      "transaction_type": "BUY",
+      "quantity": "100",
+      "price": "10",
+      "currency": "USD",
+      "exchange_rate": "31.5",
+      "fee": "1.00",
+      "tax": "0",
+      "shipping": "0",
+      "insurance": "0",
+      "other_cost": "0",
+      "account": "Demo Account",
+      "platform": "Demo Platform",
+      "broker": "Demo Broker",
+      "status": "COMPLETED",
+      "note": "Demo mutual fund buy.",
+      "tags": [
+        "demo",
+        "fund"
+      ]
+    },
+    {
+      "transaction_id": "TXN-DEMO-CARD-BUY-001",
+      "asset_id": "CARD-DEMO-001",
+      "asset_type": "SPORTS_CARD",
+      "portfolio_id": "PORTFOLIO-DEMO",
+      "trade_date": "2026-02-10",
+      "transaction_type": "BUY",
+      "quantity": "1",
+      "price": "250",
+      "currency": "USD",
+      "shipping": "12",
+      "insurance": "5",
+      "status": "COMPLETED",
+      "note": "Demo sports card purchase.",
+      "tags": [
+        "demo",
+        "cards"
+      ]
+    }
+  ],
+  "events": [
+    {
+      "event_id": "EVT-DEMO-CARD-LISTED-001",
+      "event_type": "LISTED",
+      "asset_id": "CARD-DEMO-001",
+      "asset_type": "SPORTS_CARD",
+      "related_transaction_id": "TXN-DEMO-CARD-BUY-001",
+      "event_date": "2026-03-01",
+      "status": "ACTIVE",
+      "payload": {
+        "platform": "Demo Marketplace"
+      },
+      "note": "Demo listing event.",
+      "tags": [
+        "demo",
+        "inventory"
+      ]
+    }
+  ]
+}

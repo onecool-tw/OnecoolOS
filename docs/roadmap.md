@@ -12,7 +12,7 @@ assets, knowledge, decisions, and automation.
 - Architecture first
 - Reusable modules
 - Asset-agnostic design
-- Connector → Normalize → Asset → Portfolio pipeline
+- Connector -> Normalize -> Asset -> Ledger -> Valuation -> Portfolio pipeline
 - Test-first development
 - Backward compatibility
 
@@ -34,6 +34,8 @@ assets, knowledge, decisions, and automation.
 Goals:
 
 - Transaction model
+- Ledger model
+- Lifecycle events
 - Buy
 - Sell
 - Transfer
@@ -45,6 +47,8 @@ Deliverables:
 
 - Transaction schema
 - Shared transaction model
+- Shared lifecycle event model
+- JSON ledger loader
 - Asset-specific adapters
 
 ### v0.5 Valuation Engine
