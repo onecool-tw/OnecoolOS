@@ -51,11 +51,13 @@ transparent, or the decision workflow more useful.
 Onecool OS data flow:
 
 ```text
-Connector
+External Platform
 ↓
 imports/
 ↓
-Normalize
+Connector
+↓
+Normalizer
 ↓
 data/portfolio/
 ↓
@@ -82,8 +84,9 @@ formats without owning business logic.
 not Onecool OS internal data and should not be committed when they contain user
 portfolio information.
 
-Normalization converts connector input into Onecool OS internal schemas.
-Normalized user portfolio data belongs in `data/portfolio/`.
+The Canonical Normalize Layer converts connector input into
+`NormalizedRecord` objects before data becomes asset, inventory, or transaction
+state. Normalized user portfolio data belongs in `data/portfolio/`.
 
 Assets describe what the user owns. They preserve identity, category,
 metadata, and ownership-specific fields for each asset class.
@@ -152,6 +155,18 @@ Onecool OS internal normalized portfolio data should live under
 
 The current connector is the PSA Collection CSV Connector for Sports Cards.
 Planned connectors include eBay Orders, Card Ladder, BGS, and COMC.
+
+### Normalize Layer
+
+Provides canonical normalization contracts between Connectors and downstream
+business layers. `BaseNormalizer` defines `source_name()`, `normalize()`, and
+`validate()` so connector outputs can be checked before they update Inventory,
+Transactions, Valuation inputs, or Allocation inputs.
+
+`NormalizedRecord` represents a canonical connector output with
+`external_source`, `external_id`, `record_type`, `payload`, optional
+`raw_payload`, and optional `normalized_at`. The Normalize Layer does not own
+asset business logic and does not change existing connector behavior.
 
 ### Intelligence Engine
 
@@ -249,11 +264,13 @@ workflows operate on individual card records.
 Sports Cards inventory flow:
 
 ```text
-Connector
+External Platform
 ↓
 imports/
 ↓
-Normalize
+Connector
+↓
+Normalizer
 ↓
 data/portfolio/
 ↓

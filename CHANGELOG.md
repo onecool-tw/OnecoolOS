@@ -9,6 +9,9 @@ Commits.
 
 ### Added
 
+- Canonical Normalize Layer foundation under
+  `onecool_os.connectors.normalize`.
+- `BaseNormalizer` and `NormalizedRecord` contracts for connector output.
 - Repository import layout under `imports/` for raw external platform exports.
 - Documentation separating raw imports from normalized `data/portfolio/` files.
 - Sports Cards inventory foundation with inventory IDs, certificate numbers,

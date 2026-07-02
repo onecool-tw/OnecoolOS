@@ -585,11 +585,13 @@ transactions, valuation, or allocation logic.
 Connector flow:
 
 ```text
-Connector
+External Platform
 ↓
 imports/
 ↓
-Normalize
+Connector
+↓
+Normalizer
 ↓
 data/portfolio/
 ↓
@@ -624,6 +626,22 @@ Recommended normalized portfolio files:
 Connectors translate external files, APIs, or account exports into Onecool OS
 schemas. Asset modules describe what the user owns, Transactions record what
 happened, Valuation estimates worth, and Allocation analyzes distribution.
+
+### Normalize Layer
+
+The Canonical Normalize Layer lives under
+`onecool_os.connectors.normalize`. It sits between Connectors and downstream
+business layers and defines:
+
+- `NormalizedRecord`: Canonical connector output with external source,
+  external ID, record type, payload, optional raw payload, and normalization
+  time.
+- `BaseNormalizer`: Interface for `source_name()`, `normalize()`, and
+  `validate()`.
+
+The Normalize Layer validates connector output shape. It does not change
+existing connector behavior, own asset business logic, or write portfolio data
+by itself.
 
 Current connector:
 
@@ -699,11 +717,13 @@ redesigning Portfolio. Each inventory item represents one physical graded card.
 Sports Cards inventory flow:
 
 ```text
-Connector
+External Platform
 ↓
 imports/
 ↓
-Normalize
+Connector
+↓
+Normalizer
 ↓
 data/portfolio/
 ↓
