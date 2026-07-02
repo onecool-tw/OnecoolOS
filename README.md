@@ -1122,14 +1122,15 @@ The module still owns its runtime manifest through `create_plugin`.
 
 - [Master Specification](docs/master-spec.md)
 - [Architecture](docs/architecture.md)
+- [Roadmap](docs/roadmap.md)
 - [Coding Standard](docs/coding-standard.md)
 - [Core Engine ADR](docs/decision-records/ADR-001-Core-Engine.md)
 - [Contributing](CONTRIBUTING.md)
 - [Changelog](CHANGELOG.md)
 
-## Product Roadmap
+## Project Roadmap
 
-The roadmap is maintained in [docs/roadmap.md](docs/roadmap.md). Current
-direction keeps Core Engine infrastructure independent from business modules and
-adds future areas such as Market, Funds, Cards, House, Emergency, and Dashboard
-as modular extensions.
+The official project roadmap is maintained in
+[docs/roadmap.md](docs/roadmap.md). It defines version planning from the
+foundation through Transaction Layer, Valuation Engine, Dashboard, Automation,
+OFAI Beta, and Onecool OS v1.0.

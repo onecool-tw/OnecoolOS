@@ -1,62 +1,114 @@
-# Roadmap
+# Onecool OS Roadmap
 
-This roadmap keeps Onecool OS incremental and executable at every milestone.
-Milestone dates are intentionally not fixed until release planning is complete.
+## Vision
 
-## Milestone 1: Core Engine
+Onecool OS is a personal operating system for managing and optimizing all
+assets, knowledge, decisions, and automation.
 
-Status: Complete
+---
 
-Delivered:
+## Development Principles
 
-- Python project structure
-- SQLite migrations and schema
-- Core Engine lifecycle
-- Plugin Architecture
-- Event Bus
-- Service Registry
-- CLI entry points
-- Tests and README
+- Architecture first
+- Reusable modules
+- Asset-agnostic design
+- Connector → Normalize → Asset → Portfolio pipeline
+- Test-first development
+- Backward compatibility
 
-## Milestone 1.5: Project Documentation
+---
 
-Status: Complete
+## Version Roadmap
 
-Delivered:
+### v0.3 Foundation (Completed)
 
-- Architecture documentation
-- Roadmap
-- Coding standard
-- Architecture Decision Record for Core Engine choices
-- Changelog
-- Contributing workflow
+- Core Engine
+- Asset Models
+- Portfolio
+- Connector Layer
+- Normalize Layer
+- Inventory Foundation
 
-## Milestone 2: Module Foundation
+### v0.4 Transaction Layer
 
-Planned scope:
+Goals:
 
-- Define module packaging conventions.
-- Add module-level configuration boundaries.
-- Add fixtures or factories for module tests.
-- Keep infrastructure independent from business modules.
+- Transaction model
+- Buy
+- Sell
+- Transfer
+- Dividend
+- Fee
+- Split
 
-## Milestone 3: Dashboard Module
+Deliverables:
 
-Planned scope:
+- Transaction schema
+- Shared transaction model
+- Asset-specific adapters
 
-- Add Dashboard as a plugin-backed module.
-- Surface system status and module health.
-- Keep dashboard business logic outside core infrastructure.
+### v0.5 Valuation Engine
 
-## Future Modules
+Goals:
 
-Planned modules:
+- Unified valuation API
+- Card Ladder
+- eBay Sold
+- PSA
+- Yahoo Finance
+- Real Estate valuation interface
 
-- Market
+### v0.6 Portfolio Dashboard
+
+Goals:
+
+- Portfolio summary
+- Allocation
+- ROI
+- IRR
+- Cash Flow
+- Charts
+
+### v0.7 Asset Modules
+
+- Real Estate
+- Sports Cards
 - Funds
-- Cards
-- House
-- Emergency
+- Stocks
+- Cash
+- Gold
+- Collectibles
 
-Each module should be added independently, with its own tests, migrations where
-needed, and README updates when behavior changes.
+### v0.8 Automation
+
+- Daily reports
+- Scheduled updates
+- Connector synchronization
+- Import validation
+
+### v0.9 OFAI Beta
+
+- Scenario Planning
+- Decision Engine
+- Risk Engine
+- Allocation suggestions
+- AI assistant
+
+### v1.0 Onecool OS
+
+- Commercial-ready architecture
+- Stable APIs
+- Dashboard
+- Automation
+- OFAI
+
+---
+
+## Current Sprint
+
+Sprint 4
+
+Status: In Progress
+
+Next Sprint:
+Transaction Layer

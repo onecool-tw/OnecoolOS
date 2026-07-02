@@ -9,6 +9,7 @@ Commits.
 
 ### Added
 
+- Official project roadmap and version planning documentation.
 - Canonical Normalize Layer foundation under
   `onecool_os.connectors.normalize`.
 - `BaseNormalizer` and `NormalizedRecord` contracts for connector output.
