@@ -512,6 +512,8 @@ Current Business Logic components:
 - `BaseEvaluator`: Evaluator contract for signals.
 - `BasePolicy`: Rule configuration model.
 - `BusinessLogicRegistry`: Calculator and evaluator discovery registry.
+- `BusinessLogicRunner`: Deterministic pipeline runner for registered engines.
+- `BusinessLogicPipelineResult`: Structured pipeline execution report.
 - `CashFlowEngine`: First deterministic Business Logic Engine.
 - `AllocationEngine`: Deterministic portfolio allocation calculator.
 - `RiskEngine`: Deterministic portfolio risk assessment engine.
@@ -521,6 +523,21 @@ Calculators produce metrics. Evaluators produce signals. Policies configure
 rules but do not calculate by themselves. Analytics stores derived snapshots,
 Dashboard displays results, and OFAI reasons over trusted deterministic
 outputs.
+
+### Business Logic Pipeline Runner
+
+`BusinessLogicRunner` executes registered calculators and evaluators from
+`BusinessLogicRegistry` in deterministic order. The default order is
+`cash_flow`, `allocation`, `performance`, and `risk`.
+
+The runner collects `BusinessLogicResult` and `SignalResult` objects into a
+`BusinessLogicPipelineResult`. It records skipped engines and engine errors
+without crashing the whole pipeline.
+
+The pipeline does not calculate by itself, does not store results, does not
+write files, and does not mutate `BusinessLogicContext`. Future engines should
+register with the registry and be executed by the runner so Analytics,
+Services, Dashboard, and OFAI can consume a stable report.
 
 ### Cash Flow Engine
 

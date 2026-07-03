@@ -97,6 +97,11 @@ signals. Calculators produce metrics. Evaluators produce signals. Policies
 configure rules. Business Logic consumes read-only context and stores no source
 data.
 
+The Business Logic Pipeline Runner orchestrates registered calculators and
+evaluators in deterministic order. It returns a structured execution report for
+Analytics, Services, Dashboard, and future OFAI consumption. The pipeline does
+not calculate by itself, store results, write files, or mutate context.
+
 The first Business Logic Engine is Cash Flow. It consumes Ledger data through
 `BusinessLogicContext` and produces deterministic `CASH_FLOW` metric results.
 It does not own or modify ledger transactions.

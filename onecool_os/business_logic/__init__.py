@@ -10,6 +10,8 @@ from onecool_os.business_logic.enums import SignalSeverity
 from onecool_os.business_logic.evaluators import BaseEvaluator
 from onecool_os.business_logic.policies import BasePolicy
 from onecool_os.business_logic.performance import PerformanceEngine
+from onecool_os.business_logic.pipeline import BusinessLogicPipelineResult
+from onecool_os.business_logic.pipeline import BusinessLogicRunner
 from onecool_os.business_logic.registry import BusinessLogicRegistry
 from onecool_os.business_logic.results import BusinessLogicResult
 from onecool_os.business_logic.results import SignalResult
@@ -23,8 +25,10 @@ __all__ = [
     "BasePolicy",
     "BusinessLogicContext",
     "BusinessLogicError",
+    "BusinessLogicPipelineResult",
     "BusinessLogicRegistry",
     "BusinessLogicResult",
+    "BusinessLogicRunner",
     "CashFlowEngine",
     "ConfidenceLevel",
     "MetricType",

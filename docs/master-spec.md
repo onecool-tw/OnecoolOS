@@ -197,6 +197,12 @@ Calculators produce metric results. Evaluators produce rule-based signals.
 Policies configure rules but do not calculate by themselves. The registry
 discovers available calculators and evaluators.
 
+The Business Logic Pipeline Runner orchestrates registered calculators and
+evaluators in deterministic order. It produces a structured pipeline execution
+report containing metric results, signal results, executed engines, skipped
+engines, and errors. The runner does not calculate by itself, store results,
+write files, or mutate `BusinessLogicContext`.
+
 The first Business Logic Engine is Cash Flow. It consumes Ledger data through
 `BusinessLogicContext` and produces deterministic cash inflow, cash outflow,
 net cash flow, and cost metrics. It does not calculate ROI, IRR, Allocation, or

@@ -10,6 +10,9 @@ Commits.
 ### Added
 
 - Cash Flow Engine as the first Business Logic Engine.
+- Business Logic Pipeline Runner for deterministic engine orchestration.
+- Structured pipeline execution reports with engine results, signal results,
+  executed engines, skipped engines, and errors.
 - Allocation Engine as a deterministic Business Logic Engine.
 - Risk Engine as the first deterministic Business Logic assessment engine.
 - Performance Engine for deterministic unrealized performance metrics.

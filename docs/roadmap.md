@@ -120,6 +120,7 @@ Goals:
 - Evaluator contracts
 - Policy configuration
 - Calculator and evaluator registry
+- Business Logic Pipeline Runner
 - Cash Flow Engine
 - Allocation Engine
 - Risk Engine
@@ -173,9 +174,9 @@ Goals:
 
 ## Current Sprint
 
-Sprint 13
+Sprint 14
 
 Status: Completed
 
 Next Sprint:
-ROI Engine Foundation
+Analytics Integration Foundation
