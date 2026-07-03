@@ -69,7 +69,27 @@ Portfolio
 ↓
 Analytics
 ↓
+Services
+↓
+Dashboard / CLI / API / Automation / OFAI
+```
+
+Service-facing surfaces:
+
+```text
+Services
+↓
 Dashboard
+Services
+↓
+CLI
+Services
+↓
+API
+Services
+↓
+Automation
+Services
 ↓
 OFAI
 ```
@@ -105,8 +125,12 @@ Analytics owns derived metrics and snapshots. It consumes Portfolio, Ledger,
 and Valuation data to summarize ROI, allocation, performance, cash flow, and
 risk. Analytics does not modify source data.
 
-Dashboard displays validated Portfolio and Analytics data. It does not own
-source data.
+Services provide stable read-only interfaces for CLI, Dashboard, API,
+Automation, and OFAI. They consume lower-layer data through loaders and do not
+own source data.
+
+Dashboard displays validated Portfolio and Analytics data through Services. It
+does not own source data.
 
 OFAI builds decisions and recommendations on validated lower-layer data. It
 must not bypass Connector, Normalize, Asset, Ledger, Valuation, or Portfolio
@@ -123,6 +147,7 @@ records.
 | Valuation | Valuation history |
 | Portfolio | Current holdings and aggregation |
 | Analytics | Derived metrics and snapshots |
+| Services | Read-only access interface |
 | Dashboard | Display only |
 | OFAI | Decisions and recommendations |
 
@@ -165,6 +190,15 @@ risk summaries.
 Analytics does not modify source data. Dashboard consumes Analytics for
 display, and OFAI consumes Analytics and Portfolio context for decisions and
 recommendations.
+
+### Service Layer
+
+Provides stable read-only interfaces for CLI, Dashboard, API, Automation, and
+OFAI. Services consume existing loaders and models from Ledger, Valuation,
+Portfolio, and Analytics.
+
+Services do not own source data and do not mutate underlying files. Future
+mutation workflows should go through explicit command or use-case layers.
 
 ### Transaction & Ledger Layer
 

@@ -9,6 +9,9 @@ Commits.
 
 ### Added
 
+- Service Layer foundation under `onecool_os.services`.
+- Read-only Ledger, Valuation, Portfolio, and Analytics services for future
+  CLI, Dashboard, API, Automation, and OFAI workflows.
 - Analytics Engine foundation under `onecool_os.analytics`.
 - Immutable analytics snapshots, risk and metric enums, validation, and JSON
   loader support.

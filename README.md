@@ -496,6 +496,28 @@ weights, cash flow, risk score, and risk level. Dashboard consumes Analytics
 for display. OFAI consumes Analytics and Portfolio context for future
 decisions and recommendations.
 
+## Service Layer Foundation
+
+Onecool OS includes a read-only Service Layer in `onecool_os.services`.
+Services provide stable interfaces for future CLI, Dashboard, API, Automation,
+and OFAI workflows.
+
+Services consume data from lower layers through existing loaders. They do not
+own source data, do not modify source files, and do not replace Connector,
+Normalize, Assets, Ledger, Valuation, Portfolio, or Analytics.
+
+Current Service Layer components:
+
+- `BaseService`: Shared readiness contract.
+- `LedgerService`: Read-only transactions and lifecycle events.
+- `ValuationService`: Read-only valuation history lookup.
+- `PortfolioService`: Read-only holdings and summary access.
+- `AnalyticsService`: Read-only analytics snapshot lookup.
+
+This foundation sprint is read-only. Future mutation workflows should go
+through explicit command or use-case layers rather than directly mutating
+service state.
+
 ## Funds Module
 
 Onecool OS includes a Funds asset module foundation in
@@ -1064,6 +1086,7 @@ Source of Truth:
 | Valuation | Valuation history |
 | Portfolio | Current holdings and aggregation |
 | Analytics | Derived metrics and snapshots |
+| Services | Read-only access interface |
 | Dashboard | Display only |
 | OFAI | Decisions and recommendations |
 

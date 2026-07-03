@@ -82,6 +82,7 @@ Goals:
 
 Goals:
 
+- Service Layer
 - Dashboard-ready portfolio view
 - Analytics display
 - Charts
