@@ -121,6 +121,7 @@ Goals:
 - Policy configuration
 - Calculator and evaluator registry
 - Cash Flow Engine
+- Allocation Engine
 
 ### v0.6 Dashboard Foundation
 
@@ -170,9 +171,9 @@ Goals:
 
 ## Current Sprint
 
-Sprint 10.5
+Sprint 11C
 
 Status: Completed
 
 Next Sprint:
-Business Logic Engine Foundation
+Risk Engine Foundation

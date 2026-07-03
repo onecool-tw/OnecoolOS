@@ -101,6 +101,12 @@ The first Business Logic Engine is Cash Flow. It consumes Ledger data through
 `BusinessLogicContext` and produces deterministic `CASH_FLOW` metric results.
 It does not own or modify ledger transactions.
 
+The second Business Logic Engine is Allocation. It consumes values already
+available in `BusinessLogicContext`, groups holdings or positions by asset
+category, and produces deterministic `ALLOCATION` metric results. It does not
+calculate ROI, IRR, Risk, rebalancing, recommendations, market prices, API
+data, or currency conversion.
+
 ### Analytics
 
 Analytics owns derived snapshots, including performance, allocation, cash flow,

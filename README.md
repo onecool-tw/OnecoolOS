@@ -499,8 +499,9 @@ Onecool OS includes a Business Logic foundation in
 and rule-evaluation layer. It consumes read-only Portfolio, Ledger, Valuation,
 and Analytics context, then produces structured metric results and signals.
 
-Business Logic owns no source data and stores no source history. It does not
-implement formulas in this foundation sprint.
+Business Logic owns no source data and stores no source history. It reads
+validated context and returns deterministic results without mutating lower
+layers.
 
 Current Business Logic components:
 
@@ -512,6 +513,7 @@ Current Business Logic components:
 - `BasePolicy`: Rule configuration model.
 - `BusinessLogicRegistry`: Calculator and evaluator discovery registry.
 - `CashFlowEngine`: First deterministic Business Logic Engine.
+- `AllocationEngine`: Deterministic portfolio allocation calculator.
 
 Calculators produce metrics. Evaluators produce signals. Policies configure
 rules but do not calculate by themselves. Analytics stores derived snapshots,
@@ -531,6 +533,20 @@ and `TAX`. Optional `fee`, `tax`, `shipping`, `insurance`, and `other_cost`
 values are counted as outflows.
 
 This engine does not calculate ROI, IRR, Allocation, Risk, or OFAI reasoning.
+
+### Allocation Engine
+
+`AllocationEngine` consumes values already available in
+`BusinessLogicContext` and produces deterministic `ALLOCATION` metrics. It
+groups holdings or positions by category, calculates total value, and returns
+category weights that sum to `1.0` when total value is positive.
+
+Supported foundation categories include Cash, Equity, ETF, Mutual Fund, Real
+Estate, Collectible, Crypto, and Bond. Category names come from existing asset
+types when available.
+
+This engine does not calculate ROI, gain/loss, CAGR, IRR, Risk, rebalancing,
+recommendations, market prices, API data, or currency conversion.
 
 ## Analytics Engine Foundation
 

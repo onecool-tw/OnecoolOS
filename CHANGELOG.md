@@ -10,6 +10,9 @@ Commits.
 ### Added
 
 - Cash Flow Engine as the first Business Logic Engine.
+- Allocation Engine as a deterministic Business Logic Engine.
+- Portfolio category totals and weights from values already available in
+  `BusinessLogicContext`.
 - Deterministic cash inflow, cash outflow, net cash flow, and cost summaries
   from Ledger data.
 - Business Logic foundation under `onecool_os.business_logic`.

@@ -202,6 +202,12 @@ The first Business Logic Engine is Cash Flow. It consumes Ledger data through
 net cash flow, and cost metrics. It does not calculate ROI, IRR, Allocation, or
 Risk.
 
+The second Business Logic Engine is Allocation. It consumes values already
+available in `BusinessLogicContext`, groups holdings or positions by asset
+category, and produces deterministic total value, category totals, and
+allocation weights. It does not calculate ROI, gain/loss, CAGR, IRR, Risk,
+rebalancing, recommendations, market prices, API data, or currency conversion.
+
 ### Analytics Engine
 
 Provides derived analytics snapshots for portfolio-level metrics. Analytics
