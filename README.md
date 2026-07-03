@@ -459,6 +459,43 @@ The import command validates missing fields, invalid JSON, unsupported
 `asset_type` values, and invalid quantities. Output includes `Portfolio
 Summary`, total cost, total market value, and total unrealized PnL.
 
+## Analytics Engine Foundation
+
+Onecool OS includes an Analytics Engine foundation in `onecool_os.analytics`.
+Analytics is a derived-data layer. It consumes Portfolio, Ledger, and Valuation
+data, then stores immutable analytics snapshots and derived metrics.
+
+Analytics owns snapshots and derived metrics only. It does not own source data,
+does not modify Portfolio, Ledger, or Valuation records, and does not call real
+market APIs.
+
+Current Analytics components:
+
+- `AnalyticsSnapshot`: Derived metrics for a portfolio on a snapshot date.
+- `RiskLevel`: Risk level enum.
+- `MetricType`: Metric family enum.
+- `AnalyticsLoader`: Loads validated analytics book JSON.
+- `AnalyticsImportResult`: Loaded analytics book metadata and snapshots.
+
+Analytics JSON files use this shape:
+
+```json
+{
+  "analytics_book_name": "Onecool Analytics Book",
+  "base_currency": "TWD",
+  "snapshots": []
+}
+```
+
+A demo template is provided at `data/analytics/analytics.example.json`. It
+contains only sample snapshots. Real analytics files belong under
+`data/analytics/` and should not be committed.
+
+Analytics snapshot fields cover ROI and performance summaries, allocation
+weights, cash flow, risk score, and risk level. Dashboard consumes Analytics
+for display. OFAI consumes Analytics and Portfolio context for future
+decisions and recommendations.
+
 ## Funds Module
 
 Onecool OS includes a Funds asset module foundation in
@@ -1025,8 +1062,9 @@ Source of Truth:
 | Assets | Asset identity |
 | Ledger | Transactions and lifecycle events |
 | Valuation | Valuation history |
-| Portfolio | Current holdings and calculated summaries |
-| Dashboard | No data, display only |
+| Portfolio | Current holdings and aggregation |
+| Analytics | Derived metrics and snapshots |
+| Dashboard | Display only |
 | OFAI | Decisions and recommendations |
 
 Connector imports raw data. Normalize standardizes it. Valuation stores

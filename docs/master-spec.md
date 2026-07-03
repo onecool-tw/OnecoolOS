@@ -67,9 +67,9 @@ Valuation
 ↓
 Portfolio
 ↓
-Dashboard
+Analytics
 ↓
-Analytics Engine (future)
+Dashboard
 ↓
 OFAI
 ```
@@ -101,11 +101,12 @@ are append-style history and should not overwrite previous records.
 Portfolio summarizes derived positions, costs, and totals from validated asset,
 ledger, and valuation data.
 
-Dashboard displays validated asset, ledger, valuation, and portfolio data. It
-does not own source data.
+Analytics owns derived metrics and snapshots. It consumes Portfolio, Ledger,
+and Valuation data to summarize ROI, allocation, performance, cash flow, and
+risk. Analytics does not modify source data.
 
-Analytics Engine will calculate ROI, IRR, Allocation, Risk, and Cash Flow from
-validated portfolio and valuation records.
+Dashboard displays validated Portfolio and Analytics data. It does not own
+source data.
 
 OFAI builds decisions and recommendations on validated lower-layer data. It
 must not bypass Connector, Normalize, Asset, Ledger, Valuation, or Portfolio
@@ -120,9 +121,9 @@ records.
 | Assets | Asset identity |
 | Ledger | Transactions and lifecycle events |
 | Valuation | Valuation history |
-| Portfolio | Current holdings and calculated summaries |
-| Dashboard | No data, display only |
-| Analytics Engine | ROI, IRR, Allocation, Risk, and Cash Flow |
+| Portfolio | Current holdings and aggregation |
+| Analytics | Derived metrics and snapshots |
+| Dashboard | Display only |
 | OFAI | Decisions and recommendations |
 
 ### Core Engine
@@ -153,6 +154,17 @@ summaries.
 Portfolio owns no transaction history, no valuation history, and no asset
 identity. Future Analytics Engine layers will calculate ROI, IRR, Allocation,
 Risk, and Cash Flow. Portfolio itself should remain calculation-light.
+
+### Analytics Engine
+
+Provides derived analytics snapshots for portfolio-level metrics. Analytics
+consumes Portfolio, Ledger, and Valuation records. It owns snapshots and
+derived metrics only, including ROI, allocation, performance, cash flow, and
+risk summaries.
+
+Analytics does not modify source data. Dashboard consumes Analytics for
+display, and OFAI consumes Analytics and Portfolio context for decisions and
+recommendations.
 
 ### Transaction & Ledger Layer
 
@@ -259,8 +271,8 @@ logic.
 - v0.5 Asset Modules: Asset module package foundation, starting with Funds.
 - v0.6 Valuation: Universal valuation records, source priority rules,
   valuation inputs, and portfolio aggregation foundation.
-- v0.7 Intelligence: Analytics, scenario analysis, signals, and decision
-  support.
+- v0.7 Intelligence: Analytics snapshots, scenario analysis, signals, and
+  decision support.
 - v0.8 Reporting: Reports, exports, summaries, and historical views.
 - v0.9 Dashboard: Daily operating dashboard and consolidated status.
 - v1.0 Personal Decision Operating System: Integrated daily-use product for

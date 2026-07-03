@@ -9,6 +9,10 @@ Commits.
 
 ### Added
 
+- Analytics Engine foundation under `onecool_os.analytics`.
+- Immutable analytics snapshots, risk and metric enums, validation, and JSON
+  loader support.
+- Demo analytics book under `data/analytics/analytics.example.json`.
 - Portfolio aggregation foundation with holdings, summary fields, validation,
   and JSON loader support.
 - Demo aggregation portfolio template under

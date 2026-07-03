@@ -64,23 +64,28 @@ Goals:
 - Yahoo Finance valuation input
 - Real Estate valuation interface
 
-### v0.6 Portfolio Aggregation and Dashboard
+### v0.6 Portfolio Aggregation and Analytics
 
 Goals:
 
 - Portfolio summary
 - Portfolio aggregation
 - Assets, Ledger, and Valuation consumption
-- Dashboard-ready portfolio view
-
-Future Analytics Engine Goals:
-
+- Analytics snapshots
 - Allocation
 - ROI
 - IRR
 - Cash Flow
-- Charts
 - Risk
+
+### v0.6 Dashboard Foundation
+
+Goals:
+
+- Dashboard-ready portfolio view
+- Analytics display
+- Charts
+- Daily summary
 
 ### v0.7 Asset Modules
 
