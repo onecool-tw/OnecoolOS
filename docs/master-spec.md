@@ -138,6 +138,10 @@ own source data.
 Dashboard displays validated Portfolio and Analytics data through Services. It
 owns display-only views and does not own source data.
 
+Scenario Engine turns deterministic Business Logic, Analytics, and Dashboard
+context into structured A/B/C/D scenario objects. It does not perform AI
+reasoning, make recommendations, predict markets, or mutate source data.
+
 OFAI builds decisions and recommendations on validated lower-layer data. It
 must not bypass Connector, Normalize, Asset, Ledger, Valuation, or Portfolio
 records.
@@ -156,6 +160,7 @@ records.
 | Analytics | Derived snapshots |
 | Services | Read-only access interface |
 | Dashboard | Display-only views |
+| Scenario | Structured scenario objects |
 | OFAI | Decisions and recommendations |
 
 ### Core Engine
@@ -263,6 +268,13 @@ Dashboard Analytics views present Analytics-derived business intelligence such
 as Cash Flow, Allocation, Performance, Risk, and Pipeline summaries. Dashboard
 does not calculate metrics. Business Logic owns calculations, Analytics owns
 derived snapshots, and Dashboard owns presentation.
+
+### Scenario Engine
+
+Provides deterministic A/B/C/D scenario planning models. Scenario Engine
+prepares Base, Upside, Downside, and Stress scenario objects from structured
+context. It does not make recommendations, perform AI reasoning, predict
+markets, or own source data. OFAI will later reason over Scenario objects.
 
 ### Transaction & Ledger Layer
 

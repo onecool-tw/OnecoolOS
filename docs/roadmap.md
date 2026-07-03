@@ -45,6 +45,7 @@ Presentation Platform:
 
 - Services
 - Dashboard foundation
+- Scenario Engine
 
 Next:
 
@@ -176,9 +177,9 @@ Goals:
 
 ## Current Sprint
 
-Sprint 16
+Sprint 17
 
 Status: Completed
 
 Next Sprint:
-ROI Engine Foundation
+OFAI Foundation

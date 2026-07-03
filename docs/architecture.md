@@ -29,6 +29,8 @@ Services
 ↓
 Dashboard
 ↓
+Scenario
+↓
 OFAI
 ```
 
@@ -46,6 +48,7 @@ OFAI
 | Analytics | Derived snapshots |
 | Services | Read-only access interface |
 | Dashboard | Display-only views |
+| Scenario | Structured scenario objects |
 | OFAI | Decisions and recommendations |
 
 ## Data Flow
@@ -145,6 +148,13 @@ Dashboard Analytics views present Analytics-derived Cash Flow, Allocation,
 Performance, Risk, and Pipeline summaries. Dashboard does not calculate
 metrics; Business Logic owns calculations and Analytics owns derived
 snapshots.
+
+### Scenario
+
+Scenario owns deterministic A/B/C/D scenario objects. It consumes structured
+Business Logic, Analytics, and Dashboard context and prepares trusted scenario
+inputs for future OFAI. Scenario does not make recommendations, perform AI
+reasoning, predict markets, or mutate source data.
 
 ### OFAI
 

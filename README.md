@@ -41,6 +41,8 @@ Services
 ↓
 Dashboard
 ↓
+Scenario
+↓
 OFAI
 ```
 
@@ -700,6 +702,30 @@ python -m onecool_os dashboard demo
 The demo uses existing example files and prints a JSON dashboard view. Future
 web and mobile UI should consume Dashboard views or Services rather than
 reading lower-layer files directly.
+
+## Scenario Engine Foundation
+
+Onecool OS includes a deterministic Scenario Engine in `onecool_os.scenario`.
+Scenario Engine turns trusted Business Logic, Analytics, and Dashboard context
+into structured A/B/C/D scenario objects for future OFAI.
+
+Current Scenario components:
+
+- `Scenario`: Structured scenario object.
+- `ScenarioSet`: A validated group of scenarios.
+- `ScenarioBuilder`: Deterministic A/B/C/D scenario builder.
+- `ScenarioType`, `ScenarioSeverity`, and `TimeHorizon`: Scenario enums.
+
+Default A/B/C/D pattern:
+
+- A: Base Case
+- B: Upside Case
+- C: Downside Case
+- D: Stress Case
+
+Scenario Engine does not perform AI reasoning, make recommendations, predict
+markets, write files, or mutate source data. OFAI will later reason over
+Scenario objects.
 
 ## Funds Module
 

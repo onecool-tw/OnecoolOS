@@ -15,6 +15,8 @@ Commits.
   AnalyticsSnapshot-compatible payloads.
 - Dashboard Analytics views for Cash Flow, Allocation, Performance, Risk, and
   Pipeline summaries.
+- Scenario Engine foundation with deterministic A/B/C/D scenario models,
+  validation, and builder.
 - Structured pipeline execution reports with engine results, signal results,
   executed engines, skipped engines, and errors.
 - Allocation Engine as a deterministic Business Logic Engine.
