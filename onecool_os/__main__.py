@@ -8,6 +8,7 @@ from onecool_os.cli.allocation import add_allocation_parser
 from onecool_os.cli.cards import add_cards_parser
 from onecool_os.cli.cash import add_cash_parser
 from onecool_os.cli.core import add_core_parsers
+from onecool_os.cli.dashboard import add_dashboard_parser
 from onecool_os.cli.funds import add_funds_parser
 from onecool_os.cli.market import add_market_parser
 from onecool_os.cli.portfolio import add_portfolio_parser
@@ -27,6 +28,7 @@ def build_parser() -> argparse.ArgumentParser:
     )
     subparsers = parser.add_subparsers(dest="command", required=True)
     add_core_parsers(subparsers)
+    add_dashboard_parser(subparsers)
     add_cash_parser(subparsers)
     add_cards_parser(subparsers)
     add_real_estate_parser(subparsers)

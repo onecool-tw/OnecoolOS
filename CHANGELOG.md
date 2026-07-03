@@ -9,6 +9,8 @@ Commits.
 
 ### Added
 
+- Dashboard foundation under `onecool_os.dashboard`.
+- Display-only dashboard view and section models, builder, and CLI demo.
 - Service Layer foundation under `onecool_os.services`.
 - Read-only Ledger, Valuation, Portfolio, and Analytics services for future
   CLI, Dashboard, API, Automation, and OFAI workflows.

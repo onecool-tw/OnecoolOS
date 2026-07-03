@@ -518,6 +518,29 @@ This foundation sprint is read-only. Future mutation workflows should go
 through explicit command or use-case layers rather than directly mutating
 service state.
 
+## Dashboard Foundation
+
+Onecool OS includes a display-only Dashboard foundation in
+`onecool_os.dashboard`. Dashboard consumes Services and owns no source data.
+It does not write to Assets, Ledger, Valuation, Portfolio, Analytics, or any
+data files.
+
+Current Dashboard components:
+
+- `DashboardView`: Display-only dashboard payload.
+- `DashboardSection`: Display-only summary section.
+- `DashboardBuilder`: Builds dashboard views from read-only services.
+
+Run the dashboard demo:
+
+```bash
+python -m onecool_os dashboard demo
+```
+
+The demo uses existing example files and prints a JSON dashboard view. Future
+web and mobile UI should consume Dashboard views or Services rather than
+reading lower-layer files directly.
+
 ## Funds Module
 
 Onecool OS includes a Funds asset module foundation in
@@ -1087,7 +1110,7 @@ Source of Truth:
 | Portfolio | Current holdings and aggregation |
 | Analytics | Derived metrics and snapshots |
 | Services | Read-only access interface |
-| Dashboard | Display only |
+| Dashboard | Display-only views |
 | OFAI | Decisions and recommendations |
 
 Connector imports raw data. Normalize standardizes it. Valuation stores

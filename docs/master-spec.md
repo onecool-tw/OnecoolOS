@@ -130,7 +130,7 @@ Automation, and OFAI. They consume lower-layer data through loaders and do not
 own source data.
 
 Dashboard displays validated Portfolio and Analytics data through Services. It
-does not own source data.
+owns display-only views and does not own source data.
 
 OFAI builds decisions and recommendations on validated lower-layer data. It
 must not bypass Connector, Normalize, Asset, Ledger, Valuation, or Portfolio
@@ -148,7 +148,7 @@ records.
 | Portfolio | Current holdings and aggregation |
 | Analytics | Derived metrics and snapshots |
 | Services | Read-only access interface |
-| Dashboard | Display only |
+| Dashboard | Display-only views |
 | OFAI | Decisions and recommendations |
 
 ### Core Engine
@@ -199,6 +199,13 @@ Portfolio, and Analytics.
 
 Services do not own source data and do not mutate underlying files. Future
 mutation workflows should go through explicit command or use-case layers.
+
+### Dashboard
+
+Provides display-only views built from Services. Dashboard owns no source data
+and does not write to Assets, Ledger, Valuation, Portfolio, Analytics, or data
+files. Future web and mobile UI should consume Dashboard views or Services
+rather than reading lower-layer files directly.
 
 ### Transaction & Ledger Layer
 

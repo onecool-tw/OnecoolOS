@@ -3,6 +3,7 @@ from onecool_os.cli.allocation import handle_allocation_command
 from onecool_os.cli.cards import handle_cards_command
 from onecool_os.cli.cash import handle_cash_command
 from onecool_os.cli.core import handle_core_command
+from onecool_os.cli.dashboard import handle_dashboard_command
 from onecool_os.cli.funds import handle_funds_command
 from onecool_os.cli.market import handle_market_command
 from onecool_os.cli.portfolio import handle_portfolio_command
@@ -24,6 +25,7 @@ def test_cli_parser_delegates_to_module_handlers() -> None:
     cases = (
         (["cash", "demo"], handle_cash_command),
         (["cards", "demo"], handle_cards_command),
+        (["dashboard", "demo"], handle_dashboard_command),
         (["funds", "import", "examples/funds_demo.json"], handle_funds_command),
         (["market", "status"], handle_market_command),
         (["portfolio", "status"], handle_portfolio_command),
