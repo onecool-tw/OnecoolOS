@@ -336,21 +336,52 @@ Show Market Engine status:
 python -m onecool_os market status
 ```
 
-## Portfolio Foundation
+## Portfolio Aggregation Foundation
 
-Onecool OS includes a lightweight Portfolio Engine foundation in
-`onecool_os.portfolio`. It provides shared portfolio primitives for future asset
-classes without implementing any specific asset class or database persistence in
-this sprint.
+Onecool OS includes a lightweight Portfolio Aggregation foundation in
+`onecool_os.portfolio`. Portfolio is not the owner of source data. It
+aggregates information from Assets, Ledger, and Valuation so downstream
+surfaces can read a current portfolio view.
+
+Portfolio owns no transaction history, no valuation history, and no asset
+identity. Those responsibilities stay with Ledger, Valuation, and Assets.
 
 Current Portfolio components:
 
 - `PortfolioEngine`: Coordinates portfolio status.
 - `PortfolioRegistry`: Creates and retrieves portfolios.
-- `Portfolio`: Holds positions.
+- `Portfolio`: Aggregates holdings and summary values.
 - `Asset`: Generic asset metadata.
 - `Position`: Quantity, cost, optional current price, market value, and
   unrealized PnL.
+- `Holding`: Aggregation reference to an asset with quantity, optional average
+  cost, and optional market value.
+- `PortfolioInputLayer`: Documents the consumed layers: Assets, Ledger, and
+  Valuation.
+
+Aggregation portfolio JSON uses this shape:
+
+```json
+{
+  "portfolio_name": "Onecool Portfolio",
+  "base_currency": "TWD",
+  "holdings": []
+}
+```
+
+A demo aggregation template is provided at
+`data/portfolio/portfolio.example.json`. It contains only sample holdings and
+no real user data.
+
+Future Analytics Engine responsibilities:
+
+- ROI
+- IRR
+- Allocation
+- Risk
+- Cash Flow
+
+Portfolio itself should remain calculation-light.
 
 Asset model:
 

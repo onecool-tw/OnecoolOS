@@ -11,9 +11,14 @@ from onecool_os.core.config import (
     RuntimeSettings,
     SystemConfig,
 )
+from onecool_os.portfolio.enums import PortfolioInputLayer
 from onecool_os.portfolio.engine import PortfolioEngine
 from onecool_os.portfolio.loader import PortfolioLoader, PortfolioLoaderError
-from onecool_os.portfolio.models import Asset, Portfolio, PortfolioError, Position
+from onecool_os.portfolio.models import Asset
+from onecool_os.portfolio.models import Holding
+from onecool_os.portfolio.models import Portfolio
+from onecool_os.portfolio.models import PortfolioError
+from onecool_os.portfolio.models import Position
 from onecool_os.portfolio.registry import PortfolioRegistry
 
 
@@ -68,7 +73,60 @@ def test_portfolio_creation() -> None:
 
     assert portfolio.portfolio_id == "main"
     assert portfolio.name == "Main"
+    assert portfolio.portfolio_name == "Main"
+    assert portfolio.base_currency == "TWD"
     assert portfolio.list_positions() == ()
+    assert portfolio.list_holdings() == ()
+
+
+def test_portfolio_input_layer_enums() -> None:
+    assert PortfolioInputLayer.ASSETS.value == "ASSETS"
+    assert PortfolioInputLayer.LEDGER.value == "LEDGER"
+    assert PortfolioInputLayer.VALUATION.value == "VALUATION"
+
+
+def test_aggregation_holding_creation() -> None:
+    holding = Holding(
+        asset_id="fund-1",
+        asset_type="mutual_fund",
+        quantity="10",
+        average_cost="100",
+        market_value="1200",
+    )
+
+    assert holding.asset_id == "fund-1"
+    assert holding.asset_type == "MUTUAL_FUND"
+    assert holding.quantity == Decimal("10")
+    assert holding.average_cost == Decimal("100")
+    assert holding.market_value == Decimal("1200")
+
+
+def test_aggregation_portfolio_model() -> None:
+    holding = Holding(
+        asset_id="fund-1",
+        asset_type="MUTUAL_FUND",
+        quantity="10",
+        average_cost="100",
+        market_value="1200",
+    )
+    portfolio = Portfolio(
+        portfolio_id="agg",
+        portfolio_name="Aggregation",
+        base_currency="twd",
+        cash_balance="500",
+        tags=["demo"],
+        holdings=[holding],
+    )
+
+    assert portfolio.portfolio_id == "agg"
+    assert portfolio.portfolio_name == "Aggregation"
+    assert portfolio.base_currency == "TWD"
+    assert portfolio.total_assets is None
+    assert portfolio.total_cost() == Decimal("1000")
+    assert portfolio.total_market_value() == Decimal("1200")
+    assert portfolio.cash_balance == Decimal("500")
+    assert portfolio.tags == ("demo",)
+    assert portfolio.to_dict()["total_assets"] == 1
 
 
 def test_asset_type_validation() -> None:
@@ -216,7 +274,9 @@ def test_portfolio_demo_output_shows_normalized_model(
     assert main(["portfolio", "demo"]) == 0
     payload = json.loads(capsys.readouterr().out)
 
-    positions = {position["symbol"]: position for position in payload["positions"]}
+    positions = {
+        position["symbol"]: position for position in payload["positions"]
+    }
     assert positions["SPY"]["asset_type"] == "ETF"
     assert positions["QQQ"]["asset_type"] == "ETF"
     assert positions["GLD"]["asset_type"] == "ETF"
@@ -278,6 +338,29 @@ def test_portfolio_loader_valid_json(tmp_path: Path) -> None:
     assert portfolio.total_market_value() == Decimal("8645")
 
 
+def test_portfolio_loader_valid_aggregation_json(tmp_path: Path) -> None:
+    json_path = write_aggregation_portfolio_json(tmp_path)
+
+    portfolio = PortfolioLoader().load(json_path)
+
+    assert portfolio.portfolio_id == "portfolio-live"
+    assert portfolio.portfolio_name == "Live Aggregation"
+    assert portfolio.base_currency == "TWD"
+    assert len(portfolio.list_holdings()) == 2
+    assert portfolio.total_cost() == Decimal("1100")
+    assert portfolio.total_market_value() == Decimal("1325")
+    assert portfolio.cash_balance == Decimal("5000")
+
+
+def test_portfolio_loader_example_file() -> None:
+    portfolio = PortfolioLoader().load("data/portfolio/portfolio.example.json")
+
+    assert portfolio.portfolio_id == "portfolio-demo"
+    assert portfolio.portfolio_name == "Onecool Demo Portfolio"
+    assert len(portfolio.list_holdings()) == 3
+    assert portfolio.total_market_value() == Decimal("26310")
+
+
 def test_portfolio_loader_invalid_json(tmp_path: Path) -> None:
     json_path = tmp_path / "portfolio.json"
     json_path.write_text("{invalid", encoding="utf-8")
@@ -330,10 +413,68 @@ def test_portfolio_loader_invalid_quantity(tmp_path: Path) -> None:
         raise AssertionError("Invalid quantity should be rejected.")
 
 
+def test_portfolio_loader_negative_holding_quantity(tmp_path: Path) -> None:
+    payload = aggregation_portfolio_payload()
+    payload["holdings"][0]["quantity"] = "-1"
+    json_path = write_aggregation_portfolio_json(tmp_path, payload)
+
+    try:
+        PortfolioLoader().load(json_path)
+    except PortfolioLoaderError as exc:
+        assert "quantity must not be negative" in str(exc)
+    else:
+        raise AssertionError("Negative quantity should be rejected.")
+
+
+def test_portfolio_loader_negative_market_value(tmp_path: Path) -> None:
+    payload = aggregation_portfolio_payload()
+    payload["holdings"][0]["market_value"] = "-1"
+    json_path = write_aggregation_portfolio_json(tmp_path, payload)
+
+    try:
+        PortfolioLoader().load(json_path)
+    except PortfolioLoaderError as exc:
+        assert "market_value must not be negative" in str(exc)
+    else:
+        raise AssertionError("Negative market value should be rejected.")
+
+
+def test_portfolio_loader_negative_cost(tmp_path: Path) -> None:
+    payload = aggregation_portfolio_payload()
+    payload["holdings"][0]["average_cost"] = "-1"
+    json_path = write_aggregation_portfolio_json(tmp_path, payload)
+
+    try:
+        PortfolioLoader().load(json_path)
+    except PortfolioLoaderError as exc:
+        assert "average_cost must not be negative" in str(exc)
+    else:
+        raise AssertionError("Negative cost should be rejected.")
+
+
+def test_portfolio_loader_duplicate_portfolio_ids(tmp_path: Path) -> None:
+    payload = {
+        "portfolios": [
+            aggregation_portfolio_payload(),
+            aggregation_portfolio_payload(),
+        ]
+    }
+    json_path = write_aggregation_portfolio_json(tmp_path, payload)
+
+    try:
+        PortfolioLoader().load_all(json_path)
+    except PortfolioLoaderError as exc:
+        assert "Duplicate portfolio_id" in str(exc)
+    else:
+        raise AssertionError("Duplicate portfolio_id should be rejected.")
+
+
 def test_portfolio_loader_totals_unchanged(tmp_path: Path) -> None:
     portfolio = PortfolioLoader().load(write_portfolio_json(tmp_path))
 
-    total_unrealized_pnl = portfolio.total_market_value() - portfolio.total_cost()
+    total_unrealized_pnl = (
+        portfolio.total_market_value() - portfolio.total_cost()
+    )
 
     assert portfolio.total_cost() == Decimal("7900")
     assert portfolio.total_market_value() == Decimal("8645")
@@ -418,6 +559,33 @@ def portfolio_json_payload() -> dict[str, object]:
     }
 
 
+def aggregation_portfolio_payload() -> dict[str, object]:
+    return {
+        "portfolio_id": "portfolio-live",
+        "portfolio_name": "Live Aggregation",
+        "base_currency": "TWD",
+        "cash_balance": "5000",
+        "holdings": [
+            {
+                "asset_id": "FUND-1",
+                "asset_type": "MUTUAL_FUND",
+                "quantity": "10",
+                "average_cost": "100",
+                "market_value": "1200",
+            },
+            {
+                "asset_id": "CARD-1",
+                "asset_type": "SPORTS_CARD",
+                "quantity": "1",
+                "average_cost": "100",
+                "market_value": "125",
+            },
+        ],
+        "note": "Aggregation only.",
+        "tags": ["test"],
+    }
+
+
 def write_portfolio_json(
     tmp_path: Path,
     payload: dict[str, object] | None = None,
@@ -425,6 +593,18 @@ def write_portfolio_json(
     json_path = tmp_path / "portfolio.json"
     json_path.write_text(
         json.dumps(payload or portfolio_json_payload()),
+        encoding="utf-8",
+    )
+    return json_path
+
+
+def write_aggregation_portfolio_json(
+    tmp_path: Path,
+    payload: dict[str, object] | None = None,
+) -> Path:
+    json_path = tmp_path / "portfolio-aggregation.json"
+    json_path.write_text(
+        json.dumps(payload or aggregation_portfolio_payload()),
         encoding="utf-8",
     )
     return json_path

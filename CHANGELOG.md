@@ -9,6 +9,10 @@ Commits.
 
 ### Added
 
+- Portfolio aggregation foundation with holdings, summary fields, validation,
+  and JSON loader support.
+- Demo aggregation portfolio template under
+  `data/portfolio/portfolio.example.json`.
 - Universal valuation platform under `onecool_os.valuation`.
 - Immutable valuation history records, source and confidence enums, source
   priority rules, and valuation JSON loader.

@@ -69,6 +69,8 @@ Portfolio
 ↓
 Dashboard
 ↓
+Analytics Engine (future)
+↓
 OFAI
 ```
 
@@ -102,6 +104,9 @@ ledger, and valuation data.
 Dashboard displays validated asset, ledger, valuation, and portfolio data. It
 does not own source data.
 
+Analytics Engine will calculate ROI, IRR, Allocation, Risk, and Cash Flow from
+validated portfolio and valuation records.
+
 OFAI builds decisions and recommendations on validated lower-layer data. It
 must not bypass Connector, Normalize, Asset, Ledger, Valuation, or Portfolio
 records.
@@ -117,6 +122,7 @@ records.
 | Valuation | Valuation history |
 | Portfolio | Current holdings and calculated summaries |
 | Dashboard | No data, display only |
+| Analytics Engine | ROI, IRR, Allocation, Risk, and Cash Flow |
 | OFAI | Decisions and recommendations |
 
 ### Core Engine
@@ -139,9 +145,14 @@ portfolio and asset modules.
 
 ### Portfolio Engine
 
-Provides shared asset, position, portfolio, registry, and loader primitives.
-Portfolio Engine owns common valuation math such as cost basis, market value,
-and unrealized PnL.
+Provides aggregation models, holdings, summaries, registry, and loader
+primitives. Portfolio is not the owner of source data. It consumes Assets,
+Ledger, and Valuation records to expose current holdings and calculated
+summaries.
+
+Portfolio owns no transaction history, no valuation history, and no asset
+identity. Future Analytics Engine layers will calculate ROI, IRR, Allocation,
+Risk, and Cash Flow. Portfolio itself should remain calculation-light.
 
 ### Transaction & Ledger Layer
 
@@ -247,8 +258,9 @@ logic.
   import, and transaction ledger foundation.
 - v0.5 Asset Modules: Asset module package foundation, starting with Funds.
 - v0.6 Valuation: Universal valuation records, source priority rules,
-  valuation inputs, and valuation summaries.
-- v0.7 Intelligence: Scenario analysis, signals, and decision support.
+  valuation inputs, and portfolio aggregation foundation.
+- v0.7 Intelligence: Analytics, scenario analysis, signals, and decision
+  support.
 - v0.8 Reporting: Reports, exports, summaries, and historical views.
 - v0.9 Dashboard: Daily operating dashboard and consolidated status.
 - v1.0 Personal Decision Operating System: Integrated daily-use product for
