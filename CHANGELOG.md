@@ -9,6 +9,9 @@ Commits.
 
 ### Added
 
+- Business Logic foundation under `onecool_os.business_logic`.
+- Business logic context, metric results, signal results, calculator and
+  evaluator contracts, policies, and registry.
 - v0.1.0 Alpha architecture freeze documentation.
 - Alpha release notes under `docs/releases/v0.1.0-alpha.md`.
 - Dashboard foundation under `onecool_os.dashboard`.

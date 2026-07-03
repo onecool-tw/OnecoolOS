@@ -38,6 +38,7 @@ Data Platform:
 - Ledger
 - Valuation
 - Portfolio Aggregation
+- Business Logic
 - Analytics
 
 Presentation Platform:
@@ -47,7 +48,6 @@ Presentation Platform:
 
 Next:
 
-- Business Logic Engine
 - Automation
 - OFAI
 
@@ -108,6 +108,18 @@ Goals:
 - IRR
 - Cash Flow
 - Risk
+
+### v0.7 Business Logic Engine
+
+Goals:
+
+- Business Logic Context
+- Metric results
+- Rule-based signals
+- Calculator contracts
+- Evaluator contracts
+- Policy configuration
+- Calculator and evaluator registry
 
 ### v0.6 Dashboard Foundation
 

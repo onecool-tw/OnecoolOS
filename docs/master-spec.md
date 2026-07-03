@@ -67,6 +67,8 @@ Valuation
 ↓
 Portfolio
 ↓
+Business Logic
+↓
 Analytics
 ↓
 Services
@@ -121,9 +123,13 @@ are append-style history and should not overwrite previous records.
 Portfolio summarizes derived positions, costs, and totals from validated asset,
 ledger, and valuation data.
 
-Analytics owns derived metrics and snapshots. It consumes Portfolio, Ledger,
-and Valuation data to summarize ROI, allocation, performance, cash flow, and
-risk. Analytics does not modify source data.
+Business Logic owns deterministic calculations, policies, and rule-based
+signals. It consumes read-only Portfolio, Ledger, Valuation, and Analytics
+context. Calculators produce metrics. Evaluators produce signals. Policies
+configure rules.
+
+Analytics owns derived snapshots. It stores derived outputs from validated
+lower layers and does not modify source data.
 
 Services provide stable read-only interfaces for CLI, Dashboard, API,
 Automation, and OFAI. They consume lower-layer data through loaders and do not
@@ -146,7 +152,8 @@ records.
 | Ledger | Transactions and lifecycle events |
 | Valuation | Valuation history |
 | Portfolio | Current holdings and aggregation |
-| Analytics | Derived metrics and snapshots |
+| Business Logic | Deterministic calculations, policies, and signals |
+| Analytics | Derived snapshots |
 | Services | Read-only access interface |
 | Dashboard | Display-only views |
 | OFAI | Decisions and recommendations |
@@ -177,15 +184,24 @@ Ledger, and Valuation records to expose current holdings and calculated
 summaries.
 
 Portfolio owns no transaction history, no valuation history, and no asset
-identity. Future Analytics Engine layers will calculate ROI, IRR, Allocation,
-Risk, and Cash Flow. Portfolio itself should remain calculation-light.
+identity. Business Logic layers will calculate ROI, IRR, Allocation, Risk, and
+Cash Flow. Portfolio itself should remain calculation-light.
+
+### Business Logic Engine
+
+Provides deterministic calculation and rule-evaluation contracts. Business
+Logic consumes read-only Portfolio, Ledger, Valuation, and Analytics context.
+It does not own source data and does not store source history.
+
+Calculators produce metric results. Evaluators produce rule-based signals.
+Policies configure rules but do not calculate by themselves. The registry
+discovers available calculators and evaluators.
 
 ### Analytics Engine
 
 Provides derived analytics snapshots for portfolio-level metrics. Analytics
-consumes Portfolio, Ledger, and Valuation records. It owns snapshots and
-derived metrics only, including ROI, allocation, performance, cash flow, and
-risk summaries.
+owns snapshots only and stores deterministic outputs produced from validated
+lower layers.
 
 Analytics does not modify source data. Dashboard consumes Analytics for
 display, and OFAI consumes Analytics and Portfolio context for decisions and

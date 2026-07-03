@@ -21,6 +21,8 @@ Valuation
 ↓
 Portfolio
 ↓
+Business Logic
+↓
 Analytics
 ↓
 Services
@@ -40,7 +42,8 @@ OFAI
 | Ledger | Transactions and lifecycle events |
 | Valuation | Valuation history |
 | Portfolio | Current holdings and aggregation |
-| Analytics | Derived metrics and snapshots |
+| Business Logic | Deterministic calculations, policies, and signals |
+| Analytics | Derived snapshots |
 | Services | Read-only access interface |
 | Dashboard | Display-only views |
 | OFAI | Decisions and recommendations |
@@ -50,9 +53,10 @@ OFAI
 External files and platform exports enter through Connectors. Normalize turns
 connector output into standardized records. Assets describe what exists. Ledger
 records what happened. Valuation records what assets are worth. Portfolio
-aggregates current holdings. Analytics derives metrics from validated data.
-Services expose stable read-only interfaces. Dashboard displays service-backed
-views. OFAI will consume context and recommendations in future sprints.
+aggregates current holdings. Business Logic calculates deterministic metrics
+and rule-based signals. Analytics stores derived snapshots. Services expose
+stable read-only interfaces. Dashboard displays service-backed views. OFAI will
+consume context and recommendations in future sprints.
 
 ## Module Responsibilities
 
@@ -86,10 +90,17 @@ not overwrite previous records.
 Portfolio aggregates current holdings and summary values. It consumes Assets,
 Ledger, and Valuation, but owns no source history.
 
+### Business Logic
+
+Business Logic owns deterministic calculations, policies, and rule-based
+signals. Calculators produce metrics. Evaluators produce signals. Policies
+configure rules. Business Logic consumes read-only context and stores no source
+data.
+
 ### Analytics
 
-Analytics owns derived metrics and snapshots, including performance,
-allocation, cash flow, and risk summaries.
+Analytics owns derived snapshots, including performance, allocation, cash flow,
+and risk summaries produced from validated lower layers.
 
 ### Services
 
@@ -110,6 +121,7 @@ context from lower layers rather than inventing source data.
 
 - Dashboard is display-only.
 - Services are read-only in the Alpha architecture.
+- Business Logic does not modify Portfolio, Ledger, Valuation, or Analytics.
 - Analytics does not modify Portfolio, Ledger, or Valuation.
 - Portfolio does not own source history.
 - Valuation records are append-style history.

@@ -33,6 +33,8 @@ Valuation
 ↓
 Portfolio
 ↓
+Business Logic
+↓
 Analytics
 ↓
 Services
@@ -404,7 +406,7 @@ A demo aggregation template is provided at
 `data/portfolio/portfolio.example.json`. It contains only sample holdings and
 no real user data.
 
-Future Analytics Engine responsibilities:
+Business Logic responsibilities:
 
 - ROI
 - IRR
@@ -489,6 +491,31 @@ Each position must include:
 The import command validates missing fields, invalid JSON, unsupported
 `asset_type` values, and invalid quantities. Output includes `Portfolio
 Summary`, total cost, total market value, and total unrealized PnL.
+
+## Business Logic Foundation
+
+Onecool OS includes a Business Logic foundation in
+`onecool_os.business_logic`. Business Logic is the deterministic calculation
+and rule-evaluation layer. It consumes read-only Portfolio, Ledger, Valuation,
+and Analytics context, then produces structured metric results and signals.
+
+Business Logic owns no source data and stores no source history. It does not
+implement formulas in this foundation sprint.
+
+Current Business Logic components:
+
+- `BusinessLogicContext`: Read-only input bundle.
+- `BusinessLogicResult`: Structured deterministic metric output.
+- `SignalResult`: Structured rule-based signal output.
+- `BaseCalculator`: Calculator contract for metrics.
+- `BaseEvaluator`: Evaluator contract for signals.
+- `BasePolicy`: Rule configuration model.
+- `BusinessLogicRegistry`: Calculator and evaluator discovery registry.
+
+Calculators produce metrics. Evaluators produce signals. Policies configure
+rules but do not calculate by themselves. Analytics stores derived snapshots,
+Dashboard displays results, and OFAI reasons over trusted deterministic
+outputs.
 
 ## Analytics Engine Foundation
 
@@ -1139,7 +1166,8 @@ Source of Truth:
 | Ledger | Transactions and lifecycle events |
 | Valuation | Valuation history |
 | Portfolio | Current holdings and aggregation |
-| Analytics | Derived metrics and snapshots |
+| Business Logic | Deterministic calculations, policies, and signals |
+| Analytics | Derived snapshots |
 | Services | Read-only access interface |
 | Dashboard | Display-only views |
 | OFAI | Decisions and recommendations |
