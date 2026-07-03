@@ -120,6 +120,7 @@ Goals:
 - Evaluator contracts
 - Policy configuration
 - Calculator and evaluator registry
+- Cash Flow Engine
 
 ### v0.6 Dashboard Foundation
 

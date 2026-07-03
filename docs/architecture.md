@@ -97,6 +97,10 @@ signals. Calculators produce metrics. Evaluators produce signals. Policies
 configure rules. Business Logic consumes read-only context and stores no source
 data.
 
+The first Business Logic Engine is Cash Flow. It consumes Ledger data through
+`BusinessLogicContext` and produces deterministic `CASH_FLOW` metric results.
+It does not own or modify ledger transactions.
+
 ### Analytics
 
 Analytics owns derived snapshots, including performance, allocation, cash flow,

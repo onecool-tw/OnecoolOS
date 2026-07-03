@@ -1,6 +1,7 @@
 """Business Logic Engine foundation."""
 
 from onecool_os.business_logic.calculators import BaseCalculator
+from onecool_os.business_logic.cash_flow import CashFlowEngine
 from onecool_os.business_logic.context import BusinessLogicContext
 from onecool_os.business_logic.enums import ConfidenceLevel
 from onecool_os.business_logic.enums import MetricType
@@ -20,6 +21,7 @@ __all__ = [
     "BusinessLogicError",
     "BusinessLogicRegistry",
     "BusinessLogicResult",
+    "CashFlowEngine",
     "ConfidenceLevel",
     "MetricType",
     "SignalResult",

@@ -511,11 +511,26 @@ Current Business Logic components:
 - `BaseEvaluator`: Evaluator contract for signals.
 - `BasePolicy`: Rule configuration model.
 - `BusinessLogicRegistry`: Calculator and evaluator discovery registry.
+- `CashFlowEngine`: First deterministic Business Logic Engine.
 
 Calculators produce metrics. Evaluators produce signals. Policies configure
 rules but do not calculate by themselves. Analytics stores derived snapshots,
 Dashboard displays results, and OFAI reasons over trusted deterministic
 outputs.
+
+### Cash Flow Engine
+
+`CashFlowEngine` consumes Ledger data through `BusinessLogicContext` and
+produces deterministic `CASH_FLOW` metrics. It reads transaction types and
+optional costs from immutable ledger records. It does not own source
+transactions and does not modify Ledger.
+
+Cash inflows include `SELL`, `DIVIDEND`, `INTEREST`, `DEPOSIT`, and
+`TRANSFER_IN`. Cash outflows include `BUY`, `WITHDRAW`, `TRANSFER_OUT`, `FEE`,
+and `TAX`. Optional `fee`, `tax`, `shipping`, `insurance`, and `other_cost`
+values are counted as outflows.
+
+This engine does not calculate ROI, IRR, Allocation, Risk, or OFAI reasoning.
 
 ## Analytics Engine Foundation
 

@@ -197,6 +197,11 @@ Calculators produce metric results. Evaluators produce rule-based signals.
 Policies configure rules but do not calculate by themselves. The registry
 discovers available calculators and evaluators.
 
+The first Business Logic Engine is Cash Flow. It consumes Ledger data through
+`BusinessLogicContext` and produces deterministic cash inflow, cash outflow,
+net cash flow, and cost metrics. It does not calculate ROI, IRR, Allocation, or
+Risk.
+
 ### Analytics Engine
 
 Provides derived analytics snapshots for portfolio-level metrics. Analytics

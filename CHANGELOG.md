@@ -9,6 +9,9 @@ Commits.
 
 ### Added
 
+- Cash Flow Engine as the first Business Logic Engine.
+- Deterministic cash inflow, cash outflow, net cash flow, and cost summaries
+  from Ledger data.
 - Business Logic foundation under `onecool_os.business_logic`.
 - Business logic context, metric results, signal results, calculator and
   evaluator contracts, policies, and registry.
