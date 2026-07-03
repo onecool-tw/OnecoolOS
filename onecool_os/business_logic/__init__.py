@@ -1,6 +1,9 @@
 """Business Logic Engine foundation."""
 
 from onecool_os.business_logic.allocation import AllocationEngine
+from onecool_os.business_logic.analytics_integration import (
+    AnalyticsSnapshotBuilder,
+)
 from onecool_os.business_logic.calculators import BaseCalculator
 from onecool_os.business_logic.cash_flow import CashFlowEngine
 from onecool_os.business_logic.context import BusinessLogicContext
@@ -20,6 +23,7 @@ from onecool_os.business_logic.validation import BusinessLogicError
 
 __all__ = [
     "AllocationEngine",
+    "AnalyticsSnapshotBuilder",
     "BaseCalculator",
     "BaseEvaluator",
     "BasePolicy",

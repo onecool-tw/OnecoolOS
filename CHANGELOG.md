@@ -11,6 +11,8 @@ Commits.
 
 - Cash Flow Engine as the first Business Logic Engine.
 - Business Logic Pipeline Runner for deterministic engine orchestration.
+- Analytics Integration mapping from Business Logic pipeline results to
+  AnalyticsSnapshot-compatible payloads.
 - Structured pipeline execution reports with engine results, signal results,
   executed engines, skipped engines, and errors.
 - Allocation Engine as a deterministic Business Logic Engine.

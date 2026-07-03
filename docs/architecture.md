@@ -102,6 +102,10 @@ evaluators in deterministic order. It returns a structured execution report for
 Analytics, Services, Dashboard, and future OFAI consumption. The pipeline does
 not calculate by itself, store results, write files, or mutate context.
 
+Analytics Integration maps pipeline reports into AnalyticsSnapshot-compatible
+structures. It is a bridge from Business Logic to Analytics and does not
+calculate metrics, store data, write files, or mutate source data.
+
 The first Business Logic Engine is Cash Flow. It consumes Ledger data through
 `BusinessLogicContext` and produces deterministic `CASH_FLOW` metric results.
 It does not own or modify ledger transactions.

@@ -203,6 +203,11 @@ report containing metric results, signal results, executed engines, skipped
 engines, and errors. The runner does not calculate by itself, store results,
 write files, or mutate `BusinessLogicContext`.
 
+Analytics Integration maps Business Logic pipeline output into
+AnalyticsSnapshot-compatible structures. It maps known Cash Flow, Allocation,
+Performance, and Risk metrics and preserves pipeline metadata. It does not
+calculate metrics, store data, write files, or mutate source data.
+
 The first Business Logic Engine is Cash Flow. It consumes Ledger data through
 `BusinessLogicContext` and produces deterministic cash inflow, cash outflow,
 net cash flow, and cost metrics. It does not calculate ROI, IRR, Allocation, or

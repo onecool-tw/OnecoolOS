@@ -121,6 +121,7 @@ Goals:
 - Policy configuration
 - Calculator and evaluator registry
 - Business Logic Pipeline Runner
+- Analytics Integration
 - Cash Flow Engine
 - Allocation Engine
 - Risk Engine
@@ -174,9 +175,9 @@ Goals:
 
 ## Current Sprint
 
-Sprint 14
+Sprint 15
 
 Status: Completed
 
 Next Sprint:
-Analytics Integration Foundation
+Dashboard Analytics View Foundation

@@ -514,6 +514,7 @@ Current Business Logic components:
 - `BusinessLogicRegistry`: Calculator and evaluator discovery registry.
 - `BusinessLogicRunner`: Deterministic pipeline runner for registered engines.
 - `BusinessLogicPipelineResult`: Structured pipeline execution report.
+- `AnalyticsSnapshotBuilder`: Business Logic to Analytics mapping layer.
 - `CashFlowEngine`: First deterministic Business Logic Engine.
 - `AllocationEngine`: Deterministic portfolio allocation calculator.
 - `RiskEngine`: Deterministic portfolio risk assessment engine.
@@ -538,6 +539,19 @@ The pipeline does not calculate by itself, does not store results, does not
 write files, and does not mutate `BusinessLogicContext`. Future engines should
 register with the registry and be executed by the runner so Analytics,
 Services, Dashboard, and OFAI can consume a stable report.
+
+### Analytics Integration
+
+`AnalyticsSnapshotBuilder` maps `BusinessLogicPipelineResult` output into an
+AnalyticsSnapshot-compatible dictionary. It maps known metrics from Cash Flow,
+Allocation, Performance, and Risk into analytics fields and includes pipeline
+metadata such as source pipeline id, executed engines, skipped engines, and
+errors.
+
+Analytics Integration does not calculate metrics, store data, write files, or
+mutate `BusinessLogicContext` or pipeline results. It is the bridge between
+Business Logic and Analytics so Services, Dashboard, and future OFAI can
+consume derived snapshots through a stable shape.
 
 ### Cash Flow Engine
 
