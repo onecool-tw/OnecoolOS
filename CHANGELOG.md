@@ -12,6 +12,9 @@ Commits.
 - Cash Flow Engine as the first Business Logic Engine.
 - Allocation Engine as a deterministic Business Logic Engine.
 - Risk Engine as the first deterministic Business Logic assessment engine.
+- Performance Engine for deterministic unrealized performance metrics.
+- Cost basis, market value, unrealized gain, and unrealized return results
+  from `BusinessLogicContext`.
 - Risk signals for concentration, liquidity, cash ratio, diversification,
   missing valuation data, and missing ledger history.
 - Portfolio category totals and weights from values already available in

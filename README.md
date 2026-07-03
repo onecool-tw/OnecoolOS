@@ -515,6 +515,7 @@ Current Business Logic components:
 - `CashFlowEngine`: First deterministic Business Logic Engine.
 - `AllocationEngine`: Deterministic portfolio allocation calculator.
 - `RiskEngine`: Deterministic portfolio risk assessment engine.
+- `PerformanceEngine`: Deterministic unrealized performance calculator.
 
 Calculators produce metrics. Evaluators produce signals. Policies configure
 rules but do not calculate by themselves. Analytics stores derived snapshots,
@@ -562,6 +563,23 @@ can make rules configurable without changing the engine contract.
 
 This engine does not predict markets, perform AI reasoning, calculate ROI or
 IRR, fetch external data, or modify source records.
+
+### Performance Engine
+
+`PerformanceEngine` consumes `BusinessLogicContext` and produces deterministic
+`PERFORMANCE` metrics. It computes cost basis, market value, unrealized gain,
+and unrealized return using values already available from Portfolio, Valuation,
+Ledger, or optional Analytics context.
+
+The foundation formula scope is intentionally narrow:
+
+- `unrealized_gain = market_value - cost_basis`
+- `unrealized_return = unrealized_gain / cost_basis`
+
+Future ROI, IRR, Benchmark, and Drawdown engines will extend performance
+analysis. This engine does not calculate IRR, XIRR, time-weighted return,
+money-weighted return, alpha, beta, Sharpe, Sortino, drawdown, or benchmark
+comparison.
 
 ## Analytics Engine Foundation
 

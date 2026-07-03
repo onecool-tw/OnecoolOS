@@ -9,6 +9,7 @@ from onecool_os.business_logic.enums import MetricType
 from onecool_os.business_logic.enums import SignalSeverity
 from onecool_os.business_logic.evaluators import BaseEvaluator
 from onecool_os.business_logic.policies import BasePolicy
+from onecool_os.business_logic.performance import PerformanceEngine
 from onecool_os.business_logic.registry import BusinessLogicRegistry
 from onecool_os.business_logic.results import BusinessLogicResult
 from onecool_os.business_logic.results import SignalResult
@@ -27,6 +28,7 @@ __all__ = [
     "CashFlowEngine",
     "ConfidenceLevel",
     "MetricType",
+    "PerformanceEngine",
     "RiskEngine",
     "SignalResult",
     "SignalSeverity",

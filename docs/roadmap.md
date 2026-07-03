@@ -123,6 +123,7 @@ Goals:
 - Cash Flow Engine
 - Allocation Engine
 - Risk Engine
+- Performance Engine
 
 ### v0.6 Dashboard Foundation
 
@@ -172,9 +173,9 @@ Goals:
 
 ## Current Sprint
 
-Sprint 12
+Sprint 13
 
 Status: Completed
 
 Next Sprint:
-Performance Engine Foundation
+ROI Engine Foundation

@@ -112,6 +112,11 @@ The first Business Logic assessment engine is Risk. It consumes
 rule-based signals. It evaluates portfolio health without market prediction,
 AI reasoning, external APIs, or source data mutation.
 
+The Performance Engine computes deterministic unrealized performance from
+`BusinessLogicContext`. It produces `PERFORMANCE` metric results for cost
+basis, market value, unrealized gain, and unrealized return while leaving ROI,
+IRR, benchmark comparison, and drawdown to later engines.
+
 ### Analytics
 
 Analytics owns derived snapshots, including performance, allocation, cash flow,

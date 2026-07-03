@@ -215,6 +215,13 @@ ratio, diversification, valuation availability, and ledger history
 availability. It does not predict markets, perform AI reasoning, fetch external
 data, or modify source records.
 
+The Performance Engine computes deterministic unrealized performance from
+`BusinessLogicContext`. It produces `PERFORMANCE` metric results for cost
+basis, market value, unrealized gain, and unrealized return. ROI, IRR,
+Benchmark, and Drawdown engines will extend this capability in later sprints.
+It does not perform market prediction, AI reasoning, benchmark comparison, or
+advanced return calculations.
+
 ### Analytics Engine
 
 Provides derived analytics snapshots for portfolio-level metrics. Analytics
