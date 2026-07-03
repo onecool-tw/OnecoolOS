@@ -122,6 +122,7 @@ Goals:
 - Calculator and evaluator registry
 - Cash Flow Engine
 - Allocation Engine
+- Risk Engine
 
 ### v0.6 Dashboard Foundation
 
@@ -171,9 +172,9 @@ Goals:
 
 ## Current Sprint
 
-Sprint 11C
+Sprint 12
 
 Status: Completed
 
 Next Sprint:
-Risk Engine Foundation
+Performance Engine Foundation

@@ -514,6 +514,7 @@ Current Business Logic components:
 - `BusinessLogicRegistry`: Calculator and evaluator discovery registry.
 - `CashFlowEngine`: First deterministic Business Logic Engine.
 - `AllocationEngine`: Deterministic portfolio allocation calculator.
+- `RiskEngine`: Deterministic portfolio risk assessment engine.
 
 Calculators produce metrics. Evaluators produce signals. Policies configure
 rules but do not calculate by themselves. Analytics stores derived snapshots,
@@ -547,6 +548,20 @@ types when available.
 
 This engine does not calculate ROI, gain/loss, CAGR, IRR, Risk, rebalancing,
 recommendations, market prices, API data, or currency conversion.
+
+### Risk Engine
+
+`RiskEngine` consumes `BusinessLogicContext` and produces deterministic `RISK`
+metrics plus reusable `SignalResult` objects. It evaluates framework-level
+portfolio health dimensions: concentration, liquidity, cash ratio,
+diversification, valuation availability, and ledger history availability.
+
+Risk signals are intended for Dashboard and future OFAI consumption. The
+engine uses simple default thresholds through `BasePolicy` so future sprints
+can make rules configurable without changing the engine contract.
+
+This engine does not predict markets, perform AI reasoning, calculate ROI or
+IRR, fetch external data, or modify source records.
 
 ## Analytics Engine Foundation
 

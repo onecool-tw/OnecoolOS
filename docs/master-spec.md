@@ -208,6 +208,13 @@ category, and produces deterministic total value, category totals, and
 allocation weights. It does not calculate ROI, gain/loss, CAGR, IRR, Risk,
 rebalancing, recommendations, market prices, API data, or currency conversion.
 
+The first Business Logic assessment engine is Risk. It consumes
+`BusinessLogicContext` and produces deterministic `RISK` metric results and
+rule-based `SignalResult` objects. It evaluates concentration, liquidity, cash
+ratio, diversification, valuation availability, and ledger history
+availability. It does not predict markets, perform AI reasoning, fetch external
+data, or modify source records.
+
 ### Analytics Engine
 
 Provides derived analytics snapshots for portfolio-level metrics. Analytics

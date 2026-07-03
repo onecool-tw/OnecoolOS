@@ -11,6 +11,9 @@ Commits.
 
 - Cash Flow Engine as the first Business Logic Engine.
 - Allocation Engine as a deterministic Business Logic Engine.
+- Risk Engine as the first deterministic Business Logic assessment engine.
+- Risk signals for concentration, liquidity, cash ratio, diversification,
+  missing valuation data, and missing ledger history.
 - Portfolio category totals and weights from values already available in
   `BusinessLogicContext`.
 - Deterministic cash inflow, cash outflow, net cash flow, and cost summaries

@@ -12,6 +12,7 @@ from onecool_os.business_logic.policies import BasePolicy
 from onecool_os.business_logic.registry import BusinessLogicRegistry
 from onecool_os.business_logic.results import BusinessLogicResult
 from onecool_os.business_logic.results import SignalResult
+from onecool_os.business_logic.risk import RiskEngine
 from onecool_os.business_logic.validation import BusinessLogicError
 
 __all__ = [
@@ -26,6 +27,7 @@ __all__ = [
     "CashFlowEngine",
     "ConfidenceLevel",
     "MetricType",
+    "RiskEngine",
     "SignalResult",
     "SignalSeverity",
 ]

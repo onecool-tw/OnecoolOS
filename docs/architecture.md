@@ -107,6 +107,11 @@ category, and produces deterministic `ALLOCATION` metric results. It does not
 calculate ROI, IRR, Risk, rebalancing, recommendations, market prices, API
 data, or currency conversion.
 
+The first Business Logic assessment engine is Risk. It consumes
+`BusinessLogicContext` and produces deterministic `RISK` metric results plus
+rule-based signals. It evaluates portfolio health without market prediction,
+AI reasoning, external APIs, or source data mutation.
+
 ### Analytics
 
 Analytics owns derived snapshots, including performance, allocation, cash flow,
