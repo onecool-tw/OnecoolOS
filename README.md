@@ -680,9 +680,16 @@ data files.
 
 Current Dashboard components:
 
+- `DashboardAnalyticsView`: Display-only analytics intelligence view.
+- `DashboardAnalyticsSection`: Display-only analytics summary section.
 - `DashboardView`: Display-only dashboard payload.
 - `DashboardSection`: Display-only summary section.
 - `DashboardBuilder`: Builds dashboard views from read-only services.
+
+Dashboard Analytics views present Cash Flow, Allocation, Performance, Risk,
+and Pipeline summaries from Analytics-derived data. Dashboard never performs
+calculations. Business Logic owns calculations, Analytics owns derived
+snapshots, and Dashboard owns presentation only.
 
 Run the dashboard demo:
 

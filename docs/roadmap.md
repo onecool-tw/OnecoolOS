@@ -134,6 +134,7 @@ Goals:
 - Service Layer
 - Display-only Dashboard views
 - Dashboard-ready portfolio view
+- Dashboard Analytics views
 - Analytics display
 - Charts
 - Daily summary
@@ -175,9 +176,9 @@ Goals:
 
 ## Current Sprint
 
-Sprint 15
+Sprint 16
 
 Status: Completed
 
 Next Sprint:
-Dashboard Analytics View Foundation
+ROI Engine Foundation

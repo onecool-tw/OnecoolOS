@@ -5,6 +5,7 @@ from __future__ import annotations
 from datetime import UTC, datetime
 from typing import Any
 
+from onecool_os.dashboard.analytics_view import DashboardAnalyticsView
 from onecool_os.dashboard.models import DashboardSection
 from onecool_os.dashboard.models import DashboardView
 from onecool_os.services import AnalyticsService
@@ -141,6 +142,9 @@ class DashboardBuilder:
             "latest_snapshot": (
                 latest_snapshot.to_dict() if latest_snapshot else None
             ),
+            "analytics_view": DashboardAnalyticsView.from_snapshot(
+                latest_snapshot
+            ).to_dict(),
         }
 
     def _safe_content(

@@ -259,6 +259,11 @@ and does not write to Assets, Ledger, Valuation, Portfolio, Analytics, or data
 files. Future web and mobile UI should consume Dashboard views or Services
 rather than reading lower-layer files directly.
 
+Dashboard Analytics views present Analytics-derived business intelligence such
+as Cash Flow, Allocation, Performance, Risk, and Pipeline summaries. Dashboard
+does not calculate metrics. Business Logic owns calculations, Analytics owns
+derived snapshots, and Dashboard owns presentation.
+
 ### Transaction & Ledger Layer
 
 Provides immutable transaction and lifecycle event records for all asset

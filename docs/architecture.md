@@ -141,6 +141,11 @@ and OFAI. Services consume lower layers and do not mutate files.
 Dashboard owns display-only views. It consumes Services and does not own or
 modify source data.
 
+Dashboard Analytics views present Analytics-derived Cash Flow, Allocation,
+Performance, Risk, and Pipeline summaries. Dashboard does not calculate
+metrics; Business Logic owns calculations and Analytics owns derived
+snapshots.
+
 ### OFAI
 
 OFAI will own future decisions and recommendations. It must consume validated
