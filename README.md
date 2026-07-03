@@ -1,5 +1,7 @@
 # Onecool OS
 
+Current Version: v0.1.0 Alpha
+
 Onecool OS is a Python-based personal asset operating system. Milestone 1
 delivers the Core Engine: SQLite persistence, plugin loading, event publishing,
 service registration, and a command-line entry point.
@@ -10,6 +12,35 @@ Onecool OS models personal assets, tracks portfolio value, validates market and
 asset data, and prepares the system for valuation, intelligence, reporting, and
 dashboard workflows. The official product specification is maintained in
 [docs/master-spec.md](docs/master-spec.md).
+
+Architecture freeze documentation:
+
+- [Architecture](docs/architecture.md)
+- [v0.1.0 Alpha Release](docs/releases/v0.1.0-alpha.md)
+
+```text
+External Sources
+↓
+Connector
+↓
+Normalize
+↓
+Assets
+↓
+Ledger
+↓
+Valuation
+↓
+Portfolio
+↓
+Analytics
+↓
+Services
+↓
+Dashboard
+↓
+OFAI
+```
 
 ## Requirements
 

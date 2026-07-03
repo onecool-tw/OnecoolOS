@@ -1,88 +1,133 @@
-# Architecture
+# Onecool OS Architecture
 
-Onecool OS is a Python-based personal asset operating system. The current
-architecture is centered on a small Core Engine that owns infrastructure
-concerns and exposes stable extension points for business modules.
+Onecool OS v0.1.0 Alpha uses a layered architecture. Each layer owns one clear
+responsibility and exposes data upward through explicit models, loaders, or
+services. Upper layers must not bypass lower-layer boundaries.
 
-## Core Engine
+## Layered Architecture
 
-The Core Engine coordinates startup, shutdown, persistence, events, services,
-and plugin lifecycle. It is implemented in `onecool_os.core.engine`.
+```text
+External Sources
+↓
+Connector
+↓
+Normalize
+↓
+Assets
+↓
+Ledger
+↓
+Valuation
+↓
+Portfolio
+↓
+Analytics
+↓
+Services
+↓
+Dashboard
+↓
+OFAI
+```
 
-Responsibilities:
+## Source of Truth
 
-- Open the SQLite database connection.
-- Apply schema migrations.
-- Create the event bus.
-- Create the service registry.
-- Load and activate plugins.
-- Deactivate plugins and release resources on shutdown.
+| Layer | Source of Truth |
+| --- | --- |
+| Connector | Raw external input |
+| Normalize | Standardized records |
+| Assets | Asset identity |
+| Ledger | Transactions and lifecycle events |
+| Valuation | Valuation history |
+| Portfolio | Current holdings and aggregation |
+| Analytics | Derived metrics and snapshots |
+| Services | Read-only access interface |
+| Dashboard | Display-only views |
+| OFAI | Decisions and recommendations |
 
-The Core Engine does not contain business logic. Future business areas such as
-Market, Funds, Cards, House, Emergency, and Dashboard should be implemented as
-plugins or module packages that depend on public core interfaces.
+## Data Flow
 
-## Persistence
+External files and platform exports enter through Connectors. Normalize turns
+connector output into standardized records. Assets describe what exists. Ledger
+records what happened. Valuation records what assets are worth. Portfolio
+aggregates current holdings. Analytics derives metrics from validated data.
+Services expose stable read-only interfaces. Dashboard displays service-backed
+views. OFAI will consume context and recommendations in future sprints.
 
-SQLite is the default persistence layer. The database layer is implemented in
-`onecool_os.core.database` and applies SQL migrations from `migrations/`.
+## Module Responsibilities
 
-The first schema creates:
+### Connector
 
-- `schema_migrations`
-- `system_settings`
-- `plugins`
-- `event_log`
+Connectors import or sync raw external files and platform outputs. They should
+not own business rules or normalized portfolio state.
 
-The database layer is infrastructure and must remain independent of business
-modules.
+### Normalize
 
-## Plugin System
+Normalize standardizes connector output into canonical records. It validates
+shape and source identity before data reaches business layers.
 
-Plugins are loaded through `onecool_os.core.plugins`. A plugin exposes a
-`create_plugin` callable that returns an object with a manifest and lifecycle
-methods.
+### Assets
 
-Required plugin interface:
+Assets own identity and descriptive metadata for funds, securities, sports
+cards, real estate, cash, and future asset classes.
 
-- `manifest`
-- `activate(context)`
-- `deactivate(context)`
+### Ledger
 
-The `PluginContext` gives plugins access to:
+Ledger owns transaction history and lifecycle events. Asset modules should not
+store transaction history independently.
 
-- SQLite connection
-- Event bus
-- Service registry
+### Valuation
 
-The built-in `core.health` plugin verifies that the engine can load plugins and
-register services.
+Valuation owns valuation history. Valuation records are historical and should
+not overwrite previous records.
 
-## Event Bus
+### Portfolio
 
-The event bus is implemented in `onecool_os.core.events`. It supports in-process
-event subscriptions and persists all published events to `event_log`.
+Portfolio aggregates current holdings and summary values. It consumes Assets,
+Ledger, and Valuation, but owns no source history.
 
-Events are used for lifecycle visibility and future module communication. Event
-payloads should remain serializable dictionaries so they can be stored and
-audited consistently.
+### Analytics
 
-## Service Registry
+Analytics owns derived metrics and snapshots, including performance,
+allocation, cash flow, and risk summaries.
 
-The service registry is implemented in `onecool_os.core.registry`. It provides a
-small named registry for infrastructure services and plugin-provided services.
+### Services
 
-The registry should be used for composition between modules. It should not
-become a container for hidden global state or business workflows.
+Services provide stable read-only access for CLI, Dashboard, API, Automation,
+and OFAI. Services consume lower layers and do not mutate files.
 
-## Command Line Interface
+### Dashboard
 
-The CLI is implemented in `onecool_os.__main__`.
+Dashboard owns display-only views. It consumes Services and does not own or
+modify source data.
 
-Current commands:
+### OFAI
 
-- `init`
-- `status`
-- `plugins`
+OFAI will own future decisions and recommendations. It must consume validated
+context from lower layers rather than inventing source data.
 
-Each command starts the Core Engine so every milestone remains executable.
+## Read-Only Boundaries
+
+- Dashboard is display-only.
+- Services are read-only in the Alpha architecture.
+- Analytics does not modify Portfolio, Ledger, or Valuation.
+- Portfolio does not own source history.
+- Valuation records are append-style history.
+- Ledger transactions and events are immutable records.
+- Connectors preserve raw input boundaries.
+
+Future mutation workflows should be implemented through explicit command or
+use-case layers, not by directly mutating display, service, analytics, or
+aggregation objects.
+
+## Architecture Principles
+
+- Model first.
+- Asset first.
+- Valuation before decision.
+- Scenario before prediction.
+- Architecture freeze unless explicitly approved.
+- Test before trust.
+- Daily-use workflows over one-time demos.
+- Readability over unnecessary abstraction.
+- Stable boundaries before automation.

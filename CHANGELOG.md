@@ -9,6 +9,8 @@ Commits.
 
 ### Added
 
+- v0.1.0 Alpha architecture freeze documentation.
+- Alpha release notes under `docs/releases/v0.1.0-alpha.md`.
 - Dashboard foundation under `onecool_os.dashboard`.
 - Display-only dashboard view and section models, builder, and CLI demo.
 - Service Layer foundation under `onecool_os.services`.

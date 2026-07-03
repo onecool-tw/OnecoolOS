@@ -20,6 +20,37 @@ assets, knowledge, decisions, and automation.
 
 ## Version Roadmap
 
+### v0.1.0 Alpha Architecture Freeze (Completed)
+
+Foundation:
+
+- Core Engine
+- Configuration
+- Logging
+- Scheduler
+- Market foundation
+- Asset module foundation
+- Connector Layer
+- Normalize Layer
+
+Data Platform:
+
+- Ledger
+- Valuation
+- Portfolio Aggregation
+- Analytics
+
+Presentation Platform:
+
+- Services
+- Dashboard foundation
+
+Next:
+
+- Business Logic Engine
+- Automation
+- OFAI
+
 ### v0.3 Foundation (Completed)
 
 - Core Engine
@@ -126,9 +157,9 @@ Goals:
 
 ## Current Sprint
 
-Sprint 4
+Sprint 10.5
 
-Status: In Progress
+Status: Completed
 
 Next Sprint:
-Transaction Layer
+Business Logic Engine Foundation
