@@ -771,6 +771,28 @@ context for future AI models.
 OFAI does not call LLMs, make investment recommendations, predict markets, or
 mutate source data.
 
+## Decision Engine Foundation
+
+Onecool OS includes a deterministic Decision Engine in `onecool_os.decision`.
+Decision Engine evaluates structured decision options, candidates,
+constraints, scores, readiness states, and audit trails.
+
+Current Decision components:
+
+- `DecisionContext`: Read-only deterministic decision input bundle.
+- `DecisionOption`: A possible option to evaluate.
+- `DecisionCandidate`: An option with constraints, score, and readiness.
+- `DecisionConstraint`: A deterministic blocker or review signal.
+- `DecisionScore`: A transparent foundation score.
+- `DecisionResult`: Structured decision evaluation output.
+- `DecisionAuditTrail`: Execution explanation and trace.
+- `DecisionEngine`: Deterministic option evaluator.
+
+Decision Engine does not make final recommendations, call LLMs, predict
+markets, mutate source data, provide legal/tax/financial advice as final
+truth, or execute actions. Recommendation Engine and LLM integration are
+future layers.
+
 ## Funds Module
 
 Onecool OS includes a Funds asset module foundation in

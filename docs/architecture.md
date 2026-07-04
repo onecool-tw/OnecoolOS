@@ -130,6 +130,13 @@ OFAI context rather than bypassing deterministic layers.
 | OFAI | Prepares context, does not call LLMs in v0.2 |
 | Decision | Evaluates options, does not make final user decisions |
 
+### Decision
+
+Decision Engine evaluates structured options, candidates, constraints, scores,
+readiness states, and audit trails. It is deterministic and auditable. It does
+not recommend final actions, call LLMs, predict markets, mutate source data,
+provide legal/tax/financial advice as final truth, or execute actions.
+
 ## Data Flow
 
 External files and platform exports enter through Connectors. Normalize turns

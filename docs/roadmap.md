@@ -53,10 +53,10 @@ v0.2 Beta Architecture Freeze:
 - Scenario Engine Foundation
 - OFAI Foundation
 - Decision Engine Architecture Proposal
+- Decision Engine Foundation
 
 Next:
 
-- Decision Engine Foundation
 - Decision Rules Foundation
 - Decision Scoring Foundation
 - Recommendation Engine Foundation
@@ -189,9 +189,9 @@ Goals:
 
 ## Current Sprint
 
-Sprint 19.5
+Sprint 20
 
 Status: Completed
 
 Next Sprint:
-Decision Engine Foundation
+Decision Rules Foundation

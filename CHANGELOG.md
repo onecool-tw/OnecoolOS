@@ -12,6 +12,8 @@ Commits.
 - v0.2.0 Beta architecture freeze documentation.
 - Decision Platform architecture for Business Logic, Analytics, Dashboard,
   Scenario, OFAI, and Decision responsibilities.
+- Decision Engine foundation with deterministic options, candidates,
+  constraints, scores, readiness states, results, and audit trails.
 - Cash Flow Engine as the first Business Logic Engine.
 - Business Logic Pipeline Runner for deterministic engine orchestration.
 - Analytics Integration mapping from Business Logic pipeline results to

@@ -292,6 +292,15 @@ context. Future AI models may consume OFAI context, but OFAI does not call AI,
 make recommendations, predict markets, or mutate source data in this
 foundation.
 
+### Decision Engine
+
+Provides deterministic option evaluation. Decision Engine consumes validated
+context from Business Logic, Analytics, Dashboard, Scenario Engine, and OFAI.
+It evaluates options, constraints, scores, readiness states, and audit trails.
+It does not make final recommendations, call LLMs, predict markets, mutate
+source data, provide legal/tax/financial advice as final truth, or execute
+actions. Recommendation Engine and LLM integration are future layers.
+
 ### Transaction & Ledger Layer
 
 Provides immutable transaction and lifecycle event records for all asset
