@@ -160,6 +160,8 @@ Goals:
 ### v0.9 OFAI Beta
 
 - Scenario Planning
+- OFAI context
+- OFAI planner
 - Decision Engine
 - Risk Engine
 - Allocation suggestions
@@ -177,9 +179,9 @@ Goals:
 
 ## Current Sprint
 
-Sprint 17
+Sprint 18
 
 Status: Completed
 
 Next Sprint:
-OFAI Foundation
+Decision Engine Foundation

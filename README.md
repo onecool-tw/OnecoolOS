@@ -727,6 +727,27 @@ Scenario Engine does not perform AI reasoning, make recommendations, predict
 markets, write files, or mutate source data. OFAI will later reason over
 Scenario objects.
 
+## OFAI Foundation
+
+Onecool OS includes an OFAI foundation in `onecool_os.ofai`. OFAI means
+Onecool Financial AI, but this foundation is not an AI model. It is the
+orchestration layer that consumes deterministic outputs from Business Logic,
+Analytics, Dashboard, and Scenario Engine.
+
+Current OFAI components:
+
+- `OFAIContext`: Read-only deterministic input bundle.
+- `OFAIPlan`: Structured planning output.
+- `OFAIPlanner`: Deterministic planner that prepares decision context.
+- `PlanningMode` and `ConfidenceLevel`: OFAI planning enums.
+
+Business Logic calculates. Analytics stores derived snapshots. Dashboard
+presents. Scenario Engine structures possibilities. OFAI prepares decision
+context for future AI models.
+
+OFAI does not call LLMs, make investment recommendations, predict markets, or
+mutate source data.
+
 ## Funds Module
 
 Onecool OS includes a Funds asset module foundation in

@@ -17,6 +17,8 @@ Commits.
   Pipeline summaries.
 - Scenario Engine foundation with deterministic A/B/C/D scenario models,
   validation, and builder.
+- OFAI foundation with deterministic context, plan model, planner, validation,
+  and planning enums.
 - Structured pipeline execution reports with engine results, signal results,
   executed engines, skipped engines, and errors.
 - Allocation Engine as a deterministic Business Logic Engine.

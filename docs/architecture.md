@@ -158,8 +158,10 @@ reasoning, predict markets, or mutate source data.
 
 ### OFAI
 
-OFAI will own future decisions and recommendations. It must consume validated
-context from lower layers rather than inventing source data.
+OFAI prepares decision context from deterministic Business Logic, Analytics,
+Dashboard, and Scenario inputs. OFAI is an orchestration layer, not an AI
+model. It does not call LLMs, make recommendations, predict markets, or mutate
+source data in this foundation.
 
 ## Read-Only Boundaries
 

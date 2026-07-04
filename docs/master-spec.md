@@ -73,7 +73,13 @@ Analytics
 ↓
 Services
 ↓
-Dashboard / CLI / API / Automation / OFAI
+Dashboard / CLI / API / Automation
+↓
+Scenario
+↓
+OFAI
+↓
+Future LLM
 ```
 
 Service-facing surfaces:
@@ -142,9 +148,10 @@ Scenario Engine turns deterministic Business Logic, Analytics, and Dashboard
 context into structured A/B/C/D scenario objects. It does not perform AI
 reasoning, make recommendations, predict markets, or mutate source data.
 
-OFAI builds decisions and recommendations on validated lower-layer data. It
-must not bypass Connector, Normalize, Asset, Ledger, Valuation, or Portfolio
-records.
+OFAI prepares decision context from deterministic Business Logic, Analytics,
+Dashboard, and Scenario inputs. OFAI is not an AI model in this foundation. It
+does not call LLMs, make recommendations, predict markets, or mutate source
+data.
 
 ### Source of Truth
 
@@ -275,6 +282,15 @@ Provides deterministic A/B/C/D scenario planning models. Scenario Engine
 prepares Base, Upside, Downside, and Stress scenario objects from structured
 context. It does not make recommendations, perform AI reasoning, predict
 markets, or own source data. OFAI will later reason over Scenario objects.
+
+### OFAI
+
+Provides the orchestration layer for future Onecool Financial AI workflows.
+Business Logic calculates, Analytics stores derived snapshots, Dashboard
+presents, Scenario Engine structures possibilities, and OFAI prepares decision
+context. Future AI models may consume OFAI context, but OFAI does not call AI,
+make recommendations, predict markets, or mutate source data in this
+foundation.
 
 ### Transaction & Ledger Layer
 
