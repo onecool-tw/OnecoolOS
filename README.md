@@ -69,6 +69,22 @@ stores derived snapshots, Dashboard presents, Scenario structures
 possibilities, OFAI prepares context, and Decision will evaluate options and
 audit trails.
 
+## Collectible Radar MVP
+
+Collectible Radar is the first product workflow built on Onecool OS. It starts
+with sports cards and treats each card as an inventory-style collectible asset.
+
+Collectible connectors preserve raw source identity and normalize local fixture
+or export records into collectible market records. They do not choose final
+valuation, calculate confidence, scrape websites, call live APIs, or mutate raw
+imports.
+
+For sports cards, eBay Sold is the default Primary Market Price because it is
+the closest executable market price. Card Ladder, PWCC, Goldin, and Fanatics
+Collect are Validation Sources used later for confidence, anomaly detection,
+and source agreement. Valuation confidence and source agreement happen in later
+Valuation, Business Logic, Analytics, Dashboard, and Decision layers.
+
 ## Requirements
 
 - Python 3.11+

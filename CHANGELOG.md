@@ -9,6 +9,11 @@ Commits.
 
 ### Added
 
+- Collectible Radar MVP ADR.
+- Collectible connector foundation for local eBay Sold, Card Ladder, PWCC,
+  Goldin, and Fanatics Collect records.
+- Collectible source role mapping for Primary Market Price, Validation Source,
+  and Manual Fallback.
 - v0.2.0 Beta architecture freeze documentation.
 - Decision Platform architecture for Business Logic, Analytics, Dashboard,
   Scenario, OFAI, and Decision responsibilities.

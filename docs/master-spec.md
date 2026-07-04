@@ -106,6 +106,13 @@ Connectors import or sync data from external platforms and local exports. They
 translate platform-specific files, APIs, or account views into Onecool OS
 formats without owning business logic.
 
+Collectible connectors support the Collectible Radar MVP. They preserve source
+identity and normalize local market records without selecting final valuation.
+For sports cards, eBay Sold is the Primary Market Price. Card Ladder, PWCC,
+Goldin, Fanatics Collect, and Manual inputs are Validation Sources. Connector
+output must keep enough raw source context for later valuation confidence and
+source agreement checks.
+
 `imports/` contains raw files exported from external platforms. Raw imports are
 not Onecool OS internal data and should not be committed when they contain user
 portfolio information.

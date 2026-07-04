@@ -284,3 +284,11 @@ The first implementation should focus on:
 - Decision outputs for source verification
 
 Every sprint must remain executable and fully tested.
+
+## Product Sprint 1 Alignment
+
+The first implementation sprint establishes local collectible connector
+contracts only. eBay Sold, Card Ladder, PWCC, Goldin, and Fanatics Collect
+connectors accept local records or fixtures and emit shared market records.
+They do not call live APIs, scrape websites, decide final valuation, calculate
+confidence, or mutate raw imports.

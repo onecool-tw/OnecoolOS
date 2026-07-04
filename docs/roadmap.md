@@ -57,10 +57,24 @@ v0.2 Beta Architecture Freeze:
 
 Next:
 
+- Collectible Connectors Foundation
+- Collectible Valuation Mapping Foundation
 - Decision Rules Foundation
 - Decision Scoring Foundation
 - Recommendation Engine Foundation
 - Automation Foundation
+
+### Product Track: Collectible Radar MVP
+
+Goals:
+
+- Preserve sports card market source identity
+- Treat eBay Sold as Primary Market Price
+- Treat Card Ladder, PWCC, Goldin, and Fanatics Collect as Validation Sources
+- Normalize local fixture/export records without live API calls
+- Preserve all source observations for future valuation confidence and source
+  agreement
+- Feed Dashboard and Decision readiness without hiding source disagreement
 
 ### v0.3 Foundation (Completed)
 

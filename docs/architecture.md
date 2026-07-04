@@ -154,6 +154,17 @@ consume context and recommendations in future sprints.
 Connectors import or sync raw external files and platform outputs. They should
 not own business rules or normalized portfolio state.
 
+Collectible connectors are the foundation for Collectible Radar MVP. They
+accept local fixture/export records from eBay Sold, Card Ladder, PWCC, Goldin,
+and Fanatics Collect and normalize them into shared collectible market records.
+They do not call live APIs, scrape websites, choose final valuation, calculate
+confidence, or decide which marketplace is correct.
+
+For sports cards, eBay Sold is the Primary Market Price source. Card Ladder,
+PWCC, Goldin, Fanatics Collect, and Manual inputs are Validation Sources.
+Valuation confidence and source agreement belong to later Valuation, Business
+Logic, Analytics, Dashboard, and Decision layers.
+
 ### Normalize
 
 Normalize standardizes connector output into canonical records. It validates
