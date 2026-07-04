@@ -4,6 +4,8 @@ from onecool_os.valuation.enums import SOURCE_PRIORITY_BY_ASSET_TYPE
 from onecool_os.valuation.enums import ValuationConfidence
 from onecool_os.valuation.enums import ValuationSource
 from onecool_os.valuation.enums import source_priority_for_asset
+from onecool_os.valuation.collectibles import CollectibleValuationMapper
+from onecool_os.valuation.collectibles import CollectibleValuationMapping
 from onecool_os.valuation.loader import ValuationImportResult
 from onecool_os.valuation.loader import ValuationLoader
 from onecool_os.valuation.loader import ValuationLoaderError
@@ -13,6 +15,8 @@ from onecool_os.valuation.validation import ValuationError
 __all__ = [
     "SOURCE_PRIORITY_BY_ASSET_TYPE",
     "ValuationConfidence",
+    "CollectibleValuationMapper",
+    "CollectibleValuationMapping",
     "ValuationError",
     "ValuationImportResult",
     "ValuationLoader",

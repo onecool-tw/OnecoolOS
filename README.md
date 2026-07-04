@@ -85,6 +85,12 @@ Collect are Validation Sources used later for confidence, anomaly detection,
 and source agreement. Valuation confidence and source agreement happen in later
 Valuation, Business Logic, Analytics, Dashboard, and Decision layers.
 
+The Collectible Valuation Mapper converts each `CollectibleMarketRecord` into a
+`ValuationRecord` plus collectible metadata. It preserves source role, external
+ID, sale price, currency, sale date, URL, raw payload, and raw market record ID.
+It does not choose a final market value, calculate confidence, resolve source
+agreement, or overwrite valuation history.
+
 ## Requirements
 
 - Python 3.11+

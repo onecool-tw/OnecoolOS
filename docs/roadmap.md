@@ -72,8 +72,10 @@ Goals:
 - Treat eBay Sold as Primary Market Price
 - Treat Card Ladder, PWCC, Goldin, and Fanatics Collect as Validation Sources
 - Normalize local fixture/export records without live API calls
+- Map collectible market records into valuation history records
 - Preserve all source observations for future valuation confidence and source
   agreement
+- Keep eBay Sold and Validation Sources as independent valuation records
 - Feed Dashboard and Decision readiness without hiding source disagreement
 
 ### v0.3 Foundation (Completed)

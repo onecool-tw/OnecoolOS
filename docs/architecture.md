@@ -185,6 +185,12 @@ store transaction history independently.
 Valuation owns valuation history. Valuation records are historical and should
 not overwrite previous records.
 
+The Collectible Valuation Mapper sits between collectible market records and
+Valuation. It converts each market observation into a `ValuationRecord` plus
+metadata for source role, external ID, raw market record ID, and raw payload.
+It does not choose final market value, calculate confidence, resolve source
+agreement, or mutate raw imports.
+
 ### Portfolio
 
 Portfolio aggregates current holdings and summary values. It consumes Assets,

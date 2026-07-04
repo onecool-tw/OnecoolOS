@@ -14,6 +14,8 @@ Commits.
   Goldin, and Fanatics Collect records.
 - Collectible source role mapping for Primary Market Price, Validation Source,
   and Manual Fallback.
+- Collectible Valuation Mapper from `CollectibleMarketRecord` to
+  `ValuationRecord` plus source metadata.
 - v0.2.0 Beta architecture freeze documentation.
 - Decision Platform architecture for Business Logic, Analytics, Dashboard,
   Scenario, OFAI, and Decision responsibilities.

@@ -292,3 +292,15 @@ contracts only. eBay Sold, Card Ladder, PWCC, Goldin, and Fanatics Collect
 connectors accept local records or fixtures and emit shared market records.
 They do not call live APIs, scrape websites, decide final valuation, calculate
 confidence, or mutate raw imports.
+
+## Product Sprint 2 Alignment
+
+The second implementation sprint maps collectible market records into
+ValuationRecord-compatible history plus collectible metadata. The mapper
+preserves source role, external ID, sale price, currency, sale date, URL, raw
+payload, and raw market record ID.
+
+The mapper records eBay Sold as a Primary Market Price input. Card Ladder,
+PWCC, Goldin, Fanatics Collect, and Manual remain independent Validation Source
+inputs. The mapper does not select a final market value, calculate confidence,
+resolve source agreement, or overwrite valuation history.

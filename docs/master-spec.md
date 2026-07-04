@@ -113,6 +113,12 @@ Goldin, Fanatics Collect, and Manual inputs are Validation Sources. Connector
 output must keep enough raw source context for later valuation confidence and
 source agreement checks.
 
+The Collectible Valuation Mapper converts each `CollectibleMarketRecord` into
+ValuationRecord-compatible history plus metadata. It preserves source role,
+external ID, sale price, currency, sale date, URL, raw payload, and raw market
+record ID. Mapping does not resolve source consensus, calculate confidence,
+select a final market value, or overwrite valuation history.
+
 `imports/` contains raw files exported from external platforms. Raw imports are
 not Onecool OS internal data and should not be committed when they contain user
 portfolio information.
@@ -327,6 +333,11 @@ Provides immutable valuation history records for all asset classes. Valuation
 records include source, source priority, currency, value fields, dates,
 confidence, notes, URLs, and tags. Multiple valuation records can exist for the
 same asset on the same date when they come from different sources.
+
+Collectible valuation mapping records eBay Sold observations as Primary Market
+Price inputs and Card Ladder, PWCC, Goldin, Fanatics Collect, and Manual
+observations as independent Validation Source inputs. Confidence and source
+agreement remain future layers.
 
 Source priority rules are asset-specific:
 
