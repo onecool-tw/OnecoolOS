@@ -1,6 +1,6 @@
 # Onecool OS
 
-Current Version: v0.1.0 Alpha
+Current Version: v0.2.0 Beta Architecture
 
 Onecool OS is a Python-based personal asset operating system. Milestone 1
 delivers the Core Engine: SQLite persistence, plugin loading, event publishing,
@@ -17,6 +17,7 @@ Architecture freeze documentation:
 
 - [Architecture](docs/architecture.md)
 - [v0.1.0 Alpha Release](docs/releases/v0.1.0-alpha.md)
+- [v0.2.0 Beta Architecture](docs/releases/v0.2.0-beta.md)
 
 ```text
 External Sources
@@ -45,6 +46,28 @@ Scenario
 ↓
 OFAI
 ```
+
+Decision Platform:
+
+```text
+Business Logic
+↓
+Analytics
+↓
+Dashboard
+↓
+Scenario
+↓
+OFAI
+↓
+Decision
+```
+
+The v0.2 Beta architecture freezes the Decision Platform responsibilities
+before Decision Engine implementation. Business Logic calculates, Analytics
+stores derived snapshots, Dashboard presents, Scenario structures
+possibilities, OFAI prepares context, and Decision will evaluate options and
+audit trails.
 
 ## Requirements
 

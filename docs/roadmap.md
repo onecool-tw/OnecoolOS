@@ -47,10 +47,20 @@ Presentation Platform:
 - Dashboard foundation
 - Scenario Engine
 
+v0.2 Beta Architecture Freeze:
+
+- Business Intelligence Foundation
+- Scenario Engine Foundation
+- OFAI Foundation
+- Decision Engine Architecture Proposal
+
 Next:
 
-- Automation
-- OFAI
+- Decision Engine Foundation
+- Decision Rules Foundation
+- Decision Scoring Foundation
+- Recommendation Engine Foundation
+- Automation Foundation
 
 ### v0.3 Foundation (Completed)
 
@@ -179,7 +189,7 @@ Goals:
 
 ## Current Sprint
 
-Sprint 18
+Sprint 19.5
 
 Status: Completed
 

@@ -34,6 +34,38 @@ Scenario
 OFAI
 ```
 
+## v0.2 Beta Architecture
+
+```text
+Connector
+↓
+Normalize
+↓
+Assets
+↓
+Ledger
+↓
+Valuation
+↓
+Portfolio
+↓
+Business Logic
+↓
+Analytics
+↓
+Dashboard
+↓
+Scenario
+↓
+OFAI
+↓
+Decision
+↓
+Future Recommendation Engine
+↓
+Future LLM
+```
+
 ## Source of Truth
 
 | Layer | Source of Truth |
@@ -50,6 +82,53 @@ OFAI
 | Dashboard | Display-only views |
 | Scenario | Structured scenario objects |
 | OFAI | Decisions and recommendations |
+| Decision | Decision options, scores, readiness, and audit trails |
+
+## Layer Responsibilities
+
+| Layer | Responsibility |
+| --- | --- |
+| Business Logic | Calculate deterministic metrics and signals |
+| Analytics | Store derived snapshots |
+| Dashboard | Present analytics and service-backed display models |
+| Scenario | Structure A/B/C/D possible futures |
+| OFAI | Prepare deterministic decision context |
+| Decision | Evaluate options, trade-offs, readiness, and audit trails |
+
+## Decision Platform
+
+The v0.2 Beta Decision Platform is the architecture path from deterministic
+metrics to future AI-assisted decisions:
+
+```text
+Business Logic
+↓
+Analytics
+↓
+Dashboard
+↓
+Scenario
+↓
+OFAI
+↓
+Decision
+```
+
+Business Logic calculates. Analytics stores. Dashboard presents. Scenario
+structures possibilities. OFAI prepares context. Decision evaluates options and
+audit trails. Future Recommendation and LLM layers must consume Decision and
+OFAI context rather than bypassing deterministic layers.
+
+## Decision Boundaries
+
+| Boundary | Rule |
+| --- | --- |
+| Business Logic | Calculates metrics, does not choose actions |
+| Analytics | Stores snapshots, does not calculate new recommendations |
+| Dashboard | Presents information, does not calculate or decide |
+| Scenario | Structures possibilities, does not recommend |
+| OFAI | Prepares context, does not call LLMs in v0.2 |
+| Decision | Evaluates options, does not make final user decisions |
 
 ## Data Flow
 
