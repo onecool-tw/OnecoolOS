@@ -76,6 +76,9 @@ Goals:
 - Preserve all source observations for future valuation confidence and source
   agreement
 - Keep eBay Sold and Validation Sources as independent valuation records
+- Evaluate market data quality through reusable Market Intelligence
+- Expose explainable confidence, source agreement, coverage, freshness, and
+  liquidity components
 - Feed Dashboard and Decision readiness without hiding source disagreement
 
 ### v0.3 Foundation (Completed)

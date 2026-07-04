@@ -191,6 +191,16 @@ metadata for source role, external ID, raw market record ID, and raw payload.
 It does not choose final market value, calculate confidence, resolve source
 agreement, or mutate raw imports.
 
+Market Intelligence sits after valuation mapping and before Business Logic. It
+evaluates market data quality only: Primary Market Price presence, Validation
+Source coverage, source agreement, freshness, liquidity, warnings, and
+explainable confidence components. It does not determine final valuation,
+predict prices, recommend buying or selling, call live APIs, mutate source
+data, or modify valuation history.
+
+`reference_datetime` is injected into Market Intelligence builders so replay,
+backtesting, and historical reconstruction remain deterministic.
+
 ### Portfolio
 
 Portfolio aggregates current holdings and summary values. It consumes Assets,

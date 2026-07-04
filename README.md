@@ -91,6 +91,16 @@ ID, sale price, currency, sale date, URL, raw payload, and raw market record ID.
 It does not choose a final market value, calculate confidence, resolve source
 agreement, or overwrite valuation history.
 
+Market Intelligence evaluates the quality and reliability of market data.
+Collectible Radar is the first implementation, but the same architecture should
+support future House Radar, Fund Radar, Stock Radar, and Business Radar
+products. Market Intelligence consumes valuation records, checks Primary Market
+Price, Validation Sources, source agreement, coverage, freshness, and
+liquidity, and exposes an explainable confidence breakdown. It never predicts
+prices, chooses final valuation, calls live APIs, mutates source data, or
+modifies valuation history. `reference_datetime` is injectable so replay,
+backtesting, and historical reconstruction are deterministic.
+
 ## Requirements
 
 - Python 3.11+

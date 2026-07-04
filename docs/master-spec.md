@@ -119,6 +119,15 @@ external ID, sale price, currency, sale date, URL, raw payload, and raw market
 record ID. Mapping does not resolve source consensus, calculate confidence,
 select a final market value, or overwrite valuation history.
 
+Market Intelligence evaluates market data quality and reliability. It is a
+reusable capability for Collectible Radar, House Radar, Fund Radar, Stock
+Radar, Business Radar, and future products. It consumes valuation records and
+produces explainable assessments for Primary Market Price, Validation Sources,
+source agreement, coverage, freshness, liquidity, warnings, and confidence.
+It does not determine final valuation, predict prices, recommend actions, call
+live APIs, mutate source data, or modify valuation history. `reference_datetime`
+must be injectable for deterministic replay and historical reconstruction.
+
 `imports/` contains raw files exported from external platforms. Raw imports are
 not Onecool OS internal data and should not be committed when they contain user
 portfolio information.
@@ -338,6 +347,11 @@ Collectible valuation mapping records eBay Sold observations as Primary Market
 Price inputs and Card Ladder, PWCC, Goldin, Fanatics Collect, and Manual
 observations as independent Validation Source inputs. Confidence and source
 agreement remain future layers.
+
+Market Intelligence is the layer that evaluates source agreement and confidence
+quality. Business Logic consumes Market Intelligence for deterministic metrics
+and signals. Dashboard displays Market Intelligence. Decision consumes Market
+Intelligence to identify review readiness and source verification needs.
 
 Source priority rules are asset-specific:
 

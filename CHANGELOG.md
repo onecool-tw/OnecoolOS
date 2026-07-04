@@ -16,6 +16,8 @@ Commits.
   and Manual Fallback.
 - Collectible Valuation Mapper from `CollectibleMarketRecord` to
   `ValuationRecord` plus source metadata.
+- Market Intelligence foundation with confidence, agreement, coverage,
+  freshness, liquidity, warnings, and deterministic `reference_datetime`.
 - v0.2.0 Beta architecture freeze documentation.
 - Decision Platform architecture for Business Logic, Analytics, Dashboard,
   Scenario, OFAI, and Decision responsibilities.

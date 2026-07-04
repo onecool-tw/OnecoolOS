@@ -304,3 +304,20 @@ The mapper records eBay Sold as a Primary Market Price input. Card Ladder,
 PWCC, Goldin, Fanatics Collect, and Manual remain independent Validation Source
 inputs. The mapper does not select a final market value, calculate confidence,
 resolve source agreement, or overwrite valuation history.
+
+## Product Sprint 3 Alignment
+
+The third implementation sprint introduces reusable Market Intelligence.
+Collectible Radar is the first implementation, but the framework must remain
+asset-agnostic for House Radar, Fund Radar, Stock Radar, Business Radar, and
+future products.
+
+Market Intelligence evaluates market data quality only. It checks Primary
+Market Price, Validation Source coverage, source agreement, freshness,
+liquidity, warnings, and explainable confidence components. It never predicts
+prices, recommends buying or selling, calls live APIs, mutates source data,
+chooses final valuation, or modifies valuation history.
+
+`reference_datetime` is injectable and must be used instead of the system clock
+so replay, backtesting, deterministic tests, and historical reconstruction can
+use the same market observations consistently.
