@@ -255,6 +255,14 @@ quality, radar changes, timeline trend, review priorities, and warnings. It is
 not an AI model and does not recommend actions, predict prices, call LLMs,
 mutate source data, modify history, or calculate valuation.
 
+The Collectible Golden Dataset sits beside the pipeline as a regression safety
+net. It provides synthetic fixture inputs and expected outputs for connector
+normalization, valuation mapping, Market Intelligence, Collectible
+Intelligence, Radar, Timeline Analytics, Dashboard, Daily Radar Report,
+Decision Queue, and OFAI Context. It does not call APIs, scrape websites,
+predict prices, recommend actions, mutate production data, or include private
+user data.
+
 The Business Logic Pipeline Runner orchestrates registered calculators and
 evaluators in deterministic order. It returns a structured execution report for
 Analytics, Services, Dashboard, and future OFAI consumption. The pipeline does

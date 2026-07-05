@@ -146,6 +146,13 @@ quality, radar changes, timeline trend, review priorities, and warnings for
 future OFAI workflows. It is not an AI model and never recommends actions,
 predicts prices, calls LLMs, mutates source data, or calculates valuation.
 
+The Collectible Golden Dataset protects the deterministic Collectible Radar
+pipeline from regression. It uses synthetic fixtures and expected outputs under
+`tests/golden/collectibles/` to exercise connectors, valuation mapping, market
+intelligence, collectible intelligence, radar, timeline analytics, dashboard,
+Daily Radar Report, Decision Queue, and OFAI Context. It contains no private
+user data, calls no APIs, and is safe to commit.
+
 ## Requirements
 
 - Python 3.11+

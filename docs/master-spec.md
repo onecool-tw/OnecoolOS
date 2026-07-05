@@ -178,6 +178,14 @@ quality, radar changes, timeline trend, review priorities, and warnings. It is
 not an AI model and does not recommend actions, predict prices, call LLMs,
 mutate source data, modify history, or calculate valuation.
 
+The Collectible Golden Dataset protects the full deterministic Collectible
+Radar pipeline from regression. It stores synthetic fixtures and expected
+outputs under `tests/golden/collectibles/`. Golden tests cover connector
+normalization, valuation mapping, Market Intelligence, Collectible
+Intelligence, Radar, Timeline Analytics, Dashboard, Daily Radar Report,
+Decision Queue, and OFAI Context without private data, APIs, scraping,
+prediction, recommendations, or production data mutation.
+
 `imports/` contains raw files exported from external platforms. Raw imports are
 not Onecool OS internal data and should not be committed when they contain user
 portfolio information.

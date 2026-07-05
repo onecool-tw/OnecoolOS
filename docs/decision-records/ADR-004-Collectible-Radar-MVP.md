@@ -413,3 +413,15 @@ workflows.
 Collectible OFAI Context is not an AI model. It never recommends buying or
 selling, predicts prices, executes actions, calls LLMs, mutates source data,
 modifies history, or calculates valuation.
+
+## Golden Dataset Alignment
+
+The Collectible Golden Dataset protects the MVP pipeline from regression by
+storing synthetic fixture inputs and expected outputs. It exercises connector
+normalization, valuation mapping, Market Intelligence, Collectible
+Intelligence, Radar, Timeline Analytics, Dashboard, Daily Radar Report,
+Decision Queue, and OFAI Context as one deterministic product flow.
+
+Golden Dataset records are demo-only and safe to commit. They must not include
+real private holdings, call APIs, scrape websites, mutate production data,
+predict prices, or recommend buying or selling.

@@ -32,6 +32,8 @@ Commits.
   work without recommendations.
 - Collectible OFAI Context foundation for deterministic report and queue
   summaries without AI reasoning or recommendations.
+- Collectible Golden Dataset foundation with synthetic fixtures and expected
+  outputs for full-pipeline regression protection.
 - v0.2.0 Beta architecture freeze documentation.
 - Decision Platform architecture for Business Logic, Analytics, Dashboard,
   Scenario, OFAI, and Decision responsibilities.
