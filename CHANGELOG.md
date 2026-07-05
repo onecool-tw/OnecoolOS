@@ -24,6 +24,8 @@ Commits.
   detection.
 - Timeline Analytics foundation for historical Radar snapshot trends and
   signal statistics.
+- Collectible Dashboard foundation for presentation-only Radar, Timeline,
+  Business Logic, and Decision sections.
 - v0.2.0 Beta architecture freeze documentation.
 - Decision Platform architecture for Business Logic, Analytics, Dashboard,
   Scenario, OFAI, and Decision responsibilities.

@@ -366,3 +366,14 @@ Timeline Analytics never calculates valuation, modifies history, predicts
 future performance, recommends buying or selling, mutates source data, or calls
 APIs. Dashboard displays Timeline Analytics. Decision and OFAI consume Timeline
 Analytics.
+
+## Product Sprint 7 Alignment
+
+The seventh implementation sprint introduces the Collectible Dashboard
+foundation. Dashboard is a presentation layer that assembles existing Business
+Logic, Market Intelligence, Radar, Timeline Analytics, and optional Decision
+outputs into display sections.
+
+Dashboard never recalculates confidence, trend, valuation, quality, or business
+rules. It never predicts markets, recommends buying or selling, mutates data,
+or owns source data.

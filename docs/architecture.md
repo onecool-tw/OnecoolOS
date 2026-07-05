@@ -234,6 +234,11 @@ not calculate valuation, modify history, predict future performance, recommend
 actions, mutate source data, or call APIs. Dashboard displays Timeline
 Analytics. Decision and OFAI consume it.
 
+Dashboard remains presentation-only. Collectible Dashboard assembles existing
+Business Logic, Market Intelligence, Radar, Timeline Analytics, and optional
+Decision outputs into display sections. It does not recalculate confidence,
+trend, valuation, quality, or business rules.
+
 The Business Logic Pipeline Runner orchestrates registered calculators and
 evaluators in deterministic order. It returns a structured execution report for
 Analytics, Services, Dashboard, and future OFAI consumption. The pipeline does

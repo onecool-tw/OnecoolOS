@@ -123,6 +123,12 @@ Analytics, while Decision and OFAI consume it. Timeline Analytics does not
 calculate valuation, modify history, predict future performance, recommend
 actions, mutate source data, or call APIs.
 
+The Collectible Dashboard is a presentation layer. It assembles existing
+Business Logic, Market Intelligence, Radar, Timeline Analytics, and optional
+Decision outputs into display sections. It never recalculates confidence,
+trend, valuation, or quality, and it never predicts, recommends, or mutates
+data.
+
 ## Requirements
 
 - Python 3.11+

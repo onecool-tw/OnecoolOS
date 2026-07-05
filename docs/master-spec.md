@@ -154,6 +154,12 @@ calculate valuation, modify history, predict markets, recommend actions,
 mutate source data, or call APIs. Dashboard displays Timeline Analytics.
 Decision and OFAI consume Timeline Analytics.
 
+Dashboard is a presentation layer. Collectible Dashboard assembles existing
+Business Logic, Market Intelligence, Radar, Timeline Analytics, and optional
+Decision outputs into display sections. It does not recalculate confidence,
+trend, valuation, or quality. It never predicts, recommends actions, mutates
+data, or owns source data.
+
 `imports/` contains raw files exported from external platforms. Raw imports are
 not Onecool OS internal data and should not be committed when they contain user
 portfolio information.
