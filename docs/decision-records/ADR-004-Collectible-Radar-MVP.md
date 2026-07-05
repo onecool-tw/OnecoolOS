@@ -466,3 +466,18 @@ Manual valuations are preserved as valuation history. They never overwrite
 existing valuation records, replace eBay Sold as Primary Market Price,
 calculate confidence, calculate source agreement, predict prices, recommend
 buying or selling, call APIs, scrape websites, or mutate source files.
+
+## eBay Sold Integration Readiness Alignment
+
+eBay Sold remains the sports card Primary Market Price source for Collectible
+Radar. It should enter the system through approved API access when allowed and
+available, user-provided CSV / JSON exports, or manual fixture imports.
+Unauthorized scraping, browser automation for scraping, credential sharing, and
+hidden source disagreement are rejected for MVP.
+
+eBay Sold imports must preserve sale price, currency, sale date, source
+identity, external ID or URL/reference, and optional shipping separately from
+item price. eBay Sold observations create independent valuation records and do
+not overwrite valuation history. Validation sources compare against eBay Sold,
+and disagreement must remain visible to Market Intelligence, Dashboard,
+Decision Queue, and OFAI Context.

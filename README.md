@@ -160,6 +160,13 @@ is not part of the MVP. PSA Collection CSV and Manual import are ready for MVP
 work; eBay Sold, Card Ladder, PWCC, Goldin, and Fanatics Collect require API,
 export, authentication, terms, and legal review before live ingestion.
 
+eBay Sold integration readiness is documented in
+`docs/live-connectors/ebay-sold-readiness.md`. eBay Sold remains the sports
+card Primary Market Price source, but Beta ingestion should use approved API
+access when allowed, user-provided CSV / JSON exports, or manual fixture
+imports. Unauthorized scraping, credential sharing, and hidden source
+disagreement are rejected for MVP.
+
 PSA Collection Integration is the first production-ready ingestion foundation
 for Collectible Radar. `PSACollectionImporter` loads real PSA Collection CSV
 exports, validates cert numbers and grades, preserves collection identifiers,

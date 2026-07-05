@@ -94,6 +94,8 @@ Goals:
   and reusable ImportAudit
 - Import manual valuation observations as auditable fallback / validation
   records without replacing Primary Market Price
+- Prepare eBay Sold Primary Market Price ingestion through approved API,
+  user-provided export, or manual fixture paths
 - Feed Dashboard and Decision readiness without hiding source disagreement
 
 ### v0.3 Foundation (Completed)

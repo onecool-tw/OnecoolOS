@@ -178,6 +178,13 @@ PWCC, Goldin, Fanatics Collect, and Manual inputs are Validation Sources.
 Valuation confidence and source agreement belong to later Valuation, Business
 Logic, Analytics, Dashboard, and Decision layers.
 
+eBay Sold readiness is documented in
+`docs/live-connectors/ebay-sold-readiness.md`. Approved ingestion options are
+official eBay API if allowed and available, user-provided CSV / JSON exports,
+and manual fixture imports. Unauthorized scraping is rejected for MVP. eBay
+Sold records must remain independent valuation records and must not overwrite
+valuation history or hide disagreement with validation sources.
+
 Manual Valuation Import sits at the Valuation boundary as an auditable
 fallback / validation input. It converts user-provided CSV or JSON observations
 into independent `ValuationRecord` objects with source `MANUAL` and reusable
