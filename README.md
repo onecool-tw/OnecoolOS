@@ -107,6 +107,14 @@ valuation quality, liquidity quality, source quality, review status, and
 warnings. It prepares data for Analytics, Dashboard, Decision, and OFAI without
 recommending buy, sell, hold, or target price actions.
 
+Radar Engine detects meaningful changes over time. Collectible Radar is the
+first implementation, while House Radar, Fund Radar, Stock Radar, Business
+Radar, and Emergency Radar should reuse the same layer. Radar consumes
+Collectible Intelligence output and produces snapshots of new, resolved,
+changed, and escalated signals. Analytics stores Radar output, Dashboard
+displays it, and Decision consumes it. Radar never predicts, recommends,
+calculates valuation, calls APIs, mutates source data, or modifies history.
+
 ## Requirements
 
 - Python 3.11+

@@ -333,3 +333,20 @@ Collectible Intelligence prepares data for Analytics, Dashboard, Decision, and
 OFAI. It does not choose final valuation, predict prices, recommend buying or
 selling, call APIs, mutate source data, mutate valuation history, set target
 prices, or perform OFAI reasoning.
+
+## Product Sprint 5 Alignment
+
+The fifth implementation sprint introduces the reusable Radar Engine.
+Collectible Radar is the first implementation, but the same Radar architecture
+should support House Radar, Fund Radar, Stock Radar, Business Radar, Emergency
+Radar, and future products.
+
+Radar consumes deterministic intelligence output and detects meaningful changes
+over time. It produces snapshots containing current signals, previous signals,
+new signals, resolved signals, changed signals, escalated signals, summaries,
+warnings, and source snapshot IDs.
+
+Radar never calculates valuation, modifies historical data, predicts markets,
+recommends buying or selling, calls APIs, mutates source data, or performs LLM
+reasoning. Analytics stores Radar output, Dashboard displays Radar output, and
+Decision consumes Radar output.

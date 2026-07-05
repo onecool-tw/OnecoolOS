@@ -220,6 +220,13 @@ choose final valuation, predict prices, recommend buy/sell/hold actions, set
 target prices, call APIs, mutate source data, mutate valuation history, or
 perform OFAI reasoning.
 
+Radar Engine sits after deterministic intelligence and before Analytics. It
+detects meaningful changes over time and produces new, resolved, changed, and
+escalated signals. Radar does not calculate valuation, modify historical data,
+predict markets, recommend buy/sell actions, call APIs, mutate source data, or
+perform LLM reasoning. Analytics stores Radar output, Dashboard displays it,
+and Decision consumes it.
+
 The Business Logic Pipeline Runner orchestrates registered calculators and
 evaluators in deterministic order. It returns a structured execution report for
 Analytics, Services, Dashboard, and future OFAI consumption. The pipeline does

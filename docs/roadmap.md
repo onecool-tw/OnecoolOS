@@ -81,6 +81,8 @@ Goals:
   liquidity components
 - Produce collectible-specific Business Logic quality signals without
   recommendations
+- Detect new, resolved, changed, and escalated signals through reusable Radar
+  snapshots
 - Feed Dashboard and Decision readiness without hiding source disagreement
 
 ### v0.3 Foundation (Completed)

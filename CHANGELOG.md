@@ -20,6 +20,8 @@ Commits.
   freshness, liquidity, warnings, and deterministic `reference_datetime`.
 - Collectible Intelligence Engine for deterministic market, valuation,
   liquidity, source, review-status, and warning signals.
+- Radar Engine foundation with reusable snapshots and Collectible Radar change
+  detection.
 - v0.2.0 Beta architecture freeze documentation.
 - Decision Platform architecture for Business Logic, Analytics, Dashboard,
   Scenario, OFAI, and Decision responsibilities.

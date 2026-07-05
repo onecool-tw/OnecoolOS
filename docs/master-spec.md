@@ -136,6 +136,15 @@ valuation, predict prices, recommend buy/sell/hold actions, set target prices,
 call APIs, mutate source data, mutate valuation history, or perform OFAI
 reasoning.
 
+Radar Engine detects meaningful changes over time. It is reusable for
+Collectible Radar, House Radar, Fund Radar, Stock Radar, Business Radar,
+Emergency Radar, and future products. Radar consumes deterministic
+intelligence output and produces snapshots for new, resolved, changed, and
+escalated signals. It does not calculate valuation, modify historical data,
+predict markets, recommend buy/sell actions, call APIs, mutate source data, or
+perform LLM reasoning. Analytics stores Radar output, Dashboard displays Radar
+output, and Decision consumes Radar output.
+
 `imports/` contains raw files exported from external platforms. Raw imports are
 not Onecool OS internal data and should not be committed when they contain user
 portfolio information.
