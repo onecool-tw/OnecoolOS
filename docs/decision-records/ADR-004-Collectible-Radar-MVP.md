@@ -425,3 +425,18 @@ Decision Queue, and OFAI Context as one deterministic product flow.
 Golden Dataset records are demo-only and safe to commit. They must not include
 real private holdings, call APIs, scrape websites, mutate production data,
 predict prices, or recommend buying or selling.
+
+## Live Connector Readiness Alignment
+
+Collectible Radar live ingestion must prefer safe, user-approved, export-based
+or API-based workflows. Unauthorized scraping is not part of the MVP.
+
+PSA Collection CSV and Manual import are `READY` because they can operate on
+local user-provided files without Onecool OS storing platform credentials.
+eBay Sold, Card Ladder, PWCC, Goldin, and Fanatics Collect are
+`NEEDS_REVIEW` until approved APIs, export availability, authentication
+requirements, data freshness, and legal / terms risks are reviewed.
+
+The recommended implementation order is PSA Collection CSV real import, Manual
+valuation import, eBay Sold approved/manual import, Card Ladder approved/manual
+import, then PWCC / Goldin / Fanatics as validation sources.

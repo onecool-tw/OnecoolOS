@@ -34,6 +34,8 @@ Commits.
   summaries without AI reasoning or recommendations.
 - Collectible Golden Dataset foundation with synthetic fixtures and expected
   outputs for full-pipeline regression protection.
+- Collectible live connector readiness review covering PSA Collection CSV,
+  eBay Sold, Card Ladder, PWCC, Goldin, Fanatics Collect, and Manual import.
 - v0.2.0 Beta architecture freeze documentation.
 - Decision Platform architecture for Business Logic, Analytics, Dashboard,
   Scenario, OFAI, and Decision responsibilities.

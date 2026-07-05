@@ -153,6 +153,13 @@ intelligence, collectible intelligence, radar, timeline analytics, dashboard,
 Daily Radar Report, Decision Queue, and OFAI Context. It contains no private
 user data, calls no APIs, and is safe to commit.
 
+Collectible live connector readiness is documented in
+`docs/live-connectors/collectible-readiness.md`. Collectible Radar must prefer
+safe, user-approved, export-based or API-based ingestion. Unauthorized scraping
+is not part of the MVP. PSA Collection CSV and Manual import are ready for MVP
+work; eBay Sold, Card Ladder, PWCC, Goldin, and Fanatics Collect require API,
+export, authentication, terms, and legal review before live ingestion.
+
 ## Requirements
 
 - Python 3.11+

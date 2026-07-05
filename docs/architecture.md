@@ -160,6 +160,11 @@ and Fanatics Collect and normalize them into shared collectible market records.
 They do not call live APIs, scrape websites, choose final valuation, calculate
 confidence, or decide which marketplace is correct.
 
+Collectible live ingestion must prefer safe, user-approved, export-based or
+API-based workflows. Unauthorized scraping is not part of the MVP. The live
+connector readiness review is documented in
+`docs/live-connectors/collectible-readiness.md`.
+
 For sports cards, eBay Sold is the Primary Market Price source. Card Ladder,
 PWCC, Goldin, Fanatics Collect, and Manual inputs are Validation Sources.
 Valuation confidence and source agreement belong to later Valuation, Business

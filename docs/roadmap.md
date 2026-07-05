@@ -89,6 +89,7 @@ Goals:
 - Prioritize review work through Decision Queue without recommendations
 - Prepare deterministic Collectible OFAI Context without AI reasoning
 - Protect the full Collectible Radar pipeline with a synthetic Golden Dataset
+- Review live connector readiness and prefer safe export/API ingestion
 - Feed Dashboard and Decision readiness without hiding source disagreement
 
 ### v0.3 Foundation (Completed)
