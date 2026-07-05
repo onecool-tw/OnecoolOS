@@ -43,6 +43,8 @@ Commits.
   `MANUAL` valuation records, ImportSummary, and reusable ImportAudit.
 - eBay Sold integration readiness review defining Primary Market Price policy,
   approved ingestion options, rejected scraping, and MVP data requirements.
+- eBay Sold Manual Import foundation for user-provided CSV / JSON Primary
+  Market Price observations, ImportSummary, and reusable ImportAudit.
 - v0.2.0 Beta architecture freeze documentation.
 - Decision Platform architecture for Business Logic, Analytics, Dashboard,
   Scenario, OFAI, and Decision responsibilities.

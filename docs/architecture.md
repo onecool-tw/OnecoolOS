@@ -185,6 +185,13 @@ and manual fixture imports. Unauthorized scraping is rejected for MVP. eBay
 Sold records must remain independent valuation records and must not overwrite
 valuation history or hide disagreement with validation sources.
 
+eBay Sold Manual Import is the first supported eBay Sold ingestion path. It
+produces `CollectibleMarketRecord` observations with source `EBAY_SOLD` and
+source role `PRIMARY_MARKET_PRICE`, plus `ImportSummary` and `ImportAudit`.
+The importer is read-only: it does not call APIs, scrape, add credentials,
+select final valuation, calculate confidence, recommend actions, mutate source
+files, or overwrite valuation history.
+
 Manual Valuation Import sits at the Valuation boundary as an auditable
 fallback / validation input. It converts user-provided CSV or JSON observations
 into independent `ValuationRecord` objects with source `MANUAL` and reusable

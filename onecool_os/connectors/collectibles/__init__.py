@@ -5,6 +5,15 @@ from onecool_os.connectors.collectibles.cardladder import (
     CardLadderConnector,
 )
 from onecool_os.connectors.collectibles.ebay import EbaySoldConnector
+from onecool_os.connectors.collectibles.ebay_import import (
+    EbaySoldImportError,
+)
+from onecool_os.connectors.collectibles.ebay_import import (
+    EbaySoldImportResult,
+)
+from onecool_os.connectors.collectibles.ebay_import import (
+    EbaySoldManualImporter,
+)
 from onecool_os.connectors.collectibles.enums import CollectibleMarketSource
 from onecool_os.connectors.collectibles.enums import CollectibleSourceRole
 from onecool_os.connectors.collectibles.enums import source_role_for_source
@@ -31,6 +40,9 @@ __all__ = [
     "CollectibleMarketSource",
     "CollectibleSourceRole",
     "EbaySoldConnector",
+    "EbaySoldImportError",
+    "EbaySoldImportResult",
+    "EbaySoldManualImporter",
     "FanaticsConnector",
     "GoldinConnector",
     "ImportSummary",

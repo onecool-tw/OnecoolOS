@@ -472,6 +472,14 @@ recommendations. It does not mutate source files, ledger, valuation history, or
 production portfolio data. Planned connectors include eBay Orders, Card
 Ladder, BGS, and COMC.
 
+eBay Sold Manual Import is the first supported eBay Sold ingestion path. It
+loads user-provided CSV or JSON files, validates required source identity and
+sale fields, emits `CollectibleMarketRecord` observations with source
+`EBAY_SOLD`, and records `ImportSummary` plus reusable `ImportAudit`. It does
+not call APIs, scrape websites, add credentials, overwrite valuation history,
+select final valuation, calculate confidence, recommend actions, predict
+prices, or mutate source files.
+
 ### Normalize Layer
 
 Provides canonical normalization contracts between Connectors and downstream

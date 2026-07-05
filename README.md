@@ -167,6 +167,14 @@ access when allowed, user-provided CSV / JSON exports, or manual fixture
 imports. Unauthorized scraping, credential sharing, and hidden source
 disagreement are rejected for MVP.
 
+eBay Sold Manual Import is the first supported eBay Sold ingestion path. It
+loads user-provided CSV / JSON only, validates source identity and sale fields,
+emits `CollectibleMarketRecord` observations with source `EBAY_SOLD`, and
+records `ImportSummary` plus `ImportAudit`. It creates Primary Market Price
+observations without calling APIs, scraping, selecting final valuation,
+calculating confidence, recommending actions, mutating source files, or
+overwriting valuation history.
+
 PSA Collection Integration is the first production-ready ingestion foundation
 for Collectible Radar. `PSACollectionImporter` loads real PSA Collection CSV
 exports, validates cert numbers and grades, preserves collection identifiers,

@@ -481,3 +481,11 @@ item price. eBay Sold observations create independent valuation records and do
 not overwrite valuation history. Validation sources compare against eBay Sold,
 and disagreement must remain visible to Market Intelligence, Dashboard,
 Decision Queue, and OFAI Context.
+
+The eBay Sold Manual Import foundation is the first supported eBay Sold
+ingestion path. It accepts user-provided CSV / JSON only, emits
+`CollectibleMarketRecord` observations with source `EBAY_SOLD`, records
+`ImportSummary` and reusable `ImportAudit`, and preserves source references for
+future review. It does not call APIs, scrape websites, add credentials, select
+final valuation, calculate confidence, recommend actions, mutate source files,
+or overwrite valuation history.

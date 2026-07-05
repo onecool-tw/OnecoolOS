@@ -3,9 +3,9 @@
 This document defines the safest ingestion strategy for eBay Sold data in
 Collectible Radar Beta.
 
-This sprint is documentation and design only. It does not implement a live
-eBay connector, call eBay APIs, scrape websites, add credentials, modify
-runtime behavior, or add private user data.
+The first supported ingestion path is manual CSV / JSON import. Live eBay API
+integration remains deferred until API terms, authentication, credential
+storage, and security design are reviewed.
 
 ## Role In Collectible Radar
 
@@ -201,7 +201,7 @@ MVP readiness: `NEEDS_REVIEW`.
 
 Recommended Beta path:
 
-1. Implement eBay Sold manual CSV / JSON import first.
+1. Use eBay Sold manual CSV / JSON import first.
 2. Preserve source identity and raw payloads when allowed.
 3. Map records into independent `ValuationRecord` entries.
 4. Keep eBay Sold as Primary Market Price.
@@ -211,3 +211,14 @@ Recommended Beta path:
    Decision Queue, and OFAI Context.
 7. Defer official eBay API until API terms, auth, credentials, and security
    design are reviewed.
+
+## Manual Import Foundation
+
+`EbaySoldManualImporter` is the supported Beta foundation for eBay Sold manual
+files. It loads user-provided CSV / JSON only, validates required sale and
+source identity fields, emits `CollectibleMarketRecord` objects with source
+`EBAY_SOLD`, and records `ImportSummary` plus reusable `ImportAudit`.
+
+Manual import does not call eBay APIs, scrape websites, add credentials,
+overwrite valuation history, select final valuation, calculate confidence,
+recommend buying or selling, predict prices, or mutate source files.
