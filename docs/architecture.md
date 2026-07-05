@@ -178,6 +178,13 @@ PWCC, Goldin, Fanatics Collect, and Manual inputs are Validation Sources.
 Valuation confidence and source agreement belong to later Valuation, Business
 Logic, Analytics, Dashboard, and Decision layers.
 
+Manual Valuation Import sits at the Valuation boundary as an auditable
+fallback / validation input. It converts user-provided CSV or JSON observations
+into independent `ValuationRecord` objects with source `MANUAL` and reusable
+`ImportAudit`. It does not overwrite history, replace eBay Sold as Primary
+Market Price, calculate confidence, calculate agreement, predict prices,
+recommend actions, call APIs, scrape websites, or mutate source files.
+
 ### Normalize
 
 Normalize standardizes connector output into canonical records. It validates

@@ -17,6 +17,11 @@ from onecool_os.valuation.intelligence import MarketIntelligence
 from onecool_os.valuation.loader import ValuationImportResult
 from onecool_os.valuation.loader import ValuationLoader
 from onecool_os.valuation.loader import ValuationLoaderError
+from onecool_os.valuation.manual_import import ImportSummary
+from onecool_os.valuation.manual_import import ManualValuationImportError
+from onecool_os.valuation.manual_import import ManualValuationImportRecord
+from onecool_os.valuation.manual_import import ManualValuationImportResult
+from onecool_os.valuation.manual_import import ManualValuationImporter
 from onecool_os.valuation.models import ValuationRecord
 from onecool_os.valuation.validation import ValuationError
 
@@ -30,6 +35,11 @@ __all__ = [
     "ConfidenceLevel",
     "FreshnessLevel",
     "LiquidityLevel",
+    "ImportSummary",
+    "ManualValuationImportError",
+    "ManualValuationImportRecord",
+    "ManualValuationImportResult",
+    "ManualValuationImporter",
     "MarketIntelligence",
     "ValuationError",
     "ValuationImportResult",

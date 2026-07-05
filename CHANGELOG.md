@@ -39,6 +39,8 @@ Commits.
 - PSA Collection integration foundation with read-only CSV loading,
   validation, normalized sports card asset records, ImportSummary, and
   reusable ImportAudit.
+- Manual Valuation Import foundation for CSV / JSON user observations,
+  `MANUAL` valuation records, ImportSummary, and reusable ImportAudit.
 - v0.2.0 Beta architecture freeze documentation.
 - Decision Platform architecture for Business Logic, Analytics, Dashboard,
   Scenario, OFAI, and Decision responsibilities.

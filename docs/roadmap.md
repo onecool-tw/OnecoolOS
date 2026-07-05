@@ -92,6 +92,8 @@ Goals:
 - Review live connector readiness and prefer safe export/API ingestion
 - Integrate real PSA Collection CSV exports through read-only connector import
   and reusable ImportAudit
+- Import manual valuation observations as auditable fallback / validation
+  records without replacing Primary Market Price
 - Feed Dashboard and Decision readiness without hiding source disagreement
 
 ### v0.3 Foundation (Completed)

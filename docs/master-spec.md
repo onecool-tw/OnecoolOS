@@ -425,6 +425,13 @@ Source priority rules are asset-specific:
 - Real Estate: Real Estate Transaction, Bank Valuation, Manual.
 - Cash: Broker, Manual.
 
+Manual Valuation Import is an auditable fallback / validation input path. It
+loads user-provided CSV or JSON files, validates required valuation fields,
+emits `ValuationRecord` objects with source `MANUAL`, and records
+`ImportSummary` plus reusable `ImportAudit`. Manual valuations never overwrite
+valuation history and never replace eBay Sold as the sports card Primary Market
+Price.
+
 Connectors import raw data. Normalize standardizes it. Valuation stores the
 resulting valuation records. Portfolio and Dashboard consume valuation records
 but do not own them.

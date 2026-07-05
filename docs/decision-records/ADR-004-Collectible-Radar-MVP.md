@@ -454,3 +454,15 @@ The importer only imports. It does not calculate valuation, confidence,
 Business Logic, Radar, Timeline, Dashboard, Decision Queue, OFAI Context, or
 recommendations. It does not call APIs, scrape websites, mutate source CSV
 files, mutate Ledger, or mutate valuation history.
+
+## Manual Valuation Import Alignment
+
+Manual Valuation Import provides a safe, auditable fallback / validation input
+for user-provided valuation observations. It accepts CSV or JSON, validates
+required fields, emits independent `ValuationRecord` objects with source
+`MANUAL`, and records `ImportSummary` plus reusable `ImportAudit`.
+
+Manual valuations are preserved as valuation history. They never overwrite
+existing valuation records, replace eBay Sold as Primary Market Price,
+calculate confidence, calculate source agreement, predict prices, recommend
+buying or selling, call APIs, scrape websites, or mutate source files.

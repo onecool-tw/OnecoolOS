@@ -168,6 +168,15 @@ and returns normalized sports card asset records plus `ImportSummary` and
 valuation, business logic, confidence, recommendations, or mutate ledger,
 valuation history, source CSV files, or production data.
 
+Manual Valuation Import is a safe, auditable valuation input path for
+Collectible Radar. `ManualValuationImporter` loads user-provided CSV or JSON,
+validates required fields, emits `ValuationRecord` objects with source
+`MANUAL`, and records `ImportSummary` plus `ImportAudit`. Manual valuations are
+independent validation / fallback observations. They never overwrite valuation
+history, replace eBay Sold as Primary Market Price, calculate confidence or
+source agreement, predict prices, recommend actions, call APIs, scrape
+websites, or mutate source files.
+
 ## Requirements
 
 - Python 3.11+
@@ -1447,6 +1456,12 @@ Valuation JSON files use this shape:
 A demo template is provided at `data/valuation/valuation.example.json`. It
 contains only sample valuation records. Real valuation files belong under
 `data/valuation/` and should not be committed.
+
+Manual valuation imports can be supplied as CSV or JSON with `asset_id`,
+`asset_type`, `currency`, `valuation_date`, and either `market_value` or
+`estimated_value`. Optional fields include `note`, `url`, `reference`, `tags`,
+and `raw_payload`. Imported manual records remain source `MANUAL` and are used
+as fallback or validation context, not as Primary Market Price.
 
 Source priority rules:
 
