@@ -456,7 +456,14 @@ Onecool OS internal normalized portfolio data should live under
 `securities.json`, `sports_cards.json`, `cash.json`, and `real_estate.json`.
 
 The current connector is the PSA Collection CSV Connector for Sports Cards.
-Planned connectors include eBay Orders, Card Ladder, BGS, and COMC.
+The connector-layer `PSACollectionImporter` is the first production-ready
+ingestion foundation. It loads real PSA Collection CSV exports, validates cert
+numbers and grades, preserves collection identifiers, and returns normalized
+sports card asset records with `ImportSummary` and reusable `ImportAudit`.
+It only imports and never calculates valuation, business logic, confidence, or
+recommendations. It does not mutate source files, ledger, valuation history, or
+production portfolio data. Planned connectors include eBay Orders, Card
+Ladder, BGS, and COMC.
 
 ### Normalize Layer
 

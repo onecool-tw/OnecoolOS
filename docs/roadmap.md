@@ -90,6 +90,8 @@ Goals:
 - Prepare deterministic Collectible OFAI Context without AI reasoning
 - Protect the full Collectible Radar pipeline with a synthetic Golden Dataset
 - Review live connector readiness and prefer safe export/API ingestion
+- Integrate real PSA Collection CSV exports through read-only connector import
+  and reusable ImportAudit
 - Feed Dashboard and Decision readiness without hiding source disagreement
 
 ### v0.3 Foundation (Completed)

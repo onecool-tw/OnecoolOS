@@ -440,3 +440,17 @@ requirements, data freshness, and legal / terms risks are reviewed.
 The recommended implementation order is PSA Collection CSV real import, Manual
 valuation import, eBay Sold approved/manual import, Card Ladder approved/manual
 import, then PWCC / Goldin / Fanatics as validation sources.
+
+## PSA Collection Integration Alignment
+
+PSA Collection Integration is the first production-ready ingestion path for
+Collectible Radar. The connector-layer importer reads real PSA Collection CSV
+exports, validates required columns, detects duplicate and missing certificate
+numbers, validates grades, preserves collection identifiers, and produces
+normalized sports card asset records with `ImportSummary` and reusable
+`ImportAudit`.
+
+The importer only imports. It does not calculate valuation, confidence,
+Business Logic, Radar, Timeline, Dashboard, Decision Queue, OFAI Context, or
+recommendations. It does not call APIs, scrape websites, mutate source CSV
+files, mutate Ledger, or mutate valuation history.

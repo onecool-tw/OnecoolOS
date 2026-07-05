@@ -160,6 +160,14 @@ is not part of the MVP. PSA Collection CSV and Manual import are ready for MVP
 work; eBay Sold, Card Ladder, PWCC, Goldin, and Fanatics Collect require API,
 export, authentication, terms, and legal review before live ingestion.
 
+PSA Collection Integration is the first production-ready ingestion foundation
+for Collectible Radar. `PSACollectionImporter` loads real PSA Collection CSV
+exports, validates cert numbers and grades, preserves collection identifiers,
+and returns normalized sports card asset records plus `ImportSummary` and
+`ImportAudit`. The connector-layer importer only imports; it does not calculate
+valuation, business logic, confidence, recommendations, or mutate ledger,
+valuation history, source CSV files, or production data.
+
 ## Requirements
 
 - Python 3.11+
@@ -1135,7 +1143,10 @@ Current Sports Cards components:
   number, and currency.
 - `CardPosition`: Quantity, purchase price, purchase date, and notes.
 - `CardLoader`: JSON loader for sample card holdings.
-- `PsaCsvImporter`: PSA Collection CSV Connector for local PSA exports.
+- `PsaCsvImporter`: Legacy CLI workflow that imports local PSA exports into
+  the local sports cards JSON file.
+- `PSACollectionImporter`: Connector-layer read-only importer that returns
+  normalized records, import summary, and reusable import audit.
 
 Run the cards demo:
 
@@ -1159,6 +1170,11 @@ The PSA Collection CSV Connector maps `Item`, `Subject`, `Year`, `Set`,
 `Card Number`, `Grade Issuer`, `Grade`, `Cert Number`, `My Cost`,
 `Date Acquired`, `Source`, and `My Notes` into the Sports Cards live portfolio
 schema. Duplicate cards are detected by `Cert Number`.
+
+The connector-layer PSA integration preserves the original CSV file and does
+not write to portfolio, ledger, or valuation files. `ImportAudit` is reusable
+across future eBay, Card Ladder, PWCC, Goldin, Fanatics, House Radar, Fund
+Radar, Stock Radar, and Business Radar import workflows.
 
 Sports Cards are inventory-style assets: each card is an individual asset.
 Cards are not aggregated simply because they share the same player, set, or

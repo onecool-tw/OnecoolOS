@@ -36,6 +36,9 @@ Commits.
   outputs for full-pipeline regression protection.
 - Collectible live connector readiness review covering PSA Collection CSV,
   eBay Sold, Card Ladder, PWCC, Goldin, Fanatics Collect, and Manual import.
+- PSA Collection integration foundation with read-only CSV loading,
+  validation, normalized sports card asset records, ImportSummary, and
+  reusable ImportAudit.
 - v0.2.0 Beta architecture freeze documentation.
 - Decision Platform architecture for Business Logic, Analytics, Dashboard,
   Scenario, OFAI, and Decision responsibilities.

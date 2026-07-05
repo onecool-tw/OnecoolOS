@@ -17,6 +17,10 @@ from onecool_os.connectors.collectibles.models import CollectibleMarketRecord
 from onecool_os.connectors.collectibles.normalization import (
     normalize_collectible_market_record,
 )
+from onecool_os.connectors.collectibles.psa_import import ImportSummary
+from onecool_os.connectors.collectibles.psa_import import PSACollectionImporter
+from onecool_os.connectors.collectibles.psa_import import PSAImportError
+from onecool_os.connectors.collectibles.psa_import import PSAImportResult
 from onecool_os.connectors.collectibles.pwcc import PWCCConnector
 
 __all__ = [
@@ -29,6 +33,10 @@ __all__ = [
     "EbaySoldConnector",
     "FanaticsConnector",
     "GoldinConnector",
+    "ImportSummary",
+    "PSACollectionImporter",
+    "PSAImportError",
+    "PSAImportResult",
     "PWCCConnector",
     "normalize_collectible_market_record",
     "source_role_for_source",

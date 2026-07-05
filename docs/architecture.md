@@ -165,6 +165,14 @@ API-based workflows. Unauthorized scraping is not part of the MVP. The live
 connector readiness review is documented in
 `docs/live-connectors/collectible-readiness.md`.
 
+PSA Collection Integration is the first production-ready ingestion path. The
+connector-layer importer reads real PSA Collection CSV exports, validates
+certificates and grades, preserves identifiers, returns normalized sports card
+asset records, and emits `ImportSummary` plus reusable `ImportAudit`. It only
+imports. It does not calculate valuation, confidence, business logic, or
+recommendations, and it does not mutate source CSV files, Ledger, Valuation, or
+production data.
+
 For sports cards, eBay Sold is the Primary Market Price source. Card Ladder,
 PWCC, Goldin, Fanatics Collect, and Manual inputs are Validation Sources.
 Valuation confidence and source agreement belong to later Valuation, Business
