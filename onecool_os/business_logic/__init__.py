@@ -6,6 +6,9 @@ from onecool_os.business_logic.analytics_integration import (
 )
 from onecool_os.business_logic.calculators import BaseCalculator
 from onecool_os.business_logic.cash_flow import CashFlowEngine
+from onecool_os.business_logic.collectibles import CollectibleIntelligenceEngine
+from onecool_os.business_logic.collectibles import MarketQuality
+from onecool_os.business_logic.collectibles import ReviewStatus
 from onecool_os.business_logic.context import BusinessLogicContext
 from onecool_os.business_logic.enums import ConfidenceLevel
 from onecool_os.business_logic.enums import MetricType
@@ -34,9 +37,12 @@ __all__ = [
     "BusinessLogicResult",
     "BusinessLogicRunner",
     "CashFlowEngine",
+    "CollectibleIntelligenceEngine",
     "ConfidenceLevel",
+    "MarketQuality",
     "MetricType",
     "PerformanceEngine",
+    "ReviewStatus",
     "RiskEngine",
     "SignalResult",
     "SignalSeverity",

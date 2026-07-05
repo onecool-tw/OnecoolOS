@@ -101,6 +101,12 @@ prices, chooses final valuation, calls live APIs, mutates source data, or
 modifies valuation history. `reference_datetime` is injectable so replay,
 backtesting, and historical reconstruction are deterministic.
 
+The Collectible Intelligence Engine consumes `MarketIntelligence` and produces
+deterministic collectible-specific quality signals for market quality,
+valuation quality, liquidity quality, source quality, review status, and
+warnings. It prepares data for Analytics, Dashboard, Decision, and OFAI without
+recommending buy, sell, hold, or target price actions.
+
 ## Requirements
 
 - Python 3.11+

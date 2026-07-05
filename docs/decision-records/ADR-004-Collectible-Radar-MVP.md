@@ -321,3 +321,15 @@ chooses final valuation, or modifies valuation history.
 `reference_datetime` is injectable and must be used instead of the system clock
 so replay, backtesting, deterministic tests, and historical reconstruction can
 use the same market observations consistently.
+
+## Product Sprint 4 Alignment
+
+The fourth implementation sprint introduces the Collectible Intelligence
+Engine. It consumes Market Intelligence and produces collectible-specific
+deterministic quality signals for market quality, valuation quality, liquidity
+quality, source quality, review status, and warnings.
+
+Collectible Intelligence prepares data for Analytics, Dashboard, Decision, and
+OFAI. It does not choose final valuation, predict prices, recommend buying or
+selling, call APIs, mutate source data, mutate valuation history, set target
+prices, or perform OFAI reasoning.

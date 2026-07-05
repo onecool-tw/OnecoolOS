@@ -79,6 +79,8 @@ Goals:
 - Evaluate market data quality through reusable Market Intelligence
 - Expose explainable confidence, source agreement, coverage, freshness, and
   liquidity components
+- Produce collectible-specific Business Logic quality signals without
+  recommendations
 - Feed Dashboard and Decision readiness without hiding source disagreement
 
 ### v0.3 Foundation (Completed)

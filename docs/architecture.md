@@ -213,6 +213,13 @@ signals. Calculators produce metrics. Evaluators produce signals. Policies
 configure rules. Business Logic consumes read-only context and stores no source
 data.
 
+The Collectible Intelligence Engine consumes Market Intelligence and produces
+collectible-specific quality signals for market quality, valuation quality,
+liquidity quality, source quality, review status, and warnings. It does not
+choose final valuation, predict prices, recommend buy/sell/hold actions, set
+target prices, call APIs, mutate source data, mutate valuation history, or
+perform OFAI reasoning.
+
 The Business Logic Pipeline Runner orchestrates registered calculators and
 evaluators in deterministic order. It returns a structured execution report for
 Analytics, Services, Dashboard, and future OFAI consumption. The pipeline does

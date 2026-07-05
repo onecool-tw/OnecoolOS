@@ -128,6 +128,14 @@ It does not determine final valuation, predict prices, recommend actions, call
 live APIs, mutate source data, or modify valuation history. `reference_datetime`
 must be injectable for deterministic replay and historical reconstruction.
 
+The Collectible Intelligence Engine is the first product-specific Business
+Logic consumer of Market Intelligence. It produces deterministic collectible
+quality signals for market quality, valuation quality, liquidity quality,
+source quality, review status, and warnings. It does not choose final
+valuation, predict prices, recommend buy/sell/hold actions, set target prices,
+call APIs, mutate source data, mutate valuation history, or perform OFAI
+reasoning.
+
 `imports/` contains raw files exported from external platforms. Raw imports are
 not Onecool OS internal data and should not be committed when they contain user
 portfolio information.
@@ -352,6 +360,11 @@ Market Intelligence is the layer that evaluates source agreement and confidence
 quality. Business Logic consumes Market Intelligence for deterministic metrics
 and signals. Dashboard displays Market Intelligence. Decision consumes Market
 Intelligence to identify review readiness and source verification needs.
+
+Collectible Intelligence consumes Market Intelligence and prepares
+collectible-specific deterministic signals for Analytics, Dashboard, Decision,
+and OFAI. It remains a Business Logic layer and must not become a
+Recommendation Engine.
 
 Source priority rules are asset-specific:
 
