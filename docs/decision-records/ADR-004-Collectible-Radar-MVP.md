@@ -391,3 +391,14 @@ CLI, HTML, PDF, and Web UI adapters.
 Daily Radar Report never recalculates business logic, valuation, confidence,
 trend, or quality. It never predicts markets, recommends buying or selling,
 mutates source data, or calls APIs.
+
+## Feature 1 Alignment
+
+Decision Queue prioritizes Collectible Radar review work from deterministic
+Daily Radar Report outputs. It groups queue items into critical, high, medium,
+and low priority groups based on existing warnings, review counts, and radar
+signals.
+
+Decision Queue only classifies review work. It never calculates valuation,
+predicts prices, recommends buying or selling, modifies source data, mutates
+history, calls APIs, or invokes LLMs.

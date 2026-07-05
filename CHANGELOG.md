@@ -28,6 +28,8 @@ Commits.
   Business Logic, and Decision sections.
 - Collectible Daily Radar Report foundation as the first structured end-user
   product output.
+- Decision Queue foundation for prioritizing deterministic Daily Radar review
+  work without recommendations.
 - v0.2.0 Beta architecture freeze documentation.
 - Decision Platform architecture for Business Logic, Analytics, Dashboard,
   Scenario, OFAI, and Decision responsibilities.

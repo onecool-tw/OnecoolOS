@@ -86,6 +86,7 @@ Goals:
 - Summarize historical Radar snapshots through reusable Timeline Analytics
 - Assemble Collectible Radar outputs through presentation-only Dashboard views
 - Produce Daily Radar Report as the first structured end-user product output
+- Prioritize review work through Decision Queue without recommendations
 - Feed Dashboard and Decision readiness without hiding source disagreement
 
 ### v0.3 Foundation (Completed)

@@ -166,6 +166,12 @@ summary, market summary, today's changes, timeline summary, review queue, and
 warnings. It does not recalculate business logic, valuation, confidence, trend,
 or quality, and it never predicts markets or recommends actions.
 
+Decision Queue prioritizes review work from deterministic Daily Radar Report
+outputs. It classifies warnings and review items into critical, high, medium,
+and low priority groups. Decision Queue does not calculate valuation, predict
+prices, recommend buy/sell actions, modify source data, mutate history, call
+APIs, or invoke LLMs.
+
 `imports/` contains raw files exported from external platforms. Raw imports are
 not Onecool OS internal data and should not be committed when they contain user
 portfolio information.

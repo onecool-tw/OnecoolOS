@@ -244,6 +244,11 @@ consumes Dashboard sections and assembles fixed report sections without
 terminal, HTML, PDF, or Web formatting. It does not recalculate business logic,
 valuation, confidence, trend, quality, or recommendations.
 
+Decision Queue sits after Daily Radar Report. It prioritizes deterministic
+review work into critical, high, medium, and low groups. It classifies; it does
+not recommend. It does not calculate valuation, predict prices, mutate source
+data, mutate history, call APIs, or invoke LLMs.
+
 The Business Logic Pipeline Runner orchestrates registered calculators and
 evaluators in deterministic order. It returns a structured execution report for
 Analytics, Services, Dashboard, and future OFAI consumption. The pipeline does

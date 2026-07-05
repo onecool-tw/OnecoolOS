@@ -135,6 +135,11 @@ future CLI, HTML, PDF, and Web UI adapters. It never recalculates business
 logic, valuation, confidence, trend, or quality, and it never predicts markets
 or recommends actions.
 
+Decision Queue prioritizes review work from deterministic Daily Radar Report
+outputs. It groups items into critical, high, medium, and low priority queues.
+It never calculates valuation, predicts prices, recommends buy/sell actions,
+mutates history, calls APIs, or invokes LLMs.
+
 ## Requirements
 
 - Python 3.11+

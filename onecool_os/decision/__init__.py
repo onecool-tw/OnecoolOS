@@ -13,6 +13,10 @@ from onecool_os.decision.models import DecisionConstraint
 from onecool_os.decision.models import DecisionOption
 from onecool_os.decision.models import DecisionResult
 from onecool_os.decision.models import DecisionScore
+from onecool_os.decision.queue import DecisionQueue
+from onecool_os.decision.queue import DecisionQueueBuilder
+from onecool_os.decision.queue import DecisionQueueItem
+from onecool_os.decision.queue import DecisionQueuePriority
 from onecool_os.decision.validation import DecisionError
 
 __all__ = [
@@ -25,6 +29,10 @@ __all__ = [
     "DecisionEngine",
     "DecisionError",
     "DecisionOption",
+    "DecisionQueue",
+    "DecisionQueueBuilder",
+    "DecisionQueueItem",
+    "DecisionQueuePriority",
     "DecisionReadiness",
     "DecisionResult",
     "DecisionScore",
