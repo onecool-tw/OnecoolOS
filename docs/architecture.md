@@ -239,6 +239,11 @@ Business Logic, Market Intelligence, Radar, Timeline Analytics, and optional
 Decision outputs into display sections. It does not recalculate confidence,
 trend, valuation, quality, or business rules.
 
+Daily Radar Report sits after Dashboard as a structured presentation output. It
+consumes Dashboard sections and assembles fixed report sections without
+terminal, HTML, PDF, or Web formatting. It does not recalculate business logic,
+valuation, confidence, trend, quality, or recommendations.
+
 The Business Logic Pipeline Runner orchestrates registered calculators and
 evaluators in deterministic order. It returns a structured execution report for
 Analytics, Services, Dashboard, and future OFAI consumption. The pipeline does

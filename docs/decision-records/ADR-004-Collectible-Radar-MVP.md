@@ -377,3 +377,17 @@ outputs into display sections.
 Dashboard never recalculates confidence, trend, valuation, quality, or business
 rules. It never predicts markets, recommends buying or selling, mutates data,
 or owns source data.
+
+## Product Sprint 8 Alignment
+
+The eighth implementation sprint introduces the Daily Radar Report foundation.
+This is the first end-user product output built on Onecool OS.
+
+Daily Radar Report consumes the Collectible Dashboard and assembles structured
+sections for collection summary, market summary, today's changes, timeline
+summary, review queue, and warnings. It returns structured models for future
+CLI, HTML, PDF, and Web UI adapters.
+
+Daily Radar Report never recalculates business logic, valuation, confidence,
+trend, or quality. It never predicts markets, recommends buying or selling,
+mutates source data, or calls APIs.

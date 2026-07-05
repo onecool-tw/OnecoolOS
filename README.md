@@ -129,6 +129,12 @@ Decision outputs into display sections. It never recalculates confidence,
 trend, valuation, or quality, and it never predicts, recommends, or mutates
 data.
 
+Daily Radar Report is the first end-user product output built on Onecool OS. It
+consumes the Collectible Dashboard and returns structured report models for
+future CLI, HTML, PDF, and Web UI adapters. It never recalculates business
+logic, valuation, confidence, trend, or quality, and it never predicts markets
+or recommends actions.
+
 ## Requirements
 
 - Python 3.11+

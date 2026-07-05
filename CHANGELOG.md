@@ -26,6 +26,8 @@ Commits.
   signal statistics.
 - Collectible Dashboard foundation for presentation-only Radar, Timeline,
   Business Logic, and Decision sections.
+- Collectible Daily Radar Report foundation as the first structured end-user
+  product output.
 - v0.2.0 Beta architecture freeze documentation.
 - Decision Platform architecture for Business Logic, Analytics, Dashboard,
   Scenario, OFAI, and Decision responsibilities.

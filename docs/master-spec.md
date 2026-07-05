@@ -160,6 +160,12 @@ Decision outputs into display sections. It does not recalculate confidence,
 trend, valuation, or quality. It never predicts, recommends actions, mutates
 data, or owns source data.
 
+Daily Radar Report is the first user-facing product output. It consumes the
+Collectible Dashboard and assembles structured report sections for collection
+summary, market summary, today's changes, timeline summary, review queue, and
+warnings. It does not recalculate business logic, valuation, confidence, trend,
+or quality, and it never predicts markets or recommends actions.
+
 `imports/` contains raw files exported from external platforms. Raw imports are
 not Onecool OS internal data and should not be committed when they contain user
 portfolio information.
