@@ -249,6 +249,12 @@ review work into critical, high, medium, and low groups. It classifies; it does
 not recommend. It does not calculate valuation, predict prices, mutate source
 data, mutate history, call APIs, or invoke LLMs.
 
+Collectible OFAI Context sits after Decision Queue. It prepares deterministic
+context for future OFAI workflows by summarizing collection state, market
+quality, radar changes, timeline trend, review priorities, and warnings. It is
+not an AI model and does not recommend actions, predict prices, call LLMs,
+mutate source data, modify history, or calculate valuation.
+
 The Business Logic Pipeline Runner orchestrates registered calculators and
 evaluators in deterministic order. It returns a structured execution report for
 Analytics, Services, Dashboard, and future OFAI consumption. The pipeline does

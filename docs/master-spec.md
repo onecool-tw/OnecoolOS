@@ -172,6 +172,12 @@ and low priority groups. Decision Queue does not calculate valuation, predict
 prices, recommend buy/sell actions, modify source data, mutate history, call
 APIs, or invoke LLMs.
 
+Collectible OFAI Context prepares structured deterministic context from the
+Daily Radar Report and Decision Queue. It summarizes collection state, market
+quality, radar changes, timeline trend, review priorities, and warnings. It is
+not an AI model and does not recommend actions, predict prices, call LLMs,
+mutate source data, modify history, or calculate valuation.
+
 `imports/` contains raw files exported from external platforms. Raw imports are
 not Onecool OS internal data and should not be committed when they contain user
 portfolio information.

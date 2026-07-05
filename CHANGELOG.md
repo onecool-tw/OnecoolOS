@@ -30,6 +30,8 @@ Commits.
   product output.
 - Decision Queue foundation for prioritizing deterministic Daily Radar review
   work without recommendations.
+- Collectible OFAI Context foundation for deterministic report and queue
+  summaries without AI reasoning or recommendations.
 - v0.2.0 Beta architecture freeze documentation.
 - Decision Platform architecture for Business Logic, Analytics, Dashboard,
   Scenario, OFAI, and Decision responsibilities.

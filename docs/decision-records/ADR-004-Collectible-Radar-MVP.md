@@ -402,3 +402,14 @@ signals.
 Decision Queue only classifies review work. It never calculates valuation,
 predicts prices, recommends buying or selling, modifies source data, mutates
 history, calls APIs, or invokes LLMs.
+
+## Feature 2 Alignment
+
+Collectible OFAI Context prepares deterministic context from the Daily Radar
+Report and Decision Queue. It summarizes collection state, market quality,
+radar changes, timeline trend, review priorities, and warnings for future OFAI
+workflows.
+
+Collectible OFAI Context is not an AI model. It never recommends buying or
+selling, predicts prices, executes actions, calls LLMs, mutates source data,
+modifies history, or calculates valuation.

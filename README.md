@@ -140,6 +140,12 @@ outputs. It groups items into critical, high, medium, and low priority queues.
 It never calculates valuation, predicts prices, recommends buy/sell actions,
 mutates history, calls APIs, or invokes LLMs.
 
+Collectible OFAI Context prepares structured deterministic context from the
+Daily Radar Report and Decision Queue. It summarizes collection state, market
+quality, radar changes, timeline trend, review priorities, and warnings for
+future OFAI workflows. It is not an AI model and never recommends actions,
+predicts prices, calls LLMs, mutates source data, or calculates valuation.
+
 ## Requirements
 
 - Python 3.11+
