@@ -227,6 +227,13 @@ predict markets, recommend buy/sell actions, call APIs, mutate source data, or
 perform LLM reasoning. Analytics stores Radar output, Dashboard displays it,
 and Decision consumes it.
 
+Timeline Analytics sits after Radar Engine. It summarizes historical Radar
+snapshots into deterministic trend direction, trend strength, trend summaries,
+signal statistics, quality trends, warnings, and source snapshot IDs. It does
+not calculate valuation, modify history, predict future performance, recommend
+actions, mutate source data, or call APIs. Dashboard displays Timeline
+Analytics. Decision and OFAI consume it.
+
 The Business Logic Pipeline Runner orchestrates registered calculators and
 evaluators in deterministic order. It returns a structured execution report for
 Analytics, Services, Dashboard, and future OFAI consumption. The pipeline does

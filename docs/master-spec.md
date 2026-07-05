@@ -145,6 +145,15 @@ predict markets, recommend buy/sell actions, call APIs, mutate source data, or
 perform LLM reasoning. Analytics stores Radar output, Dashboard displays Radar
 output, and Decision consumes Radar output.
 
+Timeline Analytics summarizes historical Radar snapshots across time. It is a
+reusable analytics capability for Collectible Radar, House Radar, Fund Radar,
+Stock Radar, Business Radar, Emergency Radar, and future products. Timeline
+Analytics produces trend direction, trend strength, trend summary, signal
+statistics, quality trends, warnings, and radar snapshot IDs. It does not
+calculate valuation, modify history, predict markets, recommend actions,
+mutate source data, or call APIs. Dashboard displays Timeline Analytics.
+Decision and OFAI consume Timeline Analytics.
+
 `imports/` contains raw files exported from external platforms. Raw imports are
 not Onecool OS internal data and should not be committed when they contain user
 portfolio information.

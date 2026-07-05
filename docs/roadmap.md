@@ -83,6 +83,7 @@ Goals:
   recommendations
 - Detect new, resolved, changed, and escalated signals through reusable Radar
   snapshots
+- Summarize historical Radar snapshots through reusable Timeline Analytics
 - Feed Dashboard and Decision readiness without hiding source disagreement
 
 ### v0.3 Foundation (Completed)

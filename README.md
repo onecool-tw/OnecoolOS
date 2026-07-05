@@ -115,6 +115,14 @@ changed, and escalated signals. Analytics stores Radar output, Dashboard
 displays it, and Decision consumes it. Radar never predicts, recommends,
 calculates valuation, calls APIs, mutates source data, or modifies history.
 
+Timeline Analytics summarizes historical Radar snapshots across time. It is a
+reusable analytics capability for Collectible Radar and future Radar products.
+It produces trend direction, trend strength, trend summary, signal statistics,
+quality trends, warnings, and radar snapshot IDs. Dashboard displays Timeline
+Analytics, while Decision and OFAI consume it. Timeline Analytics does not
+calculate valuation, modify history, predict future performance, recommend
+actions, mutate source data, or call APIs.
+
 ## Requirements
 
 - Python 3.11+

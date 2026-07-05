@@ -350,3 +350,19 @@ Radar never calculates valuation, modifies historical data, predicts markets,
 recommends buying or selling, calls APIs, mutates source data, or performs LLM
 reasoning. Analytics stores Radar output, Dashboard displays Radar output, and
 Decision consumes Radar output.
+
+## Product Sprint 6 Alignment
+
+The sixth implementation sprint introduces reusable Timeline Analytics.
+Collectible Radar is the first implementation, but the same timeline
+architecture should support House Radar, Fund Radar, Stock Radar, Business
+Radar, Emergency Radar, and future products.
+
+Timeline Analytics summarizes historical Radar snapshots across time. It
+produces trend direction, trend strength, trend summaries, signal statistics,
+quality trends, warnings, and radar snapshot IDs.
+
+Timeline Analytics never calculates valuation, modifies history, predicts
+future performance, recommends buying or selling, mutates source data, or calls
+APIs. Dashboard displays Timeline Analytics. Decision and OFAI consume Timeline
+Analytics.
