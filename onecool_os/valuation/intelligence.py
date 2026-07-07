@@ -11,6 +11,9 @@ from typing import Iterable
 
 from onecool_os.valuation.collectibles import CollectibleValuationMapping
 from onecool_os.valuation.enums import ValuationSource
+from onecool_os.valuation.source_agreement import (
+    SourceAgreementResult,
+)
 from onecool_os.valuation.validation import ValuationError
 from onecool_os.valuation.validation import require_text
 
@@ -33,6 +36,7 @@ class AgreementLevel(StrEnum):
     FAIR = "FAIR"
     WEAK = "WEAK"
     CONFLICT = "CONFLICT"
+    UNKNOWN = "UNKNOWN"
 
 
 class FreshnessLevel(StrEnum):
@@ -219,13 +223,21 @@ class CollectibleMarketIntelligenceBuilder:
         *,
         reference_datetime: datetime,
         asset_id: str | None = None,
+        source_agreement: SourceAgreementResult | None = None,
     ) -> MarketIntelligence:
         """Build deterministic intelligence without mutating inputs."""
 
         if not isinstance(reference_datetime, datetime):
             raise ValuationError("reference_datetime must be a datetime.")
+        if source_agreement is not None and not isinstance(
+            source_agreement,
+            SourceAgreementResult,
+        ):
+            raise ValuationError(
+                "source_agreement must be a SourceAgreementResult."
+            )
         mappings = tuple(valuation_mappings)
-        if not mappings:
+        if not mappings and source_agreement is None:
             resolved_asset_id = require_text(asset_id or "unknown", "asset_id")
             return self._empty_intelligence(
                 resolved_asset_id,
@@ -233,35 +245,57 @@ class CollectibleMarketIntelligenceBuilder:
             )
 
         records = tuple(mapping.valuation_record for mapping in mappings)
-        resolved_asset_id = asset_id or records[0].asset_id
+        resolved_asset_id = (
+            asset_id
+            or (records[0].asset_id if records else source_agreement.asset_id)
+        )
         primary_mapping = self._latest_primary_mapping(mappings)
-        primary_price = (
-            primary_mapping.valuation_record.market_value
-            if primary_mapping is not None
-            else None
-        )
-        primary_source = (
-            primary_mapping.valuation_record.source.value
-            if primary_mapping is not None
-            else None
-        )
+        if source_agreement is not None:
+            primary_price = source_agreement.primary_market_price
+            primary_source = source_agreement.primary_market_source
+        else:
+            primary_price = (
+                primary_mapping.valuation_record.market_value
+                if primary_mapping is not None
+                else None
+            )
+            primary_source = (
+                primary_mapping.valuation_record.source.value
+                if primary_mapping is not None
+                else None
+            )
         validation_values = tuple(
             mapping.valuation_record.market_value
             for mapping in mappings
             if mapping.metadata.get("validation_source") is True
             and mapping.valuation_record.market_value is not None
         )
-        agreement_score, agreement_level = self._agreement(
-            primary_price,
-            validation_values,
+        if source_agreement is not None:
+            agreement_score = source_agreement.agreement_score
+            agreement_level = AgreementLevel(
+                source_agreement.agreement_level.value
+            )
+        else:
+            agreement_score, agreement_level = self._agreement(
+                primary_price,
+                validation_values,
+            )
+        latest_market_date = (
+            max(record.valuation_date for record in records)
+            if records
+            else None
         )
-        latest_market_date = max(record.valuation_date for record in records)
-        freshness_days = max(
-            0,
-            (reference_datetime.date() - latest_market_date).days,
+        freshness_days = (
+            max(0, (reference_datetime.date() - latest_market_date).days)
+            if latest_market_date is not None
+            else None
         )
         freshness_level, freshness_component = self._freshness(freshness_days)
-        available_sources = self._available_sources(records)
+        available_sources = (
+            tuple(source_agreement.participating_sources)
+            if source_agreement is not None
+            else self._available_sources(records)
+        )
         coverage_score = round(
             len(set(available_sources) & set(self.expected_sources))
             / len(self.expected_sources)
@@ -287,12 +321,19 @@ class CollectibleMarketIntelligenceBuilder:
         )
         warnings = self._warnings(
             primary_price=primary_price,
-            validation_count=len(validation_values),
+            validation_count=(
+                len(source_agreement.validation_sources)
+                if source_agreement is not None
+                else len(validation_values)
+            ),
             agreement_level=agreement_level,
             coverage_score=coverage_score,
             liquidity_level=liquidity_level,
             freshness_level=freshness_level,
             confidence_score=confidence_score,
+            extra_warnings=(
+                source_agreement.warnings if source_agreement else ()
+            ),
         )
         return MarketIntelligence(
             intelligence_id=f"market-intelligence:{resolved_asset_id}",
@@ -319,7 +360,11 @@ class CollectibleMarketIntelligenceBuilder:
             comparable_sales_count=comparable_sales_count,
             liquidity_level=liquidity_level,
             warnings=warnings,
-            raw_valuation_ids=tuple(record.valuation_id for record in records),
+            raw_valuation_ids=(
+                source_agreement.raw_valuation_ids
+                if source_agreement is not None
+                else tuple(record.valuation_id for record in records)
+            ),
         )
 
     def _empty_intelligence(
@@ -413,7 +458,12 @@ class CollectibleMarketIntelligenceBuilder:
             return 35, AgreementLevel.WEAK
         return 10, AgreementLevel.CONFLICT
 
-    def _freshness(self, freshness_days: int) -> tuple[FreshnessLevel, int]:
+    def _freshness(
+        self,
+        freshness_days: int | None,
+    ) -> tuple[FreshnessLevel, int]:
+        if freshness_days is None:
+            return FreshnessLevel.STALE, 0
         if freshness_days <= 1:
             return FreshnessLevel.LIVE, 20
         if freshness_days <= 30:
@@ -454,8 +504,9 @@ class CollectibleMarketIntelligenceBuilder:
         liquidity_level: LiquidityLevel,
         freshness_level: FreshnessLevel,
         confidence_score: int,
+        extra_warnings: tuple[str, ...] = (),
     ) -> tuple[str, ...]:
-        warnings: list[str] = []
+        warnings: list[str] = list(extra_warnings)
         if primary_price is None:
             warnings.append("Missing Primary Market Price")
         if validation_count == 0:

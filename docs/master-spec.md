@@ -413,11 +413,14 @@ market value, replace eBay Sold, mutate valuation history, predict prices, or
 recommend actions.
 
 Market Intelligence is the layer that evaluates market data confidence
-quality. It should consume `SourceAgreementResult` instead of independently
-reimplementing source agreement. Business Logic consumes Market Intelligence
-for deterministic metrics and signals. Dashboard displays Market Intelligence.
-Decision consumes Market Intelligence to identify review readiness and source
-verification needs.
+quality. Market Intelligence v2 consumes optional `SourceAgreementResult`
+instead of independently reimplementing source agreement when the result is
+provided. It uses agreement score, level, participating sources, missing
+sources, and warnings from Source Agreement while keeping backward-compatible
+legacy behavior when no Source Agreement result is available. Business Logic
+consumes Market Intelligence for deterministic metrics and signals. Dashboard
+displays Market Intelligence. Decision consumes Market Intelligence to identify
+review readiness and source verification needs.
 
 Collectible Intelligence consumes Market Intelligence and prepares
 collectible-specific deterministic signals for Analytics, Dashboard, Decision,

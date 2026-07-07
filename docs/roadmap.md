@@ -104,6 +104,8 @@ Goals:
   ingestion path
 - Evaluate eBay Sold and Validation Source agreement through reusable Source
   Agreement results without choosing final valuation
+- Integrate Source Agreement into Market Intelligence v2 without duplicating
+  agreement logic
 - Feed Dashboard and Decision readiness without hiding source disagreement
 
 ### v0.3 Foundation (Completed)

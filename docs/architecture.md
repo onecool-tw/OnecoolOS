@@ -256,6 +256,9 @@ explainable confidence components. It does not determine final valuation,
 predict prices, recommend buying or selling, call live APIs, mutate source
 data, or modify valuation history. Market Intelligence should consume
 `SourceAgreementResult` rather than independently reimplement source agreement.
+Market Intelligence v2 accepts optional Source Agreement input and, when
+provided, uses its agreement score, level, participating sources, missing
+sources, and warnings while preserving backward-compatible behavior without it.
 
 `reference_datetime` is injected into Market Intelligence builders so replay,
 backtesting, and historical reconstruction remain deterministic.

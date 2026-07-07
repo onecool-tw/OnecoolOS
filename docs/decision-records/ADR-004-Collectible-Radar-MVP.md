@@ -336,6 +336,11 @@ history, mutate source data, call APIs, scrape websites, or hide disagreement.
 Market Intelligence should consume `SourceAgreementResult` instead of
 reimplementing agreement rules independently.
 
+Market Intelligence v2 accepts optional `SourceAgreementResult`. When provided,
+it uses the Source Agreement score, level, participating sources, missing
+sources, and warnings without recalculating agreement. When not provided, the
+legacy Market Intelligence path remains available for backward compatibility.
+
 ## Product Sprint 4 Alignment
 
 The fourth implementation sprint introduces the Collectible Intelligence

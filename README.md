@@ -82,8 +82,8 @@ imports.
 For sports cards, eBay Sold is the default Primary Market Price because it is
 the closest executable market price. Card Ladder, PWCC, Goldin, and Fanatics
 Collect are Validation Sources used later for confidence, anomaly detection,
-and source agreement. Valuation confidence and source agreement happen in later
-Valuation, Business Logic, Analytics, Dashboard, and Decision layers.
+and source agreement. Source Agreement now owns deterministic agreement
+calculation before Market Intelligence consumes the result.
 
 The Collectible Valuation Mapper converts each `CollectibleMarketRecord` into
 a `ValuationRecord` plus collectible metadata. It preserves source role,
@@ -106,7 +106,10 @@ Price, Validation Sources, source agreement, coverage, freshness, and
 liquidity, and exposes an explainable confidence breakdown. It never predicts
 prices, chooses final valuation, calls live APIs, mutates source data, or
 modifies valuation history. Market Intelligence should consume
-`SourceAgreementResult` rather than reimplement source agreement logic.
+`SourceAgreementResult` rather than reimplement source agreement logic. Market
+Intelligence v2 accepts optional `SourceAgreementResult`; when provided, it
+uses its agreement score, level, participating sources, missing sources, and
+warnings without recalculating agreement.
 `reference_datetime` is injectable so replay, backtesting, and historical
 reconstruction are deterministic.
 
