@@ -106,7 +106,12 @@ Goals:
   Agreement results without choosing final valuation
 - Integrate Source Agreement into Market Intelligence v2 without duplicating
   agreement logic
+- Complete Collectible Radar Beta release review and public contract checklist
 - Feed Dashboard and Decision readiness without hiding source disagreement
+
+Beta Review:
+
+- `docs/releases/collectible-radar-beta-review.md`
 
 ### v0.3 Foundation (Completed)
 

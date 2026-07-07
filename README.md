@@ -18,6 +18,7 @@ Architecture freeze documentation:
 - [Architecture](docs/architecture.md)
 - [v0.1.0 Alpha Release](docs/releases/v0.1.0-alpha.md)
 - [v0.2.0 Beta Architecture](docs/releases/v0.2.0-beta.md)
+- [Collectible Radar Beta Review](docs/releases/collectible-radar-beta-review.md)
 
 ```text
 External Sources
@@ -68,6 +69,14 @@ before Decision Engine implementation. Business Logic calculates, Analytics
 stores derived snapshots, Dashboard presents, Scenario structures
 possibilities, OFAI prepares context, and Decision will evaluate options and
 audit trails.
+
+Collectible Radar Beta is reviewed in
+`docs/releases/collectible-radar-beta-review.md`. The review confirms the
+first Onecool OS product pipeline across PSA Import, eBay Sold Import, Card
+Ladder Import, Manual Valuation Import, Valuation Records, Source Agreement,
+Market Intelligence, Collectible Intelligence, Radar, Timeline Analytics,
+Dashboard, Daily Radar Report, Decision Queue, OFAI Context, Golden Dataset,
+and ImportAudit.
 
 ## Collectible Radar MVP
 

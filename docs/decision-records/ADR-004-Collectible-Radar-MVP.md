@@ -341,6 +341,17 @@ it uses the Source Agreement score, level, participating sources, missing
 sources, and warnings without recalculating agreement. When not provided, the
 legacy Market Intelligence path remains available for backward compatibility.
 
+## Beta Release Review Alignment
+
+Collectible Radar Beta has a formal release review in
+`docs/releases/collectible-radar-beta-review.md`. The review freezes the Beta
+pipeline, public contracts, known limitations, technical debt, and GA
+readiness checklist for the first Onecool OS product workflow.
+
+The Beta remains local-file based and deterministic. It does not call live
+APIs, scrape websites, add credentials, predict prices, recommend actions,
+overwrite valuation history, mutate source files, or include private user data.
+
 ## Product Sprint 4 Alignment
 
 The fourth implementation sprint introduces the Collectible Intelligence

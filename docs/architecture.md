@@ -66,6 +66,43 @@ Future Recommendation Engine
 Future LLM
 ```
 
+## Collectible Radar Beta
+
+Collectible Radar Beta is the first product-level validation of the Onecool OS
+architecture. The release review is documented in
+`docs/releases/collectible-radar-beta-review.md`.
+
+Validated Beta pipeline:
+
+```text
+PSA Import / eBay Sold Import / Card Ladder Import / Manual Valuation Import
+↓
+Valuation Records
+↓
+Source Agreement
+↓
+Market Intelligence
+↓
+Collectible Intelligence
+↓
+Radar
+↓
+Timeline Analytics
+↓
+Dashboard
+↓
+Daily Radar Report
+↓
+Decision Queue
+↓
+OFAI Context
+```
+
+The Beta contract remains deterministic, local-file based, and read-only with
+respect to source files and valuation history. Live APIs, scraping,
+credentials, recommendations, market prediction, scheduling, and persistent
+audit storage remain outside Beta scope.
+
 ## Source of Truth
 
 | Layer | Source of Truth |

@@ -53,6 +53,8 @@ Commits.
   Primary Market Price and Validation Source valuation records.
 - Market Intelligence v2 integration that consumes `SourceAgreementResult`
   without duplicating source agreement calculation.
+- Collectible Radar Beta release review covering pipeline readiness, public
+  contracts, known limitations, technical debt, and GA checklist.
 - v0.2.0 Beta architecture freeze documentation.
 - Decision Platform architecture for Business Logic, Analytics, Dashboard,
   Scenario, OFAI, and Decision responsibilities.
