@@ -98,6 +98,8 @@ Goals:
   user-provided export, or manual fixture paths
 - Support eBay Sold manual CSV / JSON import as the first Primary Market Price
   ingestion path
+- Prepare Card Ladder Validation Source ingestion through approved API,
+  official export, user-provided export, or manual fixture paths
 - Feed Dashboard and Decision readiness without hiding source disagreement
 
 ### v0.3 Foundation (Completed)

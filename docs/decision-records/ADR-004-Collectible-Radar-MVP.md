@@ -489,3 +489,23 @@ ingestion path. It accepts user-provided CSV / JSON only, emits
 future review. It does not call APIs, scrape websites, add credentials, select
 final valuation, calculate confidence, recommend actions, mutate source files,
 or overwrite valuation history.
+
+## Card Ladder Integration Readiness Alignment
+
+Card Ladder is a Validation Source for Collectible Radar. It does not replace
+eBay Sold as the sports card Primary Market Price source and must not decide
+which marketplace is correct.
+
+Approved Card Ladder ingestion options are, in order: official API if allowed
+and available, official export if available, user-provided CSV / JSON export,
+and manual fixture import. Unauthorized scraping, browser automation for
+scraping, credential sharing, and hidden source disagreement are rejected for
+MVP.
+
+Card Ladder imports must preserve asset identity or hint, valuation value or
+market value, currency, valuation date, source identity, external ID or
+URL/reference, and optional market context such as population or sales count.
+Card Ladder observations create independent valuation records. They help
+evaluate confidence, source agreement, and source divergence later, but they do
+not overwrite valuation history, select final market value, calculate
+confidence, recommend actions, or mutate source files.

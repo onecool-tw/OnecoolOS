@@ -45,6 +45,8 @@ Commits.
   approved ingestion options, rejected scraping, and MVP data requirements.
 - eBay Sold Manual Import foundation for user-provided CSV / JSON Primary
   Market Price observations, ImportSummary, and reusable ImportAudit.
+- Card Ladder integration readiness review defining Validation Source policy,
+  approved ingestion options, rejected scraping, and MVP data requirements.
 - v0.2.0 Beta architecture freeze documentation.
 - Decision Platform architecture for Business Logic, Analytics, Dashboard,
   Scenario, OFAI, and Decision responsibilities.

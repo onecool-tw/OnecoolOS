@@ -192,6 +192,14 @@ The importer is read-only: it does not call APIs, scrape, add credentials,
 select final valuation, calculate confidence, recommend actions, mutate source
 files, or overwrite valuation history.
 
+Card Ladder readiness is documented in
+`docs/live-connectors/card-ladder-readiness.md`. Card Ladder is a Validation
+Source that should enter through approved API access if allowed and available,
+official export if available, user-provided CSV / JSON export, or manual
+fixture import. It does not replace eBay Sold as Primary Market Price, choose
+final market value, calculate confidence, hide source disagreement, or mutate
+valuation history.
+
 Manual Valuation Import sits at the Valuation boundary as an auditable
 fallback / validation input. It converts user-provided CSV or JSON observations
 into independent `ValuationRecord` objects with source `MANUAL` and reusable

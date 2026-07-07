@@ -175,6 +175,14 @@ observations without calling APIs, scraping, selecting final valuation,
 calculating confidence, recommending actions, mutating source files, or
 overwriting valuation history.
 
+Card Ladder integration readiness is documented in
+`docs/live-connectors/card-ladder-readiness.md`. Card Ladder is a Validation
+Source, not the Primary Market Price. Approved ingestion paths are official API
+if allowed and available, official export if available, user-provided CSV /
+JSON export, and manual fixture import. Unauthorized scraping is rejected for
+MVP. Card Ladder records remain independent valuation observations used later
+for confidence, source agreement, and source divergence review.
+
 PSA Collection Integration is the first production-ready ingestion foundation
 for Collectible Radar. `PSACollectionImporter` loads real PSA Collection CSV
 exports, validates cert numbers and grades, preserves collection identifiers,
