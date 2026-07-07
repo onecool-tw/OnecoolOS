@@ -91,6 +91,12 @@ owner-collection validation workflow, dataset size, trial metrics, acceptance
 criteria, and privacy rules. Real collection data must remain local and must
 not be committed.
 
+The first real data trial result is documented in
+`docs/trials/collectible-radar-real-data-results.md`. The initial run was a
+partial validation: the local private sports card JSON imported successfully,
+but the dataset was below minimum size and source valuation files were not yet
+available for the full pipeline.
+
 ## Collectible Radar MVP
 
 Collectible Radar is the first product workflow built on Onecool OS. It starts

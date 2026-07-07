@@ -111,6 +111,10 @@ The real data trial plan is documented in
 same deterministic pipeline with the owner's private collection while keeping
 real source files and generated private outputs outside Git.
 
+The first trial result is documented in
+`docs/trials/collectible-radar-real-data-results.md`. It records aggregate
+findings only and confirms that private source files must remain outside Git.
+
 ## Source of Truth
 
 | Layer | Source of Truth |
