@@ -322,6 +322,20 @@ chooses final valuation, or modifies valuation history.
 so replay, backtesting, deterministic tests, and historical reconstruction can
 use the same market observations consistently.
 
+## Source Agreement Alignment
+
+Source Agreement is the deterministic layer that evaluates how closely eBay
+Sold Primary Market Price records agree with Card Ladder, Manual, PWCC,
+Goldin, and Fanatics Validation Source records. It produces agreement score,
+agreement level, agreement spread, max divergence, missing sources, source
+count, warnings, and raw valuation IDs.
+
+Source Agreement does not choose final valuation, replace eBay Sold as Primary
+Market Price, predict prices, recommend buying or selling, overwrite valuation
+history, mutate source data, call APIs, scrape websites, or hide disagreement.
+Market Intelligence should consume `SourceAgreementResult` instead of
+reimplementing agreement rules independently.
+
 ## Product Sprint 4 Alignment
 
 The fourth implementation sprint introduces the Collectible Intelligence

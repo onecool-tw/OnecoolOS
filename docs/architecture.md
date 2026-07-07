@@ -241,12 +241,21 @@ metadata for source role, external ID, raw market record ID, and raw payload.
 It does not choose final market value, calculate confidence, resolve source
 agreement, or mutate raw imports.
 
+Source Agreement sits after valuation records and before Market Intelligence.
+It compares eBay Sold Primary Market Price records with Card Ladder, Manual,
+PWCC, Goldin, and Fanatics Validation Sources. It produces deterministic
+agreement score, level, spread, divergence, missing sources, and warnings. It
+does not choose final valuation, replace eBay Sold, overwrite valuation
+history, predict prices, recommend actions, call APIs, scrape websites, mutate
+source data, or hide disagreement.
+
 Market Intelligence sits after valuation mapping and before Business Logic. It
 evaluates market data quality only: Primary Market Price presence, Validation
 Source coverage, source agreement, freshness, liquidity, warnings, and
 explainable confidence components. It does not determine final valuation,
 predict prices, recommend buying or selling, call live APIs, mutate source
-data, or modify valuation history.
+data, or modify valuation history. Market Intelligence should consume
+`SourceAgreementResult` rather than independently reimplement source agreement.
 
 `reference_datetime` is injected into Market Intelligence builders so replay,
 backtesting, and historical reconstruction remain deterministic.

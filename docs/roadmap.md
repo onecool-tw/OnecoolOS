@@ -102,6 +102,8 @@ Goals:
   official export, user-provided export, or manual fixture paths
 - Support Card Ladder manual CSV / JSON import as the first Validation Source
   ingestion path
+- Evaluate eBay Sold and Validation Source agreement through reusable Source
+  Agreement results without choosing final valuation
 - Feed Dashboard and Decision readiness without hiding source disagreement
 
 ### v0.3 Foundation (Completed)

@@ -49,6 +49,8 @@ Commits.
   approved ingestion options, rejected scraping, and MVP data requirements.
 - Card Ladder Manual Import foundation for user-provided CSV / JSON Validation
   Source observations, ImportSummary, and reusable ImportAudit.
+- Source Agreement foundation for deterministic comparison between eBay Sold
+  Primary Market Price and Validation Source valuation records.
 - v0.2.0 Beta architecture freeze documentation.
 - Decision Platform architecture for Business Logic, Analytics, Dashboard,
   Scenario, OFAI, and Decision responsibilities.

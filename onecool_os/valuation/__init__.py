@@ -23,11 +23,19 @@ from onecool_os.valuation.manual_import import ManualValuationImportRecord
 from onecool_os.valuation.manual_import import ManualValuationImportResult
 from onecool_os.valuation.manual_import import ManualValuationImporter
 from onecool_os.valuation.models import ValuationRecord
+from onecool_os.valuation.source_agreement import (
+    AgreementLevel as SourceAgreementLevel,
+)
+from onecool_os.valuation.source_agreement import SourceAgreementBuilder
+from onecool_os.valuation.source_agreement import SourceAgreementResult
 from onecool_os.valuation.validation import ValuationError
 
 __all__ = [
     "AgreementLevel",
     "SOURCE_PRIORITY_BY_ASSET_TYPE",
+    "SourceAgreementBuilder",
+    "SourceAgreementLevel",
+    "SourceAgreementResult",
     "ValuationConfidence",
     "CollectibleMarketIntelligenceBuilder",
     "CollectibleValuationMapper",

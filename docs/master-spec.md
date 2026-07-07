@@ -403,13 +403,21 @@ same asset on the same date when they come from different sources.
 
 Collectible valuation mapping records eBay Sold observations as Primary Market
 Price inputs and Card Ladder, PWCC, Goldin, Fanatics Collect, and Manual
-observations as independent Validation Source inputs. Confidence and source
-agreement remain future layers.
+observations as independent Validation Source inputs.
 
-Market Intelligence is the layer that evaluates source agreement and confidence
-quality. Business Logic consumes Market Intelligence for deterministic metrics
-and signals. Dashboard displays Market Intelligence. Decision consumes Market
-Intelligence to identify review readiness and source verification needs.
+Source Agreement evaluates whether Primary Market Price records and Validation
+Source records are close, divergent, missing, or conflicting. It produces
+`SourceAgreementResult` with deterministic score, level, spread, source count,
+missing sources, warnings, and raw valuation IDs. It does not select final
+market value, replace eBay Sold, mutate valuation history, predict prices, or
+recommend actions.
+
+Market Intelligence is the layer that evaluates market data confidence
+quality. It should consume `SourceAgreementResult` instead of independently
+reimplementing source agreement. Business Logic consumes Market Intelligence
+for deterministic metrics and signals. Dashboard displays Market Intelligence.
+Decision consumes Market Intelligence to identify review readiness and source
+verification needs.
 
 Collectible Intelligence consumes Market Intelligence and prepares
 collectible-specific deterministic signals for Analytics, Dashboard, Decision,

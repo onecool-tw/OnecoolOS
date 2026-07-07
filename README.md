@@ -85,11 +85,18 @@ Collect are Validation Sources used later for confidence, anomaly detection,
 and source agreement. Valuation confidence and source agreement happen in later
 Valuation, Business Logic, Analytics, Dashboard, and Decision layers.
 
-The Collectible Valuation Mapper converts each `CollectibleMarketRecord` into a
-`ValuationRecord` plus collectible metadata. It preserves source role, external
-ID, sale price, currency, sale date, URL, raw payload, and raw market record ID.
-It does not choose a final market value, calculate confidence, resolve source
-agreement, or overwrite valuation history.
+The Collectible Valuation Mapper converts each `CollectibleMarketRecord` into
+a `ValuationRecord` plus collectible metadata. It preserves source role,
+external ID, sale price, currency, sale date, URL, raw payload, and raw market
+record ID. It does not choose a final market value, calculate confidence,
+resolve source agreement, or overwrite valuation history.
+
+Source Agreement evaluates how closely eBay Sold Primary Market Price records
+agree with Card Ladder, Manual, PWCC, Goldin, and Fanatics Validation Sources.
+It calculates deterministic agreement score, level, spread, divergence,
+missing sources, and warnings. It never chooses final valuation, replaces eBay
+Sold, predicts prices, recommends actions, overwrites valuation history, calls
+APIs, scrapes websites, mutates source data, or hides disagreement.
 
 Market Intelligence evaluates the quality and reliability of market data.
 Collectible Radar is the first implementation, but the same architecture should
@@ -98,8 +105,10 @@ products. Market Intelligence consumes valuation records, checks Primary Market
 Price, Validation Sources, source agreement, coverage, freshness, and
 liquidity, and exposes an explainable confidence breakdown. It never predicts
 prices, chooses final valuation, calls live APIs, mutates source data, or
-modifies valuation history. `reference_datetime` is injectable so replay,
-backtesting, and historical reconstruction are deterministic.
+modifies valuation history. Market Intelligence should consume
+`SourceAgreementResult` rather than reimplement source agreement logic.
+`reference_datetime` is injectable so replay, backtesting, and historical
+reconstruction are deterministic.
 
 The Collectible Intelligence Engine consumes `MarketIntelligence` and produces
 deterministic collectible-specific quality signals for market quality,
