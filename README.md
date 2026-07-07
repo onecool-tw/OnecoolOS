@@ -1,6 +1,6 @@
 # Onecool OS
 
-Current Version: v0.2.0 Beta Architecture
+Current Version: v0.3.0-beta
 
 Onecool OS is a Python-based personal asset operating system. Milestone 1
 delivers the Core Engine: SQLite persistence, plugin loading, event publishing,
@@ -18,6 +18,7 @@ Architecture freeze documentation:
 - [Architecture](docs/architecture.md)
 - [v0.1.0 Alpha Release](docs/releases/v0.1.0-alpha.md)
 - [v0.2.0 Beta Architecture](docs/releases/v0.2.0-beta.md)
+- [v0.3.0-beta Release](docs/releases/v0.3.0-beta.md)
 - [Collectible Radar Beta Review](docs/releases/collectible-radar-beta-review.md)
 
 ```text
@@ -69,6 +70,11 @@ before Decision Engine implementation. Business Logic calculates, Analytics
 stores derived snapshots, Dashboard presents, Scenario structures
 possibilities, OFAI prepares context, and Decision will evaluate options and
 audit trails.
+
+v0.3.0-beta prepares the first production-quality Beta release for Onecool OS
+and Collectible Radar. It freezes the local-file based collectible pipeline,
+Source Agreement, Market Intelligence v2, Daily Radar Report, Decision Queue,
+OFAI Context, ImportAudit, and Golden Dataset contracts before release tagging.
 
 Collectible Radar Beta is reviewed in
 `docs/releases/collectible-radar-beta-review.md`. The review confirms the

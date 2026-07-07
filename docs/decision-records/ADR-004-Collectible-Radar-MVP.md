@@ -348,6 +348,10 @@ Collectible Radar Beta has a formal release review in
 pipeline, public contracts, known limitations, technical debt, and GA
 readiness checklist for the first Onecool OS product workflow.
 
+The v0.3.0-beta release preparation is documented in
+`docs/releases/v0.3.0-beta.md`. It prepares release notes and public contract
+summary only; Git tag creation remains deferred until human approval.
+
 The Beta remains local-file based and deterministic. It does not call live
 APIs, scrape websites, add credentials, predict prices, recommend actions,
 overwrite valuation history, mutate source files, or include private user data.

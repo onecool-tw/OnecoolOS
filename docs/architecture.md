@@ -72,6 +72,9 @@ Collectible Radar Beta is the first product-level validation of the Onecool OS
 architecture. The release review is documented in
 `docs/releases/collectible-radar-beta-review.md`.
 
+The official v0.3.0-beta release preparation is documented in
+`docs/releases/v0.3.0-beta.md`.
+
 Validated Beta pipeline:
 
 ```text

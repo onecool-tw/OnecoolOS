@@ -9,6 +9,7 @@ Commits.
 
 ### Added
 
+- v0.3.0-beta release preparation documentation.
 - Collectible Radar MVP ADR.
 - Collectible connector foundation for local eBay Sold, Card Ladder, PWCC,
   Goldin, and Fanatics Collect records.

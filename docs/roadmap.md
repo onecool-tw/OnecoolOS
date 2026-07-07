@@ -112,6 +112,7 @@ Goals:
 Beta Review:
 
 - `docs/releases/collectible-radar-beta-review.md`
+- `docs/releases/v0.3.0-beta.md`
 
 ### v0.3 Foundation (Completed)
 
