@@ -228,3 +228,15 @@ calculate confidence, calculate source agreement, select final market value,
 predict prices, recommend actions, call APIs without approval, scrape websites,
 or mutate source files.
 
+## Manual Import Foundation
+
+`CardLadderManualImporter` is the supported Beta foundation for Card Ladder
+manual files. It loads user-provided CSV / JSON only, validates required
+valuation, source identity, and asset identity fields, emits
+`CollectibleMarketRecord` objects with source `CARD_LADDER`, and records
+`ImportSummary` plus reusable `ImportAudit`.
+
+Manual import does not call APIs, scrape websites, add credentials, overwrite
+valuation history, replace eBay Sold as Primary Market Price, select final
+valuation, calculate confidence or source agreement, recommend buying or
+selling, predict prices, or mutate source files.

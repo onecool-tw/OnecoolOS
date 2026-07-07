@@ -183,6 +183,16 @@ JSON export, and manual fixture import. Unauthorized scraping is rejected for
 MVP. Card Ladder records remain independent valuation observations used later
 for confidence, source agreement, and source divergence review.
 
+Card Ladder Manual Import is the first supported Card Ladder ingestion path.
+It loads user-provided CSV / JSON only, validates valuation, source identity,
+and asset identity fields, emits `CollectibleMarketRecord` observations with
+source `CARD_LADDER`, and records `ImportSummary` plus `ImportAudit`. It
+creates Validation Source observations without calling APIs, scraping,
+replacing eBay Sold as Primary Market Price, overwriting valuation history,
+selecting final valuation, calculating confidence or source agreement,
+recommending actions, predicting prices, mutating source files, or adding
+credentials.
+
 PSA Collection Integration is the first production-ready ingestion foundation
 for Collectible Radar. `PSACollectionImporter` loads real PSA Collection CSV
 exports, validates cert numbers and grades, preserves collection identifiers,

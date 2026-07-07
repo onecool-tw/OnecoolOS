@@ -200,6 +200,14 @@ fixture import. It does not replace eBay Sold as Primary Market Price, choose
 final market value, calculate confidence, hide source disagreement, or mutate
 valuation history.
 
+Card Ladder Manual Import is the first supported Card Ladder ingestion path.
+It produces `CollectibleMarketRecord` observations with source `CARD_LADDER`
+and source role `VALIDATION_SOURCE`, plus `ImportSummary` and `ImportAudit`.
+The importer is read-only: it does not call APIs, scrape, add credentials,
+replace eBay Sold, overwrite valuation history, select final valuation,
+calculate confidence or source agreement, recommend actions, predict prices,
+or mutate source files.
+
 Manual Valuation Import sits at the Valuation boundary as an auditable
 fallback / validation input. It converts user-provided CSV or JSON observations
 into independent `ValuationRecord` objects with source `MANUAL` and reusable

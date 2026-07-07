@@ -100,6 +100,8 @@ Goals:
   ingestion path
 - Prepare Card Ladder Validation Source ingestion through approved API,
   official export, user-provided export, or manual fixture paths
+- Support Card Ladder manual CSV / JSON import as the first Validation Source
+  ingestion path
 - Feed Dashboard and Decision readiness without hiding source disagreement
 
 ### v0.3 Foundation (Completed)

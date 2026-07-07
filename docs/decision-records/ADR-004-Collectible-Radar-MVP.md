@@ -509,3 +509,12 @@ Card Ladder observations create independent valuation records. They help
 evaluate confidence, source agreement, and source divergence later, but they do
 not overwrite valuation history, select final market value, calculate
 confidence, recommend actions, or mutate source files.
+
+The Card Ladder Manual Import foundation is the first supported Card Ladder
+ingestion path. It accepts user-provided CSV / JSON only, emits
+`CollectibleMarketRecord` observations with source `CARD_LADDER` and source
+role `VALIDATION_SOURCE`, records `ImportSummary` and reusable `ImportAudit`,
+and preserves source references for future review. It does not call APIs,
+scrape websites, add credentials, replace eBay Sold as Primary Market Price,
+overwrite valuation history, select final valuation, calculate confidence or
+source agreement, recommend actions, predict prices, or mutate source files.

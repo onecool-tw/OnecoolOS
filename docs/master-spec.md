@@ -480,6 +480,16 @@ not call APIs, scrape websites, add credentials, overwrite valuation history,
 select final valuation, calculate confidence, recommend actions, predict
 prices, or mutate source files.
 
+Card Ladder Manual Import is the first supported Card Ladder ingestion path.
+It loads user-provided CSV or JSON files, validates valuation value, source
+identity, and asset identity fields, emits `CollectibleMarketRecord`
+observations with source `CARD_LADDER`, and records `ImportSummary` plus
+reusable `ImportAudit`. It is a Validation Source path. It never replaces eBay
+Sold as Primary Market Price, overwrites valuation history, selects final
+valuation, calculates confidence or source agreement, recommends actions,
+predicts prices, calls APIs, scrapes websites, adds credentials, or mutates
+source files.
+
 ### Normalize Layer
 
 Provides canonical normalization contracts between Connectors and downstream
