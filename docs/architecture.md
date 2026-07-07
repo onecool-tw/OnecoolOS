@@ -106,6 +106,11 @@ respect to source files and valuation history. Live APIs, scraping,
 credentials, recommendations, market prediction, scheduling, and persistent
 audit storage remain outside Beta scope.
 
+The real data trial plan is documented in
+`docs/trials/collectible-radar-real-data-trial.md`. The trial validates the
+same deterministic pipeline with the owner's private collection while keeping
+real source files and generated private outputs outside Git.
+
 ## Source of Truth
 
 | Layer | Source of Truth |

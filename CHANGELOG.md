@@ -10,6 +10,8 @@ Commits.
 ### Added
 
 - v0.3.0-beta release preparation documentation.
+- Collectible Radar real data trial plan covering objectives, dataset size,
+  metrics, acceptance criteria, and privacy rules.
 - Collectible Radar MVP ADR.
 - Collectible connector foundation for local eBay Sold, Card Ladder, PWCC,
   Goldin, and Fanatics Collect records.

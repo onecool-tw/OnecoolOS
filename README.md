@@ -20,6 +20,7 @@ Architecture freeze documentation:
 - [v0.2.0 Beta Architecture](docs/releases/v0.2.0-beta.md)
 - [v0.3.0-beta Release](docs/releases/v0.3.0-beta.md)
 - [Collectible Radar Beta Review](docs/releases/collectible-radar-beta-review.md)
+- [Collectible Radar Real Data Trial](docs/trials/collectible-radar-real-data-trial.md)
 
 ```text
 External Sources
@@ -83,6 +84,12 @@ Ladder Import, Manual Valuation Import, Valuation Records, Source Agreement,
 Market Intelligence, Collectible Intelligence, Radar, Timeline Analytics,
 Dashboard, Daily Radar Report, Decision Queue, OFAI Context, Golden Dataset,
 and ImportAudit.
+
+The real data trial plan is documented in
+`docs/trials/collectible-radar-real-data-trial.md`. It defines the first
+owner-collection validation workflow, dataset size, trial metrics, acceptance
+criteria, and privacy rules. Real collection data must remain local and must
+not be committed.
 
 ## Collectible Radar MVP
 

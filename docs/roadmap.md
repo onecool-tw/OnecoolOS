@@ -113,6 +113,7 @@ Beta Review:
 
 - `docs/releases/collectible-radar-beta-review.md`
 - `docs/releases/v0.3.0-beta.md`
+- `docs/trials/collectible-radar-real-data-trial.md`
 
 ### v0.3 Foundation (Completed)
 
