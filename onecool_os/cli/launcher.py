@@ -90,7 +90,10 @@ class OnecoolLauncher:
         if choice == "2":
             self.show_dashboard()
             return True
-        if choice in {"3", "4", "5"}:
+        if choice == "3":
+            self.show_daily_report()
+            return True
+        if choice in {"4", "5"}:
             self.show_beta_placeholder(choice)
             return True
         self._output("Unknown option. Please choose 0, 1, 2, 3, 4, or 5.")
@@ -124,6 +127,16 @@ class OnecoolLauncher:
                 self._output(line)
             return
         for line in collection_dashboard_lines(self._psa_import_result):
+            self._output(line)
+
+    def show_daily_report(self) -> None:
+        """Display the in-memory daily collection report."""
+
+        if self._psa_import_result is None:
+            for line in MISSING_COLLECTION_MESSAGE.splitlines():
+                self._output(line)
+            return
+        for line in daily_report_lines(self._psa_import_result):
             self._output(line)
 
     def show_beta_placeholder(self, choice: str) -> None:
@@ -234,6 +247,83 @@ def collection_dashboard_lines(result: PSAImportResult) -> tuple[str, ...]:
     return tuple(lines)
 
 
+def daily_report_lines(result: PSAImportResult) -> tuple[str, ...]:
+    """Return a presentation-only daily report from imported session data."""
+
+    records = tuple(result.records)
+    cost_by_currency = _sum_by_currency(records, "cost", "currency")
+    market_by_currency = _sum_market_values_by_currency(records)
+    missing_market_values = sum(
+        1 for record in records if _market_value(record) is None
+    )
+    missing_cost_basis = sum(
+        1 for record in records if _decimal_value(record.get("cost")) is None
+    )
+    performance_count = sum(
+        1
+        for record in records
+        if _decimal_value(record.get("cost")) is not None
+        and _market_value(record) is not None
+    )
+    warnings = tuple(result.summary.warnings)
+    lines = [
+        "=====================================",
+        "Onecool Daily Collection Report",
+        "=====================================",
+        "",
+        "Collection Summary",
+        "------------------",
+        f"Total Cards: {len(records)}",
+    ]
+    lines.extend(_count_lines(records, "grade_company"))
+    lines.extend(
+        (
+            "",
+            "Players",
+            "-------",
+        )
+    )
+    lines.extend(_top_player_lines(records))
+    lines.extend(
+        (
+            "",
+            "Portfolio Status",
+            "----------------",
+            "Cost Basis by Currency",
+        )
+    )
+    lines.extend(_money_lines(cost_by_currency))
+    lines.append("Estimated Market Value (if available)")
+    lines.extend(_money_lines(market_by_currency))
+    lines.extend(
+        (
+            f"Cards Missing Market Value: {missing_market_values}",
+            f"Cards Missing Cost Basis: {missing_cost_basis}",
+            "",
+            "Performance Status",
+            "------------------",
+            f"Cards with Performance Data: {performance_count}",
+            f"Cards Missing Performance Data: {len(records) - performance_count}",
+            "",
+            "Import Health",
+            "-------------",
+            f"Import Time: {result.audit.imported_at.isoformat()}",
+            f"Imported: {result.summary.imported_rows}",
+            f"Skipped: {result.summary.skipped_rows}",
+            f"Warnings: {len(warnings)}",
+            f"Invalid: {result.summary.invalid_rows}",
+            "",
+            "Review Needed",
+            "-------------",
+            f"Missing Cost Basis: {missing_cost_basis}",
+            f"Missing Market Value: {missing_market_values}",
+            f"Unsupported Metadata: {_unsupported_metadata_count(warnings)}",
+            f"Other existing warnings: {_other_warning_count(warnings)}",
+        )
+    )
+    return tuple(lines)
+
+
 def psa_import_diagnostic_lines(
     csv_path: Path,
     result: PSAImportResult,
@@ -289,6 +379,21 @@ def _players_lines(records: tuple[dict[str, Any], ...]) -> list[str]:
     if not players:
         return ["None"]
     return players
+
+
+def _top_player_lines(records: tuple[dict[str, Any], ...]) -> list[str]:
+    counts: dict[str, int] = {}
+    for record in records:
+        player = _safe_value(record.get("player"))
+        if not player:
+            continue
+        counts[player] = counts.get(player, 0) + 1
+    if not counts:
+        return ["None"]
+    return [
+        f"{player}: {counts[player]}"
+        for player in sorted(counts, key=lambda key: (-counts[key], key))
+    ]
 
 
 def _sum_by_currency(
@@ -354,6 +459,18 @@ def _money_lines(values_by_currency: dict[str, Decimal]) -> list[str]:
 
 def _format_decimal_amount(value: Decimal) -> str:
     return f"{value.normalize():f}"
+
+
+def _unsupported_metadata_count(warnings: tuple[str, ...]) -> int:
+    return sum(
+        1
+        for warning in warnings
+        if warning.startswith("Unsupported grader")
+    )
+
+
+def _other_warning_count(warnings: tuple[str, ...]) -> int:
+    return len(warnings) - _unsupported_metadata_count(warnings)
 
 
 def _detail_lines(

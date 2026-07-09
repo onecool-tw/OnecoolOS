@@ -9,6 +9,9 @@ Commits.
 
 ### Added
 
+- Runtime daily collection report for the Onecool Launcher using in-memory
+  PSA/BGS import session data without recalculating valuation, performance, or
+  business rules.
 - Runtime collection dashboard for the Onecool Launcher using in-memory PSA/BGS
   import session data without recalculating valuation, performance, or source
   agreement.

@@ -135,8 +135,10 @@ connector-layer `PSACollectionImporter` and keeps imported records in memory
 for the current launcher session. Dashboard displays a presentation-only
 runtime view from that in-memory import, including grading-company counts,
 players, cost basis by currency, missing market values, and import summary.
-Daily Radar Report, Decision Queue, and OFAI Context remain safe placeholders
-until runtime wiring is added.
+Daily Radar Report displays a deterministic presentation-only report from the
+same in-memory import, including collection summary, player counts, portfolio
+status, performance status, import health, and review-needed counts. Decision
+Queue and OFAI Context remain safe placeholders until runtime wiring is added.
 After import, the launcher prints a safe diagnostic report with total rows,
 imported cards, skipped rows, warning count, skipped row details, and warning
 details. Diagnostic details include only row number, item/title, cert number,
