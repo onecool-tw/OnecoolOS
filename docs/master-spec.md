@@ -433,6 +433,12 @@ portfolio performance, asset performance tables, deterministic summaries, and
 warnings for Collectible Radar. Dashboard does not recalculate performance,
 valuation, FX, confidence, source agreement, IRR/XIRR, or recommendations.
 
+Performance Daily Report Integration is also presentation-only. It consumes
+Dashboard performance sections and displays performance summary, top gainers,
+top losers, and warnings in the Collectible Daily Radar Report. It does not
+recalculate performance, realized gain/loss, FX, valuation, confidence, or
+recommendations.
+
 Market Intelligence is the layer that evaluates market data confidence
 quality. Market Intelligence v2 consumes optional `SourceAgreementResult`
 instead of independently reimplementing source agreement when the result is

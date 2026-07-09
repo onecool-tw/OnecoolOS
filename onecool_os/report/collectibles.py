@@ -34,6 +34,8 @@ class CollectibleDailyRadarReportBuilder(BaseReportBuilder):
         radar = section_map.get("radar-changes", {})
         review = section_map.get("review-queue", {})
         warning = section_map.get("warning-summary", {})
+        performance = section_map.get("portfolio-performance", {})
+        performance_summary = section_map.get("performance-summary", {})
         market_payload = market_intelligence.get("market_intelligence") or {}
         review_status = review.get("review_status")
         return CollectibleDailyRadarReport(
@@ -68,7 +70,9 @@ class CollectibleDailyRadarReportBuilder(BaseReportBuilder):
             ready_for_review=1 if review_status == "READY_FOR_REVIEW" else 0,
             needs_review=1 if review_status == "NEEDS_REVIEW" else 0,
             blocked=1 if review_status == "BLOCKED" else 0,
-            warnings=warning.get("warnings", ()),
+            performance_summary=_performance_summary(performance),
+            top_movers=_top_movers(performance_summary),
+            warnings=_warnings(warning, performance_summary),
             dashboard_snapshot_id=dashboard.dashboard_id,
         )
 
@@ -78,3 +82,37 @@ def _sections(dashboard: CollectibleDashboard) -> dict[str, dict[str, Any]]:
         section.section_id: dict(section.content or {})
         for section in dashboard.sections
     }
+
+
+def _performance_summary(performance: dict[str, Any]) -> dict[str, Any]:
+    return {
+        "total_cost_basis": performance.get("total_cost_basis"),
+        "total_market_value": performance.get("total_market_value"),
+        "total_unrealized_gain_loss": performance.get(
+            "total_unrealized_gain_loss"
+        ),
+        "total_unrealized_percent": performance.get(
+            "total_unrealized_percent"
+        ),
+        "performing_assets": performance.get("performing_asset_count", 0),
+        "missing_valuations": performance.get("missing_valuation_count", 0),
+        "missing_cost_basis": performance.get("missing_cost_basis_count", 0),
+    }
+
+
+def _top_movers(performance_summary: dict[str, Any]) -> dict[str, Any]:
+    summary = performance_summary.get("summary") or {}
+    return {
+        "top_gainers": list(summary.get("top_gainers") or ()),
+        "top_losers": list(summary.get("top_losers") or ()),
+    }
+
+
+def _warnings(
+    warning: dict[str, Any],
+    performance_summary: dict[str, Any],
+) -> tuple[str, ...]:
+    warnings: list[str] = []
+    warnings.extend(warning.get("warnings") or ())
+    warnings.extend(performance_summary.get("warnings") or ())
+    return tuple(dict.fromkeys(warnings))

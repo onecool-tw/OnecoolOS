@@ -852,6 +852,12 @@ Performance Table, and Performance Summary. Dashboard consumes
 does not recalculate performance, FX, IRR/XIRR, source agreement, confidence,
 or recommendations.
 
+Performance Daily Report Integration carries those dashboard performance
+sections into the Collectible Daily Radar Report. The report displays total
+cost basis, total market value, unrealized gain/loss, unrealized percent, top
+gainers, top losers, and performance warnings. Daily Report does not calculate
+performance, FX, IRR/XIRR, realized gain/loss, valuation, or recommendations.
+
 ## Analytics Engine Foundation
 
 Onecool OS includes an Analytics Engine foundation in `onecool_os.analytics`.

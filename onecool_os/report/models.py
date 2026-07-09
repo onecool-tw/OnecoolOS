@@ -39,6 +39,8 @@ class CollectibleDailyRadarReport:
     ready_for_review: int
     needs_review: int
     blocked: int
+    performance_summary: dict[str, Any] | None
+    top_movers: dict[str, Any] | None
     warnings: list[str] | tuple[str, ...] | None
     dashboard_snapshot_id: str | None
 
@@ -84,6 +86,8 @@ class CollectibleDailyRadarReport:
             "confidence_summary",
             "agreement_summary",
             "liquidity_summary",
+            "performance_summary",
+            "top_movers",
         ):
             object.__setattr__(
                 self,
@@ -113,6 +117,8 @@ class CollectibleDailyRadarReport:
             "todays_changes",
             "timeline_summary",
             "review_queue",
+            "performance_summary",
+            "top_movers",
             "warnings",
         )
 
@@ -153,6 +159,8 @@ class CollectibleDailyRadarReport:
                     "needs_review": self.needs_review,
                     "blocked": self.blocked,
                 },
+                "performance_summary": self.performance_summary or {},
+                "top_movers": self.top_movers or {},
                 "warnings": {
                     "warnings": list(self.warnings),
                 },

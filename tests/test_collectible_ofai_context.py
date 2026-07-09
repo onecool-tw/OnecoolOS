@@ -163,6 +163,8 @@ def report(
         ready_for_review=0 if needs_review else 1,
         needs_review=needs_review,
         blocked=0,
+        performance_summary={},
+        top_movers={},
         warnings=warnings,
         dashboard_snapshot_id="collectible-dashboard:CARD-001",
     )

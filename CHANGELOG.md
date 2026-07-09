@@ -26,6 +26,9 @@ Commits.
   converting FX, or calculating realized gain/loss.
 - Performance Dashboard Integration for presentation-only portfolio
   performance, asset performance tables, deterministic summaries, and warnings.
+- Performance Daily Report Integration displaying existing dashboard
+  performance summaries, top movers, and warnings without recalculating
+  performance.
 - Collectible Radar MVP ADR.
 - Collectible connector foundation for local eBay Sold, Card Ladder, PWCC,
   Goldin, and Fanatics Collect records.

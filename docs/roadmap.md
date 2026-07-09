@@ -209,6 +209,8 @@ Goals:
 - Dashboard Analytics views
 - Performance Dashboard Integration for presentation-only investment
   performance summaries and asset tables
+- Performance Daily Report Integration for presentation-only performance
+  summaries, top movers, and warnings
 - Analytics display
 - Charts
 - Daily summary

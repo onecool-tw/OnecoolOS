@@ -52,6 +52,8 @@ def test_section_ordering() -> None:
         "todays_changes",
         "timeline_summary",
         "review_queue",
+        "performance_summary",
+        "top_movers",
         "warnings",
     )
     assert tuple(report.to_dict()["sections"]) == report.section_order()

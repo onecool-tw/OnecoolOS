@@ -459,6 +459,11 @@ warnings. Dashboard may aggregate display totals from existing snapshot fields,
 but it does not recalculate investment performance, FX, IRR/XIRR, source
 agreement, confidence, valuation, or recommendations.
 
+Performance Daily Report views consume existing Dashboard performance sections.
+The report displays performance summary, top movers, and warnings, but it does
+not recalculate performance, realized gain/loss, FX, IRR/XIRR, valuation,
+confidence, or recommendations.
+
 ### Scenario
 
 Scenario owns deterministic A/B/C/D scenario objects. It consumes structured
