@@ -113,9 +113,36 @@ Beta Review:
 
 - `docs/releases/collectible-radar-beta-review.md`
 - `docs/releases/v0.3.0-beta.md`
+- `docs/releases/v0.4.0-beta.md`
 - `docs/trials/collectible-radar-real-data-trial.md`
 - `docs/trials/collectible-radar-real-data-results.md`
 - `docs/trials/psa-collection-gap-analysis.md`
+
+### v0.4.0-beta Investment Performance Beta
+
+Release theme:
+
+- Investment Performance Beta
+
+Ready:
+
+- Investment Performance Engine
+- Collectible Performance Integration
+- Performance Dashboard
+- Performance Daily Report
+- Performance Decision Queue
+- Performance OFAI Context
+- Performance Closed-Loop Review
+
+Deferred:
+
+- FX Engine
+- Lifecycle Engine
+- Realized Gain/Loss
+- IRR/XIRR
+- Annualized Return
+- Prediction
+- Recommendation
 
 ### v0.3 Foundation (Completed)
 

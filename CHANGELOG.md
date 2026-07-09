@@ -9,6 +9,8 @@ Commits.
 
 ### Added
 
+- v0.4.0-beta release preparation documentation for Investment Performance
+  Beta.
 - v0.3.0-beta release preparation documentation.
 - Collectible Radar real data trial plan covering objectives, dataset size,
   metrics, acceptance criteria, and privacy rules.

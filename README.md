@@ -1,6 +1,6 @@
 # Onecool OS
 
-Current Version: v0.3.0-beta
+Current Version: v0.4.0-beta
 
 Onecool OS is a Python-based personal asset operating system. Milestone 1
 delivers the Core Engine: SQLite persistence, plugin loading, event publishing,
@@ -19,6 +19,7 @@ Architecture freeze documentation:
 - [v0.1.0 Alpha Release](docs/releases/v0.1.0-alpha.md)
 - [v0.2.0 Beta Architecture](docs/releases/v0.2.0-beta.md)
 - [v0.3.0-beta Release](docs/releases/v0.3.0-beta.md)
+- [v0.4.0-beta Release](docs/releases/v0.4.0-beta.md)
 - [Collectible Radar Beta Review](docs/releases/collectible-radar-beta-review.md)
 - [Collectible Radar Real Data Trial](docs/trials/collectible-radar-real-data-trial.md)
 
@@ -108,6 +109,11 @@ The Investment Performance closed-loop review is documented in
 flow from Investment Performance Engine through Collectible Performance,
 Dashboard, Daily Report, Decision Queue, and OFAI Context, and confirms v0.4
 beta readiness for deterministic unrealized performance.
+
+v0.4.0-beta prepares the first Investment Performance Beta release. It freezes
+the unrealized performance loop for collectible holdings and documents known
+limitations including no FX Engine, no realized gain/loss, no IRR/XIRR, no
+annualized return, no prediction, and no recommendation workflow.
 
 ## Collectible Radar MVP
 

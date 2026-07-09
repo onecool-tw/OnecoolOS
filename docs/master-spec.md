@@ -455,6 +455,10 @@ v0.4 beta candidate. It confirms that the Engine calculates, Collectible
 Performance adapts, Dashboard displays, Daily Report assembles, Decision Queue
 prioritizes review work, and OFAI prepares deterministic context.
 
+The v0.4.0-beta release preparation freezes this Investment Performance Beta
+scope and documents deferred work such as FX, realized gain/loss, lifecycle
+sale settlement, IRR/XIRR, annualized return, prediction, and recommendation.
+
 Market Intelligence is the layer that evaluates market data confidence
 quality. Market Intelligence v2 consumes optional `SourceAgreementResult`
 instead of independently reimplementing source agreement when the result is

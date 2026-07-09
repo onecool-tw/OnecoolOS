@@ -75,6 +75,10 @@ architecture. The release review is documented in
 The official v0.3.0-beta release preparation is documented in
 `docs/releases/v0.3.0-beta.md`.
 
+The official v0.4.0-beta release preparation is documented in
+`docs/releases/v0.4.0-beta.md`. It freezes the Investment Performance Beta
+loop for deterministic unrealized performance.
+
 Validated Beta pipeline:
 
 ```text
@@ -105,6 +109,34 @@ The Beta contract remains deterministic, local-file based, and read-only with
 respect to source files and valuation history. Live APIs, scraping,
 credentials, recommendations, market prediction, scheduling, and persistent
 audit storage remain outside Beta scope.
+
+## Investment Performance Beta
+
+Investment Performance Beta extends Collectible Radar with the ADR-005
+unrealized performance loop:
+
+```text
+Assets
+↓
+Valuation
+↓
+Investment Performance
+↓
+Dashboard
+↓
+Daily Report
+↓
+Decision Queue
+↓
+OFAI Context
+```
+
+The Performance Engine calculates only cost basis, market value, unrealized
+gain/loss, unrealized gain percent, and holding days. Dashboard displays,
+Daily Report assembles, Decision Queue prioritizes review work, and OFAI
+prepares deterministic context. FX Engine, Lifecycle Engine, realized
+gain/loss, IRR/XIRR, annualized return, prediction, and recommendation remain
+outside v0.4.0-beta scope.
 
 The real data trial plan is documented in
 `docs/trials/collectible-radar-real-data-trial.md`. The trial validates the
