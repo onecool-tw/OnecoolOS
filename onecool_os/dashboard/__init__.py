@@ -8,6 +8,8 @@ from onecool_os.dashboard.collectibles import CollectibleDashboardBuilder
 from onecool_os.dashboard.collectibles import CollectibleDashboardSection
 from onecool_os.dashboard.models import DashboardSection
 from onecool_os.dashboard.models import DashboardView
+from onecool_os.dashboard.performance import PerformanceDashboard
+from onecool_os.dashboard.performance import PerformanceDashboardBuilder
 from onecool_os.dashboard.validation import DashboardError
 
 __all__ = [
@@ -20,4 +22,6 @@ __all__ = [
     "DashboardError",
     "DashboardSection",
     "DashboardView",
+    "PerformanceDashboard",
+    "PerformanceDashboardBuilder",
 ]

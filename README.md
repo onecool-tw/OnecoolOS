@@ -845,6 +845,13 @@ comparison. It also does not convert currencies, calculate source agreement,
 calculate confidence, predict prices, recommend actions, call APIs, or mutate
 ledger or valuation history.
 
+Performance Dashboard Integration exposes these snapshots in the Collectible
+Dashboard as presentation-only sections: Portfolio Performance, Asset
+Performance Table, and Performance Summary. Dashboard consumes
+`InvestmentPerformanceSnapshot` output and aggregates display fields only; it
+does not recalculate performance, FX, IRR/XIRR, source agreement, confidence,
+or recommendations.
+
 ## Analytics Engine Foundation
 
 Onecool OS includes an Analytics Engine foundation in `onecool_os.analytics`.

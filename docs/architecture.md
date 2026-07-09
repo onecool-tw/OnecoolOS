@@ -453,6 +453,12 @@ Performance, Risk, and Pipeline summaries. Dashboard does not calculate
 metrics; Business Logic owns calculations and Analytics owns derived
 snapshots.
 
+Performance Dashboard views consume `InvestmentPerformanceSnapshot` records and
+render portfolio performance, asset performance tables, summaries, and
+warnings. Dashboard may aggregate display totals from existing snapshot fields,
+but it does not recalculate investment performance, FX, IRR/XIRR, source
+agreement, confidence, valuation, or recommendations.
+
 ### Scenario
 
 Scenario owns deterministic A/B/C/D scenario objects. It consumes structured

@@ -427,6 +427,12 @@ opening cost basis. Cost basis stays in the original source currency. The
 adapter does not parse notes for TWD or local-currency cost, does not choose a
 final valuation source, and does not calculate realized gain/loss.
 
+Performance Dashboard Integration is presentation-only. It consumes
+`InvestmentPerformanceSnapshot` records from the Performance layer and exposes
+portfolio performance, asset performance tables, deterministic summaries, and
+warnings for Collectible Radar. Dashboard does not recalculate performance,
+valuation, FX, confidence, source agreement, IRR/XIRR, or recommendations.
+
 Market Intelligence is the layer that evaluates market data confidence
 quality. Market Intelligence v2 consumes optional `SourceAgreementResult`
 instead of independently reimplementing source agreement when the result is

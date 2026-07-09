@@ -8,11 +8,13 @@ from typing import Any
 
 from onecool_os.analytics.timeline import TimelineSnapshot
 from onecool_os.business_logic.results import BusinessLogicResult
+from onecool_os.dashboard.performance import PerformanceDashboardBuilder
 from onecool_os.dashboard.validation import DashboardError
 from onecool_os.dashboard.validation import parse_optional_datetime
 from onecool_os.dashboard.validation import parse_optional_dict
 from onecool_os.dashboard.validation import require_text
 from onecool_os.decision.models import DecisionResult
+from onecool_os.performance import InvestmentPerformanceSnapshot
 from onecool_os.radar.models import RadarSnapshot
 
 
@@ -111,6 +113,10 @@ class CollectibleDashboardBuilder:
         timeline_snapshot: TimelineSnapshot | None = None,
         radar_snapshot: RadarSnapshot | None = None,
         decision_result: DecisionResult | None = None,
+        performance_snapshots: tuple[InvestmentPerformanceSnapshot, ...]
+        | list[InvestmentPerformanceSnapshot]
+        | None = None,
+        collectible_assets: tuple[Any, ...] | list[Any] | None = None,
     ) -> CollectibleDashboard:
         """Build a display-only Collectible Radar dashboard."""
 
@@ -125,12 +131,22 @@ class CollectibleDashboardBuilder:
             timeline_snapshot,
             radar_snapshot,
         )
-        sections = (
+        sections = [
             _collection_summary(asset_id, generated_at),
             _market_intelligence_section(business_logic_result, generated_at),
             _market_quality_section(business_logic_result, generated_at),
             _timeline_section(timeline_snapshot, generated_at),
             _radar_section(radar_snapshot, generated_at),
+        ]
+        if performance_snapshots is not None:
+            sections.extend(
+                _performance_sections(
+                    performance_snapshots,
+                    collectible_assets,
+                    generated_at,
+                )
+            )
+        sections.extend((
             _review_queue_section(
                 business_logic_result,
                 decision_result,
@@ -143,12 +159,12 @@ class CollectibleDashboardBuilder:
                 decision_result,
                 generated_at,
             ),
-        )
+        ))
         return CollectibleDashboard(
             dashboard_id=f"collectible-dashboard:{asset_id}",
             asset_id=asset_id,
             generated_at=generated_at,
-            sections=sections,
+            sections=tuple(sections),
         )
 
 
@@ -274,6 +290,52 @@ def _review_queue_section(
             "decision": decision_payload,
         },
         generated_at=generated_at,
+    )
+
+
+def _performance_sections(
+    performance_snapshots: tuple[InvestmentPerformanceSnapshot, ...]
+    | list[InvestmentPerformanceSnapshot],
+    collectible_assets: tuple[Any, ...] | list[Any] | None,
+    generated_at: datetime | None,
+) -> tuple[CollectibleDashboardSection, ...]:
+    dashboard = PerformanceDashboardBuilder().build(
+        performance_snapshots=performance_snapshots,
+        collectible_assets=collectible_assets,
+        generated_at=generated_at,
+    )
+    return (
+        CollectibleDashboardSection(
+            section_id="portfolio-performance",
+            title="Portfolio Performance",
+            content=dashboard.portfolio_performance,
+            generated_at=dashboard.generated_at,
+        ),
+        CollectibleDashboardSection(
+            section_id="asset-performance-table",
+            title="Asset Performance Table",
+            content={
+                "status": (
+                    "ready"
+                    if dashboard.asset_performance_table
+                    else "empty"
+                ),
+                "rows": [
+                    dict(row) for row in dashboard.asset_performance_table
+                ],
+            },
+            generated_at=dashboard.generated_at,
+        ),
+        CollectibleDashboardSection(
+            section_id="performance-summary",
+            title="Performance Summary",
+            content={
+                "status": "ready" if performance_snapshots else "empty",
+                "summary": dashboard.summary,
+                "warnings": list(dashboard.warnings),
+            },
+            generated_at=dashboard.generated_at,
+        ),
     )
 
 

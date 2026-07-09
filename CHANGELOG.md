@@ -24,6 +24,8 @@ Commits.
 - Collectible Performance Integration mapping PSA/BGS-style sports card
   records into Investment Performance snapshots without parsing notes,
   converting FX, or calculating realized gain/loss.
+- Performance Dashboard Integration for presentation-only portfolio
+  performance, asset performance tables, deterministic summaries, and warnings.
 - Collectible Radar MVP ADR.
 - Collectible connector foundation for local eBay Sold, Card Ladder, PWCC,
   Goldin, and Fanatics Collect records.
