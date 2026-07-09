@@ -33,6 +33,8 @@ Commits.
   from Daily Report output without recommendations or recalculation.
 - Performance OFAI Context Integration preparing deterministic investment
   performance context from Daily Report and Decision Queue output.
+- Performance closed-loop review documenting ADR-005 layer boundaries, public
+  contracts, limitations, and v0.4 beta readiness.
 - Collectible Radar MVP ADR.
 - Collectible connector foundation for local eBay Sold, Card Ladder, PWCC,
   Goldin, and Fanatics Collect records.

@@ -476,6 +476,10 @@ performance overview, top movers, warnings, and performance review priorities
 for future AI reasoning. It does not call LLMs, recalculate performance,
 predict prices, or recommend actions.
 
+The Performance Closed-Loop Review verifies this path as v0.4 beta-ready for
+deterministic unrealized performance. The loop is documented in
+`docs/releases/performance-closed-loop-review.md`.
+
 ### Scenario
 
 Scenario owns deterministic A/B/C/D scenario objects. It consumes structured

@@ -215,6 +215,7 @@ Goals:
   work without recommendations
 - Performance OFAI Context Integration for deterministic investment context
   without AI recommendations
+- Performance Closed-Loop Review for v0.4 beta readiness
 - Analytics display
 - Charts
 - Daily summary

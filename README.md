@@ -103,6 +103,12 @@ integration with a real PSA export and identifies future first-class mappings
 for PSA Estimate, inventory status, listing status, sold fields, vault fields,
 and card identity enrichment.
 
+The Investment Performance closed-loop review is documented in
+`docs/releases/performance-closed-loop-review.md`. It verifies the ADR-005
+flow from Investment Performance Engine through Collectible Performance,
+Dashboard, Daily Report, Decision Queue, and OFAI Context, and confirms v0.4
+beta readiness for deterministic unrealized performance.
+
 ## Collectible Radar MVP
 
 Collectible Radar is the first product workflow built on Onecool OS. It starts
@@ -870,6 +876,11 @@ Performance Decision Queue output to prepare deterministic investment context
 for future AI reasoning. It includes performance overview, review priorities,
 performance warnings, top gainers, and top losers. OFAI does not recalculate
 performance, invoke LLMs, predict prices, or recommend buy/sell actions.
+
+The closed-loop review freezes this flow as a v0.4 beta candidate: Engine
+calculates, Collectible Performance adapts, Dashboard displays, Daily Report
+assembles, Decision Queue prioritizes review work, and OFAI prepares
+deterministic context.
 
 ## Analytics Engine Foundation
 

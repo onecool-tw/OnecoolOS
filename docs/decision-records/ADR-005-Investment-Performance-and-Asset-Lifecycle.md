@@ -294,5 +294,6 @@ Before GA, Onecool OS should add:
 
 - `docs/trials/psa-collection-gap-analysis.md`
 - `docs/trials/collectible-radar-real-data-trial.md`
+- `docs/releases/performance-closed-loop-review.md`
 - `docs/releases/v0.3.0-beta.md`
 - `docs/decision-records/ADR-004-Collectible-Radar-MVP.md`

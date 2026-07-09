@@ -450,6 +450,11 @@ performance overview, top movers, warnings, and review priorities to future
 OFAI reasoning. It does not recalculate performance, invoke LLMs, predict
 prices, or recommend actions.
 
+The Performance Closed-Loop Review verifies the complete ADR-005 path as a
+v0.4 beta candidate. It confirms that the Engine calculates, Collectible
+Performance adapts, Dashboard displays, Daily Report assembles, Decision Queue
+prioritizes review work, and OFAI prepares deterministic context.
+
 Market Intelligence is the layer that evaluates market data confidence
 quality. Market Intelligence v2 consumes optional `SourceAgreementResult`
 instead of independently reimplementing source agreement when the result is
