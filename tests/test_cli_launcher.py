@@ -124,10 +124,7 @@ def test_session_import_allows_beta_placeholder(tmp_path: Path) -> None:
 
     assert result == 0
     assert MISSING_BETA_DATA_MESSAGE not in output
-    assert (
-        "Dashboard wiring will be available in a future beta dogfooding sprint."
-        in output
-    )
+    assert "Onecool Collection Dashboard" in output
 
 
 def test_missing_beta_data_handled(tmp_path: Path) -> None:
@@ -141,7 +138,7 @@ def test_missing_beta_data_handled(tmp_path: Path) -> None:
     result = launcher.run()
 
     assert result == 0
-    assert output.count(MISSING_BETA_DATA_MESSAGE) == 4
+    assert output.count(MISSING_BETA_DATA_MESSAGE) == 3
 
 
 def test_launcher_does_not_write_private_data(tmp_path: Path) -> None:

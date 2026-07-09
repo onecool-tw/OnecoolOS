@@ -7,6 +7,8 @@ import re
 from collections.abc import Callable
 from datetime import UTC
 from datetime import datetime
+from decimal import Decimal
+from decimal import InvalidOperation
 from pathlib import Path
 from typing import Any
 
@@ -24,6 +26,11 @@ MISSING_PSA_MESSAGE = (
 MISSING_BETA_DATA_MESSAGE = (
     "No local beta data found yet. Please import PSA Collection first."
 )
+MISSING_COLLECTION_MESSAGE = (
+    "No collection has been imported yet.\n"
+    "Please select:\n"
+    "1. Import PSA Collection"
+)
 WARNING_ROW_PATTERN = re.compile(r"row (?P<row_number>\d+)")
 SKIPPED_WARNING_PREFIXES = (
     "Duplicate PSA cert number",
@@ -39,10 +46,12 @@ class OnecoolLauncher:
         *,
         input_func: Callable[[str], str] = input,
         output_func: Callable[[str], None] = print,
+        clock: Callable[[], datetime] | None = None,
         cwd: Path | str = ".",
     ) -> None:
         self._input = input_func
         self._output = output_func
+        self._clock = clock or (lambda: datetime.now(UTC))
         self._cwd = Path(cwd)
         self._psa_import_result: PSAImportResult | None = None
 
@@ -78,7 +87,10 @@ class OnecoolLauncher:
         if choice == "1":
             self.import_psa_collection()
             return True
-        if choice in {"2", "3", "4", "5"}:
+        if choice == "2":
+            self.show_dashboard()
+            return True
+        if choice in {"3", "4", "5"}:
             self.show_beta_placeholder(choice)
             return True
         self._output("Unknown option. Please choose 0, 1, 2, 3, 4, or 5.")
@@ -94,7 +106,7 @@ class OnecoolLauncher:
         try:
             result = PSACollectionImporter().import_csv(
                 psa_path,
-                reference_datetime=datetime.now(UTC),
+                reference_datetime=self._clock(),
             )
         except PSAImportError as exc:
             self._output(f"PSA import failed: {exc}")
@@ -102,6 +114,16 @@ class OnecoolLauncher:
 
         self._psa_import_result = result
         for line in psa_import_diagnostic_lines(psa_path, result):
+            self._output(line)
+
+    def show_dashboard(self) -> None:
+        """Display the in-memory collection dashboard."""
+
+        if self._psa_import_result is None:
+            for line in MISSING_COLLECTION_MESSAGE.splitlines():
+                self._output(line)
+            return
+        for line in collection_dashboard_lines(self._psa_import_result):
             self._output(line)
 
     def show_beta_placeholder(self, choice: str) -> None:
@@ -138,6 +160,80 @@ def menu_lines() -> tuple[str, ...]:
     )
 
 
+def collection_dashboard_lines(result: PSAImportResult) -> tuple[str, ...]:
+    """Return a display-only dashboard from in-memory import data."""
+
+    records = tuple(result.records)
+    cost_by_currency = _sum_by_currency(records, "cost", "currency")
+    market_by_currency = _sum_market_values_by_currency(records)
+    missing_market_values = sum(
+        1 for record in records if _market_value(record) is None
+    )
+    missing_cost_basis = sum(
+        1 for record in records if _decimal_value(record.get("cost")) is None
+    )
+    performance_count = sum(
+        1
+        for record in records
+        if _decimal_value(record.get("cost")) is not None
+        and _market_value(record) is not None
+    )
+    lines = [
+        "=====================================",
+        "Onecool Collection Dashboard",
+        "=====================================",
+        "",
+        "Collection",
+        "----------",
+        f"Total Cards: {len(records)}",
+        "By Grading Company",
+    ]
+    lines.extend(_count_lines(records, "grade_company"))
+    lines.append("By Sport")
+    lines.extend(_count_lines(records, "sport", fallback="Other"))
+    lines.extend(
+        (
+            "",
+            "Players",
+            "-------",
+        )
+    )
+    lines.extend(_players_lines(records))
+    lines.extend(
+        (
+            "",
+            "Portfolio",
+            "---------",
+            "Total Cost Basis (group by currency)",
+        )
+    )
+    lines.extend(_money_lines(cost_by_currency))
+    lines.append("Estimated Market Value (if available)")
+    lines.extend(_money_lines(market_by_currency))
+    lines.extend(
+        (
+            f"Missing Market Values: {missing_market_values}",
+            f"Missing Cost Basis: {missing_cost_basis}",
+            "",
+            "Performance",
+            "-----------",
+            f"Cards with Performance Data: {performance_count}",
+            f"Cards Missing Performance Data: {len(records) - performance_count}",
+            "",
+            "Data Quality",
+            "------------",
+            f"Warnings: {len(result.summary.warnings)}",
+            f"Import Time: {result.audit.imported_at.isoformat()}",
+            "Last Import Summary",
+            f"  Imported: {result.summary.imported_rows}",
+            f"  Skipped: {result.summary.skipped_rows}",
+            f"  Duplicates: {result.summary.duplicate_rows}",
+            f"  Invalid: {result.summary.invalid_rows}",
+        )
+    )
+    return tuple(lines)
+
+
 def psa_import_diagnostic_lines(
     csv_path: Path,
     result: PSAImportResult,
@@ -163,6 +259,101 @@ def psa_import_diagnostic_lines(
     lines.append("Warning details:")
     lines.extend(_detail_lines(warnings, safe_rows))
     return tuple(lines)
+
+
+def _count_lines(
+    records: tuple[dict[str, Any], ...],
+    field_name: str,
+    *,
+    fallback: str = "Unknown",
+) -> list[str]:
+    counts: dict[str, int] = {}
+    for record in records:
+        value = _safe_value(record.get(field_name)) or fallback
+        if field_name == "sport" and value.upper() == "UNKNOWN":
+            value = "Other"
+        counts[value] = counts.get(value, 0) + 1
+    if not counts:
+        return ["  None: 0"]
+    return [f"  {key}: {counts[key]}" for key in sorted(counts)]
+
+
+def _players_lines(records: tuple[dict[str, Any], ...]) -> list[str]:
+    players = sorted(
+        {
+            player
+            for record in records
+            if (player := _safe_value(record.get("player")))
+        }
+    )
+    if not players:
+        return ["None"]
+    return players
+
+
+def _sum_by_currency(
+    records: tuple[dict[str, Any], ...],
+    value_field: str,
+    currency_field: str,
+) -> dict[str, Decimal]:
+    totals: dict[str, Decimal] = {}
+    for record in records:
+        value = _decimal_value(record.get(value_field))
+        currency = _safe_value(record.get(currency_field))
+        if value is None or not currency:
+            continue
+        totals[currency] = totals.get(currency, Decimal("0")) + value
+    return totals
+
+
+def _sum_market_values_by_currency(
+    records: tuple[dict[str, Any], ...],
+) -> dict[str, Decimal]:
+    totals: dict[str, Decimal] = {}
+    for record in records:
+        value = _market_value(record)
+        currency = _safe_value(record.get("market_currency")) or _safe_value(
+            record.get("currency")
+        )
+        if value is None or not currency:
+            continue
+        totals[currency] = totals.get(currency, Decimal("0")) + value
+    return totals
+
+
+def _market_value(record: dict[str, Any]) -> Decimal | None:
+    for field_name in (
+        "estimated_market_value",
+        "market_value",
+        "current_market_value",
+    ):
+        value = _decimal_value(record.get(field_name))
+        if value is not None:
+            return value
+    return None
+
+
+def _decimal_value(value: Any) -> Decimal | None:
+    try:
+        parsed = Decimal(str(value))
+    except (InvalidOperation, ValueError):
+        return None
+    if not parsed.is_finite():
+        return None
+    return parsed
+
+
+def _money_lines(values_by_currency: dict[str, Decimal]) -> list[str]:
+    if not values_by_currency:
+        return ["  None"]
+    return [
+        f"  {currency}: {_format_decimal_amount(values_by_currency[currency])}"
+        for currency in sorted(values_by_currency)
+    ]
+
+
+def _format_decimal_amount(value: Decimal) -> str:
+    return f"{value.normalize():f}"
 
 
 def _detail_lines(

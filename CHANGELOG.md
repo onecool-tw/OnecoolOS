@@ -9,6 +9,9 @@ Commits.
 
 ### Added
 
+- Runtime collection dashboard for the Onecool Launcher using in-memory PSA/BGS
+  import session data without recalculating valuation, performance, or source
+  agreement.
 - BGS record support in the connector-layer PSA Collection importer, including
   BGS 8, 8.5, 9, 9.5, 10, and 10 Black Label preservation.
 - CLI PSA import diagnostic report showing total rows, skipped row details, and
