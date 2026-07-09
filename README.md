@@ -138,7 +138,10 @@ players, cost basis by currency, missing market values, and import summary.
 Daily Radar Report displays a deterministic presentation-only report from the
 same in-memory import, including collection summary, player counts, portfolio
 status, performance status, import health, and review-needed counts. Decision
-Queue and OFAI Context remain safe placeholders until runtime wiring is added.
+Queue displays a prioritization-only review queue from the same in-memory
+import, grouping missing data, import warnings, metadata cleanup, and import
+counts without recommendation language. OFAI Context remains a safe placeholder
+until runtime wiring is added.
 After import, the launcher prints a safe diagnostic report with total rows,
 imported cards, skipped rows, warning count, skipped row details, and warning
 details. Diagnostic details include only row number, item/title, cert number,

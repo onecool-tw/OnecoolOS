@@ -93,7 +93,10 @@ class OnecoolLauncher:
         if choice == "3":
             self.show_daily_report()
             return True
-        if choice in {"4", "5"}:
+        if choice == "4":
+            self.show_decision_queue()
+            return True
+        if choice == "5":
             self.show_beta_placeholder(choice)
             return True
         self._output("Unknown option. Please choose 0, 1, 2, 3, 4, or 5.")
@@ -137,6 +140,16 @@ class OnecoolLauncher:
                 self._output(line)
             return
         for line in daily_report_lines(self._psa_import_result):
+            self._output(line)
+
+    def show_decision_queue(self) -> None:
+        """Display the in-memory decision review queue."""
+
+        if self._psa_import_result is None:
+            for line in MISSING_COLLECTION_MESSAGE.splitlines():
+                self._output(line)
+            return
+        for line in decision_queue_lines(self._psa_import_result):
             self._output(line)
 
     def show_beta_placeholder(self, choice: str) -> None:
@@ -321,6 +334,85 @@ def daily_report_lines(result: PSAImportResult) -> tuple[str, ...]:
             f"Other existing warnings: {_other_warning_count(warnings)}",
         )
     )
+    return tuple(lines)
+
+
+def decision_queue_lines(result: PSAImportResult) -> tuple[str, ...]:
+    """Return a presentation-only review queue from imported session data."""
+
+    records = tuple(result.records)
+    warnings = tuple(result.summary.warnings)
+    missing_market_values = sum(
+        1 for record in records if _market_value(record) is None
+    )
+    missing_cost_basis = sum(
+        1 for record in records if _decimal_value(record.get("cost")) is None
+    )
+    performance_count = sum(
+        1
+        for record in records
+        if _decimal_value(record.get("cost")) is not None
+        and _market_value(record) is not None
+    )
+    missing_holding_date = sum(
+        1 for record in records if not _safe_value(record.get("purchase_date"))
+    )
+    unknown_sport = sum(
+        1
+        for record in records
+        if _safe_value(record.get("sport")).upper() in {"", "UNKNOWN"}
+    )
+    currency_mismatch = sum(
+        1
+        for record in records
+        if _safe_value(record.get("market_currency"))
+        and _safe_value(record.get("currency"))
+        and _safe_value(record.get("market_currency"))
+        != _safe_value(record.get("currency"))
+    )
+    player_review = sum(
+        1 for record in records if not _safe_value(record.get("player"))
+    )
+    metadata_cleanup = sum(
+        1
+        for record in records
+        if not _safe_value(record.get("box"))
+        and not _safe_value(record.get("location"))
+    )
+    lines = [
+        "=====================================",
+        "Onecool Decision Queue",
+        "=====================================",
+        "",
+        "Critical",
+        "--------",
+        f"Missing Cost Basis: {missing_cost_basis}",
+        f"Missing Market Value: {missing_market_values}",
+        "",
+        "High",
+        "----",
+        f"Insufficient Data: {missing_market_values + missing_cost_basis}",
+        f"Import Warnings: {len(warnings)}",
+        f"Currency Mismatch: {currency_mismatch}",
+        "",
+        "Medium",
+        "------",
+        f"Missing Performance Data: {len(records) - performance_count}",
+        f"Missing Holding Date: {missing_holding_date}",
+        f"Unknown Sport Classification: {unknown_sport}",
+        "",
+        "Low",
+        "---",
+        f"Player Normalization Review: {player_review}",
+        f"Metadata Cleanup: {metadata_cleanup}",
+        "",
+        "Info",
+        "----",
+        f"Imported Cards: {result.summary.imported_rows}",
+        f"Skipped Rows: {result.summary.skipped_rows}",
+        f"Invalid Rows: {result.summary.invalid_rows}",
+        f"Duplicate Rows: {result.summary.duplicate_rows}",
+    ]
     return tuple(lines)
 
 

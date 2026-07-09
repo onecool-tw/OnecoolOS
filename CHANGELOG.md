@@ -9,6 +9,9 @@ Commits.
 
 ### Added
 
+- Runtime decision queue for the Onecool Launcher using in-memory PSA/BGS
+  import session data as prioritization-only review work without buy/sell
+  recommendations or predictions.
 - Runtime daily collection report for the Onecool Launcher using in-memory
   PSA/BGS import session data without recalculating valuation, performance, or
   business rules.
