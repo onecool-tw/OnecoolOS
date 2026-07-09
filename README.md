@@ -140,8 +140,11 @@ same in-memory import, including collection summary, player counts, portfolio
 status, performance status, import health, and review-needed counts. Decision
 Queue displays a prioritization-only review queue from the same in-memory
 import, grouping missing data, import warnings, metadata cleanup, and import
-counts without recommendation language. OFAI Context remains a safe placeholder
-until runtime wiring is added.
+counts without recommendation language. OFAI Context displays deterministic
+runtime context from the same session, including collection overview, import
+status, portfolio status, performance status, review priorities, current
+warnings, and explicit `Not generated. Context only.` AI recommendation
+status.
 After import, the launcher prints a safe diagnostic report with total rows,
 imported cards, skipped rows, warning count, skipped row details, and warning
 details. Diagnostic details include only row number, item/title, cert number,

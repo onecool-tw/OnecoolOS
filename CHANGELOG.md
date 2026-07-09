@@ -9,6 +9,9 @@ Commits.
 
 ### Added
 
+- Runtime OFAI context for the Onecool Launcher using in-memory PSA/BGS import
+  session data as deterministic context only, with no AI calls,
+  recommendations, predictions, or source mutation.
 - Runtime decision queue for the Onecool Launcher using in-memory PSA/BGS
   import session data as prioritization-only review work without buy/sell
   recommendations or predictions.

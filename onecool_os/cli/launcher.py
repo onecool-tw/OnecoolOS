@@ -97,7 +97,7 @@ class OnecoolLauncher:
             self.show_decision_queue()
             return True
         if choice == "5":
-            self.show_beta_placeholder(choice)
+            self.show_ofai_context()
             return True
         self._output("Unknown option. Please choose 0, 1, 2, 3, 4, or 5.")
         return True
@@ -150,6 +150,16 @@ class OnecoolLauncher:
                 self._output(line)
             return
         for line in decision_queue_lines(self._psa_import_result):
+            self._output(line)
+
+    def show_ofai_context(self) -> None:
+        """Display the in-memory OFAI context summary."""
+
+        if self._psa_import_result is None:
+            for line in MISSING_COLLECTION_MESSAGE.splitlines():
+                self._output(line)
+            return
+        for line in ofai_context_lines(self._psa_import_result):
             self._output(line)
 
     def show_beta_placeholder(self, choice: str) -> None:
@@ -416,6 +426,92 @@ def decision_queue_lines(result: PSAImportResult) -> tuple[str, ...]:
     return tuple(lines)
 
 
+def ofai_context_lines(result: PSAImportResult) -> tuple[str, ...]:
+    """Return deterministic OFAI context from imported session data."""
+
+    records = tuple(result.records)
+    cost_by_currency = _sum_by_currency(records, "cost", "currency")
+    market_by_currency = _sum_market_values_by_currency(records)
+    missing_market_values = sum(
+        1 for record in records if _market_value(record) is None
+    )
+    missing_cost_basis = sum(
+        1 for record in records if _decimal_value(record.get("cost")) is None
+    )
+    performance_count = sum(
+        1
+        for record in records
+        if _decimal_value(record.get("cost")) is not None
+        and _market_value(record) is not None
+    )
+    queue_counts = _decision_priority_counts(decision_queue_lines(result))
+    lines = [
+        "=====================================",
+        "Onecool OFAI Context",
+        "=====================================",
+        "",
+        "Collection Overview",
+        "-------------------",
+        f"Total Cards: {len(records)}",
+    ]
+    lines.extend(_count_lines(records, "grade_company"))
+    lines.extend(
+        (
+            "",
+            "Import Status",
+            "-------------",
+            f"Import Time: {result.audit.imported_at.isoformat()}",
+            f"Imported: {result.summary.imported_rows}",
+            f"Skipped: {result.summary.skipped_rows}",
+            f"Warnings: {len(result.summary.warnings)}",
+            f"Invalid: {result.summary.invalid_rows}",
+            "",
+            "Portfolio Status",
+            "----------------",
+            "Cost Basis by Currency",
+        )
+    )
+    lines.extend(_money_lines(cost_by_currency))
+    lines.append("Estimated Market Value (if available)")
+    lines.extend(_money_lines(market_by_currency))
+    lines.extend(
+        (
+            f"Missing Market Values: {missing_market_values}",
+            f"Missing Cost Basis: {missing_cost_basis}",
+            "",
+            "Performance Status",
+            "------------------",
+            f"Cards with Performance Data: {performance_count}",
+            f"Cards Missing Performance Data: {len(records) - performance_count}",
+            "",
+            "Review Priorities",
+            "-----------------",
+            f"Critical: {queue_counts['critical']}",
+            f"High: {queue_counts['high']}",
+            f"Medium: {queue_counts['medium']}",
+            f"Low: {queue_counts['low']}",
+            "",
+            "Current Warnings",
+            "----------------",
+        )
+    )
+    lines.extend(_warning_summary_lines(tuple(result.summary.warnings)))
+    lines.extend(
+        (
+            "",
+            "Context Status",
+            "--------------",
+            "Runtime Session Ready",
+            "",
+            "AI Recommendation",
+            "-----------------",
+            "Not generated.",
+            "Context only.",
+        )
+    )
+    return tuple(lines)
+
+
 def psa_import_diagnostic_lines(
     csv_path: Path,
     result: PSAImportResult,
@@ -563,6 +659,40 @@ def _unsupported_metadata_count(warnings: tuple[str, ...]) -> int:
 
 def _other_warning_count(warnings: tuple[str, ...]) -> int:
     return len(warnings) - _unsupported_metadata_count(warnings)
+
+
+def _decision_priority_counts(lines: tuple[str, ...]) -> dict[str, int]:
+    sections = {
+        "critical": ("Missing Cost Basis:", "Missing Market Value:"),
+        "high": ("Insufficient Data:", "Import Warnings:", "Currency Mismatch:"),
+        "medium": (
+            "Missing Performance Data:",
+            "Missing Holding Date:",
+            "Unknown Sport Classification:",
+        ),
+        "low": ("Player Normalization Review:", "Metadata Cleanup:"),
+    }
+    counts: dict[str, int] = {}
+    for section, prefixes in sections.items():
+        counts[section] = sum(
+            _line_count_value(line)
+            for line in lines
+            if line.startswith(prefixes)
+        )
+    return counts
+
+
+def _line_count_value(line: str) -> int:
+    try:
+        return int(line.rsplit(": ", maxsplit=1)[1])
+    except (IndexError, ValueError):
+        return 0
+
+
+def _warning_summary_lines(warnings: tuple[str, ...]) -> list[str]:
+    if not warnings:
+        return ["None"]
+    return [f"- {warning}" for warning in warnings]
 
 
 def _detail_lines(
