@@ -66,8 +66,9 @@ def test_successful_psa_import_prints_summary(tmp_path: Path) -> None:
     result = launcher.run()
 
     assert result == 0
+    assert "Total rows detected: 1" in output
     assert "Imported cards: 1" in output
-    assert "Skipped: 0" in output
+    assert "Skipped rows: 0" in output
     assert "Warnings: 0" in output
 
 
@@ -180,7 +181,14 @@ def _summary_lines(output: list[str]) -> list[str]:
     return [
         line
         for line in output
-        if line.startswith(("Imported cards:", "Skipped:", "Warnings:"))
+        if line.startswith(
+            (
+                "Total rows detected:",
+                "Imported cards:",
+                "Skipped rows:",
+                "Warnings:",
+            )
+        )
     ]
 
 

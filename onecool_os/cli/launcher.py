@@ -2,10 +2,13 @@
 
 from __future__ import annotations
 
+import csv
+import re
 from collections.abc import Callable
 from datetime import UTC
 from datetime import datetime
 from pathlib import Path
+from typing import Any
 
 from onecool_os.connectors.collectibles import PSACollectionImporter
 from onecool_os.connectors.collectibles import PSAImportError
@@ -20,6 +23,11 @@ MISSING_PSA_MESSAGE = (
 )
 MISSING_BETA_DATA_MESSAGE = (
     "No local beta data found yet. Please import PSA Collection first."
+)
+WARNING_ROW_PATTERN = re.compile(r"row (?P<row_number>\d+)")
+SKIPPED_WARNING_PREFIXES = (
+    "Duplicate PSA cert number",
+    "Unsupported grader",
 )
 
 
@@ -93,10 +101,8 @@ class OnecoolLauncher:
             return
 
         self._psa_import_result = result
-        summary = result.summary
-        self._output(f"Imported cards: {summary.imported_rows}")
-        self._output(f"Skipped: {summary.skipped_rows}")
-        self._output(f"Warnings: {len(summary.warnings)}")
+        for line in psa_import_diagnostic_lines(psa_path, result):
+            self._output(line)
 
     def show_beta_placeholder(self, choice: str) -> None:
         """Handle placeholder report/dashboard options."""
@@ -130,3 +136,91 @@ def menu_lines() -> tuple[str, ...]:
         "5. Show OFAI Context",
         "0. Exit",
     )
+
+
+def psa_import_diagnostic_lines(
+    csv_path: Path,
+    result: PSAImportResult,
+) -> tuple[str, ...]:
+    """Return safe, deterministic PSA import diagnostic output."""
+
+    summary = result.summary
+    warnings = tuple(summary.warnings)
+    safe_rows = _safe_psa_rows_by_number(csv_path)
+    lines = [
+        f"Total rows detected: {result.audit.total_rows}",
+        f"Imported cards: {summary.imported_rows}",
+        f"Skipped rows: {summary.skipped_rows}",
+        f"Warnings: {len(warnings)}",
+        "Skipped row details:",
+    ]
+    skipped_warnings = tuple(
+        warning
+        for warning in warnings
+        if warning.startswith(SKIPPED_WARNING_PREFIXES)
+    )
+    lines.extend(_detail_lines(skipped_warnings, safe_rows))
+    lines.append("Warning details:")
+    lines.extend(_detail_lines(warnings, safe_rows))
+    return tuple(lines)
+
+
+def _detail_lines(
+    warnings: tuple[str, ...],
+    safe_rows: dict[int, dict[str, str]],
+) -> list[str]:
+    if not warnings:
+        return ["- None"]
+    return [
+        _safe_warning_detail_line(warning, safe_rows)
+        for warning in warnings
+    ]
+
+
+def _safe_warning_detail_line(
+    warning: str,
+    safe_rows: dict[int, dict[str, str]],
+) -> str:
+    row_number = _warning_row_number(warning)
+    row = safe_rows.get(row_number, {})
+    parts = [
+        f"row {row_number}" if row_number else "row unknown",
+        f"item: {_safe_value(row.get('Item'))}",
+        f"cert: {_safe_value(row.get('Cert Number'))}",
+        f"grade issuer: {_safe_value(row.get('Grade Issuer'))}",
+        f"reason: {warning}",
+    ]
+    return "- " + " | ".join(parts)
+
+
+def _warning_row_number(warning: str) -> int | None:
+    match = WARNING_ROW_PATTERN.search(warning)
+    if match is None:
+        return None
+    return int(match.group("row_number"))
+
+
+def _safe_psa_rows_by_number(csv_path: Path) -> dict[int, dict[str, str]]:
+    try:
+        text = csv_path.read_bytes().decode("utf-8-sig")
+        reader = csv.DictReader(text.splitlines())
+        return {
+            row_number: _safe_psa_row(row)
+            for row_number, row in enumerate(reader, start=2)
+        }
+    except (OSError, UnicodeDecodeError, csv.Error):
+        return {}
+
+
+def _safe_psa_row(row: dict[str, Any]) -> dict[str, str]:
+    return {
+        "Item": _safe_value(row.get("Item")),
+        "Cert Number": _safe_value(row.get("Cert Number")),
+        "Grade Issuer": _safe_value(row.get("Grade Issuer")),
+    }
+
+
+def _safe_value(value: Any) -> str:
+    if not isinstance(value, str):
+        return ""
+    return value.strip()

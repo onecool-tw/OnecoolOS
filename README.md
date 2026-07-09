@@ -134,6 +134,10 @@ Radar Report, Decision Queue, and OFAI Context. PSA import is wired to the
 connector-layer `PSACollectionImporter` and keeps imported records in memory
 for the current launcher session. Dashboard, Daily Radar Report, Decision
 Queue, and OFAI Context remain safe placeholders until runtime wiring is added.
+After import, the launcher prints a safe diagnostic report with total rows,
+imported cards, skipped rows, warning count, skipped row details, and warning
+details. Diagnostic details include only row number, item/title, cert number,
+grade issuer, and reason. They do not print private notes or full CSV rows.
 
 Default PSA import path:
 

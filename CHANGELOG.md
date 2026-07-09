@@ -9,6 +9,8 @@ Commits.
 
 ### Added
 
+- CLI PSA import diagnostic report showing total rows, skipped row details, and
+  warning details without printing private notes or full CSV payloads.
 - Onecool Launcher PSA import wiring to the existing connector-layer
   `PSACollectionImporter`, including safe summary output and in-memory session
   state.
