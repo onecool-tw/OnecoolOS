@@ -470,6 +470,12 @@ Critical for missing cost basis or market value, High for insufficient data or
 currency mismatch, Medium for missing holding dates, and Low for review-only
 performance availability. It does not calculate or recommend.
 
+Performance OFAI Context consumes the Performance Daily Report and Decision
+Queue priorities to prepare deterministic investment context. It exposes
+performance overview, top movers, warnings, and performance review priorities
+for future AI reasoning. It does not call LLMs, recalculate performance,
+predict prices, or recommend actions.
+
 ### Scenario
 
 Scenario owns deterministic A/B/C/D scenario objects. It consumes structured

@@ -444,6 +444,12 @@ summary and warnings. It prioritizes review work for missing cost basis,
 missing market value, insufficient data, currency mismatch, and missing holding
 dates. It performs no calculations and does not recommend buy/sell actions.
 
+Performance OFAI Context Integration prepares deterministic investment
+performance context from the Daily Report and Decision Queue. It exposes
+performance overview, top movers, warnings, and review priorities to future
+OFAI reasoning. It does not recalculate performance, invoke LLMs, predict
+prices, or recommend actions.
+
 Market Intelligence is the layer that evaluates market data confidence
 quality. Market Intelligence v2 consumes optional `SourceAgreementResult`
 instead of independently reimplementing source agreement when the result is

@@ -865,6 +865,12 @@ Missing Holding Date is Medium, and normal performance availability is Low
 review-only. Decision Queue does not recalculate performance or recommend
 buy/sell actions.
 
+Performance OFAI Context Integration consumes the Performance Daily Report and
+Performance Decision Queue output to prepare deterministic investment context
+for future AI reasoning. It includes performance overview, review priorities,
+performance warnings, top gainers, and top losers. OFAI does not recalculate
+performance, invoke LLMs, predict prices, or recommend buy/sell actions.
+
 ## Analytics Engine Foundation
 
 Onecool OS includes an Analytics Engine foundation in `onecool_os.analytics`.

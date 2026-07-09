@@ -213,6 +213,8 @@ Goals:
   summaries, top movers, and warnings
 - Performance Decision Queue Integration for prioritizing performance review
   work without recommendations
+- Performance OFAI Context Integration for deterministic investment context
+  without AI recommendations
 - Analytics display
 - Charts
 - Daily summary

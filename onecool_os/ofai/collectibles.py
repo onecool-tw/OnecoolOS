@@ -29,6 +29,9 @@ class CollectibleOFAIContext:
     radar_summary: dict[str, Any] | None
     timeline_summary: dict[str, Any] | None
     decision_queue_summary: dict[str, Any] | None
+    performance_overview: dict[str, Any] | None
+    performance_review_priorities: dict[str, Any] | None
+    top_movers: dict[str, Any] | None
     review_targets: list[dict[str, Any]] | tuple[dict[str, Any], ...] | None
     warnings: list[str] | tuple[str, ...] | None
     report_id: str | None
@@ -59,6 +62,9 @@ class CollectibleOFAIContext:
             "radar_summary",
             "timeline_summary",
             "decision_queue_summary",
+            "performance_overview",
+            "performance_review_priorities",
+            "top_movers",
         ):
             object.__setattr__(
                 self,
@@ -98,6 +104,9 @@ class CollectibleOFAIContext:
             "radar_summary": self.radar_summary,
             "timeline_summary": self.timeline_summary,
             "decision_queue_summary": self.decision_queue_summary,
+            "performance_overview": self.performance_overview,
+            "performance_review_priorities": self.performance_review_priorities,
+            "top_movers": self.top_movers,
             "review_targets": list(self.review_targets),
             "warnings": list(self.warnings),
             "metadata": {
@@ -135,6 +144,11 @@ class CollectibleOFAIContextBuilder:
             radar_summary=_radar_summary(report),
             timeline_summary=_timeline_summary(report),
             decision_queue_summary=_decision_queue_summary(decision_queue),
+            performance_overview=_performance_overview(report),
+            performance_review_priorities=_performance_review_priorities(
+                decision_queue,
+            ),
+            top_movers=dict(report.top_movers),
             review_targets=_review_targets(decision_queue),
             warnings=report.warnings,
             report_id=report.report_id,
@@ -188,6 +202,36 @@ def _decision_queue_summary(queue: DecisionQueue) -> dict[str, Any]:
         "medium_count": queue.medium_count,
         "low_count": queue.low_count,
     }
+
+
+def _performance_overview(report: CollectibleDailyRadarReport) -> dict[str, Any]:
+    summary = report.performance_summary or {}
+    return {
+        "total_cost_basis": summary.get("total_cost_basis"),
+        "total_market_value": summary.get("total_market_value"),
+        "unrealized_gain_loss": summary.get("total_unrealized_gain_loss"),
+        "unrealized_percent": summary.get("total_unrealized_percent"),
+        "performing_assets": summary.get("performing_assets", 0),
+    }
+
+
+def _performance_review_priorities(queue: DecisionQueue) -> dict[str, Any]:
+    return {
+        "critical": _performance_targets(queue.critical),
+        "high": _performance_targets(queue.high),
+        "medium": _performance_targets(queue.medium),
+        "low": _performance_targets(queue.low),
+    }
+
+
+def _performance_targets(
+    items: tuple[DecisionQueueItem, ...],
+) -> list[dict[str, Any]]:
+    return [
+        _review_target(item)
+        for item in items
+        if item.source == "daily_radar_report.performance"
+    ]
 
 
 def _review_targets(queue: DecisionQueue) -> tuple[dict[str, Any], ...]:

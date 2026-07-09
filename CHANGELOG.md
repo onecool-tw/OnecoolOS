@@ -31,6 +31,8 @@ Commits.
   performance.
 - Performance Decision Queue Integration prioritizing performance review work
   from Daily Report output without recommendations or recalculation.
+- Performance OFAI Context Integration preparing deterministic investment
+  performance context from Daily Report and Decision Queue output.
 - Collectible Radar MVP ADR.
 - Collectible connector foundation for local eBay Sold, Card Ladder, PWCC,
   Goldin, and Fanatics Collect records.
