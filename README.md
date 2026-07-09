@@ -1354,7 +1354,10 @@ python -m onecool_os cards import-csv imports/psa/psa_collection.csv
 The PSA Collection CSV Connector maps `Item`, `Subject`, `Year`, `Set`,
 `Card Number`, `Grade Issuer`, `Grade`, `Cert Number`, `My Cost`,
 `Date Acquired`, `Source`, and `My Notes` into the Sports Cards live portfolio
-schema. Duplicate cards are detected by `Cert Number`.
+schema. It supports PSA and BGS grade issuers. BGS `10 Black Label` is
+preserved as `grade: 10` with `special_designation: Black Label`. Unsupported
+graders remain skipped with warnings. Duplicate cards are detected by
+`Cert Number`.
 
 The connector-layer PSA integration preserves the original CSV file and does
 not write to portfolio, ledger, or valuation files. `ImportAudit` is reusable

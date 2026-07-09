@@ -9,6 +9,8 @@ Commits.
 
 ### Added
 
+- BGS record support in the connector-layer PSA Collection importer, including
+  BGS 8, 8.5, 9, 9.5, 10, and 10 Black Label preservation.
 - CLI PSA import diagnostic report showing total rows, skipped row details, and
   warning details without printing private notes or full CSV payloads.
 - Onecool Launcher PSA import wiring to the existing connector-layer

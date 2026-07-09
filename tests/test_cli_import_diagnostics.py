@@ -12,7 +12,7 @@ def test_skipped_row_details_shown(tmp_path: Path) -> None:
             _psa_row(
                 item="1996 Demo Insert Michael Jordan J23",
                 cert_number="23456789",
-                grade_issuer="BGS",
+                grade_issuer="SGC",
             ),
         ],
     )
@@ -28,8 +28,8 @@ def test_skipped_row_details_shown(tmp_path: Path) -> None:
     assert "Skipped row details:" in output
     assert any(
         "row 3 | item: 1996 Demo Insert Michael Jordan J23"
-        " | cert: 23456789 | grade issuer: BGS"
-        " | reason: Unsupported grader at row 3: BGS"
+        " | cert: 23456789 | grade issuer: SGC"
+        " | reason: Unsupported grader at row 3: SGC"
         == line.removeprefix("- ")
         for line in output
     )

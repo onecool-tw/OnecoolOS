@@ -28,6 +28,80 @@ def test_psa_real_import_valid_csv(tmp_path: Path) -> None:
     assert result.records[0]["matching"]["status"] == "NEW"
 
 
+def test_psa_real_import_bgs_9(tmp_path: Path) -> None:
+    csv_path = write_csv(
+        tmp_path,
+        [psa_row(cert_number="BGS0001", grade_issuer="BGS", grade="9")],
+    )
+
+    result = PSACollectionImporter().import_csv(
+        csv_path,
+        reference_datetime=REFERENCE,
+    )
+
+    assert result.summary.imported_rows == 1
+    assert result.records[0]["grade_company"] == "BGS"
+    assert result.records[0]["grade"] == "9"
+    assert result.records[0]["special_designation"] == ""
+
+
+def test_psa_real_import_bgs_95(tmp_path: Path) -> None:
+    csv_path = write_csv(
+        tmp_path,
+        [psa_row(cert_number="BGS0002", grade_issuer="BGS", grade="9.5")],
+    )
+
+    result = PSACollectionImporter().import_csv(
+        csv_path,
+        reference_datetime=REFERENCE,
+    )
+
+    assert result.summary.imported_rows == 1
+    assert result.records[0]["grade_company"] == "BGS"
+    assert result.records[0]["grade"] == "9.5"
+    assert result.records[0]["special_designation"] == ""
+
+
+def test_psa_real_import_bgs_10(tmp_path: Path) -> None:
+    csv_path = write_csv(
+        tmp_path,
+        [psa_row(cert_number="BGS0003", grade_issuer="BGS", grade="10")],
+    )
+
+    result = PSACollectionImporter().import_csv(
+        csv_path,
+        reference_datetime=REFERENCE,
+    )
+
+    assert result.summary.imported_rows == 1
+    assert result.records[0]["grade_company"] == "BGS"
+    assert result.records[0]["grade"] == "10"
+    assert result.records[0]["special_designation"] == ""
+
+
+def test_psa_real_import_bgs_black_label(tmp_path: Path) -> None:
+    csv_path = write_csv(
+        tmp_path,
+        [
+            psa_row(
+                cert_number="BGS0004",
+                grade_issuer="BGS",
+                grade="10 Black Label",
+            )
+        ],
+    )
+
+    result = PSACollectionImporter().import_csv(
+        csv_path,
+        reference_datetime=REFERENCE,
+    )
+
+    assert result.summary.imported_rows == 1
+    assert result.records[0]["grade_company"] == "BGS"
+    assert result.records[0]["grade"] == "10"
+    assert result.records[0]["special_designation"] == "Black Label"
+
+
 def test_psa_real_import_duplicate_cert(tmp_path: Path) -> None:
     csv_path = write_csv(
         tmp_path,
@@ -263,6 +337,7 @@ def psa_row(
     *,
     cert_number: str = "12345678",
     grade: str = "10",
+    grade_issuer: str = "PSA",
 ) -> dict[str, str]:
     return {
         "Item": "2018 Topps Update Shohei Ohtani US1",
@@ -270,7 +345,7 @@ def psa_row(
         "Year": "2018",
         "Set": "Topps Update",
         "Card Number": "US1",
-        "Grade Issuer": "PSA",
+        "Grade Issuer": grade_issuer,
         "Grade": grade,
         "Cert Number": cert_number,
         "My Cost": "120.00",

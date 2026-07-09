@@ -29,6 +29,9 @@ PSA_REQUIRED_COLUMNS = (
     "Source",
     "My Notes",
 )
+SUPPORTED_GRADERS = frozenset(("PSA", "BGS"))
+BGS_SUPPORTED_GRADES = frozenset(("8", "8.5", "9", "9.5", "10"))
+BGS_BLACK_LABEL = "10 BLACK LABEL"
 
 
 class PSAImportError(OnecoolOSError):
@@ -142,7 +145,10 @@ class PSACollectionImporter:
                 continue
             seen_cert_numbers.add(cert_number)
 
-            if _normalize_text(row.get("Grade Issuer")).upper() != "PSA":
+            if (
+                _normalize_text(row.get("Grade Issuer")).upper()
+                not in SUPPORTED_GRADERS
+            ):
                 skipped_rows += 1
                 warnings.append(
                     f"Unsupported grader at row {row_number}: "
@@ -223,9 +229,14 @@ class PSACollectionImporter:
         for column in PSA_REQUIRED_COLUMNS:
             if not _normalize_text(row.get(column)):
                 return f"Missing PSA CSV value at row {row_number}: {column}"
-        grade = _parse_grade(row.get("Grade"))
-        if grade is None:
-            return f"Invalid PSA grade at row {row_number}: {row.get('Grade')}"
+        grader = _normalize_text(row.get("Grade Issuer")).upper()
+        if grader in SUPPORTED_GRADERS:
+            grade_info = _parse_grade_info(grader, row.get("Grade"))
+            if grade_info is None:
+                return (
+                    f"Invalid {grader} grade at row {row_number}: "
+                    f"{row.get('Grade')}"
+                )
         cost = _parse_positive_decimal(row.get("My Cost"))
         if cost is None:
             return f"Invalid PSA cost at row {row_number}: {row.get('My Cost')}"
@@ -240,7 +251,13 @@ class PSACollectionImporter:
     ) -> dict[str, Any]:
         cert_number = _require_text(row.get("Cert Number"))
         cost = _parse_positive_decimal(row.get("My Cost"))
-        grade = _require_text(row.get("Grade"))
+        grade_info = _parse_grade_info(
+            _require_text(row.get("Grade Issuer")).upper(),
+            row.get("Grade"),
+        )
+        if grade_info is None:
+            raise PSAImportError("Expected supported grade value.")
+        grade, special_designation = grade_info
         set_name = _require_text(row.get("Set"))
         item = _require_text(row.get("Item"))
         notes = _normalize_text(row.get("My Notes"))
@@ -279,6 +296,7 @@ class PSACollectionImporter:
             "serial_number": cert_number,
             "grade_company": _require_text(row.get("Grade Issuer")),
             "grade": grade,
+            "special_designation": special_designation,
             "purchase_date": _require_text(row.get("Date Acquired")),
             "purchase_platform": _normalize_text(row.get("Source")),
             "collection_type": "Investment",
@@ -353,7 +371,22 @@ def _normalize_text(value: Any) -> str:
     return value.strip()
 
 
-def _parse_grade(value: Any) -> Decimal | None:
+def _parse_grade_info(grader: str, value: Any) -> tuple[str, str] | None:
+    grade_text = _normalize_text(value)
+    normalized_grade = grade_text.upper()
+    if grader == "BGS":
+        if normalized_grade == BGS_BLACK_LABEL:
+            return "10", "Black Label"
+        if grade_text in BGS_SUPPORTED_GRADES:
+            return grade_text, ""
+        return None
+    grade = _parse_psa_grade(grade_text)
+    if grade is None:
+        return None
+    return _format_decimal(grade), ""
+
+
+def _parse_psa_grade(value: Any) -> Decimal | None:
     try:
         grade = Decimal(_normalize_text(value))
     except (InvalidOperation, ValueError):
