@@ -9,6 +9,7 @@ Commits.
 
 ### Added
 
+- Onecool Launcher foundation for Terminal-based v0.4.0-beta dogfooding.
 - v0.4.0-beta release preparation documentation for Investment Performance
   Beta.
 - v0.3.0-beta release preparation documentation.

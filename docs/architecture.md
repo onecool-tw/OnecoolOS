@@ -512,6 +512,18 @@ The Performance Closed-Loop Review verifies this path as v0.4 beta-ready for
 deterministic unrealized performance. The loop is documented in
 `docs/releases/performance-closed-loop-review.md`.
 
+### CLI
+
+The Onecool Launcher is the first Beta dogfooding entry point. It starts with
+`python -m onecool_os` or `python -m onecool_os.cli`, displays the
+v0.4.0-beta menu, and routes users toward PSA import, Dashboard, Daily Report,
+Decision Queue, and OFAI Context workflows.
+
+The launcher is orchestration-only. It does not own source data, calculate
+metrics, call APIs, scrape websites, mutate private imports, or bypass lower
+layer boundaries. Local import files remain under `imports/` and are ignored
+by Git.
+
 ### Scenario
 
 Scenario owns deterministic A/B/C/D scenario objects. It consumes structured

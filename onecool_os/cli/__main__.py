@@ -1,6 +1,5 @@
-"""Command-line entry point for Onecool OS."""
+"""Run Onecool OS CLI with ``python -m onecool_os.cli``."""
 
-from onecool_os.cli.main import build_parser
 from onecool_os.cli.main import main
 
 

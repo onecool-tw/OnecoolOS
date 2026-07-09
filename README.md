@@ -115,6 +115,34 @@ the unrealized performance loop for collectible holdings and documents known
 limitations including no FX Engine, no realized gain/loss, no IRR/XIRR, no
 annualized return, no prediction, and no recommendation workflow.
 
+## Onecool Launcher
+
+Onecool OS includes the first Beta dogfooding launcher. Start it from Terminal:
+
+```bash
+python -m onecool_os
+```
+
+or:
+
+```bash
+python -m onecool_os.cli
+```
+
+The launcher displays the v0.4.0-beta menu for PSA import, Dashboard, Daily
+Radar Report, Decision Queue, and OFAI Context. In this foundation sprint,
+pipeline actions are safe placeholders when local beta data has not been
+created yet.
+
+Default PSA import path:
+
+```text
+imports/psa/collection.csv
+```
+
+Local import files belong under `imports/` and remain ignored by Git. Private
+collection data must not be committed.
+
 ## Collectible Radar MVP
 
 Collectible Radar is the first product workflow built on Onecool OS. It starts
