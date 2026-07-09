@@ -826,6 +826,13 @@ foundation from ADR-005. It creates per-asset
 basis, and reference datetime. The engine calculates cost basis, market value,
 unrealized gain/loss, unrealized gain percent, and holding days only.
 
+Collectible Performance Integration connects sports card holdings to this
+engine. PSA/BGS-style collection records use `My Cost` or normalized `cost` as
+opening cost basis, preserve the original cost currency, and use already
+prepared valuation records for market value. Notes are never parsed for local
+currency cost, FX conversion is deferred to a future FX Engine, and realized
+gain/loss is deferred to the Lifecycle Engine.
+
 The foundation formula scope is intentionally narrow:
 
 - `unrealized_gain = market_value - cost_basis`

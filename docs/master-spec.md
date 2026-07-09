@@ -421,6 +421,12 @@ not convert currencies, annualize returns, calculate IRR/XIRR, calculate source
 agreement, calculate confidence, recommend actions, or mutate ledger and
 valuation history.
 
+Collectible Performance Integration is the first asset-specific adapter for
+this layer. PSA/BGS collection records use `My Cost` or normalized `cost` as
+opening cost basis. Cost basis stays in the original source currency. The
+adapter does not parse notes for TWD or local-currency cost, does not choose a
+final valuation source, and does not calculate realized gain/loss.
+
 Market Intelligence is the layer that evaluates market data confidence
 quality. Market Intelligence v2 consumes optional `SourceAgreementResult`
 instead of independently reimplementing source agreement when the result is

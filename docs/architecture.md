@@ -421,6 +421,13 @@ basis, market value, unrealized gain/loss, unrealized gain percent, and holding
 days. It does not perform FX conversion, annualization, IRR/XIRR, source
 agreement, confidence scoring, recommendations, API calls, or source mutation.
 
+Collectible Performance Integration maps PSA/BGS-style sports card asset
+records into the reusable engine. `My Cost` or normalized `cost` is treated as
+opening cost basis, cost currency is preserved, acquisition date is used only
+for holding days, and market value must come from caller-prepared valuation
+records. Notes are not parsed for local currency cost. Realized gain/loss and
+FX gain/loss remain future Lifecycle and FX Engine concerns.
+
 Performance and lifecycle are separate concerns. Performance calculates
 returns. Lifecycle tracks states such as `OWNED`, `LISTED`, `SOLD`, `PAID`,
 and `ARCHIVED`. Importers preserve source facts but do not calculate

@@ -196,6 +196,8 @@ Goals:
 - Investment performance and asset lifecycle architecture from ADR-005
 - Reusable Investment Performance Engine for opening cost basis, market value,
   unrealized gain/loss, gain percent, and holding days
+- Collectible Performance Integration for PSA/BGS opening cost basis and
+  caller-prepared collectible valuation records
 
 ### v0.6 Dashboard Foundation
 

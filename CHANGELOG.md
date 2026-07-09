@@ -21,6 +21,9 @@ Commits.
 - Investment Performance Engine foundation with reusable per-asset snapshots
   for opening cost basis, market value, unrealized gain/loss, gain percent,
   and holding days.
+- Collectible Performance Integration mapping PSA/BGS-style sports card
+  records into Investment Performance snapshots without parsing notes,
+  converting FX, or calculating realized gain/loss.
 - Collectible Radar MVP ADR.
 - Collectible connector foundation for local eBay Sold, Card Ladder, PWCC,
   Goldin, and Fanatics Collect records.

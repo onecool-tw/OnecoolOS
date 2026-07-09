@@ -111,6 +111,10 @@ the asset remains owned.
 Realized gain or loss compares sale proceeds against cost basis and sale costs
 after the asset is sold.
 
+Realized gain/loss belongs to future lifecycle and sale-settlement workflows.
+The collectible performance integration remains unrealized-only until the
+Lifecycle Engine defines sold, paid, fee, and net-proceeds behavior.
+
 ### Holding Period
 
 Holding period is measured from acquisition or opening-position date to the
@@ -139,6 +143,12 @@ data is available.
 holdings.
 
 It does not require reconstructing historical purchase transactions.
+
+Collectible performance integrations may consume normalized PSA/BGS records and
+pass `My Cost` or normalized `cost` into the reusable Investment Performance
+Engine as opening cost basis. The original source currency must be preserved.
+Notes must not be parsed to derive alternate local-currency cost such as TWD
+cost. FX conversion belongs to a future FX Engine.
 
 ### PSA Sold Fields
 
@@ -286,4 +296,3 @@ Before GA, Onecool OS should add:
 - `docs/trials/collectible-radar-real-data-trial.md`
 - `docs/releases/v0.3.0-beta.md`
 - `docs/decision-records/ADR-004-Collectible-Radar-MVP.md`
-
