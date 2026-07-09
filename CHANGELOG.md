@@ -18,6 +18,9 @@ Commits.
   export and documenting MVP / GA mapping decisions.
 - ADR-005 defining investment performance, opening cost basis, prospective
   transaction tracking, and asset lifecycle architecture.
+- Investment Performance Engine foundation with reusable per-asset snapshots
+  for opening cost basis, market value, unrealized gain/loss, gain percent,
+  and holding days.
 - Collectible Radar MVP ADR.
 - Collectible connector foundation for local eBay Sold, Card Ladder, PWCC,
   Goldin, and Fanatics Collect records.

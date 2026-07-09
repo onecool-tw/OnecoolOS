@@ -194,6 +194,8 @@ Goals:
 - Risk Engine
 - Performance Engine
 - Investment performance and asset lifecycle architecture from ADR-005
+- Reusable Investment Performance Engine for opening cost basis, market value,
+  unrealized gain/loss, gain percent, and holding days
 
 ### v0.6 Dashboard Foundation
 

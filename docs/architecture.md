@@ -414,6 +414,13 @@ The Performance Engine computes deterministic unrealized performance from
 basis, market value, unrealized gain, and unrealized return while leaving ROI,
 IRR, benchmark comparison, and drawdown to later engines.
 
+The reusable Investment Performance Engine in `onecool_os.performance`
+implements ADR-005 at the asset level. It consumes asset facts and valuation
+records, then produces `InvestmentPerformanceSnapshot` output for opening cost
+basis, market value, unrealized gain/loss, unrealized gain percent, and holding
+days. It does not perform FX conversion, annualization, IRR/XIRR, source
+agreement, confidence scoring, recommendations, API calls, or source mutation.
+
 Performance and lifecycle are separate concerns. Performance calculates
 returns. Lifecycle tracks states such as `OWNED`, `LISTED`, `SOLD`, `PAID`,
 and `ARCHIVED`. Importers preserve source facts but do not calculate

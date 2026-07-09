@@ -820,6 +820,12 @@ optional, not required; future transactions are tracked prospectively. Cost
 basis remains in the original transaction currency until a future FX Engine is
 introduced.
 
+`onecool_os.performance` provides the reusable Investment Performance Engine
+foundation from ADR-005. It creates per-asset
+`InvestmentPerformanceSnapshot` records from an asset, valuation, opening cost
+basis, and reference datetime. The engine calculates cost basis, market value,
+unrealized gain/loss, unrealized gain percent, and holding days only.
+
 The foundation formula scope is intentionally narrow:
 
 - `unrealized_gain = market_value - cost_basis`
@@ -828,7 +834,9 @@ The foundation formula scope is intentionally narrow:
 Future ROI, IRR, Benchmark, and Drawdown engines will extend performance
 analysis. This engine does not calculate IRR, XIRR, time-weighted return,
 money-weighted return, alpha, beta, Sharpe, Sortino, drawdown, or benchmark
-comparison.
+comparison. It also does not convert currencies, calculate source agreement,
+calculate confidence, predict prices, recommend actions, call APIs, or mutate
+ledger or valuation history.
 
 ## Analytics Engine Foundation
 

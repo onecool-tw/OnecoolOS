@@ -412,6 +412,15 @@ missing sources, warnings, and raw valuation IDs. It does not select final
 market value, replace eBay Sold, mutate valuation history, predict prices, or
 recommend actions.
 
+Investment Performance implements ADR-005 as a reusable runtime layer. Existing
+holdings may use imported opening cost basis, historical transaction backfill
+is optional, and future transactions are tracked prospectively. The engine
+produces `InvestmentPerformanceSnapshot` records with cost basis, market
+value, unrealized gain/loss, unrealized gain percent, and holding days. It does
+not convert currencies, annualize returns, calculate IRR/XIRR, calculate source
+agreement, calculate confidence, recommend actions, or mutate ledger and
+valuation history.
+
 Market Intelligence is the layer that evaluates market data confidence
 quality. Market Intelligence v2 consumes optional `SourceAgreementResult`
 instead of independently reimplementing source agreement when the result is
