@@ -115,6 +115,7 @@ Beta Review:
 - `docs/releases/v0.3.0-beta.md`
 - `docs/trials/collectible-radar-real-data-trial.md`
 - `docs/trials/collectible-radar-real-data-results.md`
+- `docs/trials/psa-collection-gap-analysis.md`
 
 ### v0.3 Foundation (Completed)
 

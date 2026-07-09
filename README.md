@@ -97,6 +97,12 @@ partial validation: the local private sports card JSON imported successfully,
 but the dataset was below minimum size and source valuation files were not yet
 available for the full pipeline.
 
+The PSA Collection gap analysis is documented in
+`docs/trials/psa-collection-gap-analysis.md`. It compares the current PSA CSV
+integration with a real PSA export and identifies future first-class mappings
+for PSA Estimate, inventory status, listing status, sold fields, vault fields,
+and card identity enrichment.
+
 ## Collectible Radar MVP
 
 Collectible Radar is the first product workflow built on Onecool OS. It starts

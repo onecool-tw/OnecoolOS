@@ -115,6 +115,11 @@ The first trial result is documented in
 `docs/trials/collectible-radar-real-data-results.md`. It records aggregate
 findings only and confirms that private source files must remain outside Git.
 
+The PSA Collection gap analysis is documented in
+`docs/trials/psa-collection-gap-analysis.md`. It confirms that PSA import
+should remain an ingestion layer and that future PSA fields should flow into
+Assets, Inventory, Ledger, and Valuation through explicit contracts.
+
 ## Source of Truth
 
 | Layer | Source of Truth |

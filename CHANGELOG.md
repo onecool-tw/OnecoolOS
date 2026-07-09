@@ -14,6 +14,8 @@ Commits.
   metrics, acceptance criteria, and privacy rules.
 - Collectible Radar real data trial result documenting the initial partial
   validation, aggregate findings, blockers, and next trial checklist.
+- PSA Collection gap analysis comparing the current importer with a real PSA
+  export and documenting MVP / GA mapping decisions.
 - Collectible Radar MVP ADR.
 - Collectible connector foundation for local eBay Sold, Card Ladder, PWCC,
   Goldin, and Fanatics Collect records.
