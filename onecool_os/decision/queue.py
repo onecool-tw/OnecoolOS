@@ -213,18 +213,37 @@ def _items_from_report(
     related_asset_id = _asset_id_from_report(report)
     for warning in report.warnings:
         priority = _priority_for_text(warning)
+        is_performance = _is_performance_warning(str(warning))
         items.append(
             DecisionQueueItem(
-                item_id=f"warning:{_slug(warning)}",
+                item_id=(
+                    f"performance:{_slug(str(warning))}"
+                    if is_performance
+                    else f"warning:{_slug(warning)}"
+                ),
                 priority=priority,
                 title=str(warning),
-                description=f"Review warning: {warning}.",
-                source="daily_radar_report.warning",
+                description=(
+                    f"Review performance warning: {warning}."
+                    if is_performance
+                    else f"Review warning: {warning}."
+                ),
+                source=(
+                    "daily_radar_report.performance"
+                    if is_performance
+                    else "daily_radar_report.warning"
+                ),
                 related_asset_id=related_asset_id,
                 warnings=[str(warning)],
-                metadata={"classification_only": True},
+                metadata={
+                    "classification_only": True,
+                    "performance_summary": dict(report.performance_summary or {}),
+                }
+                if is_performance
+                else {"classification_only": True},
             )
         )
+    items.extend(_performance_items_from_report(report, related_asset_id))
     if report.blocked:
         items.append(
             DecisionQueueItem(
@@ -269,8 +288,44 @@ def _items_from_report(
     return tuple(_deduplicate_items(items))
 
 
+def _performance_items_from_report(
+    report: CollectibleDailyRadarReport,
+    related_asset_id: str | None,
+) -> tuple[DecisionQueueItem, ...]:
+    items: list[DecisionQueueItem] = []
+    performance_summary = report.performance_summary or {}
+    performance_warnings = tuple(
+        warning for warning in report.warnings
+        if _is_performance_warning(str(warning))
+    )
+    if (
+        performance_summary
+        and not performance_warnings
+        and _has_performance_values(performance_summary)
+    ):
+        items.append(
+            DecisionQueueItem(
+                item_id="performance:review-only",
+                priority=DecisionQueuePriority.LOW,
+                title="Performance Review Only",
+                description=(
+                    "Investment performance output is available for review."
+                ),
+                source="daily_radar_report.performance",
+                related_asset_id=related_asset_id,
+                metadata={
+                    "classification_only": True,
+                    "performance_summary": dict(performance_summary),
+                },
+            )
+        )
+    return tuple(items)
+
+
 def _priority_for_text(text: str) -> DecisionQueuePriority:
     normalized = text.lower()
+    if _is_performance_warning(text):
+        return _performance_priority(text)
     if "missing primary market" in normalized or "source conflict" in normalized:
         return DecisionQueuePriority.CRITICAL
     if "blocked" in normalized:
@@ -286,6 +341,56 @@ def _priority_for_text(text: str) -> DecisionQueuePriority:
     if "improved" in normalized or "resolved" in normalized:
         return DecisionQueuePriority.LOW
     return DecisionQueuePriority.LOW
+
+
+def _performance_priority(text: str) -> DecisionQueuePriority:
+    normalized = text.lower()
+    if "missing cost basis" in normalized:
+        return DecisionQueuePriority.CRITICAL
+    if "missing market value" in normalized:
+        return DecisionQueuePriority.CRITICAL
+    if "insufficient data" in normalized:
+        return DecisionQueuePriority.HIGH
+    if "currency mismatch" in normalized:
+        return DecisionQueuePriority.HIGH
+    if "missing holding date" in normalized:
+        return DecisionQueuePriority.MEDIUM
+    if "missing acquired date" in normalized:
+        return DecisionQueuePriority.MEDIUM
+    if "missing acquisition date" in normalized:
+        return DecisionQueuePriority.MEDIUM
+    return DecisionQueuePriority.LOW
+
+
+def _is_performance_warning(text: str) -> bool:
+    normalized = text.lower()
+    return any(
+        phrase in normalized
+        for phrase in (
+            "missing cost basis",
+            "missing market value",
+            "missing holding date",
+            "missing acquired date",
+            "missing acquisition date",
+            "insufficient data",
+            "currency mismatch",
+        )
+    )
+
+
+def _has_performance_values(performance_summary: dict[str, Any]) -> bool:
+    return any(
+        performance_summary.get(field_name) not in (None, "", 0)
+        for field_name in (
+            "total_cost_basis",
+            "total_market_value",
+            "total_unrealized_gain_loss",
+            "total_unrealized_percent",
+            "performing_assets",
+            "missing_valuations",
+            "missing_cost_basis",
+        )
+    )
 
 
 def _asset_id_from_report(report: CollectibleDailyRadarReport) -> str | None:

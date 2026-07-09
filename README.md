@@ -858,6 +858,13 @@ cost basis, total market value, unrealized gain/loss, unrealized percent, top
 gainers, top losers, and performance warnings. Daily Report does not calculate
 performance, FX, IRR/XIRR, realized gain/loss, valuation, or recommendations.
 
+Performance Decision Queue Integration consumes the Daily Report performance
+summary and warnings to prioritize review work. Missing Cost Basis and Missing
+Market Value are Critical, Insufficient Data and Currency Mismatch are High,
+Missing Holding Date is Medium, and normal performance availability is Low
+review-only. Decision Queue does not recalculate performance or recommend
+buy/sell actions.
+
 ## Analytics Engine Foundation
 
 Onecool OS includes an Analytics Engine foundation in `onecool_os.analytics`.

@@ -464,6 +464,12 @@ The report displays performance summary, top movers, and warnings, but it does
 not recalculate performance, realized gain/loss, FX, IRR/XIRR, valuation,
 confidence, or recommendations.
 
+Performance Decision Queue integration consumes performance warnings and
+summary fields from the Daily Report. It classifies review priority only:
+Critical for missing cost basis or market value, High for insufficient data or
+currency mismatch, Medium for missing holding dates, and Low for review-only
+performance availability. It does not calculate or recommend.
+
 ### Scenario
 
 Scenario owns deterministic A/B/C/D scenario objects. It consumes structured

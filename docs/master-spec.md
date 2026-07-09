@@ -439,6 +439,11 @@ top losers, and warnings in the Collectible Daily Radar Report. It does not
 recalculate performance, realized gain/loss, FX, valuation, confidence, or
 recommendations.
 
+Performance Decision Queue Integration consumes the Daily Report performance
+summary and warnings. It prioritizes review work for missing cost basis,
+missing market value, insufficient data, currency mismatch, and missing holding
+dates. It performs no calculations and does not recommend buy/sell actions.
+
 Market Intelligence is the layer that evaluates market data confidence
 quality. Market Intelligence v2 consumes optional `SourceAgreementResult`
 instead of independently reimplementing source agreement when the result is

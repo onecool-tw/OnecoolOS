@@ -29,6 +29,8 @@ Commits.
 - Performance Daily Report Integration displaying existing dashboard
   performance summaries, top movers, and warnings without recalculating
   performance.
+- Performance Decision Queue Integration prioritizing performance review work
+  from Daily Report output without recommendations or recalculation.
 - Collectible Radar MVP ADR.
 - Collectible connector foundation for local eBay Sold, Card Ladder, PWCC,
   Goldin, and Fanatics Collect records.

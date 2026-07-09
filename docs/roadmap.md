@@ -211,6 +211,8 @@ Goals:
   performance summaries and asset tables
 - Performance Daily Report Integration for presentation-only performance
   summaries, top movers, and warnings
+- Performance Decision Queue Integration for prioritizing performance review
+  work without recommendations
 - Analytics display
 - Charts
 - Daily summary
