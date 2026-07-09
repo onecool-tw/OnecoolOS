@@ -3,7 +3,13 @@
 from __future__ import annotations
 
 from collections.abc import Callable
+from datetime import UTC
+from datetime import datetime
 from pathlib import Path
+
+from onecool_os.connectors.collectibles import PSACollectionImporter
+from onecool_os.connectors.collectibles import PSAImportError
+from onecool_os.connectors.collectibles import PSAImportResult
 
 ONECOOL_VERSION = "v0.4.0-beta"
 DEFAULT_PSA_COLLECTION_PATH = Path("imports/psa/collection.csv")
@@ -30,6 +36,7 @@ class OnecoolLauncher:
         self._input = input_func
         self._output = output_func
         self._cwd = Path(cwd)
+        self._psa_import_result: PSAImportResult | None = None
 
     def run(self) -> int:
         """Run the interactive launcher loop."""
@@ -76,16 +83,26 @@ class OnecoolLauncher:
         if not psa_path.exists():
             self._output(MISSING_PSA_MESSAGE)
             return
-        self._output(
-            "PSA Collection file found. Import wiring will be available in "
-            "the next beta dogfooding sprint."
-        )
+        try:
+            result = PSACollectionImporter().import_csv(
+                psa_path,
+                reference_datetime=datetime.now(UTC),
+            )
+        except PSAImportError as exc:
+            self._output(f"PSA import failed: {exc}")
+            return
+
+        self._psa_import_result = result
+        summary = result.summary
+        self._output(f"Imported cards: {summary.imported_rows}")
+        self._output(f"Skipped: {summary.skipped_rows}")
+        self._output(f"Warnings: {len(summary.warnings)}")
 
     def show_beta_placeholder(self, choice: str) -> None:
         """Handle placeholder report/dashboard options."""
 
         data_path = self._cwd / DEFAULT_BETA_DATA_PATH
-        if not data_path.exists():
+        if not data_path.exists() and self._psa_import_result is None:
             self._output(MISSING_BETA_DATA_MESSAGE)
             return
         labels = {

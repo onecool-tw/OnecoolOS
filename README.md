@@ -130,9 +130,10 @@ python -m onecool_os.cli
 ```
 
 The launcher displays the v0.4.0-beta menu for PSA import, Dashboard, Daily
-Radar Report, Decision Queue, and OFAI Context. In this foundation sprint,
-pipeline actions are safe placeholders when local beta data has not been
-created yet.
+Radar Report, Decision Queue, and OFAI Context. PSA import is wired to the
+connector-layer `PSACollectionImporter` and keeps imported records in memory
+for the current launcher session. Dashboard, Daily Radar Report, Decision
+Queue, and OFAI Context remain safe placeholders until runtime wiring is added.
 
 Default PSA import path:
 

@@ -9,6 +9,9 @@ Commits.
 
 ### Added
 
+- Onecool Launcher PSA import wiring to the existing connector-layer
+  `PSACollectionImporter`, including safe summary output and in-memory session
+  state.
 - Onecool Launcher foundation for Terminal-based v0.4.0-beta dogfooding.
 - v0.4.0-beta release preparation documentation for Investment Performance
   Beta.

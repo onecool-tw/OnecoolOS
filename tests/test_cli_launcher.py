@@ -54,6 +54,81 @@ def test_missing_psa_file_handled(tmp_path: Path) -> None:
     assert MISSING_PSA_MESSAGE in output
 
 
+def test_successful_psa_import_prints_summary(tmp_path: Path) -> None:
+    _write_psa_collection(tmp_path)
+    output: list[str] = []
+    launcher = OnecoolLauncher(
+        input_func=_inputs("1", "0"),
+        output_func=output.append,
+        cwd=tmp_path,
+    )
+
+    result = launcher.run()
+
+    assert result == 0
+    assert "Imported cards: 1" in output
+    assert "Skipped: 0" in output
+    assert "Warnings: 0" in output
+
+
+def test_malformed_psa_csv_prints_error(tmp_path: Path) -> None:
+    csv_path = tmp_path / DEFAULT_PSA_COLLECTION_PATH
+    csv_path.parent.mkdir(parents=True)
+    csv_path.write_text("not,a,psa,csv\n1,2,3,4\n", encoding="utf-8")
+    output: list[str] = []
+    launcher = OnecoolLauncher(
+        input_func=_inputs("1", "0"),
+        output_func=output.append,
+        cwd=tmp_path,
+    )
+
+    result = launcher.run()
+
+    assert result == 0
+    assert any(
+        line.startswith("PSA import failed: Missing PSA CSV column:")
+        for line in output
+    )
+
+
+def test_repeated_psa_import_is_deterministic(tmp_path: Path) -> None:
+    _write_psa_collection(tmp_path)
+    first_output: list[str] = []
+    second_output: list[str] = []
+
+    OnecoolLauncher(
+        input_func=_inputs("1", "0"),
+        output_func=first_output.append,
+        cwd=tmp_path,
+    ).run()
+    OnecoolLauncher(
+        input_func=_inputs("1", "0"),
+        output_func=second_output.append,
+        cwd=tmp_path,
+    ).run()
+
+    assert _summary_lines(first_output) == _summary_lines(second_output)
+
+
+def test_session_import_allows_beta_placeholder(tmp_path: Path) -> None:
+    _write_psa_collection(tmp_path)
+    output: list[str] = []
+    launcher = OnecoolLauncher(
+        input_func=_inputs("1", "2", "0"),
+        output_func=output.append,
+        cwd=tmp_path,
+    )
+
+    result = launcher.run()
+
+    assert result == 0
+    assert MISSING_BETA_DATA_MESSAGE not in output
+    assert (
+        "Dashboard wiring will be available in a future beta dogfooding sprint."
+        in output
+    )
+
+
 def test_missing_beta_data_handled(tmp_path: Path) -> None:
     output: list[str] = []
     launcher = OnecoolLauncher(
@@ -99,3 +174,49 @@ def _inputs(*values: str):
         return next(iterator)
 
     return _input
+
+
+def _summary_lines(output: list[str]) -> list[str]:
+    return [
+        line
+        for line in output
+        if line.startswith(("Imported cards:", "Skipped:", "Warnings:"))
+    ]
+
+
+def _write_psa_collection(tmp_path: Path) -> Path:
+    csv_path = tmp_path / DEFAULT_PSA_COLLECTION_PATH
+    csv_path.parent.mkdir(parents=True)
+    columns = (
+        "Item",
+        "Subject",
+        "Year",
+        "Set",
+        "Card Number",
+        "Grade Issuer",
+        "Grade",
+        "Cert Number",
+        "My Cost",
+        "Date Acquired",
+        "Source",
+        "My Notes",
+    )
+    row = (
+        "2018 Topps Update Shohei Ohtani US1",
+        "Shohei Ohtani",
+        "2018",
+        "Topps Update",
+        "US1",
+        "PSA",
+        "10",
+        "12345678",
+        "120.00",
+        "2026-06-01",
+        "PSA Collection",
+        "Launcher import sample",
+    )
+    csv_path.write_text(
+        ",".join(columns) + "\n" + ",".join(row) + "\n",
+        encoding="utf-8",
+    )
+    return csv_path
