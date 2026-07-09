@@ -814,6 +814,12 @@ IRR, fetch external data, or modify source records.
 and unrealized return using values already available from Portfolio, Valuation,
 Ledger, or optional Analytics context.
 
+ADR-005 defines the investment performance and asset lifecycle policy. Existing
+holdings use imported opening cost basis; historical transaction backfill is
+optional, not required; future transactions are tracked prospectively. Cost
+basis remains in the original transaction currency until a future FX Engine is
+introduced.
+
 The foundation formula scope is intentionally narrow:
 
 - `unrealized_gain = market_value - cost_basis`
@@ -1791,6 +1797,7 @@ The module still owns its runtime manifest through `create_plugin`.
 - [Roadmap](docs/roadmap.md)
 - [Coding Standard](docs/coding-standard.md)
 - [Core Engine ADR](docs/decision-records/ADR-001-Core-Engine.md)
+- [Investment Performance and Asset Lifecycle ADR](docs/decision-records/ADR-005-Investment-Performance-and-Asset-Lifecycle.md)
 - [Contributing](CONTRIBUTING.md)
 - [Changelog](CHANGELOG.md)
 

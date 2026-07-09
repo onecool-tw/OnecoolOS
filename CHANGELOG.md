@@ -16,6 +16,8 @@ Commits.
   validation, aggregate findings, blockers, and next trial checklist.
 - PSA Collection gap analysis comparing the current importer with a real PSA
   export and documenting MVP / GA mapping decisions.
+- ADR-005 defining investment performance, opening cost basis, prospective
+  transaction tracking, and asset lifecycle architecture.
 - Collectible Radar MVP ADR.
 - Collectible connector foundation for local eBay Sold, Card Ladder, PWCC,
   Goldin, and Fanatics Collect records.

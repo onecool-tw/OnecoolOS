@@ -147,6 +147,7 @@ Deliverables:
 - Shared lifecycle event model
 - JSON ledger loader
 - Asset-specific adapters
+- Opening position cost basis policy from ADR-005
 
 ### v0.5 Valuation Engine
 
@@ -192,6 +193,7 @@ Goals:
 - Allocation Engine
 - Risk Engine
 - Performance Engine
+- Investment performance and asset lifecycle architecture from ADR-005
 
 ### v0.6 Dashboard Foundation
 

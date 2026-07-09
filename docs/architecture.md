@@ -284,6 +284,12 @@ cards, real estate, cash, and future asset classes.
 Ledger owns transaction history and lifecycle events. Asset modules should not
 store transaction history independently.
 
+Existing holdings do not require historical transaction backfill. Imported
+cost basis is treated as opening position cost, and future transactions are
+recorded prospectively. Investment performance and asset lifecycle policy is
+defined in
+`docs/decision-records/ADR-005-Investment-Performance-and-Asset-Lifecycle.md`.
+
 ### Valuation
 
 Valuation owns valuation history. Valuation records are historical and should
@@ -407,6 +413,11 @@ The Performance Engine computes deterministic unrealized performance from
 `BusinessLogicContext`. It produces `PERFORMANCE` metric results for cost
 basis, market value, unrealized gain, and unrealized return while leaving ROI,
 IRR, benchmark comparison, and drawdown to later engines.
+
+Performance and lifecycle are separate concerns. Performance calculates
+returns. Lifecycle tracks states such as `OWNED`, `LISTED`, `SOLD`, `PAID`,
+and `ARCHIVED`. Importers preserve source facts but do not calculate
+performance.
 
 ### Analytics
 
