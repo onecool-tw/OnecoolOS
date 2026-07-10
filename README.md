@@ -191,6 +191,22 @@ These files are private user data and remain ignored by Git under the existing
 `imports/` rules. eBay Sold search URLs are durable research entry points, not
 valuation evidence by themselves.
 
+## Collection Sync
+
+Collection Sync is the deterministic data integrity layer between PSA/BGS
+import, Asset Master, and Runtime. It compares imported collection records with
+Asset Master metadata before runtime views are assembled.
+
+Collection Sync produces a `SyncReport` with matched counts, differences,
+warnings, and collection health. It detects duplicate cert numbers, duplicate
+asset identifiers, missing records, grade or grade-issuer conflicts, variety
+changes, cost override metadata, missing research URLs, missing target prices,
+and note differences.
+
+Collection Sync never modifies imported files, automatically merges data,
+deletes records, calculates valuation, calls APIs, calls AI, or changes
+Dashboard, Report, Decision Queue, or OFAI behavior.
+
 ## Collectible Radar MVP
 
 Collectible Radar is the first product workflow built on Onecool OS. It starts

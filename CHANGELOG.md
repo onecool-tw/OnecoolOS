@@ -9,6 +9,9 @@ Commits.
 
 ### Added
 
+- Collection Sync foundation for deterministic PSA/BGS import versus Asset
+  Master integrity reports, including differences, warnings, collection health,
+  and non-mutating comparison.
 - Asset Master foundation for user-owned collectible metadata, including CSV /
   XLSX loading, validation, duplicate detection, and deterministic non-mutating
   merge by cert number.

@@ -15,6 +15,7 @@ assets, knowledge, decisions, and automation.
 - Connector -> Normalize -> Asset -> Ledger -> Valuation -> Portfolio pipeline
 - User-owned Asset Master metadata augments imported assets without replacing
   source identity
+- Collection Sync verifies imported records and Asset Master before runtime
 - Test-first development
 - Backward compatibility
 
@@ -155,6 +156,7 @@ Deferred:
 - Normalize Layer
 - Inventory Foundation
 - Asset Master Foundation
+- Collection Sync Foundation
 
 ### v0.4 Transaction Layer
 

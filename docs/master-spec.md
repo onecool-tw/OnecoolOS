@@ -207,6 +207,12 @@ number, player, grade issuer, grade, variety, or cert number. eBay Sold search
 URLs are research entry points only; they are not valuation records by
 themselves.
 
+Collection Sync is the mandatory integrity layer before runtime. It compares
+PSA/BGS imported records with Asset Master metadata, produces deterministic
+differences, warnings, and collection health, and never mutates imports,
+automatically merges data, deletes records, calculates valuation, calls APIs,
+or calls AI.
+
 Ledger records what happened. Transactions capture financial changes. Events
 capture lifecycle changes. Together, the ledger is the source of truth for
 asset history and will be consumed by valuation and portfolio engines over
@@ -251,6 +257,7 @@ data.
 | Normalize | Standardized records |
 | Assets | Asset identity |
 | Asset Master | User-owned metadata augmentation |
+| Collection Sync | Data integrity report before runtime |
 | Ledger | Transactions and lifecycle events |
 | Valuation | Valuation history |
 | Portfolio | Current holdings and aggregation |

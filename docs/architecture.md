@@ -162,6 +162,16 @@ records. Imported collection identity remains authoritative, while Asset
 Master may add research URLs, watch status, REF score, target price, notes,
 explicit cost override metadata, and future custom fields.
 
+## Collection Sync
+
+Collection Sync sits between PSA/BGS import, Asset Master, and Runtime. It is
+the deterministic data integrity layer that compares imported collectible
+records with user-owned Asset Master metadata. It produces `SyncReport`
+objects containing differences, warnings, matched counts, and collection
+health. It never modifies imported files, automatically merges records, deletes
+records, calculates valuation, calls AI, calls APIs, or changes Dashboard,
+Report, Decision Queue, or OFAI behavior.
+
 ## Source of Truth
 
 | Layer | Source of Truth |
@@ -170,6 +180,7 @@ explicit cost override metadata, and future custom fields.
 | Normalize | Standardized records |
 | Assets | Asset identity |
 | Asset Master | User-owned metadata augmentation |
+| Collection Sync | Runtime readiness integrity report |
 | Ledger | Transactions and lifecycle events |
 | Valuation | Valuation history |
 | Portfolio | Current holdings and aggregation |
@@ -186,6 +197,7 @@ explicit cost override metadata, and future custom fields.
 | Layer | Responsibility |
 | --- | --- |
 | Asset Master | Augment imported assets without replacing source identity |
+| Collection Sync | Compare imported records and Asset Master before runtime |
 | Business Logic | Calculate deterministic metrics and signals |
 | Analytics | Store derived snapshots |
 | Dashboard | Present analytics and service-backed display models |
