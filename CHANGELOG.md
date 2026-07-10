@@ -9,6 +9,9 @@ Commits.
 
 ### Added
 
+- Dashboard Collection Health Integration displaying RuntimeSession sync
+  status, collection health, difference summaries, and concise review details
+  without recalculating sync or mutating runtime data.
 - Runtime Session integration for Collection Sync, including automatic
   `SyncReport` generation, collection health propagation, and helper methods
   for future decision-priority wiring.

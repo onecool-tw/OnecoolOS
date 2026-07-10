@@ -36,6 +36,7 @@ def test_sections() -> None:
 
     assert tuple(section.section_id for section in dashboard.sections) == (
         "collection-summary",
+        "collection-health",
         "market-intelligence",
         "market-quality",
         "timeline-summary",
@@ -50,8 +51,8 @@ def test_empty_dashboard() -> None:
 
     assert dashboard.asset_id == "unknown"
     assert dashboard.sections[1].content["status"] == "empty"
-    assert dashboard.sections[3].content["status"] == "empty"
     assert dashboard.sections[4].content["status"] == "empty"
+    assert dashboard.sections[5].content["status"] == "empty"
 
 
 def test_warnings() -> None:

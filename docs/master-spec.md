@@ -220,6 +220,12 @@ for future decision-priority support. Dashboard, Daily Report, Decision Queue,
 and OFAI remain presentation-only consumers and do not display sync output
 until explicitly integrated.
 
+Dashboard Collection Health consumes RuntimeSession sync outputs. It displays
+runtime state, collection health score, difference summaries, and concise
+review details. It does not calculate health, rerun Collection Sync,
+auto-resolve differences, mutate runtime data, or treat integrity status as
+investment quality.
+
 Ledger records what happened. Transactions capture financial changes. Events
 capture lifecycle changes. Together, the ledger is the source of truth for
 asset history and will be consumed by valuation and portfolio engines over

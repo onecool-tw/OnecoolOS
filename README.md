@@ -215,6 +215,12 @@ methods. Dashboard, Daily Report, Decision Queue, and OFAI remain
 presentation-only and do not display sync status until their own integration
 sprints.
 
+Dashboard now displays RuntimeSession collection health as presentation-only
+integrity status. Collection Health shows runtime state, health score,
+matched counts, difference counts, and concise review details from the
+existing `SyncReport`. Dashboard does not calculate health, rerun sync,
+auto-resolve differences, or treat collection integrity as investment quality.
+
 ## Collectible Radar MVP
 
 Collectible Radar is the first product workflow built on Onecool OS. It starts

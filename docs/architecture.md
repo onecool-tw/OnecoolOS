@@ -178,6 +178,12 @@ resulting sync report, collection health, generated timestamp, and helper
 methods for future decision-priority support. Presentation layers remain
 unchanged until dedicated integration sprints.
 
+Dashboard Collection Health is the first presentation consumer of Runtime
+Session sync status. It reads existing `SyncReport` and RuntimeSession helper
+outputs only. It does not rerun sync, recalculate health, resolve
+differences, mutate records, or convert integrity status into investment
+quality.
+
 ## Source of Truth
 
 | Layer | Source of Truth |

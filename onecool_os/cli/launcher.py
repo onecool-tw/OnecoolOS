@@ -16,6 +16,8 @@ from typing import Any
 from onecool_os.connectors.collectibles import PSACollectionImporter
 from onecool_os.connectors.collectibles import PSAImportError
 from onecool_os.connectors.collectibles import PSAImportResult
+from onecool_os.dashboard import collection_health_lines
+from onecool_os.runtime import RuntimeSession
 from onecool_os.valuation.models import ValuationRecord
 from onecool_os.valuation.providers import ValuationProvider
 from onecool_os.valuation.providers import valuation_records_from_provider
@@ -61,6 +63,7 @@ class OnecoolLauncher:
         self._clock = clock or (lambda: datetime.now(UTC))
         self._cwd = Path(cwd)
         self._psa_import_result: PSAImportResult | None = None
+        self._runtime_session: RuntimeSession | None = None
         provider_records = (
             valuation_records_from_provider(
                 runtime_valuation_provider,
@@ -137,6 +140,10 @@ class OnecoolLauncher:
             return
 
         self._psa_import_result = result
+        self._runtime_session = RuntimeSession(
+            imported_records=result.records,
+            generated_at=result.audit.imported_at,
+        )
         self._runtime_valuation_records = _valuation_records_for_import(
             self._runtime_valuation_records,
             result,
@@ -154,6 +161,7 @@ class OnecoolLauncher:
         for line in collection_dashboard_lines(
             self._psa_import_result,
             self._runtime_valuation_records,
+            self._runtime_session,
         ):
             self._output(line)
 
@@ -257,6 +265,7 @@ def menu_lines() -> tuple[str, ...]:
 def collection_dashboard_lines(
     result: PSAImportResult,
     valuation_records: Sequence[ValuationRecord] | None = None,
+    runtime_session: RuntimeSession | None = None,
 ) -> tuple[str, ...]:
     """Return a display-only dashboard from in-memory import data."""
 
@@ -334,6 +343,7 @@ def collection_dashboard_lines(
             f"  Invalid: {result.summary.invalid_rows}",
         )
     )
+    lines.extend(collection_health_lines(runtime_session))
     return tuple(lines)
 
 

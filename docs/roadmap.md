@@ -158,6 +158,7 @@ Deferred:
 - Asset Master Foundation
 - Collection Sync Foundation
 - Collection Sync Runtime Integration
+- Dashboard Collection Health Integration
 
 ### v0.4 Transaction Layer
 
