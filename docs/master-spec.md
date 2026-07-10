@@ -213,6 +213,13 @@ differences, warnings, and collection health, and never mutates imports,
 automatically merges data, deletes records, calculates valuation, calls APIs,
 or calls AI.
 
+Runtime Session executes Collection Sync automatically after imported records
+and Asset Master records enter runtime. Runtime stores `sync_report`,
+`collection_health`, collection differences, generated time, and helper methods
+for future decision-priority support. Dashboard, Daily Report, Decision Queue,
+and OFAI remain presentation-only consumers and do not display sync output
+until explicitly integrated.
+
 Ledger records what happened. Transactions capture financial changes. Events
 capture lifecycle changes. Together, the ledger is the source of truth for
 asset history and will be consumed by valuation and portfolio engines over

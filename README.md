@@ -207,6 +207,14 @@ Collection Sync never modifies imported files, automatically merges data,
 deletes records, calculates valuation, calls APIs, calls AI, or changes
 Dashboard, Report, Decision Queue, or OFAI behavior.
 
+Runtime sessions now execute Collection Sync automatically when imported
+records and Asset Master records are loaded into the session. The runtime
+exposes `sync_report`, `collection_health`, `collection_differences()`,
+`has_sync_issues()`, `has_critical_sync_issues()`, and decision-priority helper
+methods. Dashboard, Daily Report, Decision Queue, and OFAI remain
+presentation-only and do not display sync status until their own integration
+sprints.
+
 ## Collectible Radar MVP
 
 Collectible Radar is the first product workflow built on Onecool OS. It starts

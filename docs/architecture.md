@@ -172,6 +172,12 @@ health. It never modifies imported files, automatically merges records, deletes
 records, calculates valuation, calls AI, calls APIs, or changes Dashboard,
 Report, Decision Queue, or OFAI behavior.
 
+Runtime Session executes Collection Sync automatically whenever imported
+records and Asset Master records are loaded into runtime. Runtime stores the
+resulting sync report, collection health, generated timestamp, and helper
+methods for future decision-priority support. Presentation layers remain
+unchanged until dedicated integration sprints.
+
 ## Source of Truth
 
 | Layer | Source of Truth |

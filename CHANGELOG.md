@@ -9,6 +9,9 @@ Commits.
 
 ### Added
 
+- Runtime Session integration for Collection Sync, including automatic
+  `SyncReport` generation, collection health propagation, and helper methods
+  for future decision-priority wiring.
 - Collection Sync foundation for deterministic PSA/BGS import versus Asset
   Master integrity reports, including differences, warnings, collection health,
   and non-mutating comparison.

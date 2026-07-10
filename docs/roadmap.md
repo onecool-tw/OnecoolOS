@@ -157,6 +157,7 @@ Deferred:
 - Inventory Foundation
 - Asset Master Foundation
 - Collection Sync Foundation
+- Collection Sync Runtime Integration
 
 ### v0.4 Transaction Layer
 
