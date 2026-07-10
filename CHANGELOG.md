@@ -9,6 +9,9 @@ Commits.
 
 ### Added
 
+- Asset Master Runtime Import for the Onecool Launcher, including XLSX-first /
+  CSV-fallback loading, safe import summaries, RuntimeSession enrichment, and
+  Collection Sync execution without mutating source files.
 - Dashboard Collection Health Integration displaying RuntimeSession sync
   status, collection health, difference summaries, and concise review details
   without recalculating sync or mutating runtime data.

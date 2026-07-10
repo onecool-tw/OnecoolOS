@@ -215,6 +215,14 @@ methods. Dashboard, Daily Report, Decision Queue, and OFAI remain
 presentation-only and do not display sync status until their own integration
 sprints.
 
+The Onecool Launcher automatically looks for local Asset Master files after a
+successful PSA/BGS import. It prefers
+`imports/asset_master/asset_master.xlsx` and falls back to
+`imports/asset_master/asset_master.csv`. If neither file exists, runtime
+continues with collection data only. If Asset Master loading fails, the
+successful collection import is preserved and the failure is summarized safely
+without printing private notes, raw rows, or full metadata.
+
 Dashboard now displays RuntimeSession collection health as presentation-only
 integrity status. Collection Health shows runtime state, health score,
 matched counts, difference counts, and concise review details from the

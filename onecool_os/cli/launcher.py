@@ -6,6 +6,7 @@ import csv
 import re
 from collections.abc import Callable
 from collections.abc import Sequence
+from dataclasses import dataclass
 from datetime import UTC
 from datetime import datetime
 from decimal import Decimal
@@ -13,6 +14,9 @@ from decimal import InvalidOperation
 from pathlib import Path
 from typing import Any
 
+from onecool_os.assets.master import AssetMasterError
+from onecool_os.assets.master import AssetMasterLoadResult
+from onecool_os.assets.master import AssetMasterLoader
 from onecool_os.connectors.collectibles import PSACollectionImporter
 from onecool_os.connectors.collectibles import PSAImportError
 from onecool_os.connectors.collectibles import PSAImportResult
@@ -24,6 +28,8 @@ from onecool_os.valuation.providers import valuation_records_from_provider
 
 ONECOOL_VERSION = "v0.4.0-beta"
 DEFAULT_PSA_COLLECTION_PATH = Path("imports/psa/collection.csv")
+DEFAULT_ASSET_MASTER_XLSX_PATH = Path("imports/asset_master/asset_master.xlsx")
+DEFAULT_ASSET_MASTER_CSV_PATH = Path("imports/asset_master/asset_master.csv")
 DEFAULT_BETA_DATA_PATH = Path("data/portfolio/sports_cards.json")
 MISSING_PSA_MESSAGE = (
     "PSA Collection file not found. Please place CSV at "
@@ -42,6 +48,19 @@ SKIPPED_WARNING_PREFIXES = (
     "Duplicate PSA cert number",
     "Unsupported grader",
 )
+
+
+@dataclass(frozen=True)
+class RuntimeAssetMasterStatus:
+    """Safe Asset Master runtime load status for CLI output."""
+
+    status: str
+    source_file: str | None = None
+    records_loaded: int = 0
+    warnings: tuple[str, ...] = ()
+    errors: tuple[str, ...] = ()
+    duplicate_cert_numbers: tuple[str, ...] = ()
+    message: str | None = None
 
 
 class OnecoolLauncher:
@@ -64,6 +83,7 @@ class OnecoolLauncher:
         self._cwd = Path(cwd)
         self._psa_import_result: PSAImportResult | None = None
         self._runtime_session: RuntimeSession | None = None
+        self._asset_master_status: RuntimeAssetMasterStatus | None = None
         provider_records = (
             valuation_records_from_provider(
                 runtime_valuation_provider,
@@ -140,16 +160,72 @@ class OnecoolLauncher:
             return
 
         self._psa_import_result = result
+        asset_master_status, asset_master_records = self._load_asset_master(
+            result.audit.imported_at,
+        )
+        self._asset_master_status = asset_master_status
         self._runtime_session = RuntimeSession(
             imported_records=result.records,
+            asset_master_records=asset_master_records,
             generated_at=result.audit.imported_at,
         )
         self._runtime_valuation_records = _valuation_records_for_import(
             self._runtime_valuation_records,
             result,
         )
+        for line in runtime_import_summary_lines(
+            result,
+            asset_master_status,
+            self._runtime_session,
+        ):
+            self._output(line)
         for line in psa_import_diagnostic_lines(psa_path, result):
             self._output(line)
+
+    def _load_asset_master(
+        self,
+        reference_datetime: datetime,
+    ) -> tuple[RuntimeAssetMasterStatus, tuple[Any, ...]]:
+        asset_master_path, path_message = _select_asset_master_path(self._cwd)
+        if asset_master_path is None:
+            return (
+                RuntimeAssetMasterStatus(
+                    status="Not Found",
+                    message=(
+                        "Asset Master not found. Runtime will continue with "
+                        "collection data only."
+                    ),
+                ),
+                (),
+            )
+        try:
+            result = AssetMasterLoader().load(
+                asset_master_path,
+                reference_datetime=reference_datetime,
+            )
+        except AssetMasterError as exc:
+            return (
+                RuntimeAssetMasterStatus(
+                    status="Failed",
+                    source_file=str(asset_master_path),
+                    errors=(str(exc),),
+                ),
+                (),
+            )
+        warnings = tuple(result.warnings)
+        if path_message:
+            warnings = (path_message,) + warnings
+        return (
+            RuntimeAssetMasterStatus(
+                status="Loaded",
+                source_file=result.source_file,
+                records_loaded=len(result.records),
+                warnings=warnings,
+                errors=tuple(result.errors),
+                duplicate_cert_numbers=result.duplicate_cert_numbers,
+            ),
+            result.records,
+        )
 
     def show_dashboard(self) -> None:
         """Display the in-memory collection dashboard."""
@@ -344,6 +420,62 @@ def collection_dashboard_lines(
         )
     )
     lines.extend(collection_health_lines(runtime_session))
+    return tuple(lines)
+
+
+def runtime_import_summary_lines(
+    result: PSAImportResult,
+    asset_master_status: RuntimeAssetMasterStatus,
+    runtime_session: RuntimeSession,
+) -> tuple[str, ...]:
+    """Return safe runtime import summary lines."""
+
+    lines = [
+        "Collection Import",
+        "-----------------",
+        f"Imported Cards: {result.summary.imported_rows}",
+        f"Skipped: {result.summary.skipped_rows}",
+        f"Warnings: {len(result.summary.warnings)}",
+        f"Invalid: {result.summary.invalid_rows}",
+        "",
+        "Asset Master",
+        "------------",
+        f"Status: {asset_master_status.status}",
+        f"Source File: {asset_master_status.source_file or 'None'}",
+        f"Records Loaded: {asset_master_status.records_loaded}",
+        f"Warnings: {len(asset_master_status.warnings)}",
+        f"Errors: {len(asset_master_status.errors)}",
+        (
+            "Duplicate Cert Numbers: "
+            f"{len(asset_master_status.duplicate_cert_numbers)}"
+        ),
+    ]
+    if asset_master_status.message:
+        lines.append(asset_master_status.message)
+    if asset_master_status.warnings:
+        lines.append("Asset Master Warning Details:")
+        lines.extend(
+            f"  {_safe_runtime_detail(warning)}"
+            for warning in asset_master_status.warnings
+        )
+    if asset_master_status.errors:
+        lines.append("Asset Master Error Details:")
+        lines.extend(
+            f"  {_safe_runtime_detail(error)}"
+            for error in asset_master_status.errors
+        )
+    lines.extend(
+        (
+            "",
+            "Runtime",
+            "-------",
+            f"Enriched Assets: {len(runtime_session.enriched_runtime_assets)}",
+            f"Matched Records: {runtime_session.sync_report.matched_records}",
+            f"Collection Health: {runtime_session.collection_health}",
+            f"Total Differences: {len(runtime_session.collection_differences())}",
+            f"Critical Issues: {len(runtime_session.critical_sync_issues())}",
+        )
+    )
     return tuple(lines)
 
 
@@ -665,6 +797,33 @@ def _count_lines(
     if not counts:
         return ["  None: 0"]
     return [f"  {key}: {counts[key]}" for key in sorted(counts)]
+
+
+def _select_asset_master_path(
+    cwd: Path,
+) -> tuple[Path | None, str | None]:
+    xlsx_path = cwd / DEFAULT_ASSET_MASTER_XLSX_PATH
+    csv_path = cwd / DEFAULT_ASSET_MASTER_CSV_PATH
+    if xlsx_path.exists():
+        message = None
+        if csv_path.exists():
+            message = "Both Asset Master XLSX and CSV found; using XLSX."
+        return xlsx_path, message
+    if csv_path.exists():
+        return csv_path, None
+    return None, None
+
+
+def _safe_runtime_detail(value: str) -> str:
+    text = _safe_value(value)
+    for marker in ("notes", "metadata", "raw"):
+        text = re.sub(
+            rf"{marker}[^,;]*",
+            f"{marker}: [hidden]",
+            text,
+            flags=re.IGNORECASE,
+        )
+    return text
 
 
 def _players_lines(records: tuple[dict[str, Any], ...]) -> list[str]:

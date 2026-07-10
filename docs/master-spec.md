@@ -220,6 +220,12 @@ for future decision-priority support. Dashboard, Daily Report, Decision Queue,
 and OFAI remain presentation-only consumers and do not display sync output
 until explicitly integrated.
 
+The CLI runtime imports Asset Master automatically after successful PSA/BGS
+collection import. XLSX is preferred over CSV. Missing Asset Master files keep
+runtime in collection-only mode, and Asset Master load failures do not
+invalidate successful collection import. RuntimeSession remains the only
+runtime source consumed by presentation layers.
+
 Dashboard Collection Health consumes RuntimeSession sync outputs. It displays
 runtime state, collection health score, difference summaries, and concise
 review details. It does not calculate health, rerun Collection Sync,
