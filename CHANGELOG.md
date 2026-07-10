@@ -9,6 +9,9 @@ Commits.
 
 ### Added
 
+- Runtime valuation session support for the Onecool Launcher using existing
+  `ValuationRecord` objects, with Dashboard, Daily Report, Decision Queue, and
+  OFAI Context consuming market values when available.
 - Runtime OFAI context for the Onecool Launcher using in-memory PSA/BGS import
   session data as deterministic context only, with no AI calls,
   recommendations, predictions, or source mutation.

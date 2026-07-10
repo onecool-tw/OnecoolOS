@@ -5,6 +5,7 @@ from __future__ import annotations
 import csv
 import re
 from collections.abc import Callable
+from collections.abc import Sequence
 from datetime import UTC
 from datetime import datetime
 from decimal import Decimal
@@ -15,6 +16,7 @@ from typing import Any
 from onecool_os.connectors.collectibles import PSACollectionImporter
 from onecool_os.connectors.collectibles import PSAImportError
 from onecool_os.connectors.collectibles import PSAImportResult
+from onecool_os.valuation.models import ValuationRecord
 
 ONECOOL_VERSION = "v0.4.0-beta"
 DEFAULT_PSA_COLLECTION_PATH = Path("imports/psa/collection.csv")
@@ -47,6 +49,7 @@ class OnecoolLauncher:
         input_func: Callable[[str], str] = input,
         output_func: Callable[[str], None] = print,
         clock: Callable[[], datetime] | None = None,
+        runtime_valuation_records: Sequence[ValuationRecord] | None = None,
         cwd: Path | str = ".",
     ) -> None:
         self._input = input_func
@@ -54,6 +57,7 @@ class OnecoolLauncher:
         self._clock = clock or (lambda: datetime.now(UTC))
         self._cwd = Path(cwd)
         self._psa_import_result: PSAImportResult | None = None
+        self._runtime_valuation_records = tuple(runtime_valuation_records or ())
 
     def run(self) -> int:
         """Run the interactive launcher loop."""
@@ -119,6 +123,10 @@ class OnecoolLauncher:
             return
 
         self._psa_import_result = result
+        self._runtime_valuation_records = _valuation_records_for_import(
+            self._runtime_valuation_records,
+            result,
+        )
         for line in psa_import_diagnostic_lines(psa_path, result):
             self._output(line)
 
@@ -129,7 +137,10 @@ class OnecoolLauncher:
             for line in MISSING_COLLECTION_MESSAGE.splitlines():
                 self._output(line)
             return
-        for line in collection_dashboard_lines(self._psa_import_result):
+        for line in collection_dashboard_lines(
+            self._psa_import_result,
+            self._runtime_valuation_records,
+        ):
             self._output(line)
 
     def show_daily_report(self) -> None:
@@ -139,7 +150,10 @@ class OnecoolLauncher:
             for line in MISSING_COLLECTION_MESSAGE.splitlines():
                 self._output(line)
             return
-        for line in daily_report_lines(self._psa_import_result):
+        for line in daily_report_lines(
+            self._psa_import_result,
+            self._runtime_valuation_records,
+        ):
             self._output(line)
 
     def show_decision_queue(self) -> None:
@@ -149,7 +163,10 @@ class OnecoolLauncher:
             for line in MISSING_COLLECTION_MESSAGE.splitlines():
                 self._output(line)
             return
-        for line in decision_queue_lines(self._psa_import_result):
+        for line in decision_queue_lines(
+            self._psa_import_result,
+            self._runtime_valuation_records,
+        ):
             self._output(line)
 
     def show_ofai_context(self) -> None:
@@ -159,8 +176,24 @@ class OnecoolLauncher:
             for line in MISSING_COLLECTION_MESSAGE.splitlines():
                 self._output(line)
             return
-        for line in ofai_context_lines(self._psa_import_result):
+        for line in ofai_context_lines(
+            self._psa_import_result,
+            self._runtime_valuation_records,
+        ):
             self._output(line)
+
+    def attach_runtime_valuations(
+        self,
+        valuation_records: Sequence[ValuationRecord],
+    ) -> None:
+        """Attach runtime valuation records to this launcher session."""
+
+        self._runtime_valuation_records = tuple(valuation_records)
+        if self._psa_import_result is not None:
+            self._runtime_valuation_records = _valuation_records_for_import(
+                self._runtime_valuation_records,
+                self._psa_import_result,
+            )
 
     def show_beta_placeholder(self, choice: str) -> None:
         """Handle placeholder report/dashboard options."""
@@ -196,14 +229,23 @@ def menu_lines() -> tuple[str, ...]:
     )
 
 
-def collection_dashboard_lines(result: PSAImportResult) -> tuple[str, ...]:
+def collection_dashboard_lines(
+    result: PSAImportResult,
+    valuation_records: Sequence[ValuationRecord] | None = None,
+) -> tuple[str, ...]:
     """Return a display-only dashboard from in-memory import data."""
 
     records = tuple(result.records)
+    valuation_lookup = _valuation_lookup(valuation_records)
     cost_by_currency = _sum_by_currency(records, "cost", "currency")
-    market_by_currency = _sum_market_values_by_currency(records)
+    market_by_currency = _sum_market_values_by_currency(
+        records,
+        valuation_lookup,
+    )
     missing_market_values = sum(
-        1 for record in records if _market_value(record) is None
+        1
+        for record in records
+        if _market_value(record, valuation_lookup) is None
     )
     missing_cost_basis = sum(
         1 for record in records if _decimal_value(record.get("cost")) is None
@@ -212,7 +254,7 @@ def collection_dashboard_lines(result: PSAImportResult) -> tuple[str, ...]:
         1
         for record in records
         if _decimal_value(record.get("cost")) is not None
-        and _market_value(record) is not None
+        and _market_value(record, valuation_lookup) is not None
     )
     lines = [
         "=====================================",
@@ -270,14 +312,23 @@ def collection_dashboard_lines(result: PSAImportResult) -> tuple[str, ...]:
     return tuple(lines)
 
 
-def daily_report_lines(result: PSAImportResult) -> tuple[str, ...]:
+def daily_report_lines(
+    result: PSAImportResult,
+    valuation_records: Sequence[ValuationRecord] | None = None,
+) -> tuple[str, ...]:
     """Return a presentation-only daily report from imported session data."""
 
     records = tuple(result.records)
+    valuation_lookup = _valuation_lookup(valuation_records)
     cost_by_currency = _sum_by_currency(records, "cost", "currency")
-    market_by_currency = _sum_market_values_by_currency(records)
+    market_by_currency = _sum_market_values_by_currency(
+        records,
+        valuation_lookup,
+    )
     missing_market_values = sum(
-        1 for record in records if _market_value(record) is None
+        1
+        for record in records
+        if _market_value(record, valuation_lookup) is None
     )
     missing_cost_basis = sum(
         1 for record in records if _decimal_value(record.get("cost")) is None
@@ -286,7 +337,7 @@ def daily_report_lines(result: PSAImportResult) -> tuple[str, ...]:
         1
         for record in records
         if _decimal_value(record.get("cost")) is not None
-        and _market_value(record) is not None
+        and _market_value(record, valuation_lookup) is not None
     )
     warnings = tuple(result.summary.warnings)
     lines = [
@@ -347,13 +398,19 @@ def daily_report_lines(result: PSAImportResult) -> tuple[str, ...]:
     return tuple(lines)
 
 
-def decision_queue_lines(result: PSAImportResult) -> tuple[str, ...]:
+def decision_queue_lines(
+    result: PSAImportResult,
+    valuation_records: Sequence[ValuationRecord] | None = None,
+) -> tuple[str, ...]:
     """Return a presentation-only review queue from imported session data."""
 
     records = tuple(result.records)
+    valuation_lookup = _valuation_lookup(valuation_records)
     warnings = tuple(result.summary.warnings)
     missing_market_values = sum(
-        1 for record in records if _market_value(record) is None
+        1
+        for record in records
+        if _market_value(record, valuation_lookup) is None
     )
     missing_cost_basis = sum(
         1 for record in records if _decimal_value(record.get("cost")) is None
@@ -362,7 +419,7 @@ def decision_queue_lines(result: PSAImportResult) -> tuple[str, ...]:
         1
         for record in records
         if _decimal_value(record.get("cost")) is not None
-        and _market_value(record) is not None
+        and _market_value(record, valuation_lookup) is not None
     )
     missing_holding_date = sum(
         1 for record in records if not _safe_value(record.get("purchase_date"))
@@ -426,14 +483,23 @@ def decision_queue_lines(result: PSAImportResult) -> tuple[str, ...]:
     return tuple(lines)
 
 
-def ofai_context_lines(result: PSAImportResult) -> tuple[str, ...]:
+def ofai_context_lines(
+    result: PSAImportResult,
+    valuation_records: Sequence[ValuationRecord] | None = None,
+) -> tuple[str, ...]:
     """Return deterministic OFAI context from imported session data."""
 
     records = tuple(result.records)
+    valuation_lookup = _valuation_lookup(valuation_records)
     cost_by_currency = _sum_by_currency(records, "cost", "currency")
-    market_by_currency = _sum_market_values_by_currency(records)
+    market_by_currency = _sum_market_values_by_currency(
+        records,
+        valuation_lookup,
+    )
     missing_market_values = sum(
-        1 for record in records if _market_value(record) is None
+        1
+        for record in records
+        if _market_value(record, valuation_lookup) is None
     )
     missing_cost_basis = sum(
         1 for record in records if _decimal_value(record.get("cost")) is None
@@ -442,9 +508,18 @@ def ofai_context_lines(result: PSAImportResult) -> tuple[str, ...]:
         1
         for record in records
         if _decimal_value(record.get("cost")) is not None
-        and _market_value(record) is not None
+        and _market_value(record, valuation_lookup) is not None
     )
-    queue_counts = _decision_priority_counts(decision_queue_lines(result))
+    valuation_count = len(
+        {
+            _safe_value(record.get("asset_id"))
+            for record in records
+            if _market_value(record, valuation_lookup) is not None
+        }
+    )
+    queue_counts = _decision_priority_counts(
+        decision_queue_lines(result, valuation_records)
+    )
     lines = [
         "=====================================",
         "Onecool OFAI Context",
@@ -483,6 +558,7 @@ def ofai_context_lines(result: PSAImportResult) -> tuple[str, ...]:
             "------------------",
             f"Cards with Performance Data: {performance_count}",
             f"Cards Missing Performance Data: {len(records) - performance_count}",
+            f"Valuation Coverage: {valuation_count}/{len(records)}",
             "",
             "Review Priorities",
             "-----------------",
@@ -601,12 +677,17 @@ def _sum_by_currency(
 
 def _sum_market_values_by_currency(
     records: tuple[dict[str, Any], ...],
+    valuation_lookup: dict[str, ValuationRecord] | None = None,
 ) -> dict[str, Decimal]:
     totals: dict[str, Decimal] = {}
     for record in records:
-        value = _market_value(record)
-        currency = _safe_value(record.get("market_currency")) or _safe_value(
-            record.get("currency")
+        valuation = _valuation_for_record(record, valuation_lookup)
+        value = _market_value(record, valuation_lookup)
+        currency = (
+            valuation.currency
+            if valuation is not None
+            else _safe_value(record.get("market_currency"))
+            or _safe_value(record.get("currency"))
         )
         if value is None or not currency:
             continue
@@ -614,7 +695,13 @@ def _sum_market_values_by_currency(
     return totals
 
 
-def _market_value(record: dict[str, Any]) -> Decimal | None:
+def _market_value(
+    record: dict[str, Any],
+    valuation_lookup: dict[str, ValuationRecord] | None = None,
+) -> Decimal | None:
+    valuation = _valuation_for_record(record, valuation_lookup)
+    if valuation is not None:
+        return _valuation_amount(valuation)
     for field_name in (
         "estimated_market_value",
         "market_value",
@@ -624,6 +711,52 @@ def _market_value(record: dict[str, Any]) -> Decimal | None:
         if value is not None:
             return value
     return None
+
+
+def _valuation_lookup(
+    valuation_records: Sequence[ValuationRecord] | None,
+) -> dict[str, ValuationRecord]:
+    lookup: dict[str, ValuationRecord] = {}
+    for valuation in valuation_records or ():
+        if not isinstance(valuation, ValuationRecord):
+            continue
+        current = lookup.get(valuation.asset_id)
+        if current is None or valuation.valuation_date > current.valuation_date:
+            lookup[valuation.asset_id] = valuation
+    return lookup
+
+
+def _valuation_for_record(
+    record: dict[str, Any],
+    valuation_lookup: dict[str, ValuationRecord] | None,
+) -> ValuationRecord | None:
+    if not valuation_lookup:
+        return None
+    asset_id = _safe_value(record.get("asset_id"))
+    if not asset_id:
+        return None
+    return valuation_lookup.get(asset_id)
+
+
+def _valuation_amount(valuation: ValuationRecord) -> Decimal | None:
+    return valuation.market_value or valuation.estimated_value
+
+
+def _valuation_records_for_import(
+    valuation_records: Sequence[ValuationRecord],
+    result: PSAImportResult,
+) -> tuple[ValuationRecord, ...]:
+    imported_asset_ids = {
+        _safe_value(record.get("asset_id"))
+        for record in result.records
+        if _safe_value(record.get("asset_id"))
+    }
+    return tuple(
+        valuation
+        for valuation in valuation_records
+        if isinstance(valuation, ValuationRecord)
+        and valuation.asset_id in imported_asset_ids
+    )
 
 
 def _decimal_value(value: Any) -> Decimal | None:

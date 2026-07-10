@@ -144,7 +144,10 @@ counts without recommendation language. OFAI Context displays deterministic
 runtime context from the same session, including collection overview, import
 status, portfolio status, performance status, review priorities, current
 warnings, and explicit `Not generated. Context only.` AI recommendation
-status.
+status. Runtime valuation records can be attached to the launcher session as
+existing `ValuationRecord` objects. Dashboard, Daily Report, Decision Queue,
+and OFAI Context consume those valuation records when available without
+re-importing files, calling APIs, converting FX, or mutating imported records.
 After import, the launcher prints a safe diagnostic report with total rows,
 imported cards, skipped rows, warning count, skipped row details, and warning
 details. Diagnostic details include only row number, item/title, cert number,
