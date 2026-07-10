@@ -17,6 +17,8 @@ from onecool_os.connectors.collectibles import PSACollectionImporter
 from onecool_os.connectors.collectibles import PSAImportError
 from onecool_os.connectors.collectibles import PSAImportResult
 from onecool_os.valuation.models import ValuationRecord
+from onecool_os.valuation.providers import ValuationProvider
+from onecool_os.valuation.providers import valuation_records_from_provider
 
 ONECOOL_VERSION = "v0.4.0-beta"
 DEFAULT_PSA_COLLECTION_PATH = Path("imports/psa/collection.csv")
@@ -50,6 +52,8 @@ class OnecoolLauncher:
         output_func: Callable[[str], None] = print,
         clock: Callable[[], datetime] | None = None,
         runtime_valuation_records: Sequence[ValuationRecord] | None = None,
+        runtime_valuation_provider: ValuationProvider | None = None,
+        runtime_valuation_query: dict[str, Any] | None = None,
         cwd: Path | str = ".",
     ) -> None:
         self._input = input_func
@@ -57,7 +61,17 @@ class OnecoolLauncher:
         self._clock = clock or (lambda: datetime.now(UTC))
         self._cwd = Path(cwd)
         self._psa_import_result: PSAImportResult | None = None
-        self._runtime_valuation_records = tuple(runtime_valuation_records or ())
+        provider_records = (
+            valuation_records_from_provider(
+                runtime_valuation_provider,
+                runtime_valuation_query,
+            )
+            if runtime_valuation_provider is not None
+            else ()
+        )
+        self._runtime_valuation_records = tuple(
+            runtime_valuation_records or ()
+        ) + tuple(provider_records)
 
     def run(self) -> int:
         """Run the interactive launcher loop."""
@@ -194,6 +208,17 @@ class OnecoolLauncher:
                 self._runtime_valuation_records,
                 self._psa_import_result,
             )
+
+    def attach_runtime_valuation_provider(
+        self,
+        provider: ValuationProvider,
+        query: dict[str, Any] | None = None,
+    ) -> None:
+        """Attach runtime valuation records from a provider."""
+
+        self.attach_runtime_valuations(
+            valuation_records_from_provider(provider, query)
+        )
 
     def show_beta_placeholder(self, choice: str) -> None:
         """Handle placeholder report/dashboard options."""

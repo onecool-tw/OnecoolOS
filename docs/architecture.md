@@ -333,6 +333,14 @@ metadata for source role, external ID, raw market record ID, and raw payload.
 It does not choose final market value, calculate confidence, resolve source
 agreement, or mutate raw imports.
 
+Runtime valuation providers sit at the Valuation boundary. They abstract future
+authorized sources such as Gemini Research Agent, ChatGPT Research Agent,
+official eBay APIs, or manual runtime input into existing `ValuationRecord`
+objects. Providers may search, normalize, validate, and expose metadata. They
+must not select final valuation, mutate imports or valuation history, perform
+unauthorized scraping, or change Dashboard, Performance, Importer, or Business
+Logic behavior.
+
 Source Agreement sits after valuation records and before Market Intelligence.
 It compares eBay Sold Primary Market Price records with Card Ladder, Manual,
 PWCC, Goldin, and Fanatics Validation Sources. It produces deterministic

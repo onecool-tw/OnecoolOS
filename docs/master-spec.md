@@ -405,6 +405,14 @@ Collectible valuation mapping records eBay Sold observations as Primary Market
 Price inputs and Card Ladder, PWCC, Goldin, Fanatics Collect, and Manual
 observations as independent Validation Source inputs.
 
+Runtime valuation providers sit before `ValuationRecord` creation. Providers
+own source search, normalization, validation, and non-secret metadata, but they
+do not choose final value, mutate imported records, call unauthorized services,
+or change Dashboard, Performance, Importer, or Business Logic behavior. The
+first provider architecture includes placeholders for Gemini Research Agent,
+ChatGPT Research Agent, and Manual runtime valuation so future authorized
+providers can plug into the same `ValuationRecord` contract.
+
 Source Agreement evaluates whether Primary Market Price records and Validation
 Source records are close, divergent, missing, or conflicting. It produces
 `SourceAgreementResult` with deterministic score, level, spread, source count,

@@ -9,6 +9,9 @@ Commits.
 
 ### Added
 
+- Live valuation provider architecture with an abstract provider interface,
+  deterministic provider registry, and no-network placeholders for Gemini,
+  ChatGPT, and Manual runtime valuation sources.
 - Runtime valuation session support for the Onecool Launcher using existing
   `ValuationRecord` objects, with Dashboard, Daily Report, Decision Queue, and
   OFAI Context consuming market values when available.

@@ -148,6 +148,11 @@ status. Runtime valuation records can be attached to the launcher session as
 existing `ValuationRecord` objects. Dashboard, Daily Report, Decision Queue,
 and OFAI Context consume those valuation records when available without
 re-importing files, calling APIs, converting FX, or mutating imported records.
+The runtime valuation provider architecture lets future authorized providers
+normalize observations into the same `ValuationRecord` contract. Placeholder
+providers exist for Gemini Research Agent, ChatGPT Research Agent, and Manual
+runtime valuation, but they intentionally perform no network calls, API calls,
+scraping, credential handling, or valuation selection.
 After import, the launcher prints a safe diagnostic report with total rows,
 imported cards, skipped rows, warning count, skipped row details, and warning
 details. Diagnostic details include only row number, item/title, cert number,

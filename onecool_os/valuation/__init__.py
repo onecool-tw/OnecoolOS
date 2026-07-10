@@ -23,6 +23,12 @@ from onecool_os.valuation.manual_import import ManualValuationImportRecord
 from onecool_os.valuation.manual_import import ManualValuationImportResult
 from onecool_os.valuation.manual_import import ManualValuationImporter
 from onecool_os.valuation.models import ValuationRecord
+from onecool_os.valuation.providers import ChatGPTValuationProvider
+from onecool_os.valuation.providers import GeminiValuationProvider
+from onecool_os.valuation.providers import ManualValuationProvider
+from onecool_os.valuation.providers import ValuationProvider
+from onecool_os.valuation.providers import ValuationProviderRegistry
+from onecool_os.valuation.providers import valuation_records_from_provider
 from onecool_os.valuation.source_agreement import (
     AgreementLevel as SourceAgreementLevel,
 )
@@ -40,10 +46,13 @@ __all__ = [
     "CollectibleMarketIntelligenceBuilder",
     "CollectibleValuationMapper",
     "CollectibleValuationMapping",
+    "ChatGPTValuationProvider",
     "ConfidenceLevel",
     "FreshnessLevel",
+    "GeminiValuationProvider",
     "LiquidityLevel",
     "ImportSummary",
+    "ManualValuationProvider",
     "ManualValuationImportError",
     "ManualValuationImportRecord",
     "ManualValuationImportResult",
@@ -53,7 +62,10 @@ __all__ = [
     "ValuationImportResult",
     "ValuationLoader",
     "ValuationLoaderError",
+    "ValuationProvider",
+    "ValuationProviderRegistry",
     "ValuationRecord",
     "ValuationSource",
     "source_priority_for_asset",
+    "valuation_records_from_provider",
 ]
