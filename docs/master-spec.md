@@ -197,6 +197,16 @@ state. Normalized user portfolio data belongs in `data/portfolio/`.
 Assets describe what the user owns. They preserve identity, category,
 metadata, and ownership-specific fields for each asset class.
 
+Asset Master is a user-owned metadata layer that augments imported assets
+without replacing source identity. For sports cards, PSA/BGS Collection import
+remains authoritative for collectible identity. Asset Master may add durable
+metadata such as eBay Sold search URL, PSA official URL, REF score, watch
+status, target price, notes, optional cost override, and custom metadata. Asset
+Master joins primarily by cert number and must not overwrite year, set, card
+number, player, grade issuer, grade, variety, or cert number. eBay Sold search
+URLs are research entry points only; they are not valuation records by
+themselves.
+
 Ledger records what happened. Transactions capture financial changes. Events
 capture lifecycle changes. Together, the ledger is the source of truth for
 asset history and will be consumed by valuation and portfolio engines over
@@ -240,6 +250,7 @@ data.
 | Connector | Raw external input |
 | Normalize | Standardized records |
 | Assets | Asset identity |
+| Asset Master | User-owned metadata augmentation |
 | Ledger | Transactions and lifecycle events |
 | Valuation | Valuation history |
 | Portfolio | Current holdings and aggregation |

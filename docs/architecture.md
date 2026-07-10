@@ -152,6 +152,16 @@ The PSA Collection gap analysis is documented in
 should remain an ingestion layer and that future PSA fields should flow into
 Assets, Inventory, Ledger, and Valuation through explicit contracts.
 
+## Asset Master
+
+Asset Master sits beside imported asset records as durable user-maintained
+metadata. It does not call APIs, scrape websites, create valuation records, or
+change Dashboard or Performance behavior. It joins imported PSA/BGS records by
+cert number and returns enriched runtime assets without mutating imported
+records. Imported collection identity remains authoritative, while Asset
+Master may add research URLs, watch status, REF score, target price, notes,
+explicit cost override metadata, and future custom fields.
+
 ## Source of Truth
 
 | Layer | Source of Truth |
@@ -159,6 +169,7 @@ Assets, Inventory, Ledger, and Valuation through explicit contracts.
 | Connector | Raw external input |
 | Normalize | Standardized records |
 | Assets | Asset identity |
+| Asset Master | User-owned metadata augmentation |
 | Ledger | Transactions and lifecycle events |
 | Valuation | Valuation history |
 | Portfolio | Current holdings and aggregation |
@@ -174,6 +185,7 @@ Assets, Inventory, Ledger, and Valuation through explicit contracts.
 
 | Layer | Responsibility |
 | --- | --- |
+| Asset Master | Augment imported assets without replacing source identity |
 | Business Logic | Calculate deterministic metrics and signals |
 | Analytics | Store derived snapshots |
 | Dashboard | Present analytics and service-backed display models |

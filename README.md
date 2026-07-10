@@ -167,6 +167,30 @@ imports/psa/collection.csv
 Local import files belong under `imports/` and remain ignored by Git. Private
 collection data must not be committed.
 
+## Asset Master
+
+Asset Master is the permanent, user-owned metadata layer for Onecool OS. It
+augments imported PSA/BGS collection records with durable metadata such as eBay
+Sold search URLs, PSA official URLs, REF score, watch status, target price,
+notes, optional cost override, and future custom metadata.
+
+PSA/BGS Collection import remains the authority for collectible identity.
+Asset Master joins by cert number and must not overwrite identity fields such
+as year, set, card number, player, grade issuer, grade, variety, or cert
+number. Optional cost override is preserved as an explicit override payload
+and does not silently replace imported cost.
+
+Recommended local files:
+
+```text
+imports/asset_master/asset_master.xlsx
+imports/asset_master/asset_master.csv
+```
+
+These files are private user data and remain ignored by Git under the existing
+`imports/` rules. eBay Sold search URLs are durable research entry points, not
+valuation evidence by themselves.
+
 ## Collectible Radar MVP
 
 Collectible Radar is the first product workflow built on Onecool OS. It starts

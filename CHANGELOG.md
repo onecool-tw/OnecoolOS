@@ -9,6 +9,9 @@ Commits.
 
 ### Added
 
+- Asset Master foundation for user-owned collectible metadata, including CSV /
+  XLSX loading, validation, duplicate detection, and deterministic non-mutating
+  merge by cert number.
 - Live valuation provider architecture with an abstract provider interface,
   deterministic provider registry, and no-network placeholders for Gemini,
   ChatGPT, and Manual runtime valuation sources.

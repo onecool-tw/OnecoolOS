@@ -13,6 +13,8 @@ assets, knowledge, decisions, and automation.
 - Reusable modules
 - Asset-agnostic design
 - Connector -> Normalize -> Asset -> Ledger -> Valuation -> Portfolio pipeline
+- User-owned Asset Master metadata augments imported assets without replacing
+  source identity
 - Test-first development
 - Backward compatibility
 
@@ -152,6 +154,7 @@ Deferred:
 - Connector Layer
 - Normalize Layer
 - Inventory Foundation
+- Asset Master Foundation
 
 ### v0.4 Transaction Layer
 
