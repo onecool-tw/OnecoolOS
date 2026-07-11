@@ -159,16 +159,18 @@ metadata. It does not call APIs, scrape websites, create valuation records, or
 change Dashboard or Performance behavior. It joins imported PSA/BGS records by
 cert number and returns enriched runtime assets without mutating imported
 records. Imported collection identity remains authoritative, while Asset
-Master may add research URLs, watch status, REF score, target price, notes,
-explicit cost override metadata, and future custom fields.
+Master may add research URLs, watch status, target price, notes, explicit cost
+override metadata, and future custom fields.
 
 Asset Master Builder is a local file builder for the user's private workbook.
 It consumes the latest PSA/BGS Collection CSV as identity authority and updates
-the existing workbook while preserving formulas, hyperlinks, formatting,
-worksheet structure, REF values, and operation notes. It appends missing cards,
-creates a `Sync Report` worksheet, validates unique card counts, and writes
-through a temporary workbook before replacing the private output. It is not a
-valuation, sync-resolution, API, scraping, or recommendation layer.
+the existing workbook while preserving remaining formatting, worksheet
+structure, native hyperlinks, and permanent metadata. It removes runtime
+analytics columns such as current market value, gain/loss, ROI, annualized
+return, REF, and recommendation fields. It appends missing cards, creates a
+`Sync Report` worksheet, validates unique card counts, and writes through a
+temporary workbook before replacing the private output. It is not a valuation,
+sync-resolution, API, scraping, analytics, or recommendation layer.
 
 ## Collection Sync
 

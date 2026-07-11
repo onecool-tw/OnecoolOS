@@ -171,8 +171,8 @@ collection data must not be committed.
 
 Asset Master is the permanent, user-owned metadata layer for Onecool OS. It
 augments imported PSA/BGS collection records with durable metadata such as eBay
-Sold search URLs, PSA official URLs, REF score, watch status, target price,
-notes, optional cost override, and future custom metadata.
+Sold search URLs, PSA/BGS official URLs, watch status, target price, notes,
+optional cost override, and future custom metadata.
 
 PSA/BGS Collection import remains the authority for collectible identity.
 Asset Master joins by cert number and must not overwrite identity fields such
@@ -192,13 +192,16 @@ These files are private user data and remain ignored by Git under the existing
 valuation evidence by themselves.
 
 Asset Master Builder updates the existing local workbook from the latest
-PSA/BGS Collection CSV. It preserves workbook formulas, hyperlinks,
-formatting, widths, heights, REF values, and operation notes while using the
-CSV as the authority for card identity. Missing cards are appended
-deterministically with eBay Sold search and PSA cert formulas where applicable.
-The builder writes to a temporary output first, validates card counts, then
-saves `imports/asset_master/asset_master.xlsx`; it never overwrites the source
-workbook or commits private files.
+PSA/BGS Collection CSV. It preserves remaining formatting, widths, heights,
+native hyperlinks, and permanent metadata while using the CSV as the authority
+for card identity. Missing cards are appended deterministically with native
+eBay Sold search and PSA cert hyperlinks where applicable. The builder removes
+runtime analytics columns such as current market value, gain/loss, ROI,
+annualized return, REF, and recommendation fields before saving. Runtime
+valuation, Performance, Dashboard, Decision Queue, and OFAI own those computed
+metrics and recommendations. The builder writes to a temporary output first,
+validates card counts, then saves `imports/asset_master/asset_master.xlsx`; it
+never overwrites the source workbook or commits private files.
 
 ## Collection Sync
 

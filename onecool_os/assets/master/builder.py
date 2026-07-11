@@ -50,6 +50,22 @@ IDENTITY_FIELDS = (
     "Date Acquired",
 )
 GENERATED_LINK_FIELDS = ("eBay Sold Search URL", "PSA URL")
+RUNTIME_ANALYTICS_COLUMNS = frozenset(
+    {
+        "即時價格",
+        "Current Market Value",
+        "Market Value",
+        "Gain/Loss",
+        "ROI",
+        "年化報酬率",
+        "Annualized Return",
+        "REF",
+        "操作建議",
+        "Investment Recommendation",
+        "Recommendation",
+        "Buy/Hold/Sell",
+    }
+)
 HEADER_ALIASES = {
     "item": "Item",
     "品項": "Item",
@@ -172,6 +188,7 @@ class AssetMasterBuilder:
 
         try:
             sheet = workbook.worksheets[0]
+            _remove_runtime_analytics_columns(sheet)
             header_map = _ensure_headers(sheet)
             existing_rows = _existing_card_rows(sheet, header_map)
             original_valid_count = len(existing_rows)
@@ -278,6 +295,18 @@ def _ensure_headers(sheet: Worksheet) -> dict[str, int]:
             header_map[header] = next_column
             next_column += 1
     return header_map
+
+
+def _remove_runtime_analytics_columns(sheet: Worksheet) -> None:
+    analytics_headers = {_normalize_header(header) for header in RUNTIME_ANALYTICS_COLUMNS}
+    columns_to_delete = []
+    for column_index in range(1, sheet.max_column + 1):
+        header = sheet.cell(row=1, column=column_index).value
+        if _normalize_header(header) in analytics_headers:
+            columns_to_delete.append(column_index)
+
+    for column_index in sorted(columns_to_delete, reverse=True):
+        sheet.delete_cols(column_index, 1)
 
 
 def _existing_card_rows(sheet: Worksheet, header_map: dict[str, int]) -> tuple[int, ...]:
@@ -581,6 +610,10 @@ def _copy_cell_format(source: Any, target: Any) -> None:
 def _canonical_header(value: Any) -> str:
     text = str(value or "").strip()
     return HEADER_ALIASES.get(text.lower(), text)
+
+
+def _normalize_header(value: Any) -> str:
+    return str(value or "").strip().casefold()
 
 
 def _row_cert(sheet: Worksheet, row_index: int, header_map: dict[str, int]) -> str:

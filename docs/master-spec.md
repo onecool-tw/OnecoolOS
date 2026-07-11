@@ -200,22 +200,28 @@ metadata, and ownership-specific fields for each asset class.
 Asset Master is a user-owned metadata layer that augments imported assets
 without replacing source identity. For sports cards, PSA/BGS Collection import
 remains authoritative for collectible identity. Asset Master may add durable
-metadata such as eBay Sold search URL, PSA official URL, REF score, watch
-status, target price, notes, optional cost override, and custom metadata. Asset
-Master joins primarily by cert number and must not overwrite year, set, card
-number, player, grade issuer, grade, variety, or cert number. eBay Sold search
-URLs are research entry points only; they are not valuation records by
-themselves.
+metadata such as eBay Sold search URL, PSA/BGS official URL, watch status,
+target price, notes, optional cost override, and custom metadata. Asset Master
+joins primarily by cert number and must not overwrite year, set, card number,
+player, grade issuer, grade, variety, or cert number. eBay Sold search URLs
+are research entry points only; they are not valuation records by themselves.
 
 Asset Master Builder is the deterministic local-workbook update path. It reads
 the user's existing workbook and the latest PSA/BGS Collection CSV, preserves
-workbook formulas, hyperlinks, formatting, row and column sizing, REF values,
-and operation notes, and appends missing cards after the last valid card row.
-It writes a temporary workbook first, validates final unique card count against
-the latest valid collection count, replaces the generated `Sync Report`
-worksheet, and only then saves the private output workbook. It does not call
-APIs, scrape websites, create valuations, calculate NAV, mutate source files,
-or commit private data.
+remaining formatting, row and column sizing, native hyperlinks, and permanent
+metadata, and appends missing cards after the last valid card row. It removes
+runtime analytics columns, including current market value, gain/loss, ROI,
+annualized return, REF, and recommendation fields. It writes a temporary
+workbook first, validates final unique card count against the latest valid
+collection count, replaces the generated `Sync Report` worksheet, and only
+then saves the private output workbook. It does not call APIs, scrape
+websites, create valuations, calculate NAV, mutate source files, or commit
+private data.
+
+Runtime owns calculated investment state, including market value, gain/loss,
+ROI, annualized return, any future REF score, Decision Queue priorities,
+buy/hold/sell language, OFAI recommendation context, and portfolio NAV. Asset
+Master must not become a duplicate source of truth for these values.
 
 Collection Sync is the mandatory integrity layer before runtime. It compares
 PSA/BGS imported records with Asset Master metadata, produces deterministic

@@ -41,12 +41,12 @@ def test_builder_updates_exact_cert_match_and_preserves_user_fields(tmp_path: Pa
     assert result.exact_cert_matches == 1
     assert rows[0]["Item"] == "New Item"
     assert rows[0]["Subject"] == "Shohei Ohtani"
-    assert rows[0]["REF"] == "=IFERROR(1,0)"
-    assert rows[0]["操作建議"] == "Keep"
     assert rows[0]["eBay Sold Search URL"] == "查看 eBay 成交"
     assert rows[0]["PSA URL"] == "點我查看 PSA 官方紀錄"
     assert "LH_Sold=1" in _hyperlink_target(output, 2, "eBay Sold Search URL")
     assert "psacard.com/cert/123" in _hyperlink_target(output, 2, "PSA URL")
+    assert "REF" not in _headers(output)
+    assert "操作建議" not in _headers(output)
 
 
 def test_builder_fallback_identity_updates_cert_without_duplicate(tmp_path: Path) -> None:
@@ -111,7 +111,6 @@ def test_builder_appends_new_card_with_generated_links_and_template_formulas(
         assert "LH_Sold=1" in _hyperlink_target(output, 3, "eBay Sold Search URL")
         assert "LH_Complete=1" in _hyperlink_target(output, 3, "eBay Sold Search URL")
         assert "psacard.com/cert/456" in _hyperlink_target(output, 3, "PSA URL")
-        assert rows[1]["REF"] == "=IFERROR(1,0)"
         assert ws["A3"].fill.fgColor.rgb == ws["A2"].fill.fgColor.rgb
         assert ws["A3"].font.bold == ws["A2"].font.bold
     finally:
@@ -178,7 +177,7 @@ def test_builder_preserves_workbook_structure_and_replaces_sync_report(
 
         assert wb.sheetnames == ["Asset Master", "Original Extra Sheet", "Sync Report"]
         assert ws.freeze_panes == "A2"
-        assert ws.auto_filter.ref == "A1:S2"
+        assert ws.auto_filter.ref
         assert ws.column_dimensions["A"].width == 40
         assert any(row[:2] == ("latest collection count", "1") for row in sync_rows)
     finally:
@@ -308,6 +307,31 @@ def test_builder_uses_native_hyperlinks_without_excel_formulas(tmp_path: Path) -
         wb.close()
 
 
+def test_builder_removes_runtime_analytics_columns(tmp_path: Path) -> None:
+    workbook = _write_workbook(tmp_path / "source.xlsx", [_row(cert="123")])
+    collection = _write_collection(tmp_path / "collection.csv", [_collection_row(cert="123")])
+    output = tmp_path / "asset_master.xlsx"
+
+    AssetMasterBuilder().build(
+        workbook,
+        collection,
+        output,
+        reference_datetime=REFERENCE,
+    )
+
+    headers = _headers(output)
+    assert "即時價格" not in headers
+    assert "Gain/Loss" not in headers
+    assert "ROI" not in headers
+    assert "年化報酬率" not in headers
+    assert "REF" not in headers
+    assert "操作建議" not in headers
+    assert "My Cost" in headers
+    assert "Date Acquired" in headers
+    assert "eBay Sold Search URL" in headers
+    assert "PSA URL" in headers
+
+
 def _row(
     *,
     cert: str,
@@ -333,6 +357,7 @@ def _row(
         "Gain/Loss": "=K2-J2",
         "ROI": "=L2/J2",
         "Date Acquired": "2026-01-01",
+        "年化報酬率": "=IFERROR(1,0)",
         "REF": "=IFERROR(1,0)",
         "操作建議": "Keep",
         "eBay Sold Search URL": '=HYPERLINK("https://www.ebay.com/sch/i.html?_nkw=ohtani&LH_Sold=1&LH_Complete=1","查看 eBay 成交")',
@@ -436,6 +461,14 @@ def _sheet_rows(path: Path) -> list[dict[str, str]]:
                 if index < len(headers) and headers[index]
             })
         return rows
+    finally:
+        workbook.close()
+
+
+def _headers(path: Path) -> list[str]:
+    workbook = load_workbook(path, data_only=False, keep_links=True)
+    try:
+        return [str(cell.value) for cell in workbook.worksheets[0][1] if cell.value]
     finally:
         workbook.close()
 

@@ -15,6 +15,8 @@ assets, knowledge, decisions, and automation.
 - Connector -> Normalize -> Asset -> Ledger -> Valuation -> Portfolio pipeline
 - User-owned Asset Master metadata augments imported assets without replacing
   source identity
+- Runtime analytics, valuation, recommendations, and portfolio NAV do not live
+  in Asset Master
 - Collection Sync verifies imported records and Asset Master before runtime
 - Test-first development
 - Backward compatibility
