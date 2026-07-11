@@ -213,6 +213,7 @@ quality.
 | Valuation | Valuation history |
 | Portfolio | Current holdings and aggregation |
 | Business Logic | Deterministic calculations, policies, and signals |
+| Research Queue | Deterministic research prioritization and readiness |
 | Analytics | Derived snapshots |
 | Services | Read-only access interface |
 | Dashboard | Display-only views |
@@ -377,6 +378,16 @@ store credentials, does not calculate valuation, does not recommend actions,
 and does not mutate source data. Compatible collectible `SOLD_COMPARABLES`
 evidence may bridge into `EbaySoldEvidence`, but the existing eBay Sold
 Evidence layer remains responsible for final evidence validation.
+
+Research Queue is the deterministic planning layer for market research work.
+It consumes RuntimeSession assets, Asset Master entry points, Collection Sync
+differences, existing evidence, valuation records, and Portfolio NAV coverage.
+It produces `ResearchQueueSnapshot` and `ResearchQueueItem` records with
+priority, readiness, reasons, blockers, evidence counts, and valuation
+coverage status. It does not call providers, create evidence, create
+valuation records, calculate NAV, recommend actions, predict prices, mutate
+RuntimeSession, mutate Asset Master, or change Dashboard, Daily Report, or
+Decision Queue output.
 
 Card Ladder readiness is documented in
 `docs/live-connectors/card-ladder-readiness.md`. Card Ladder is a Validation

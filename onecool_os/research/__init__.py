@@ -22,6 +22,15 @@ from onecool_os.research.normalization import normalize_url
 from onecool_os.research.normalization import normalize_warnings
 from onecool_os.research.normalization import research_evidence_to_ebay_sold_evidence
 from onecool_os.research.provider import ResearchProvider
+from onecool_os.research.queue import ResearchQueueEngine
+from onecool_os.research.queue import ResearchQueueError
+from onecool_os.research.queue import ResearchQueueItem
+from onecool_os.research.queue import ResearchQueuePriority
+from onecool_os.research.queue import ResearchQueueReason
+from onecool_os.research.queue import ResearchQueueSnapshot
+from onecool_os.research.queue import ResearchQueueStatus
+from onecool_os.research.queue import ResearchScope
+from onecool_os.research.queue import validate_research_queue_snapshot
 from onecool_os.research.registry import ResearchProviderRegistry
 from onecool_os.research.validation import ResearchError
 from onecool_os.research.validation import ResearchValidationIssue
@@ -40,8 +49,16 @@ __all__ = [
     "ResearchProvider",
     "ResearchProviderRegistry",
     "ResearchProviderType",
+    "ResearchQueueEngine",
+    "ResearchQueueError",
+    "ResearchQueueItem",
+    "ResearchQueuePriority",
+    "ResearchQueueReason",
+    "ResearchQueueSnapshot",
+    "ResearchQueueStatus",
     "ResearchRequest",
     "ResearchResult",
+    "ResearchScope",
     "ResearchStatus",
     "ResearchType",
     "ResearchValidationIssue",
@@ -57,5 +74,6 @@ __all__ = [
     "normalize_url",
     "normalize_warnings",
     "research_evidence_to_ebay_sold_evidence",
+    "validate_research_queue_snapshot",
     "validate_research_result",
 ]

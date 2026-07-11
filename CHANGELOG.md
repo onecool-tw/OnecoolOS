@@ -9,6 +9,10 @@ Commits.
 
 ### Added
 
+- Research Queue foundation with deterministic collectible market research
+  prioritization, readiness/blocking rules, valuation coverage awareness,
+  RuntimeSession helpers, and queue-level validation without provider calls,
+  evidence creation, valuation creation, NAV calculation, or mutation.
 - Portfolio NAV Dashboard Integration displaying existing
   `PortfolioNavSnapshot` data in the collectible dashboard and Onecool
   Launcher without recalculating NAV, combining currencies, or inventing

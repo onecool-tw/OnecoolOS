@@ -1,0 +1,54 @@
+"""Enums for the deterministic Research Queue."""
+
+from __future__ import annotations
+
+from enum import StrEnum
+
+
+class ResearchQueuePriority(StrEnum):
+    """Research queue priority levels."""
+
+    CRITICAL = "CRITICAL"
+    HIGH = "HIGH"
+    MEDIUM = "MEDIUM"
+    LOW = "LOW"
+    INFORMATIONAL = "INFORMATIONAL"
+
+
+class ResearchQueueReason(StrEnum):
+    """Reasons why an asset appears in the Research Queue."""
+
+    MISSING_VERIFIED_VALUATION = "MISSING_VERIFIED_VALUATION"
+    MISSING_ANY_VALUATION = "MISSING_ANY_VALUATION"
+    EVIDENCE_NEEDS_REVIEW = "EVIDENCE_NEEDS_REVIEW"
+    EVIDENCE_REJECTED = "EVIDENCE_REJECTED"
+    EVIDENCE_STALE = "EVIDENCE_STALE"
+    NO_MATCH = "NO_MATCH"
+    MISSING_EBAY_SEARCH_URL = "MISSING_EBAY_SEARCH_URL"
+    COLLECTION_SYNC_ISSUE = "COLLECTION_SYNC_ISSUE"
+    AMBIGUOUS_IDENTITY = "AMBIGUOUS_IDENTITY"
+    MULTIPLE_ELIGIBLE_VALUATIONS = "MULTIPLE_ELIGIBLE_VALUATIONS"
+    SUPPORTING_ESTIMATE_ONLY = "SUPPORTING_ESTIMATE_ONLY"
+    CORE_HOLDING_RESEARCH = "CORE_HOLDING_RESEARCH"
+    WATCHLIST_RESEARCH = "WATCHLIST_RESEARCH"
+    TARGET_PRICE_REVIEW = "TARGET_PRICE_REVIEW"
+    MANUAL_RESEARCH_REQUEST = "MANUAL_RESEARCH_REQUEST"
+    OTHER = "OTHER"
+
+
+class ResearchQueueStatus(StrEnum):
+    """Research queue item status."""
+
+    OPEN = "OPEN"
+    READY = "READY"
+    BLOCKED = "BLOCKED"
+    COMPLETED = "COMPLETED"
+    SKIPPED = "SKIPPED"
+
+
+class ResearchScope(StrEnum):
+    """Research queue scope."""
+
+    SINGLE_ASSET = "SINGLE_ASSET"
+    ASSET_GROUP = "ASSET_GROUP"
+    PORTFOLIO = "PORTFOLIO"

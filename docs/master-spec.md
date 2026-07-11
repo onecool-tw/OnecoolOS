@@ -522,6 +522,16 @@ mismatch fields, and metadata, then creates `EbaySoldEvidence` for the
 existing evidence validator to classify as verified, review-only, rejected, or
 no-match.
 
+Research Queue sits after RuntimeSession and before future research provider
+execution. It consumes imported collectible identity, Asset Master research
+entry points, Collection Sync differences, existing eBay evidence, valuation
+records, and Portfolio NAV coverage to produce deterministic research work
+items. It owns prioritization and readiness only. It does not call providers,
+create evidence, create valuation records, calculate NAV, recommend actions,
+predict prices, mutate RuntimeSession, or mutate Asset Master. One open item
+per asset and research type should be produced for each reference period, with
+duplicate reasons merged deterministically.
+
 Source Agreement evaluates whether Primary Market Price records and Validation
 Source records are close, divergent, missing, or conflicting. It produces
 `SourceAgreementResult` with deterministic score, level, spread, source count,

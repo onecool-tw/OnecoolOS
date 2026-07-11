@@ -105,6 +105,8 @@ Goals:
   ingestion path
 - Represent provider-independent eBay Sold evidence in RuntimeSession before
   promoting only verified evidence into Valuation Runtime
+- Prioritize collectible market research through deterministic Research Queue
+  snapshots before provider execution
 - Prepare Card Ladder Validation Source ingestion through approved API,
   official export, user-provided export, or manual fixture paths
 - Support Card Ladder manual CSV / JSON import as the first Validation Source
@@ -203,6 +205,8 @@ Goals:
   Manual runtime valuation
 - Onecool Research Framework for provider-independent research normalization,
   validation, local JSON loading, and evidence bridging before valuation
+- Research Queue for deterministic collectible market research prioritization
+  before provider execution
 - PSA valuation input
 - Yahoo Finance valuation input
 - Real Estate valuation interface

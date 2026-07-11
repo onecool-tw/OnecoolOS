@@ -178,6 +178,77 @@ class RuntimeSession:
 
         return self.build_portfolio_nav(valuation_records)
 
+    def build_research_queue(
+        self,
+        valuation_records: list[Any] | tuple[Any, ...] = (),
+        nav_snapshots: list[Any] | tuple[Any, ...] = (),
+    ) -> Any:
+        """Build a Research Queue snapshot by delegating to the engine."""
+
+        from onecool_os.research.queue import ResearchQueueEngine
+
+        return ResearchQueueEngine().build(
+            self,
+            valuation_records=tuple(valuation_records),
+            nav_snapshots=tuple(nav_snapshots),
+        )
+
+    def research_queue_snapshot(
+        self,
+        valuation_records: list[Any] | tuple[Any, ...] = (),
+        nav_snapshots: list[Any] | tuple[Any, ...] = (),
+    ) -> Any:
+        """Return the Research Queue snapshot for this runtime session."""
+
+        return self.build_research_queue(
+            valuation_records,
+            nav_snapshots,
+        )
+
+    def open_research_items(
+        self,
+        valuation_records: list[Any] | tuple[Any, ...] = (),
+        nav_snapshots: list[Any] | tuple[Any, ...] = (),
+    ) -> tuple[Any, ...]:
+        """Return research items that are not completed or skipped."""
+
+        snapshot = self.build_research_queue(valuation_records, nav_snapshots)
+        return tuple(
+            item
+            for item in snapshot.items
+            if item.status.value not in {"COMPLETED", "SKIPPED"}
+        )
+
+    def ready_research_items(
+        self,
+        valuation_records: list[Any] | tuple[Any, ...] = (),
+        nav_snapshots: list[Any] | tuple[Any, ...] = (),
+    ) -> tuple[Any, ...]:
+        """Return ready research queue items."""
+
+        snapshot = self.build_research_queue(valuation_records, nav_snapshots)
+        return tuple(item for item in snapshot.items if item.status.value == "READY")
+
+    def blocked_research_items(
+        self,
+        valuation_records: list[Any] | tuple[Any, ...] = (),
+        nav_snapshots: list[Any] | tuple[Any, ...] = (),
+    ) -> tuple[Any, ...]:
+        """Return blocked research queue items."""
+
+        snapshot = self.build_research_queue(valuation_records, nav_snapshots)
+        return tuple(item for item in snapshot.items if item.status.value == "BLOCKED")
+
+    def critical_research_items(
+        self,
+        valuation_records: list[Any] | tuple[Any, ...] = (),
+        nav_snapshots: list[Any] | tuple[Any, ...] = (),
+    ) -> tuple[Any, ...]:
+        """Return critical research queue items."""
+
+        snapshot = self.build_research_queue(valuation_records, nav_snapshots)
+        return tuple(item for item in snapshot.items if item.priority.value == "CRITICAL")
+
     def with_imported_records(
         self,
         imported_records: list[dict[str, Any]] | tuple[dict[str, Any], ...],

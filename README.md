@@ -298,6 +298,16 @@ observed date, warnings, match fields, mismatch fields, and metadata. It does
 not create `ValuationRecord` directly and does not bypass the existing eBay
 Sold Evidence validation layer.
 
+Research Queue is the deterministic worklist between RuntimeSession and future
+research providers. It decides which collectible assets need market research
+and why, using imported collection identity, Asset Master metadata, Collection
+Sync issues, existing evidence, valuation records, and Portfolio NAV coverage.
+It never calls providers, scrapes websites, creates evidence, creates
+valuation records, calculates NAV, recommends buy/sell actions, mutates
+RuntimeSession, or mutates Asset Master. Asset Master eBay and PSA URLs remain
+research entry points only; evidence and valuation still belong to their
+respective layers.
+
 Source Agreement evaluates how closely eBay Sold Primary Market Price records
 agree with Card Ladder, Manual, PWCC, Goldin, and Fanatics Validation Sources.
 It calculates deterministic agreement score, level, spread, divergence,
