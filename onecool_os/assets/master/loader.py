@@ -35,8 +35,10 @@ FIELD_ALIASES = {
     "ebay_sold_search_url": "ebay_sold_search_url",
     "ebay sold search url": "ebay_sold_search_url",
     "ebay url": "ebay_sold_search_url",
+    "ebay 即時成交價": "ebay_sold_search_url",
     "psa_url": "psa_url",
     "psa url": "psa_url",
+    "psa 官網快速連結 (手動核對)": "psa_url",
     "ref_score": "ref_score",
     "ref score": "ref_score",
     "watch_status": "watch_status",
@@ -198,6 +200,7 @@ def _read_simple_xlsx_rows(path: Path) -> list[list[str]]:
     with zipfile.ZipFile(path) as archive:
         shared_strings = _read_shared_strings(archive, namespace)
         sheet_xml = archive.read("xl/worksheets/sheet1.xml")
+        hyperlinks = _read_sheet_hyperlinks(archive)
     root = ElementTree.fromstring(sheet_xml)
     parsed_rows: list[list[str]] = []
     for row in root.findall(".//main:sheetData/main:row", namespace):
@@ -205,6 +208,9 @@ def _read_simple_xlsx_rows(path: Path) -> list[list[str]]:
         for cell in row.findall("main:c", namespace):
             cell_ref = cell.attrib.get("r", "")
             column_index = _column_index(cell_ref)
+            if cell_ref in hyperlinks:
+                cells[column_index] = hyperlinks[cell_ref]
+                continue
             cell_type = cell.attrib.get("t")
             value_element = cell.find("main:v", namespace)
             inline_element = cell.find("main:is/main:t", namespace)
@@ -222,6 +228,32 @@ def _read_simple_xlsx_rows(path: Path) -> list[list[str]]:
                 [cells.get(index, "") for index in range(max(cells) + 1)]
             )
     return parsed_rows
+
+
+def _read_sheet_hyperlinks(archive: zipfile.ZipFile) -> dict[str, str]:
+    """Return native hyperlink targets by cell reference for sheet1."""
+
+    try:
+        sheet_xml = archive.read("xl/worksheets/sheet1.xml")
+        rels_xml = archive.read("xl/worksheets/_rels/sheet1.xml.rels")
+    except KeyError:
+        return {}
+    namespace = {
+        "main": "http://schemas.openxmlformats.org/spreadsheetml/2006/main",
+        "rel": "http://schemas.openxmlformats.org/package/2006/relationships",
+    }
+    rel_id_attr = "{http://schemas.openxmlformats.org/officeDocument/2006/relationships}id"
+    sheet_root = ElementTree.fromstring(sheet_xml)
+    rels_root = ElementTree.fromstring(rels_xml)
+    targets = {
+        relationship.attrib.get("Id"): relationship.attrib.get("Target")
+        for relationship in rels_root.findall("rel:Relationship", namespace)
+    }
+    return {
+        hyperlink.attrib.get("ref", ""): targets.get(hyperlink.attrib.get(rel_id_attr), "")
+        for hyperlink in sheet_root.findall(".//main:hyperlink", namespace)
+        if hyperlink.attrib.get("ref") and targets.get(hyperlink.attrib.get(rel_id_attr))
+    }
 
 
 def _read_shared_strings(

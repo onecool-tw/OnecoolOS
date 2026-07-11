@@ -1,0 +1,50 @@
+{
+  "export_id": "ebay-url-research:2026-07-11T09:00:00+00:00",
+  "request_count": 1,
+  "requests": [
+    {
+      "request_id": "ebay-url:DEMO-PSA-1:SOLD_COMPARABLES",
+      "asset_id": "DEMO-PSA-1",
+      "cert_number": "123456789",
+      "asset_name": "2018 Topps Update Shohei Ohtani US1 PSA 10",
+      "grade_issuer": "PSA",
+      "grade": "10",
+      "year": "2018",
+      "set_name": "Topps Update",
+      "card_number": "US1",
+      "subject": "Shohei Ohtani",
+      "variety": null,
+      "special_designation": null,
+      "ebay_sold_search_url": "https://www.ebay.com/sch/i.html?_nkw=2018+Topps+Update+Shohei+Ohtani+US1+PSA+10&LH_Sold=1&LH_Complete=1",
+      "requested_fields": [
+        "sold_item_url",
+        "ebay_item_id",
+        "title",
+        "sold_price",
+        "currency",
+        "sold_date",
+        "listing_type",
+        "best_offer_used",
+        "shipping_amount",
+        "exact_match",
+        "matched_fields",
+        "mismatched_fields",
+        "confidence",
+        "warnings"
+      ],
+      "provider_capability_required": "SOLD_COMPARABLES",
+      "provider_instruction": "You are an eBay Sold research agent.\n\nUse only the provided eBay Sold Search URL.\n\nDo not invent results.\n\nReturn structured JSON only.\n\nFor each sold comp provide:\n- sold item URL\n- eBay item ID\n- title\n- sold price\n- currency\n- sold date\n- listing type\n- Best Offer status if known\n- shipping if known\n- exact-match determination\n- matched and mismatched identity fields\n- confidence\n- warnings\n\nIf no exact sold comp can be verified, return NO_MATCH.\n\nDo not calculate portfolio NAV.\nDo not make buy/sell recommendations.",
+      "reference_datetime": "2026-07-11T09:00:00+00:00",
+      "created_at": "2026-07-11T09:00:00+00:00",
+      "metadata": {
+        "queue_item_id": "research:DEMO-PSA-1:SOLD_COMPARABLES",
+        "research_type": "SOLD_COMPARABLES",
+        "valuation_coverage_status": "MISSING",
+        "source": "Asset Master eBay Sold Search URL"
+      }
+    }
+  ],
+  "warnings": [],
+  "generated_at": "2026-07-11T09:00:00+00:00",
+  "reference_datetime": "2026-07-11T09:00:00+00:00"
+}

@@ -308,6 +308,18 @@ RuntimeSession, or mutates Asset Master. Asset Master eBay and PSA URLs remain
 research entry points only; evidence and valuation still belong to their
 respective layers.
 
+Research Workbench provides the eBay Sold URL Research PoC. It exports READY
+Research Queue items into provider-independent request JSON and imports
+provider-returned ORF-compatible JSON back through the existing ORF loader,
+ORF validation, ORF-to-eBay evidence bridge, and eBay Sold Evidence
+validation. It does not scrape eBay, call providers, fabricate sold records,
+create valuation records directly, calculate NAV, or modify Asset Master.
+
+```bash
+python -m onecool_os export-ebay-research-requests --limit 3
+python -m onecool_os import-research-results --input imports/research/ebay_url_results.json
+```
+
 Source Agreement evaluates how closely eBay Sold Primary Market Price records
 agree with Card Ladder, Manual, PWCC, Goldin, and Fanatics Validation Sources.
 It calculates deterministic agreement score, level, spread, divergence,

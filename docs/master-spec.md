@@ -532,6 +532,15 @@ predict prices, mutate RuntimeSession, or mutate Asset Master. One open item
 per asset and research type should be produced for each reference period, with
 duplicate reasons merged deterministically.
 
+Research Workbench is the semi-automatic bridge from Research Queue to future
+external providers. The eBay Sold URL Research PoC exports READY queue items
+with Asset Master eBay Sold search URLs into deterministic request packages.
+External providers may manually receive those packages and return
+ORF-compatible JSON. Import must always pass through ORF validation and the
+existing ORF-to-eBay Sold Evidence bridge. Workbench does not scrape, call
+providers, fabricate sold records, create valuation records directly,
+calculate NAV, mutate Asset Master, or bypass evidence validation.
+
 Source Agreement evaluates whether Primary Market Price records and Validation
 Source records are close, divergent, missing, or conflicting. It produces
 `SourceAgreementResult` with deterministic score, level, spread, source count,

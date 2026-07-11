@@ -9,6 +9,10 @@ Commits.
 
 ### Added
 
+- eBay Sold URL Research PoC with deterministic request export from READY
+  Research Queue items, ORF-compatible result import, existing eBay evidence
+  validation, CLI commands, and synthetic examples without scraping, provider
+  calls, direct valuation creation, NAV calculation, or Asset Master mutation.
 - Research Queue foundation with deterministic collectible market research
   prioritization, readiness/blocking rules, valuation coverage awareness,
   RuntimeSession helpers, and queue-level validation without provider calls,

@@ -214,6 +214,7 @@ quality.
 | Portfolio | Current holdings and aggregation |
 | Business Logic | Deterministic calculations, policies, and signals |
 | Research Queue | Deterministic research prioritization and readiness |
+| Research Workbench | Provider-independent request export and result import |
 | Analytics | Derived snapshots |
 | Services | Read-only access interface |
 | Dashboard | Display-only views |
@@ -388,6 +389,14 @@ coverage status. It does not call providers, create evidence, create
 valuation records, calculate NAV, recommend actions, predict prices, mutate
 RuntimeSession, mutate Asset Master, or change Dashboard, Daily Report, or
 Decision Queue output.
+
+Research Workbench is the provider-independent handoff layer for research
+packages. The eBay Sold URL Research PoC exports READY Research Queue items
+into JSON request packages and imports provider-returned ORF-compatible JSON.
+Import always uses ORF validation, then the existing ORF-to-eBay Sold Evidence
+bridge, then eBay Sold Evidence validation. Workbench does not call providers,
+scrape, fabricate sold records, create valuation records directly, calculate
+NAV, mutate Asset Master, or bypass validation.
 
 Card Ladder readiness is documented in
 `docs/live-connectors/card-ladder-readiness.md`. Card Ladder is a Validation

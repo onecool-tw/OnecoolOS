@@ -37,6 +37,14 @@ from onecool_os.research.validation import ResearchValidationIssue
 from onecool_os.research.validation import ResearchValidationResult
 from onecool_os.research.validation import ensure_valid_research_result
 from onecool_os.research.validation import validate_research_result
+from onecool_os.research.workbench import EBAY_RESEARCH_PROVIDER_INSTRUCTION
+from onecool_os.research.workbench import EbayUrlResearchRequest
+from onecool_os.research.workbench import EbayUrlResearchRequestExport
+from onecool_os.research.workbench import REQUIRED_EBAY_SOLD_REQUEST_FIELDS
+from onecool_os.research.workbench import ResearchRequestExporter
+from onecool_os.research.workbench import ResearchResultImporter
+from onecool_os.research.workbench import ResearchWorkbenchError
+from onecool_os.research.workbench import ResearchWorkbenchImportResult
 
 __all__ = [
     "ResearchBatch",
@@ -44,6 +52,10 @@ __all__ = [
     "ResearchConfidence",
     "ResearchError",
     "ResearchEvidence",
+    "EBAY_RESEARCH_PROVIDER_INSTRUCTION",
+    "EbayUrlResearchRequest",
+    "EbayUrlResearchRequestExport",
+    "REQUIRED_EBAY_SOLD_REQUEST_FIELDS",
     "ResearchJsonLoadResult",
     "ResearchJsonLoader",
     "ResearchProvider",
@@ -63,6 +75,10 @@ __all__ = [
     "ResearchType",
     "ResearchValidationIssue",
     "ResearchValidationResult",
+    "ResearchRequestExporter",
+    "ResearchResultImporter",
+    "ResearchWorkbenchError",
+    "ResearchWorkbenchImportResult",
     "ensure_valid_research_result",
     "normalize_confidence",
     "normalize_currency",

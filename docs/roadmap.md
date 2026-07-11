@@ -207,6 +207,8 @@ Goals:
   validation, local JSON loading, and evidence bridging before valuation
 - Research Queue for deterministic collectible market research prioritization
   before provider execution
+- eBay Sold URL Research PoC for provider-independent request export and ORF
+  result import without scraping or live provider calls
 - PSA valuation input
 - Yahoo Finance valuation input
 - Real Estate valuation interface
