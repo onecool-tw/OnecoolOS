@@ -4,6 +4,17 @@ from onecool_os.valuation.enums import SOURCE_PRIORITY_BY_ASSET_TYPE
 from onecool_os.valuation.enums import ValuationConfidence
 from onecool_os.valuation.enums import ValuationSource
 from onecool_os.valuation.enums import source_priority_for_asset
+from onecool_os.valuation.evidence import EbaySoldEvidence
+from onecool_os.valuation.evidence import EbaySoldEvidenceBatch
+from onecool_os.valuation.evidence import EbaySoldEvidenceJsonLoader
+from onecool_os.valuation.evidence import EbaySoldEvidenceLoadResult
+from onecool_os.valuation.evidence import EbaySoldEvidenceMapper
+from onecool_os.valuation.evidence import EbaySoldEvidenceValuationMapping
+from onecool_os.valuation.evidence import EvidenceConfidence
+from onecool_os.valuation.evidence import EvidenceError
+from onecool_os.valuation.evidence import EvidenceStatus
+from onecool_os.valuation.evidence import ListingType
+from onecool_os.valuation.evidence import MatchField
 from onecool_os.valuation.collectibles import CollectibleValuationMapper
 from onecool_os.valuation.collectibles import CollectibleValuationMapping
 from onecool_os.valuation.intelligence import AgreementLevel
@@ -48,8 +59,18 @@ __all__ = [
     "CollectibleValuationMapping",
     "ChatGPTValuationProvider",
     "ConfidenceLevel",
+    "EbaySoldEvidence",
+    "EbaySoldEvidenceBatch",
+    "EbaySoldEvidenceJsonLoader",
+    "EbaySoldEvidenceLoadResult",
+    "EbaySoldEvidenceMapper",
+    "EbaySoldEvidenceValuationMapping",
+    "EvidenceConfidence",
+    "EvidenceError",
+    "EvidenceStatus",
     "FreshnessLevel",
     "GeminiValuationProvider",
+    "ListingType",
     "LiquidityLevel",
     "ImportSummary",
     "ManualValuationProvider",
@@ -58,6 +79,7 @@ __all__ = [
     "ManualValuationImportResult",
     "ManualValuationImporter",
     "MarketIntelligence",
+    "MatchField",
     "ValuationError",
     "ValuationImportResult",
     "ValuationLoader",

@@ -263,6 +263,18 @@ external ID, sale price, currency, sale date, URL, raw payload, and raw market
 record ID. It does not choose a final market value, calculate confidence,
 resolve source agreement, or overwrite valuation history.
 
+eBay Sold Evidence is the provider-independent runtime layer between Asset
+Master research links and trusted valuation records. Future research providers
+return `EbaySoldEvidence` batches, not final prices. Evidence is untrusted by
+default: missing sold URLs, missing item IDs, active listings, identity
+mismatches, malformed prices or dates, Black Label mismatches, ambiguous
+titles, stale sold dates, and unconfirmed Best Offer prices are preserved as
+evidence warnings or rejected evidence. Only `VERIFIED` eBay Sold evidence may
+automatically map into a `ValuationRecord`; `NEEDS_REVIEW`, `REJECTED`, and
+`NO_MATCH` remain evidence only. Asset Master eBay search URLs are research
+entry points, not valuation evidence by themselves, and AI/provider output
+must pass deterministic validation before Valuation Runtime consumes it.
+
 Source Agreement evaluates how closely eBay Sold Primary Market Price records
 agree with Card Ladder, Manual, PWCC, Goldin, and Fanatics Validation Sources.
 It calculates deterministic agreement score, level, spread, divergence,

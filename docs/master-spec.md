@@ -466,6 +466,20 @@ first provider architecture includes placeholders for Gemini Research Agent,
 ChatGPT Research Agent, and Manual runtime valuation so future authorized
 providers can plug into the same `ValuationRecord` contract.
 
+eBay Sold Evidence is the provider-independent bridge from Asset Master search
+URLs to Valuation Runtime. Providers may return evidence batches from approved
+research paths, but evidence is not trusted by default and is not a final
+price. Validation must reject active listings, missing sold URLs, missing item
+IDs, malformed price or date values, grade or grade-issuer mismatches, card
+number or player mismatches, parallel mismatches, and Black Label mismatches.
+Evidence requiring review includes single sold comps, incomplete identity
+matches, ambiguous titles, unknown shipping, unconfirmed Best Offer prices,
+missing variety text, and stale sold dates. Only `VERIFIED` eBay Sold evidence
+may automatically create a `ValuationRecord` with source `EBAY_SOLD`.
+`NEEDS_REVIEW`, `REJECTED`, and `NO_MATCH` evidence remains evidence only.
+Asset Master search URLs and AI/provider output are research inputs until this
+validation passes.
+
 Source Agreement evaluates whether Primary Market Price records and Validation
 Source records are close, divergent, missing, or conflicting. It produces
 `SourceAgreementResult` with deterministic score, level, spread, source count,

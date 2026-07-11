@@ -330,6 +330,18 @@ The importer is read-only: it does not call APIs, scrape, add credentials,
 select final valuation, calculate confidence, recommend actions, mutate source
 files, or overwrite valuation history.
 
+eBay Sold Evidence sits between Asset Master research URLs, future research
+providers, RuntimeSession, and Valuation Runtime. Providers return evidence,
+not final prices. Evidence is untrusted until deterministic validation checks
+sold URL, item ID, sold date, price, exact identity match, grade, grade issuer,
+year, set, card number, subject, variety, and special designation. Active
+listings, malformed prices or dates, identity mismatches, and Black Label
+mismatches are rejected. Ambiguous titles, unknown shipping, unconfirmed Best
+Offer prices, stale sold dates, incomplete identity matches, and single-comps
+remain review evidence. Only `VERIFIED` evidence may automatically map to
+`ValuationRecord`; review, rejected, and no-match evidence remain session-only
+evidence.
+
 Card Ladder readiness is documented in
 `docs/live-connectors/card-ladder-readiness.md`. Card Ladder is a Validation
 Source that should enter through approved API access if allowed and available,

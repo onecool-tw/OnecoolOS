@@ -9,6 +9,9 @@ Commits.
 
 ### Added
 
+- eBay Sold Evidence Runtime Foundation with provider-independent evidence
+  models, deterministic validation, JSON loading, verified-only valuation
+  mapping, and RuntimeSession attachment helpers.
 - Asset Master Builder for deterministic local workbook updates from PSA/BGS
   Collection CSV, preserving remaining formatting and native hyperlinks while
   appending missing cards and generating a safe Sync Report.
