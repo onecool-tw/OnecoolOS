@@ -191,6 +191,15 @@ These files are private user data and remain ignored by Git under the existing
 `imports/` rules. eBay Sold search URLs are durable research entry points, not
 valuation evidence by themselves.
 
+Asset Master Builder updates the existing local workbook from the latest
+PSA/BGS Collection CSV. It preserves workbook formulas, hyperlinks,
+formatting, widths, heights, REF values, and operation notes while using the
+CSV as the authority for card identity. Missing cards are appended
+deterministically with eBay Sold search and PSA cert formulas where applicable.
+The builder writes to a temporary output first, validates card counts, then
+saves `imports/asset_master/asset_master.xlsx`; it never overwrites the source
+workbook or commits private files.
+
 ## Collection Sync
 
 Collection Sync is the deterministic data integrity layer between PSA/BGS

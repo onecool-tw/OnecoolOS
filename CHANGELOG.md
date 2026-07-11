@@ -9,6 +9,10 @@ Commits.
 
 ### Added
 
+- Asset Master Builder for deterministic local workbook updates from PSA/BGS
+  Collection CSV, preserving formulas, hyperlinks, formatting, REF values, and
+  operation notes while appending missing cards and generating a safe Sync
+  Report.
 - Asset Master Runtime Import for the Onecool Launcher, including XLSX-first /
   CSV-fallback loading, safe import summaries, RuntimeSession enrichment, and
   Collection Sync execution without mutating source files.

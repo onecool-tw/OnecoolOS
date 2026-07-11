@@ -160,6 +160,7 @@ Deferred:
 - Collection Sync Runtime Integration
 - Dashboard Collection Health Integration
 - Asset Master Runtime Import
+- Asset Master Builder
 
 ### v0.4 Transaction Layer
 

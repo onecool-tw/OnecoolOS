@@ -207,6 +207,16 @@ number, player, grade issuer, grade, variety, or cert number. eBay Sold search
 URLs are research entry points only; they are not valuation records by
 themselves.
 
+Asset Master Builder is the deterministic local-workbook update path. It reads
+the user's existing workbook and the latest PSA/BGS Collection CSV, preserves
+workbook formulas, hyperlinks, formatting, row and column sizing, REF values,
+and operation notes, and appends missing cards after the last valid card row.
+It writes a temporary workbook first, validates final unique card count against
+the latest valid collection count, replaces the generated `Sync Report`
+worksheet, and only then saves the private output workbook. It does not call
+APIs, scrape websites, create valuations, calculate NAV, mutate source files,
+or commit private data.
+
 Collection Sync is the mandatory integrity layer before runtime. It compares
 PSA/BGS imported records with Asset Master metadata, produces deterministic
 differences, warnings, and collection health, and never mutates imports,

@@ -162,6 +162,14 @@ records. Imported collection identity remains authoritative, while Asset
 Master may add research URLs, watch status, REF score, target price, notes,
 explicit cost override metadata, and future custom fields.
 
+Asset Master Builder is a local file builder for the user's private workbook.
+It consumes the latest PSA/BGS Collection CSV as identity authority and updates
+the existing workbook while preserving formulas, hyperlinks, formatting,
+worksheet structure, REF values, and operation notes. It appends missing cards,
+creates a `Sync Report` worksheet, validates unique card counts, and writes
+through a temporary workbook before replacing the private output. It is not a
+valuation, sync-resolution, API, scraping, or recommendation layer.
+
 ## Collection Sync
 
 Collection Sync sits between PSA/BGS import, Asset Master, and Runtime. It is
