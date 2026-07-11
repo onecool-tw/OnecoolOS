@@ -468,6 +468,18 @@ backtesting, and historical reconstruction remain deterministic.
 Portfolio aggregates current holdings and summary values. It consumes Assets,
 Ledger, and Valuation, but owns no source history.
 
+Portfolio NAV Engine is a deterministic derived layer inside Portfolio. It
+consumes RuntimeSession assets, existing valuation records, and upstream
+evidence status to produce `PortfolioNavSnapshot` outputs. It does not create
+market prices, estimate missing values, parse notes, call providers, perform
+FX conversion, mutate RuntimeSession, mutate Asset Master, or recommend
+actions. NAV snapshots aggregate one currency only; mixed-currency data must
+produce separate snapshots or explicit currency mismatch warnings.
+
+Verified coverage and estimated coverage remain separate. Missing market
+values are never treated as zero. Evidence validation remains upstream, and
+unverified eBay evidence cannot enter trusted NAV.
+
 ### Business Logic
 
 Business Logic owns deterministic calculations, policies, and rule-based

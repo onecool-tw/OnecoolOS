@@ -801,6 +801,27 @@ Business Logic responsibilities:
 
 Portfolio itself should remain calculation-light.
 
+### Portfolio NAV Engine
+
+`onecool_os.portfolio.nav` provides a deterministic Portfolio NAV Engine for
+runtime assets and existing `ValuationRecord` objects. NAV is derived only
+from eligible valuation records; the engine never creates prices, estimates
+missing values, calls providers, parses notes, mutates RuntimeSession, changes
+Asset Master, or recommends buy / hold / sell actions.
+
+NAV snapshots are built per currency. One snapshot aggregates one currency
+only, and Onecool OS does not perform FX conversion in this layer. If an
+asset's cost currency and market currency differ, the asset is flagged with a
+currency mismatch and gain/loss is not calculated for that line. Missing
+market values are never treated as zero.
+
+The NAV Engine separates verified and estimated coverage. `EBAY_SOLD`
+Primary Market Price valuation records with verified evidence can count as
+verified coverage. Supporting estimates remain `ESTIMATED`, and
+`NEEDS_REVIEW`, `REJECTED`, `NO_MATCH`, or otherwise unverified evidence does
+not enter trusted NAV. Dashboard and reports may display NAV snapshots later,
+but they must not recalculate NAV.
+
 Asset model:
 
 - `asset_id`: Internal asset identifier.

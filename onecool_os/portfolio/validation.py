@@ -60,6 +60,14 @@ def parse_optional_non_negative_decimal(
     return parse_non_negative_decimal(value, field_name)
 
 
+def parse_optional_decimal(value: Any, field_name: str) -> Decimal | None:
+    """Parse an optional Decimal without enforcing sign."""
+
+    if value in (None, ""):
+        return None
+    return _parse_decimal(value, field_name)
+
+
 def parse_optional_non_negative_int(value: Any, field_name: str) -> int | None:
     """Parse an optional non-negative integer."""
 
@@ -74,6 +82,25 @@ def parse_optional_non_negative_int(value: Any, field_name: str) -> int | None:
     if int_value < 0:
         raise PortfolioError(f"{field_name} must not be negative.")
     return int_value
+
+
+def parse_non_negative_int(value: Any, field_name: str) -> int:
+    """Parse a required non-negative integer."""
+
+    int_value = parse_optional_non_negative_int(value, field_name)
+    if int_value is None:
+        raise PortfolioError(f"{field_name} is required.")
+    return int_value
+
+
+def parse_string_tuple(value: Any, field_name: str) -> tuple[str, ...]:
+    """Parse a list/tuple of strings."""
+
+    if value in (None, ""):
+        return ()
+    if not isinstance(value, (list, tuple)):
+        raise PortfolioError(f"{field_name} must be a list.")
+    return tuple(require_text(item, field_name) for item in value)
 
 
 def parse_tags(value: Any) -> tuple[str, ...]:

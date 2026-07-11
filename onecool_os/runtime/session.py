@@ -157,6 +157,27 @@ class RuntimeSession:
             generated_at=self.generated_at,
         )
 
+    def build_portfolio_nav(
+        self,
+        valuation_records: list[Any] | tuple[Any, ...] = (),
+    ) -> tuple[Any, ...]:
+        """Build Portfolio NAV snapshots by delegating to the NAV Engine."""
+
+        from onecool_os.portfolio.nav import PortfolioNavEngine
+
+        return PortfolioNavEngine().build_from_runtime_session(
+            self,
+            valuation_records,
+        )
+
+    def portfolio_nav_snapshots(
+        self,
+        valuation_records: list[Any] | tuple[Any, ...] = (),
+    ) -> tuple[Any, ...]:
+        """Return Portfolio NAV snapshots for this runtime session."""
+
+        return self.build_portfolio_nav(valuation_records)
+
     def with_imported_records(
         self,
         imported_records: list[dict[str, Any]] | tuple[dict[str, Any], ...],

@@ -213,6 +213,7 @@ Goals:
 
 - Portfolio summary
 - Portfolio aggregation
+- Portfolio NAV Engine
 - Assets, Ledger, and Valuation consumption
 - Analytics snapshots
 - Allocation

@@ -332,6 +332,21 @@ Portfolio owns no transaction history, no valuation history, and no asset
 identity. Business Logic layers will calculate ROI, IRR, Allocation, Risk, and
 Cash Flow. Portfolio itself should remain calculation-light.
 
+Portfolio NAV Engine is a deterministic derived calculation layer under
+`onecool_os.portfolio.nav`. It consumes RuntimeSession assets, existing
+`ValuationRecord` objects, and upstream evidence validation status. It
+produces `PortfolioNavSnapshot` and `AssetNavLine` outputs for cost basis,
+market value, unrealized gain/loss, ROI percent, valuation coverage, and
+verified coverage. The engine does not call providers, scrape websites,
+create market prices, estimate missing values, select unverified evidence,
+mutate Asset Master, mutate RuntimeSession, or recommend actions.
+
+NAV aggregation is one-currency-per-snapshot. Missing market values are never
+treated as zero. Verified and estimated coverage are tracked separately.
+Evidence validation remains upstream: review, rejected, no-match, and
+unverified evidence is excluded from trusted NAV. Dashboard and reports may
+display NAV later, but NAV calculation belongs to the Portfolio NAV Engine.
+
 ### Business Logic Engine
 
 Provides deterministic calculation and rule-evaluation contracts. Business

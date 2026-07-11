@@ -9,6 +9,9 @@ Commits.
 
 ### Added
 
+- Portfolio NAV Engine foundation with deterministic one-currency snapshots,
+  per-asset NAV lines, verified versus estimated coverage, missing-value
+  warnings, no-FX aggregation, and RuntimeSession delegation helpers.
 - Onecool Research Framework foundation with immutable provider-independent
   research models, provider registry, deterministic normalization and
   validation, local JSON loading, and an ORF-to-eBay-evidence bridge that does
