@@ -209,6 +209,8 @@ Goals:
   before provider execution
 - eBay Sold URL Research PoC for provider-independent request export and ORF
   result import without scraping or live provider calls
+- Single Asset Research Pipeline proving one real collectible can move from
+  Asset Master to validated RuntimeSession evidence attachment
 - PSA valuation input
 - Yahoo Finance valuation input
 - Real Estate valuation interface

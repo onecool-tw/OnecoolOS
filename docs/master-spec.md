@@ -541,6 +541,13 @@ existing ORF-to-eBay Sold Evidence bridge. Workbench does not scrape, call
 providers, fabricate sold records, create valuation records directly,
 calculate NAV, mutate Asset Master, or bypass evidence validation.
 
+The Single Asset Research Pipeline proves one real collectible asset can move
+from Asset Master through Research Queue, request export, externally supplied
+ORF JSON, eBay Sold Evidence validation, and RuntimeSession evidence
+attachment. The first target is 2008 TOPPS #24 KOBE BRYANT PSA 9, cert
+`111003720`. The pipeline does not retrieve eBay data, fabricate sold comps,
+create valuations, update NAV, calculate fair value, or recommend actions.
+
 Source Agreement evaluates whether Primary Market Price records and Validation
 Source records are close, divergent, missing, or conflicting. It produces
 `SourceAgreementResult` with deterministic score, level, spread, source count,

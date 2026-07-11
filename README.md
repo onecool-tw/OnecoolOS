@@ -320,6 +320,18 @@ python -m onecool_os export-ebay-research-requests --limit 3
 python -m onecool_os import-research-results --input imports/research/ebay_url_results.json
 ```
 
+The Single Asset Research Pipeline proves the first real end-to-end
+collectible research flow for one asset. The default target is 2008 TOPPS #24
+KOBE BRYANT PSA 9, cert `111003720`. The command exports exactly one research
+request, waits for externally supplied ORF-compatible provider JSON, and then
+attaches validated eBay Sold evidence to a new RuntimeSession. It does not
+retrieve eBay data, create valuations, update NAV, calculate fair value, or
+recommend actions.
+
+```bash
+python -m onecool_os run-single-asset-research
+```
+
 Source Agreement evaluates how closely eBay Sold Primary Market Price records
 agree with Card Ladder, Manual, PWCC, Goldin, and Fanatics Validation Sources.
 It calculates deterministic agreement score, level, spread, divergence,

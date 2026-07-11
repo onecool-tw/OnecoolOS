@@ -398,6 +398,14 @@ bridge, then eBay Sold Evidence validation. Workbench does not call providers,
 scrape, fabricate sold records, create valuation records directly, calculate
 NAV, mutate Asset Master, or bypass validation.
 
+Single Asset Research Pipeline is the first end-to-end proof for one real
+collectible. It locates one RuntimeSession asset by cert number, validates its
+identity, requires one READY SOLD_COMPARABLES Research Queue item, exports one
+eBay URL research request, imports externally supplied ORF JSON when present,
+attaches validated evidence to a new RuntimeSession, and reports counts. It
+does not retrieve data, create valuation records, update NAV, calculate fair
+value, or recommend actions.
+
 Card Ladder readiness is documented in
 `docs/live-connectors/card-ladder-readiness.md`. Card Ladder is a Validation
 Source that should enter through approved API access if allowed and available,

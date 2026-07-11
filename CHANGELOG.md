@@ -9,6 +9,12 @@ Commits.
 
 ### Added
 
+- Single Asset Research Pipeline for the 2008 TOPPS #24 Kobe Bryant PSA 9
+  target asset, including identity validation, one-request export, optional
+  ORF provider result import, eBay Sold Evidence classification,
+  RuntimeSession evidence attachment, CLI command, concise reports, and ADR-011
+  without scraping, provider calls, valuation creation, NAV updates, or
+  recommendations.
 - eBay Sold URL Research PoC with deterministic request export from READY
   Research Queue items, ORF-compatible result import, existing eBay evidence
   validation, CLI commands, and synthetic examples without scraping, provider
