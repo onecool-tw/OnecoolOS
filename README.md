@@ -275,6 +275,16 @@ automatically map into a `ValuationRecord`; `NEEDS_REVIEW`, `REJECTED`, and
 entry points, not valuation evidence by themselves, and AI/provider output
 must pass deterministic validation before Valuation Runtime consumes it.
 
+Onecool Fair Value is the deterministic layer that converts `VERIFIED` eBay
+Sold evidence into auditable collectible fair value snapshots. It selects the
+latest verified sold comps inside a configurable sample window, calculates
+Decimal-only statistics, liquidity, freshness, confidence, and Evidence
+Quality Score, and returns `OnecoolFairValueSnapshot` records. It does not
+scrape websites, call providers, create NAV, update Dashboard, create
+ValuationRecords, recommend actions, calculate portfolio ROI, or mutate
+evidence. If no verified evidence exists, it reports insufficient data instead
+of inventing a price.
+
 ## Onecool Research Framework
 
 The Onecool Research Framework is the universal abstraction layer for external

@@ -502,6 +502,20 @@ may automatically create a `ValuationRecord` with source `EBAY_SOLD`.
 Asset Master search URLs and AI/provider output are research inputs until this
 validation passes.
 
+Onecool Fair Value sits after verified eBay Sold Evidence and before future
+ValuationRecord creation. It consumes only `VERIFIED` sold comparable evidence,
+deduplicates sold items, applies a configurable latest-10-within-180-days
+sample window, and calculates Decimal-only minimum, maximum, median, arithmetic
+mean, trimmed mean, standard deviation, liquidity, freshness, confidence, and
+Evidence Quality Score. It does not call providers, scrape websites, create
+NAV, update Dashboard, recommend actions, calculate portfolio ROI, mutate
+evidence, or create ValuationRecord objects in the foundation sprint.
+
+Fair Value confidence is deterministic: five or more verified comps is `HIGH`,
+three or four is `MEDIUM`, one or two is `LOW`, and zero comps is
+`INSUFFICIENT_DATA`. Zero verified evidence must produce no fair value rather
+than a fabricated price.
+
 Onecool Research Framework sits before evidence validation as the universal
 external research abstraction layer. ChatGPT, Gemini, official APIs,
 authorized third-party providers, and manual structured research must produce

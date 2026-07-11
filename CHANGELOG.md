@@ -9,6 +9,12 @@ Commits.
 
 ### Added
 
+- Onecool Fair Value Engine foundation with verified eBay Sold comparable
+  selection, latest-10-within-180-days sampling, Decimal-only statistics,
+  liquidity, freshness, confidence, Evidence Quality Score, RuntimeSession
+  delegation helpers, and ADR-012 without provider calls, NAV creation,
+  recommendations, ROI calculation, ValuationRecord creation, or evidence
+  mutation.
 - Single Asset Research Pipeline for the 2008 TOPPS #24 Kobe Bryant PSA 9
   target asset, including identity validation, one-request export, optional
   ORF provider result import, eBay Sold Evidence classification,

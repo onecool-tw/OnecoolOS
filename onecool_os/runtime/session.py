@@ -178,6 +178,40 @@ class RuntimeSession:
 
         return self.build_portfolio_nav(valuation_records)
 
+    def build_fair_value(
+        self,
+        *,
+        sample_size: int = 10,
+        window_days: int = 180,
+    ) -> tuple[Any, ...]:
+        """Build Fair Value snapshots by delegating to the Fair Value Engine."""
+
+        from onecool_os.fair_value import OnecoolFairValueEngine
+
+        return OnecoolFairValueEngine().build_from_runtime_session(
+            self,
+            sample_size=sample_size,
+            window_days=window_days,
+        )
+
+    def fair_value(
+        self,
+        asset_id: str,
+        *,
+        sample_size: int = 10,
+        window_days: int = 180,
+    ) -> Any:
+        """Return the Fair Value snapshot for one asset, if present."""
+
+        snapshots = self.build_fair_value(
+            sample_size=sample_size,
+            window_days=window_days,
+        )
+        for snapshot in snapshots:
+            if snapshot.asset_id == asset_id:
+                return snapshot
+        return None
+
     def build_research_queue(
         self,
         valuation_records: list[Any] | tuple[Any, ...] = (),

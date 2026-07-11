@@ -211,6 +211,9 @@ Goals:
   result import without scraping or live provider calls
 - Single Asset Research Pipeline proving one real collectible can move from
   Asset Master to validated RuntimeSession evidence attachment
+- Onecool Fair Value Engine for Decimal-only verified eBay Sold comparable
+  aggregation, confidence, liquidity, freshness, and Evidence Quality Score
+  before future ValuationRecord creation
 - PSA valuation input
 - Yahoo Finance valuation input
 - Real Estate valuation interface

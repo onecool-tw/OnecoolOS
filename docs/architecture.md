@@ -491,6 +491,21 @@ sources, and warnings while preserving backward-compatible behavior without it.
 `reference_datetime` is injected into Market Intelligence builders so replay,
 backtesting, and historical reconstruction remain deterministic.
 
+### Fair Value
+
+Onecool Fair Value is the deterministic collectible market price layer between
+verified eBay Sold Evidence and future ValuationRecord creation. It consumes
+only `VERIFIED` evidence, rejects review or mismatched evidence, deduplicates
+sold items, applies the latest-10-within-180-days sample window by default,
+and produces `OnecoolFairValueSnapshot` records.
+
+Fair Value calculates Decimal-only comparable statistics, liquidity, freshness,
+confidence, Evidence Quality Score, and warnings. It does not call providers,
+scrape websites, create NAV, update Dashboard, recommend actions, calculate
+portfolio ROI, mutate evidence, or create ValuationRecord objects in this
+foundation sprint. RuntimeSession may expose Fair Value snapshots through
+delegation, but RuntimeSession does not calculate fair value internally.
+
 ### Portfolio
 
 Portfolio aggregates current holdings and summary values. It consumes Assets,
