@@ -8,6 +8,8 @@ from onecool_os.dashboard.collectibles import CollectibleDashboardBuilder
 from onecool_os.dashboard.collectibles import CollectibleDashboardSection
 from onecool_os.dashboard.collectibles import collection_health_lines
 from onecool_os.dashboard.collectibles import collection_health_section
+from onecool_os.dashboard.collectibles import portfolio_nav_lines
+from onecool_os.dashboard.collectibles import portfolio_nav_sections
 from onecool_os.dashboard.models import DashboardSection
 from onecool_os.dashboard.models import DashboardView
 from onecool_os.dashboard.performance import PerformanceDashboard
@@ -22,6 +24,8 @@ __all__ = [
     "CollectibleDashboardSection",
     "collection_health_lines",
     "collection_health_section",
+    "portfolio_nav_lines",
+    "portfolio_nav_sections",
     "DashboardBuilder",
     "DashboardError",
     "DashboardSection",

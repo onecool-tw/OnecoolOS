@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import datetime
+from decimal import Decimal
 from typing import Any
 
 from onecool_os.analytics.timeline import TimelineSnapshot
@@ -15,6 +16,7 @@ from onecool_os.dashboard.validation import parse_optional_dict
 from onecool_os.dashboard.validation import require_text
 from onecool_os.decision.models import DecisionResult
 from onecool_os.performance import InvestmentPerformanceSnapshot
+from onecool_os.portfolio import PortfolioNavSnapshot
 from onecool_os.radar.models import RadarSnapshot
 from onecool_os.runtime import RuntimeSession
 from onecool_os.sync import CollectionDifference
@@ -118,6 +120,9 @@ class CollectibleDashboardBuilder:
         performance_snapshots: tuple[InvestmentPerformanceSnapshot, ...]
         | list[InvestmentPerformanceSnapshot]
         | None = None,
+        portfolio_nav_snapshots: tuple[PortfolioNavSnapshot, ...]
+        | list[PortfolioNavSnapshot]
+        | None = None,
         collectible_assets: tuple[Any, ...] | list[Any] | None = None,
         runtime_session: RuntimeSession | None = None,
     ) -> CollectibleDashboard:
@@ -147,6 +152,13 @@ class CollectibleDashboardBuilder:
                 _performance_sections(
                     performance_snapshots,
                     collectible_assets,
+                    generated_at,
+                )
+            )
+        if portfolio_nav_snapshots is not None:
+            sections.extend(
+                portfolio_nav_sections(
+                    portfolio_nav_snapshots,
                     generated_at,
                 )
             )
@@ -270,6 +282,144 @@ def collection_health_lines(
         lines.append("  None")
     if content.get("message"):
         lines.append(content["message"])
+    return tuple(lines)
+
+
+def portfolio_nav_sections(
+    snapshots: tuple[PortfolioNavSnapshot, ...] | list[PortfolioNavSnapshot],
+    generated_at: datetime | None = None,
+) -> tuple[CollectibleDashboardSection, ...]:
+    """Return presentation-only NAV dashboard sections."""
+
+    nav_snapshots = tuple(snapshots or ())
+    if not nav_snapshots:
+        return (
+            CollectibleDashboardSection(
+                section_id="portfolio-nav",
+                title="Portfolio NAV",
+                content={
+                    "status": "empty",
+                    "message": "Portfolio NAV is not available for the current runtime session.",
+                },
+                generated_at=generated_at,
+            ),
+        )
+
+    ordered = tuple(sorted(nav_snapshots, key=lambda snapshot: snapshot.currency))
+    sections: list[CollectibleDashboardSection] = []
+    for snapshot in ordered:
+        sections.append(
+            CollectibleDashboardSection(
+                section_id=f"portfolio-nav-{snapshot.currency.lower()}",
+                title=f"Portfolio NAV - {snapshot.currency}",
+                content=_portfolio_nav_content(snapshot),
+                generated_at=generated_at or snapshot.generated_at,
+            )
+        )
+    sections.append(
+        CollectibleDashboardSection(
+            section_id="valuation-coverage",
+            title="Valuation Coverage",
+            content={
+                "status": "ready",
+                "snapshots": [
+                    _valuation_coverage_content(snapshot)
+                    for snapshot in ordered
+                ],
+            },
+            generated_at=generated_at or ordered[0].generated_at,
+        )
+    )
+    sections.append(
+        CollectibleDashboardSection(
+            section_id="asset-nav-review",
+            title="Asset NAV Review",
+            content={
+                "status": "ready",
+                "rows": _asset_review_rows(ordered),
+            },
+            generated_at=generated_at or ordered[0].generated_at,
+        )
+    )
+    return tuple(sections)
+
+
+def portfolio_nav_lines(
+    snapshots: tuple[PortfolioNavSnapshot, ...] | list[PortfolioNavSnapshot],
+) -> tuple[str, ...]:
+    """Return deterministic terminal lines for Portfolio NAV snapshots."""
+
+    nav_snapshots = tuple(sorted(tuple(snapshots or ()), key=lambda item: item.currency))
+    if not nav_snapshots:
+        return (
+            "",
+            "Portfolio NAV",
+            "-------------",
+            "Portfolio NAV is not available for the current runtime session.",
+        )
+
+    lines: list[str] = []
+    for snapshot in nav_snapshots:
+        title = "Portfolio NAV" if len(nav_snapshots) == 1 else f"Portfolio NAV - {snapshot.currency}"
+        lines.extend(
+            (
+                "",
+                title,
+                "-" * len(title),
+                f"Currency: {snapshot.currency}",
+                f"Status: {snapshot.status.value}",
+                f"Status Meaning: {_nav_status_explanation(snapshot.status.value)}",
+                f"Total Assets: {snapshot.total_assets}",
+                f"Assets With Cost Basis: {snapshot.assets_with_cost}",
+                f"Assets With Market Value: {snapshot.assets_with_market_value}",
+                f"Verified Assets: {snapshot.verified_assets}",
+                f"Review Required Assets: {snapshot.review_required_assets}",
+                f"Estimated Assets: {snapshot.estimated_assets}",
+                f"Missing Value Assets: {snapshot.missing_value_assets}",
+                f"Total Cost Basis: {_money(snapshot.currency, snapshot.total_cost_basis, available=snapshot.assets_with_cost > 0)}",
+                f"Total Market Value: {_money(snapshot.currency, snapshot.total_market_value, available=snapshot.assets_with_market_value > 0)}",
+                f"Unrealized Gain / Loss: {_money(snapshot.currency, snapshot.unrealized_gain_loss, available=snapshot.unrealized_gain_loss is not None)}",
+                f"ROI: {_percent(snapshot.roi_percent)}",
+                f"Valuation Coverage: {_percent(snapshot.valuation_coverage_percent)}",
+                f"Verified Coverage: {_percent(snapshot.verified_coverage_percent)}",
+            )
+        )
+
+    lines.extend(("", "Valuation Coverage", "------------------"))
+    for snapshot in nav_snapshots:
+        lines.extend(
+            (
+                f"{snapshot.currency}",
+                f"  Verified: {snapshot.verified_assets} / {snapshot.total_assets} ({_percent(snapshot.verified_coverage_percent)})",
+                f"  Review Required: {snapshot.review_required_assets} / {snapshot.total_assets}",
+                f"  Estimated: {snapshot.estimated_assets} / {snapshot.total_assets}",
+                f"  Missing: {snapshot.missing_value_assets} / {snapshot.total_assets}",
+            )
+        )
+
+    review_rows = _asset_review_rows(nav_snapshots)
+    total_review_rows = sum(
+        1
+        for snapshot in nav_snapshots
+        for line in snapshot.asset_lines
+        if _line_needs_review(line)
+    )
+    lines.extend(("", "Asset NAV Review", "----------------"))
+    if review_rows:
+        for row in review_rows:
+            lines.append(
+                "  "
+                f"{row['asset']} | Cert: {row['cert_number'] or 'N/A'} | "
+                f"Cost: {row['cost_basis']} | Market: {row['market_value']} | "
+                f"Gain/Loss: {row['gain_loss']} | ROI: {row['roi']} | "
+                f"Coverage: {row['coverage_status']} | Source: {row['valuation_source'] or 'N/A'} | "
+                f"Date: {row['valuation_date'] or 'N/A'} | Warnings: {row['warning_summary']}"
+            )
+        omitted = max(total_review_rows - len(review_rows), 0)
+        if omitted:
+            lines.append(f"  Omitted Review Rows: {omitted}")
+    else:
+        lines.append("  None")
     return tuple(lines)
 
 
@@ -442,6 +592,128 @@ def _performance_sections(
             generated_at=dashboard.generated_at,
         ),
     )
+
+
+def _portfolio_nav_content(snapshot: PortfolioNavSnapshot) -> dict[str, Any]:
+    return {
+        "status": "ready",
+        "currency": snapshot.currency,
+        "nav_status": snapshot.status.value,
+        "status_explanation": _nav_status_explanation(snapshot.status.value),
+        "total_assets": snapshot.total_assets,
+        "assets_with_cost_basis": snapshot.assets_with_cost,
+        "assets_with_market_value": snapshot.assets_with_market_value,
+        "verified_assets": snapshot.verified_assets,
+        "review_required_assets": snapshot.review_required_assets,
+        "estimated_assets": snapshot.estimated_assets,
+        "missing_value_assets": snapshot.missing_value_assets,
+        "total_cost_basis": _money_value(snapshot.total_cost_basis, snapshot.assets_with_cost > 0),
+        "total_market_value": _money_value(snapshot.total_market_value, snapshot.assets_with_market_value > 0),
+        "unrealized_gain_loss": _money_value(snapshot.unrealized_gain_loss, snapshot.unrealized_gain_loss is not None),
+        "roi_percent": _percent_value(snapshot.roi_percent),
+        "valuation_coverage_percent": _percent_value(snapshot.valuation_coverage_percent),
+        "verified_coverage_percent": _percent_value(snapshot.verified_coverage_percent),
+        "warnings": list(snapshot.warnings),
+    }
+
+
+def _valuation_coverage_content(snapshot: PortfolioNavSnapshot) -> dict[str, Any]:
+    return {
+        "currency": snapshot.currency,
+        "total_assets": snapshot.total_assets,
+        "verified": {
+            "count": snapshot.verified_assets,
+            "percent": _percent_value(snapshot.verified_coverage_percent),
+        },
+        "review_required": {
+            "count": snapshot.review_required_assets,
+        },
+        "estimated": {
+            "count": snapshot.estimated_assets,
+        },
+        "missing": {
+            "count": snapshot.missing_value_assets,
+        },
+    }
+
+
+def _asset_review_rows(
+    snapshots: tuple[PortfolioNavSnapshot, ...],
+    *,
+    limit: int = 10,
+) -> list[dict[str, Any]]:
+    rows: list[dict[str, Any]] = []
+    for snapshot in snapshots:
+        for line in snapshot.asset_lines:
+            if not _line_needs_review(line):
+                continue
+            rows.append(
+                {
+                    "currency": snapshot.currency,
+                    "asset": line.asset_name,
+                    "asset_id": line.asset_id,
+                    "cert_number": line.cert_number,
+                    "cost_basis": _money(snapshot.currency, line.cost_basis, available=line.cost_basis is not None),
+                    "market_value": _money(snapshot.currency, line.market_value, available=line.market_value is not None),
+                    "gain_loss": _money(snapshot.currency, line.unrealized_gain_loss, available=line.unrealized_gain_loss is not None),
+                    "roi": _percent(line.roi_percent),
+                    "coverage_status": line.coverage_status.value,
+                    "valuation_source": line.valuation_source,
+                    "valuation_date": line.valuation_date.isoformat() if line.valuation_date else None,
+                    "warning_summary": _warning_summary(line.warnings),
+                }
+            )
+    return sorted(
+        rows,
+        key=lambda row: (
+            row["coverage_status"],
+            row["asset"],
+            row["asset_id"],
+        ),
+    )[:limit]
+
+
+def _line_needs_review(line: Any) -> bool:
+    return bool(line.warnings) or line.coverage_status.value != "VERIFIED"
+
+
+def _warning_summary(warnings: tuple[str, ...]) -> str:
+    if not warnings:
+        return "None"
+    return "; ".join(warnings)
+
+
+def _nav_status_explanation(status: str) -> str:
+    return {
+        "COMPLETE": "All assets in this currency snapshot have eligible market values.",
+        "PARTIAL": "Some assets have market values; others remain missing or estimated.",
+        "INSUFFICIENT_DATA": "There are not enough eligible market values for a meaningful NAV.",
+        "CURRENCY_MISMATCH": "Currency differences prevent valid aggregation.",
+    }.get(status, "Unknown NAV status.")
+
+
+def _money(currency: str, value: Decimal | None, *, available: bool) -> str:
+    if value is None or not available:
+        return "N/A"
+    return f"{currency} {value:,.2f}"
+
+
+def _money_value(value: Decimal | None, available: bool) -> str | None:
+    if value is None or not available:
+        return None
+    return f"{value:,.2f}"
+
+
+def _percent(value: Decimal | None) -> str:
+    if value is None:
+        return "N/A"
+    return f"{value.quantize(Decimal('0.01'))}%"
+
+
+def _percent_value(value: Decimal | None) -> str | None:
+    if value is None:
+        return None
+    return f"{value.quantize(Decimal('0.01'))}%"
 
 
 def _warning_section(

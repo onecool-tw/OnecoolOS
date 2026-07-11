@@ -1065,6 +1065,13 @@ for future AI reasoning. It includes performance overview, review priorities,
 performance warnings, top gainers, and top losers. OFAI does not recalculate
 performance, invoke LLMs, predict prices, or recommend buy/sell actions.
 
+Portfolio NAV Dashboard Integration displays existing `PortfolioNavSnapshot`
+objects in the Collectible Dashboard and Onecool Launcher. Dashboard consumes
+NAV snapshots only; it never recalculates NAV, ROI, valuation selection, FX,
+or evidence status. Missing values display as `N/A`, verified and estimated
+coverage remain separate, currencies are never combined without an FX Engine,
+and NAV is informational rather than a recommendation.
+
 The closed-loop review freezes this flow as a v0.4 beta candidate: Engine
 calculates, Collectible Performance adapts, Dashboard displays, Daily Report
 assembles, Decision Queue prioritizes review work, and OFAI prepares

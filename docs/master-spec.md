@@ -424,6 +424,13 @@ as Cash Flow, Allocation, Performance, Risk, and Pipeline summaries. Dashboard
 does not calculate metrics. Business Logic owns calculations, Analytics owns
 derived snapshots, and Dashboard owns presentation.
 
+Dashboard may display Portfolio NAV snapshots produced by the Portfolio NAV
+Engine. It consumes `PortfolioNavSnapshot` and `AssetNavLine` outputs only and
+does not recalculate NAV, ROI, valuation selection, evidence status, or FX.
+Missing values display as `N/A`, verified and estimated coverage remain
+separate, and currencies are never combined without a future FX Engine. NAV is
+informational and must not be presented as a recommendation.
+
 ### Scenario Engine
 
 Provides deterministic A/B/C/D scenario planning models. Scenario Engine

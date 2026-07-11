@@ -9,6 +9,10 @@ Commits.
 
 ### Added
 
+- Portfolio NAV Dashboard Integration displaying existing
+  `PortfolioNavSnapshot` data in the collectible dashboard and Onecool
+  Launcher without recalculating NAV, combining currencies, or inventing
+  missing market values.
 - Portfolio NAV Engine foundation with deterministic one-currency snapshots,
   per-asset NAV lines, verified versus estimated coverage, missing-value
   warnings, no-FX aggregation, and RuntimeSession delegation helpers.

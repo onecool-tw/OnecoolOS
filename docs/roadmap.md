@@ -214,6 +214,7 @@ Goals:
 - Portfolio summary
 - Portfolio aggregation
 - Portfolio NAV Engine
+- Portfolio NAV Dashboard Integration
 - Assets, Ledger, and Valuation consumption
 - Analytics snapshots
 - Allocation

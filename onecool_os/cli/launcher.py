@@ -21,6 +21,7 @@ from onecool_os.connectors.collectibles import PSACollectionImporter
 from onecool_os.connectors.collectibles import PSAImportError
 from onecool_os.connectors.collectibles import PSAImportResult
 from onecool_os.dashboard import collection_health_lines
+from onecool_os.dashboard import portfolio_nav_lines
 from onecool_os.runtime import RuntimeSession
 from onecool_os.valuation.models import ValuationRecord
 from onecool_os.valuation.providers import ValuationProvider
@@ -234,10 +235,21 @@ class OnecoolLauncher:
             for line in MISSING_COLLECTION_MESSAGE.splitlines():
                 self._output(line)
             return
+        nav_snapshots = ()
+        nav_warning = None
+        if self._runtime_session is not None:
+            try:
+                nav_snapshots = self._runtime_session.portfolio_nav_snapshots(
+                    self._runtime_valuation_records,
+                )
+            except Exception as exc:  # pragma: no cover - defensive CLI boundary.
+                nav_warning = f"Portfolio NAV unavailable: {exc}"
         for line in collection_dashboard_lines(
             self._psa_import_result,
             self._runtime_valuation_records,
             self._runtime_session,
+            portfolio_nav_snapshots=nav_snapshots,
+            portfolio_nav_warning=nav_warning,
         ):
             self._output(line)
 
@@ -342,6 +354,8 @@ def collection_dashboard_lines(
     result: PSAImportResult,
     valuation_records: Sequence[ValuationRecord] | None = None,
     runtime_session: RuntimeSession | None = None,
+    portfolio_nav_snapshots: Sequence[Any] | None = None,
+    portfolio_nav_warning: str | None = None,
 ) -> tuple[str, ...]:
     """Return a display-only dashboard from in-memory import data."""
 
@@ -420,6 +434,10 @@ def collection_dashboard_lines(
         )
     )
     lines.extend(collection_health_lines(runtime_session))
+    if portfolio_nav_warning:
+        lines.extend(("", "Portfolio NAV", "-------------", portfolio_nav_warning))
+    else:
+        lines.extend(portfolio_nav_lines(tuple(portfolio_nav_snapshots or ())))
     return tuple(lines)
 
 
