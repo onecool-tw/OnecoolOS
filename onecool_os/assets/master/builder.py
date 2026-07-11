@@ -6,7 +6,7 @@ import csv
 import re
 import shutil
 import tempfile
-import zipfile
+from copy import copy
 from dataclasses import dataclass
 from datetime import UTC
 from datetime import datetime
@@ -14,20 +14,15 @@ from decimal import Decimal
 from decimal import InvalidOperation
 from pathlib import Path
 from typing import Any
-from xml.etree import ElementTree
+
+from openpyxl import load_workbook
+from openpyxl.worksheet.worksheet import Worksheet
 
 from onecool_os.assets.master.validation import AssetMasterError
 
 DEFAULT_SOURCE_WORKBOOK = Path("imports/asset_master/source/球員卡投組.xlsx")
 DEFAULT_COLLECTION_CSV = Path("imports/psa/collection.csv")
 DEFAULT_OUTPUT_WORKBOOK = Path("imports/asset_master/asset_master.xlsx")
-
-MAIN_NS = "http://schemas.openxmlformats.org/spreadsheetml/2006/main"
-REL_NS = "http://schemas.openxmlformats.org/officeDocument/2006/relationships"
-PKG_REL_NS = "http://schemas.openxmlformats.org/package/2006/relationships"
-CONTENT_TYPES_NS = "http://schemas.openxmlformats.org/package/2006/content-types"
-ElementTree.register_namespace("", MAIN_NS)
-ElementTree.register_namespace("r", REL_NS)
 
 REQUIRED_COLLECTION_COLUMNS = (
     "Item",
@@ -53,16 +48,6 @@ IDENTITY_FIELDS = (
     "Variety",
     "My Cost",
     "Date Acquired",
-)
-USER_MAINTAINED_FIELDS = frozenset(
-    {
-        "即時價格",
-        "REF",
-        "操作建議",
-        "Watch Status",
-        "Target Price",
-        "Notes",
-    }
 )
 GENERATED_LINK_FIELDS = ("eBay Sold Search URL", "PSA URL")
 HEADER_ALIASES = {
@@ -98,7 +83,6 @@ HEADER_ALIASES = {
     "psa url": "PSA URL",
     "psa 官網快速連結 (手動核對)": "PSA URL",
 }
-_ACTIVE_SHARED_STRINGS: tuple[str, ...] = ()
 
 
 class AssetMasterBuildError(AssetMasterError):
@@ -145,16 +129,14 @@ class AssetMasterBuilder:
         output_path = Path(output_workbook)
         generated_at = reference_datetime or datetime.now(UTC)
         if not source_path.exists():
-            raise AssetMasterBuildError(
-                f"Source workbook not found: {source_path}"
-            )
+            raise AssetMasterBuildError(f"Source workbook not found: {source_path}")
         if not collection_path.exists():
-            raise AssetMasterBuildError(
-                f"Collection CSV not found: {collection_path}"
-            )
+            raise AssetMasterBuildError(f"Collection CSV not found: {collection_path}")
+
         collection_records = _read_collection_records(collection_path)
         if not collection_records:
             raise AssetMasterBuildError("Collection CSV has no valid cards.")
+
         with tempfile.TemporaryDirectory() as temp_dir:
             temp_output = Path(temp_dir) / output_path.name
             result = self._build_temp(
@@ -181,37 +163,42 @@ class AssetMasterBuilder:
         collection_records: tuple[dict[str, str], ...],
         generated_at: datetime,
     ) -> AssetMasterBuildResult:
-        with zipfile.ZipFile(source_path, "r") as source_zip:
-            entries = {name: source_zip.read(name) for name in source_zip.namelist()}
+        try:
+            workbook = load_workbook(source_path, data_only=False, keep_links=True)
+        except Exception as exc:  # pragma: no cover - openpyxl owns details.
+            raise AssetMasterBuildError(
+                f"Source workbook cannot be opened by openpyxl: {exc}"
+            ) from exc
 
-        workbook = _WorkbookXml(entries)
-        sheet_path = workbook.first_sheet_path()
-        sheet = _WorksheetXml(entries[sheet_path], _shared_strings(entries))
-        header_map = _ensure_headers(sheet)
-        existing_rows = _existing_card_rows(sheet, header_map)
-        original_valid_count = len(existing_rows)
-        match_result = _match_records(existing_rows, collection_records, header_map)
-        _update_matched_rows(sheet, header_map, match_result)
-        _append_new_rows(sheet, header_map, match_result.append_records)
-        sheet.refresh_dimension()
-        entries[sheet_path] = sheet.to_bytes()
-        entries = _replace_sync_report(
-            entries,
-            workbook,
-            _sync_rows(
-                source_path,
-                collection_path,
-                original_valid_count,
-                collection_records,
-                match_result,
-                sheet,
-                header_map,
-                generated_at,
-            ),
-        )
-        _write_zip(output_path, entries)
+        try:
+            sheet = workbook.worksheets[0]
+            header_map = _ensure_headers(sheet)
+            existing_rows = _existing_card_rows(sheet, header_map)
+            original_valid_count = len(existing_rows)
+            match_result = _match_records(existing_rows, collection_records, sheet, header_map)
+
+            _update_matched_rows(sheet, header_map, match_result)
+            _append_new_rows(sheet, header_map, match_result.append_records)
+            _apply_native_hyperlinks(sheet, header_map)
+            _replace_sync_report(
+                workbook,
+                _sync_rows(
+                    source_path,
+                    collection_path,
+                    original_valid_count,
+                    collection_records,
+                    match_result,
+                    sheet,
+                    header_map,
+                    generated_at,
+                ),
+            )
+            workbook.save(output_path)
+        finally:
+            workbook.close()
+
         _validate_output(output_path, len(collection_records))
-        summary = _summarize_output(
+        return _summarize_output(
             output_path,
             source_path,
             collection_path,
@@ -220,188 +207,16 @@ class AssetMasterBuilder:
             match_result,
             generated_at,
         )
-        return summary
 
 
 @dataclass(frozen=True)
 class _MatchResult:
-    exact_cert_matches: tuple[tuple[Any, dict[str, str]], ...]
-    fallback_identity_matches: tuple[tuple[Any, dict[str, str]], ...]
+    exact_cert_matches: tuple[tuple[int, dict[str, str]], ...]
+    fallback_identity_matches: tuple[tuple[int, dict[str, str]], ...]
     append_records: tuple[dict[str, str], ...]
-    unmatched_old_rows: tuple[Any, ...]
+    unmatched_old_rows: tuple[int, ...]
     ambiguous_records: tuple[dict[str, str], ...]
     duplicate_cert_numbers: tuple[str, ...]
-
-
-class _WorksheetXml:
-    def __init__(
-        self,
-        xml_bytes: bytes,
-        shared_strings: tuple[str, ...] = (),
-    ) -> None:
-        global _ACTIVE_SHARED_STRINGS
-        _ACTIVE_SHARED_STRINGS = shared_strings
-        self.shared_strings = shared_strings
-        self.root = ElementTree.fromstring(xml_bytes)
-        self.sheet_data = self.root.find(_main("sheetData"))
-        if self.sheet_data is None:
-            raise AssetMasterBuildError("Workbook sheet is missing sheetData.")
-
-    def rows(self) -> list[ElementTree.Element]:
-        return list(self.sheet_data.findall(_main("row")))
-
-    def header_row(self) -> ElementTree.Element:
-        rows = self.rows()
-        if not rows:
-            row = ElementTree.Element(_main("row"), {"r": "1"})
-            self.sheet_data.append(row)
-            return row
-        return rows[0]
-
-    def last_valid_row_index(self, header_map: dict[str, int]) -> int:
-        indexes = [
-            int(row.attrib.get("r", "0"))
-            for row in self.rows()[1:]
-            if _row_cert(row, header_map)
-        ]
-        return max(indexes or [1])
-
-    def row_by_index(self, row_index: int) -> ElementTree.Element | None:
-        for row in self.rows():
-            if int(row.attrib.get("r", "0")) == row_index:
-                return row
-        return None
-
-    def append_row_from_template(
-        self,
-        template_row: ElementTree.Element | None,
-        row_index: int,
-    ) -> ElementTree.Element:
-        if template_row is not None:
-            old_row_index = int(template_row.attrib.get("r", str(row_index)))
-            row = ElementTree.fromstring(ElementTree.tostring(template_row))
-            row.attrib["r"] = str(row_index)
-            for cell in row.findall(_main("c")):
-                old_ref = cell.attrib.get("r", "")
-                cell.attrib["r"] = f"{_cell_letters(old_ref)}{row_index}"
-                formula = cell.find(_main("f"))
-                if formula is not None and formula.text:
-                    formula.text = _shift_formula_rows(
-                        formula.text,
-                        old_row_index,
-                        row_index,
-                    )
-                    value = cell.find(_main("v"))
-                    if value is not None:
-                        cell.remove(value)
-                else:
-                    _clear_cell_value(cell)
-        else:
-            row = ElementTree.Element(_main("row"), {"r": str(row_index)})
-        self.sheet_data.append(row)
-        return row
-
-    def refresh_dimension(self) -> None:
-        dimension = self.root.find(_main("dimension"))
-        if dimension is None:
-            dimension = ElementTree.Element(_main("dimension"))
-            self.root.insert(0, dimension)
-        max_row = max((int(row.attrib.get("r", "1")) for row in self.rows()), default=1)
-        max_col = 1
-        for row in self.rows():
-            for cell in row.findall(_main("c")):
-                max_col = max(max_col, _column_index(cell.attrib.get("r", "A1")) + 1)
-        dimension.attrib["ref"] = f"A1:{_column_name(max_col)}{max_row}"
-
-    def to_bytes(self) -> bytes:
-        return ElementTree.tostring(
-            self.root,
-            encoding="utf-8",
-            xml_declaration=True,
-        )
-
-
-class _WorkbookXml:
-    def __init__(self, entries: dict[str, bytes]) -> None:
-        self.entries = entries
-        self.workbook_root = ElementTree.fromstring(entries["xl/workbook.xml"])
-        self.rels_root = ElementTree.fromstring(entries["xl/_rels/workbook.xml.rels"])
-        self.content_types_root = ElementTree.fromstring(entries["[Content_Types].xml"])
-
-    def first_sheet_path(self) -> str:
-        sheet = self.workbook_root.find(f"{_main('sheets')}/{_main('sheet')}")
-        if sheet is None:
-            raise AssetMasterBuildError("Workbook has no worksheets.")
-        relationship_id = sheet.attrib[f"{{{REL_NS}}}id"]
-        target = self._relationship_target(relationship_id)
-        return _target_to_entry(target)
-
-    def remove_sync_report(self) -> None:
-        sheets = self.workbook_root.find(_main("sheets"))
-        if sheets is None:
-            return
-        removed_relationship_ids = []
-        for sheet in list(sheets.findall(_main("sheet"))):
-            if sheet.attrib.get("name") == "Sync Report":
-                removed_relationship_ids.append(sheet.attrib.get(f"{{{REL_NS}}}id"))
-                sheets.remove(sheet)
-        for relationship in list(self.rels_root):
-            if relationship.attrib.get("Id") in removed_relationship_ids:
-                target = relationship.attrib.get("Target", "")
-                self.entries.pop(_target_to_entry(target), None)
-                self.rels_root.remove(relationship)
-
-    def add_sync_report(self, sheet_xml: bytes) -> None:
-        self.remove_sync_report()
-        sheets = self.workbook_root.find(_main("sheets"))
-        if sheets is None:
-            sheets = ElementTree.SubElement(self.workbook_root, _main("sheets"))
-        next_sheet_id = _next_sheet_id(sheets)
-        next_rel_id = _next_rel_id(self.rels_root)
-        next_sheet_number = _next_sheet_number(self.entries)
-        target = f"worksheets/sheet{next_sheet_number}.xml"
-        entry = f"xl/{target}"
-        ElementTree.SubElement(
-            sheets,
-            _main("sheet"),
-            {
-                "name": "Sync Report",
-                "sheetId": str(next_sheet_id),
-                f"{{{REL_NS}}}id": next_rel_id,
-            },
-        )
-        ElementTree.SubElement(
-            self.rels_root,
-            f"{{{PKG_REL_NS}}}Relationship",
-            {
-                "Id": next_rel_id,
-                "Type": "http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet",
-                "Target": target,
-            },
-        )
-        _ensure_content_type(self.content_types_root, f"/{entry}")
-        self.entries[entry] = sheet_xml
-        self.entries["xl/workbook.xml"] = ElementTree.tostring(
-            self.workbook_root,
-            encoding="utf-8",
-            xml_declaration=True,
-        )
-        self.entries["xl/_rels/workbook.xml.rels"] = ElementTree.tostring(
-            self.rels_root,
-            encoding="utf-8",
-            xml_declaration=True,
-        )
-        self.entries["[Content_Types].xml"] = ElementTree.tostring(
-            self.content_types_root,
-            encoding="utf-8",
-            xml_declaration=True,
-        )
-
-    def _relationship_target(self, relationship_id: str) -> str:
-        for relationship in self.rels_root:
-            if relationship.attrib.get("Id") == relationship_id:
-                return relationship.attrib["Target"]
-        raise AssetMasterBuildError(f"Missing worksheet relationship: {relationship_id}")
 
 
 def _read_collection_records(path: Path) -> tuple[dict[str, str], ...]:
@@ -446,77 +261,82 @@ def _normalize_collection_row(row: dict[str, str]) -> dict[str, str] | None:
     return record
 
 
-def _ensure_headers(sheet: _WorksheetXml) -> dict[str, int]:
-    header_row = sheet.header_row()
-    existing = {
-        _canonical_header(_cell_text(cell)): _column_index(cell.attrib.get("r", "A1"))
-        for cell in header_row.findall(_main("c"))
-        if _canonical_header(_cell_text(cell))
-    }
-    required = tuple(IDENTITY_FIELDS) + GENERATED_LINK_FIELDS
-    next_column = max(existing.values(), default=-1) + 1
-    for header in required:
-        if header not in existing:
-            _set_text_cell(header_row, next_column, 1, header)
-            existing[header] = next_column
+def _ensure_headers(sheet: Worksheet) -> dict[str, int]:
+    header_map = {}
+    for column_index in range(1, sheet.max_column + 1):
+        header = _canonical_header(sheet.cell(row=1, column=column_index).value)
+        if header:
+            header_map[header] = column_index
+
+    next_column = sheet.max_column + 1
+    for header in tuple(IDENTITY_FIELDS) + GENERATED_LINK_FIELDS:
+        if header not in header_map:
+            cell = sheet.cell(row=1, column=next_column)
+            cell.value = header
+            if next_column > 1:
+                _copy_cell_format(sheet.cell(row=1, column=next_column - 1), cell)
+            header_map[header] = next_column
             next_column += 1
-    return existing
+    return header_map
 
 
-def _existing_card_rows(
-    sheet: _WorksheetXml,
-    header_map: dict[str, int],
-) -> tuple[ElementTree.Element, ...]:
+def _existing_card_rows(sheet: Worksheet, header_map: dict[str, int]) -> tuple[int, ...]:
     return tuple(
-        row for row in sheet.rows()[1:] if _row_cert(row, header_map)
+        row_index
+        for row_index in range(2, sheet.max_row + 1)
+        if _row_cert(sheet, row_index, header_map)
     )
 
 
 def _match_records(
-    existing_rows: tuple[ElementTree.Element, ...],
+    existing_rows: tuple[int, ...],
     collection_records: tuple[dict[str, str], ...],
+    sheet: Worksheet,
     header_map: dict[str, int],
 ) -> _MatchResult:
     rows_by_cert = {
-        _row_cert(row, header_map): row
-        for row in existing_rows
-        if _row_cert(row, header_map)
+        _row_cert(sheet, row_index, header_map): row_index
+        for row_index in existing_rows
+        if _row_cert(sheet, row_index, header_map)
     }
     exact_matches = []
     fallback_matches = []
     append_records = []
     ambiguous = []
-    matched_row_ids = set()
+    matched_rows = set()
     seen_collection_certs = set()
     duplicate_certs = []
+
     for record in collection_records:
         cert_number = _normalize(record["Cert Number"])
         if cert_number in seen_collection_certs:
             duplicate_certs.append(record["Cert Number"])
         seen_collection_certs.add(cert_number)
-        row = rows_by_cert.get(cert_number)
-        if row is not None:
-            exact_matches.append((row, record))
-            matched_row_ids.add(id(row))
+        row_index = rows_by_cert.get(cert_number)
+        if row_index is not None:
+            exact_matches.append((row_index, record))
+            matched_rows.add(row_index)
             continue
+
         candidates = [
             old_row
             for old_row in existing_rows
-            if id(old_row) not in matched_row_ids
+            if old_row not in matched_rows
             and (
-                _row_identity(old_row, header_map) == _record_identity(record)
-                or _row_item_identity(old_row, header_map)
+                _row_identity(sheet, old_row, header_map) == _record_identity(record)
+                or _row_item_identity(sheet, old_row, header_map)
                 == _record_item_identity(record)
             )
         ]
         if len(candidates) == 1:
             fallback_matches.append((candidates[0], record))
-            matched_row_ids.add(id(candidates[0]))
+            matched_rows.add(candidates[0])
         elif len(candidates) > 1:
             ambiguous.append(record)
         else:
             append_records.append(record)
-    unmatched = tuple(row for row in existing_rows if id(row) not in matched_row_ids)
+
+    unmatched = tuple(row_index for row_index in existing_rows if row_index not in matched_rows)
     return _MatchResult(
         exact_cert_matches=tuple(exact_matches),
         fallback_identity_matches=tuple(fallback_matches),
@@ -528,45 +348,81 @@ def _match_records(
 
 
 def _update_matched_rows(
-    sheet: _WorksheetXml,
+    sheet: Worksheet,
     header_map: dict[str, int],
     match_result: _MatchResult,
 ) -> None:
-    for row, record in (
+    for row_index, record in (
         match_result.exact_cert_matches + match_result.fallback_identity_matches
     ):
-        row_index = int(row.attrib["r"])
         for field in IDENTITY_FIELDS:
-            _set_text_cell(row, header_map[field], row_index, record.get(field, ""))
+            sheet.cell(row=row_index, column=header_map[field]).value = record.get(field, "")
 
 
 def _append_new_rows(
-    sheet: _WorksheetXml,
+    sheet: Worksheet,
     header_map: dict[str, int],
     records: tuple[dict[str, str], ...],
 ) -> None:
-    last_index = sheet.last_valid_row_index(header_map)
-    template = sheet.row_by_index(last_index)
+    last_index = _last_valid_row_index(sheet, header_map)
+    template_index = last_index if last_index > 1 else None
     for offset, record in enumerate(records, start=1):
         row_index = last_index + offset
-        row = sheet.append_row_from_template(template, row_index)
+        if template_index:
+            _copy_row_format(sheet, template_index, row_index)
         for field in IDENTITY_FIELDS:
-            _set_text_cell(row, header_map[field], row_index, record.get(field, ""))
-        _set_formula_cell(
-            row,
-            header_map["eBay Sold Search URL"],
-            row_index,
-            _ebay_formula(record),
-        )
+            sheet.cell(row=row_index, column=header_map[field]).value = record.get(field, "")
+        sheet.cell(
+            row=row_index,
+            column=header_map["eBay Sold Search URL"],
+        ).value = "查看 eBay 成交"
+        sheet.cell(
+            row=row_index,
+            column=header_map["eBay Sold Search URL"],
+        ).hyperlink = _ebay_url(record)
         if _normalize(record.get("Grade Issuer")) == "PSA":
-            _set_formula_cell(
-                row,
-                header_map["PSA URL"],
-                row_index,
-                _psa_formula(record["Cert Number"]),
-            )
+            sheet.cell(
+                row=row_index,
+                column=header_map["PSA URL"],
+            ).value = "點我查看 PSA 官方紀錄"
+            sheet.cell(
+                row=row_index,
+                column=header_map["PSA URL"],
+            ).hyperlink = _psa_url(record["Cert Number"])
         else:
-            _set_text_cell(row, header_map["PSA URL"], row_index, "")
+            cell = sheet.cell(row=row_index, column=header_map["PSA URL"])
+            cell.value = ""
+            cell.hyperlink = None
+
+
+def _apply_native_hyperlinks(sheet: Worksheet, header_map: dict[str, int]) -> None:
+    for row_index in _existing_card_rows(sheet, header_map):
+        record = {
+            field: _row_value(sheet, row_index, header_map, field)
+            for field in IDENTITY_FIELDS
+        }
+        ebay_cell = sheet.cell(
+            row=row_index,
+            column=header_map["eBay Sold Search URL"],
+        )
+        ebay_cell.value = "查看 eBay 成交"
+        ebay_cell.hyperlink = _ebay_url(record)
+
+        psa_cell = sheet.cell(row=row_index, column=header_map["PSA URL"])
+        if _normalize(record.get("Grade Issuer")) == "PSA":
+            psa_cell.value = "點我查看 PSA 官方紀錄"
+            psa_cell.hyperlink = _psa_url(record["Cert Number"])
+        else:
+            psa_cell.value = ""
+            psa_cell.hyperlink = None
+
+
+def _replace_sync_report(workbook: Any, rows: list[list[str]]) -> None:
+    if "Sync Report" in workbook.sheetnames:
+        del workbook["Sync Report"]
+    sheet = workbook.create_sheet("Sync Report")
+    for row in rows:
+        sheet.append(row)
 
 
 def _sync_rows(
@@ -575,7 +431,7 @@ def _sync_rows(
     original_count: int,
     collection_records: tuple[dict[str, str], ...],
     match_result: _MatchResult,
-    sheet: _WorksheetXml,
+    sheet: Worksheet,
     header_map: dict[str, int],
     generated_at: datetime,
 ) -> list[list[str]]:
@@ -592,8 +448,8 @@ def _sync_rows(
         ["ambiguous matches", str(len(match_result.ambiguous_records))],
         ["duplicate cert numbers", str(len(match_result.duplicate_cert_numbers))],
         ["final unique-card count", str(_unique_cert_count(sheet, header_map))],
-        ["eBay links present", str(_formula_count(sheet, header_map, "eBay Sold Search URL"))],
-        ["PSA links present", str(_formula_count(sheet, header_map, "PSA URL"))],
+        ["eBay links present", str(_hyperlink_count(sheet, header_map, "eBay Sold Search URL"))],
+        ["PSA links present", str(_hyperlink_count(sheet, header_map, "PSA URL"))],
         ["BGS cards", str(_bgs_count(collection_records))],
         ["generated timestamp", generated_at.isoformat()],
         [],
@@ -608,35 +464,29 @@ def _sync_rows(
     return rows
 
 
-def _replace_sync_report(
-    entries: dict[str, bytes],
-    workbook: _WorkbookXml,
-    rows: list[list[str]],
-) -> dict[str, bytes]:
-    workbook.add_sync_report(_build_simple_sheet(rows))
-    return workbook.entries
-
-
 def _validate_output(path: Path, expected_count: int) -> None:
-    with zipfile.ZipFile(path, "r") as archive:
-        entries = {name: archive.read(name) for name in archive.namelist()}
-    workbook = _WorkbookXml(entries)
-    sheet = _WorksheetXml(
-        entries[workbook.first_sheet_path()],
-        _shared_strings(entries),
-    )
-    header_map = _ensure_headers(sheet)
-    unique_count = _unique_cert_count(sheet, header_map)
-    if unique_count != expected_count:
+    try:
+        workbook = load_workbook(path, data_only=False, keep_links=True)
+    except Exception as exc:
         raise AssetMasterBuildError(
-            "Final unique card count does not match collection count: "
-            f"{unique_count} != {expected_count}"
-        )
-    duplicate_certs = _duplicate_sheet_certs(sheet, header_map)
-    if duplicate_certs:
-        raise AssetMasterBuildError(
-            f"Output duplicate cert numbers: {', '.join(duplicate_certs)}"
-        )
+            f"Generated workbook cannot be reopened by openpyxl: {exc}"
+        ) from exc
+    try:
+        sheet = workbook.worksheets[0]
+        header_map = _ensure_headers(sheet)
+        unique_count = _unique_cert_count(sheet, header_map)
+        if unique_count != expected_count:
+            raise AssetMasterBuildError(
+                "Final unique card count does not match collection count: "
+                f"{unique_count} != {expected_count}"
+            )
+        duplicate_certs = _duplicate_sheet_certs(sheet, header_map)
+        if duplicate_certs:
+            raise AssetMasterBuildError(
+                f"Output duplicate cert numbers: {', '.join(duplicate_certs)}"
+            )
+    finally:
+        workbook.close()
 
 
 def _summarize_output(
@@ -648,42 +498,30 @@ def _summarize_output(
     match_result: _MatchResult,
     generated_at: datetime,
 ) -> AssetMasterBuildResult:
-    with zipfile.ZipFile(path, "r") as archive:
-        entries = {name: archive.read(name) for name in archive.namelist()}
-    workbook = _WorkbookXml(entries)
-    sheet = _WorksheetXml(
-        entries[workbook.first_sheet_path()],
-        _shared_strings(entries),
-    )
-    header_map = _ensure_headers(sheet)
-    return AssetMasterBuildResult(
-        source_workbook=str(source_path),
-        source_collection=str(collection_path),
-        output_workbook=str(path),
-        original_valid_card_count=original_count,
-        latest_collection_count=len(collection_records),
-        exact_cert_matches=len(match_result.exact_cert_matches),
-        fallback_identity_matches=len(match_result.fallback_identity_matches),
-        appended_cards=len(match_result.append_records),
-        unmatched_old_rows=len(match_result.unmatched_old_rows),
-        ambiguous_matches=len(match_result.ambiguous_records),
-        duplicate_cert_numbers=len(match_result.duplicate_cert_numbers),
-        final_unique_card_count=_unique_cert_count(sheet, header_map),
-        ebay_links_present=_formula_count(sheet, header_map, "eBay Sold Search URL"),
-        psa_links_present=_formula_count(sheet, header_map, "PSA URL"),
-        bgs_cards=_bgs_count(collection_records),
-        generated_at=generated_at,
-    )
-
-
-def _build_simple_sheet(rows: list[list[str]]) -> bytes:
-    worksheet = ElementTree.Element(_main("worksheet"))
-    sheet_data = ElementTree.SubElement(worksheet, _main("sheetData"))
-    for row_index, row_values in enumerate(rows, start=1):
-        row = ElementTree.SubElement(sheet_data, _main("row"), {"r": str(row_index)})
-        for column_index, value in enumerate(row_values):
-            _set_text_cell(row, column_index, row_index, value)
-    return ElementTree.tostring(worksheet, encoding="utf-8", xml_declaration=True)
+    workbook = load_workbook(path, data_only=False, keep_links=True)
+    try:
+        sheet = workbook.worksheets[0]
+        header_map = _ensure_headers(sheet)
+        return AssetMasterBuildResult(
+            source_workbook=str(source_path),
+            source_collection=str(collection_path),
+            output_workbook=str(path),
+            original_valid_card_count=original_count,
+            latest_collection_count=len(collection_records),
+            exact_cert_matches=len(match_result.exact_cert_matches),
+            fallback_identity_matches=len(match_result.fallback_identity_matches),
+            appended_cards=len(match_result.append_records),
+            unmatched_old_rows=len(match_result.unmatched_old_rows),
+            ambiguous_matches=len(match_result.ambiguous_records),
+            duplicate_cert_numbers=len(match_result.duplicate_cert_numbers),
+            final_unique_card_count=_unique_cert_count(sheet, header_map),
+            ebay_links_present=_hyperlink_count(sheet, header_map, "eBay Sold Search URL"),
+            psa_links_present=_hyperlink_count(sheet, header_map, "PSA URL"),
+            bgs_cards=_bgs_count(collection_records),
+            generated_at=generated_at,
+        )
+    finally:
+        workbook.close()
 
 
 def _sync_detail_row(record: dict[str, str], status: str, notes: str) -> list[str]:
@@ -697,99 +535,76 @@ def _sync_detail_row(record: dict[str, str], status: str, notes: str) -> list[st
     ]
 
 
-def _canonical_header(value: str) -> str:
+def _last_valid_row_index(sheet: Worksheet, header_map: dict[str, int]) -> int:
+    indexes = _existing_card_rows(sheet, header_map)
+    return max(indexes or (1,))
+
+
+def _copy_row_format(sheet: Worksheet, source_row: int, target_row: int) -> None:
+    source_dimension = sheet.row_dimensions[source_row]
+    target_dimension = sheet.row_dimensions[target_row]
+    target_dimension.height = source_dimension.height
+    target_dimension.hidden = source_dimension.hidden
+    target_dimension.outlineLevel = source_dimension.outlineLevel
+
+    for column_index in range(1, sheet.max_column + 1):
+        source = sheet.cell(row=source_row, column=column_index)
+        target = sheet.cell(row=target_row, column=column_index)
+        _copy_cell_format(source, target)
+        if isinstance(source.value, str) and source.value.startswith("="):
+            target.value = _shift_formula_rows(source.value, source_row, target_row)
+        else:
+            target.value = None
+        if source.hyperlink:
+            target._hyperlink = copy(source.hyperlink)
+        if source.comment:
+            target.comment = copy(source.comment)
+
+
+def _copy_cell_format(source: Any, target: Any) -> None:
+    if source.has_style:
+        target._style = copy(source._style)
+    if source.number_format:
+        target.number_format = source.number_format
+    if source.font:
+        target.font = copy(source.font)
+    if source.fill:
+        target.fill = copy(source.fill)
+    if source.border:
+        target.border = copy(source.border)
+    if source.alignment:
+        target.alignment = copy(source.alignment)
+    if source.protection:
+        target.protection = copy(source.protection)
+
+
+def _canonical_header(value: Any) -> str:
     text = str(value or "").strip()
     return HEADER_ALIASES.get(text.lower(), text)
 
 
-def _cell_text(cell: ElementTree.Element) -> str:
-    formula = cell.find(_main("f"))
-    if formula is not None and formula.text:
-        return formula.text
-    value = cell.find(_main("v"))
-    if cell.attrib.get("t") == "s" and value is not None and value.text:
-        index = int(value.text)
-        if 0 <= index < len(_ACTIVE_SHARED_STRINGS):
-            return _ACTIVE_SHARED_STRINGS[index]
-    if value is not None and value.text:
-        return value.text
-    inline = cell.find(f"{_main('is')}/{_main('t')}")
-    if inline is not None and inline.text:
-        return inline.text
-    return ""
-
-
-def _set_text_cell(
-    row: ElementTree.Element,
-    column_index: int,
-    row_index: int,
-    value: str,
-) -> None:
-    cell = _cell(row, column_index, row_index)
-    _clear_cell_value(cell)
-    cell.attrib["t"] = "inlineStr"
-    inline = ElementTree.SubElement(cell, _main("is"))
-    text = ElementTree.SubElement(inline, _main("t"))
-    text.text = str(value or "")
-
-
-def _set_formula_cell(
-    row: ElementTree.Element,
-    column_index: int,
-    row_index: int,
-    formula: str,
-) -> None:
-    cell = _cell(row, column_index, row_index)
-    _clear_cell_value(cell)
-    cell.attrib.pop("t", None)
-    formula_element = ElementTree.SubElement(cell, _main("f"))
-    formula_element.text = formula
-
-
-def _cell(row: ElementTree.Element, column_index: int, row_index: int) -> ElementTree.Element:
-    reference = f"{_column_name(column_index + 1)}{row_index}"
-    for cell in row.findall(_main("c")):
-        if cell.attrib.get("r") == reference:
-            return cell
-    cell = ElementTree.Element(_main("c"), {"r": reference})
-    inserted = False
-    for index, existing in enumerate(list(row.findall(_main("c")))):
-        if _column_index(existing.attrib.get("r", "A1")) > column_index:
-            row.insert(index, cell)
-            inserted = True
-            break
-    if not inserted:
-        row.append(cell)
-    return cell
-
-
-def _clear_cell_value(cell: ElementTree.Element) -> None:
-    for child in list(cell):
-        if child.tag in {_main("v"), _main("f"), _main("is")}:
-            cell.remove(child)
-
-
-def _row_cert(row: ElementTree.Element, header_map: dict[str, int]) -> str:
-    return _normalize(_row_value(row, header_map, "Cert Number"))
+def _row_cert(sheet: Worksheet, row_index: int, header_map: dict[str, int]) -> str:
+    return _normalize(_row_value(sheet, row_index, header_map, "Cert Number"))
 
 
 def _row_value(
-    row: ElementTree.Element,
+    sheet: Worksheet,
+    row_index: int,
     header_map: dict[str, int],
     field: str,
 ) -> str:
     column_index = header_map.get(field)
     if column_index is None:
         return ""
-    for cell in row.findall(_main("c")):
-        if _column_index(cell.attrib.get("r", "A1")) == column_index:
-            return _cell_text(cell)
-    return ""
+    value = sheet.cell(row=row_index, column=column_index).value
+    if value is None:
+        return ""
+    return str(value)
 
 
-def _row_identity(row: ElementTree.Element, header_map: dict[str, int]) -> tuple[str, ...]:
+def _row_identity(sheet: Worksheet, row_index: int, header_map: dict[str, int]) -> tuple[str, ...]:
     return tuple(
-        _normalize(_row_value(row, header_map, field))
+        _normalize(_row_value(sheet, row_index, header_map, field))
         for field in (
             "Year",
             "Set",
@@ -817,11 +632,11 @@ def _record_identity(record: dict[str, str]) -> tuple[str, ...]:
     )
 
 
-def _row_item_identity(row: ElementTree.Element, header_map: dict[str, int]) -> tuple[str, ...]:
+def _row_item_identity(sheet: Worksheet, row_index: int, header_map: dict[str, int]) -> tuple[str, ...]:
     return (
-        _normalize(_row_value(row, header_map, "Item")),
-        _normalize(_row_value(row, header_map, "Grade Issuer")),
-        _normalize(_row_value(row, header_map, "Grade")),
+        _normalize(_row_value(sheet, row_index, header_map, "Item")),
+        _normalize(_row_value(sheet, row_index, header_map, "Grade Issuer")),
+        _normalize(_row_value(sheet, row_index, header_map, "Grade")),
     )
 
 
@@ -833,7 +648,7 @@ def _record_item_identity(record: dict[str, str]) -> tuple[str, ...]:
     )
 
 
-def _ebay_formula(record: dict[str, str]) -> str:
+def _ebay_url(record: dict[str, str]) -> str:
     terms = [
         record.get("Year", ""),
         record.get("Set", ""),
@@ -850,35 +665,32 @@ def _ebay_formula(record: dict[str, str]) -> str:
         for term in terms
         if term
     )
-    url = f"https://www.ebay.com/sch/i.html?_nkw={query}&LH_Sold=1&LH_Complete=1"
-    return f'HYPERLINK("{url}","查看 eBay 成交")'
+    return f"https://www.ebay.com/sch/i.html?_nkw={query}&LH_Sold=1&LH_Complete=1"
 
 
-def _psa_formula(cert_number: str) -> str:
-    return (
-        f'HYPERLINK("https://www.psacard.com/cert/{cert_number}",'
-        '"點我查看 PSA 官方紀錄")'
-    )
+def _psa_url(cert_number: str) -> str:
+    return f"https://www.psacard.com/cert/{cert_number}"
 
 
-def _unique_cert_count(sheet: _WorksheetXml, header_map: dict[str, int]) -> int:
-    return len({_row_cert(row, header_map) for row in _existing_card_rows(sheet, header_map)})
+def _unique_cert_count(sheet: Worksheet, header_map: dict[str, int]) -> int:
+    return len({_row_cert(sheet, row_index, header_map) for row_index in _existing_card_rows(sheet, header_map)})
 
 
-def _duplicate_sheet_certs(sheet: _WorksheetXml, header_map: dict[str, int]) -> tuple[str, ...]:
-    certs = [_row_cert(row, header_map) for row in _existing_card_rows(sheet, header_map)]
+def _duplicate_sheet_certs(sheet: Worksheet, header_map: dict[str, int]) -> tuple[str, ...]:
+    certs = [
+        _row_cert(sheet, row_index, header_map)
+        for row_index in _existing_card_rows(sheet, header_map)
+    ]
     return tuple(sorted({cert for cert in certs if certs.count(cert) > 1}))
 
 
-def _formula_count(sheet: _WorksheetXml, header_map: dict[str, int], field: str) -> int:
+def _hyperlink_count(sheet: Worksheet, header_map: dict[str, int], field: str) -> int:
     count = 0
     column_index = header_map[field]
-    for row in _existing_card_rows(sheet, header_map):
-        for cell in row.findall(_main("c")):
-            if _column_index(cell.attrib.get("r", "A1")) == column_index:
-                formula = cell.find(_main("f"))
-                if formula is not None and formula.text:
-                    count += 1
+    for row_index in _existing_card_rows(sheet, header_map):
+        cell = sheet.cell(row=row_index, column=column_index)
+        if cell.hyperlink:
+            count += 1
     return count
 
 
@@ -908,94 +720,9 @@ def _normalize(value: Any) -> str:
     return text.upper()
 
 
-def _main(name: str) -> str:
-    return f"{{{MAIN_NS}}}{name}"
-
-
-def _shared_strings(entries: dict[str, bytes]) -> tuple[str, ...]:
-    content = entries.get("xl/sharedStrings.xml")
-    if not content:
-        return ()
-    root = ElementTree.fromstring(content)
-    values = []
-    for item in root.findall(_main("si")):
-        values.append("".join(text.text or "" for text in item.iter(_main("t"))))
-    return tuple(values)
-
-
 def _shift_formula_rows(formula: str, old_row_index: int, new_row_index: int) -> str:
     return re.sub(
         rf"(?<![A-Za-z0-9_])(\$?[A-Z]{{1,3}})\$?{old_row_index}(?!\d)",
         lambda match: f"{match.group(1)}{new_row_index}",
         formula,
     )
-
-
-def _target_to_entry(target: str) -> str:
-    target = target.lstrip("/")
-    if target.startswith("xl/"):
-        return target
-    return f"xl/{target}"
-
-
-def _next_sheet_id(sheets: ElementTree.Element) -> int:
-    ids = [int(sheet.attrib.get("sheetId", "0")) for sheet in sheets.findall(_main("sheet"))]
-    return max(ids or [0]) + 1
-
-
-def _next_rel_id(rels_root: ElementTree.Element) -> str:
-    ids = []
-    for relationship in rels_root:
-        rel_id = relationship.attrib.get("Id", "")
-        if rel_id.startswith("rId") and rel_id[3:].isdigit():
-            ids.append(int(rel_id[3:]))
-    return f"rId{max(ids or [0]) + 1}"
-
-
-def _next_sheet_number(entries: dict[str, bytes]) -> int:
-    numbers = []
-    for entry in entries:
-        match = re.fullmatch(r"xl/worksheets/sheet(\d+)\.xml", entry)
-        if match:
-            numbers.append(int(match.group(1)))
-    return max(numbers or [0]) + 1
-
-
-def _ensure_content_type(root: ElementTree.Element, part_name: str) -> None:
-    for override in root.findall(f"{{{CONTENT_TYPES_NS}}}Override"):
-        if override.attrib.get("PartName") == part_name:
-            return
-    ElementTree.SubElement(
-        root,
-        f"{{{CONTENT_TYPES_NS}}}Override",
-        {
-            "PartName": part_name,
-            "ContentType": "application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml",
-        },
-    )
-
-
-def _write_zip(path: Path, entries: dict[str, bytes]) -> None:
-    with zipfile.ZipFile(path, "w", zipfile.ZIP_DEFLATED) as archive:
-        for name, content in entries.items():
-            archive.writestr(name, content)
-
-
-def _column_index(cell_ref: str) -> int:
-    letters = _cell_letters(cell_ref)
-    index = 0
-    for character in letters:
-        index = index * 26 + (ord(character.upper()) - ord("A") + 1)
-    return max(index - 1, 0)
-
-
-def _cell_letters(cell_ref: str) -> str:
-    return "".join(character for character in cell_ref if character.isalpha()) or "A"
-
-
-def _column_name(index: int) -> str:
-    name = ""
-    while index:
-        index, remainder = divmod(index - 1, 26)
-        name = chr(ord("A") + remainder) + name
-    return name
