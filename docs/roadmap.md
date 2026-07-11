@@ -201,6 +201,8 @@ Goals:
 - Runtime valuation provider registry
 - Provider placeholders for Gemini Research Agent, ChatGPT Research Agent, and
   Manual runtime valuation
+- Onecool Research Framework for provider-independent research normalization,
+  validation, local JSON loading, and evidence bridging before valuation
 - PSA valuation input
 - Yahoo Finance valuation input
 - Real Estate valuation interface

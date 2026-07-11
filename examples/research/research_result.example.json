@@ -1,0 +1,58 @@
+{
+  "result_id": "research-demo-001",
+  "request_id": "request-demo-001",
+  "provider_name": "Manual Research Fixture",
+  "provider_type": "MANUAL",
+  "provider_version": "v1",
+  "capabilities": [
+    "SOLD_COMPARABLES",
+    "STRUCTURED_DATA"
+  ],
+  "research_type": "SOLD_COMPARABLES",
+  "asset_id": "PSA-DEMO-001",
+  "cert_number": "DEMO001",
+  "status": "COMPLETED",
+  "confidence": "LOW",
+  "evidence": [
+    {
+      "evidence_id": "evidence-demo-001",
+      "evidence_type": "SOLD_COMPARABLES",
+      "source_name": "eBay Sold",
+      "source_url": "https://www.ebay.com/itm/0000000000",
+      "item_id": "0000000000",
+      "observed_value": "250.00",
+      "currency": "USD",
+      "observed_date": "2026-07-10",
+      "title": "2018 Topps Update Shohei Ohtani US1 PSA 10",
+      "exact_match": true,
+      "matched_fields": [
+        "YEAR",
+        "SET",
+        "CARD_NUMBER",
+        "SUBJECT",
+        "GRADE_ISSUER",
+        "GRADE"
+      ],
+      "mismatched_fields": [],
+      "confidence": "LOW",
+      "status": "COMPLETED",
+      "warnings": [],
+      "raw_metadata": {
+        "shipping_amount": "5.00",
+        "listing_type": "AUCTION",
+        "best_offer_used": false
+      },
+      "created_at": "2026-07-11T12:00:00+00:00"
+    }
+  ],
+  "normalized_payload": {
+    "fixture": true
+  },
+  "warnings": [],
+  "provider_metadata": {
+    "network_enabled": false,
+    "search_url": "https://www.ebay.com/sch/i.html?_nkw=2018+Topps+Update+Shohei+Ohtani+US1+PSA+10"
+  },
+  "generated_at": "2026-07-11T12:00:00+00:00",
+  "reference_datetime": "2026-07-11T12:00:00+00:00"
+}

@@ -275,6 +275,29 @@ automatically map into a `ValuationRecord`; `NEEDS_REVIEW`, `REJECTED`, and
 entry points, not valuation evidence by themselves, and AI/provider output
 must pass deterministic validation before Valuation Runtime consumes it.
 
+## Onecool Research Framework
+
+The Onecool Research Framework is the universal abstraction layer for external
+research providers such as ChatGPT, Gemini, official eBay APIs, Card Ladder,
+authorized third-party data providers, and manually supplied structured
+research. Providers never communicate directly with RuntimeSession, Valuation,
+Dashboard, Decision Queue, or OFAI.
+
+ORF normalizes provider output into immutable `ResearchResult` and
+`ResearchEvidence` objects, validates provider metadata, status, confidence,
+URLs, dates, prices, capabilities, duplicate evidence IDs, and warning
+requirements, and preserves raw provider metadata. Provider output is
+untrusted by default. ORF does not calculate valuation, choose final market
+price, recommend actions, call live providers, scrape websites, or mutate
+source data.
+
+For collectible sold comparables, ORF can bridge compatible
+`ResearchEvidence` into existing `EbaySoldEvidence`. The bridge preserves
+provider name, provider version, source URL, item ID, observed value, currency,
+observed date, warnings, match fields, mismatch fields, and metadata. It does
+not create `ValuationRecord` directly and does not bypass the existing eBay
+Sold Evidence validation layer.
+
 Source Agreement evaluates how closely eBay Sold Primary Market Price records
 agree with Card Ladder, Manual, PWCC, Goldin, and Fanatics Validation Sources.
 It calculates deterministic agreement score, level, spread, divergence,

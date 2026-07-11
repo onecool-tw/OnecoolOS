@@ -342,6 +342,42 @@ remain review evidence. Only `VERIFIED` evidence may automatically map to
 `ValuationRecord`; review, rejected, and no-match evidence remain session-only
 evidence.
 
+## Onecool Research Framework
+
+Onecool Research Framework sits between external research providers and
+existing evidence layers:
+
+```text
+External Research Provider
+↓
+Onecool Research Framework
+↓
+Normalization
+↓
+Validation
+↓
+Research Evidence
+↓
+Existing Evidence Layer
+↓
+Valuation Runtime
+↓
+Dashboard / Report / Decision Queue / OFAI
+```
+
+External providers such as ChatGPT, Gemini, official APIs, Card Ladder,
+authorized third-party providers, and manual structured research are
+replaceable adapters. They must not write directly into RuntimeSession,
+Valuation, Dashboard, Decision Queue, or OFAI. ORF preserves provider output
+as immutable `ResearchResult` and `ResearchEvidence`, validates it, and keeps
+provider metadata auditable. Provider output is untrusted by default.
+
+ORF does not call providers in this foundation, does not scrape, does not
+store credentials, does not calculate valuation, does not recommend actions,
+and does not mutate source data. Compatible collectible `SOLD_COMPARABLES`
+evidence may bridge into `EbaySoldEvidence`, but the existing eBay Sold
+Evidence layer remains responsible for final evidence validation.
+
 Card Ladder readiness is documented in
 `docs/live-connectors/card-ladder-readiness.md`. Card Ladder is a Validation
 Source that should enter through approved API access if allowed and available,

@@ -9,6 +9,10 @@ Commits.
 
 ### Added
 
+- Onecool Research Framework foundation with immutable provider-independent
+  research models, provider registry, deterministic normalization and
+  validation, local JSON loading, and an ORF-to-eBay-evidence bridge that does
+  not bypass existing evidence validation.
 - eBay Sold Evidence Runtime Foundation with provider-independent evidence
   models, deterministic validation, JSON loading, verified-only valuation
   mapping, and RuntimeSession attachment helpers.

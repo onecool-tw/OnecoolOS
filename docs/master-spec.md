@@ -480,6 +480,26 @@ may automatically create a `ValuationRecord` with source `EBAY_SOLD`.
 Asset Master search URLs and AI/provider output are research inputs until this
 validation passes.
 
+Onecool Research Framework sits before evidence validation as the universal
+external research abstraction layer. ChatGPT, Gemini, official APIs,
+authorized third-party providers, and manual structured research must produce
+immutable `ResearchResult` and `ResearchEvidence` records before they can feed
+existing evidence layers. ORF normalizes provider names, versions, confidence,
+status, URLs, currency, dates, evidence IDs, warnings, and metadata. ORF
+validates provider metadata, supported provider type, supported research type,
+capabilities, duplicate evidence IDs, malformed URLs, malformed dates,
+malformed observed values, unsupported currencies, status/evidence
+consistency, and warning requirements. ORF never calculates valuation,
+selects final market value, recommends actions, mutates RuntimeSession,
+mutates source files, or bypasses the eBay Sold Evidence validator.
+
+The ORF evidence bridge supports only compatible `SOLD_COMPARABLES` evidence.
+It preserves provider identity, provider version, source URL, item ID,
+observed value, currency, observed date, confidence, warnings, match fields,
+mismatch fields, and metadata, then creates `EbaySoldEvidence` for the
+existing evidence validator to classify as verified, review-only, rejected, or
+no-match.
+
 Source Agreement evaluates whether Primary Market Price records and Validation
 Source records are close, divergent, missing, or conflicting. It produces
 `SourceAgreementResult` with deterministic score, level, spread, source count,
