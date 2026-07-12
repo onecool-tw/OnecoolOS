@@ -11,6 +11,7 @@ from onecool_os.cli.cash import add_cash_parser
 from onecool_os.cli.core import add_core_parsers
 from onecool_os.cli.dashboard import add_dashboard_parser
 from onecool_os.cli.funds import add_funds_parser
+from onecool_os.cli.history import add_history_parser
 from onecool_os.cli.launcher import OnecoolLauncher
 from onecool_os.cli.market import add_market_parser
 from onecool_os.cli.portfolio import add_portfolio_parser
@@ -43,6 +44,7 @@ def build_parser() -> argparse.ArgumentParser:
     add_valuation_parser(subparsers)
     add_allocation_parser(subparsers)
     add_research_parsers(subparsers)
+    add_history_parser(subparsers)
     return parser
 
 

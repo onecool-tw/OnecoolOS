@@ -2122,8 +2122,25 @@ The module still owns its runtime manifest through `create_plugin`.
 - [Coding Standard](docs/coding-standard.md)
 - [Core Engine ADR](docs/decision-records/ADR-001-Core-Engine.md)
 - [Investment Performance and Asset Lifecycle ADR](docs/decision-records/ADR-005-Investment-Performance-and-Asset-Lifecycle.md)
+- [Portfolio History and Snapshots ADR](docs/decision-records/ADR-016-Portfolio-History-and-Snapshots.md)
 - [Contributing](CONTRIBUTING.md)
 - [Changelog](CHANGELOG.md)
+
+## Portfolio History
+
+Portfolio History records append-only local snapshots from existing
+RuntimeSession outputs. It consumes Dashboard, Portfolio NAV, Fair Value,
+ValuationRecord, Research Queue, Evidence, and Collection Sync summaries, but
+does not recalculate those layers.
+
+Use:
+
+```bash
+python -m onecool_os record-portfolio-snapshot
+```
+
+Snapshots are stored under `data/history/portfolio/` with a JSONL index and
+checksums. These files are private runtime history and remain ignored by Git.
 
 ## Project Roadmap
 

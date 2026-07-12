@@ -703,6 +703,24 @@ The Performance Closed-Loop Review verifies this path as v0.4 beta-ready for
 deterministic unrealized performance. The loop is documented in
 `docs/releases/performance-closed-loop-review.md`.
 
+### Portfolio History
+
+Portfolio History is the durable append-only snapshot layer for runtime
+portfolio state. It consumes existing `RuntimeSession` outputs, including
+Dashboard Snapshot, Portfolio NAV, Fair Value, ValuationRecord, Research Queue,
+Evidence, and Collection Sync summaries.
+
+Portfolio History owns immutable snapshot records and a local JSON index. It
+does not calculate Fair Value, NAV, ROI, valuation confidence, source
+agreement, recommendations, or FX conversion. It does not mutate Asset Master,
+imported collection records, evidence, valuation records, or runtime session
+state.
+
+The local history store writes checksum-validated JSON snapshots under
+`data/history/portfolio/` and appends index entries to
+`data/history/portfolio/index.jsonl`. These files are private user history and
+remain ignored by Git. ADR-016 documents the boundary and append-only rules.
+
 ### CLI
 
 The Onecool Launcher is the first Beta dogfooding entry point. It starts with
@@ -736,6 +754,8 @@ source data in this foundation.
 - Business Logic does not modify Portfolio, Ledger, Valuation, or Analytics.
 - Analytics does not modify Portfolio, Ledger, or Valuation.
 - Portfolio does not own source history.
+- Portfolio History records append-only snapshots and does not mutate runtime
+  inputs.
 - Valuation records are append-style history.
 - Ledger transactions and events are immutable records.
 - Connectors preserve raw input boundaries.

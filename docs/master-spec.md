@@ -775,6 +775,13 @@ logic.
 - v1.0 Personal Decision Operating System: Integrated daily-use product for
   personal asset decisions.
 
+Portfolio History is the foundation for historical views. It records
+append-only local snapshots from RuntimeSession outputs and stores them under
+`data/history/portfolio/` with checksum validation and a JSONL index. It
+consumes existing Dashboard, NAV, Fair Value, ValuationRecord, Research Queue,
+Evidence, and Collection Sync summaries. It does not recalculate lower-layer
+metrics, mutate source data, call providers, or generate recommendations.
+
 ## Development Workflow
 
 ```text
@@ -812,6 +819,11 @@ Every module should contain:
 
 Modules may omit a component only when the milestone explicitly does not need
 it yet. Missing components should be intentional, not accidental.
+
+History modules may use builders and stores instead of engines when their
+responsibility is persistence of already-computed state. Portfolio History
+therefore owns immutable snapshot models, serialization, validation, and
+append-only storage, while calculation remains in the existing lower layers.
 
 ## Asset Modules
 

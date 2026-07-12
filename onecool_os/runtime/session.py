@@ -317,6 +317,13 @@ class RuntimeSession:
 
         return DashboardSnapshotBuilder().build(self)
 
+    def portfolio_history_snapshot(self, **kwargs: Any) -> Any:
+        """Return a Portfolio History snapshot by delegating to history builder."""
+
+        from onecool_os.history import PortfolioHistorySnapshotBuilder
+
+        return PortfolioHistorySnapshotBuilder().build(self, **kwargs)
+
     def with_imported_records(
         self,
         imported_records: list[dict[str, Any]] | tuple[dict[str, Any], ...],

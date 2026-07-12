@@ -9,6 +9,11 @@ Commits.
 
 ### Added
 
+- Portfolio History Snapshot foundation with immutable daily/runtime
+  snapshots, checksum-validated append-only JSON storage, index queries,
+  RuntimeSession delegation, `record-portfolio-snapshot` CLI command,
+  ADR-016, and tests without recalculating Fair Value, NAV, ROI, source
+  agreement, recommendations, FX, or mutating runtime/private input data.
 - Onecool Collection Dashboard 2.0 with `DashboardSnapshot`,
   `DashboardSnapshotBuilder`, RuntimeSession `dashboard_snapshot()` delegation,
   portfolio summary, NAV, research, evidence, valuation, coverage, top

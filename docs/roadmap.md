@@ -281,6 +281,8 @@ Goals:
 - Onecool Launcher foundation for Terminal-based beta dogfooding
 - Onecool Collection Dashboard 2.0 as a read-only `DashboardSnapshot`
   presentation contract over RuntimeSession outputs
+- Portfolio History Snapshot foundation for append-only daily/manual/release
+  baseline runtime snapshots under `data/history/portfolio/`
 - Analytics display
 - Charts
 - Daily summary
