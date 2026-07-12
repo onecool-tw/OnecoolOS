@@ -9,6 +9,12 @@ Commits.
 
 ### Added
 
+- Portfolio NAV Runtime Integration with `RuntimeSession.build_live_portfolio_nav()`,
+  canonical `ONECOOL_FAIR_VALUE` ValuationRecord flow into the existing NAV
+  Engine, trusted-source NAV handling, partial-coverage dashboard disclosure,
+  synthetic E2E tests, and ADR-014 without provider calls, scraping, FX
+  conversion, recommendation logic, Asset Master writes, or NAV calculations
+  inside RuntimeSession.
 - Fair Value to ValuationRecord Integration with canonical
   `ONECOOL_FAIR_VALUE` source, trusted `ValuationRecord` creation,
   insufficient-data placeholders, RuntimeSession valuation delegation helpers,

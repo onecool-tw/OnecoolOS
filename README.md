@@ -292,6 +292,15 @@ Fair Value data creates a runtime placeholder status instead of a trusted
 valuation, so missing evidence never becomes a fake market price. Portfolio NAV
 continues to consume only `ValuationRecord` objects.
 
+Portfolio NAV Runtime Integration wires this canonical path into
+RuntimeSession through `build_live_portfolio_nav()`. Runtime orchestrates by
+delegating to Fair Value, ValuationRecord integration, and the existing
+Portfolio NAV Engine. It does not calculate NAV itself. Live NAV uses only
+eligible `ONECOOL_FAIR_VALUE` records; supporting estimates are not silently
+used. Partial coverage is valid and disclosed: portfolio market value reflects
+valued assets only, while missing assets are excluded rather than treated as
+zero.
+
 ## Onecool Research Framework
 
 The Onecool Research Framework is the universal abstraction layer for external

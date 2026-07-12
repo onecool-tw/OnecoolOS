@@ -522,6 +522,13 @@ currency produce exactly one `ValuationRecord` per asset/source. Insufficient
 data produces a runtime placeholder status only. Portfolio NAV consumes
 `ValuationRecord` objects and does not consume Fair Value snapshots directly.
 
+Portfolio NAV Runtime Integration exposes `RuntimeSession.build_live_portfolio_nav()`
+as orchestration only. The method delegates to Fair Value, ValuationRecord
+integration, and the existing Portfolio NAV Engine. Live NAV receives only
+eligible canonical `ONECOOL_FAIR_VALUE` records. Partial coverage must be
+reported explicitly, and missing assets are excluded from market value totals
+rather than treated as zero. No FX conversion occurs.
+
 Onecool Research Framework sits before evidence validation as the universal
 external research abstraction layer. ChatGPT, Gemini, official APIs,
 authorized third-party providers, and manual structured research must produce

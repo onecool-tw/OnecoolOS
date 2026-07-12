@@ -239,9 +239,7 @@ class OnecoolLauncher:
         nav_warning = None
         if self._runtime_session is not None:
             try:
-                nav_snapshots = self._runtime_session.portfolio_nav_snapshots(
-                    self._runtime_valuation_records,
-                )
+                nav_snapshots = self._runtime_session.build_live_portfolio_nav()
             except Exception as exc:  # pragma: no cover - defensive CLI boundary.
                 nav_warning = f"Portfolio NAV unavailable: {exc}"
         for line in collection_dashboard_lines(

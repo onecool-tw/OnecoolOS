@@ -178,6 +178,11 @@ class RuntimeSession:
 
         return self.build_portfolio_nav(valuation_records)
 
+    def build_live_portfolio_nav(self) -> tuple[Any, ...]:
+        """Build NAV from canonical runtime ValuationRecords by delegation."""
+
+        return self.build_portfolio_nav(self.build_valuation_records())
+
     def build_fair_value(
         self,
         *,

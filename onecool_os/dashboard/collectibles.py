@@ -384,6 +384,10 @@ def portfolio_nav_lines(
                 f"Verified Coverage: {_percent(snapshot.verified_coverage_percent)}",
             )
         )
+        if snapshot.status.value == "PARTIAL":
+            lines.append(
+                "Note: Portfolio market value reflects valued assets only; missing assets are excluded, not treated as zero."
+            )
 
     lines.extend(("", "Valuation Coverage", "------------------"))
     for snapshot in nav_snapshots:
@@ -613,6 +617,11 @@ def _portfolio_nav_content(snapshot: PortfolioNavSnapshot) -> dict[str, Any]:
         "roi_percent": _percent_value(snapshot.roi_percent),
         "valuation_coverage_percent": _percent_value(snapshot.valuation_coverage_percent),
         "verified_coverage_percent": _percent_value(snapshot.verified_coverage_percent),
+        "coverage_note": (
+            "Portfolio market value reflects valued assets only; missing assets are excluded, not treated as zero."
+            if snapshot.status.value == "PARTIAL"
+            else None
+        ),
         "warnings": list(snapshot.warnings),
     }
 

@@ -216,6 +216,8 @@ Goals:
   before future ValuationRecord creation
 - Fair Value to ValuationRecord Integration making `ONECOOL_FAIR_VALUE` the
   canonical collectible valuation source consumed by Portfolio NAV
+- Portfolio NAV Runtime Integration wiring canonical Fair Value valuations into
+  live RuntimeSession NAV snapshots with explicit partial coverage disclosure
 - PSA valuation input
 - Yahoo Finance valuation input
 - Real Estate valuation interface

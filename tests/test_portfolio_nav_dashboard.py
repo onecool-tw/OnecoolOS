@@ -288,7 +288,8 @@ def test_cli_reuses_current_runtime_session(tmp_path: Path) -> None:
     ).run()
 
     assert "Portfolio NAV" in output
-    assert "Total Market Value: USD 250.00" in output
+    assert "Total Market Value: N/A" in output
+    assert "Status: INSUFFICIENT_DATA" in output
     assert "NAV Status" not in output  # Status is displayed directly from snapshot.
 
 

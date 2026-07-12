@@ -512,6 +512,14 @@ collectibles. Trusted `ONECOOL_FAIR_VALUE` snapshots become one
 runtime placeholder statuses and do not enter trusted valuation history.
 Portfolio NAV consumes `ValuationRecord` objects only.
 
+Portfolio NAV Runtime Integration wires canonical runtime valuation into NAV
+through `RuntimeSession.build_live_portfolio_nav()`. Runtime delegates to
+engines and stores no duplicated calculation state. Live NAV uses
+`ONECOOL_FAIR_VALUE` records only in this phase; supporting estimates remain
+outside trusted live NAV. Partial coverage is a trust indicator, not an
+investment recommendation, and Dashboard presents the resulting
+`PortfolioNavSnapshot` without recalculation.
+
 ### Portfolio
 
 Portfolio aggregates current holdings and summary values. It consumes Assets,

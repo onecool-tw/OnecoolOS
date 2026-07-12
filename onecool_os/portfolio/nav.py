@@ -297,6 +297,13 @@ def _candidate_from_valuation(
     value = valuation.market_value if valuation.market_value is not None else valuation.estimated_value
     if value is None:
         return None
+    if valuation.source == ValuationSource.ONECOOL_FAIR_VALUE and valuation.market_value is not None:
+        return _Candidate(
+            valuation=valuation,
+            value=value,
+            coverage_status=ValuationCoverageStatus.VERIFIED,
+            evidence_status=ValuationCoverageStatus.VERIFIED.value,
+        )
     if valuation.source == ValuationSource.EBAY_SOLD and valuation.market_value is not None:
         evidence_status = evidence_by_id.get(valuation.valuation_id)
         if evidence_status is None:
