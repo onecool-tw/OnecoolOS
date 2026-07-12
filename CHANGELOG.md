@@ -9,6 +9,12 @@ Commits.
 
 ### Added
 
+- Onecool Collection Dashboard 2.0 with `DashboardSnapshot`,
+  `DashboardSnapshotBuilder`, RuntimeSession `dashboard_snapshot()` delegation,
+  portfolio summary, NAV, research, evidence, valuation, coverage, top
+  holdings, missing valuation, latest updates, warnings, ADR-015, and tests
+  without Fair Value/NAV/ROI/statistics calculation inside Dashboard, provider
+  calls, AI calls, scraping, RuntimeSession mutation, or Asset Master mutation.
 - Portfolio NAV Runtime Integration with `RuntimeSession.build_live_portfolio_nav()`,
   canonical `ONECOOL_FAIR_VALUE` ValuationRecord flow into the existing NAV
   Engine, trusted-source NAV handling, partial-coverage dashboard disclosure,

@@ -279,6 +279,8 @@ Goals:
   without AI recommendations
 - Performance Closed-Loop Review for v0.4 beta readiness
 - Onecool Launcher foundation for Terminal-based beta dogfooding
+- Onecool Collection Dashboard 2.0 as a read-only `DashboardSnapshot`
+  presentation contract over RuntimeSession outputs
 - Analytics display
 - Charts
 - Daily summary

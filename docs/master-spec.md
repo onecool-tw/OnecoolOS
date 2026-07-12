@@ -529,6 +529,13 @@ eligible canonical `ONECOOL_FAIR_VALUE` records. Partial coverage must be
 reported explicitly, and missing assets are excluded from market value totals
 rather than treated as zero. No FX conversion occurs.
 
+Dashboard 2.0 exposes `RuntimeSession.dashboard_snapshot()` as the read-only
+presentation contract for Onecool Collection Portfolio. The snapshot consumes
+existing Research Queue, Evidence, Fair Value, ValuationRecord, Portfolio NAV,
+and Collection Sync outputs. Dashboard 2.0 does not calculate Fair Value, NAV,
+ROI, statistics, call providers, call AI, scrape websites, mutate runtime, or
+write analytics back to Asset Master.
+
 Onecool Research Framework sits before evidence validation as the universal
 external research abstraction layer. ChatGPT, Gemini, official APIs,
 authorized third-party providers, and manual structured research must produce

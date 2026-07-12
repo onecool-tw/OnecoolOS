@@ -520,6 +520,14 @@ outside trusted live NAV. Partial coverage is a trust indicator, not an
 investment recommendation, and Dashboard presents the resulting
 `PortfolioNavSnapshot` without recalculation.
 
+Dashboard 2.0 is the production-ready collection portfolio presentation
+snapshot. `RuntimeSession.dashboard_snapshot()` delegates to
+`DashboardSnapshotBuilder`, which consumes existing runtime outputs and returns
+a `DashboardSnapshot`. It presents Portfolio Summary, NAV, Research Queue,
+Evidence, Valuation, Coverage, Top Holdings, Missing Valuation, Latest Updates,
+and Warnings. It does not calculate Fair Value, NAV, ROI, statistics, call
+providers, call AI, scrape, mutate runtime, or mutate Asset Master.
+
 ### Portfolio
 
 Portfolio aggregates current holdings and summary values. It consumes Assets,

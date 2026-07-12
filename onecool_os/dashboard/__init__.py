@@ -11,9 +11,11 @@ from onecool_os.dashboard.collectibles import collection_health_section
 from onecool_os.dashboard.collectibles import portfolio_nav_lines
 from onecool_os.dashboard.collectibles import portfolio_nav_sections
 from onecool_os.dashboard.models import DashboardSection
+from onecool_os.dashboard.models import DashboardSnapshot
 from onecool_os.dashboard.models import DashboardView
 from onecool_os.dashboard.performance import PerformanceDashboard
 from onecool_os.dashboard.performance import PerformanceDashboardBuilder
+from onecool_os.dashboard.snapshot import DashboardSnapshotBuilder
 from onecool_os.dashboard.validation import DashboardError
 
 __all__ = [
@@ -29,6 +31,8 @@ __all__ = [
     "DashboardBuilder",
     "DashboardError",
     "DashboardSection",
+    "DashboardSnapshot",
+    "DashboardSnapshotBuilder",
     "DashboardView",
     "PerformanceDashboard",
     "PerformanceDashboardBuilder",

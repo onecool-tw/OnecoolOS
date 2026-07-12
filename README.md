@@ -301,6 +301,20 @@ used. Partial coverage is valid and disclosed: portfolio market value reflects
 valued assets only, while missing assets are excluded rather than treated as
 zero.
 
+## Onecool Collection Dashboard 2.0
+
+Dashboard 2.0 is the first production-ready portfolio dashboard snapshot for
+Onecool Collection Portfolio. RuntimeSession exposes `dashboard_snapshot()`,
+which returns a display-only `DashboardSnapshot` containing Portfolio Summary,
+Portfolio NAV, Research Queue, Evidence, Valuation, Coverage, Top Holdings,
+Missing Valuation, Latest Updates, and Warnings.
+
+Dashboard 2.0 consumes existing RuntimeSession outputs only. It does not
+calculate Fair Value, NAV, ROI, statistics, call providers, call AI, scrape
+websites, mutate RuntimeSession, or mutate Asset Master. Coverage values remain
+separate: research coverage, evidence coverage, valuation coverage, and NAV
+coverage are not merged into one number.
+
 ## Onecool Research Framework
 
 The Onecool Research Framework is the universal abstraction layer for external

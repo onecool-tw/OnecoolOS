@@ -310,6 +310,13 @@ class RuntimeSession:
         snapshot = self.build_research_queue(valuation_records, nav_snapshots)
         return tuple(item for item in snapshot.items if item.priority.value == "CRITICAL")
 
+    def dashboard_snapshot(self) -> Any:
+        """Return Dashboard 2.0 snapshot by delegating to dashboard builder."""
+
+        from onecool_os.dashboard.snapshot import DashboardSnapshotBuilder
+
+        return DashboardSnapshotBuilder().build(self)
+
     def with_imported_records(
         self,
         imported_records: list[dict[str, Any]] | tuple[dict[str, Any], ...],
