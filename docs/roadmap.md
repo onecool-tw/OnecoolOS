@@ -214,6 +214,8 @@ Goals:
 - Onecool Fair Value Engine for Decimal-only verified eBay Sold comparable
   aggregation, confidence, liquidity, freshness, and Evidence Quality Score
   before future ValuationRecord creation
+- Fair Value to ValuationRecord Integration making `ONECOOL_FAIR_VALUE` the
+  canonical collectible valuation source consumed by Portfolio NAV
 - PSA valuation input
 - Yahoo Finance valuation input
 - Real Estate valuation interface

@@ -9,7 +9,7 @@ from decimal import localcontext
 from typing import Any
 
 from onecool_os.fair_value.models import ComparableStatistics
-from onecool_os.valuation.evidence import EvidenceStatus
+from onecool_os.valuation.evidence.enums import EvidenceStatus
 
 STD_DEV_QUANT = Decimal("0.0001")
 

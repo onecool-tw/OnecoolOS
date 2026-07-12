@@ -516,6 +516,12 @@ three or four is `MEDIUM`, one or two is `LOW`, and zero comps is
 `INSUFFICIENT_DATA`. Zero verified evidence must produce no fair value rather
 than a fabricated price.
 
+Fair Value to ValuationRecord integration creates the canonical collectible
+valuation handoff. `ONECOOL_FAIR_VALUE` snapshots with trusted market value and
+currency produce exactly one `ValuationRecord` per asset/source. Insufficient
+data produces a runtime placeholder status only. Portfolio NAV consumes
+`ValuationRecord` objects and does not consume Fair Value snapshots directly.
+
 Onecool Research Framework sits before evidence validation as the universal
 external research abstraction layer. ChatGPT, Gemini, official APIs,
 authorized third-party providers, and manual structured research must produce

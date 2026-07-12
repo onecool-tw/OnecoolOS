@@ -134,7 +134,7 @@ def test_valuation_record_model_creation() -> None:
     assert record.asset_id == "CARD-001"
     assert record.asset_type == "SPORTS_CARD"
     assert record.source == ValuationSource.EBAY_SOLD
-    assert record.source_priority == 1
+    assert record.source_priority == 2
     assert record.currency == "USD"
     assert record.market_value == Decimal("250")
     assert record.valuation_date == date(2026, 3, 15)
@@ -253,8 +253,9 @@ def test_valuation_record_requires_at_least_one_value() -> None:
 
 
 def test_valuation_source_priority_rules() -> None:
-    assert source_priority_for_asset("SPORTS_CARD", "EBAY_SOLD") == 1
-    assert source_priority_for_asset("SPORTS_CARD", "MANUAL") == 7
+    assert source_priority_for_asset("SPORTS_CARD", "ONECOOL_FAIR_VALUE") == 1
+    assert source_priority_for_asset("SPORTS_CARD", "EBAY_SOLD") == 2
+    assert source_priority_for_asset("SPORTS_CARD", "MANUAL") == 8
     assert source_priority_for_asset("ETF", "YAHOO") == 1
     assert source_priority_for_asset("STOCK", "BROKER") == 3
     assert source_priority_for_asset("MUTUAL_FUND", "FUND_NAV") == 1

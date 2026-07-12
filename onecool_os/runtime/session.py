@@ -212,6 +212,28 @@ class RuntimeSession:
                 return snapshot
         return None
 
+    def build_valuation_records(self) -> tuple[Any, ...]:
+        """Build runtime ValuationRecords by delegating to valuation integration."""
+
+        from onecool_os.valuation.integration import FairValueValuationEngine
+
+        return FairValueValuationEngine().build_from_runtime_session(
+            self,
+        ).valuation_records
+
+    def valuation_records(self) -> tuple[Any, ...]:
+        """Return canonical runtime ValuationRecords."""
+
+        return self.build_valuation_records()
+
+    def valuation_record(self, asset_id: str) -> Any:
+        """Return one canonical runtime ValuationRecord by asset id, if present."""
+
+        for record in self.build_valuation_records():
+            if record.asset_id == asset_id:
+                return record
+        return None
+
     def build_research_queue(
         self,
         valuation_records: list[Any] | tuple[Any, ...] = (),

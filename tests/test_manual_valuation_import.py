@@ -210,7 +210,7 @@ def test_manual_valuation_preserved_as_independent_output(
 
     assert record.valuation_record.valuation_id == "manual-independent"
     assert record.valuation_record.source == ValuationSource.MANUAL
-    assert record.valuation_record.source_priority == 7
+    assert record.valuation_record.source_priority == 8
     assert record.valuation_record.note == "Owner estimate"
     assert record.valuation_record.tags == ("manual", "review")
     assert record.metadata["reference"] == "collector spreadsheet"

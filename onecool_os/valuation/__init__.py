@@ -25,6 +25,12 @@ from onecool_os.valuation.intelligence import ConfidenceLevel
 from onecool_os.valuation.intelligence import FreshnessLevel
 from onecool_os.valuation.intelligence import LiquidityLevel
 from onecool_os.valuation.intelligence import MarketIntelligence
+from onecool_os.valuation.integration import FairValueValuationEngine
+from onecool_os.valuation.integration import FairValueValuationIntegrationResult
+from onecool_os.valuation.integration import FairValueValuationMapping
+from onecool_os.valuation.integration import RuntimeValuationPlaceholder
+from onecool_os.valuation.integration import RuntimeValuationStatus
+from onecool_os.valuation.integration import ValuationIntegrationError
 from onecool_os.valuation.loader import ValuationImportResult
 from onecool_os.valuation.loader import ValuationLoader
 from onecool_os.valuation.loader import ValuationLoaderError
@@ -68,6 +74,9 @@ __all__ = [
     "EvidenceConfidence",
     "EvidenceError",
     "EvidenceStatus",
+    "FairValueValuationEngine",
+    "FairValueValuationIntegrationResult",
+    "FairValueValuationMapping",
     "FreshnessLevel",
     "GeminiValuationProvider",
     "ListingType",
@@ -80,7 +89,10 @@ __all__ = [
     "ManualValuationImporter",
     "MarketIntelligence",
     "MatchField",
+    "RuntimeValuationPlaceholder",
+    "RuntimeValuationStatus",
     "ValuationError",
+    "ValuationIntegrationError",
     "ValuationImportResult",
     "ValuationLoader",
     "ValuationLoaderError",

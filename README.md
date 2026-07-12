@@ -285,6 +285,13 @@ ValuationRecords, recommend actions, calculate portfolio ROI, or mutate
 evidence. If no verified evidence exists, it reports insufficient data instead
 of inventing a price.
 
+Fair Value to ValuationRecord integration makes `ONECOOL_FAIR_VALUE` the
+canonical collectible valuation source for Portfolio NAV. Trusted Fair Value
+snapshots create exactly one `ValuationRecord` per asset/source. Insufficient
+Fair Value data creates a runtime placeholder status instead of a trusted
+valuation, so missing evidence never becomes a fake market price. Portfolio NAV
+continues to consume only `ValuationRecord` objects.
+
 ## Onecool Research Framework
 
 The Onecool Research Framework is the universal abstraction layer for external

@@ -7,8 +7,6 @@ from datetime import datetime
 from typing import Any
 
 from onecool_os.fair_value.enums import FairValueConfidence
-from onecool_os.fair_value.enums import FairValueFreshness
-from onecool_os.fair_value.enums import FairValueLiquidity
 from onecool_os.fair_value.models import OnecoolFairValueSnapshot
 from onecool_os.fair_value.quality import calculate_evidence_quality_score
 from onecool_os.fair_value.quality import calculate_freshness

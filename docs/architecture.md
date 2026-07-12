@@ -506,6 +506,12 @@ portfolio ROI, mutate evidence, or create ValuationRecord objects in this
 foundation sprint. RuntimeSession may expose Fair Value snapshots through
 delegation, but RuntimeSession does not calculate fair value internally.
 
+Fair Value to ValuationRecord Integration is the canonical runtime handoff for
+collectibles. Trusted `ONECOOL_FAIR_VALUE` snapshots become one
+`ValuationRecord` per asset/source. `INSUFFICIENT_DATA` snapshots become
+runtime placeholder statuses and do not enter trusted valuation history.
+Portfolio NAV consumes `ValuationRecord` objects only.
+
 ### Portfolio
 
 Portfolio aggregates current holdings and summary values. It consumes Assets,

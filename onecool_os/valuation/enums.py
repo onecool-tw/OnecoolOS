@@ -8,6 +8,7 @@ from enum import StrEnum
 class ValuationSource(StrEnum):
     """Supported valuation data sources."""
 
+    ONECOOL_FAIR_VALUE = "ONECOOL_FAIR_VALUE"
     EBAY_SOLD = "EBAY_SOLD"
     CARD_LADDER = "CARD_LADDER"
     PWCC = "PWCC"
@@ -22,6 +23,8 @@ class ValuationSource(StrEnum):
     REAL_ESTATE_TRANSACTION = "REAL_ESTATE_TRANSACTION"
     BANK_VALUATION = "BANK_VALUATION"
     MANUAL = "MANUAL"
+    EBAY_ONLY = "EBAY_ONLY"
+    CUSTOM = "CUSTOM"
 
 
 class ValuationConfidence(StrEnum):
@@ -34,6 +37,7 @@ class ValuationConfidence(StrEnum):
 
 SOURCE_PRIORITY_BY_ASSET_TYPE: dict[str, tuple[ValuationSource, ...]] = {
     "SPORTS_CARD": (
+        ValuationSource.ONECOOL_FAIR_VALUE,
         ValuationSource.EBAY_SOLD,
         ValuationSource.CARD_LADDER,
         ValuationSource.PWCC,
@@ -41,8 +45,11 @@ SOURCE_PRIORITY_BY_ASSET_TYPE: dict[str, tuple[ValuationSource, ...]] = {
         ValuationSource.FANATICS,
         ValuationSource.PSA_ESTIMATE,
         ValuationSource.MANUAL,
+        ValuationSource.EBAY_ONLY,
+        ValuationSource.CUSTOM,
     ),
     "SPORTS_CARDS": (
+        ValuationSource.ONECOOL_FAIR_VALUE,
         ValuationSource.EBAY_SOLD,
         ValuationSource.CARD_LADDER,
         ValuationSource.PWCC,
@@ -50,6 +57,8 @@ SOURCE_PRIORITY_BY_ASSET_TYPE: dict[str, tuple[ValuationSource, ...]] = {
         ValuationSource.FANATICS,
         ValuationSource.PSA_ESTIMATE,
         ValuationSource.MANUAL,
+        ValuationSource.EBAY_ONLY,
+        ValuationSource.CUSTOM,
     ),
     "SECURITY": (
         ValuationSource.YAHOO,

@@ -9,6 +9,12 @@ Commits.
 
 ### Added
 
+- Fair Value to ValuationRecord Integration with canonical
+  `ONECOOL_FAIR_VALUE` source, trusted `ValuationRecord` creation,
+  insufficient-data placeholders, RuntimeSession valuation delegation helpers,
+  source-priority updates, tests, and ADR-013 without provider calls, NAV
+  calculation, Dashboard updates, report generation, FX conversion,
+  recommendations, or source mutation.
 - Onecool Fair Value Engine foundation with verified eBay Sold comparable
   selection, latest-10-within-180-days sampling, Decimal-only statistics,
   liquidity, freshness, confidence, Evidence Quality Score, RuntimeSession
