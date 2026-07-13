@@ -3,8 +3,10 @@
 from __future__ import annotations
 
 from pathlib import Path
+from typing import Any
 
 from onecool_os.research import ResearchJsonLoader
+from onecool_os.research import ResearchJsonLoadResult
 from onecool_os.research import research_evidence_to_ebay_sold_evidence
 from onecool_os.research.validation import ResearchError
 from onecool_os.research.workbench.models import ResearchWorkbenchImportResult
@@ -24,6 +26,30 @@ class ResearchResultImporter:
             loaded = ResearchJsonLoader().load(source_path)
         except ResearchError as exc:
             raise ResearchWorkbenchError(f"Research result import failed: {exc}") from exc
+        return self.import_loaded(loaded)
+
+    def import_payload(
+        self,
+        payload: dict[str, Any],
+        *,
+        source_file: str = "<work-response>",
+    ) -> ResearchWorkbenchImportResult:
+        """Import an in-memory ORF payload without mutating source data."""
+
+        try:
+            loaded = ResearchJsonLoader().load_payload(
+                payload,
+                source_file=source_file,
+            )
+        except ResearchError as exc:
+            raise ResearchWorkbenchError(f"Research result import failed: {exc}") from exc
+        return self.import_loaded(loaded)
+
+    def import_loaded(
+        self,
+        loaded: ResearchJsonLoadResult,
+    ) -> ResearchWorkbenchImportResult:
+        """Bridge loaded ORF results to eBay Sold evidence."""
 
         evidence_batches: list[EbaySoldEvidenceBatch] = []
         evidence_records: list[EbaySoldEvidence] = []
@@ -56,7 +82,7 @@ class ResearchResultImporter:
                 evidence_records.extend(evidence_batch.evidence)
 
         return ResearchWorkbenchImportResult(
-            source_file=str(source_path),
+            source_file=loaded.source_file,
             batches=loaded.batches,
             evidence_batches=tuple(evidence_batches),
             evidence=tuple(evidence_records),

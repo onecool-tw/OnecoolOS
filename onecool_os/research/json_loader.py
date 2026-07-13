@@ -38,6 +38,16 @@ class ResearchJsonLoader:
             payload = json.loads(source_path.read_text(encoding="utf-8"))
         except json.JSONDecodeError as exc:
             raise ResearchError(f"Invalid research JSON: {exc.msg}") from exc
+        return self.load_payload(payload, source_file=str(source_path))
+
+    def load_payload(
+        self,
+        payload: dict,
+        *,
+        source_file: str = "<memory>",
+    ) -> ResearchJsonLoadResult:
+        """Load a ResearchBatch or ResearchResult JSON payload."""
+
         if not isinstance(payload, dict):
             raise ResearchError("Research JSON root must be an object.")
 
@@ -52,7 +62,7 @@ class ResearchJsonLoader:
         return ResearchJsonLoadResult(
             batches=batches,
             warnings=warnings,
-            source_file=str(source_path),
+            source_file=source_file,
         )
 
 

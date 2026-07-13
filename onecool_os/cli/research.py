@@ -25,9 +25,13 @@ from onecool_os.research.pipeline import DEFAULT_RESULT_INPUT
 from onecool_os.research.pipeline import SingleAssetResearchPipeline
 from onecool_os.research.pipeline import pipeline_report_lines
 from onecool_os.runtime import RuntimeSession
+from onecool_os.work import ResearchWorkBridge
+from onecool_os.work import WorkContractError
 
 DEFAULT_EBAY_RESEARCH_REQUEST_PATH = Path("imports/research/ebay_url_requests.json")
 DEFAULT_RESEARCH_RESULT_PATH = Path("imports/research/ebay_url_results.json")
+DEFAULT_WORK_REQUEST_PATH = Path("imports/work/research_work_request.json")
+DEFAULT_WORK_RESPONSE_PATH = Path("imports/work/research_work_response.json")
 
 
 def add_research_parsers(subparsers: argparse._SubParsersAction) -> None:
@@ -55,6 +59,29 @@ def add_research_parsers(subparsers: argparse._SubParsersAction) -> None:
         default=str(DEFAULT_RESEARCH_RESULT_PATH),
     )
     import_parser.set_defaults(command_handler=handle_import_research_results)
+
+    work_export_parser = subparsers.add_parser(
+        "export-research-work-request",
+        help="Export one READY research item as a Work Contract request.",
+    )
+    work_export_parser.add_argument("--asset-id")
+    work_export_parser.add_argument("--cert-number")
+    work_export_parser.add_argument(
+        "--output",
+        default=str(DEFAULT_WORK_REQUEST_PATH),
+    )
+    work_export_parser.set_defaults(command_handler=handle_export_research_work_request)
+
+    work_import_parser = subparsers.add_parser(
+        "import-research-work-response",
+        help="Import one Work Contract response and validate ORF evidence.",
+    )
+    work_import_parser.add_argument(
+        "--input",
+        default=str(DEFAULT_WORK_RESPONSE_PATH),
+    )
+    work_import_parser.add_argument("--expected-request-id")
+    work_import_parser.set_defaults(command_handler=handle_import_research_work_response)
 
     single_asset_parser = subparsers.add_parser(
         "run-single-asset-research",
@@ -126,6 +153,67 @@ def handle_import_research_results(args: argparse.Namespace) -> int:
     for status, count in sorted(statuses.items()):
         print(f"{status}: {count}")
     print("Valuation records created: 0")
+    return 0
+
+
+def handle_export_research_work_request(args: argparse.Namespace) -> int:
+    """Export one READY research item as a Work Contract request."""
+
+    reference = datetime.now(UTC)
+    try:
+        session = _load_runtime_session(reference)
+        result = ResearchWorkBridge().export_ready_research_request(
+            session,
+            output_path=args.output,
+            asset_id=args.asset_id,
+            cert_number=args.cert_number,
+            reference_datetime=reference,
+            generated_at=reference,
+        )
+    except (PSAImportError, AssetMasterError, WorkContractError) as exc:
+        print(f"Work request export failed: {exc}")
+        return 1
+
+    request = result.request
+    print("Onecool Work Request Export")
+    print("---------------------------")
+    print(f"Request ID: {request.request_id}")
+    print(f"Request Type: {request.request_type.value}")
+    print(f"Asset ID: {request.asset_id}")
+    print(f"Output: {result.output_path}")
+    print("Provider calls inside Onecool OS: 0")
+    print("Fair Value calculated: 0")
+    print("Valuation records created: 0")
+    print("NAV updated: 0")
+    return 0
+
+
+def handle_import_research_work_response(args: argparse.Namespace) -> int:
+    """Import one Work Contract response and validate ORF evidence."""
+
+    try:
+        result = ResearchWorkBridge().import_response(
+            args.input,
+            expected_request_id=args.expected_request_id,
+        )
+    except WorkContractError as exc:
+        print(f"Work response import failed: {exc}")
+        return 1
+
+    statuses = Counter(evidence.status.value for evidence in result.evidence)
+    print("Onecool Work Response Import")
+    print("----------------------------")
+    print(f"Request ID: {result.work_request_id}")
+    print(f"Provider: {result.response.provider}")
+    print(f"Status: {result.response.status.value}")
+    print(f"Evidence records: {result.evidence_count}")
+    for status, count in sorted(statuses.items()):
+        print(f"{status}: {count}")
+    print("Existing ORF validation: passed")
+    print("Existing Evidence validation: passed")
+    print("Fair Value calculated: 0")
+    print("Valuation records created: 0")
+    print("NAV updated: 0")
     return 0
 
 
