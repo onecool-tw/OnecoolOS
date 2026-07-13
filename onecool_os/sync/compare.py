@@ -12,6 +12,7 @@ from onecool_os.sync.models import CollectionDifference
 from onecool_os.sync.models import SyncReport
 
 IDENTITY_FIELDS = ("year", "set", "card_number", "subject", "grade_issuer", "grade")
+TRUST_GROUPS = ("IDENTITY", "NORMALIZATION", "METADATA", "DECISION", "EVIDENCE")
 
 
 def compare_collection(
@@ -102,14 +103,24 @@ def compare_collection(
         ),
     )
     warnings.extend(_warnings_for_differences(differences))
+    health = _collection_health(
+        differences,
+        imported_records=len(imported),
+        asset_master_records=len(masters),
+        matched_records=len(matched_import_ids),
+    )
     return SyncReport(
         imported_records=len(imported),
         asset_master_records=len(masters),
         matched_records=len(matched_import_ids),
         differences=tuple(differences),
         warnings=tuple(warnings),
-        collection_health=_collection_health(differences),
+        collection_health=health["score"],
         generated_at=generated_at,
+        health_state=health["state"],
+        health_explanation=health["explanation"],
+        health_components=health["components"],
+        issue_groups=health["issue_groups"],
     )
 
 
@@ -173,6 +184,45 @@ def _matched_differences(
 ) -> list[CollectionDifference]:
     cert_number = _cert_number(imported_record) or master_record.cert_number
     differences: list[CollectionDifference] = []
+    identity_checks = (
+        (
+            "YEAR_CHANGED",
+            imported_record.get("year"),
+            _metadata_value(master_record, "year"),
+            "Year differs between import and Asset Master.",
+        ),
+        (
+            "SET_CHANGED",
+            imported_record.get("set") or imported_record.get("brand"),
+            _metadata_value(master_record, "set") or _metadata_value(master_record, "brand"),
+            "Set differs between import and Asset Master.",
+        ),
+        (
+            "CARD_NUMBER_CHANGED",
+            imported_record.get("card_number"),
+            _metadata_value(master_record, "card_number"),
+            "Card number differs between import and Asset Master.",
+        ),
+        (
+            "PLAYER_CHANGED",
+            imported_record.get("subject") or imported_record.get("player"),
+            _metadata_value(master_record, "subject") or _metadata_value(master_record, "player"),
+            "Player differs between import and Asset Master.",
+        ),
+    )
+    for difference_type, source_value, target_value, description in identity_checks:
+        if target_value and _normalized(source_value) != _normalized(target_value):
+            differences.append(
+                _difference(
+                    imported_record,
+                    master_record,
+                    difference_type,
+                    "CRITICAL",
+                    source_value,
+                    target_value,
+                    description,
+                )
+            )
     grade_issuer = _master_value(master_record, "grade_issuer")
     if grade_issuer and grade_issuer != _normalized(_grade_issuer(imported_record)):
         differences.append(
@@ -208,10 +258,10 @@ def _matched_differences(
                 imported_record,
                 master_record,
                 "VARIETY_CHANGED",
-                "CRITICAL",
+                "LOW",
                 imported_variety,
                 master_variety,
-                "Variety differs between import and Asset Master.",
+                "Variety or parallel formatting differs between import and Asset Master.",
             )
         )
     if master_record.cost_override is not None:
@@ -324,28 +374,183 @@ def _fallback_matches(
 
 def _collection_health(
     differences: tuple[CollectionDifference, ...] | list[CollectionDifference],
-) -> int:
-    if any(difference.severity == "CRITICAL" for difference in differences):
-        return 0
-    score = 100
+    *,
+    imported_records: int,
+    asset_master_records: int,
+    matched_records: int,
+) -> dict[str, Any]:
+    grouped = _issue_groups(differences)
+    identity_score = _identity_integrity_score(grouped["IDENTITY"]["issues"])
+    metadata_score = _metadata_completeness_score(grouped["METADATA"]["issues"])
+    runtime_score = _runtime_readiness_score(
+        imported_records,
+        asset_master_records,
+        matched_records,
+        grouped["IDENTITY"]["issues"],
+    )
+    evidence_score = _evidence_readiness_score(grouped["EVIDENCE"]["issues"])
+    score = round(
+        identity_score * 0.50
+        + metadata_score * 0.20
+        + runtime_score * 0.20
+        + evidence_score * 0.10
+    )
+    state = _health_state(score, identity_score)
+    return {
+        "score": max(0, min(100, score)),
+        "state": state,
+        "explanation": _health_explanation(state),
+        "components": {
+            "identity_integrity": {
+                "score": identity_score,
+                "weight": "50%",
+                "rationale": "Identity determines whether records refer to the correct asset.",
+            },
+            "metadata_completeness": {
+                "score": metadata_score,
+                "weight": "20%",
+                "rationale": "Metadata supports daily usability but is not identity.",
+            },
+            "runtime_readiness": {
+                "score": runtime_score,
+                "weight": "20%",
+                "rationale": "Runtime needs imports and Asset Master records to match cleanly.",
+            },
+            "evidence_readiness": {
+                "score": evidence_score,
+                "weight": "10%",
+                "rationale": "Evidence inputs prepare valuation research but do not define identity.",
+            },
+        },
+        "issue_groups": grouped,
+    }
+
+
+def _issue_groups(
+    differences: tuple[CollectionDifference, ...] | list[CollectionDifference],
+) -> dict[str, dict[str, Any]]:
+    groups: dict[str, dict[str, Any]] = {
+        group: {
+            "issue_count": 0,
+            "severity": "INFO",
+            "recommended_action": _recommended_action(group),
+            "issues": [],
+        }
+        for group in TRUST_GROUPS
+    }
+    severity_rank = {"INFO": 0, "LOW": 1, "MEDIUM": 2, "HIGH": 3, "CRITICAL": 4}
     for difference in differences:
-        if difference.difference_type in {
-            "TARGET_PRICE_MISSING",
-            "NOTES_CHANGED",
-            "COST_OVERRIDE",
-        }:
-            score -= 1
-        elif difference.difference_type in {"EBAY_URL_MISSING", "PSA_URL_MISSING"}:
-            score -= 2
-        elif difference.difference_type in {
-            "MISSING_IN_ASSET_MASTER",
-            "MISSING_IN_IMPORT",
-            "NEW_CARD",
-        }:
-            score -= 5
-        elif difference.difference_type == "DUPLICATE_CERT":
-            score -= 20
+        group = difference.trust_category
+        groups[group]["issue_count"] += 1
+        groups[group]["issues"].append(
+            {
+                "difference_type": difference.difference_type,
+                "severity": difference.severity,
+                "cert_number": difference.cert_number,
+                "asset_id": difference.asset_id,
+                "description": difference.description,
+            }
+        )
+        if severity_rank[difference.severity] > severity_rank[groups[group]["severity"]]:
+            groups[group]["severity"] = difference.severity
+    return {
+        group: {
+            "issue_count": data["issue_count"],
+            "severity": data["severity"],
+            "recommended_action": data["recommended_action"],
+            "issues": tuple(data["issues"]),
+        }
+        for group, data in groups.items()
+    }
+
+
+def _identity_integrity_score(issues: tuple[dict[str, Any], ...]) -> int:
+    score = 100
+    penalties = {
+        "DUPLICATE_CERT": 70,
+        "DUPLICATE_ASSET": 70,
+        "MISSING_IN_IMPORT": 25,
+        "MISSING_IN_ASSET_MASTER": 15,
+        "NEW_CARD": 10,
+        "YEAR_CHANGED": 70,
+        "SET_CHANGED": 70,
+        "CARD_NUMBER_CHANGED": 70,
+        "PLAYER_CHANGED": 70,
+        "GRADE_CHANGED": 70,
+        "GRADE_ISSUER_CHANGED": 70,
+    }
+    for issue in issues:
+        score -= penalties.get(issue["difference_type"], 10)
     return max(0, score)
+
+
+def _metadata_completeness_score(issues: tuple[dict[str, Any], ...]) -> int:
+    score = 100
+    for issue in issues:
+        if issue["difference_type"] == "PSA_URL_MISSING":
+            score -= 10
+        else:
+            score -= 5
+    return max(0, score)
+
+
+def _runtime_readiness_score(
+    imported_records: int,
+    asset_master_records: int,
+    matched_records: int,
+    identity_issues: tuple[dict[str, Any], ...],
+) -> int:
+    if imported_records == 0 and asset_master_records == 0:
+        return 100
+    denominator = max(imported_records, asset_master_records, 1)
+    match_score = round((matched_records / denominator) * 100)
+    blocking_types = {"DUPLICATE_CERT", "DUPLICATE_ASSET"}
+    penalty = sum(20 for issue in identity_issues if issue["difference_type"] in blocking_types)
+    return max(0, match_score - penalty)
+
+
+def _evidence_readiness_score(issues: tuple[dict[str, Any], ...]) -> int:
+    score = 100
+    for issue in issues:
+        if issue["difference_type"] == "EBAY_URL_MISSING":
+            score -= 10
+        else:
+            score -= 5
+    return max(0, score)
+
+
+def _health_state(score: int, identity_score: int) -> str:
+    if identity_score < 50:
+        return "CRITICAL"
+    if score >= 95:
+        return "EXCELLENT"
+    if score >= 85:
+        return "GOOD"
+    if score >= 70:
+        return "FAIR"
+    if score >= 50:
+        return "ATTENTION"
+    return "CRITICAL"
+
+
+def _health_explanation(state: str) -> str:
+    return {
+        "EXCELLENT": "Collection data is highly trustworthy.",
+        "GOOD": "Collection data is trustworthy with minor cleanup remaining.",
+        "FAIR": "Collection data is usable, but review is recommended.",
+        "ATTENTION": "Collection data needs review before full trust.",
+        "CRITICAL": "Collection data has trust issues that must be resolved.",
+    }[state]
+
+
+def _recommended_action(group: str) -> str:
+    return {
+        "IDENTITY": "Resolve identity issues before trusting collection outputs.",
+        "NORMALIZATION": "Review normalization mapping; this rarely blocks runtime trust.",
+        "METADATA": "Complete durable Asset Master metadata.",
+        "DECISION": "Review in the Decision Layer; it does not reduce collection trust.",
+        "EVIDENCE": "Prepare evidence research inputs for valuation readiness.",
+    }[group]
 
 
 def _warnings_for_differences(

@@ -55,7 +55,8 @@ def test_runtime_health_propagation() -> None:
     )
 
     assert runtime.collection_health == runtime.sync_report.collection_health
-    assert runtime.collection_health == 90
+    assert runtime.collection_health == 68
+    assert runtime.sync_report.health_state == "ATTENTION"
 
 
 def test_runtime_difference_propagation() -> None:

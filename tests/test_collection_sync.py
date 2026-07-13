@@ -37,7 +37,8 @@ def test_missing_cards() -> None:
     types = _difference_types(report)
     assert "NEW_CARD" in types
     assert "MISSING_IN_ASSET_MASTER" in types
-    assert report.collection_health == 90
+    assert report.collection_health == 68
+    assert report.health_state == "ATTENTION"
 
 
 def test_duplicate_cert() -> None:
@@ -52,7 +53,8 @@ def test_duplicate_cert() -> None:
 
     difference = _first_difference(report, "DUPLICATE_CERT")
     assert difference.severity == "CRITICAL"
-    assert report.collection_health == 0
+    assert report.health_state == "CRITICAL"
+    assert report.collection_health < 70
 
 
 def test_grade_changed() -> None:
@@ -66,7 +68,8 @@ def test_grade_changed() -> None:
     assert difference.severity == "CRITICAL"
     assert difference.source_value == "10"
     assert difference.target_value == "9"
-    assert report.collection_health == 0
+    assert report.health_state == "CRITICAL"
+    assert report.collection_health < 70
 
 
 def test_new_card() -> None:
@@ -94,7 +97,8 @@ def test_orphan_asset_master() -> None:
 
     difference = _first_difference(report, "MISSING_IN_IMPORT")
     assert difference.cert_number == "12345678"
-    assert report.collection_health == 95
+    assert report.collection_health == 68
+    assert report.health_state == "ATTENTION"
 
 
 def test_orphan_import() -> None:
@@ -129,7 +133,8 @@ def test_metadata_differences() -> None:
     assert "TARGET_PRICE_MISSING" in types
     assert "NOTES_CHANGED" in types
     assert "COST_OVERRIDE" in types
-    assert report.collection_health == 93
+    assert report.collection_health == 97
+    assert report.health_state == "EXCELLENT"
 
 
 def test_deterministic_replay() -> None:
@@ -174,7 +179,8 @@ def test_variety_changed() -> None:
     )
 
     difference = _first_difference(report, "VARIETY_CHANGED")
-    assert difference.severity == "CRITICAL"
+    assert difference.severity == "LOW"
+    assert difference.trust_category == "NORMALIZATION"
 
 
 def test_duplicate_asset() -> None:
@@ -192,7 +198,8 @@ def test_duplicate_asset() -> None:
 
     difference = _first_difference(report, "DUPLICATE_ASSET")
     assert difference.asset_id == "PSA-SAME"
-    assert report.collection_health == 0
+    assert report.health_state == "CRITICAL"
+    assert report.collection_health < 70
 
 
 def test_fallback_identity_match() -> None:

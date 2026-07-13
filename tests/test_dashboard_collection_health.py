@@ -63,7 +63,7 @@ def test_critical_collection() -> None:
     content = collection_health_section(runtime).content
 
     assert content["runtime_state"] == "CRITICAL"
-    assert content["collection_health_score"] == 0
+    assert content["collection_health_score"] < 70
     assert content["critical_issues"] == 1
 
 

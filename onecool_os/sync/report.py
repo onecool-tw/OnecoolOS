@@ -15,21 +15,25 @@ def sync_report_lines(report: SyncReport) -> tuple[str, ...]:
         f"Asset Master Records: {report.asset_master_records}",
         f"Matched Records: {report.matched_records}",
         f"Collection Health: {report.collection_health}",
+        f"Health State: {report.health_state}",
+        f"Health Explanation: {report.health_explanation}",
         f"Generated At: {report.generated_at.isoformat()}",
         "",
-        "Differences",
-        "-----------",
+        "Health Report",
+        "-------------",
     ]
-    if not report.differences:
+    groups = report.issue_groups or {}
+    if not groups:
         lines.append("None")
-    else:
+    for group_name in ("IDENTITY", "NORMALIZATION", "METADATA", "DECISION", "EVIDENCE"):
+        group = groups.get(group_name, {})
         lines.extend(
             (
-                f"{difference.severity} {difference.difference_type} "
-                f"{difference.cert_number or difference.asset_id}: "
-                f"{difference.description}"
+                group_name.title(),
+                f"  Issue Count: {group.get('issue_count', 0)}",
+                f"  Severity: {group.get('severity', 'INFO')}",
+                f"  Recommended Action: {group.get('recommended_action', 'None')}",
             )
-            for difference in report.differences
         )
     lines.extend(("", "Warnings", "--------"))
     if not report.warnings:
