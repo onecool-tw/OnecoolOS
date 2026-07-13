@@ -169,10 +169,54 @@ def test_cli_export_research_work_request(tmp_path: Path, monkeypatch, capsys) -
     payload = json.loads(output.read_text(encoding="utf-8"))
     assert exit_code == 0
     assert payload["request_id"] == "work:ebay-url:A-1:SOLD_COMPARABLES"
+    assert "Research URL:" in captured.out
+    assert "https://www.ebay.com/sch/i.html?_nkw=ohtani&LH_Sold=1&LH_Complete=1" in captured.out
+    assert "Next Step:" in captured.out
+    assert f"--input {tmp_path / 'work_response.json'}" in captured.out
     assert "Provider calls inside Onecool OS: 0" in captured.out
     assert "Fair Value calculated: 0" in captured.out
     assert "Valuation records created: 0" in captured.out
     assert "NAV updated: 0" in captured.out
+
+
+def test_cli_export_research_work_request_open_url(tmp_path: Path, monkeypatch, capsys) -> None:
+    output = tmp_path / "kobe_111003720_request.json"
+    opened_urls: list[str] = []
+    monkeypatch.setattr(
+        "onecool_os.cli.research._load_runtime_session",
+        lambda reference: _session([_asset("A-1", "1001")], [_master("1001")]),
+    )
+    monkeypatch.setattr(
+        "onecool_os.cli.research._open_url",
+        lambda url: opened_urls.append(url) is None or True,
+    )
+
+    exit_code = main(["export-research-work-request", "--output", str(output), "--open-url"])
+
+    captured = capsys.readouterr()
+    assert exit_code == 0
+    assert opened_urls == ["https://www.ebay.com/sch/i.html?_nkw=ohtani&LH_Sold=1&LH_Complete=1"]
+    assert f"--input {tmp_path / 'kobe_111003720_response.json'}" in captured.out
+
+
+def test_cli_export_research_work_request_open_url_failure_still_prints_url(
+    tmp_path: Path,
+    monkeypatch,
+    capsys,
+) -> None:
+    output = tmp_path / "work_request.json"
+    monkeypatch.setattr(
+        "onecool_os.cli.research._load_runtime_session",
+        lambda reference: _session([_asset("A-1", "1001")], [_master("1001")]),
+    )
+    monkeypatch.setattr("onecool_os.cli.research._open_url", lambda url: False)
+
+    exit_code = main(["export-research-work-request", "--output", str(output), "--open-url"])
+
+    captured = capsys.readouterr()
+    assert exit_code == 0
+    assert "Could not open Research URL automatically." in captured.out
+    assert "https://www.ebay.com/sch/i.html?_nkw=ohtani&LH_Sold=1&LH_Complete=1" in captured.out
 
 
 def test_cli_import_research_work_response(tmp_path: Path, capsys) -> None:

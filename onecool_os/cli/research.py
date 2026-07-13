@@ -3,6 +3,8 @@
 from __future__ import annotations
 
 import argparse
+import subprocess
+import sys
 from collections import Counter
 from datetime import UTC
 from datetime import datetime
@@ -69,6 +71,11 @@ def add_research_parsers(subparsers: argparse._SubParsersAction) -> None:
     work_export_parser.add_argument(
         "--output",
         default=str(DEFAULT_WORK_REQUEST_PATH),
+    )
+    work_export_parser.add_argument(
+        "--open-url",
+        action="store_true",
+        help="Open the exported research URL with the operating system.",
     )
     work_export_parser.set_defaults(command_handler=handle_export_research_work_request)
 
@@ -175,16 +182,42 @@ def handle_export_research_work_request(args: argparse.Namespace) -> int:
         return 1
 
     request = result.request
+    research_url = request.source_urls[0] if request.source_urls else ""
+    response_path = _suggest_work_response_path(result.output_path)
+    if args.open_url and research_url and not _open_url(research_url):
+        print("Could not open Research URL automatically. Please open it manually.")
+
+    print("----------------------------------------")
     print("Onecool Work Request Export")
-    print("---------------------------")
-    print(f"Request ID: {request.request_id}")
-    print(f"Request Type: {request.request_type.value}")
-    print(f"Asset ID: {request.asset_id}")
-    print(f"Output: {result.output_path}")
+    print("----------------------------------------")
+    print("")
+    print("Request ID:")
+    print(request.request_id)
+    print("")
+    print("Asset:")
+    print(_work_request_asset_label(request))
+    print("")
+    print("Output:")
+    print(result.output_path)
+    print("")
+    print("Research URL:")
+    print(research_url)
+    print("")
+    print("Next Step:")
+    print("")
+    print("1. Open the Research URL.")
+    print("2. Collect sold evidence.")
+    print("3. Save Work Response JSON.")
+    print("4. Run:")
+    print("")
+    print(".venv/bin/python -m onecool_os import-research-work-response \\")
+    print(f"  --input {response_path}")
+    print("")
     print("Provider calls inside Onecool OS: 0")
     print("Fair Value calculated: 0")
     print("Valuation records created: 0")
     print("NAV updated: 0")
+    print("----------------------------------------")
     return 0
 
 
@@ -270,3 +303,44 @@ def _select_asset_master_path() -> Path | None:
     if DEFAULT_ASSET_MASTER_CSV_PATH.exists():
         return DEFAULT_ASSET_MASTER_CSV_PATH
     return None
+
+
+def _work_request_asset_label(request) -> str:
+    research_request = request.context.get("research_request", {})
+    asset_name = research_request.get("asset_name")
+    cert_number = research_request.get("cert_number")
+    if asset_name and cert_number:
+        return f"{asset_name} (cert {cert_number})"
+    if asset_name:
+        return str(asset_name)
+    if cert_number:
+        return f"{request.asset_id} (cert {cert_number})"
+    return str(request.asset_id)
+
+
+def _suggest_work_response_path(output_path: str | None) -> str:
+    if not output_path:
+        return str(DEFAULT_WORK_RESPONSE_PATH)
+    path = Path(output_path)
+    name = path.name
+    if name.endswith("_request.json"):
+        return str(path.with_name(f"{name[:-len('_request.json')]}_response.json"))
+    if name.endswith(".json"):
+        return str(path.with_name(f"{path.stem}_response.json"))
+    return str(path.with_name(f"{path.name}_response.json"))
+
+
+def _open_url(url: str) -> bool:
+    if sys.platform == "darwin":
+        command = ["open", url]
+    elif sys.platform.startswith("linux"):
+        command = ["xdg-open", url]
+    elif sys.platform.startswith("win"):
+        command = ["cmd", "/c", "start", "", url]
+    else:
+        return False
+    try:
+        completed = subprocess.run(command, check=False)
+    except OSError:
+        return False
+    return completed.returncode == 0
