@@ -29,6 +29,7 @@ from onecool_os.research.pipeline import pipeline_report_lines
 from onecool_os.runtime import RuntimeSession
 from onecool_os.work import ResearchWorkBridge
 from onecool_os.work import WorkContractError
+from onecool_os.work import WorkResponseBuilder
 
 DEFAULT_EBAY_RESEARCH_REQUEST_PATH = Path("imports/research/ebay_url_requests.json")
 DEFAULT_RESEARCH_RESULT_PATH = Path("imports/research/ebay_url_results.json")
@@ -89,6 +90,14 @@ def add_research_parsers(subparsers: argparse._SubParsersAction) -> None:
     )
     work_import_parser.add_argument("--expected-request-id")
     work_import_parser.set_defaults(command_handler=handle_import_research_work_response)
+
+    work_builder_parser = subparsers.add_parser(
+        "build-work-response",
+        help="Interactively build a Work Response JSON from verified sold comparables.",
+    )
+    work_builder_parser.add_argument("--request", required=True)
+    work_builder_parser.add_argument("--output", required=True)
+    work_builder_parser.set_defaults(command_handler=handle_build_work_response)
 
     single_asset_parser = subparsers.add_parser(
         "run-single-asset-research",
@@ -247,6 +256,20 @@ def handle_import_research_work_response(args: argparse.Namespace) -> int:
     print("Fair Value calculated: 0")
     print("Valuation records created: 0")
     print("NAV updated: 0")
+    return 0
+
+
+def handle_build_work_response(args: argparse.Namespace) -> int:
+    """Interactively build one Work Response JSON file."""
+
+    try:
+        WorkResponseBuilder().build_interactive(
+            args.request,
+            args.output,
+        )
+    except WorkContractError as exc:
+        print(f"Work response build failed: {exc}")
+        return 1
     return 0
 
 

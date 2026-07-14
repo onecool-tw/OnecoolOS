@@ -12,6 +12,8 @@ from onecool_os.work.models import WorkContractErrorRecord
 from onecool_os.work.models import WorkExecutionTime
 from onecool_os.work.models import WorkRequest
 from onecool_os.work.models import WorkResponse
+from onecool_os.work.response_builder import SoldComparableInput
+from onecool_os.work.response_builder import WorkResponseBuilder
 from onecool_os.work.validation import WorkContractError
 
 __all__ = [
@@ -26,6 +28,8 @@ __all__ = [
     "WorkRequestExportResult",
     "WorkRequestType",
     "WorkResponse",
+    "WorkResponseBuilder",
     "WorkResponseImportResult",
     "WorkStatus",
+    "SoldComparableInput",
 ]
