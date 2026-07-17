@@ -5,9 +5,12 @@ benchmark ETFs: QQQ, SMIN, GLD, IBB, PICK, VCR, and XLE.
 
 The first successful workflow run seeds five years of raw OHLC, dividend, and
 split observations through the project's existing `yfinance` dependency. Every
-subsequent run uses only Alpha Vantage free-tier endpoints:
-`TIME_SERIES_DAILY`, `DIVIDENDS`, and `SPLITS`. The updater merges by market
-date and recalculates the complete adjusted-close history locally.
+subsequent run uses Alpha Vantage free-tier endpoints. Daily runs request
+`TIME_SERIES_DAILY` once per ETF (7 calls total). Friday UTC also requests
+`DIVIDENDS` and `SPLITS` for every ETF (14 additional weekly calls), merges the
+complete action history by date, and recalculates every adjusted close and CTA.
+If a new raw close moves more than 35% in one session, that symbol receives an
+immediate two-call action refresh as split protection.
 
 CTA uses one cutoff date per symbol and one implementation:
 

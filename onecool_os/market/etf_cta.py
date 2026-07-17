@@ -89,10 +89,25 @@ class AlphaVantageClient:
     def fetch_symbol(self, symbol: str) -> list[DailyBar]:
         """Fetch compact raw daily data and all corporate actions."""
 
-        daily = self._query("TIME_SERIES_DAILY", symbol)
-        dividends = self._query("DIVIDENDS", symbol)
-        splits = self._query("SPLITS", symbol)
-        return parse_alpha_vantage(daily, dividends, splits)
+        bars = self.fetch_daily(symbol)
+        return apply_corporate_actions(
+            bars, self.fetch_actions(symbol), authoritative=True
+        )
+
+    def fetch_daily(self, symbol: str) -> list[DailyBar]:
+        """Fetch compact raw daily data with one API request."""
+
+        return parse_alpha_vantage_daily(
+            self._query("TIME_SERIES_DAILY", symbol)
+        )
+
+    def fetch_actions(self, symbol: str) -> dict[date, tuple[float, float]]:
+        """Fetch complete dividends and splits with two API requests."""
+
+        return parse_alpha_vantage_actions(
+            self._query("DIVIDENDS", symbol),
+            self._query("SPLITS", symbol),
+        )
 
     def _query(self, function: str, symbol: str) -> dict[str, Any]:
         if self._has_requested:
@@ -139,19 +154,18 @@ def parse_alpha_vantage(
 ) -> list[DailyBar]:
     """Normalize Alpha Vantage raw daily and corporate-action responses."""
 
+    return apply_corporate_actions(
+        parse_alpha_vantage_daily(daily_payload),
+        parse_alpha_vantage_actions(dividend_payload, split_payload),
+    )
+
+
+def parse_alpha_vantage_daily(daily_payload: dict[str, Any]) -> list[DailyBar]:
+    """Normalize one Alpha Vantage raw daily response."""
+
     series = daily_payload.get("Time Series (Daily)")
     if not isinstance(series, dict) or not series:
         raise ETFCTAError("Alpha Vantage daily response contains no time series.")
-    dividends = {
-        item.get("ex_dividend_date"): _float(item.get("amount"), 0.0)
-        for item in dividend_payload.get("data", [])
-        if item.get("ex_dividend_date")
-    }
-    splits = {
-        item.get("effective_date"): _float(item.get("split_factor"), 1.0)
-        for item in split_payload.get("data", [])
-        if item.get("effective_date")
-    }
     bars = []
     for day, values in series.items():
         bars.append(
@@ -162,11 +176,86 @@ def parse_alpha_vantage(
                 low=_float(values.get("3. low")),
                 close=_float(values.get("4. close")),
                 volume=int(_float(values.get("5. volume"), 0.0)),
-                dividend=dividends.get(day, 0.0),
-                split_factor=splits.get(day, 1.0),
             )
         )
     return sorted(bars, key=lambda bar: bar.trading_date)
+
+
+def parse_alpha_vantage_actions(
+    dividend_payload: dict[str, Any], split_payload: dict[str, Any]
+) -> dict[date, tuple[float, float]]:
+    """Normalize full corporate-action responses by effective date."""
+
+    dividends = {
+        date.fromisoformat(item["ex_dividend_date"]): _float(
+            item.get("amount"), 0.0
+        )
+        for item in dividend_payload.get("data", [])
+        if item.get("ex_dividend_date")
+    }
+    splits = {
+        date.fromisoformat(item["effective_date"]): _float(
+            item.get("split_factor"), 1.0
+        )
+        for item in split_payload.get("data", [])
+        if item.get("effective_date")
+    }
+    return {
+        day: (dividends.get(day, 0.0), splits.get(day, 1.0))
+        for day in dividends.keys() | splits.keys()
+    }
+
+
+def apply_corporate_actions(
+    bars: Iterable[DailyBar],
+    actions: dict[date, tuple[float, float]],
+    *,
+    authoritative: bool = False,
+) -> list[DailyBar]:
+    """Apply action records, optionally clearing stale provider actions."""
+
+    updated = []
+    for bar in bars:
+        action = actions.get(bar.trading_date)
+        if action is None and not authoritative:
+            updated.append(bar)
+            continue
+        dividend, split_factor = action or (0.0, 1.0)
+        updated.append(
+            DailyBar(
+                **{
+                    **asdict(bar),
+                    "dividend": dividend,
+                    "split_factor": split_factor,
+                    "adjusted_close": None,
+                }
+            )
+        )
+    return updated
+
+
+def has_new_price_anomaly(
+    existing: Iterable[DailyBar],
+    incoming: Iterable[DailyBar],
+    *,
+    threshold: float = 0.35,
+) -> bool:
+    """Flag a large raw-close move on newly received market dates."""
+
+    old = sorted(existing, key=lambda bar: bar.trading_date)
+    new = sorted(incoming, key=lambda bar: bar.trading_date)
+    if not old or not new:
+        return False
+    latest_old = old[-1].trading_date
+    combined = {bar.trading_date: bar for bar in old}
+    combined.update({bar.trading_date: bar for bar in new})
+    ordered = [combined[day] for day in sorted(combined)]
+    for previous, current in zip(ordered, ordered[1:]):
+        if current.trading_date <= latest_old or previous.close <= 0:
+            continue
+        if abs(current.close / previous.close - 1.0) > threshold:
+            return True
+    return False
 
 
 def merge_and_adjust(
