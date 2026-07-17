@@ -285,8 +285,10 @@ def merge_and_adjust(
             raise ETFCTAError(
                 f"Invalid split factor on {bar.trading_date}: {bar.split_factor}"
             )
-        factor /= bar.split_factor
         previous_close = bars[index - 1].close
+        factor /= _effective_split_factor(
+            previous_close, bar.close, bar.split_factor
+        )
         if bar.dividend:
             if previous_close <= bar.dividend:
                 raise ETFCTAError(
@@ -294,6 +296,20 @@ def merge_and_adjust(
                 )
             factor *= (previous_close - bar.dividend) / previous_close
     return [bar for bar in adjusted if bar is not None]
+
+
+def _effective_split_factor(
+    previous_close: float, current_close: float, split_factor: float
+) -> float:
+    """Avoid applying a split twice when the provider already adjusted OHLC."""
+
+    if split_factor == 1.0 or previous_close <= 0 or current_close <= 0:
+        return split_factor
+    raw_gap = abs(current_close / previous_close - 1.0)
+    split_adjusted_gap = abs(
+        current_close * split_factor / previous_close - 1.0
+    )
+    return 1.0 if raw_gap <= split_adjusted_gap else split_factor
 
 
 def calculate_cta(symbol: str, bars: Iterable[DailyBar]) -> CTAResult:
