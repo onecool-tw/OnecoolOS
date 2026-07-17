@@ -8,8 +8,13 @@ on:
         required: false
         type: boolean
         default: true
+      refresh_actions:
+        description: Refresh complete dividends and splits for all ETFs
+        required: false
+        type: boolean
+        default: false
   schedule:
-    # 06:30 Asia/Taipei, Monday-Friday (22:30 UTC on the previous day).
+    # 06:30 Asia/Taipei, Tuesday-Saturday (22:30 UTC Monday-Friday).
     - cron: "30 22 * * 1-5"
 
 permissions:
@@ -38,6 +43,10 @@ jobs:
           args=()
           if [[ "${{ github.event_name }}" == "schedule" || "${{ inputs.allow_bootstrap }}" == "true" ]]; then
             args+=(--allow-bootstrap)
+          fi
+          # Friday UTC is the weekly full corporate-action reconciliation.
+          if [[ "${{ inputs.refresh_actions }}" == "true" || ( "${{ github.event_name }}" == "schedule" && "$(date -u +%u)" == "5" ) ]]; then
+            args+=(--refresh-actions)
           fi
           python scripts/update_etf_cta.py "${args[@]}"
       - name: Commit increment only when market data changed

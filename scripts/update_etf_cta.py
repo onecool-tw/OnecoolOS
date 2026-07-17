@@ -14,6 +14,8 @@ from onecool_os.market.etf_cta import (
     DailyBar,
     ETFCTAError,
     calculate_cta,
+    apply_corporate_actions,
+    has_new_price_anomaly,
     merge_and_adjust,
     read_history,
     write_history,
@@ -48,11 +50,17 @@ def bootstrap_yahoo(symbol: str) -> list[DailyBar]:
     return bars
 
 
-def update(data_dir: Path, api_key: str, allow_bootstrap: bool) -> dict:
+def update(
+    data_dir: Path,
+    api_key: str,
+    allow_bootstrap: bool,
+    refresh_actions: bool = False,
+) -> dict:
     """Update all symbols atomically enough for a reviewable Git commit."""
 
     client = AlphaVantageClient(api_key)
     results = []
+    action_refreshes = []
     for symbol in WATCHLIST_SYMBOLS:
         path = data_dir / "history" / f"{symbol}.csv"
         existing = read_history(path)
@@ -62,8 +70,20 @@ def update(data_dir: Path, api_key: str, allow_bootstrap: bool) -> dict:
                     f"{symbol} history is missing; rerun with --allow-bootstrap."
                 )
             existing = bootstrap_yahoo(symbol)
-        incoming = client.fetch_symbol(symbol)
-        history = merge_and_adjust(existing, incoming)
+        incoming = client.fetch_daily(symbol)
+        anomaly = has_new_price_anomaly(existing, incoming)
+        should_refresh_actions = refresh_actions or anomaly
+        combined = merge_and_adjust(existing, incoming)
+        if should_refresh_actions:
+            combined = apply_corporate_actions(
+                combined,
+                client.fetch_actions(symbol),
+                authoritative=True,
+            )
+            action_refreshes.append(
+                {"symbol": symbol, "reason": "anomaly" if anomaly else "weekly"}
+            )
+        history = merge_and_adjust([], combined)
         write_history(path, history)
         results.append(asdict(calculate_cta(symbol, history)))
 
@@ -74,6 +94,7 @@ def update(data_dir: Path, api_key: str, allow_bootstrap: bool) -> dict:
             "weekly": ["last_trading_day_adjusted_close", "SMA30", "SMA50"],
             "rules": "Onecool CTA v1 fixed rule",
         },
+        "action_refreshes": action_refreshes,
         "results": results,
     }
     data_dir.mkdir(parents=True, exist_ok=True)
@@ -91,11 +112,17 @@ def main() -> int:
         "--data-dir", type=Path, default=Path("data/market/etf_cta")
     )
     parser.add_argument("--allow-bootstrap", action="store_true")
+    parser.add_argument(
+        "--refresh-actions",
+        action="store_true",
+        help="Refresh full dividend/split history and recalculate all closes.",
+    )
     args = parser.parse_args()
     payload = update(
         args.data_dir,
         os.environ.get("ALPHA_VANTAGE_API_KEY", ""),
         args.allow_bootstrap,
+        args.refresh_actions,
     )
     print(json.dumps(payload, ensure_ascii=False))
     return 0

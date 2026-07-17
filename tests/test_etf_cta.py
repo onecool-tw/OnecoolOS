@@ -7,6 +7,8 @@ from onecool_os.market.etf_cta import (
     DailyBar,
     ETFCTAError,
     calculate_cta,
+    apply_corporate_actions,
+    has_new_price_anomaly,
     merge_and_adjust,
     parse_alpha_vantage,
 )
@@ -65,6 +67,54 @@ def test_alpha_vantage_retries_rate_note() -> None:
 
     assert "Time Series (Daily)" in payload
     assert sleeps == [60.0]
+
+
+def test_daily_fetch_uses_one_request() -> None:
+    urls = []
+    response = b'{"Time Series (Daily)":{"2026-07-15":{"1. open":"1","2. high":"1","3. low":"1","4. close":"1","5. volume":"1"}}}'
+    client = AlphaVantageClient(
+        "secret",
+        request=lambda url: urls.append(url) or response,
+        sleeper=lambda _: None,
+        request_spacing_seconds=0,
+    )
+
+    assert len(client.fetch_daily("QQQ")) == 1
+    assert len(urls) == 1
+    assert "function=TIME_SERIES_DAILY" in urls[0]
+
+
+def test_action_refresh_backfills_existing_history() -> None:
+    start = date(2026, 1, 1)
+    existing = [bar(start, 100), bar(start + timedelta(days=1), 50)]
+    refreshed = apply_corporate_actions(
+        existing, {start + timedelta(days=1): (0.0, 2.0)}
+    )
+    history = merge_and_adjust([], refreshed)
+
+    assert history[0].adjusted_close == pytest.approx(50)
+    assert history[1].split_factor == 2.0
+
+
+def test_authoritative_action_refresh_clears_stale_action() -> None:
+    stale = [bar(date(2026, 1, 1), 100, dividend=1.0)]
+
+    refreshed = apply_corporate_actions(stale, {}, authoritative=True)
+
+    assert refreshed[0].dividend == 0.0
+    assert refreshed[0].split_factor == 1.0
+
+
+def test_large_new_close_move_triggers_anomaly() -> None:
+    start = date(2026, 1, 1)
+    existing = [bar(start, 100)]
+
+    assert has_new_price_anomaly(
+        existing, [bar(start + timedelta(days=1), 50)]
+    )
+    assert not has_new_price_anomaly(
+        existing, [bar(start + timedelta(days=1), 90)]
+    )
 
 
 def test_merge_recalculates_split_and_dividend_adjustments() -> None:
