@@ -133,6 +133,22 @@ def test_merge_recalculates_split_and_dividend_adjustments() -> None:
     assert history[0].adjusted_close == pytest.approx(49)
 
 
+def test_merge_does_not_double_adjust_provider_adjusted_split() -> None:
+    start = date(2026, 1, 1)
+    history = merge_and_adjust(
+        [],
+        [
+            bar(start, 50),
+            bar(start + timedelta(days=1), 51, split_factor=2),
+            bar(start + timedelta(days=2), 52),
+        ],
+    )
+
+    assert history[0].adjusted_close == pytest.approx(50)
+    assert history[1].adjusted_close == pytest.approx(51)
+    assert history[2].adjusted_close == pytest.approx(52)
+
+
 def test_calculate_cta_buy() -> None:
     start = date(2020, 1, 1)
     history = [
