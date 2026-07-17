@@ -1,0 +1,40 @@
+name: Update Fund Relative Alpha
+
+on:
+  workflow_dispatch:
+  schedule:
+    # 08:30 Asia/Taipei every Monday, after Friday fund NAVs are available.
+    - cron: "30 0 * * 1"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-fund-relative-alpha
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install project
+        run: pip install -e .
+      - name: Update fund NAV histories and relative alpha
+        run: python scripts/update_fund_alpha.py
+      - name: Commit only when fund data changed
+        run: |
+          git add data/market/fund_nav
+          if git diff --cached --quiet; then
+            echo "No new fund NAV data."
+            exit 0
+          fi
+          git config user.name "onecool-os-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git commit -m "Update fund relative alpha"
+          git push
