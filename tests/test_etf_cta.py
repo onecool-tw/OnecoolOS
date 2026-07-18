@@ -84,6 +84,22 @@ def test_daily_fetch_uses_one_request() -> None:
     assert "function=TIME_SERIES_DAILY" in urls[0]
 
 
+def test_daily_fetch_can_request_full_history_with_one_request() -> None:
+    urls = []
+    response = b'{"Time Series (Daily)":{"2026-07-15":{"1. open":"1","2. high":"1","3. low":"1","4. close":"1","5. volume":"1"}}}'
+    client = AlphaVantageClient(
+        "secret",
+        request=lambda url: urls.append(url) or response,
+        sleeper=lambda _: None,
+        request_spacing_seconds=0,
+    )
+
+    client.fetch_daily("SPY", outputsize="full")
+
+    assert len(urls) == 1
+    assert "outputsize=full" in urls[0]
+
+
 def test_action_refresh_backfills_existing_history() -> None:
     start = date(2026, 1, 1)
     existing = [bar(start, 100), bar(start + timedelta(days=1), 50)]

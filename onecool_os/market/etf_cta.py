@@ -94,11 +94,13 @@ class AlphaVantageClient:
             bars, self.fetch_actions(symbol), authoritative=True
         )
 
-    def fetch_daily(self, symbol: str) -> list[DailyBar]:
+    def fetch_daily(
+        self, symbol: str, *, outputsize: str = "compact"
+    ) -> list[DailyBar]:
         """Fetch compact raw daily data with one API request."""
 
         return parse_alpha_vantage_daily(
-            self._query("TIME_SERIES_DAILY", symbol)
+            self._query("TIME_SERIES_DAILY", symbol, outputsize=outputsize)
         )
 
     def fetch_actions(self, symbol: str) -> dict[date, tuple[float, float]]:
@@ -109,7 +111,9 @@ class AlphaVantageClient:
             self._query("SPLITS", symbol),
         )
 
-    def _query(self, function: str, symbol: str) -> dict[str, Any]:
+    def _query(
+        self, function: str, symbol: str, *, outputsize: str = "compact"
+    ) -> dict[str, Any]:
         if self._has_requested:
             self._sleep(self.request_spacing_seconds)
         self._has_requested = True
@@ -117,7 +121,7 @@ class AlphaVantageClient:
             {
                 "function": function,
                 "symbol": symbol,
-                "outputsize": "compact",
+                "outputsize": outputsize,
                 "apikey": self.api_key,
             }
         )
