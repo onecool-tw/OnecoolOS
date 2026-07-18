@@ -3,8 +3,8 @@ name: Update Fund Relative Alpha
 on:
   workflow_dispatch:
   schedule:
-    # 08:30 Asia/Taipei every Monday, after Friday fund NAVs are available.
-    - cron: "30 0 * * 1"
+    # 12:30 Asia/Taipei every Sunday, after Friday fund NAVs are available.
+    - cron: "30 4 * * 0"
 
 permissions:
   contents: write
