@@ -20,24 +20,31 @@ from onecool_os.market.etf_cta import (
     read_history,
     write_history,
 )
+from onecool_os.market.history_bootstrap import YahooHistoryBootstrapper
 
 
-def update(root: Path, api_key: str) -> dict:
-    """Fetch 7 symbols with exactly 3 logical API calls each."""
+def update(
+    root: Path,
+    api_key: str,
+    *,
+    bootstrapper: YahooHistoryBootstrapper | None = None,
+) -> dict:
+    """Bootstrap missing histories once, then use 21 Alpha Vantage calls."""
 
     data_dir = root / "data" / "market" / "dashboard"
     history_dir = data_dir / "history"
     client = AlphaVantageClient(api_key)
+    history_bootstrapper = bootstrapper or YahooHistoryBootstrapper()
     staged = []
     records = []
 
     # Fetch and calculate every symbol before replacing any successful cache.
     for config in MARKET_SYMBOLS:
         existing = read_history(history_dir / f"{config.symbol}.csv")
-        daily = client.fetch_daily(
-            config.provider_symbol,
-            outputsize="compact" if existing else "full",
-        )
+        if not existing:
+            existing = history_bootstrapper.fetch_daily(config.provider_symbol)
+        # The free Alpha Vantage API supports compact but rejects full history.
+        daily = client.fetch_daily(config.provider_symbol, outputsize="compact")
         actions = client.fetch_actions(config.provider_symbol)
         combined = merge_and_adjust(existing, daily)
         history = merge_and_adjust(

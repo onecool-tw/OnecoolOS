@@ -80,6 +80,8 @@ def test_market_summary_is_deterministic_and_not_a_forecast() -> None:
     assert payload["summary"]["taiwan_market_trend"] == "BULLISH"
     assert payload["summary"]["us_taiwan_synchronization"] == "SYNCHRONIZED"
     assert payload["summary_method"] == "deterministic CTA aggregation; no forecast"
+    assert payload["provider"] == "alpha_vantage"
+    assert payload["history_bootstrap_provider"].startswith("yahoo_finance")
 
 
 def test_cache_loader_and_fund_context_never_query_provider(tmp_path: Path) -> None:
