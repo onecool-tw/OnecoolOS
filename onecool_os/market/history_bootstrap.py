@@ -65,6 +65,53 @@ class YahooHistoryBootstrapper:
             )
         return bars
 
+    def fetch_adjusted_daily(self, symbol: str) -> list[DailyBar]:
+        """Fetch split/dividend-adjusted history for an unsupported AV symbol."""
+
+        if self._yfinance is None:
+            try:
+                self._yfinance = __import__("yfinance")
+            except Exception as exc:  # noqa: BLE001 - provider boundary.
+                raise ETFCTAError(
+                    "Yahoo Finance fallback provider is unavailable."
+                ) from exc
+
+        try:
+            frame = self._yfinance.Ticker(symbol).history(
+                period="5y",
+                interval="1d",
+                auto_adjust=True,
+                actions=False,
+            )
+        except Exception as exc:  # noqa: BLE001 - provider boundary.
+            raise ETFCTAError(
+                f"Yahoo Finance fallback failed for {symbol}: {exc}"
+            ) from exc
+        if frame is None or frame.empty:
+            raise ETFCTAError(
+                f"Yahoo Finance fallback returned no history for {symbol}."
+            )
+
+        bars = [
+            DailyBar(
+                trading_date=_as_date(timestamp),
+                open=_number(row, "Open"),
+                high=_number(row, "High"),
+                low=_number(row, "Low"),
+                close=_number(row, "Close"),
+                volume=int(_number(row, "Volume", 0.0)),
+                source="yahoo_finance_adjusted_fallback",
+            )
+            for timestamp, row in frame.iterrows()
+        ]
+        bars.sort(key=lambda bar: bar.trading_date)
+        if len(bars) < 260:
+            raise ETFCTAError(
+                f"Yahoo Finance fallback for {symbol} returned only "
+                f"{len(bars)} observations; at least 260 are required."
+            )
+        return bars
+
 
 def _as_date(value: Any) -> date:
     converted = getattr(value, "date", None)
