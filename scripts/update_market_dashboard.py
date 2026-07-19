@@ -29,7 +29,7 @@ def update(
     *,
     bootstrapper: YahooHistoryBootstrapper | None = None,
 ) -> dict:
-    """Bootstrap missing histories once, then use 21 Alpha Vantage calls."""
+    """Use AV for US symbols and an isolated Yahoo fallback for Taiwan."""
 
     data_dir = root / "data" / "market" / "dashboard"
     history_dir = data_dir / "history"
@@ -41,15 +41,22 @@ def update(
     # Fetch and calculate every symbol before replacing any successful cache.
     for config in MARKET_SYMBOLS:
         existing = read_history(history_dir / f"{config.symbol}.csv")
-        if not existing:
-            existing = history_bootstrapper.fetch_daily(config.provider_symbol)
-        # The free Alpha Vantage API supports compact but rejects full history.
-        daily = client.fetch_daily(config.provider_symbol, outputsize="compact")
-        actions = client.fetch_actions(config.provider_symbol)
-        combined = merge_and_adjust(existing, daily)
-        history = merge_and_adjust(
-            [], apply_corporate_actions(combined, actions, authoritative=True)
-        )
+        if config.market == "TW":
+            # Alpha Vantage rejects 0050.TW/2330.TW. Yahoo returns adjusted
+            # OHLC, so do not apply corporate actions a second time.
+            history = merge_and_adjust(
+                [], history_bootstrapper.fetch_adjusted_daily(config.provider_symbol)
+            )
+        else:
+            if not existing:
+                existing = history_bootstrapper.fetch_daily(config.provider_symbol)
+            # The free Alpha Vantage API supports compact but rejects full history.
+            daily = client.fetch_daily(config.provider_symbol, outputsize="compact")
+            actions = client.fetch_actions(config.provider_symbol)
+            combined = merge_and_adjust(existing, daily)
+            history = merge_and_adjust(
+                [], apply_corporate_actions(combined, actions, authoritative=True)
+            )
         staged.append((config, history))
         records.append(dashboard_record(config, calculate_cta(config.symbol, history)))
 
