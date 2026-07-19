@@ -3,7 +3,7 @@ from pathlib import Path
 
 import pytest
 
-from onecool_os.market.etf_cta import DailyBar
+from onecool_os.market.etf_cta import DailyBar, merge_and_adjust
 from scripts import update_market_dashboard
 
 
@@ -14,7 +14,7 @@ class FakeClient:
         assert api_key == "secret"
 
     def fetch_daily(self, symbol: str, *, outputsize: str = "compact"):
-        self.calls.append(("daily", symbol))
+        self.calls.append((f"daily:{outputsize}", symbol))
         start = date(2020, 1, 1)
         return [
             DailyBar(
@@ -33,15 +33,40 @@ class FakeClient:
         return {}
 
 
+class FakeBootstrapper:
+    calls: list[str] = []
+
+    def fetch_daily(self, symbol: str):
+        self.calls.append(symbol)
+        start = date(2020, 1, 1)
+        return [
+            DailyBar(
+                trading_date=start + timedelta(days=index),
+                open=float(index + 1),
+                high=float(index + 1),
+                low=float(index + 1),
+                close=float(index + 1),
+                volume=100,
+                source="yahoo_finance_bootstrap",
+            )
+            for index in range(500)
+        ]
+
+
 def test_update_uses_exactly_21_logical_calls_and_writes_cache(
     tmp_path: Path, monkeypatch
 ) -> None:
     FakeClient.calls = []
+    FakeBootstrapper.calls = []
     monkeypatch.setattr(update_market_dashboard, "AlphaVantageClient", FakeClient)
 
-    payload = update_market_dashboard.update(tmp_path, "secret")
+    payload = update_market_dashboard.update(
+        tmp_path, "secret", bootstrapper=FakeBootstrapper()
+    )
 
     assert len(FakeClient.calls) == 21
+    assert len(FakeBootstrapper.calls) == 7
+    assert all(call[0] != "daily:full" for call in FakeClient.calls)
     assert len(payload["results"]) == 7
     assert payload["cta_engine"] == "onecool_os.market.etf_cta.calculate_cta"
     latest = tmp_path / "data" / "market" / "dashboard" / "dashboard_latest.json"
@@ -65,7 +90,33 @@ def test_failed_update_keeps_last_successful_cache(tmp_path: Path, monkeypatch) 
     )
 
     with pytest.raises(RuntimeError, match="provider failed"):
-        update_market_dashboard.update(tmp_path, "secret")
+        update_market_dashboard.update(
+            tmp_path, "secret", bootstrapper=FakeBootstrapper()
+        )
 
     assert latest.read_text(encoding="utf-8") == '{"status":"last-success"}\n'
     assert not (dashboard / "history").exists()
+
+
+def test_existing_histories_skip_yahoo_bootstrap(tmp_path: Path, monkeypatch) -> None:
+    monkeypatch.setattr(update_market_dashboard, "AlphaVantageClient", FakeClient)
+    bootstrapper = FakeBootstrapper()
+    history_dir = tmp_path / "data" / "market" / "dashboard" / "history"
+    history_dir.mkdir(parents=True)
+    for config in update_market_dashboard.MARKET_SYMBOLS:
+        update_market_dashboard.write_history(
+            history_dir / f"{config.symbol}.csv",
+            merge_and_adjust(
+                [],
+                bootstrapper.fetch_daily(config.provider_symbol),
+            ),
+        )
+    FakeBootstrapper.calls = []
+    FakeClient.calls = []
+
+    update_market_dashboard.update(
+        tmp_path, "secret", bootstrapper=bootstrapper
+    )
+
+    assert FakeBootstrapper.calls == []
+    assert len(FakeClient.calls) == 21

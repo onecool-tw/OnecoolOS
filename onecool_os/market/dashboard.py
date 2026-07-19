@@ -134,6 +134,7 @@ def build_dashboard_payload(records: Iterable[MarketCTA]) -> dict[str, Any]:
         "module": "Onecool Market Dashboard",
         "generated_at": datetime.now(UTC).isoformat(),
         "provider": "alpha_vantage",
+        "history_bootstrap_provider": "yahoo_finance_once_when_missing",
         "cache_policy": "scheduled_writer_only; consumers_read_github_cache",
         "cta_engine": "onecool_os.market.etf_cta.calculate_cta",
         "summary_method": "deterministic CTA aggregation; no forecast",
