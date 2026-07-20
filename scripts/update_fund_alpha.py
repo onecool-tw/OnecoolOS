@@ -8,6 +8,10 @@ from pathlib import Path
 
 from onecool_os.market.etf_cta import read_history
 from onecool_os.market.fund_cta import calculate_fund_cta, fund_cta_payload
+from onecool_os.market.peer_ranking import (
+    CnyesPeerRankingClient,
+    refresh_peer_rankings,
+)
 from onecool_os.market.fund_alpha import (
     FUND_WATCHLIST,
     AnueFundClient,
@@ -93,6 +97,19 @@ def update(root: Path) -> dict:
             indent=2,
         )
         + "\n",
+        encoding="utf-8",
+    )
+    peer_path = fund_dir / "peer_ranking_latest.json"
+    previous_peer = (
+        json.loads(peer_path.read_text(encoding="utf-8"))
+        if peer_path.exists()
+        else None
+    )
+    peer_payload = refresh_peer_rankings(
+        CnyesPeerRankingClient(), previous_peer
+    )
+    peer_path.write_text(
+        json.dumps(peer_payload, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
     )
     print(json.dumps(payload, ensure_ascii=False))

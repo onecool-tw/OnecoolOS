@@ -24,10 +24,17 @@ def load_fund_intelligence_context(root: Path) -> dict[str, Any]:
         if fund_cta_path.exists()
         else None
     )
+    peer_path = root / "data" / "market" / "fund_nav" / "peer_ranking_latest.json"
+    peer_ranking = (
+        json.loads(peer_path.read_text(encoding="utf-8"))
+        if peer_path.exists()
+        else None
+    )
     return {
         "schema_version": "1.1",
         "source_policy": "github_cache_only",
         "fund_alpha": alpha,
         "fund_cta": fund_cta,
+        "peer_ranking": peer_ranking,
         "market_dashboard": load_latest_dashboard(root),
     }

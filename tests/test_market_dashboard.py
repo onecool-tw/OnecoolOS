@@ -102,6 +102,10 @@ def test_cache_loader_and_fund_context_never_query_provider(tmp_path: Path) -> N
         json.dumps({"results": [{"fund_code": "A10124"}]}),
         encoding="utf-8",
     )
+    (fund_dir / "peer_ranking_latest.json").write_text(
+        json.dumps({"results": [{"fund_code": "A10124"}]}),
+        encoding="utf-8",
+    )
 
     assert load_latest_dashboard(tmp_path)["generated_at"]
     context = load_fund_intelligence_context(tmp_path)
@@ -109,5 +113,8 @@ def test_cache_loader_and_fund_context_never_query_provider(tmp_path: Path) -> N
     assert context["market_dashboard"]["generated_at"]
     assert context["fund_alpha"] == {"results": []}
     assert context["fund_cta"] == {
+        "results": [{"fund_code": "A10124"}]
+    }
+    assert context["peer_ranking"] == {
         "results": [{"fund_code": "A10124"}]
     }
