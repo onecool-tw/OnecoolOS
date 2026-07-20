@@ -9,6 +9,7 @@ from onecool_os.market.fund_alpha import (
     FundNav,
     alpha_payload,
     calculate_excess_return,
+    calculate_period_excess_return,
     completed_month_snapshots,
     consecutive_status,
     merge_nav_history,
@@ -87,6 +88,53 @@ def test_excess_return_uses_identical_dates() -> None:
     assert result.proxy_return_1y == pytest.approx(20)
     assert result.excess_return_percentage_points == pytest.approx(10)
     assert result.status == "positive"
+
+
+def test_three_and_six_month_excess_returns_use_identical_dates() -> None:
+    end = date(2026, 7, 17)
+    three_month_start = date(2026, 4, 17)
+    six_month_start = date(2026, 1, 16)
+    funds = [
+        fund_nav(six_month_start, 100),
+        fund_nav(three_month_start, 110),
+        fund_nav(end, 132),
+    ]
+    etfs = [
+        etf_bar(six_month_start, 100),
+        etf_bar(three_month_start, 105),
+        etf_bar(end, 126),
+    ]
+
+    three_month = calculate_period_excess_return(
+        "A10124", funds, etfs, months=3, period="3m"
+    )
+    six_month = calculate_period_excess_return(
+        "A10124", funds, etfs, months=6, period="6m"
+    )
+
+    assert three_month.start_date == "2026-04-17"
+    assert three_month.end_date == "2026-07-17"
+    assert three_month.fund_return == pytest.approx(20)
+    assert three_month.proxy_return == pytest.approx(20)
+    assert three_month.status == "flat"
+    assert six_month.start_date == "2026-01-16"
+    assert six_month.fund_return == pytest.approx(32)
+    assert six_month.proxy_return == pytest.approx(26)
+    assert six_month.excess_return_percentage_points == pytest.approx(6)
+
+
+def test_period_return_is_unknown_when_history_is_too_short() -> None:
+    end = date(2026, 7, 17)
+    result = calculate_period_excess_return(
+        "A10124",
+        [fund_nav(date(2026, 5, 1), 100), fund_nav(end, 110)],
+        [etf_bar(date(2026, 5, 1), 100), etf_bar(end, 105)],
+        months=3,
+        period="3m",
+    )
+
+    assert result.status == "unknown"
+    assert result.excess_return_percentage_points is None
 
 
 def test_excess_return_unknown_when_dates_do_not_overlap() -> None:
@@ -178,15 +226,31 @@ def test_watchlist_uses_simplified_cta_proxies() -> None:
 
 
 def test_payload_labels_raw_difference_as_excess_return() -> None:
+    funds = [
+        fund_nav(date(2025, 7, 15), 100),
+        fund_nav(date(2026, 4, 15), 105),
+        fund_nav(date(2026, 7, 15), 110),
+    ]
+    etfs = [
+        etf_bar(date(2025, 7, 15), 100),
+        etf_bar(date(2026, 4, 15), 102),
+        etf_bar(date(2026, 7, 15), 105),
+    ]
     result = calculate_excess_return(
-        "A16075",
-        [fund_nav(date(2025, 7, 15), 100), fund_nav(date(2026, 7, 15), 110)],
-        [etf_bar(date(2025, 7, 15), 100), etf_bar(date(2026, 7, 15), 105)],
+        "A16075", funds, etfs
     )
 
-    payload = alpha_payload([result], {"A16075": []})
+    period = calculate_period_excess_return(
+        "A16075", funds, etfs, months=3, period="3m"
+    )
+    payload = alpha_payload(
+        [result], {"A16075": []}, {"A16075": {"3m": period}}
+    )
 
-    assert payload["schema_version"] == "2.0"
+    assert payload["schema_version"] == "2.1"
     assert payload["metric"] == "Onecool Excess Return"
     assert "alpha" not in payload["definition"].lower()
     assert payload["results"][0]["proxy_etf"] == "SMIN"
+    assert payload["periods"] == ["3m", "6m", "1y"]
+    assert payload["results"][0]["period_returns"]["3m"]["period"] == "3m"
+    assert payload["results"][0]["fund_return_1y"] == result.fund_return_1y
