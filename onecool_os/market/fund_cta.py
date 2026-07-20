@@ -6,6 +6,7 @@ from dataclasses import asdict, dataclass
 from typing import Any, Iterable
 
 from onecool_os.market.etf_cta import (
+    CrossSignal,
     DailyBar,
     ETFCTAError,
     calculate_cta,
@@ -33,6 +34,8 @@ class FundCTAResult:
     reason: str
     benchmark_cta: str | None = None
     signal_alignment: str = "unknown"
+    daily_cross: CrossSignal | None = None
+    weekly_cross: CrossSignal | None = None
 
 
 def calculate_fund_cta(
@@ -97,6 +100,8 @@ def calculate_fund_cta(
         reason=cta.reason,
         benchmark_cta=benchmark_cta,
         signal_alignment=classify_signal_alignment(benchmark_cta, cta.cta),
+        daily_cross=cta.daily_cross,
+        weekly_cross=cta.weekly_cross,
     )
 
 
@@ -124,7 +129,7 @@ def fund_cta_payload(results: Iterable[FundCTAResult]) -> dict[str, Any]:
     """Build the cache consumed by Fund Intelligence without provider calls."""
 
     return {
-        "schema_version": "1.0",
+        "schema_version": "1.1",
         "metric": "Onecool Fund NAV CTA",
         "source": "OnecoolOS committed fund NAV history",
         "engine": "shared_onecool_cta_engine",
@@ -132,6 +137,11 @@ def fund_cta_payload(results: Iterable[FundCTAResult]) -> dict[str, Any]:
             "daily": ["fund_nav", "SMA50", "SMA200"],
             "weekly": ["last_published_nav", "SMA30", "SMA50"],
             "rules": "Onecool CTA v1 fixed rule",
+            "cross_detection": {
+                "daily": "SMA50 crosses SMA200",
+                "weekly": "SMA30 crosses SMA50",
+                "delta_rule": "cross_status is non-NONE only on the crossing period",
+            },
         },
         "results": [asdict(item) for item in results],
     }

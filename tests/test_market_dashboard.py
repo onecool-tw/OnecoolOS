@@ -60,6 +60,8 @@ def test_dashboard_record_uses_shared_cta_values() -> None:
     assert item.trend == "BULLISH"
     assert item.confidence == 100
     assert item.sma50 == result.daily_50ma
+    assert item.daily_cross is result.daily_cross
+    assert item.weekly_cross is result.weekly_cross
 
 
 def test_market_summary_is_deterministic_and_not_a_forecast() -> None:

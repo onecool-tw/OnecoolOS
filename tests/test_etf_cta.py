@@ -204,3 +204,50 @@ def test_calculate_cta_buy() -> None:
 def test_calculate_cta_rejects_short_history() -> None:
     with pytest.raises(ETFCTAError, match="200 daily"):
         calculate_cta("QQQ", [bar(date(2026, 1, 1), 100)])
+
+
+def test_calculate_cta_reports_new_daily_golden_cross() -> None:
+    start = date(2020, 1, 1)
+    values = [100.0] * 350 + [99.0] * 49 + [1000.0]
+    history = [
+        bar(
+            start + timedelta(days=index),
+            value,
+            adjusted_close=value,
+        )
+        for index, value in enumerate(values)
+    ]
+
+    result = calculate_cta("QQQ", history)
+
+    assert result.daily_cross is not None
+    assert result.daily_cross.alignment == "GOLDEN"
+    assert result.daily_cross.cross_status == "GOLDEN"
+    assert result.daily_cross.last_cross_status == "GOLDEN"
+    assert (
+        result.daily_cross.last_cross_date
+        == history[-1].trading_date.isoformat()
+    )
+    assert result.daily_cross.periods_since_cross == 0
+    assert result.daily_cross.spread_pct > 0
+
+
+def test_calculate_cta_reports_new_daily_death_cross() -> None:
+    start = date(2020, 1, 1)
+    values = [100.0] * 350 + [101.0] * 49 + [1.0]
+    history = [
+        bar(
+            start + timedelta(days=index),
+            value,
+            adjusted_close=value,
+        )
+        for index, value in enumerate(values)
+    ]
+
+    result = calculate_cta("QQQ", history)
+
+    assert result.daily_cross is not None
+    assert result.daily_cross.alignment == "DEATH"
+    assert result.daily_cross.cross_status == "DEATH"
+    assert result.daily_cross.periods_since_cross == 0
+    assert result.daily_cross.spread_pct < 0

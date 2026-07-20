@@ -29,6 +29,8 @@ def test_fund_cta_reuses_shared_engine_for_buy() -> None:
     assert result.signal_alignment == "confirmed_strength"
     assert result.nav_observations == 400
     assert result.fund_nav_as_of == "2026-02-04"
+    assert result.daily_cross is not None
+    assert result.weekly_cross is not None
 
 
 def test_fund_cta_is_unknown_when_history_is_short() -> None:
@@ -40,6 +42,8 @@ def test_fund_cta_is_unknown_when_history_is_short() -> None:
     assert result.data_quality == "insufficient_history"
     assert result.daily_200ma is None
     assert result.signal_alignment == "unknown"
+    assert result.daily_cross is None
+    assert result.weekly_cross is None
 
 
 def test_signal_alignment_is_deterministic() -> None:
@@ -54,4 +58,9 @@ def test_payload_declares_shared_engine() -> None:
     payload = fund_cta_payload([result])
 
     assert payload["engine"] == "shared_onecool_cta_engine"
+    assert payload["schema_version"] == "1.1"
+    assert (
+        payload["method"]["cross_detection"]["daily"]
+        == "SMA50 crosses SMA200"
+    )
     assert payload["results"][0]["fund_code"] == "A10124"
