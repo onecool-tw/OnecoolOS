@@ -189,16 +189,31 @@ def test_completed_months_and_consecutive_status() -> None:
     assert consecutive_status(snapshots) == "positive_3_months"
 
 
-def test_changed_proxy_has_no_pre_cutover_months() -> None:
+def test_changed_proxy_backfills_completed_months_with_current_proxy() -> None:
+    fund_history = []
+    etf_history = []
+    for end, fund_end, etf_end in [
+        (date(2026, 4, 30), 110, 105),
+        (date(2026, 5, 29), 115, 106),
+        (date(2026, 6, 30), 120, 108),
+    ]:
+        start = end.replace(year=end.year - 1)
+        fund_history.extend([fund_nav(start, 100), fund_nav(end, fund_end)])
+        etf_history.extend([etf_bar(start, 100), etf_bar(end, etf_end)])
+
     snapshots = completed_month_snapshots(
         "A10124",
-        [fund_nav(date(2025, 6, 30), 100), fund_nav(date(2026, 6, 30), 110)],
-        [etf_bar(date(2025, 6, 30), 100), etf_bar(date(2026, 6, 30), 105)],
+        fund_history,
+        etf_history,
         as_of=date(2026, 7, 20),
     )
 
-    assert snapshots == []
-    assert consecutive_status(snapshots) == "insufficient_data"
+    assert [item.end_date for item in snapshots] == [
+        "2026-04-30",
+        "2026-05-29",
+        "2026-06-30",
+    ]
+    assert consecutive_status(snapshots) == "positive_3_months"
 
 
 def test_start_gap_over_ten_days_is_unknown() -> None:
@@ -251,6 +266,10 @@ def test_payload_labels_raw_difference_as_excess_return() -> None:
     assert payload["metric"] == "Onecool Excess Return"
     assert "alpha" not in payload["definition"].lower()
     assert payload["results"][0]["proxy_etf"] == "SMIN"
+    assert (
+        payload["results"][0]["completed_months_methodology"]
+        == "continuous_current_benchmark"
+    )
     assert payload["periods"] == ["3m", "6m", "1y"]
     assert payload["results"][0]["period_returns"]["3m"]["period"] == "3m"
     assert payload["results"][0]["fund_return_1y"] == result.fund_return_1y
