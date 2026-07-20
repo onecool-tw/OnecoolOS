@@ -3,6 +3,10 @@ from datetime import date, timedelta
 import pytest
 
 from onecool_os.market.etf_cta import (
+    ACTION_REFRESH_GROUPS,
+    CONFIRMATION_SYMBOLS,
+    MARKET_SYMBOLS,
+    WATCHLIST_SYMBOLS,
     AlphaVantageClient,
     DailyBar,
     ETFCTAError,
@@ -12,6 +16,20 @@ from onecool_os.market.etf_cta import (
     merge_and_adjust,
     parse_alpha_vantage,
 )
+
+
+def test_market_symbols_separate_proxies_from_confirmations() -> None:
+    assert WATCHLIST_SYMBOLS == (
+        "AIQ", "SMIN", "RING", "IBB", "PICK", "RXI", "IXC"
+    )
+    assert CONFIRMATION_SYMBOLS == ("SMH", "GLD")
+    assert MARKET_SYMBOLS == WATCHLIST_SYMBOLS + CONFIRMATION_SYMBOLS
+    assert set(ACTION_REFRESH_GROUPS["group_a"]) | set(
+        ACTION_REFRESH_GROUPS["group_b"]
+    ) == set(MARKET_SYMBOLS)
+    assert not set(ACTION_REFRESH_GROUPS["group_a"]) & set(
+        ACTION_REFRESH_GROUPS["group_b"]
+    )
 
 
 def bar(day: date, close: float, **changes) -> DailyBar:

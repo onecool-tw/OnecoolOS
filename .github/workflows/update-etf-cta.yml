@@ -8,11 +8,15 @@ on:
         required: false
         type: boolean
         default: true
-      refresh_actions:
-        description: Refresh complete dividends and splits for all ETFs
+      refresh_actions_group:
+        description: Refresh one API-safe dividend/split group
         required: false
-        type: boolean
-        default: false
+        type: choice
+        options:
+          - none
+          - group_a
+          - group_b
+        default: none
   schedule:
     # 06:30 Asia/Taipei, Tuesday-Saturday (22:30 UTC Monday-Friday).
     - cron: "30 22 * * 1-5"
@@ -44,9 +48,15 @@ jobs:
           if [[ "${{ github.event_name }}" == "schedule" || "${{ inputs.allow_bootstrap }}" == "true" ]]; then
             args+=(--allow-bootstrap)
           fi
-          # Friday UTC is the weekly full corporate-action reconciliation.
-          if [[ "${{ inputs.refresh_actions }}" == "true" || ( "${{ github.event_name }}" == "schedule" && "$(date -u +%u)" == "5" ) ]]; then
-            args+=(--refresh-actions)
+          # Split corporate-action reconciliation across Thursday and Friday
+          # UTC so the nine daily prices plus action calls stay below the
+          # Alpha Vantage free daily request limit.
+          if [[ "${{ inputs.refresh_actions_group }}" != "" && "${{ inputs.refresh_actions_group }}" != "none" ]]; then
+            args+=(--refresh-actions-group "${{ inputs.refresh_actions_group }}")
+          elif [[ "${{ github.event_name }}" == "schedule" && "$(date -u +%u)" == "4" ]]; then
+            args+=(--refresh-actions-group group_a)
+          elif [[ "${{ github.event_name }}" == "schedule" && "$(date -u +%u)" == "5" ]]; then
+            args+=(--refresh-actions-group group_b)
           fi
           python scripts/update_etf_cta.py "${args[@]}"
       - name: Commit increment only when market data changed

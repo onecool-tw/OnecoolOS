@@ -1,4 +1,4 @@
-"""Fund NAV history and same-date benchmark relative-alpha calculations."""
+"""Fund NAV history and same-date CTA-proxy excess-return calculations."""
 
 from __future__ import annotations
 
@@ -17,13 +17,20 @@ from onecool_os.market.etf_cta import DailyBar, ETFCTAError
 
 
 FUND_WATCHLIST = {
-    "A10124": ("富邦AI智能新趨勢多重資產型基金-A(美元)", "QQQ", "AI"),
+    "A10124": ("富邦AI智能新趨勢多重資產型基金-A(美元)", "AIQ", "AI"),
     "A16075": ("群益印度中小基金-美元", "SMIN", "印度"),
-    "B23554": ("施羅德環球-環球黃金美元A累積", "GLD", "黃金"),
+    "B23554": ("施羅德環球-環球黃金美元A累積", "RING", "黃金"),
     "B15080": ("富蘭克林坦伯頓-生技領航A(acc)", "IBB", "生技"),
     "B09007": ("貝萊德世界礦業A2美元", "PICK", "礦業"),
-    "B16019": ("景順環球消費趨勢基金A美元", "VCR", "消費"),
-    "B23070": ("施羅德環球-環球能源A1累積", "XLE", "能源"),
+    "B16019": ("景順環球消費趨勢基金A美元", "RXI", "消費"),
+    "B23070": ("施羅德環球-環球能源A1累積", "IXC", "能源"),
+}
+PROXY_METHODOLOGY_CUTOVER = date(2026, 7, 20)
+LEGACY_PROXY_ETFS = {
+    "A10124": "QQQ",
+    "B23554": "GLD",
+    "B16019": "VCR",
+    "B23070": "XLE",
 }
 NAV_FIELDS = ("date", "nav", "currency", "source")
 
@@ -39,18 +46,18 @@ class FundNav:
 
 
 @dataclass(frozen=True)
-class RelativeAlpha:
-    """One fund-versus-watchlist-ETF return comparison."""
+class ExcessReturn:
+    """One fund-versus-CTA-proxy total-return comparison."""
 
     fund_code: str
     fund_name: str
-    benchmark_etf: str
+    proxy_etf: str
     theme: str
     start_date: str | None
     end_date: str | None
     fund_return_1y: float | None
-    benchmark_return_1y: float | None
-    alpha_percentage_points: float | None
+    proxy_return_1y: float | None
+    excess_return_percentage_points: float | None
     status: str
     reason: str
 
@@ -111,15 +118,15 @@ def merge_nav_history(
     return [merged[key] for key in sorted(merged)]
 
 
-def calculate_relative_alpha(
+def calculate_excess_return(
     fund_code: str,
     fund_history: Iterable[FundNav],
     etf_history: Iterable[DailyBar],
     *,
     cutoff: date | None = None,
     max_start_gap_days: int = 10,
-) -> RelativeAlpha:
-    """Calculate one-year returns using identical start and end dates."""
+) -> ExcessReturn:
+    """Calculate one-year excess return using identical start and end dates."""
 
     fund_name, benchmark, theme = FUND_WATCHLIST[fund_code]
     funds = {item.nav_date: item.nav for item in fund_history}
@@ -149,19 +156,25 @@ def calculate_relative_alpha(
 
     fund_return = (funds[end] / funds[start] - 1.0) * 100.0
     etf_return = (float(etfs[end]) / float(etfs[start]) - 1.0) * 100.0
-    alpha = fund_return - etf_return
-    return RelativeAlpha(
+    excess_return = fund_return - etf_return
+    return ExcessReturn(
         fund_code=fund_code,
         fund_name=fund_name,
-        benchmark_etf=benchmark,
+        proxy_etf=benchmark,
         theme=theme,
         start_date=start.isoformat(),
         end_date=end.isoformat(),
         fund_return_1y=round(fund_return, 4),
-        benchmark_return_1y=round(etf_return, 4),
-        alpha_percentage_points=round(alpha, 4),
-        status="positive" if alpha > 0 else "negative" if alpha < 0 else "flat",
-        reason="Fund and benchmark use identical start and end dates.",
+        proxy_return_1y=round(etf_return, 4),
+        excess_return_percentage_points=round(excess_return, 4),
+        status=(
+            "positive"
+            if excess_return > 0
+            else "negative"
+            if excess_return < 0
+            else "flat"
+        ),
+        reason="Fund and CTA proxy use identical start and end dates.",
     )
 
 
@@ -172,14 +185,17 @@ def completed_month_snapshots(
     *,
     as_of: date,
     months: int = 3,
-) -> list[RelativeAlpha]:
-    """Return relative alpha for the latest completed calendar months."""
+) -> list[ExcessReturn]:
+    """Return excess return for eligible completed calendar months."""
 
     snapshots = []
     cursor = date(as_of.year, as_of.month, 1) - timedelta(days=1)
-    for _ in range(months):
+    cutover = PROXY_METHODOLOGY_CUTOVER if fund_code in LEGACY_PROXY_ETFS else None
+    while len(snapshots) < months:
+        if cutover is not None and cursor <= cutover:
+            break
         snapshots.append(
-            calculate_relative_alpha(
+            calculate_excess_return(
                 fund_code, fund_history, etf_history, cutoff=cursor
             )
         )
@@ -187,7 +203,12 @@ def completed_month_snapshots(
     return list(reversed(snapshots))
 
 
-def consecutive_status(snapshots: Iterable[RelativeAlpha]) -> str:
+# Backward-compatible import for callers migrating from schema 1.0. New code
+# should use calculate_excess_return; the returned fields follow schema 2.0.
+calculate_relative_alpha = calculate_excess_return
+
+
+def consecutive_status(snapshots: Iterable[ExcessReturn]) -> str:
     """Classify three completed months without treating unknown as negative."""
 
     statuses = [snapshot.status for snapshot in snapshots]
@@ -232,17 +253,18 @@ def write_nav_history(path: Path, history: Iterable[FundNav]) -> None:
 
 
 def alpha_payload(
-    current: Iterable[RelativeAlpha],
-    monthly: dict[str, list[RelativeAlpha]],
+    current: Iterable[ExcessReturn],
+    monthly: dict[str, list[ExcessReturn]],
 ) -> dict[str, Any]:
-    """Build one auditable JSON report without portfolio information."""
+    """Build one auditable schema-2 report without portfolio information."""
 
     current_list = list(current)
     return {
-        "schema_version": "1.0",
-        "metric": "Onecool Relative Alpha",
-        "definition": "fund_1y_return - benchmark_etf_1y_total_return",
-        "date_rule": "identical fund and ETF start/end dates",
+        "schema_version": "2.0",
+        "metric": "Onecool Excess Return",
+        "definition": "fund_1y_return - cta_proxy_etf_1y_total_return",
+        "date_rule": "identical fund and CTA proxy start/end dates",
+        "methodology_cutover_date": PROXY_METHODOLOGY_CUTOVER.isoformat(),
         "source": {
             "fund_nav": "Anue Fund public NavHIS",
             "benchmark": "OnecoolOS locally adjusted ETF history",
@@ -250,6 +272,12 @@ def alpha_payload(
         "results": [
             {
                 **asdict(result),
+                "legacy_proxy_etf": LEGACY_PROXY_ETFS.get(result.fund_code),
+                "proxy_changed_at": (
+                    PROXY_METHODOLOGY_CUTOVER.isoformat()
+                    if result.fund_code in LEGACY_PROXY_ETFS
+                    else None
+                ),
                 "completed_months": [
                     asdict(item) for item in monthly[result.fund_code]
                 ],
@@ -264,18 +292,18 @@ def alpha_payload(
 
 def _unknown(
     fund_code: str, reason: str, *, end: date | None = None
-) -> RelativeAlpha:
+) -> ExcessReturn:
     name, benchmark, theme = FUND_WATCHLIST[fund_code]
-    return RelativeAlpha(
+    return ExcessReturn(
         fund_code=fund_code,
         fund_name=name,
-        benchmark_etf=benchmark,
+        proxy_etf=benchmark,
         theme=theme,
         start_date=None,
         end_date=end.isoformat() if end else None,
         fund_return_1y=None,
-        benchmark_return_1y=None,
-        alpha_percentage_points=None,
+        proxy_return_1y=None,
+        excess_return_percentage_points=None,
         status="unknown",
         reason=reason,
     )

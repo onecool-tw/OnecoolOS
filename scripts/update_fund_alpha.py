@@ -1,4 +1,4 @@
-"""Update seven fund NAV histories and same-date ETF relative alpha."""
+"""Update seven fund NAV histories and same-date CTA-proxy excess return."""
 
 from __future__ import annotations
 
@@ -11,7 +11,7 @@ from onecool_os.market.fund_alpha import (
     FUND_WATCHLIST,
     AnueFundClient,
     alpha_payload,
-    calculate_relative_alpha,
+    calculate_excess_return,
     completed_month_snapshots,
     merge_nav_history,
     read_nav_history,
@@ -20,7 +20,7 @@ from onecool_os.market.fund_alpha import (
 
 
 def update(root: Path) -> dict:
-    """Refresh fund histories and calculate alpha from committed ETF data."""
+    """Refresh fund histories and calculate excess return from ETF data."""
 
     fund_dir = root / "data" / "market" / "fund_nav"
     etf_dir = root / "data" / "market" / "etf_cta" / "history"
@@ -36,7 +36,7 @@ def update(root: Path) -> dict:
         write_nav_history(nav_path, fund_history)
 
         etf_history = read_history(etf_dir / f"{benchmark}.csv")
-        result = calculate_relative_alpha(
+        result = calculate_excess_return(
             fund_code, fund_history, etf_history
         )
         current.append(result)
