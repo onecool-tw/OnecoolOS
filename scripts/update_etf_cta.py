@@ -94,15 +94,17 @@ def update(
         results.append(asdict(calculate_cta(symbol, history)))
 
     payload = {
-        "schema_version": "1.1",
+        "schema_version": "1.2",
         "method": {
             "daily": ["adjusted_close", "SMA50", "SMA200"],
             "weekly": ["last_trading_day_adjusted_close", "SMA30", "SMA50"],
-            "rules": "Onecool CTA v1 fixed rule",
+            "rules": "Onecool CTA v2 weekly crossover priority",
             "cross_detection": {
                 "daily": "SMA50 crosses SMA200",
                 "weekly": "SMA30 crosses SMA50",
                 "delta_rule": "cross_status is non-NONE only on the crossing period",
+                "priority": "weekly crossover > daily crossover > alignment",
+                "phase": "NEW, CONFIRMED, ACTIVE, AGING",
             },
         },
         "action_refreshes": action_refreshes,

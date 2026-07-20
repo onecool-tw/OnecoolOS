@@ -129,18 +129,20 @@ def fund_cta_payload(results: Iterable[FundCTAResult]) -> dict[str, Any]:
     """Build the cache consumed by Fund Intelligence without provider calls."""
 
     return {
-        "schema_version": "1.1",
+        "schema_version": "1.2",
         "metric": "Onecool Fund NAV CTA",
         "source": "OnecoolOS committed fund NAV history",
         "engine": "shared_onecool_cta_engine",
         "method": {
             "daily": ["fund_nav", "SMA50", "SMA200"],
             "weekly": ["last_published_nav", "SMA30", "SMA50"],
-            "rules": "Onecool CTA v1 fixed rule",
+            "rules": "Onecool CTA v2 weekly crossover priority",
             "cross_detection": {
                 "daily": "SMA50 crosses SMA200",
                 "weekly": "SMA30 crosses SMA50",
                 "delta_rule": "cross_status is non-NONE only on the crossing period",
+                "priority": "weekly crossover > daily crossover > alignment",
+                "phase": "NEW, CONFIRMED, ACTIVE, AGING",
             },
         },
         "results": [asdict(item) for item in results],

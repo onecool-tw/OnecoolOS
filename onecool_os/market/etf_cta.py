@@ -65,6 +65,7 @@ class CrossSignal:
     last_cross_date: str | None
     periods_since_cross: int | None
     spread_pct: float
+    phase: str = "UNKNOWN"
 
 
 @dataclass(frozen=True)
@@ -356,24 +357,15 @@ def calculate_cta(symbol: str, bars: Iterable[DailyBar]) -> CTAResult:
     w30 = _mean(weekly[-30:])
     w50 = _mean(weekly[-50:])
     daily_cross = _detect_cross(
-        [bar.trading_date for bar in history], closes, 50, 200
+        [bar.trading_date for bar in history], closes, 50, 200,
+        confirmed_through=5, active_through=60,
     )
     weekly_cross = _detect_cross(
-        [point_date for point_date, _ in weekly_points], weekly, 30, 50
+        [point_date for point_date, _ in weekly_points], weekly, 30, 50,
+        confirmed_through=4, active_through=52,
     )
 
-    if price > d50 > d200 and price > w30 > w50:
-        signal = "BUY"
-        reason = "Price and both daily/weekly trend structures are bullish."
-    elif price < d50 < d200 and price < w30 < w50:
-        signal = "SELL"
-        reason = "Price and both daily/weekly trend structures are bearish."
-    elif price < d200 or price < w50 or (d50 < d200 and w30 < w50):
-        signal = "WATCH"
-        reason = "A long-term trend line is broken or both trend slopes weakened."
-    else:
-        signal = "HOLD"
-        reason = "Long-term structure remains intact but momentum is mixed."
+    signal, reason = cross_priority_cta(daily_cross, weekly_cross)
 
     return CTAResult(
         symbol=symbol,
@@ -455,7 +447,8 @@ def _weekly_last_points(history: list[DailyBar]) -> list[tuple[date, float]]:
 
 
 def _detect_cross(
-    dates: list[date], values: list[float], short_window: int, long_window: int
+    dates: list[date], values: list[float], short_window: int, long_window: int,
+    *, confirmed_through: int, active_through: int,
 ) -> CrossSignal:
     """Detect a real MA crossing; alignment alone is never called a new cross."""
 
@@ -508,7 +501,64 @@ def _detect_cross(
         last_cross_date=last_cross_date,
         periods_since_cross=periods_since_cross,
         spread_pct=round((latest_short / latest_long - 1.0) * 100, 6),
+        phase=_cross_phase(
+            periods_since_cross, confirmed_through, active_through
+        ),
     )
+
+
+def _cross_phase(
+    periods_since_cross: int | None,
+    confirmed_through: int,
+    active_through: int,
+) -> str:
+    """Classify crossover recency without mistaking alignment for a new event."""
+
+    if periods_since_cross is None:
+        return "UNKNOWN"
+    if periods_since_cross == 0:
+        return "NEW"
+    if periods_since_cross <= confirmed_through:
+        return "CONFIRMED"
+    if periods_since_cross <= active_through:
+        return "ACTIVE"
+    return "AGING"
+
+
+def cross_priority_cta(
+    daily: CrossSignal, weekly: CrossSignal
+) -> tuple[str, str]:
+    """Apply the Onecool rule: weekly crossover first, daily as confirmation.
+
+    Daily signals may confirm a weekly signal or soften it by one level, but
+    never reverse it on their own.  An aging weekly golden cross is HOLD until
+    refreshed by daily strength; an active weekly death cross remains SELL.
+    """
+
+    if weekly.cross_status == "GOLDEN":
+        return "BUY", "New weekly golden cross; weekly trend has priority."
+    if weekly.cross_status == "DEATH":
+        return "SELL", "New weekly death cross; weekly trend has priority."
+
+    if weekly.alignment == "GOLDEN":
+        if daily.cross_status == "DEATH" or daily.alignment == "DEATH":
+            return "WATCH", "Weekly golden trend remains, but daily trend weakened."
+        if weekly.phase in {"CONFIRMED", "ACTIVE"}:
+            return "BUY", "Weekly golden cross remains confirmed or active."
+        if daily.cross_status == "GOLDEN" or daily.phase in {"CONFIRMED", "ACTIVE"}:
+            return "BUY", "Aging weekly golden trend was refreshed by daily strength."
+        return "HOLD", "Weekly golden trend is aging without a fresh daily cross."
+
+    if weekly.alignment == "DEATH":
+        if daily.cross_status == "GOLDEN":
+            return "WATCH", "Daily golden cross cannot override the weekly death trend."
+        if weekly.phase in {"NEW", "CONFIRMED", "ACTIVE"}:
+            return "SELL", "Weekly death cross remains confirmed or active."
+        return "WATCH", "Weekly death trend is aging; no reversal is confirmed."
+
+    if daily.cross_status == "DEATH" or daily.alignment == "DEATH":
+        return "WATCH", "Weekly trend is neutral and daily trend is weak."
+    return "HOLD", "No decisive weekly crossover is active."
 
 
 def _moving_average_series(
