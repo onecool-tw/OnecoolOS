@@ -12,6 +12,7 @@ from onecool_os.market.fund_alpha import (
     AnueFundClient,
     alpha_payload,
     calculate_excess_return,
+    calculate_period_excess_return,
     completed_month_snapshots,
     merge_nav_history,
     read_nav_history,
@@ -27,6 +28,7 @@ def update(root: Path) -> dict:
     client = AnueFundClient()
     current = []
     monthly = {}
+    periods = {}
 
     for fund_code, (_, benchmark, _) in FUND_WATCHLIST.items():
         nav_path = fund_dir / "history" / f"{fund_code}.csv"
@@ -40,6 +42,16 @@ def update(root: Path) -> dict:
             fund_code, fund_history, etf_history
         )
         current.append(result)
+        periods[fund_code] = {
+            period: calculate_period_excess_return(
+                fund_code,
+                fund_history,
+                etf_history,
+                months=months,
+                period=period,
+            )
+            for period, months in (("3m", 3), ("6m", 6), ("1y", 12))
+        }
         monthly[fund_code] = completed_month_snapshots(
             fund_code,
             fund_history,
@@ -49,7 +61,7 @@ def update(root: Path) -> dict:
             else date.today(),
         )
 
-    payload = alpha_payload(current, monthly)
+    payload = alpha_payload(current, monthly, periods)
     fund_dir.mkdir(parents=True, exist_ok=True)
     (fund_dir / "alpha_latest.json").write_text(
         json.dumps(payload, ensure_ascii=False, indent=2) + "\n",

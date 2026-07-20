@@ -62,6 +62,20 @@ class ExcessReturn:
     reason: str
 
 
+@dataclass(frozen=True)
+class PeriodExcessReturn:
+    """One same-date excess-return measurement for a named horizon."""
+
+    period: str
+    start_date: str | None
+    end_date: str | None
+    fund_return: float | None
+    proxy_return: float | None
+    excess_return_percentage_points: float | None
+    status: str
+    reason: str
+
+
 class AnueFundClient:
     """Read the public NAV history used by Anue Fund's own fund pages."""
 
@@ -128,7 +142,48 @@ def calculate_excess_return(
 ) -> ExcessReturn:
     """Calculate one-year excess return using identical start and end dates."""
 
+    period = calculate_period_excess_return(
+        fund_code,
+        fund_history,
+        etf_history,
+        months=12,
+        period="1y",
+        cutoff=cutoff,
+        max_start_gap_days=max_start_gap_days,
+    )
     fund_name, benchmark, theme = FUND_WATCHLIST[fund_code]
+    return ExcessReturn(
+        fund_code=fund_code,
+        fund_name=fund_name,
+        proxy_etf=benchmark,
+        theme=theme,
+        start_date=period.start_date,
+        end_date=period.end_date,
+        fund_return_1y=period.fund_return,
+        proxy_return_1y=period.proxy_return,
+        excess_return_percentage_points=(
+            period.excess_return_percentage_points
+        ),
+        status=period.status,
+        reason=period.reason,
+    )
+
+
+def calculate_period_excess_return(
+    fund_code: str,
+    fund_history: Iterable[FundNav],
+    etf_history: Iterable[DailyBar],
+    *,
+    months: int,
+    period: str,
+    cutoff: date | None = None,
+    max_start_gap_days: int = 10,
+) -> PeriodExcessReturn:
+    """Calculate excess return for one horizon on identical valuation dates."""
+
+    if months <= 0:
+        raise ValueError("months must be positive")
+
     funds = {item.nav_date: item.nav for item in fund_history}
     etfs = {
         item.trading_date: item.adjusted_close
@@ -139,33 +194,37 @@ def calculate_excess_return(
     if cutoff is not None:
         common = [day for day in common if day <= cutoff]
     if not common:
-        return _unknown(fund_code, "No common fund and ETF valuation date.")
+        return _unknown_period(
+            period, "No common fund and ETF valuation date."
+        )
 
     end = common[-1]
-    target = _previous_year(end)
+    target = _previous_months(end, months)
     candidates = [day for day in common if day <= target]
     if not candidates:
-        return _unknown(fund_code, "No common one-year start date.", end=end)
+        return _unknown_period(
+            period,
+            f"No common {period} start date.",
+            end=end,
+        )
     start = candidates[-1]
     if target - start > timedelta(days=max_start_gap_days):
-        return _unknown(
-            fund_code,
-            "Common one-year start date is more than 10 days from target.",
+        return _unknown_period(
+            period,
+            f"Common {period} start date is more than "
+            f"{max_start_gap_days} days from target.",
             end=end,
         )
 
     fund_return = (funds[end] / funds[start] - 1.0) * 100.0
     etf_return = (float(etfs[end]) / float(etfs[start]) - 1.0) * 100.0
     excess_return = fund_return - etf_return
-    return ExcessReturn(
-        fund_code=fund_code,
-        fund_name=fund_name,
-        proxy_etf=benchmark,
-        theme=theme,
+    return PeriodExcessReturn(
+        period=period,
         start_date=start.isoformat(),
         end_date=end.isoformat(),
-        fund_return_1y=round(fund_return, 4),
-        proxy_return_1y=round(etf_return, 4),
+        fund_return=round(fund_return, 4),
+        proxy_return=round(etf_return, 4),
         excess_return_percentage_points=round(excess_return, 4),
         status=(
             "positive"
@@ -255,14 +314,16 @@ def write_nav_history(path: Path, history: Iterable[FundNav]) -> None:
 def alpha_payload(
     current: Iterable[ExcessReturn],
     monthly: dict[str, list[ExcessReturn]],
+    periods: dict[str, dict[str, PeriodExcessReturn]] | None = None,
 ) -> dict[str, Any]:
     """Build one auditable schema-2 report without portfolio information."""
 
     current_list = list(current)
     return {
-        "schema_version": "2.0",
+        "schema_version": "2.1",
         "metric": "Onecool Excess Return",
-        "definition": "fund_1y_return - cta_proxy_etf_1y_total_return",
+        "definition": "fund_period_return - cta_proxy_etf_period_total_return",
+        "periods": ["3m", "6m", "1y"],
         "date_rule": "identical fund and CTA proxy start/end dates",
         "methodology_cutover_date": PROXY_METHODOLOGY_CUTOVER.isoformat(),
         "source": {
@@ -284,6 +345,12 @@ def alpha_payload(
                 "consecutive_status": consecutive_status(
                     monthly[result.fund_code]
                 ),
+                "period_returns": {
+                    name: asdict(value)
+                    for name, value in (periods or {})
+                    .get(result.fund_code, {})
+                    .items()
+                },
             }
             for result in current_list
         ],
@@ -309,11 +376,26 @@ def _unknown(
     )
 
 
-def _previous_year(day: date) -> date:
-    try:
-        return day.replace(year=day.year - 1)
-    except ValueError:
-        return date(day.year - 1, day.month, monthrange(day.year - 1, day.month)[1])
+def _unknown_period(
+    period: str, reason: str, *, end: date | None = None
+) -> PeriodExcessReturn:
+    return PeriodExcessReturn(
+        period=period,
+        start_date=None,
+        end_date=end.isoformat() if end else None,
+        fund_return=None,
+        proxy_return=None,
+        excess_return_percentage_points=None,
+        status="unknown",
+        reason=reason,
+    )
+
+
+def _previous_months(day: date, months: int) -> date:
+    total_months = day.year * 12 + day.month - 1 - months
+    year, zero_based_month = divmod(total_months, 12)
+    month = zero_based_month + 1
+    return date(year, month, min(day.day, monthrange(year, month)[1]))
 
 
 def _currency_code(value: Any) -> str:
