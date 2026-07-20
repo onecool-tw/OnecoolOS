@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.1",
   "metric": "Onecool Fund NAV CTA",
   "source": "OnecoolOS committed fund NAV history",
   "engine": "shared_onecool_cta_engine",
@@ -14,7 +14,12 @@
       "SMA30",
       "SMA50"
     ],
-    "rules": "Onecool CTA v1 fixed rule"
+    "rules": "Onecool CTA v1 fixed rule",
+    "cross_detection": {
+      "daily": "SMA50 crosses SMA200",
+      "weekly": "SMA30 crosses SMA50",
+      "delta_rule": "cross_status is non-NONE only on the crossing period"
+    }
   },
   "results": [
     {
@@ -22,36 +27,68 @@
       "fund_name": "富邦AI智能新趨勢多重資產型基金-A(美元)",
       "benchmark_etf": "AIQ",
       "theme": "AI",
-      "fund_nav_as_of": "2026-07-16",
-      "nav": 57.6021,
-      "daily_50ma": 64.878604,
-      "daily_200ma": 46.057363,
-      "weekly_30ma": 51.30773,
-      "weekly_50ma": 44.129738,
+      "fund_nav_as_of": "2026-07-17",
+      "nav": 55.1467,
+      "daily_50ma": 64.769018,
+      "daily_200ma": 46.170795,
+      "weekly_30ma": 51.225883,
+      "weekly_50ma": 44.08063,
       "fund_cta": "HOLD",
       "data_quality": "sufficient_history",
-      "nav_observations": 1800,
+      "nav_observations": 1801,
       "reason": "Long-term structure remains intact but momentum is mixed.",
       "benchmark_cta": "HOLD",
-      "signal_alignment": "mixed_or_neutral"
+      "signal_alignment": "mixed_or_neutral",
+      "daily_cross": {
+        "alignment": "GOLDEN",
+        "cross_status": "NONE",
+        "last_cross_status": "GOLDEN",
+        "last_cross_date": "2025-07-07",
+        "periods_since_cross": 247,
+        "spread_pct": 40.281358
+      },
+      "weekly_cross": {
+        "alignment": "GOLDEN",
+        "cross_status": "NONE",
+        "last_cross_status": "GOLDEN",
+        "last_cross_date": "2025-08-15",
+        "periods_since_cross": 47,
+        "spread_pct": 16.209508
+      }
     },
     {
       "fund_code": "A16075",
       "fund_name": "群益印度中小基金-美元",
       "benchmark_etf": "SMIN",
       "theme": "印度",
-      "fund_nav_as_of": "2026-07-16",
-      "nav": 25.3408,
-      "daily_50ma": 25.81077,
-      "daily_200ma": 26.22259,
-      "weekly_30ma": 25.725953,
-      "weekly_50ma": 26.248144,
+      "fund_nav_as_of": "2026-07-17",
+      "nav": 25.3127,
+      "daily_50ma": 25.809728,
+      "daily_200ma": 26.21586,
+      "weekly_30ma": 25.725017,
+      "weekly_50ma": 26.247582,
       "fund_cta": "SELL",
       "data_quality": "sufficient_history",
-      "nav_observations": 2571,
+      "nav_observations": 2572,
       "reason": "Price and both daily/weekly trend structures are bearish.",
       "benchmark_cta": "HOLD",
-      "signal_alignment": "mixed_or_neutral"
+      "signal_alignment": "mixed_or_neutral",
+      "daily_cross": {
+        "alignment": "DEATH",
+        "cross_status": "NONE",
+        "last_cross_status": "DEATH",
+        "last_cross_date": "2026-01-13",
+        "periods_since_cross": 114,
+        "spread_pct": -1.549186
+      },
+      "weekly_cross": {
+        "alignment": "DEATH",
+        "cross_status": "NONE",
+        "last_cross_status": "DEATH",
+        "last_cross_date": "2026-03-06",
+        "periods_since_cross": 19,
+        "spread_pct": -1.990908
+      }
     },
     {
       "fund_code": "B23554",
@@ -69,7 +106,23 @@
       "nav_observations": 2591,
       "reason": "A long-term trend line is broken or both trend slopes weakened.",
       "benchmark_cta": "WATCH",
-      "signal_alignment": "joint_weakness"
+      "signal_alignment": "joint_weakness",
+      "daily_cross": {
+        "alignment": "DEATH",
+        "cross_status": "NONE",
+        "last_cross_status": "DEATH",
+        "last_cross_date": "2026-07-06",
+        "periods_since_cross": 9,
+        "spread_pct": -3.976802
+      },
+      "weekly_cross": {
+        "alignment": "GOLDEN",
+        "cross_status": "NONE",
+        "last_cross_status": "GOLDEN",
+        "last_cross_date": "2024-04-26",
+        "periods_since_cross": 116,
+        "spread_pct": 11.464894
+      }
     },
     {
       "fund_code": "B15080",
@@ -87,7 +140,23 @@
       "nav_observations": 6830,
       "reason": "Price and both daily/weekly trend structures are bullish.",
       "benchmark_cta": "BUY",
-      "signal_alignment": "confirmed_strength"
+      "signal_alignment": "confirmed_strength",
+      "daily_cross": {
+        "alignment": "GOLDEN",
+        "cross_status": "NONE",
+        "last_cross_status": "GOLDEN",
+        "last_cross_date": "2025-08-15",
+        "periods_since_cross": 230,
+        "spread_pct": 8.577456
+      },
+      "weekly_cross": {
+        "alignment": "GOLDEN",
+        "cross_status": "NONE",
+        "last_cross_status": "GOLDEN",
+        "last_cross_date": "2025-10-17",
+        "periods_since_cross": 39,
+        "spread_pct": 7.909825
+      }
     },
     {
       "fund_code": "B09007",
@@ -105,7 +174,23 @@
       "nav_observations": 7602,
       "reason": "A long-term trend line is broken or both trend slopes weakened.",
       "benchmark_cta": "HOLD",
-      "signal_alignment": "mixed_or_neutral"
+      "signal_alignment": "mixed_or_neutral",
+      "daily_cross": {
+        "alignment": "GOLDEN",
+        "cross_status": "NONE",
+        "last_cross_status": "GOLDEN",
+        "last_cross_date": "2025-06-24",
+        "periods_since_cross": 267,
+        "spread_pct": 5.92841
+      },
+      "weekly_cross": {
+        "alignment": "GOLDEN",
+        "cross_status": "NONE",
+        "last_cross_status": "GOLDEN",
+        "last_cross_date": "2025-08-14",
+        "periods_since_cross": 48,
+        "spread_pct": 10.826264
+      }
     },
     {
       "fund_code": "B16019",
@@ -123,7 +208,23 @@
       "nav_observations": 8245,
       "reason": "A long-term trend line is broken or both trend slopes weakened.",
       "benchmark_cta": "SELL",
-      "signal_alignment": "joint_weakness"
+      "signal_alignment": "joint_weakness",
+      "daily_cross": {
+        "alignment": "GOLDEN",
+        "cross_status": "NONE",
+        "last_cross_status": "GOLDEN",
+        "last_cross_date": "2026-06-05",
+        "periods_since_cross": 29,
+        "spread_pct": 6.981678
+      },
+      "weekly_cross": {
+        "alignment": "DEATH",
+        "cross_status": "NONE",
+        "last_cross_status": "DEATH",
+        "last_cross_date": "2026-05-15",
+        "periods_since_cross": 9,
+        "spread_pct": -1.684696
+      }
     },
     {
       "fund_code": "B23070",
@@ -141,7 +242,23 @@
       "nav_observations": 9508,
       "reason": "Long-term structure remains intact but momentum is mixed.",
       "benchmark_cta": "BUY",
-      "signal_alignment": "mixed_or_neutral"
+      "signal_alignment": "mixed_or_neutral",
+      "daily_cross": {
+        "alignment": "GOLDEN",
+        "cross_status": "NONE",
+        "last_cross_status": "GOLDEN",
+        "last_cross_date": "2025-07-11",
+        "periods_since_cross": 257,
+        "spread_pct": 13.176318
+      },
+      "weekly_cross": {
+        "alignment": "GOLDEN",
+        "cross_status": "NONE",
+        "last_cross_status": "GOLDEN",
+        "last_cross_date": "2025-09-26",
+        "periods_since_cross": 42,
+        "spread_pct": 10.576252
+      }
     }
   ]
 }
