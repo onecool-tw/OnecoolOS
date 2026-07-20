@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.1",
   "method": {
     "daily": [
       "adjusted_close",
@@ -11,7 +11,12 @@
       "SMA30",
       "SMA50"
     ],
-    "rules": "Onecool CTA v1 fixed rule"
+    "rules": "Onecool CTA v1 fixed rule",
+    "cross_detection": {
+      "daily": "SMA50 crosses SMA200",
+      "weekly": "SMA30 crosses SMA50",
+      "delta_rule": "cross_status is non-NONE only on the crossing period"
+    }
   },
   "action_refreshes": [],
   "results": [
@@ -25,7 +30,23 @@
       "weekly_50ma": 52.701422,
       "cta": "HOLD",
       "reason": "Long-term structure remains intact but momentum is mixed.",
-      "price_basis": "locally_adjusted_close"
+      "price_basis": "locally_adjusted_close",
+      "daily_cross": {
+        "alignment": "GOLDEN",
+        "cross_status": "NONE",
+        "last_cross_status": "GOLDEN",
+        "last_cross_date": "2025-06-17",
+        "periods_since_cross": 271,
+        "spread_pct": 17.645485
+      },
+      "weekly_cross": {
+        "alignment": "GOLDEN",
+        "cross_status": "NONE",
+        "last_cross_status": "GOLDEN",
+        "last_cross_date": "2023-04-28",
+        "periods_since_cross": 168,
+        "spread_pct": 4.927905
+      }
     },
     {
       "symbol": "SMIN",
@@ -37,7 +58,23 @@
       "weekly_50ma": 68.462824,
       "cta": "HOLD",
       "reason": "Long-term structure remains intact but momentum is mixed.",
-      "price_basis": "locally_adjusted_close"
+      "price_basis": "locally_adjusted_close",
+      "daily_cross": {
+        "alignment": "GOLDEN",
+        "cross_status": "NONE",
+        "last_cross_status": "GOLDEN",
+        "last_cross_date": "2026-07-13",
+        "periods_since_cross": 4,
+        "spread_pct": 0.443464
+      },
+      "weekly_cross": {
+        "alignment": "DEATH",
+        "cross_status": "NONE",
+        "last_cross_status": "DEATH",
+        "last_cross_date": "2026-02-20",
+        "periods_since_cross": 21,
+        "spread_pct": -2.71752
+      }
     },
     {
       "symbol": "RING",
@@ -49,7 +86,23 @@
       "weekly_50ma": 71.828026,
       "cta": "WATCH",
       "reason": "A long-term trend line is broken or both trend slopes weakened.",
-      "price_basis": "locally_adjusted_close"
+      "price_basis": "locally_adjusted_close",
+      "daily_cross": {
+        "alignment": "DEATH",
+        "cross_status": "NONE",
+        "last_cross_status": "DEATH",
+        "last_cross_date": "2026-06-30",
+        "periods_since_cross": 12,
+        "spread_pct": -5.278553
+      },
+      "weekly_cross": {
+        "alignment": "GOLDEN",
+        "cross_status": "NONE",
+        "last_cross_status": "GOLDEN",
+        "last_cross_date": "2024-04-19",
+        "periods_since_cross": 117,
+        "spread_pct": 9.170015
+      }
     },
     {
       "symbol": "IBB",
@@ -61,7 +114,23 @@
       "weekly_50ma": 164.962518,
       "cta": "BUY",
       "reason": "Price and both daily/weekly trend structures are bullish.",
-      "price_basis": "locally_adjusted_close"
+      "price_basis": "locally_adjusted_close",
+      "daily_cross": {
+        "alignment": "GOLDEN",
+        "cross_status": "NONE",
+        "last_cross_status": "GOLDEN",
+        "last_cross_date": "2025-08-25",
+        "periods_since_cross": 224,
+        "spread_pct": 4.449511
+      },
+      "weekly_cross": {
+        "alignment": "GOLDEN",
+        "cross_status": "NONE",
+        "last_cross_status": "GOLDEN",
+        "last_cross_date": "2025-11-07",
+        "periods_since_cross": 36,
+        "spread_pct": 4.900193
+      }
     },
     {
       "symbol": "PICK",
@@ -73,7 +142,23 @@
       "weekly_50ma": 53.177338,
       "cta": "HOLD",
       "reason": "Long-term structure remains intact but momentum is mixed.",
-      "price_basis": "locally_adjusted_close"
+      "price_basis": "locally_adjusted_close",
+      "daily_cross": {
+        "alignment": "GOLDEN",
+        "cross_status": "NONE",
+        "last_cross_status": "GOLDEN",
+        "last_cross_date": "2025-07-14",
+        "periods_since_cross": 254,
+        "spread_pct": 11.330353
+      },
+      "weekly_cross": {
+        "alignment": "GOLDEN",
+        "cross_status": "NONE",
+        "last_cross_status": "GOLDEN",
+        "last_cross_date": "2025-09-12",
+        "periods_since_cross": 44,
+        "spread_pct": 11.52119
+      }
     },
     {
       "symbol": "RXI",
@@ -85,7 +170,23 @@
       "weekly_50ma": 200.078431,
       "cta": "SELL",
       "reason": "Price and both daily/weekly trend structures are bearish.",
-      "price_basis": "locally_adjusted_close"
+      "price_basis": "locally_adjusted_close",
+      "daily_cross": {
+        "alignment": "DEATH",
+        "cross_status": "NONE",
+        "last_cross_status": "DEATH",
+        "last_cross_date": "2026-04-02",
+        "periods_since_cross": 72,
+        "spread_pct": -1.958574
+      },
+      "weekly_cross": {
+        "alignment": "DEATH",
+        "cross_status": "NONE",
+        "last_cross_status": "DEATH",
+        "last_cross_date": "2026-07-02",
+        "periods_since_cross": 2,
+        "spread_pct": -0.551667
+      }
     },
     {
       "symbol": "IXC",
@@ -97,7 +198,23 @@
       "weekly_50ma": 47.167734,
       "cta": "BUY",
       "reason": "Price and both daily/weekly trend structures are bullish.",
-      "price_basis": "locally_adjusted_close"
+      "price_basis": "locally_adjusted_close",
+      "daily_cross": {
+        "alignment": "GOLDEN",
+        "cross_status": "NONE",
+        "last_cross_status": "GOLDEN",
+        "last_cross_date": "2025-07-22",
+        "periods_since_cross": 248,
+        "spread_pct": 9.280064
+      },
+      "weekly_cross": {
+        "alignment": "GOLDEN",
+        "cross_status": "NONE",
+        "last_cross_status": "GOLDEN",
+        "last_cross_date": "2025-09-26",
+        "periods_since_cross": 42,
+        "spread_pct": 8.874569
+      }
     },
     {
       "symbol": "SMH",
@@ -109,7 +226,23 @@
       "weekly_50ma": 417.436988,
       "cta": "HOLD",
       "reason": "Long-term structure remains intact but momentum is mixed.",
-      "price_basis": "locally_adjusted_close"
+      "price_basis": "locally_adjusted_close",
+      "daily_cross": {
+        "alignment": "GOLDEN",
+        "cross_status": "NONE",
+        "last_cross_status": "GOLDEN",
+        "last_cross_date": "2025-06-30",
+        "periods_since_cross": 263,
+        "spread_pct": 35.940595
+      },
+      "weekly_cross": {
+        "alignment": "GOLDEN",
+        "cross_status": "NONE",
+        "last_cross_status": "GOLDEN",
+        "last_cross_date": "2025-08-29",
+        "periods_since_cross": 46,
+        "spread_pct": 14.338295
+      }
     },
     {
       "symbol": "GLD",
@@ -121,7 +254,23 @@
       "weekly_50ma": 397.096398,
       "cta": "WATCH",
       "reason": "A long-term trend line is broken or both trend slopes weakened.",
-      "price_basis": "locally_adjusted_close"
+      "price_basis": "locally_adjusted_close",
+      "daily_cross": {
+        "alignment": "DEATH",
+        "cross_status": "NONE",
+        "last_cross_status": "DEATH",
+        "last_cross_date": "2026-06-30",
+        "periods_since_cross": 12,
+        "spread_pct": -3.726028
+      },
+      "weekly_cross": {
+        "alignment": "GOLDEN",
+        "cross_status": "NONE",
+        "last_cross_status": "GOLDEN",
+        "last_cross_date": "2023-04-06",
+        "periods_since_cross": 171,
+        "spread_pct": 6.645725
+      }
     }
   ]
 }
