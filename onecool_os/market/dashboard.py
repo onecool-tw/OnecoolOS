@@ -8,7 +8,12 @@ from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any, Iterable
 
-from onecool_os.market.etf_cta import CTAResult, DailyBar, read_history
+from onecool_os.market.etf_cta import (
+    CTAResult,
+    CrossSignal,
+    DailyBar,
+    read_history,
+)
 
 
 @dataclass(frozen=True)
@@ -50,6 +55,8 @@ class MarketCTA:
     cta: str
     confidence: int
     reason: str
+    daily_cross: CrossSignal | None = None
+    weekly_cross: CrossSignal | None = None
 
 
 def dashboard_record(config: MarketSymbol, result: CTAResult) -> MarketCTA:
@@ -86,6 +93,8 @@ def dashboard_record(config: MarketSymbol, result: CTAResult) -> MarketCTA:
         cta=result.cta,
         confidence=confidence,
         reason=result.reason,
+        daily_cross=result.daily_cross,
+        weekly_cross=result.weekly_cross,
     )
 
 
@@ -130,7 +139,7 @@ def build_dashboard_payload(records: Iterable[MarketCTA]) -> dict[str, Any]:
 
     values = list(records)
     return {
-        "schema_version": "1.1",
+        "schema_version": "1.2",
         "module": "Onecool Market Dashboard",
         "generated_at": datetime.now(UTC).isoformat(),
         "provider": "mixed_by_symbol",

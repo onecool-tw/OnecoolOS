@@ -56,6 +56,18 @@ class DailyBar:
 
 
 @dataclass(frozen=True)
+class CrossSignal:
+    """Current MA alignment plus an auditable most-recent crossover."""
+
+    alignment: str
+    cross_status: str
+    last_cross_status: str
+    last_cross_date: str | None
+    periods_since_cross: int | None
+    spread_pct: float
+
+
+@dataclass(frozen=True)
 class CTAResult:
     """Auditable CTA snapshot calculated from one adjusted-close history."""
 
@@ -69,6 +81,8 @@ class CTAResult:
     cta: str
     reason: str
     price_basis: str = "locally_adjusted_close"
+    daily_cross: CrossSignal | None = None
+    weekly_cross: CrossSignal | None = None
 
 
 class AlphaVantageClient:
@@ -331,7 +345,8 @@ def calculate_cta(symbol: str, bars: Iterable[DailyBar]) -> CTAResult:
     if any(bar.adjusted_close is None for bar in history):
         raise ETFCTAError(f"{symbol} history contains unadjusted observations.")
     closes = [float(bar.adjusted_close) for bar in history]
-    weekly = _weekly_last_closes(history)
+    weekly_points = _weekly_last_points(history)
+    weekly = [value for _, value in weekly_points]
     if len(weekly) < 50:
         raise ETFCTAError(f"{symbol} needs at least 50 weekly observations.")
 
@@ -340,6 +355,12 @@ def calculate_cta(symbol: str, bars: Iterable[DailyBar]) -> CTAResult:
     d200 = _mean(closes[-200:])
     w30 = _mean(weekly[-30:])
     w50 = _mean(weekly[-50:])
+    daily_cross = _detect_cross(
+        [bar.trading_date for bar in history], closes, 50, 200
+    )
+    weekly_cross = _detect_cross(
+        [point_date for point_date, _ in weekly_points], weekly, 30, 50
+    )
 
     if price > d50 > d200 and price > w30 > w50:
         signal = "BUY"
@@ -364,6 +385,8 @@ def calculate_cta(symbol: str, bars: Iterable[DailyBar]) -> CTAResult:
         weekly_50ma=round(w50, 6),
         cta=signal,
         reason=reason,
+        daily_cross=daily_cross,
+        weekly_cross=weekly_cross,
     )
 
 
@@ -415,11 +438,93 @@ def write_history(path: Path, bars: Iterable[DailyBar]) -> None:
 
 
 def _weekly_last_closes(history: list[DailyBar]) -> list[float]:
-    weekly: dict[tuple[int, int], float] = {}
+    return [value for _, value in _weekly_last_points(history)]
+
+
+def _weekly_last_points(history: list[DailyBar]) -> list[tuple[date, float]]:
+    """Return the final published observation and value for each ISO week."""
+
+    weekly: dict[tuple[int, int], tuple[date, float]] = {}
     for bar in history:
         iso = bar.trading_date.isocalendar()
-        weekly[(iso.year, iso.week)] = float(bar.adjusted_close)
+        weekly[(iso.year, iso.week)] = (
+            bar.trading_date,
+            float(bar.adjusted_close),
+        )
     return list(weekly.values())
+
+
+def _detect_cross(
+    dates: list[date], values: list[float], short_window: int, long_window: int
+) -> CrossSignal:
+    """Detect a real MA crossing; alignment alone is never called a new cross."""
+
+    short_ma = _moving_average_series(values, short_window)
+    long_ma = _moving_average_series(values, long_window)
+    latest_short = short_ma[-1]
+    latest_long = long_ma[-1]
+    if latest_short is None or latest_long is None:
+        raise ETFCTAError("Insufficient observations for crossover detection.")
+
+    if latest_short > latest_long:
+        alignment = "GOLDEN"
+    elif latest_short < latest_long:
+        alignment = "DEATH"
+    else:
+        alignment = "EQUAL"
+
+    crossings: list[tuple[int, str]] = []
+    for index in range(1, len(values)):
+        previous_short = short_ma[index - 1]
+        previous_long = long_ma[index - 1]
+        current_short = short_ma[index]
+        current_long = long_ma[index]
+        if None in (previous_short, previous_long, current_short, current_long):
+            continue
+        if previous_short <= previous_long and current_short > current_long:
+            crossings.append((index, "GOLDEN"))
+        elif previous_short >= previous_long and current_short < current_long:
+            crossings.append((index, "DEATH"))
+
+    latest_index = len(values) - 1
+    current_cross = (
+        crossings[-1][1]
+        if crossings and crossings[-1][0] == latest_index
+        else "NONE"
+    )
+    if crossings:
+        cross_index, last_cross = crossings[-1]
+        last_cross_date = dates[cross_index].isoformat()
+        periods_since_cross = latest_index - cross_index
+    else:
+        last_cross = "NONE"
+        last_cross_date = None
+        periods_since_cross = None
+
+    return CrossSignal(
+        alignment=alignment,
+        cross_status=current_cross,
+        last_cross_status=last_cross,
+        last_cross_date=last_cross_date,
+        periods_since_cross=periods_since_cross,
+        spread_pct=round((latest_short / latest_long - 1.0) * 100, 6),
+    )
+
+
+def _moving_average_series(
+    values: list[float], window: int
+) -> list[float | None]:
+    """Return an aligned simple-moving-average series in linear time."""
+
+    result: list[float | None] = [None] * len(values)
+    running = 0.0
+    for index, value in enumerate(values):
+        running += value
+        if index >= window:
+            running -= values[index - window]
+        if index >= window - 1:
+            result[index] = running / window
+    return result
 
 
 def _mean(values: list[float]) -> float:
