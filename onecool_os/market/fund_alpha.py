@@ -245,14 +245,17 @@ def completed_month_snapshots(
     as_of: date,
     months: int = 3,
 ) -> list[ExcessReturn]:
-    """Return excess return for eligible completed calendar months."""
+    """Return excess return for completed months using the current proxy.
+
+    A proxy methodology cutover must not discard comparable history when the
+    current proxy has sufficient local price data.  Each snapshot is therefore
+    backfilled using only the current proxy and identical fund/ETF dates; legacy
+    proxy results are never spliced into this sequence.
+    """
 
     snapshots = []
     cursor = date(as_of.year, as_of.month, 1) - timedelta(days=1)
-    cutover = PROXY_METHODOLOGY_CUTOVER if fund_code in LEGACY_PROXY_ETFS else None
     while len(snapshots) < months:
-        if cutover is not None and cursor <= cutover:
-            break
         snapshots.append(
             calculate_excess_return(
                 fund_code, fund_history, etf_history, cutoff=cursor
@@ -338,6 +341,11 @@ def alpha_payload(
                     PROXY_METHODOLOGY_CUTOVER.isoformat()
                     if result.fund_code in LEGACY_PROXY_ETFS
                     else None
+                ),
+                "completed_months_methodology": (
+                    "backfilled_new_benchmark"
+                    if result.fund_code in LEGACY_PROXY_ETFS
+                    else "continuous_current_benchmark"
                 ),
                 "completed_months": [
                     asdict(item) for item in monthly[result.fund_code]
