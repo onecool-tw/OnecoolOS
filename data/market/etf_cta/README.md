@@ -1,7 +1,8 @@
 # ETF CTA history
 
 This directory is the reviewable GitHub history for the seven Fund Watchlist
-benchmark ETFs: QQQ, SMIN, GLD, IBB, PICK, VCR, and XLE.
+CTA proxy ETFs: AIQ, SMIN, RING, IBB, PICK, RXI, and IXC. SMH and GLD are
+confirmation signals only and are not used to calculate Onecool Excess Return.
 
 The first successful workflow run seeds five years of raw OHLC, dividend, and
 split observations through the project's existing `yfinance` dependency. Every

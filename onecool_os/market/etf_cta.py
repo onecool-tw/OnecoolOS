@@ -14,7 +14,13 @@ from urllib.parse import urlencode
 from urllib.request import urlopen
 
 
-WATCHLIST_SYMBOLS = ("QQQ", "SMIN", "GLD", "IBB", "PICK", "VCR", "XLE")
+WATCHLIST_SYMBOLS = ("AIQ", "SMIN", "RING", "IBB", "PICK", "RXI", "IXC")
+CONFIRMATION_SYMBOLS = ("SMH", "GLD")
+MARKET_SYMBOLS = WATCHLIST_SYMBOLS + CONFIRMATION_SYMBOLS
+ACTION_REFRESH_GROUPS = {
+    "group_a": ("AIQ", "SMIN", "RING", "IBB", "PICK"),
+    "group_b": ("RXI", "IXC", "SMH", "GLD"),
+}
 HISTORY_FIELDS = (
     "date",
     "open",
