@@ -98,9 +98,16 @@ def test_cache_loader_and_fund_context_never_query_provider(tmp_path: Path) -> N
     (fund_dir / "alpha_latest.json").write_text(
         json.dumps({"results": []}), encoding="utf-8"
     )
+    (fund_dir / "fund_cta_latest.json").write_text(
+        json.dumps({"results": [{"fund_code": "A10124"}]}),
+        encoding="utf-8",
+    )
 
     assert load_latest_dashboard(tmp_path)["generated_at"]
     context = load_fund_intelligence_context(tmp_path)
     assert context["source_policy"] == "github_cache_only"
     assert context["market_dashboard"]["generated_at"]
     assert context["fund_alpha"] == {"results": []}
+    assert context["fund_cta"] == {
+        "results": [{"fund_code": "A10124"}]
+    }
