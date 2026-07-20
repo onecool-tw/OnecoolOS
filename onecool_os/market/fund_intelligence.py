@@ -18,9 +18,16 @@ def load_fund_intelligence_context(root: Path) -> dict[str, Any]:
         if alpha_path.exists()
         else None
     )
+    fund_cta_path = root / "data" / "market" / "fund_nav" / "fund_cta_latest.json"
+    fund_cta = (
+        json.loads(fund_cta_path.read_text(encoding="utf-8"))
+        if fund_cta_path.exists()
+        else None
+    )
     return {
         "schema_version": "1.1",
         "source_policy": "github_cache_only",
         "fund_alpha": alpha,
+        "fund_cta": fund_cta,
         "market_dashboard": load_latest_dashboard(root),
     }

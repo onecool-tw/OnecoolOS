@@ -7,6 +7,7 @@ from datetime import date
 from pathlib import Path
 
 from onecool_os.market.etf_cta import read_history
+from onecool_os.market.fund_cta import calculate_fund_cta, fund_cta_payload
 from onecool_os.market.fund_alpha import (
     FUND_WATCHLIST,
     AnueFundClient,
@@ -29,6 +30,17 @@ def update(root: Path) -> dict:
     current = []
     monthly = {}
     periods = {}
+    fund_cta_results = []
+    benchmark_cta_path = root / "data" / "market" / "etf_cta" / "cta_latest.json"
+    benchmark_ctas = {}
+    if benchmark_cta_path.exists():
+        benchmark_payload = json.loads(
+            benchmark_cta_path.read_text(encoding="utf-8")
+        )
+        benchmark_ctas = {
+            item["symbol"]: item.get("cta")
+            for item in benchmark_payload.get("results", [])
+        }
 
     for fund_code, (_, benchmark, _) in FUND_WATCHLIST.items():
         nav_path = fund_dir / "history" / f"{fund_code}.csv"
@@ -60,11 +72,27 @@ def update(root: Path) -> dict:
             if result.end_date
             else date.today(),
         )
+        fund_cta_results.append(
+            calculate_fund_cta(
+                fund_code,
+                fund_history,
+                benchmark_cta=benchmark_ctas.get(benchmark),
+            )
+        )
 
     payload = alpha_payload(current, monthly, periods)
     fund_dir.mkdir(parents=True, exist_ok=True)
     (fund_dir / "alpha_latest.json").write_text(
         json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
+        encoding="utf-8",
+    )
+    (fund_dir / "fund_cta_latest.json").write_text(
+        json.dumps(
+            fund_cta_payload(fund_cta_results),
+            ensure_ascii=False,
+            indent=2,
+        )
+        + "\n",
         encoding="utf-8",
     )
     print(json.dumps(payload, ensure_ascii=False))
