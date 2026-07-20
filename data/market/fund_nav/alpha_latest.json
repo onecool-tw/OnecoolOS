@@ -1,7 +1,12 @@
 {
-  "schema_version": "2.0",
+  "schema_version": "2.1",
   "metric": "Onecool Excess Return",
-  "definition": "fund_1y_return - cta_proxy_etf_1y_total_return",
+  "definition": "fund_period_return - cta_proxy_etf_period_total_return",
+  "periods": [
+    "3m",
+    "6m",
+    "1y"
+  ],
   "date_rule": "identical fund and CTA proxy start/end dates",
   "methodology_cutover_date": "2026-07-20",
   "source": {
@@ -24,7 +29,39 @@
       "legacy_proxy_etf": "QQQ",
       "proxy_changed_at": "2026-07-20",
       "completed_months": [],
-      "consecutive_status": "insufficient_data"
+      "consecutive_status": "insufficient_data",
+      "period_returns": {
+        "3m": {
+          "period": "3m",
+          "start_date": "2026-04-16",
+          "end_date": "2026-07-16",
+          "fund_return": 9.6099,
+          "proxy_return": 10.8805,
+          "excess_return_percentage_points": -1.2706,
+          "status": "negative",
+          "reason": "Fund and CTA proxy use identical start and end dates."
+        },
+        "6m": {
+          "period": "6m",
+          "start_date": "2026-01-16",
+          "end_date": "2026-07-16",
+          "fund_return": 47.9389,
+          "proxy_return": 13.3168,
+          "excess_return_percentage_points": 34.6222,
+          "status": "positive",
+          "reason": "Fund and CTA proxy use identical start and end dates."
+        },
+        "1y": {
+          "period": "1y",
+          "start_date": "2025-07-16",
+          "end_date": "2026-07-16",
+          "fund_return": 102.0843,
+          "proxy_return": 34.9747,
+          "excess_return_percentage_points": 67.1096,
+          "status": "positive",
+          "reason": "Fund and CTA proxy use identical start and end dates."
+        }
+      }
     },
     {
       "fund_code": "A16075",
@@ -81,7 +118,39 @@
           "reason": "Fund and CTA proxy use identical start and end dates."
         }
       ],
-      "consecutive_status": "mixed"
+      "consecutive_status": "mixed",
+      "period_returns": {
+        "3m": {
+          "period": "3m",
+          "start_date": "2026-04-16",
+          "end_date": "2026-07-16",
+          "fund_return": -0.1238,
+          "proxy_return": 5.4181,
+          "excess_return_percentage_points": -5.5418,
+          "status": "negative",
+          "reason": "Fund and CTA proxy use identical start and end dates."
+        },
+        "6m": {
+          "period": "6m",
+          "start_date": "2026-01-16",
+          "end_date": "2026-07-16",
+          "fund_return": -5.0077,
+          "proxy_return": 3.4202,
+          "excess_return_percentage_points": -8.4279,
+          "status": "negative",
+          "reason": "Fund and CTA proxy use identical start and end dates."
+        },
+        "1y": {
+          "period": "1y",
+          "start_date": "2025-07-16",
+          "end_date": "2026-07-16",
+          "fund_return": -10.6655,
+          "proxy_return": -8.9503,
+          "excess_return_percentage_points": -1.7152,
+          "status": "negative",
+          "reason": "Fund and CTA proxy use identical start and end dates."
+        }
+      }
     },
     {
       "fund_code": "B23554",
@@ -98,7 +167,39 @@
       "legacy_proxy_etf": "GLD",
       "proxy_changed_at": "2026-07-20",
       "completed_months": [],
-      "consecutive_status": "insufficient_data"
+      "consecutive_status": "insufficient_data",
+      "period_returns": {
+        "3m": {
+          "period": "3m",
+          "start_date": "2026-04-17",
+          "end_date": "2026-07-17",
+          "fund_return": -29.7728,
+          "proxy_return": -29.7914,
+          "excess_return_percentage_points": 0.0186,
+          "status": "positive",
+          "reason": "Fund and CTA proxy use identical start and end dates."
+        },
+        "6m": {
+          "period": "6m",
+          "start_date": "2026-01-16",
+          "end_date": "2026-07-17",
+          "fund_return": -23.5373,
+          "proxy_return": -26.7172,
+          "excess_return_percentage_points": 3.1799,
+          "status": "positive",
+          "reason": "Fund and CTA proxy use identical start and end dates."
+        },
+        "1y": {
+          "period": "1y",
+          "start_date": "2025-07-17",
+          "end_date": "2026-07-17",
+          "fund_return": 52.8967,
+          "proxy_return": 41.7196,
+          "excess_return_percentage_points": 11.1772,
+          "status": "positive",
+          "reason": "Fund and CTA proxy use identical start and end dates."
+        }
+      }
     },
     {
       "fund_code": "B15080",
@@ -155,7 +256,39 @@
           "reason": "Fund and CTA proxy use identical start and end dates."
         }
       ],
-      "consecutive_status": "positive_3_months"
+      "consecutive_status": "positive_3_months",
+      "period_returns": {
+        "3m": {
+          "period": "3m",
+          "start_date": "2026-04-17",
+          "end_date": "2026-07-17",
+          "fund_return": 6.9672,
+          "proxy_return": 7.4154,
+          "excess_return_percentage_points": -0.4482,
+          "status": "negative",
+          "reason": "Fund and CTA proxy use identical start and end dates."
+        },
+        "6m": {
+          "period": "6m",
+          "start_date": "2026-01-16",
+          "end_date": "2026-07-17",
+          "fund_return": 18.3801,
+          "proxy_return": 11.6498,
+          "excess_return_percentage_points": 6.7303,
+          "status": "positive",
+          "reason": "Fund and CTA proxy use identical start and end dates."
+        },
+        "1y": {
+          "period": "1y",
+          "start_date": "2025-07-17",
+          "end_date": "2026-07-17",
+          "fund_return": 78.1878,
+          "proxy_return": 44.2821,
+          "excess_return_percentage_points": 33.9057,
+          "status": "positive",
+          "reason": "Fund and CTA proxy use identical start and end dates."
+        }
+      }
     },
     {
       "fund_code": "B09007",
@@ -212,7 +345,39 @@
           "reason": "Fund and CTA proxy use identical start and end dates."
         }
       ],
-      "consecutive_status": "negative_3_months"
+      "consecutive_status": "negative_3_months",
+      "period_returns": {
+        "3m": {
+          "period": "3m",
+          "start_date": "2026-04-17",
+          "end_date": "2026-07-17",
+          "fund_return": -16.8911,
+          "proxy_return": -11.8163,
+          "excess_return_percentage_points": -5.0748,
+          "status": "negative",
+          "reason": "Fund and CTA proxy use identical start and end dates."
+        },
+        "6m": {
+          "period": "6m",
+          "start_date": "2026-01-16",
+          "end_date": "2026-07-17",
+          "fund_return": -8.7415,
+          "proxy_return": 0.1067,
+          "excess_return_percentage_points": -8.8483,
+          "status": "negative",
+          "reason": "Fund and CTA proxy use identical start and end dates."
+        },
+        "1y": {
+          "period": "1y",
+          "start_date": "2025-07-17",
+          "end_date": "2026-07-17",
+          "fund_return": 47.8407,
+          "proxy_return": 46.1567,
+          "excess_return_percentage_points": 1.684,
+          "status": "positive",
+          "reason": "Fund and CTA proxy use identical start and end dates."
+        }
+      }
     },
     {
       "fund_code": "B16019",
@@ -229,7 +394,39 @@
       "legacy_proxy_etf": "VCR",
       "proxy_changed_at": "2026-07-20",
       "completed_months": [],
-      "consecutive_status": "insufficient_data"
+      "consecutive_status": "insufficient_data",
+      "period_returns": {
+        "3m": {
+          "period": "3m",
+          "start_date": "2026-04-17",
+          "end_date": "2026-07-17",
+          "fund_return": -4.8857,
+          "proxy_return": -4.4836,
+          "excess_return_percentage_points": -0.4022,
+          "status": "negative",
+          "reason": "Fund and CTA proxy use identical start and end dates."
+        },
+        "6m": {
+          "period": "6m",
+          "start_date": "2026-01-16",
+          "end_date": "2026-07-17",
+          "fund_return": -6.087,
+          "proxy_return": -6.5657,
+          "excess_return_percentage_points": 0.4787,
+          "status": "positive",
+          "reason": "Fund and CTA proxy use identical start and end dates."
+        },
+        "1y": {
+          "period": "1y",
+          "start_date": "2025-07-17",
+          "end_date": "2026-07-17",
+          "fund_return": 3.7156,
+          "proxy_return": 4.2411,
+          "excess_return_percentage_points": -0.5256,
+          "status": "negative",
+          "reason": "Fund and CTA proxy use identical start and end dates."
+        }
+      }
     },
     {
       "fund_code": "B23070",
@@ -246,7 +443,39 @@
       "legacy_proxy_etf": "XLE",
       "proxy_changed_at": "2026-07-20",
       "completed_months": [],
-      "consecutive_status": "insufficient_data"
+      "consecutive_status": "insufficient_data",
+      "period_returns": {
+        "3m": {
+          "period": "3m",
+          "start_date": "2026-04-17",
+          "end_date": "2026-07-17",
+          "fund_return": -0.7513,
+          "proxy_return": 1.653,
+          "excess_return_percentage_points": -2.4044,
+          "status": "negative",
+          "reason": "Fund and CTA proxy use identical start and end dates."
+        },
+        "6m": {
+          "period": "6m",
+          "start_date": "2026-01-16",
+          "end_date": "2026-07-17",
+          "fund_return": 25.0615,
+          "proxy_return": 21.0407,
+          "excess_return_percentage_points": 4.0208,
+          "status": "positive",
+          "reason": "Fund and CTA proxy use identical start and end dates."
+        },
+        "1y": {
+          "period": "1y",
+          "start_date": "2025-07-17",
+          "end_date": "2026-07-17",
+          "fund_return": 45.7832,
+          "proxy_return": 36.5631,
+          "excess_return_percentage_points": 9.2201,
+          "status": "positive",
+          "reason": "Fund and CTA proxy use identical start and end dates."
+        }
+      }
     }
   ]
 }
