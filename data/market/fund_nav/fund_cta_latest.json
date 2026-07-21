@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.1",
+  "schema_version": "1.2",
   "metric": "Onecool Fund NAV CTA",
   "source": "OnecoolOS committed fund NAV history",
   "engine": "shared_onecool_cta_engine",
@@ -14,11 +14,13 @@
       "SMA30",
       "SMA50"
     ],
-    "rules": "Onecool CTA v1 fixed rule",
+    "rules": "Onecool CTA v2 weekly crossover priority",
     "cross_detection": {
       "daily": "SMA50 crosses SMA200",
       "weekly": "SMA30 crosses SMA50",
-      "delta_rule": "cross_status is non-NONE only on the crossing period"
+      "delta_rule": "cross_status is non-NONE only on the crossing period",
+      "priority": "weekly crossover > daily crossover > alignment",
+      "phase": "NEW, CONFIRMED, ACTIVE, AGING"
     }
   },
   "results": [
@@ -33,10 +35,10 @@
       "daily_200ma": 46.170795,
       "weekly_30ma": 51.225883,
       "weekly_50ma": 44.08063,
-      "fund_cta": "HOLD",
+      "fund_cta": "BUY",
       "data_quality": "sufficient_history",
       "nav_observations": 1801,
-      "reason": "Long-term structure remains intact but momentum is mixed.",
+      "reason": "Weekly golden cross remains confirmed or active.",
       "benchmark_cta": "HOLD",
       "signal_alignment": "mixed_or_neutral",
       "daily_cross": {
@@ -45,7 +47,8 @@
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2025-07-07",
         "periods_since_cross": 247,
-        "spread_pct": 40.281358
+        "spread_pct": 40.281358,
+        "phase": "AGING"
       },
       "weekly_cross": {
         "alignment": "GOLDEN",
@@ -53,7 +56,8 @@
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2025-08-15",
         "periods_since_cross": 47,
-        "spread_pct": 16.209508
+        "spread_pct": 16.209508,
+        "phase": "ACTIVE"
       }
     },
     {
@@ -70,16 +74,17 @@
       "fund_cta": "SELL",
       "data_quality": "sufficient_history",
       "nav_observations": 2572,
-      "reason": "Price and both daily/weekly trend structures are bearish.",
-      "benchmark_cta": "HOLD",
-      "signal_alignment": "mixed_or_neutral",
+      "reason": "Weekly death cross remains confirmed or active.",
+      "benchmark_cta": "SELL",
+      "signal_alignment": "joint_weakness",
       "daily_cross": {
         "alignment": "DEATH",
         "cross_status": "NONE",
         "last_cross_status": "DEATH",
         "last_cross_date": "2026-01-13",
         "periods_since_cross": 114,
-        "spread_pct": -1.549186
+        "spread_pct": -1.549186,
+        "phase": "AGING"
       },
       "weekly_cross": {
         "alignment": "DEATH",
@@ -87,7 +92,8 @@
         "last_cross_status": "DEATH",
         "last_cross_date": "2026-03-06",
         "periods_since_cross": 19,
-        "spread_pct": -1.990908
+        "spread_pct": -1.990908,
+        "phase": "ACTIVE"
       }
     },
     {
@@ -95,16 +101,16 @@
       "fund_name": "施羅德環球-環球黃金美元A累積",
       "benchmark_etf": "RING",
       "theme": "黃金",
-      "fund_nav_as_of": "2026-07-17",
-      "nav": 337.0462,
-      "daily_50ma": 396.152378,
-      "daily_200ma": 412.559033,
-      "weekly_30ma": 433.323837,
-      "weekly_50ma": 388.753644,
+      "fund_nav_as_of": "2026-07-20",
+      "nav": 337.9944,
+      "daily_50ma": 393.766034,
+      "daily_200ma": 412.541003,
+      "weekly_30ma": 430.554647,
+      "weekly_50ma": 390.554862,
       "fund_cta": "WATCH",
       "data_quality": "sufficient_history",
-      "nav_observations": 2591,
-      "reason": "A long-term trend line is broken or both trend slopes weakened.",
+      "nav_observations": 2592,
+      "reason": "Weekly golden trend remains, but daily trend weakened.",
       "benchmark_cta": "WATCH",
       "signal_alignment": "joint_weakness",
       "daily_cross": {
@@ -112,16 +118,18 @@
         "cross_status": "NONE",
         "last_cross_status": "DEATH",
         "last_cross_date": "2026-07-06",
-        "periods_since_cross": 9,
-        "spread_pct": -3.976802
+        "periods_since_cross": 10,
+        "spread_pct": -4.551055,
+        "phase": "ACTIVE"
       },
       "weekly_cross": {
         "alignment": "GOLDEN",
         "cross_status": "NONE",
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2024-04-26",
-        "periods_since_cross": 116,
-        "spread_pct": 11.464894
+        "periods_since_cross": 117,
+        "spread_pct": 10.241784,
+        "phase": "AGING"
       }
     },
     {
@@ -129,16 +137,16 @@
       "fund_name": "富蘭克林坦伯頓-生技領航A(acc)",
       "benchmark_etf": "IBB",
       "theme": "生技",
-      "fund_nav_as_of": "2026-07-17",
-      "nav": 70.01,
-      "daily_50ma": 65.0582,
-      "daily_200ma": 59.9187,
-      "weekly_30ma": 61.997,
-      "weekly_50ma": 57.4526,
+      "fund_nav_as_of": "2026-07-20",
+      "nav": 68.52,
+      "daily_50ma": 65.1376,
+      "daily_200ma": 60.021,
+      "weekly_30ma": 62.282,
+      "weekly_50ma": 58.0156,
       "fund_cta": "BUY",
       "data_quality": "sufficient_history",
-      "nav_observations": 6830,
-      "reason": "Price and both daily/weekly trend structures are bullish.",
+      "nav_observations": 6831,
+      "reason": "Weekly golden cross remains confirmed or active.",
       "benchmark_cta": "BUY",
       "signal_alignment": "confirmed_strength",
       "daily_cross": {
@@ -146,16 +154,18 @@
         "cross_status": "NONE",
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2025-08-15",
-        "periods_since_cross": 230,
-        "spread_pct": 8.577456
+        "periods_since_cross": 231,
+        "spread_pct": 8.524683,
+        "phase": "AGING"
       },
       "weekly_cross": {
         "alignment": "GOLDEN",
         "cross_status": "NONE",
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2025-10-17",
-        "periods_since_cross": 39,
-        "spread_pct": 7.909825
+        "periods_since_cross": 40,
+        "spread_pct": 7.353884,
+        "phase": "ACTIVE"
       }
     },
     {
@@ -163,33 +173,35 @@
       "fund_name": "貝萊德世界礦業A2美元",
       "benchmark_etf": "PICK",
       "theme": "礦業",
-      "fund_nav_as_of": "2026-07-17",
-      "nav": 96.88,
-      "daily_50ma": 107.8544,
-      "daily_200ma": 101.8182,
-      "weekly_30ma": 107.73,
-      "weekly_50ma": 97.2062,
-      "fund_cta": "WATCH",
+      "fund_nav_as_of": "2026-07-20",
+      "nav": 97.37,
+      "daily_50ma": 107.5516,
+      "daily_200ma": 101.89225,
+      "weekly_30ma": 107.745,
+      "weekly_50ma": 97.756,
+      "fund_cta": "BUY",
       "data_quality": "sufficient_history",
-      "nav_observations": 7602,
-      "reason": "A long-term trend line is broken or both trend slopes weakened.",
-      "benchmark_cta": "HOLD",
-      "signal_alignment": "mixed_or_neutral",
+      "nav_observations": 7603,
+      "reason": "Weekly golden cross remains confirmed or active.",
+      "benchmark_cta": "BUY",
+      "signal_alignment": "confirmed_strength",
       "daily_cross": {
         "alignment": "GOLDEN",
         "cross_status": "NONE",
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2025-06-24",
-        "periods_since_cross": 267,
-        "spread_pct": 5.92841
+        "periods_since_cross": 268,
+        "spread_pct": 5.55425,
+        "phase": "AGING"
       },
       "weekly_cross": {
         "alignment": "GOLDEN",
         "cross_status": "NONE",
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2025-08-14",
-        "periods_since_cross": 48,
-        "spread_pct": 10.826264
+        "periods_since_cross": 49,
+        "spread_pct": 10.218299,
+        "phase": "ACTIVE"
       }
     },
     {
@@ -197,16 +209,16 @@
       "fund_name": "景順環球消費趨勢基金A美元",
       "benchmark_etf": "RXI",
       "theme": "消費",
-      "fund_nav_as_of": "2026-07-17",
-      "nav": 90.72,
-      "daily_50ma": 102.4632,
-      "daily_200ma": 95.7764,
-      "weekly_30ma": 93.975667,
-      "weekly_50ma": 95.586,
-      "fund_cta": "WATCH",
+      "fund_nav_as_of": "2026-07-20",
+      "nav": 92.26,
+      "daily_50ma": 102.279,
+      "daily_200ma": 95.71015,
+      "weekly_30ma": 93.830667,
+      "weekly_50ma": 95.5782,
+      "fund_cta": "SELL",
       "data_quality": "sufficient_history",
-      "nav_observations": 8245,
-      "reason": "A long-term trend line is broken or both trend slopes weakened.",
+      "nav_observations": 8246,
+      "reason": "Weekly death cross remains confirmed or active.",
       "benchmark_cta": "SELL",
       "signal_alignment": "joint_weakness",
       "daily_cross": {
@@ -214,16 +226,18 @@
         "cross_status": "NONE",
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2026-06-05",
-        "periods_since_cross": 29,
-        "spread_pct": 6.981678
+        "periods_since_cross": 30,
+        "spread_pct": 6.863274,
+        "phase": "ACTIVE"
       },
       "weekly_cross": {
         "alignment": "DEATH",
         "cross_status": "NONE",
         "last_cross_status": "DEATH",
         "last_cross_date": "2026-05-15",
-        "periods_since_cross": 9,
-        "spread_pct": -1.684696
+        "periods_since_cross": 10,
+        "spread_pct": -1.828381,
+        "phase": "ACTIVE"
       }
     },
     {
@@ -231,33 +245,35 @@
       "fund_name": "施羅德環球-環球能源A1累積",
       "benchmark_etf": "IXC",
       "theme": "能源",
-      "fund_nav_as_of": "2026-07-17",
-      "nav": 25.7593,
-      "daily_50ma": 26.072966,
-      "daily_200ma": 23.037475,
-      "weekly_30ma": 24.65639,
-      "weekly_50ma": 22.298088,
-      "fund_cta": "HOLD",
+      "fund_nav_as_of": "2026-07-20",
+      "nav": 25.8681,
+      "daily_50ma": 26.06116,
+      "daily_200ma": 23.073748,
+      "weekly_30ma": 24.875643,
+      "weekly_50ma": 22.456832,
+      "fund_cta": "BUY",
       "data_quality": "sufficient_history",
-      "nav_observations": 9508,
-      "reason": "Long-term structure remains intact but momentum is mixed.",
+      "nav_observations": 9509,
+      "reason": "Weekly golden cross remains confirmed or active.",
       "benchmark_cta": "BUY",
-      "signal_alignment": "mixed_or_neutral",
+      "signal_alignment": "confirmed_strength",
       "daily_cross": {
         "alignment": "GOLDEN",
         "cross_status": "NONE",
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2025-07-11",
-        "periods_since_cross": 257,
-        "spread_pct": 13.176318
+        "periods_since_cross": 258,
+        "spread_pct": 12.947233,
+        "phase": "AGING"
       },
       "weekly_cross": {
         "alignment": "GOLDEN",
         "cross_status": "NONE",
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2025-09-26",
-        "periods_since_cross": 42,
-        "spread_pct": 10.576252
+        "periods_since_cross": 43,
+        "spread_pct": 10.770937,
+        "phase": "ACTIVE"
       }
     }
   ]
