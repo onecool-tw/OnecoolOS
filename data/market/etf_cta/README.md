@@ -13,13 +13,24 @@ complete action history by date, and recalculates every adjusted close and CTA.
 If a new raw close moves more than 35% in one session, that symbol receives an
 immediate two-call action refresh as split protection.
 
-CTA uses one cutoff date per symbol and one implementation:
+CTA uses one cutoff date per symbol and one shared implementation.  Crossovers
+have priority over static alignment, and weekly signals have priority over
+daily signals:
 
 - Daily adjusted close: SMA50 and SMA200.
 - Weekly last-trading-day adjusted close: SMA30 and SMA50.
-- `BUY`: price > daily 50 > daily 200 and price > weekly 30 > weekly 50.
-- `SELL`: price < daily 50 < daily 200 and price < weekly 30 < weekly 50.
-- `WATCH`: a long-term average is broken, or both slopes are bearish.
-- `HOLD`: all remaining mixed but non-SELL states.
+- Weekly `GOLDEN` cross: `BUY`; weekly `DEATH` cross: `SELL`.
+- A daily cross can confirm a weekly signal or soften it by one level, but it
+  cannot reverse the weekly signal by itself.
+- Crossover phase is `NEW`, `CONFIRMED`, `ACTIVE`, or `AGING`. Weekly phases
+  use 0, 1-4, 5-52, and 53+ weekly periods; daily phases use 0, 1-5, 6-60,
+  and 61+ daily observations.
+- An aging weekly golden trend without renewed daily strength is `HOLD`.
+- An active weekly death trend remains `SELL`; an opposing daily golden cross
+  softens it to `WATCH` pending weekly confirmation.
+
+`alignment` remains an explanatory field. `cross_status` is non-`NONE` only
+on the actual crossing period, so a persistent alignment is never mislabeled
+as a new crossover.
 
 Provider failures are fatal. There is no silent runtime fallback.

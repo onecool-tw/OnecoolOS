@@ -58,7 +58,13 @@ def test_payload_declares_shared_engine() -> None:
     payload = fund_cta_payload([result])
 
     assert payload["engine"] == "shared_onecool_cta_engine"
-    assert payload["schema_version"] == "1.1"
+    assert payload["schema_version"] == "1.2"
+    assert payload["method"]["cross_detection"]["priority"].startswith(
+        "weekly crossover"
+    )
+    assert payload["results"][0]["weekly_cross"]["phase"] in {
+        "NEW", "CONFIRMED", "ACTIVE", "AGING"
+    }
     assert (
         payload["method"]["cross_detection"]["daily"]
         == "SMA50 crosses SMA200"

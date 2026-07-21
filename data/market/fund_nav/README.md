@@ -25,3 +25,7 @@ date is the latest common valuation date on or before the target anniversary
 and must be within 10 calendar days. Missing or misaligned data returns
 `unknown`, never a guessed value. Three completed monthly snapshots are
 retained in the JSON result for the Onecool three-month decision rule.
+
+Fund NAV CTA reuses the same crossover-first engine as ETF CTA. Weekly
+MA30/MA50 crossovers lead the decision, while daily SMA50/SMA200 crossovers
+serve as confirmation or warning and cannot reverse a weekly signal alone.

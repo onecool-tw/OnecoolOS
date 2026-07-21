@@ -3,6 +3,7 @@ from datetime import date, timedelta
 import pytest
 
 from onecool_os.market.etf_cta import (
+    CrossSignal,
     ACTION_REFRESH_GROUPS,
     CONFIRMATION_SYMBOLS,
     MARKET_SYMBOLS,
@@ -11,11 +12,49 @@ from onecool_os.market.etf_cta import (
     DailyBar,
     ETFCTAError,
     calculate_cta,
+    cross_priority_cta,
     apply_corporate_actions,
     has_new_price_anomaly,
     merge_and_adjust,
     parse_alpha_vantage,
 )
+
+
+def cross(
+    *,
+    alignment: str,
+    cross_status: str = "NONE",
+    phase: str = "AGING",
+) -> CrossSignal:
+    return CrossSignal(
+        alignment=alignment,
+        cross_status=cross_status,
+        last_cross_status=(cross_status if cross_status != "NONE" else alignment),
+        last_cross_date=None,
+        periods_since_cross=None,
+        spread_pct=0.0,
+        phase=phase,
+    )
+
+
+def test_weekly_new_cross_has_highest_cta_priority() -> None:
+    daily_death = cross(alignment="DEATH", cross_status="DEATH", phase="NEW")
+    weekly_golden = cross(alignment="GOLDEN", cross_status="GOLDEN", phase="NEW")
+    assert cross_priority_cta(daily_death, weekly_golden)[0] == "BUY"
+
+    daily_golden = cross(alignment="GOLDEN", cross_status="GOLDEN", phase="NEW")
+    weekly_death = cross(alignment="DEATH", cross_status="DEATH", phase="NEW")
+    assert cross_priority_cta(daily_golden, weekly_death)[0] == "SELL"
+
+
+def test_daily_cross_can_only_confirm_or_soften_weekly_trend() -> None:
+    weekly_golden = cross(alignment="GOLDEN", phase="ACTIVE")
+    daily_death = cross(alignment="DEATH", cross_status="DEATH", phase="NEW")
+    assert cross_priority_cta(daily_death, weekly_golden)[0] == "WATCH"
+
+    weekly_death = cross(alignment="DEATH", phase="ACTIVE")
+    daily_golden = cross(alignment="GOLDEN", cross_status="GOLDEN", phase="NEW")
+    assert cross_priority_cta(daily_golden, weekly_death)[0] == "WATCH"
 
 
 def test_market_symbols_separate_proxies_from_confirmations() -> None:
@@ -183,7 +222,7 @@ def test_merge_does_not_double_adjust_provider_adjusted_split() -> None:
     assert history[2].adjusted_close == pytest.approx(52)
 
 
-def test_calculate_cta_buy() -> None:
+def test_calculate_cta_uses_aging_golden_cross_as_hold() -> None:
     start = date(2020, 1, 1)
     history = [
         bar(
@@ -196,7 +235,7 @@ def test_calculate_cta_buy() -> None:
 
     result = calculate_cta("QQQ", history)
 
-    assert result.cta == "BUY"
+    assert result.cta == "HOLD"
     assert result.daily_50ma > result.daily_200ma
     assert result.weekly_30ma > result.weekly_50ma
 
@@ -230,6 +269,7 @@ def test_calculate_cta_reports_new_daily_golden_cross() -> None:
     )
     assert result.daily_cross.periods_since_cross == 0
     assert result.daily_cross.spread_pct > 0
+    assert result.daily_cross.phase == "NEW"
 
 
 def test_calculate_cta_reports_new_daily_death_cross() -> None:
@@ -251,3 +291,4 @@ def test_calculate_cta_reports_new_daily_death_cross() -> None:
     assert result.daily_cross.cross_status == "DEATH"
     assert result.daily_cross.periods_since_cross == 0
     assert result.daily_cross.spread_pct < 0
+    assert result.daily_cross.phase == "NEW"
