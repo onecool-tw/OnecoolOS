@@ -1,15 +1,20 @@
 # ETF CTA history
 
 This directory is the reviewable GitHub history for the seven Fund Watchlist
-CTA proxy ETFs: AIQ, SMIN, RING, IBB, PICK, RXI, and IXC. SMH and GLD are
-confirmation signals only and are not used to calculate Onecool Excess Return.
+CTA proxy ETFs: AIQ, SMIN, RING, IBB, PICK, RXI, and IXC. GLD and WTI are
+auxiliary confirmation signals only and are not used to calculate Onecool
+Excess Return. GLD confirms the gold-metal trend behind RING; WTI confirms the
+oil-price trend behind IXC. They remain hidden in normal reports unless they
+diverge, form a new crossover, or the formal fund/benchmark signal weakens.
 
 The first successful workflow run seeds five years of raw OHLC, dividend, and
 split observations through the project's existing `yfinance` dependency. Every
 subsequent run uses Alpha Vantage free-tier endpoints. Daily runs request
-`TIME_SERIES_DAILY` once per ETF (7 calls total). Friday UTC also requests
-`DIVIDENDS` and `SPLITS` for every ETF (14 additional weekly calls), merges the
-complete action history by date, and recalculates every adjusted close and CTA.
+`TIME_SERIES_DAILY` once per ETF plus one WTI daily-series request. Corporate
+actions are split into two API-safe groups: five ETFs receive dividend and
+split refreshes on Thursday UTC (10 extra calls), and three receive them on
+Friday UTC (6 extra calls). The workflow merges complete action history by
+date and recalculates every adjusted close and CTA.
 If a new raw close moves more than 35% in one session, that symbol receives an
 immediate two-call action refresh as split protection.
 

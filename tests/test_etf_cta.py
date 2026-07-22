@@ -5,8 +5,11 @@ import pytest
 from onecool_os.market.etf_cta import (
     CrossSignal,
     ACTION_REFRESH_GROUPS,
+    COMMODITY_CONFIRMATION_SYMBOLS,
+    EQUITY_MARKET_SYMBOLS,
     CONFIRMATION_SYMBOLS,
     MARKET_SYMBOLS,
+    RETIRED_SYMBOLS,
     WATCHLIST_SYMBOLS,
     AlphaVantageClient,
     DailyBar,
@@ -17,6 +20,7 @@ from onecool_os.market.etf_cta import (
     has_new_price_anomaly,
     merge_and_adjust,
     parse_alpha_vantage,
+    parse_alpha_vantage_wti,
 )
 
 
@@ -61,11 +65,14 @@ def test_market_symbols_separate_proxies_from_confirmations() -> None:
     assert WATCHLIST_SYMBOLS == (
         "AIQ", "SMIN", "RING", "IBB", "PICK", "RXI", "IXC"
     )
-    assert CONFIRMATION_SYMBOLS == ("SMH", "GLD")
-    assert MARKET_SYMBOLS == WATCHLIST_SYMBOLS + CONFIRMATION_SYMBOLS
+    assert CONFIRMATION_SYMBOLS == ("GLD",)
+    assert COMMODITY_CONFIRMATION_SYMBOLS == ("WTI",)
+    assert EQUITY_MARKET_SYMBOLS == WATCHLIST_SYMBOLS + CONFIRMATION_SYMBOLS
+    assert MARKET_SYMBOLS == EQUITY_MARKET_SYMBOLS + COMMODITY_CONFIRMATION_SYMBOLS
+    assert RETIRED_SYMBOLS == ("SMH",)
     assert set(ACTION_REFRESH_GROUPS["group_a"]) | set(
         ACTION_REFRESH_GROUPS["group_b"]
-    ) == set(MARKET_SYMBOLS)
+    ) == set(EQUITY_MARKET_SYMBOLS)
     assert not set(ACTION_REFRESH_GROUPS["group_a"]) & set(
         ACTION_REFRESH_GROUPS["group_b"]
     )
@@ -155,6 +162,40 @@ def test_daily_fetch_can_request_full_history_with_one_request() -> None:
 
     assert len(urls) == 1
     assert "outputsize=full" in urls[0]
+
+
+def test_parse_wti_skips_missing_values_and_sets_adjusted_close() -> None:
+    parsed = parse_alpha_vantage_wti(
+        {
+            "data": [
+                {"date": "2026-07-20", "value": "."},
+                {"date": "2026-07-21", "value": "77.25"},
+            ]
+        }
+    )
+
+    assert len(parsed) == 1
+    assert parsed[0].close == 77.25
+    assert parsed[0].adjusted_close == 77.25
+    assert parsed[0].source == "alpha_vantage_wti_eia_fred"
+
+
+def test_wti_fetch_uses_one_request_without_equity_parameters() -> None:
+    urls = []
+    response = b'{"data":[{"date":"2026-07-21","value":"77.25"}]}'
+    client = AlphaVantageClient(
+        "secret",
+        request=lambda url: urls.append(url) or response,
+        sleeper=lambda _: None,
+        request_spacing_seconds=0,
+    )
+
+    assert len(client.fetch_wti_daily()) == 1
+    assert len(urls) == 1
+    assert "function=WTI" in urls[0]
+    assert "interval=daily" in urls[0]
+    assert "symbol=" not in urls[0]
+    assert "outputsize=" not in urls[0]
 
 
 def test_action_refresh_backfills_existing_history() -> None:

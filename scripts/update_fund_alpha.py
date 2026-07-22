@@ -37,12 +37,17 @@ def update(root: Path) -> dict:
     fund_cta_results = []
     benchmark_cta_path = root / "data" / "market" / "etf_cta" / "cta_latest.json"
     benchmark_ctas = {}
+    benchmark_records = {}
     if benchmark_cta_path.exists():
         benchmark_payload = json.loads(
             benchmark_cta_path.read_text(encoding="utf-8")
         )
         benchmark_ctas = {
             item["symbol"]: item.get("cta")
+            for item in benchmark_payload.get("results", [])
+        }
+        benchmark_records = {
+            item["symbol"]: item
             for item in benchmark_payload.get("results", [])
         }
 
@@ -81,6 +86,9 @@ def update(root: Path) -> dict:
                 fund_code,
                 fund_history,
                 benchmark_cta=benchmark_ctas.get(benchmark),
+                auxiliary_signal=benchmark_records.get(
+                    {"B23554": "GLD", "B23070": "WTI"}.get(fund_code, "")
+                ),
             )
         )
 

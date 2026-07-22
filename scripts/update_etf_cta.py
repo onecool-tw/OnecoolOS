@@ -10,7 +10,9 @@ from pathlib import Path
 
 from onecool_os.market.etf_cta import (
     ACTION_REFRESH_GROUPS,
-    MARKET_SYMBOLS,
+    COMMODITY_CONFIRMATION_SYMBOLS,
+    EQUITY_MARKET_SYMBOLS,
+    RETIRED_SYMBOLS,
     AlphaVantageClient,
     DailyBar,
     ETFCTAError,
@@ -63,7 +65,9 @@ def update(
     client = AlphaVantageClient(api_key)
     results = []
     action_refreshes = []
-    for symbol in MARKET_SYMBOLS:
+    for symbol in RETIRED_SYMBOLS:
+        (data_dir / "history" / f"{symbol}.csv").unlink(missing_ok=True)
+    for symbol in EQUITY_MARKET_SYMBOLS:
         path = data_dir / "history" / f"{symbol}.csv"
         existing = read_history(path)
         if not existing:
@@ -93,8 +97,16 @@ def update(
         write_history(path, history)
         results.append(asdict(calculate_cta(symbol, history)))
 
+    for symbol in COMMODITY_CONFIRMATION_SYMBOLS:
+        if symbol != "WTI":
+            raise ETFCTAError(f"Unsupported commodity confirmation: {symbol}.")
+        path = data_dir / "history" / f"{symbol}.csv"
+        history = merge_and_adjust(read_history(path), client.fetch_wti_daily())
+        write_history(path, history)
+        results.append(asdict(calculate_cta(symbol, history)))
+
     payload = {
-        "schema_version": "1.2",
+        "schema_version": "1.3",
         "method": {
             "daily": ["adjusted_close", "SMA50", "SMA200"],
             "weekly": ["last_trading_day_adjusted_close", "SMA30", "SMA50"],
@@ -108,6 +120,14 @@ def update(
             },
         },
         "action_refreshes": action_refreshes,
+        "auxiliary_confirmation_policy": {
+            "GLD": "gold spot proxy; context only for RING/fund divergence",
+            "WTI": "oil spot series; context only for IXC/fund divergence",
+            "visibility": (
+                "hidden unless divergent, newly crossed, or formal signal weakens"
+            ),
+            "decision_use": "never independently triggers or reverses DCA action",
+        },
         "results": results,
     }
     data_dir.mkdir(parents=True, exist_ok=True)
