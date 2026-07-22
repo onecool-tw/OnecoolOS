@@ -5,6 +5,8 @@ from onecool_os.market.fund_cta import (
     calculate_fund_cta,
     classify_signal_alignment,
     fund_cta_payload,
+    dca_action,
+    technical_conclusion,
 )
 
 
@@ -19,14 +21,16 @@ def nav_history(days: int, *, rising: bool = True) -> list[FundNav]:
     ]
 
 
-def test_fund_cta_reuses_shared_engine_for_buy() -> None:
+def test_fund_cta_reuses_shared_engine_for_rising_history() -> None:
     result = calculate_fund_cta(
         "A10124", nav_history(400), benchmark_cta="BUY"
     )
 
-    assert result.fund_cta == "BUY"
+    # A rising synthetic history has bullish alignment, but no recent weekly
+    # crossover event; weekly-priority CTA therefore correctly returns HOLD.
+    assert result.fund_cta == "HOLD"
     assert result.data_quality == "sufficient_history"
-    assert result.signal_alignment == "confirmed_strength"
+    assert result.signal_alignment == "mixed_or_neutral"
     assert result.nav_observations == 400
     assert result.fund_nav_as_of == "2026-02-04"
     assert result.daily_cross is not None
@@ -58,15 +62,25 @@ def test_payload_declares_shared_engine() -> None:
     payload = fund_cta_payload([result])
 
     assert payload["engine"] == "shared_onecool_cta_engine"
-    assert payload["schema_version"] == "1.2"
+    assert payload["schema_version"] == "1.3"
     assert payload["method"]["cross_detection"]["priority"].startswith(
         "weekly crossover"
     )
-    assert payload["results"][0]["weekly_cross"]["phase"] in {
-        "NEW", "CONFIRMED", "ACTIVE", "AGING"
-    }
+    # Synthetic monotonic history need not contain an observable crossover.
+    assert payload["results"][0]["weekly_cross"]["phase"] == "UNKNOWN"
     assert (
         payload["method"]["cross_detection"]["daily"]
         == "SMA50 crosses SMA200"
     )
     assert payload["results"][0]["fund_code"] == "A10124"
+
+
+def test_joint_sell_is_explicit_but_does_not_auto_redeem() -> None:
+    assert technical_conclusion("SELL", "SELL") == "SELL"
+    assert dca_action("SELL", "SELL") == "REVIEW_DCA"
+
+
+def test_non_joint_sell_keeps_dca_separate() -> None:
+    assert technical_conclusion("SELL", "WATCH") == "WATCH"
+    assert dca_action("SELL", "WATCH") == "MAINTAIN_DCA"
+    assert dca_action(None, "SELL") == "DATA_REVIEW"

@@ -36,6 +36,8 @@ class FundCTAResult:
     signal_alignment: str = "unknown"
     daily_cross: CrossSignal | None = None
     weekly_cross: CrossSignal | None = None
+    technical_conclusion: str = "UNKNOWN"
+    dca_action: str = "DATA_REVIEW"
 
 
 def calculate_fund_cta(
@@ -81,6 +83,8 @@ def calculate_fund_cta(
             nav_observations=len(navs),
             reason=str(exc),
             benchmark_cta=benchmark_cta,
+            technical_conclusion="UNKNOWN",
+            dca_action="DATA_REVIEW",
         )
 
     return FundCTAResult(
@@ -102,7 +106,27 @@ def calculate_fund_cta(
         signal_alignment=classify_signal_alignment(benchmark_cta, cta.cta),
         daily_cross=cta.daily_cross,
         weekly_cross=cta.weekly_cross,
+        technical_conclusion=technical_conclusion(benchmark_cta, cta.cta),
+        dca_action=dca_action(benchmark_cta, cta.cta),
     )
+
+
+def technical_conclusion(benchmark_cta: str | None, fund_cta: str) -> str:
+    """Keep the technical verdict separate from the DCA disposition."""
+
+    if benchmark_cta == "SELL" and fund_cta == "SELL":
+        return "SELL"
+    return fund_cta if fund_cta in {"BUY", "HOLD", "WATCH", "SELL"} else "UNKNOWN"
+
+
+def dca_action(benchmark_cta: str | None, fund_cta: str) -> str:
+    """A technical SELL triggers review; it never implies automatic redemption."""
+
+    if benchmark_cta == "SELL" and fund_cta == "SELL":
+        return "REVIEW_DCA"
+    if benchmark_cta not in {"BUY", "HOLD", "WATCH", "SELL"}:
+        return "DATA_REVIEW"
+    return "MAINTAIN_DCA"
 
 
 def classify_signal_alignment(
@@ -129,10 +153,14 @@ def fund_cta_payload(results: Iterable[FundCTAResult]) -> dict[str, Any]:
     """Build the cache consumed by Fund Intelligence without provider calls."""
 
     return {
-        "schema_version": "1.2",
+        "schema_version": "1.3",
         "metric": "Onecool Fund NAV CTA",
         "source": "OnecoolOS committed fund NAV history",
         "engine": "shared_onecool_cta_engine",
+        "decision_layers": {
+            "technical_conclusion": "trend verdict; SELL is explicit when fund and benchmark are both SELL",
+            "dca_action": "periodic-investment disposition; REVIEW_DCA is not automatic redemption",
+        },
         "method": {
             "daily": ["fund_nav", "SMA50", "SMA200"],
             "weekly": ["last_published_nav", "SMA30", "SMA50"],

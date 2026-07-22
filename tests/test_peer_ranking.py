@@ -98,3 +98,18 @@ def test_ranking_bands_use_percentile_won() -> None:
     assert ranking_band(25) == "BELOW_AVERAGE"
     assert ranking_band(24) == "WEAK"
     assert ranking_band(None) == "UNKNOWN"
+
+
+def test_world_mining_broad_peer_group_is_context_only() -> None:
+    result = parse_cnyes_peer_ranking(
+        HTML.replace("群益印度中小基金-美元", "貝萊德世界礦業基金 A2").replace(
+            "股票-印度美元", "產業-天然資源美元"
+        ),
+        fund_code="B09007",
+        source_url="https://example.test",
+        page_name="貝萊德世界礦業基金 A2",
+    )
+
+    assert result.peer_scope == "broad_natural_resources"
+    assert result.strategy_match == "PARTIAL"
+    assert result.decision_use == "CONTEXT_ONLY"
