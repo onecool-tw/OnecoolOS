@@ -28,6 +28,14 @@ CNYES_FUND_PAGES = {
     "B23070": ("B23,070", "施羅德環球基金系列－環球能源(美元)A1-累積"),
 }
 
+PEER_SCOPE_OVERRIDES = {
+    "B09007": {
+        "peer_scope": "broad_natural_resources",
+        "strategy_match": "PARTIAL",
+        "decision_use": "CONTEXT_ONLY",
+    }
+}
+
 
 @dataclass(frozen=True)
 class PeerRanking:
@@ -48,6 +56,9 @@ class PeerRanking:
     data_quality: str
     ranking_band: str
     reason: str
+    peer_scope: str = "published_category"
+    strategy_match: str = "FULL"
+    decision_use: str = "DECISION_SUPPORT"
 
 
 class _VisibleText(HTMLParser):
@@ -125,6 +136,7 @@ def parse_cnyes_peer_ranking(
     p3, p6, p1 = (rank_values[PERIOD_INDEX[key]] for key in ("3m", "6m", "1y"))
     if any(value < 0 or value > 100 for value in (p3, p6, p1)):
         raise ValueError(f"Invalid Cnyes percentile for {fund_code}.")
+    scope = PEER_SCOPE_OVERRIDES.get(fund_code, {})
     return PeerRanking(
         fund_code=fund_code,
         fund_name=name,
@@ -145,6 +157,7 @@ def parse_cnyes_peer_ranking(
             if category
             else "Published peer percentile; Cnyes category label unavailable."
         ),
+        **scope,
     )
 
 
@@ -190,6 +203,7 @@ def refresh_peer_rankings(
                         data_quality="UNKNOWN",
                         ranking_band="UNKNOWN",
                         reason=f"No valid published ranking: {type(exc).__name__}.",
+                        **PEER_SCOPE_OVERRIDES.get(fund_code, {}),
                     )
                 )
     return peer_ranking_payload(results)
@@ -197,7 +211,7 @@ def refresh_peer_rankings(
 
 def peer_ranking_payload(results: list[PeerRanking]) -> dict[str, Any]:
     return {
-        "schema_version": "1.0",
+        "schema_version": "1.1",
         "metric": "Onecool Peer Ranking",
         "source_policy": {
             "ssot": "Cnyes published Morningstar peer ranking",
@@ -206,6 +220,10 @@ def peer_ranking_payload(results: list[PeerRanking]) -> dict[str, Any]:
         },
         "periods": ["3m", "6m", "1y"],
         "decision_role": "third_layer_manager_selection_quality",
+        "scope_policy": {
+            "FULL": "published category is suitable for decision support",
+            "PARTIAL": "broader category is context only and cannot trigger an action",
+        },
         "results": [asdict(item) for item in results],
     }
 
