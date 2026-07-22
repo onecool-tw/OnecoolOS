@@ -15,11 +15,14 @@ from urllib.request import urlopen
 
 
 WATCHLIST_SYMBOLS = ("AIQ", "SMIN", "RING", "IBB", "PICK", "RXI", "IXC")
-CONFIRMATION_SYMBOLS = ("SMH", "GLD")
-MARKET_SYMBOLS = WATCHLIST_SYMBOLS + CONFIRMATION_SYMBOLS
+CONFIRMATION_SYMBOLS = ("GLD",)
+COMMODITY_CONFIRMATION_SYMBOLS = ("WTI",)
+EQUITY_MARKET_SYMBOLS = WATCHLIST_SYMBOLS + CONFIRMATION_SYMBOLS
+MARKET_SYMBOLS = EQUITY_MARKET_SYMBOLS + COMMODITY_CONFIRMATION_SYMBOLS
+RETIRED_SYMBOLS = ("SMH",)
 ACTION_REFRESH_GROUPS = {
     "group_a": ("AIQ", "SMIN", "RING", "IBB", "PICK"),
-    "group_b": ("RXI", "IXC", "SMH", "GLD"),
+    "group_b": ("RXI", "IXC", "GLD"),
 }
 HISTORY_FIELDS = (
     "date",
@@ -132,20 +135,31 @@ class AlphaVantageClient:
             self._query("SPLITS", symbol),
         )
 
+    def fetch_wti_daily(self) -> list[DailyBar]:
+        """Fetch the EIA/FRED WTI daily series with one API request."""
+
+        return parse_alpha_vantage_wti(
+            self._query("WTI", None, outputsize=None, interval="daily")
+        )
+
     def _query(
-        self, function: str, symbol: str, *, outputsize: str = "compact"
+        self,
+        function: str,
+        symbol: str | None,
+        *,
+        outputsize: str | None = "compact",
+        **parameters: str,
     ) -> dict[str, Any]:
         if self._has_requested:
             self._sleep(self.request_spacing_seconds)
         self._has_requested = True
-        query = urlencode(
-            {
-                "function": function,
-                "symbol": symbol,
-                "outputsize": outputsize,
-                "apikey": self.api_key,
-            }
-        )
+        query_parameters = {"function": function, "apikey": self.api_key}
+        if symbol is not None:
+            query_parameters["symbol"] = symbol
+        if outputsize is not None:
+            query_parameters["outputsize"] = outputsize
+        query_parameters.update(parameters)
+        query = urlencode(query_parameters)
         url = f"{self.endpoint}?{query}"
         payload: dict[str, Any] = {}
         last_error: Exception | None = None
@@ -161,13 +175,15 @@ class AlphaVantageClient:
                 self._sleep(retry_delay)
         if payload.get("Note") or not payload:
             raise ETFCTAError(
-                f"Alpha Vantage request failed for {symbol}/{function} "
+                "Alpha Vantage request failed for "
+                f"{symbol or 'commodity'}/{function} "
                 f"after 4 attempts: {last_error}"
             ) from last_error
         message = payload.get("Error Message") or payload.get("Information")
         if message:
             raise ETFCTAError(
-                f"Alpha Vantage rejected {symbol}/{function}: {message}"
+                "Alpha Vantage rejected "
+                f"{symbol or 'commodity'}/{function}: {message}"
             )
         return payload
 
@@ -203,6 +219,35 @@ def parse_alpha_vantage_daily(daily_payload: dict[str, Any]) -> list[DailyBar]:
                 volume=int(_float(values.get("5. volume"), 0.0)),
             )
         )
+    return sorted(bars, key=lambda bar: bar.trading_date)
+
+
+def parse_alpha_vantage_wti(payload: dict[str, Any]) -> list[DailyBar]:
+    """Normalize the WTI daily commodity series without futures-roll artifacts."""
+
+    observations = payload.get("data")
+    if not isinstance(observations, list) or not observations:
+        raise ETFCTAError("Alpha Vantage WTI response contains no observations.")
+    bars = []
+    for item in observations:
+        raw_value = item.get("value")
+        if not item.get("date") or raw_value in {None, "."}:
+            continue
+        value = _float(raw_value)
+        bars.append(
+            DailyBar(
+                trading_date=date.fromisoformat(item["date"]),
+                open=value,
+                high=value,
+                low=value,
+                close=value,
+                volume=0,
+                adjusted_close=value,
+                source="alpha_vantage_wti_eia_fred",
+            )
+        )
+    if not bars:
+        raise ETFCTAError("Alpha Vantage WTI response has no valid values.")
     return sorted(bars, key=lambda bar: bar.trading_date)
 
 

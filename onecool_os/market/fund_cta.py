@@ -38,6 +38,11 @@ class FundCTAResult:
     weekly_cross: CrossSignal | None = None
     technical_conclusion: str = "UNKNOWN"
     dca_action: str = "DATA_REVIEW"
+    auxiliary_symbol: str | None = None
+    auxiliary_cta: str | None = None
+    auxiliary_alignment: str = "not_applicable"
+    auxiliary_visibility: str = "HIDE"
+    auxiliary_reason: str = "No auxiliary confirmation configured."
 
 
 def calculate_fund_cta(
@@ -45,6 +50,7 @@ def calculate_fund_cta(
     history: Iterable[FundNav],
     *,
     benchmark_cta: str | None = None,
+    auxiliary_signal: dict[str, Any] | None = None,
 ) -> FundCTAResult:
     """Calculate a fund NAV CTA with the exact shared CTA implementation."""
 
@@ -67,6 +73,9 @@ def calculate_fund_cta(
     try:
         cta = calculate_cta(fund_code, bars)
     except ETFCTAError as exc:
+        auxiliary = classify_auxiliary_confirmation(
+            benchmark_cta, "UNKNOWN", auxiliary_signal
+        )
         return FundCTAResult(
             fund_code=fund_code,
             fund_name=name,
@@ -85,8 +94,12 @@ def calculate_fund_cta(
             benchmark_cta=benchmark_cta,
             technical_conclusion="UNKNOWN",
             dca_action="DATA_REVIEW",
+            **auxiliary,
         )
 
+    auxiliary = classify_auxiliary_confirmation(
+        benchmark_cta, cta.cta, auxiliary_signal
+    )
     return FundCTAResult(
         fund_code=fund_code,
         fund_name=name,
@@ -108,7 +121,61 @@ def calculate_fund_cta(
         weekly_cross=cta.weekly_cross,
         technical_conclusion=technical_conclusion(benchmark_cta, cta.cta),
         dca_action=dca_action(benchmark_cta, cta.cta),
+        **auxiliary,
     )
+
+
+def classify_auxiliary_confirmation(
+    benchmark_cta: str | None,
+    fund_cta: str,
+    auxiliary_signal: dict[str, Any] | None,
+) -> dict[str, str | None]:
+    """Show GLD/WTI only when they add decision-relevant context."""
+
+    if not auxiliary_signal:
+        return {
+            "auxiliary_symbol": None,
+            "auxiliary_cta": None,
+            "auxiliary_alignment": "not_applicable",
+            "auxiliary_visibility": "HIDE",
+            "auxiliary_reason": "No auxiliary confirmation configured.",
+        }
+    symbol = auxiliary_signal.get("symbol")
+    auxiliary_cta = auxiliary_signal.get("cta")
+    strong = {"BUY", "HOLD"}
+    weak = {"WATCH", "SELL"}
+    divergent = (
+        benchmark_cta in strong and auxiliary_cta in weak
+    ) or (
+        benchmark_cta in weak and auxiliary_cta in strong
+    )
+    phases = {
+        (auxiliary_signal.get(period) or {}).get("phase")
+        for period in ("daily_cross", "weekly_cross")
+    }
+    new_cross = bool(phases & {"NEW", "CONFIRMED"})
+    formal_weakness = benchmark_cta in weak or fund_cta in weak
+    visibility = "SHOW" if divergent or new_cross or formal_weakness else "HIDE"
+    if divergent:
+        alignment = "DIVERGENT"
+        reason = "Auxiliary commodity trend diverges from the formal benchmark."
+    elif auxiliary_cta in {"BUY", "HOLD", "WATCH", "SELL"}:
+        alignment = "CONFIRMS"
+        reason = "Auxiliary commodity trend confirms the formal benchmark."
+    else:
+        alignment = "UNKNOWN"
+        reason = "Auxiliary commodity signal is unavailable."
+    if new_cross:
+        reason += " A new or confirming auxiliary crossover requires disclosure."
+    elif formal_weakness:
+        reason += " Formal fund/benchmark weakness requires auxiliary context."
+    return {
+        "auxiliary_symbol": str(symbol) if symbol else None,
+        "auxiliary_cta": str(auxiliary_cta) if auxiliary_cta else None,
+        "auxiliary_alignment": alignment,
+        "auxiliary_visibility": visibility,
+        "auxiliary_reason": reason,
+    }
 
 
 def technical_conclusion(benchmark_cta: str | None, fund_cta: str) -> str:
@@ -153,13 +220,19 @@ def fund_cta_payload(results: Iterable[FundCTAResult]) -> dict[str, Any]:
     """Build the cache consumed by Fund Intelligence without provider calls."""
 
     return {
-        "schema_version": "1.3",
+        "schema_version": "1.4",
         "metric": "Onecool Fund NAV CTA",
         "source": "OnecoolOS committed fund NAV history",
         "engine": "shared_onecool_cta_engine",
         "decision_layers": {
             "technical_conclusion": "trend verdict; SELL is explicit when fund and benchmark are both SELL",
             "dca_action": "periodic-investment disposition; REVIEW_DCA is not automatic redemption",
+        },
+        "auxiliary_confirmation": {
+            "gold": "GLD confirms RING",
+            "energy": "WTI confirms IXC",
+            "visibility": "SHOW only for divergence, NEW/CONFIRMED crossover, or formal weakness",
+            "decision_use": "context only; never independently changes DCA action",
         },
         "method": {
             "daily": ["fund_nav", "SMA50", "SMA200"],

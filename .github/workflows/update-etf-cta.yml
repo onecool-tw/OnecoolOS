@@ -49,8 +49,8 @@ jobs:
             args+=(--allow-bootstrap)
           fi
           # Split corporate-action reconciliation across Thursday and Friday
-          # UTC so the nine daily prices plus action calls stay below the
-          # Alpha Vantage free daily request limit.
+          # UTC so eight ETF prices, one WTI series, and action calls stay
+          # below the Alpha Vantage free daily request limit.
           if [[ "${{ inputs.refresh_actions_group }}" != "" && "${{ inputs.refresh_actions_group }}" != "none" ]]; then
             args+=(--refresh-actions-group "${{ inputs.refresh_actions_group }}")
           elif [[ "${{ github.event_name }}" == "schedule" && "$(date -u +%u)" == "4" ]]; then

@@ -6,6 +6,7 @@ from onecool_os.market.fund_cta import (
     classify_signal_alignment,
     fund_cta_payload,
     dca_action,
+    classify_auxiliary_confirmation,
     technical_conclusion,
 )
 
@@ -62,7 +63,7 @@ def test_payload_declares_shared_engine() -> None:
     payload = fund_cta_payload([result])
 
     assert payload["engine"] == "shared_onecool_cta_engine"
-    assert payload["schema_version"] == "1.3"
+    assert payload["schema_version"] == "1.4"
     assert payload["method"]["cross_detection"]["priority"].startswith(
         "weekly crossover"
     )
@@ -84,3 +85,43 @@ def test_non_joint_sell_keeps_dca_separate() -> None:
     assert technical_conclusion("SELL", "WATCH") == "WATCH"
     assert dca_action("SELL", "WATCH") == "MAINTAIN_DCA"
     assert dca_action(None, "SELL") == "DATA_REVIEW"
+
+
+def auxiliary(symbol: str, cta: str, phase: str = "AGING") -> dict:
+    cross = {"phase": phase}
+    return {
+        "symbol": symbol,
+        "cta": cta,
+        "daily_cross": cross,
+        "weekly_cross": cross,
+    }
+
+
+def test_auxiliary_confirmation_stays_hidden_when_normal() -> None:
+    result = classify_auxiliary_confirmation(
+        "BUY", "BUY", auxiliary("GLD", "BUY")
+    )
+
+    assert result["auxiliary_alignment"] == "CONFIRMS"
+    assert result["auxiliary_visibility"] == "HIDE"
+
+
+def test_auxiliary_confirmation_shows_on_divergence() -> None:
+    result = classify_auxiliary_confirmation(
+        "BUY", "BUY", auxiliary("WTI", "SELL")
+    )
+
+    assert result["auxiliary_alignment"] == "DIVERGENT"
+    assert result["auxiliary_visibility"] == "SHOW"
+
+
+def test_auxiliary_confirmation_shows_new_cross_or_formal_weakness() -> None:
+    new_cross = classify_auxiliary_confirmation(
+        "BUY", "BUY", auxiliary("GLD", "BUY", "NEW")
+    )
+    weak = classify_auxiliary_confirmation(
+        "SELL", "SELL", auxiliary("WTI", "SELL")
+    )
+
+    assert new_cross["auxiliary_visibility"] == "SHOW"
+    assert weak["auxiliary_visibility"] == "SHOW"
