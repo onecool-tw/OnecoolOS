@@ -30,11 +30,20 @@ def load_fund_intelligence_context(root: Path) -> dict[str, Any]:
         if peer_path.exists()
         else None
     )
+    rotation_path = (
+        root / "data" / "market" / "stockq_rotation" / "rotation_latest.json"
+    )
+    rotation_radar = (
+        json.loads(rotation_path.read_text(encoding="utf-8"))
+        if rotation_path.exists()
+        else None
+    )
     return {
-        "schema_version": "1.1",
+        "schema_version": "1.2",
         "source_policy": "github_cache_only",
         "fund_alpha": alpha,
         "fund_cta": fund_cta,
         "peer_ranking": peer_ranking,
+        "stockq_rotation_radar": rotation_radar,
         "market_dashboard": load_latest_dashboard(root),
     }
