@@ -1,0 +1,290 @@
+{
+  "schema_version": "1.0",
+  "as_of": "2026-07-23",
+  "source": "https://www.stockq.org/market/",
+  "source_policy": "StockQ rankings and related-fund tables; no estimation",
+  "rules": {
+    "stage1": "Top 15 in 1M, 3M and 6M; 3/3=PASS, 2/3=WATCH",
+    "stage2": "Only PASS markets; fund 1M/3M/6M/1Y must all be positive",
+    "fund_score_weights": {
+      "一個月": 0.2,
+      "三個月": 0.3,
+      "六個月": 0.3,
+      "一年": 0.2
+    },
+    "decision_use": "OPPORTUNITY_RADAR_ONLY"
+  },
+  "passed_markets": [
+    {
+      "market": "泰國",
+      "index_url": "https://www.stockq.org/index/SET.php",
+      "appearances": 3,
+      "ranks": {
+        "一個月": 4,
+        "三個月": 5,
+        "六個月": 5
+      },
+      "returns": {
+        "一個月": 6.5,
+        "三個月": 12.3,
+        "六個月": 24.85
+      },
+      "breadth_score": 34,
+      "stage1": "PASS",
+      "stage2": "PASS",
+      "funds": [
+        {
+          "name": "野村泰國基金/台幣",
+          "returns": {
+            "一個月": 4.28,
+            "三個月": 6.91,
+            "六個月": 19.89,
+            "一年": 46.57
+          },
+          "consistency_score": 92.31
+        },
+        {
+          "name": "摩根泰國基金/美元",
+          "returns": {
+            "一個月": 3.22,
+            "三個月": 5.32,
+            "六個月": 14.82,
+            "一年": 29.36
+          },
+          "consistency_score": 73.85
+        },
+        {
+          "name": "富達泰國基金/美元",
+          "returns": {
+            "一個月": 5.1,
+            "三個月": 4.09,
+            "六個月": 13.26,
+            "一年": 21.0
+          },
+          "consistency_score": 72.31
+        }
+      ]
+    },
+    {
+      "market": "新加坡",
+      "index_url": "https://www.stockq.org/index/FSSTI.php",
+      "appearances": 3,
+      "ranks": {
+        "一個月": 5,
+        "三個月": 7,
+        "六個月": 13
+      },
+      "returns": {
+        "一個月": 5.62,
+        "三個月": 11.21,
+        "六個月": 12.41
+      },
+      "breadth_score": 23,
+      "stage1": "PASS",
+      "stage2": "PASS",
+      "funds": [
+        {
+          "name": "利安資金新加坡信託基金/新元",
+          "returns": {
+            "一個月": 3.98,
+            "三個月": 7.86,
+            "六個月": 23.72,
+            "一年": 36.23
+          },
+          "consistency_score": 89.33
+        },
+        {
+          "name": "利安資金新加坡均衡基金/美元",
+          "returns": {
+            "一個月": 2.85,
+            "三個月": 10.68,
+            "六個月": 17.32,
+            "一年": 35.09
+          },
+          "consistency_score": 82.67
+        },
+        {
+          "name": "新加坡大華新加坡增長基金/星幣",
+          "returns": {
+            "一個月": 3.55,
+            "三個月": 9.01,
+            "六個月": 14.14,
+            "一年": 29.47
+          },
+          "consistency_score": 78.0
+        }
+      ]
+    },
+    {
+      "market": "波蘭股市",
+      "index_url": "https://www.stockq.org/index/WIG.php",
+      "appearances": 3,
+      "ranks": {
+        "一個月": 7,
+        "三個月": 12,
+        "六個月": 8
+      },
+      "returns": {
+        "一個月": 4.51,
+        "三個月": 9.32,
+        "六個月": 17.43
+      },
+      "breadth_score": 21,
+      "stage1": "PASS",
+      "stage2": "NO_ELIGIBLE_FUND",
+      "funds": []
+    }
+  ],
+  "watch_markets": [
+    {
+      "market": "費城半導體",
+      "index_url": "https://www.stockq.org/index/SOX.php",
+      "appearances": 2,
+      "ranks": {
+        "三個月": 1,
+        "六個月": 1
+      },
+      "returns": {
+        "三個月": 22.48,
+        "六個月": 55.11
+      },
+      "breadth_score": 30,
+      "stage1": "WATCH"
+    },
+    {
+      "market": "台灣加權",
+      "index_url": "https://www.stockq.org/index/TWSE.php",
+      "appearances": 2,
+      "ranks": {
+        "三個月": 2,
+        "六個月": 4
+      },
+      "returns": {
+        "三個月": 18.92,
+        "六個月": 40.33
+      },
+      "breadth_score": 26,
+      "stage1": "WATCH"
+    },
+    {
+      "market": "日經225",
+      "index_url": "https://www.stockq.org/index/NKY.php",
+      "appearances": 2,
+      "ranks": {
+        "三個月": 4,
+        "六個月": 6
+      },
+      "returns": {
+        "三個月": 12.31,
+        "六個月": 23.35
+      },
+      "breadth_score": 22,
+      "stage1": "WATCH"
+    },
+    {
+      "market": "韓國",
+      "index_url": "https://www.stockq.org/index/KOSPI.php",
+      "appearances": 2,
+      "ranks": {
+        "三個月": 10,
+        "六個月": 3
+      },
+      "returns": {
+        "三個月": 9.59,
+        "六個月": 42.22
+      },
+      "breadth_score": 19,
+      "stage1": "WATCH"
+    },
+    {
+      "market": "挪威股市",
+      "index_url": "https://www.stockq.org/index/OBX.php",
+      "appearances": 2,
+      "ranks": {
+        "一個月": 9,
+        "六個月": 7
+      },
+      "returns": {
+        "一個月": 3.92,
+        "六個月": 19.06
+      },
+      "breadth_score": 16,
+      "stage1": "WATCH"
+    },
+    {
+      "market": "NBI生技",
+      "index_url": "https://www.stockq.org/index/NBI.php",
+      "appearances": 2,
+      "ranks": {
+        "一個月": 6,
+        "三個月": 11
+      },
+      "returns": {
+        "一個月": 5.51,
+        "三個月": 9.41
+      },
+      "breadth_score": 15,
+      "stage1": "WATCH"
+    },
+    {
+      "market": "奧地利",
+      "index_url": "https://www.stockq.org/index/ATX.php",
+      "appearances": 2,
+      "ranks": {
+        "三個月": 8,
+        "六個月": 9
+      },
+      "returns": {
+        "三個月": 11.1,
+        "六個月": 17.03
+      },
+      "breadth_score": 15,
+      "stage1": "WATCH"
+    },
+    {
+      "market": "埃及股市",
+      "index_url": "https://www.stockq.org/index/EGX30.php",
+      "appearances": 2,
+      "ranks": {
+        "一個月": 8,
+        "六個月": 10
+      },
+      "returns": {
+        "一個月": 4.18,
+        "六個月": 16.08
+      },
+      "breadth_score": 14,
+      "stage1": "WATCH"
+    },
+    {
+      "market": "丹麥股市",
+      "index_url": "https://www.stockq.org/index/KFX.php",
+      "appearances": 2,
+      "ranks": {
+        "一個月": 13,
+        "三個月": 6
+      },
+      "returns": {
+        "一個月": 2.57,
+        "三個月": 11.4
+      },
+      "breadth_score": 13,
+      "stage1": "WATCH"
+    },
+    {
+      "market": "匈牙利",
+      "index_url": "https://www.stockq.org/index/BUX.php",
+      "appearances": 2,
+      "ranks": {
+        "一個月": 11,
+        "六個月": 11
+      },
+      "returns": {
+        "一個月": 3.5,
+        "六個月": 15.28
+      },
+      "breadth_score": 10,
+      "stage1": "WATCH"
+    }
+  ]
+}
