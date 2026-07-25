@@ -25,16 +25,16 @@ from onecool_os.market.etf_cta import (
 )
 
 
-def bootstrap_yahoo(symbol: str) -> list[DailyBar]:
-    """Create a one-time five-year raw seed using the existing dependency."""
+def fetch_yahoo_daily(symbol: str, *, period: str = "10d") -> list[DailyBar]:
+    """Fetch raw Yahoo daily bars without consuming Alpha Vantage quota."""
 
     import yfinance as yf
 
     frame = yf.Ticker(symbol).history(
-        period="5y", auto_adjust=False, actions=True
+        period=period, auto_adjust=False, actions=True
     )
     if frame.empty:
-        raise ETFCTAError(f"Yahoo bootstrap returned no history for {symbol}.")
+        raise ETFCTAError(f"Yahoo returned no history for {symbol}.")
     bars = []
     for timestamp, row in frame.iterrows():
         bars.append(
@@ -47,10 +47,21 @@ def bootstrap_yahoo(symbol: str) -> list[DailyBar]:
                 volume=int(row["Volume"]),
                 dividend=float(row.get("Dividends", 0.0)),
                 split_factor=float(row.get("Stock Splits", 0.0)) or 1.0,
-                source="yahoo_bootstrap",
+                source=("yahoo_bootstrap" if period == "5y" else "yahoo_daily"),
             )
         )
     return bars
+
+
+def bootstrap_yahoo(symbol: str) -> list[DailyBar]:
+    """Create a one-time five-year raw seed using the existing dependency."""
+
+    return fetch_yahoo_daily(symbol, period="5y")
+
+
+def _is_alpha_vantage_rate_limit(error: ETFCTAError) -> bool:
+    message = str(error).lower()
+    return "rate limit" in message or "requests per day" in message
 
 
 def update(
@@ -65,6 +76,7 @@ def update(
     client = AlphaVantageClient(api_key)
     results = []
     action_refreshes = []
+    data_status = []
     for symbol in RETIRED_SYMBOLS:
         (data_dir / "history" / f"{symbol}.csv").unlink(missing_ok=True)
     for symbol in EQUITY_MARKET_SYMBOLS:
@@ -76,7 +88,7 @@ def update(
                     f"{symbol} history is missing; rerun with --allow-bootstrap."
                 )
             existing = bootstrap_yahoo(symbol)
-        incoming = client.fetch_daily(symbol)
+        incoming = fetch_yahoo_daily(symbol)
         anomaly = has_new_price_anomaly(existing, incoming)
         should_refresh_actions = (
             refresh_actions
@@ -85,25 +97,69 @@ def update(
         )
         combined = merge_and_adjust(existing, incoming)
         if should_refresh_actions:
-            combined = apply_corporate_actions(
-                combined,
-                client.fetch_actions(symbol),
-                authoritative=True,
-            )
-            action_refreshes.append(
-                {"symbol": symbol, "reason": "anomaly" if anomaly else "weekly"}
-            )
+            try:
+                combined = apply_corporate_actions(
+                    combined,
+                    client.fetch_actions(symbol),
+                    authoritative=True,
+                )
+                action_refreshes.append(
+                    {
+                        "symbol": symbol,
+                        "reason": "anomaly" if anomaly else "weekly",
+                    }
+                )
+            except ETFCTAError as error:
+                if not _is_alpha_vantage_rate_limit(error):
+                    raise
+                data_status.append(
+                    {
+                        "symbol": symbol,
+                        "dataset": "corporate_actions",
+                        "status": "STALE",
+                        "reason": "alpha_vantage_daily_quota",
+                    }
+                )
         history = merge_and_adjust([], combined)
         write_history(path, history)
         results.append(asdict(calculate_cta(symbol, history)))
+        data_status.append(
+            {
+                "symbol": symbol,
+                "dataset": "daily_price",
+                "status": "CURRENT",
+                "source": "yahoo",
+                "as_of": history[-1].trading_date.isoformat(),
+            }
+        )
 
     for symbol in COMMODITY_CONFIRMATION_SYMBOLS:
         if symbol != "WTI":
             raise ETFCTAError(f"Unsupported commodity confirmation: {symbol}.")
         path = data_dir / "history" / f"{symbol}.csv"
-        history = merge_and_adjust(read_history(path), client.fetch_wti_daily())
+        existing = read_history(path)
+        try:
+            history = merge_and_adjust(existing, client.fetch_wti_daily())
+            wti_status = "CURRENT"
+            wti_reason = None
+        except ETFCTAError as error:
+            if not existing or not _is_alpha_vantage_rate_limit(error):
+                raise
+            history = existing
+            wti_status = "STALE"
+            wti_reason = "alpha_vantage_daily_quota"
         write_history(path, history)
         results.append(asdict(calculate_cta(symbol, history)))
+        status = {
+            "symbol": symbol,
+            "dataset": "daily_price",
+            "status": wti_status,
+            "source": "alpha_vantage_wti_eia_fred",
+            "as_of": history[-1].trading_date.isoformat(),
+        }
+        if wti_reason:
+            status["reason"] = wti_reason
+        data_status.append(status)
 
     payload = {
         "schema_version": "1.3",
@@ -120,6 +176,7 @@ def update(
             },
         },
         "action_refreshes": action_refreshes,
+        "data_status": data_status,
         "auxiliary_confirmation_policy": {
             "GLD": "gold spot proxy; context only for RING/fund divergence",
             "WTI": "oil spot series; context only for IXC/fund divergence",
