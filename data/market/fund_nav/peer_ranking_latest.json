@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.1",
   "metric": "Onecool Peer Ranking",
   "source_policy": {
     "ssot": "Cnyes published Morningstar peer ranking",
@@ -12,6 +12,10 @@
     "1y"
   ],
   "decision_role": "third_layer_manager_selection_quality",
+  "scope_policy": {
+    "FULL": "published category is suitable for decision support",
+    "PARTIAL": "broader category is context only and cannot trigger an action"
+  },
   "results": [
     {
       "fund_code": "A10124",
@@ -28,7 +32,10 @@
       "peer_average_1y": null,
       "data_quality": "UNKNOWN",
       "ranking_band": "UNKNOWN",
-      "reason": "No valid published ranking: HTTPError."
+      "reason": "No valid published ranking: HTTPError.",
+      "peer_scope": "published_category",
+      "strategy_match": "FULL",
+      "decision_use": "DECISION_SUPPORT"
     },
     {
       "fund_code": "A16075",
@@ -36,16 +43,19 @@
       "source": "cnyes_morningstar_published",
       "source_url": "https://fund.cnyes.com/detail/%E7%BE%A4%E7%9B%8A%E5%8D%B0%E5%BA%A6%E4%B8%AD%E5%B0%8F%E5%9F%BA%E9%87%91-%E7%BE%8E%E5%85%83/A16075",
       "category": "股票-印度美元",
-      "as_of": "2026-07-17",
-      "percentile_3m": 38,
-      "percentile_6m": 54,
-      "percentile_1y": 51,
-      "peer_average_3m": -0.55,
-      "peer_average_6m": -4.38,
-      "peer_average_1y": -2.98,
+      "as_of": "2026-07-23",
+      "percentile_3m": 26,
+      "percentile_6m": 78,
+      "percentile_1y": 65,
+      "peer_average_3m": 1.18,
+      "peer_average_6m": -2.05,
+      "peer_average_1y": -3.59,
       "data_quality": "VALID",
       "ranking_band": "ABOVE_AVERAGE",
-      "reason": "Published Cnyes/Morningstar peer percentile; no local reconstruction."
+      "reason": "Published Cnyes/Morningstar peer percentile; no local reconstruction.",
+      "peer_scope": "published_category",
+      "strategy_match": "FULL",
+      "decision_use": "DECISION_SUPPORT"
     },
     {
       "fund_code": "B23554",
@@ -53,16 +63,19 @@
       "source": "cnyes_morningstar_published",
       "source_url": "https://fund.cnyes.com/detail/%E6%96%BD%E7%BE%85%E5%BE%B7%E7%92%B0%E7%90%83%E5%9F%BA%E9%87%91%E7%B3%BB%E5%88%97%EF%BC%8D%E7%92%B0%E7%90%83%E9%BB%83%E9%87%91%28%E7%BE%8E%E5%85%83%29A-%E7%B4%AF%E7%A9%8D/B1MSY6T",
       "category": "貴金屬美元",
-      "as_of": "2026-07-20",
-      "percentile_3m": 22,
-      "percentile_6m": 60,
-      "percentile_1y": 86,
-      "peer_average_3m": -27.94,
-      "peer_average_6m": -25.51,
-      "peer_average_1y": 54.63,
+      "as_of": "2026-07-24",
+      "percentile_3m": 38,
+      "percentile_6m": 80,
+      "percentile_1y": 90,
+      "peer_average_3m": -18.76,
+      "peer_average_6m": -26.81,
+      "peer_average_1y": 57.8,
       "data_quality": "VALID",
       "ranking_band": "LEADING",
-      "reason": "Published Cnyes/Morningstar peer percentile; no local reconstruction."
+      "reason": "Published Cnyes/Morningstar peer percentile; no local reconstruction.",
+      "peer_scope": "published_category",
+      "strategy_match": "FULL",
+      "decision_use": "DECISION_SUPPORT"
     },
     {
       "fund_code": "B15080",
@@ -70,16 +83,19 @@
       "source": "cnyes_morningstar_published",
       "source_url": "https://fund.cnyes.com/detail/%E5%AF%8C%E8%98%AD%E5%85%8B%E6%9E%97%E5%9D%A6%E4%BC%AF%E9%A0%93%E5%85%A8%E7%90%83%E6%8A%95%E8%B3%87%E7%B3%BB%E5%88%97-%E7%94%9F%E6%8A%80%E9%A0%98%E8%88%AA%E5%9F%BA%E9%87%91%E7%BE%8E%E5%85%83A%28acc%29%E8%82%A1/B15,080",
       "category": "產業-生技醫療美元",
-      "as_of": "2026-07-17",
-      "percentile_3m": 83,
-      "percentile_6m": 96,
+      "as_of": "2026-07-24",
+      "percentile_3m": 85,
+      "percentile_6m": 97,
       "percentile_1y": 97,
-      "peer_average_3m": 4.92,
-      "peer_average_6m": 4.06,
-      "peer_average_1y": 35.94,
+      "peer_average_3m": 9.03,
+      "peer_average_6m": 2.93,
+      "peer_average_1y": 33.32,
       "data_quality": "VALID",
       "ranking_band": "LEADING",
-      "reason": "Published Cnyes/Morningstar peer percentile; no local reconstruction."
+      "reason": "Published Cnyes/Morningstar peer percentile; no local reconstruction.",
+      "peer_scope": "published_category",
+      "strategy_match": "FULL",
+      "decision_use": "DECISION_SUPPORT"
     },
     {
       "fund_code": "B09007",
@@ -87,16 +103,19 @@
       "source": "cnyes_morningstar_published",
       "source_url": "https://fund.cnyes.com/detail/%E8%B2%9D%E8%90%8A%E5%BE%B7%E4%B8%96%E7%95%8C%E7%A4%A6%E6%A5%AD%E5%9F%BA%E9%87%91%20A2/B09,007",
       "category": "產業-天然資源美元",
-      "as_of": "2026-07-20",
-      "percentile_3m": 12,
-      "percentile_6m": 16,
-      "percentile_1y": 84,
-      "peer_average_3m": -7.78,
-      "peer_average_6m": -2.31,
-      "peer_average_1y": 36.4,
+      "as_of": "2026-07-24",
+      "percentile_3m": 20,
+      "percentile_6m": 24,
+      "percentile_1y": 90,
+      "peer_average_3m": -4.2,
+      "peer_average_6m": -2.51,
+      "peer_average_1y": 36.78,
       "data_quality": "VALID",
       "ranking_band": "LEADING",
-      "reason": "Published Cnyes/Morningstar peer percentile; no local reconstruction."
+      "reason": "Published Cnyes/Morningstar peer percentile; no local reconstruction.",
+      "peer_scope": "broad_natural_resources",
+      "strategy_match": "PARTIAL",
+      "decision_use": "CONTEXT_ONLY"
     },
     {
       "fund_code": "B16019",
@@ -104,16 +123,19 @@
       "source": "cnyes_morningstar_published",
       "source_url": "https://fund.cnyes.com/detail/%E6%99%AF%E9%A0%86%E7%92%B0%E7%90%83%E6%B6%88%E8%B2%BB%E8%B6%A8%E5%8B%A2%E5%9F%BA%E9%87%91A%E8%82%A1%20%E7%BE%8E%E5%85%83/B16,019",
       "category": null,
-      "as_of": "2026-07-20",
+      "as_of": "2026-07-24",
       "percentile_3m": 80,
       "percentile_6m": 80,
       "percentile_1y": 80,
-      "peer_average_3m": 1.07,
-      "peer_average_6m": 3.4,
-      "peer_average_1y": 18.62,
+      "peer_average_3m": 2.0,
+      "peer_average_6m": 3.63,
+      "peer_average_1y": 18.24,
       "data_quality": "PARTIAL",
       "ranking_band": "LEADING",
-      "reason": "Published peer percentile; Cnyes category label unavailable."
+      "reason": "Published peer percentile; Cnyes category label unavailable.",
+      "peer_scope": "published_category",
+      "strategy_match": "FULL",
+      "decision_use": "DECISION_SUPPORT"
     },
     {
       "fund_code": "B23070",
@@ -121,16 +143,19 @@
       "source": "cnyes_morningstar_published",
       "source_url": "https://fund.cnyes.com/detail/%E6%96%BD%E7%BE%85%E5%BE%B7%E7%92%B0%E7%90%83%E5%9F%BA%E9%87%91%E7%B3%BB%E5%88%97%EF%BC%8D%E7%92%B0%E7%90%83%E8%83%BD%E6%BA%90%28%E7%BE%8E%E5%85%83%29A1-%E7%B4%AF%E7%A9%8D/B23,070",
       "category": "產業-能源美元",
-      "as_of": "2026-07-20",
-      "percentile_3m": 58,
-      "percentile_6m": 88,
-      "percentile_1y": 83,
-      "peer_average_3m": -1.25,
-      "peer_average_6m": 13.13,
-      "peer_average_1y": 45.66,
+      "as_of": "2026-07-24",
+      "percentile_3m": 65,
+      "percentile_6m": 85,
+      "percentile_1y": 85,
+      "peer_average_3m": -2.05,
+      "peer_average_6m": 12.2,
+      "peer_average_1y": 45.38,
       "data_quality": "VALID",
       "ranking_band": "LEADING",
-      "reason": "Published Cnyes/Morningstar peer percentile; no local reconstruction."
+      "reason": "Published Cnyes/Morningstar peer percentile; no local reconstruction.",
+      "peer_scope": "published_category",
+      "strategy_match": "FULL",
+      "decision_use": "DECISION_SUPPORT"
     }
   ]
 }
