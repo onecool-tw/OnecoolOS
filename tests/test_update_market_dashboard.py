@@ -77,6 +77,8 @@ def test_update_uses_av_for_us_and_yahoo_fallback_for_taiwan(
     ]
     assert all(call[0] != "daily:full" for call in FakeClient.calls)
     assert len(payload["results"]) == 11
+    assert payload["provider_by_symbol"]["SPY"] == "alpha_vantage"
+    assert payload["provider_by_symbol"]["VIX"] == "yahoo_finance"
     assert payload["cta_engine"] == "onecool_os.market.etf_cta.calculate_cta"
     latest = tmp_path / "data" / "market" / "dashboard" / "dashboard_latest.json"
     assert latest.exists()
@@ -84,7 +86,37 @@ def test_update_uses_av_for_us_and_yahoo_fallback_for_taiwan(
     assert len(list((latest.parent / "snapshots").glob("*.json"))) == 1
 
 
-def test_failed_update_keeps_last_successful_cache(tmp_path: Path, monkeypatch) -> None:
+def test_missing_api_key_uses_yahoo_for_all_symbols(
+    tmp_path: Path, monkeypatch
+) -> None:
+    class ClientMustNotBeCreated:
+        def __init__(self, api_key: str) -> None:
+            raise AssertionError("Alpha Vantage must not be created without a key")
+
+    monkeypatch.setattr(
+        update_market_dashboard, "AlphaVantageClient", ClientMustNotBeCreated
+    )
+    bootstrapper = FakeBootstrapper()
+    FakeBootstrapper.calls = []
+    FakeBootstrapper.adjusted_calls = []
+
+    payload = update_market_dashboard.update(
+        tmp_path, "", bootstrapper=bootstrapper
+    )
+
+    assert len(payload["results"]) == 11
+    assert FakeBootstrapper.adjusted_calls == [
+        config.provider_symbol for config in update_market_dashboard.MARKET_SYMBOLS
+    ]
+    assert set(payload["provider_by_symbol"].values()) == {
+        "yahoo_finance",
+        "yahoo_finance_fallback",
+    }
+
+
+def test_both_providers_failing_keeps_last_successful_cache(
+    tmp_path: Path, monkeypatch
+) -> None:
     dashboard = tmp_path / "data" / "market" / "dashboard"
     dashboard.mkdir(parents=True)
     latest = dashboard / "dashboard_latest.json"
@@ -94,13 +126,17 @@ def test_failed_update_keeps_last_successful_cache(tmp_path: Path, monkeypatch) 
         def fetch_actions(self, symbol: str):
             raise RuntimeError(f"provider failed for {symbol}")
 
+    class FailingBootstrapper(FakeBootstrapper):
+        def fetch_adjusted_daily(self, symbol: str):
+            raise RuntimeError(f"backup failed for {symbol}")
+
     monkeypatch.setattr(
         update_market_dashboard, "AlphaVantageClient", FailingClient
     )
 
-    with pytest.raises(RuntimeError, match="provider failed"):
+    with pytest.raises(RuntimeError, match="backup failed"):
         update_market_dashboard.update(
-            tmp_path, "secret", bootstrapper=FakeBootstrapper()
+            tmp_path, "secret", bootstrapper=FailingBootstrapper()
         )
 
     assert latest.read_text(encoding="utf-8") == '{"status":"last-success"}\n'
