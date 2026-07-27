@@ -71,14 +71,16 @@ def test_update_uses_av_for_us_and_yahoo_fallback_for_taiwan(
     )
 
     assert len(FakeClient.calls) == 15
-    assert len(FakeBootstrapper.calls) == 7
-    assert FakeBootstrapper.adjusted_calls == ["0050.TW", "2330.TW"]
+    assert len(FakeBootstrapper.calls) == 11
+    assert FakeBootstrapper.adjusted_calls == [
+        "^RUT", "0050.TW", "2330.TW", "^VIX", "DX-Y.NYB", "^TYX"
+    ]
     assert all(call[0] != "daily:full" for call in FakeClient.calls)
-    assert len(payload["results"]) == 7
+    assert len(payload["results"]) == 11
     assert payload["cta_engine"] == "onecool_os.market.etf_cta.calculate_cta"
     latest = tmp_path / "data" / "market" / "dashboard" / "dashboard_latest.json"
     assert latest.exists()
-    assert len(list((latest.parent / "history").glob("*.csv"))) == 7
+    assert len(list((latest.parent / "history").glob("*.csv"))) == 11
     assert len(list((latest.parent / "snapshots").glob("*.json"))) == 1
 
 
@@ -126,6 +128,10 @@ def test_existing_histories_skip_yahoo_bootstrap(tmp_path: Path, monkeypatch) ->
         tmp_path, "secret", bootstrapper=bootstrapper
     )
 
-    assert FakeBootstrapper.calls == ["0050.TW", "2330.TW"]
-    assert FakeBootstrapper.adjusted_calls == ["0050.TW", "2330.TW"]
+    assert FakeBootstrapper.calls == [
+        "^RUT", "0050.TW", "2330.TW", "^VIX", "DX-Y.NYB", "^TYX"
+    ]
+    assert FakeBootstrapper.adjusted_calls == [
+        "^RUT", "0050.TW", "2330.TW", "^VIX", "DX-Y.NYB", "^TYX"
+    ]
     assert len(FakeClient.calls) == 15

@@ -26,6 +26,7 @@ FUND_WATCHLIST = {
     "B23070": ("施羅德環球-環球能源A1累積", "IXC", "能源"),
 }
 PROXY_METHODOLOGY_CUTOVER = date(2026, 7, 20)
+LIVE_TRACKING_MATURITY_MONTHS = {"3m": 3, "6m": 6, "1y": 12}
 LEGACY_PROXY_ETFS = {
     "A10124": "QQQ",
     "B23554": "GLD",
@@ -323,7 +324,7 @@ def alpha_payload(
 
     current_list = list(current)
     return {
-        "schema_version": "2.1",
+        "schema_version": "2.2",
         "metric": "Onecool Excess Return",
         "definition": "fund_period_return - cta_proxy_etf_period_total_return",
         "periods": ["3m", "6m", "1y"],
@@ -343,10 +344,46 @@ def alpha_payload(
                     else None
                 ),
                 "completed_months_methodology": (
-                    "backfilled_new_benchmark"
+                    "historical_recast_current_proxy"
                     if result.fund_code in LEGACY_PROXY_ETFS
                     else "continuous_current_benchmark"
                 ),
+                "comparison_basis": (
+                    "HISTORICAL_RECAST"
+                    if result.fund_code in LEGACY_PROXY_ETFS
+                    else "CONTINUOUS_CURRENT_PROXY"
+                ),
+                "decision_use": (
+                    "CONTEXT_ONLY_UNTIL_MATURE"
+                    if result.fund_code in LEGACY_PROXY_ETFS
+                    else "DECISION_SUPPORT"
+                ),
+                "live_tracking_start": (
+                    PROXY_METHODOLOGY_CUTOVER.isoformat()
+                    if result.fund_code in LEGACY_PROXY_ETFS
+                    else None
+                ),
+                "live_tracking_status": {
+                    period: (
+                        "IMMATURE"
+                        if result.fund_code in LEGACY_PROXY_ETFS
+                        and date.today()
+                        < _previous_months(
+                            date(
+                                PROXY_METHODOLOGY_CUTOVER.year
+                                + (PROXY_METHODOLOGY_CUTOVER.month - 1 + months)
+                                // 12,
+                                (PROXY_METHODOLOGY_CUTOVER.month - 1 + months)
+                                % 12
+                                + 1,
+                                PROXY_METHODOLOGY_CUTOVER.day,
+                            ),
+                            0,
+                        )
+                        else "MATURE"
+                    )
+                    for period, months in LIVE_TRACKING_MATURITY_MONTHS.items()
+                },
                 "completed_months": [
                     asdict(item) for item in monthly[result.fund_code]
                 ],

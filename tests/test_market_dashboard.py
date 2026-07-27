@@ -34,11 +34,12 @@ def record(symbol: str, market: str, trend: str, cta: str) -> MarketCTA:
 
 def test_dashboard_symbols_are_fixed_and_provider_mapped() -> None:
     assert [item.symbol for item in MARKET_SYMBOLS] == [
-        "SPY", "QQQ", "DIA", "SOXX", "NVDA", "0050", "2330"
+        "SPY", "QQQ", "RUSSELL_2000", "DIA", "SOXX", "NVDA", "0050",
+        "2330", "VIX", "DXY", "US30Y",
     ]
-    assert [item.provider_symbol for item in MARKET_SYMBOLS[-2:]] == [
-        "0050.TW", "2330.TW"
-    ]
+    assert {item.symbol: item.provider_symbol for item in MARKET_SYMBOLS}[
+        "US30Y"
+    ] == "^TYX"
 
 
 def test_dashboard_record_uses_shared_cta_values() -> None:
@@ -86,6 +87,10 @@ def test_market_summary_is_deterministic_and_not_a_forecast() -> None:
     assert payload["provider_by_symbol"]["SPY"] == "alpha_vantage"
     assert payload["provider_by_symbol"]["0050"] == "yahoo_finance"
     assert payload["provider_by_symbol"]["2330"] == "yahoo_finance"
+    assert payload["provider_by_symbol"]["RUSSELL_2000"] == "yahoo_finance"
+    assert payload["provider_by_symbol"]["VIX"] == "yahoo_finance"
+    assert payload["provider_by_symbol"]["DXY"] == "yahoo_finance"
+    assert payload["provider_by_symbol"]["US30Y"] == "yahoo_finance"
     assert payload["history_bootstrap_provider"].startswith("yahoo_finance")
 
 
@@ -94,6 +99,11 @@ def test_cache_loader_and_fund_context_never_query_provider(tmp_path: Path) -> N
     fund_dir = tmp_path / "data" / "market" / "fund_nav"
     dashboard_dir.mkdir(parents=True)
     fund_dir.mkdir(parents=True)
+    prompt_dir = tmp_path / "config"
+    prompt_dir.mkdir()
+    prompt_dir.joinpath("fund_intelligence_master_prompt.md").write_text(
+        "版本：v1.0 Freeze\n", encoding="utf-8"
+    )
     (dashboard_dir / "dashboard_latest.json").write_text(
         json.dumps({"generated_at": "2026-07-19T00:00:00Z"}), encoding="utf-8"
     )
@@ -112,6 +122,7 @@ def test_cache_loader_and_fund_context_never_query_provider(tmp_path: Path) -> N
     assert load_latest_dashboard(tmp_path)["generated_at"]
     context = load_fund_intelligence_context(tmp_path)
     assert context["source_policy"] == "github_cache_only"
+    assert context["master_prompt"]["version"] == "v1.0 Freeze"
     assert context["market_dashboard"]["generated_at"]
     assert context["fund_alpha"] == {"results": []}
     assert context["fund_cta"] == {

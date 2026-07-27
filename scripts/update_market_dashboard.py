@@ -29,7 +29,7 @@ def update(
     *,
     bootstrapper: YahooHistoryBootstrapper | None = None,
 ) -> dict:
-    """Use AV for US symbols and an isolated Yahoo fallback for Taiwan."""
+    """Use AV for core US assets and Yahoo for unsupported context series."""
 
     data_dir = root / "data" / "market" / "dashboard"
     history_dir = data_dir / "history"
@@ -41,9 +41,10 @@ def update(
     # Fetch and calculate every symbol before replacing any successful cache.
     for config in MARKET_SYMBOLS:
         existing = read_history(history_dir / f"{config.symbol}.csv")
-        if config.market == "TW":
-            # Alpha Vantage rejects 0050.TW/2330.TW. Yahoo returns adjusted
-            # OHLC, so do not apply corporate actions a second time.
+        if config.market in {"TW", "CONTEXT"} or config.symbol == "RUSSELL_2000":
+            # Alpha Vantage rejects Taiwan tickers and the Yahoo-style index
+            # symbols used for macro context. Yahoo returns adjusted OHLC, so
+            # do not apply corporate actions a second time.
             history = merge_and_adjust(
                 [], history_bootstrapper.fetch_adjusted_daily(config.provider_symbol)
             )

@@ -3,7 +3,8 @@
 from __future__ import annotations
 
 from dataclasses import asdict, dataclass
-from datetime import datetime, timezone
+from calendar import monthrange
+from datetime import date, datetime, timezone
 from html.parser import HTMLParser
 from typing import Callable
 from urllib.parse import urljoin
@@ -73,6 +74,76 @@ class FundCandidate:
     name: str
     returns: dict[str, float]
     consistency_score: float
+
+
+@dataclass(frozen=True)
+class DatedValue:
+    """One same-date market or FX observation used for TWD conversion."""
+
+    value_date: date
+    value: float
+
+
+def calculate_twd_returns(
+    local_values: list[DatedValue],
+    twd_per_local_currency: list[DatedValue],
+    *,
+    as_of: date,
+) -> dict[str, dict[str, float | str | None]]:
+    """Calculate same-date 1W/1M TWD returns without filling missing dates."""
+
+    local = {item.value_date: item.value for item in local_values}
+    fx = {item.value_date: item.value for item in twd_per_local_currency}
+    common = sorted(day for day in local.keys() & fx.keys() if day <= as_of)
+    output: dict[str, dict[str, float | str | None]] = {}
+    if not common:
+        return {
+            period: _unknown_twd_period("No same-date market and FX observations.")
+            for period in ("1w", "1m")
+        }
+    end = common[-1]
+    previous_month = end.month - 1 or 12
+    previous_year = end.year if end.month > 1 else end.year - 1
+    targets = {
+        "1w": date.fromordinal(end.toordinal() - 7),
+        "1m": date(
+            previous_year,
+            previous_month,
+            min(end.day, monthrange(previous_year, previous_month)[1]),
+        ),
+    }
+    for period, target in targets.items():
+        candidates = [day for day in common if day <= target]
+        if not candidates:
+            output[period] = _unknown_twd_period(
+                f"No same-date {period} start observation.", end=end
+            )
+            continue
+        start = candidates[-1]
+        local_return = local[end] / local[start] - 1
+        fx_return = fx[end] / fx[start] - 1
+        twd_return = (1 + local_return) * (1 + fx_return) - 1
+        output[period] = {
+            "start_date": start.isoformat(),
+            "end_date": end.isoformat(),
+            "local_return_pct": round(local_return * 100, 4),
+            "fx_return_pct": round(fx_return * 100, 4),
+            "twd_return_pct": round(twd_return * 100, 4),
+            "status": "VALID",
+        }
+    return output
+
+
+def _unknown_twd_period(reason: str, *, end: date | None = None) -> dict:
+    return {
+        "start_date": None,
+        "end_date": end.isoformat() if end else None,
+        "local_return_pct": None,
+        "fx_return_pct": None,
+        "twd_return_pct": None,
+        "status": "UNKNOWN",
+        "reason": reason,
+    }
 
 
 def fetch_stockq_html(url: str, timeout: int = 25) -> str:
@@ -224,6 +295,7 @@ def build_rotation_radar(
     index_fetcher: Callable[[str], str],
     *,
     as_of: str | None = None,
+    twd_returns: dict[str, dict[str, dict]] | None = None,
 ) -> dict:
     markets = screen_markets(market_html)
     passed = []
@@ -238,13 +310,22 @@ def build_rotation_radar(
         passed.append(
             {
                 **asdict(market),
+                "twd_returns": (twd_returns or {}).get(
+                    market.market,
+                    {
+                        period: _unknown_twd_period(
+                            "Same-date FX conversion has not completed."
+                        )
+                        for period in ("1w", "1m")
+                    },
+                ),
                 "stage2": status,
                 "funds": [asdict(fund) for fund in funds],
             }
         )
 
     return {
-        "schema_version": "1.0",
+        "schema_version": "1.1",
         "as_of": as_of or datetime.now(timezone.utc).date().isoformat(),
         "source": STOCKQ_MARKET_URL,
         "source_policy": "StockQ rankings and related-fund tables; no estimation",
@@ -252,6 +333,8 @@ def build_rotation_radar(
             "stage1": "Top 15 in 1M, 3M and 6M; 3/3=PASS, 2/3=WATCH",
             "stage2": "Only PASS markets; fund 1M/3M/6M/1Y must all be positive",
             "fund_score_weights": FUND_WEIGHTS,
+            "twd_return_formula": "(1 + local_return) * (1 + fx_return) - 1",
+            "twd_date_rule": "local market and FX must use identical start/end dates",
             "decision_use": "OPPORTUNITY_RADAR_ONLY",
         },
         "passed_markets": passed,
