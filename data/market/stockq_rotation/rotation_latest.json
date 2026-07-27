@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.1",
   "as_of": "2026-07-24",
   "source": "https://www.stockq.org/market/",
   "source_policy": "StockQ rankings and related-fund tables; no estimation",
@@ -12,6 +12,8 @@
       "六個月": 0.3,
       "一年": 0.2
     },
+    "twd_return_formula": "(1 + local_return) * (1 + fx_return) - 1",
+    "twd_date_rule": "local market and FX must use identical start/end dates",
     "decision_use": "OPPORTUNITY_RADAR_ONLY"
   },
   "passed_markets": [
@@ -31,35 +33,53 @@
       },
       "breadth_score": 35,
       "stage1": "PASS",
+      "twd_returns": {
+        "1w": {
+          "start_date": "2026-07-10",
+          "end_date": "2026-07-17",
+          "local_return_pct": 1.0786,
+          "fx_return_pct": -0.241,
+          "twd_return_pct": 0.835,
+          "status": "VALID"
+        },
+        "1m": {
+          "start_date": "2026-06-17",
+          "end_date": "2026-07-17",
+          "local_return_pct": 3.2746,
+          "fx_return_pct": -1.0141,
+          "twd_return_pct": 2.2273,
+          "status": "VALID"
+        }
+      },
       "stage2": "PASS",
       "funds": [
         {
           "name": "野村泰國基金/台幣",
           "returns": {
-            "一個月": 6.35,
-            "三個月": 8.11,
-            "六個月": 17.84,
-            "一年": 42.29
+            "一個月": 6.91,
+            "三個月": 8.89,
+            "六個月": 18.99,
+            "一年": 44.58
           },
           "consistency_score": 97.69
         },
         {
           "name": "摩根泰國基金/美元",
           "returns": {
-            "一個月": 3.22,
-            "三個月": 5.32,
-            "六個月": 14.82,
-            "一年": 29.36
+            "一個月": 4.14,
+            "三個月": 6.06,
+            "六個月": 15.46,
+            "一年": 31.03
           },
-          "consistency_score": 73.85
+          "consistency_score": 79.23
         },
         {
-          "name": "群益東協成長基金/台幣",
+          "name": "富達泰國基金/美元",
           "returns": {
-            "一個月": 2.96,
-            "三個月": 9.95,
-            "六個月": 8.7,
-            "一年": 26.43
+            "一個月": 6.23,
+            "三個月": 4.74,
+            "六個月": 14.43,
+            "一年": 23.8
           },
           "consistency_score": 73.08
         }
@@ -81,6 +101,26 @@
       },
       "breadth_score": 31,
       "stage1": "PASS",
+      "twd_returns": {
+        "1w": {
+          "start_date": null,
+          "end_date": null,
+          "local_return_pct": null,
+          "fx_return_pct": null,
+          "twd_return_pct": null,
+          "status": "UNKNOWN",
+          "reason": "Same-date FX conversion has not completed."
+        },
+        "1m": {
+          "start_date": null,
+          "end_date": null,
+          "local_return_pct": null,
+          "fx_return_pct": null,
+          "twd_return_pct": null,
+          "status": "UNKNOWN",
+          "reason": "Same-date FX conversion has not completed."
+        }
+      },
       "stage2": "NO_ELIGIBLE_FUND",
       "funds": []
     },
@@ -100,6 +140,24 @@
       },
       "breadth_score": 21,
       "stage1": "PASS",
+      "twd_returns": {
+        "1w": {
+          "start_date": "2026-07-17",
+          "end_date": "2026-07-24",
+          "local_return_pct": 1.4323,
+          "fx_return_pct": -0.0783,
+          "twd_return_pct": 1.3529,
+          "status": "VALID"
+        },
+        "1m": {
+          "start_date": "2026-06-24",
+          "end_date": "2026-07-24",
+          "local_return_pct": 7.1386,
+          "fx_return_pct": 2.1937,
+          "twd_return_pct": 9.4889,
+          "status": "VALID"
+        }
+      },
       "stage2": "PASS",
       "funds": [
         {
@@ -110,7 +168,17 @@
             "六個月": 23.72,
             "一年": 36.23
           },
-          "consistency_score": 89.33
+          "consistency_score": 85.33
+        },
+        {
+          "name": "新加坡大華新加坡增長基金/星幣",
+          "returns": {
+            "一個月": 4.2,
+            "三個月": 9.8,
+            "六個月": 12.34,
+            "一年": 28.56
+          },
+          "consistency_score": 82.0
         },
         {
           "name": "利安資金新加坡均衡基金/美元",
@@ -121,16 +189,6 @@
             "一年": 35.09
           },
           "consistency_score": 81.33
-        },
-        {
-          "name": "新加坡大華新加坡增長基金/星幣",
-          "returns": {
-            "一個月": 3.55,
-            "三個月": 9.01,
-            "六個月": 14.14,
-            "一年": 29.47
-          },
-          "consistency_score": 78.0
         }
       ]
     }
