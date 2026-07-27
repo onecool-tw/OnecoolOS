@@ -33,10 +33,11 @@ def update(
 
     data_dir = root / "data" / "market" / "dashboard"
     history_dir = data_dir / "history"
-    client = AlphaVantageClient(api_key)
+    client = AlphaVantageClient(api_key) if api_key else None
     history_bootstrapper = bootstrapper or YahooHistoryBootstrapper()
     staged = []
     records = []
+    providers: dict[str, str] = {}
 
     # Fetch and calculate every symbol before replacing any successful cache.
     for config in MARKET_SYMBOLS:
@@ -48,20 +49,46 @@ def update(
             history = merge_and_adjust(
                 [], history_bootstrapper.fetch_adjusted_daily(config.provider_symbol)
             )
+            providers[config.symbol] = "yahoo_finance"
         else:
-            if not existing:
-                existing = history_bootstrapper.fetch_daily(config.provider_symbol)
-            # The free Alpha Vantage API supports compact but rejects full history.
-            daily = client.fetch_daily(config.provider_symbol, outputsize="compact")
-            actions = client.fetch_actions(config.provider_symbol)
-            combined = merge_and_adjust(existing, daily)
-            history = merge_and_adjust(
-                [], apply_corporate_actions(combined, actions, authoritative=True)
-            )
+            try:
+                if client is None:
+                    raise RuntimeError("ALPHA_VANTAGE_API_KEY is unavailable")
+                if not existing:
+                    existing = history_bootstrapper.fetch_daily(
+                        config.provider_symbol
+                    )
+                # The free Alpha Vantage API supports compact but rejects full history.
+                daily = client.fetch_daily(
+                    config.provider_symbol, outputsize="compact"
+                )
+                actions = client.fetch_actions(config.provider_symbol)
+                combined = merge_and_adjust(existing, daily)
+                history = merge_and_adjust(
+                    [],
+                    apply_corporate_actions(
+                        combined, actions, authoritative=True
+                    ),
+                )
+                providers[config.symbol] = "alpha_vantage"
+            except Exception:
+                # A missing key or a provider failure must degrade to the
+                # configured backup instead of aborting the complete cache.
+                history = merge_and_adjust(
+                    [],
+                    history_bootstrapper.fetch_adjusted_daily(
+                        config.provider_symbol
+                    ),
+                )
+                providers[config.symbol] = "yahoo_finance_fallback"
         staged.append((config, history))
         records.append(dashboard_record(config, calculate_cta(config.symbol, history)))
 
     payload = build_dashboard_payload(records)
+    payload["provider_by_symbol"] = providers
+    payload["provider_fallback_policy"] = (
+        "alpha_vantage_primary; yahoo_finance_on_missing_key_or_failure"
+    )
     for config, history in staged:
         write_history(history_dir / f"{config.symbol}.csv", history)
     data_dir.mkdir(parents=True, exist_ok=True)
