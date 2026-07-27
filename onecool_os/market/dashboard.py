@@ -29,11 +29,15 @@ class MarketSymbol:
 MARKET_SYMBOLS = (
     MarketSymbol("SPY", "SPY", "US", "broad_market"),
     MarketSymbol("QQQ", "QQQ", "US", "growth_ai"),
+    MarketSymbol("RUSSELL_2000", "^RUT", "US", "small_cap"),
     MarketSymbol("DIA", "DIA", "US", "blue_chip"),
     MarketSymbol("SOXX", "SOXX", "US", "semiconductor"),
     MarketSymbol("NVDA", "NVDA", "US", "ai"),
     MarketSymbol("0050", "0050.TW", "TW", "broad_market"),
     MarketSymbol("2330", "2330.TW", "TW", "semiconductor_ai"),
+    MarketSymbol("VIX", "^VIX", "CONTEXT", "volatility"),
+    MarketSymbol("DXY", "DX-Y.NYB", "CONTEXT", "us_dollar"),
+    MarketSymbol("US30Y", "^TYX", "CONTEXT", "us_30y_yield"),
 )
 
 
@@ -146,11 +150,15 @@ def build_dashboard_payload(records: Iterable[MarketCTA]) -> dict[str, Any]:
         "provider_by_symbol": {
             "SPY": "alpha_vantage",
             "QQQ": "alpha_vantage",
+            "RUSSELL_2000": "yahoo_finance",
             "DIA": "alpha_vantage",
             "SOXX": "alpha_vantage",
             "NVDA": "alpha_vantage",
             "0050": "yahoo_finance",
             "2330": "yahoo_finance",
+            "VIX": "yahoo_finance",
+            "DXY": "yahoo_finance",
+            "US30Y": "yahoo_finance",
         },
         "history_bootstrap_provider": "yahoo_finance_once_when_missing",
         "cache_policy": "scheduled_writer_only; consumers_read_github_cache",

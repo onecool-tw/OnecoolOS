@@ -1,5 +1,9 @@
+from datetime import date
+
 from onecool_os.market.stockq_rotation import (
+    DatedValue,
     build_rotation_radar,
+    calculate_twd_returns,
     screen_funds,
     screen_markets,
 )
@@ -53,3 +57,24 @@ def test_payload_keeps_watch_and_opportunity_only_policy() -> None:
     assert payload["passed_markets"][0]["stage2"] == "PASS"
     assert payload["rules"]["decision_use"] == "OPPORTUNITY_RADAR_ONLY"
     assert payload["watch_markets"][0]["market"] == "半導體"
+    assert payload["passed_markets"][0]["twd_returns"]["1w"]["status"] == "UNKNOWN"
+
+
+def test_twd_returns_use_identical_market_and_fx_dates() -> None:
+    local = [
+        DatedValue(date(2026, 6, 23), 100),
+        DatedValue(date(2026, 7, 16), 105),
+        DatedValue(date(2026, 7, 23), 110),
+    ]
+    fx = [
+        DatedValue(date(2026, 6, 23), 0.90),
+        DatedValue(date(2026, 7, 16), 0.92),
+        DatedValue(date(2026, 7, 23), 0.99),
+    ]
+
+    result = calculate_twd_returns(local, fx, as_of=date(2026, 7, 23))
+
+    assert result["1w"]["start_date"] == "2026-07-16"
+    assert result["1w"]["end_date"] == "2026-07-23"
+    assert result["1w"]["twd_return_pct"] == 12.7329
+    assert result["1m"]["twd_return_pct"] == 21.0

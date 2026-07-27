@@ -262,7 +262,7 @@ def test_payload_labels_raw_difference_as_excess_return() -> None:
         [result], {"A16075": []}, {"A16075": {"3m": period}}
     )
 
-    assert payload["schema_version"] == "2.1"
+    assert payload["schema_version"] == "2.2"
     assert payload["metric"] == "Onecool Excess Return"
     assert "alpha" not in payload["definition"].lower()
     assert payload["results"][0]["proxy_etf"] == "SMIN"
@@ -273,3 +273,23 @@ def test_payload_labels_raw_difference_as_excess_return() -> None:
     assert payload["periods"] == ["3m", "6m", "1y"]
     assert payload["results"][0]["period_returns"]["3m"]["period"] == "3m"
     assert payload["results"][0]["fund_return_1y"] == result.fund_return_1y
+
+
+def test_changed_proxy_is_labeled_historical_recast_not_live_record() -> None:
+    result = calculate_excess_return(
+        "A10124",
+        [fund_nav(date(2025, 7, 15), 100), fund_nav(date(2026, 7, 15), 110)],
+        [etf_bar(date(2025, 7, 15), 100), etf_bar(date(2026, 7, 15), 105)],
+    )
+
+    payload = alpha_payload([result], {"A10124": []})
+    item = payload["results"][0]
+
+    assert item["comparison_basis"] == "HISTORICAL_RECAST"
+    assert item["decision_use"] == "CONTEXT_ONLY_UNTIL_MATURE"
+    assert item["live_tracking_start"] == "2026-07-20"
+    assert item["live_tracking_status"] == {
+        "3m": "IMMATURE",
+        "6m": "IMMATURE",
+        "1y": "IMMATURE",
+    }
