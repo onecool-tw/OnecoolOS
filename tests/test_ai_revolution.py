@@ -1,6 +1,7 @@
 from onecool_os.market.ai_revolution import (
     AIRevolutionError,
     COMPANIES,
+    OfficialIRClient,
     SecClient,
     latest_periodic_filing,
     latest_usd_fact,
@@ -161,3 +162,71 @@ def test_partial_provider_failure_cannot_unlock_lights() -> None:
     assert payload["cache_status"] == "PARTIAL"
     assert payload["review_required"] is True
     assert payload["signals"]["overall"]["usable_for_report"] is False
+
+
+def test_official_ir_fallback_tracks_revision_without_inventing_facts() -> None:
+    def sec_request(_: str, __: str) -> dict:
+        raise AIRevolutionError("HTTP 403: Forbidden")
+
+    def ir_request(url: str, _: str) -> str:
+        return (
+            "<html><body><h1>Investor relations</h1>"
+            f"<p>{url}</p><p>{'official evidence ' * 20}</p></body></html>"
+        )
+
+    payload = refresh_ai_revolution(
+        SecClient("OnecoolOS test test@example.com", request=sec_request),
+        review={},
+        ir_client=OfficialIRClient(
+            "OnecoolOS test test@example.com", request=ir_request
+        ),
+        generated_at="2026-07-28T00:00:00+00:00",
+    )
+
+    assert payload["companies_valid"] == 7
+    assert payload["companies_sec_structured_valid"] == 0
+    assert payload["official_evidence_coverage_pct"] == 100.0
+    assert payload["cache_status"] == "VALID"
+    assert payload["review_required"] is True
+    assert all(
+        item["data_status"] == "OFFICIAL_IR_AVAILABLE"
+        and item["evidence_revision"].startswith("ir:")
+        and item["latest_capex_fact"] is None
+        for item in payload["companies"]
+    )
+
+
+def test_matching_ir_revisions_unlock_only_reviewed_signal() -> None:
+    def sec_request(_: str, __: str) -> dict:
+        raise AIRevolutionError("HTTP 403: Forbidden")
+
+    def ir_request(url: str, _: str) -> str:
+        return f"<html><body>{url} {'evidence ' * 30}</body></html>"
+
+    ir_client = OfficialIRClient(
+        "OnecoolOS test test@example.com", request=ir_request
+    )
+    initial = refresh_ai_revolution(
+        SecClient("OnecoolOS test test@example.com", request=sec_request),
+        ir_client=ir_client,
+    )
+    revisions = {
+        item["company"]: item["evidence_revision"] for item in initial["companies"]
+    }
+    reviewed = refresh_ai_revolution(
+        SecClient("OnecoolOS test test@example.com", request=sec_request),
+        review={
+            "reviewed_revisions": revisions,
+            "signals": {
+                "overall": {
+                    "status": "GREEN",
+                    "reason": "Official evidence reviewed.",
+                    "reviewed_at": "2026-07-28",
+                }
+            },
+        },
+        ir_client=ir_client,
+    )
+
+    assert reviewed["review_required"] is False
+    assert reviewed["signals"]["overall"]["usable_for_report"] is True
