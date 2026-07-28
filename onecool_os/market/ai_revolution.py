@@ -3,10 +3,13 @@
 from __future__ import annotations
 
 import gzip
+import hashlib
 import json
+import re
 import time
 from dataclasses import dataclass
 from datetime import datetime, timezone
+from html.parser import HTMLParser
 from typing import Any, Callable
 from urllib.error import HTTPError
 from urllib.request import Request, urlopen
@@ -20,6 +23,19 @@ COMPANIES = {
     "Nvidia": "0001045810",
     "Apple": "0000320193",
     "Tesla": "0001318605",
+}
+
+OFFICIAL_IR_URLS = {
+    "Microsoft": "https://www.microsoft.com/en-us/Investor",
+    "Amazon": "https://ir.aboutamazon.com/quarterly-results/default.aspx",
+    "Alphabet": "https://abc.xyz/investor/",
+    "Meta": "https://investor.atmeta.com/financials/default.aspx",
+    "Nvidia": (
+        "https://investor.nvidia.com/financial-info/"
+        "financial-reports-and-results/default.aspx"
+    ),
+    "Apple": "https://investor.apple.com/investor-relations/default.aspx",
+    "Tesla": "https://ir.tesla.com/#quarterly-disclosure",
 }
 
 CAPEX_TAGS = (
@@ -85,6 +101,65 @@ class SecClient:
                 if retry_delay:
                     self.sleeper(retry_delay)
         raise AIRevolutionError(_error_details(last_error))
+
+
+class _VisibleTextParser(HTMLParser):
+    def __init__(self) -> None:
+        super().__init__()
+        self.parts: list[str] = []
+        self.hidden_depth = 0
+
+    def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
+        if tag in {"script", "style", "noscript"}:
+            self.hidden_depth += 1
+
+    def handle_endtag(self, tag: str) -> None:
+        if tag in {"script", "style", "noscript"} and self.hidden_depth:
+            self.hidden_depth -= 1
+
+    def handle_data(self, data: str) -> None:
+        if not self.hidden_depth:
+            self.parts.append(data)
+
+
+@dataclass
+class OfficialIRClient:
+    """Fetch and fingerprint official investor-relations landing pages."""
+
+    user_agent: str
+    request: Callable[[str, str], bytes | str] | None = None
+
+    def fetch(self, url: str) -> dict[str, Any]:
+        if self.request:
+            body = self.request(url, self.user_agent)
+            if isinstance(body, str):
+                body = body.encode("utf-8")
+        else:
+            request = Request(
+                url,
+                headers={
+                    "User-Agent": self.user_agent,
+                    "Accept": "text/html,application/xhtml+xml",
+                    "Accept-Encoding": "gzip",
+                },
+            )
+            try:
+                with urlopen(request, timeout=60) as response:  # noqa: S310
+                    body = response.read()
+                    if response.headers.get("Content-Encoding") == "gzip":
+                        body = gzip.decompress(body)
+            except Exception as exc:
+                raise AIRevolutionError(_error_details(exc)) from exc
+        parser = _VisibleTextParser()
+        parser.feed(body.decode("utf-8", errors="replace"))
+        normalized = re.sub(r"\s+", " ", " ".join(parser.parts)).strip()
+        if len(normalized) < 100:
+            raise AIRevolutionError("Official IR page returned insufficient content")
+        return {
+            "source_url": url,
+            "content_sha256": hashlib.sha256(normalized.encode("utf-8")).hexdigest(),
+            "content_length": len(normalized),
+        }
 
 
 def _error_details(exc: Exception | None) -> str:
@@ -162,6 +237,7 @@ def refresh_ai_revolution(
     previous: dict[str, Any] | None = None,
     review: dict[str, Any] | None = None,
     *,
+    ir_client: OfficialIRClient | None = None,
     generated_at: str | None = None,
 ) -> dict[str, Any]:
     """Refresh seven-company SEC evidence and gate stale qualitative signals."""
@@ -172,7 +248,8 @@ def refresh_ai_revolution(
         item.get("company"): item for item in previous.get("companies", [])
     }
     companies = []
-    valid = 0
+    sec_valid = 0
+    official_valid = 0
     changed = []
 
     for company, cik in COMPANIES.items():
@@ -193,11 +270,14 @@ def refresh_ai_revolution(
             filing_changed = bool(new_accession and new_accession != old_accession)
             if filing_changed:
                 changed.append(company)
+            evidence_revision = f"sec:{new_accession}" if new_accession else None
             companies.append(
                 {
                     "company": company,
                     "cik": cik,
                     "data_status": "VALID",
+                    "evidence_source": "SEC",
+                    "evidence_revision": evidence_revision,
                     "latest_periodic_filing": filing,
                     "latest_capex_fact": capex,
                     "latest_operating_cash_flow_fact": operating_cash_flow,
@@ -207,16 +287,59 @@ def refresh_ai_revolution(
                     ),
                 }
             )
-            valid += 1
+            sec_valid += 1
+            official_valid += 1
         except Exception as exc:  # One issuer must not erase six valid records.
             old = previous_companies.get(company)
             refresh_error = _error_details(exc)
-            if old:
+            ir_evidence = None
+            ir_error = None
+            if ir_client:
+                try:
+                    ir_evidence = ir_client.fetch(OFFICIAL_IR_URLS[company])
+                except Exception as ir_exc:
+                    ir_error = _error_details(ir_exc)
+            if ir_evidence:
+                old_hash = (old or {}).get("official_ir", {}).get("content_sha256")
+                content_changed = ir_evidence["content_sha256"] != old_hash
+                if content_changed:
+                    changed.append(company)
+                companies.append(
+                    {
+                        "company": company,
+                        "cik": cik,
+                        "data_status": "OFFICIAL_IR_AVAILABLE",
+                        "evidence_source": "OFFICIAL_IR",
+                        "evidence_revision": f"ir:{ir_evidence['content_sha256']}",
+                        "latest_periodic_filing": (old or {}).get(
+                            "latest_periodic_filing"
+                        ),
+                        "latest_capex_fact": (old or {}).get("latest_capex_fact"),
+                        "latest_operating_cash_flow_fact": (old or {}).get(
+                            "latest_operating_cash_flow_fact"
+                        ),
+                        "official_ir": {
+                            **ir_evidence,
+                            "fetched_at": generated_at
+                            or datetime.now(timezone.utc).isoformat(),
+                            "content_changed": content_changed,
+                        },
+                        "filing_changed": False,
+                        "sec_refresh_error": refresh_error,
+                        "interpretation_policy": (
+                            "Official IR change detection only; quantitative facts, "
+                            "AI attribution and ROI require review."
+                        ),
+                    }
+                )
+                official_valid += 1
+            elif old:
                 companies.append(
                     {
                         **old,
                         "data_status": "STALE",
                         "refresh_error": refresh_error,
+                        "official_ir_refresh_error": ir_error,
                         "filing_changed": False,
                     }
                 )
@@ -231,18 +354,23 @@ def refresh_ai_revolution(
                         "latest_operating_cash_flow_fact": None,
                         "filing_changed": False,
                         "refresh_error": refresh_error,
+                        "official_ir_refresh_error": ir_error,
                     }
                 )
 
-    reviewed_accessions = review.get("reviewed_accessions", {})
+    reviewed_revisions = review.get("reviewed_revisions")
+    if reviewed_revisions is None:
+        reviewed_revisions = {
+            company: f"sec:{accession}"
+            for company, accession in review.get("reviewed_accessions", {}).items()
+        }
     unreviewed = [
         item["company"]
         for item in companies
-        if not (item.get("latest_periodic_filing") or {}).get("accession_number")
-        or (item.get("latest_periodic_filing") or {}).get("accession_number")
-        != reviewed_accessions.get(item["company"])
+        if not item.get("evidence_revision")
+        or item.get("evidence_revision") != reviewed_revisions.get(item["company"])
     ]
-    review_required = valid != len(COMPANIES) or bool(unreviewed)
+    review_required = official_valid != len(COMPANIES) or bool(unreviewed)
     reviewed_signals = review.get("signals", {})
     signals = {}
     for name in ("ai_infrastructure", "ai_capex", "ai_adoption", "overall"):
@@ -258,17 +386,25 @@ def refresh_ai_revolution(
 
     generated = generated_at or datetime.now(timezone.utc).isoformat()
     return {
-        "schema_version": "1.0",
+        "schema_version": "1.1",
         "generated_at": generated,
-        "source_policy": "SEC official filings and companyfacts only",
+        "source_policy": (
+            "SEC filings/companyfacts primary; official company IR pages fallback"
+        ),
         "companies_expected": len(COMPANIES),
-        "companies_valid": valid,
-        "data_coverage_pct": round(valid / len(COMPANIES) * 100, 2),
+        "companies_valid": official_valid,
+        "data_coverage_pct": round(official_valid / len(COMPANIES) * 100, 2),
+        "companies_sec_structured_valid": sec_valid,
+        "sec_structured_coverage_pct": round(sec_valid / len(COMPANIES) * 100, 2),
+        "companies_official_evidence_valid": official_valid,
+        "official_evidence_coverage_pct": round(
+            official_valid / len(COMPANIES) * 100, 2
+        ),
         "cache_status": (
             "VALID"
-            if valid == len(COMPANIES)
+            if official_valid == len(COMPANIES)
             else "PARTIAL"
-            if valid
+            if official_valid
             else "UNKNOWN"
         ),
         "review_required": review_required,
@@ -277,7 +413,7 @@ def refresh_ai_revolution(
         "signals": signals,
         "companies": companies,
         "decision_policy": (
-            "Do not output current AI lights unless all latest periodic filings "
-            "have been reviewed against official evidence."
+            "Do not output current AI lights unless every current evidence revision "
+            "(SEC accession or official IR fingerprint) has been reviewed."
         ),
     }

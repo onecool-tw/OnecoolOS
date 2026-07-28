@@ -25,7 +25,7 @@ jobs:
           cache: pip
       - name: Install project
         run: pip install -e .
-      - name: Refresh seven-company official evidence
+      - name: Refresh SEC and official IR evidence
         env:
           SEC_USER_AGENT: OnecoolOS research onecool-tw@users.noreply.github.com
         run: python scripts/update_ai_revolution.py
