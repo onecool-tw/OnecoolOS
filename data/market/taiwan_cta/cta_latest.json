@@ -1,0 +1,85 @@
+{
+  "schema_version": "1.0",
+  "metric": "Onecool Taiwan CTA",
+  "source": "Yahoo Finance daily history",
+  "engine": "shared_onecool_cta_engine",
+  "data_cutoff": "2026-07-28",
+  "price_basis": "locally_adjusted_close",
+  "method": {
+    "daily": [
+      "adjusted_close",
+      "SMA50",
+      "SMA200"
+    ],
+    "weekly": [
+      "last_trading_day_adjusted_close",
+      "SMA30",
+      "SMA50"
+    ],
+    "rules": "Onecool CTA v2 weekly crossover priority"
+  },
+  "results": [
+    {
+      "symbol": "0050",
+      "as_of": "2026-07-28",
+      "price": 97.150002,
+      "daily_50ma": 103.258956,
+      "daily_200ma": 79.155753,
+      "weekly_30ma": 87.1349,
+      "weekly_50ma": 75.624408,
+      "cta": "BUY",
+      "reason": "Weekly golden cross remains confirmed or active.",
+      "price_basis": "locally_adjusted_close",
+      "daily_cross": {
+        "alignment": "GOLDEN",
+        "cross_status": "NONE",
+        "last_cross_status": "GOLDEN",
+        "last_cross_date": "2025-07-16",
+        "periods_since_cross": 251,
+        "spread_pct": 30.450348,
+        "phase": "AGING"
+      },
+      "weekly_cross": {
+        "alignment": "GOLDEN",
+        "cross_status": "NONE",
+        "last_cross_status": "GOLDEN",
+        "last_cross_date": "2025-10-03",
+        "periods_since_cross": 42,
+        "spread_pct": 15.220604,
+        "phase": "ACTIVE"
+      },
+      "provider_symbol": "0050.TW"
+    },
+    {
+      "symbol": "2330",
+      "as_of": "2026-07-28",
+      "price": 2280.0,
+      "daily_50ma": 2365.615553,
+      "daily_200ma": 1874.386195,
+      "weekly_30ma": 2067.043465,
+      "weekly_50ma": 1781.321371,
+      "cta": "BUY",
+      "reason": "Weekly golden cross remains confirmed or active.",
+      "price_basis": "locally_adjusted_close",
+      "daily_cross": {
+        "alignment": "GOLDEN",
+        "cross_status": "NONE",
+        "last_cross_status": "GOLDEN",
+        "last_cross_date": "2025-07-10",
+        "periods_since_cross": 254,
+        "spread_pct": 26.207478,
+        "phase": "AGING"
+      },
+      "weekly_cross": {
+        "alignment": "GOLDEN",
+        "cross_status": "NONE",
+        "last_cross_status": "GOLDEN",
+        "last_cross_date": "2025-10-03",
+        "periods_since_cross": 42,
+        "spread_pct": 16.039896,
+        "phase": "ACTIVE"
+      },
+      "provider_symbol": "2330.TW"
+    }
+  ]
+}
