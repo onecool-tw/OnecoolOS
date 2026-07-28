@@ -196,6 +196,35 @@ def test_official_ir_fallback_tracks_revision_without_inventing_facts() -> None:
     )
 
 
+def test_tesla_tries_alternate_official_ir_endpoint() -> None:
+    attempted = []
+
+    def request(url: str, _: str) -> str:
+        attempted.append(url)
+        if url.endswith("/press"):
+            raise AIRevolutionError("HTTP 403: Forbidden")
+        return f"<html><body>{url} {'official Tesla evidence ' * 20}</body></html>"
+
+    evidence = OfficialIRClient(
+        "OnecoolOS test test@example.com", request=request
+    ).fetch_first((
+        "https://ir.tesla.com/press",
+        (
+            "https://ir.tesla.com/press-release/"
+            "tesla-releases-second-quarter-2026-financial-results"
+        ),
+    ))
+
+    assert attempted == [
+        "https://ir.tesla.com/press",
+        (
+            "https://ir.tesla.com/press-release/"
+            "tesla-releases-second-quarter-2026-financial-results"
+        ),
+    ]
+    assert "second-quarter-2026" in evidence["source_url"]
+
+
 def test_matching_ir_revisions_unlock_only_reviewed_signal() -> None:
     def sec_request(_: str, __: str) -> dict:
         raise AIRevolutionError("HTTP 403: Forbidden")
