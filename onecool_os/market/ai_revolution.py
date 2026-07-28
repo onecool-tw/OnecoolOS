@@ -26,16 +26,23 @@ COMPANIES = {
 }
 
 OFFICIAL_IR_URLS = {
-    "Microsoft": "https://www.microsoft.com/en-us/Investor",
-    "Amazon": "https://ir.aboutamazon.com/quarterly-results/default.aspx",
-    "Alphabet": "https://abc.xyz/investor/",
-    "Meta": "https://investor.atmeta.com/financials/default.aspx",
-    "Nvidia": (
+    "Microsoft": ("https://www.microsoft.com/en-us/Investor",),
+    "Amazon": ("https://ir.aboutamazon.com/quarterly-results/default.aspx",),
+    "Alphabet": ("https://abc.xyz/investor/",),
+    "Meta": ("https://investor.atmeta.com/financials/default.aspx",),
+    "Nvidia": ((
         "https://investor.nvidia.com/financial-info/"
         "financial-reports-and-results/default.aspx"
+    ),),
+    "Apple": ("https://investor.apple.com/investor-relations/default.aspx",),
+    "Tesla": (
+        "https://ir.tesla.com/press",
+        (
+            "https://ir.tesla.com/press-release/"
+            "tesla-releases-second-quarter-2026-financial-results"
+        ),
+        "https://ir.tesla.com/#quarterly-disclosure",
     ),
-    "Apple": "https://investor.apple.com/investor-relations/default.aspx",
-    "Tesla": "https://ir.tesla.com/#quarterly-disclosure",
 }
 
 CAPEX_TAGS = (
@@ -160,6 +167,17 @@ class OfficialIRClient:
             "content_sha256": hashlib.sha256(normalized.encode("utf-8")).hexdigest(),
             "content_length": len(normalized),
         }
+
+    def fetch_first(self, urls: tuple[str, ...]) -> dict[str, Any]:
+        """Return the first reachable official endpoint and retain all failures."""
+
+        errors = []
+        for url in urls:
+            try:
+                return self.fetch(url)
+            except Exception as exc:
+                errors.append(f"{url}: {_error_details(exc)}")
+        raise AIRevolutionError("; ".join(errors))
 
 
 def _error_details(exc: Exception | None) -> str:
@@ -296,7 +314,7 @@ def refresh_ai_revolution(
             ir_error = None
             if ir_client:
                 try:
-                    ir_evidence = ir_client.fetch(OFFICIAL_IR_URLS[company])
+                    ir_evidence = ir_client.fetch_first(OFFICIAL_IR_URLS[company])
                 except Exception as ir_exc:
                     ir_error = _error_details(ir_exc)
             if ir_evidence:
