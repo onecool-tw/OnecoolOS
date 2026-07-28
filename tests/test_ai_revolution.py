@@ -1,3 +1,5 @@
+from datetime import datetime, timezone
+
 from onecool_os.market.ai_revolution import (
     AIRevolutionError,
     COMPANIES,
@@ -6,6 +8,7 @@ from onecool_os.market.ai_revolution import (
     latest_periodic_filing,
     latest_usd_fact,
     refresh_ai_revolution,
+    tesla_update_urls,
 )
 
 
@@ -223,6 +226,25 @@ def test_tesla_tries_alternate_official_ir_endpoint() -> None:
         ),
     ]
     assert "second-quarter-2026" in evidence["source_url"]
+
+
+def test_tesla_quarterly_pdf_candidates_roll_back_across_year() -> None:
+    urls = tesla_update_urls(datetime(2026, 1, 15, tzinfo=timezone.utc))
+
+    assert urls[0].endswith("TSLA-Q1-2026-Update.pdf")
+    assert urls[1].endswith("TSLA-Q4-2025-Update.pdf")
+    assert urls[-1].endswith("TSLA-Q4-2024-Update.pdf")
+
+
+def test_official_ir_client_fingerprints_pdf_bytes() -> None:
+    body = b"%PDF-1.7\n" + (b"official Tesla quarterly evidence\n" * 100)
+    evidence = OfficialIRClient(
+        "OnecoolOS test test@example.com",
+        request=lambda _url, _agent: body,
+    ).fetch("https://assets-ir.tesla.com/example.pdf")
+
+    assert evidence["content_kind"] == "PDF"
+    assert evidence["content_length"] == len(body)
 
 
 def test_matching_ir_revisions_unlock_only_reviewed_signal() -> None:

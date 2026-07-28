@@ -157,6 +157,15 @@ class OfficialIRClient:
                         body = gzip.decompress(body)
             except Exception as exc:
                 raise AIRevolutionError(_error_details(exc)) from exc
+        if body.startswith(b"%PDF"):
+            if len(body) < 1_000:
+                raise AIRevolutionError("Official IR PDF returned insufficient content")
+            return {
+                "source_url": url,
+                "content_sha256": hashlib.sha256(body).hexdigest(),
+                "content_length": len(body),
+                "content_kind": "PDF",
+            }
         parser = _VisibleTextParser()
         parser.feed(body.decode("utf-8", errors="replace"))
         normalized = re.sub(r"\s+", " ", " ".join(parser.parts)).strip()
@@ -166,6 +175,7 @@ class OfficialIRClient:
             "source_url": url,
             "content_sha256": hashlib.sha256(normalized.encode("utf-8")).hexdigest(),
             "content_length": len(normalized),
+            "content_kind": "HTML",
         }
 
     def fetch_first(self, urls: tuple[str, ...]) -> dict[str, Any]:
@@ -188,6 +198,24 @@ def _error_details(exc: Exception | None) -> str:
     if exc is None:
         return "Unknown SEC provider error"
     return f"{type(exc).__name__}: {exc}"
+
+
+def tesla_update_urls(reference: datetime) -> tuple[str, ...]:
+    """Build newest-first official Tesla quarterly-update PDF candidates."""
+
+    year = reference.year
+    quarter = (reference.month - 1) // 3 + 1
+    urls = []
+    for _ in range(6):
+        urls.append(
+            "https://assets-ir.tesla.com/tesla-contents/IR/"
+            f"TSLA-Q{quarter}-{year}-Update.pdf"
+        )
+        quarter -= 1
+        if quarter == 0:
+            quarter = 4
+            year -= 1
+    return tuple(urls)
 
 
 def latest_periodic_filing(submissions: dict[str, Any]) -> dict[str, Any] | None:
@@ -269,6 +297,11 @@ def refresh_ai_revolution(
     sec_valid = 0
     official_valid = 0
     changed = []
+    reference_time = (
+        datetime.fromisoformat(generated_at.replace("Z", "+00:00"))
+        if generated_at
+        else datetime.now(timezone.utc)
+    )
 
     for company, cik in COMPANIES.items():
         try:
@@ -314,7 +347,10 @@ def refresh_ai_revolution(
             ir_error = None
             if ir_client:
                 try:
-                    ir_evidence = ir_client.fetch_first(OFFICIAL_IR_URLS[company])
+                    urls = OFFICIAL_IR_URLS[company]
+                    if company == "Tesla":
+                        urls = tesla_update_urls(reference_time) + urls
+                    ir_evidence = ir_client.fetch_first(urls)
                 except Exception as ir_exc:
                     ir_error = _error_details(ir_exc)
             if ir_evidence:
