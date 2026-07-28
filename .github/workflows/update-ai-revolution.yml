@@ -1,0 +1,42 @@
+name: Update AI Revolution Evidence
+
+on:
+  workflow_dispatch:
+  schedule:
+    # 07:30 Asia/Taipei every Sunday (23:30 UTC Saturday).
+    - cron: "30 23 * * 6"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-ai-revolution
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install project
+        run: pip install -e .
+      - name: Refresh seven-company official evidence
+        env:
+          SEC_USER_AGENT: OnecoolOS research onecool-tw@users.noreply.github.com
+        run: python scripts/update_ai_revolution.py
+      - name: Commit AI Revolution evidence cache
+        run: |
+          git add data/market/ai_revolution
+          if git diff --cached --quiet; then
+            echo "No new AI Revolution evidence."
+            exit 0
+          fi
+          git config user.name "onecool-os-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git commit -m "Update AI Revolution evidence"
+          git push
