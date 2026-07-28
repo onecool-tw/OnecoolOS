@@ -1,6 +1,6 @@
 {
   "schema_version": "1.1",
-  "generated_at": "2026-07-28T08:19:00.936038+00:00",
+  "generated_at": "2026-07-28T08:56:38.527614+00:00",
   "source_policy": "SEC filings/companyfacts primary; official company IR pages fallback",
   "companies_expected": 7,
   "companies_valid": 6,
@@ -20,14 +20,7 @@
     "Apple",
     "Tesla"
   ],
-  "new_periodic_filings": [
-    "Microsoft",
-    "Amazon",
-    "Alphabet",
-    "Meta",
-    "Nvidia",
-    "Apple"
-  ],
+  "new_periodic_filings": [],
   "signals": {
     "ai_infrastructure": {
       "status": "UNKNOWN",
@@ -68,8 +61,8 @@
         "source_url": "https://www.microsoft.com/en-us/Investor",
         "content_sha256": "78aeab4e403042d62ebf9f5c626f5fc8881b49af86cdf47431f8fda4b267544c",
         "content_length": 3963,
-        "fetched_at": "2026-07-28T08:18:12.849334+00:00",
-        "content_changed": true
+        "fetched_at": "2026-07-28T08:55:50.669526+00:00",
+        "content_changed": false
       },
       "filing_changed": false,
       "sec_refresh_error": "AIRevolutionError: HTTP 403: Forbidden",
@@ -88,8 +81,8 @@
         "source_url": "https://ir.aboutamazon.com/quarterly-results/default.aspx",
         "content_sha256": "c62b1a7fe2e06972e2544fdf3f14b33340232ee55be858f82cf5956abd1d0a4e",
         "content_length": 1243,
-        "fetched_at": "2026-07-28T08:18:20.871226+00:00",
-        "content_changed": true
+        "fetched_at": "2026-07-28T08:55:58.636992+00:00",
+        "content_changed": false
       },
       "filing_changed": false,
       "sec_refresh_error": "AIRevolutionError: HTTP 403: Forbidden",
@@ -108,8 +101,8 @@
         "source_url": "https://abc.xyz/investor/",
         "content_sha256": "2d92e63f7b89ac7efaf5c3b12506c38a0802d697b6c17a47d2ce71271d2f4857",
         "content_length": 1608,
-        "fetched_at": "2026-07-28T08:18:28.923681+00:00",
-        "content_changed": true
+        "fetched_at": "2026-07-28T08:56:06.583500+00:00",
+        "content_changed": false
       },
       "filing_changed": false,
       "sec_refresh_error": "AIRevolutionError: HTTP 403: Forbidden",
@@ -128,8 +121,8 @@
         "source_url": "https://investor.atmeta.com/financials/default.aspx",
         "content_sha256": "f6128306386e4635fc1538dc8a05db039f9ce3aefe9981f813f0b165d278199b",
         "content_length": 2908,
-        "fetched_at": "2026-07-28T08:18:36.899906+00:00",
-        "content_changed": true
+        "fetched_at": "2026-07-28T08:56:14.544790+00:00",
+        "content_changed": false
       },
       "filing_changed": false,
       "sec_refresh_error": "AIRevolutionError: HTTP 403: Forbidden",
@@ -148,8 +141,8 @@
         "source_url": "https://investor.nvidia.com/financial-info/financial-reports-and-results/default.aspx",
         "content_sha256": "20dc0f8e0b1e9533f0dc9fac0cf0acdb861869fbed4bdd507c13f58158237e70",
         "content_length": 4399,
-        "fetched_at": "2026-07-28T08:18:44.996217+00:00",
-        "content_changed": true
+        "fetched_at": "2026-07-28T08:56:22.610050+00:00",
+        "content_changed": false
       },
       "filing_changed": false,
       "sec_refresh_error": "AIRevolutionError: HTTP 403: Forbidden",
@@ -168,8 +161,8 @@
         "source_url": "https://investor.apple.com/investor-relations/default.aspx",
         "content_sha256": "5b72e66ab6adec5b85ffe6221cb22b4ed3ad1d6f15170a54db259a18fdb51fb3",
         "content_length": 1533,
-        "fetched_at": "2026-07-28T08:18:53.010014+00:00",
-        "content_changed": true
+        "fetched_at": "2026-07-28T08:56:30.617848+00:00",
+        "content_changed": false
       },
       "filing_changed": false,
       "sec_refresh_error": "AIRevolutionError: HTTP 403: Forbidden",
@@ -184,7 +177,7 @@
       "latest_operating_cash_flow_fact": null,
       "filing_changed": false,
       "refresh_error": "AIRevolutionError: HTTP 403: Forbidden",
-      "official_ir_refresh_error": "AIRevolutionError: HTTP 403: Forbidden"
+      "official_ir_refresh_error": "AIRevolutionError: https://ir.tesla.com/press: AIRevolutionError: HTTP 403: Forbidden; https://ir.tesla.com/press-release/tesla-releases-second-quarter-2026-financial-results: AIRevolutionError: HTTP 403: Forbidden; https://ir.tesla.com/#quarterly-disclosure: AIRevolutionError: HTTP 403: Forbidden"
     }
   ],
   "decision_policy": "Do not output current AI lights unless every current evidence revision (SEC accession or official IR fingerprint) has been reviewed."
