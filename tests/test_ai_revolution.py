@@ -1,4 +1,5 @@
 from onecool_os.market.ai_revolution import (
+    AIRevolutionError,
     COMPANIES,
     SecClient,
     latest_periodic_filing,
@@ -123,3 +124,40 @@ def test_matching_reviewed_accessions_unlock_reviewed_signal() -> None:
 
     assert payload["review_required"] is False
     assert payload["signals"]["overall"]["usable_for_report"] is True
+
+
+def test_complete_provider_failure_forces_unknown_review_gate() -> None:
+    def request(_: str, __: str) -> dict:
+        raise AIRevolutionError("HTTP 403: Forbidden")
+
+    payload = refresh_ai_revolution(
+        SecClient("OnecoolOS test test@example.com", request=request)
+    )
+
+    assert payload["companies_valid"] == 0
+    assert payload["data_coverage_pct"] == 0.0
+    assert payload["cache_status"] == "UNKNOWN"
+    assert payload["review_required"] is True
+    assert payload["unreviewed_companies"] == list(COMPANIES)
+    assert all(
+        item["refresh_error"] == "AIRevolutionError: HTTP 403: Forbidden"
+        for item in payload["companies"]
+    )
+
+
+def test_partial_provider_failure_cannot_unlock_lights() -> None:
+    successful_cik = next(iter(COMPANIES.values()))
+
+    def request(url: str, _: str) -> dict:
+        if successful_cik not in url:
+            raise AIRevolutionError("HTTP 403: Forbidden")
+        return submissions() if "submissions" in url else companyfacts()
+
+    payload = refresh_ai_revolution(
+        SecClient("OnecoolOS test test@example.com", request=request)
+    )
+
+    assert payload["companies_valid"] == 1
+    assert payload["cache_status"] == "PARTIAL"
+    assert payload["review_required"] is True
+    assert payload["signals"]["overall"]["usable_for_report"] is False

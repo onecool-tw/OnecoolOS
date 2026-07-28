@@ -2,10 +2,13 @@
 
 from __future__ import annotations
 
+import gzip
 import json
+import time
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from typing import Any, Callable
+from urllib.error import HTTPError
 from urllib.request import Request, urlopen
 
 
@@ -35,12 +38,15 @@ class AIRevolutionError(RuntimeError):
     """Raised when official AI evidence cannot be refreshed safely."""
 
 
-@dataclass(frozen=True)
+@dataclass
 class SecClient:
     """Minimal SEC JSON client with an attributable User-Agent."""
 
     user_agent: str
     request: Callable[[str, str], dict[str, Any]] | None = None
+    sleeper: Callable[[float], None] = time.sleep
+    request_spacing_seconds: float = 0.25
+    retry_delays: tuple[float, ...] = (2.0, 5.0)
 
     def fetch_submissions(self, cik: str) -> dict[str, Any]:
         return self._fetch(f"https://data.sec.gov/submissions/CIK{cik}.json")
@@ -53,15 +59,42 @@ class SecClient:
     def _fetch(self, url: str) -> dict[str, Any]:
         if self.request:
             return self.request(url, self.user_agent)
-        request = Request(
-            url,
-            headers={
-                "User-Agent": self.user_agent,
-                "Accept": "application/json",
-            },
-        )
-        with urlopen(request, timeout=60) as response:  # noqa: S310 - fixed SEC host.
-            return json.loads(response.read())
+        last_error: Exception | None = None
+        for retry_delay in (*self.retry_delays, 0.0):
+            self.sleeper(self.request_spacing_seconds)
+            request = Request(
+                url,
+                headers={
+                    "User-Agent": self.user_agent,
+                    "From": self.user_agent.rsplit(" ", 1)[-1],
+                    "Accept": "application/json",
+                    "Accept-Encoding": "gzip",
+                    "Connection": "close",
+                },
+            )
+            try:
+                with urlopen(  # noqa: S310 - fixed SEC host.
+                    request, timeout=60
+                ) as response:
+                    body = response.read()
+                    if response.headers.get("Content-Encoding") == "gzip":
+                        body = gzip.decompress(body)
+                    return json.loads(body)
+            except Exception as exc:  # Provider boundary; preserve final status.
+                last_error = exc
+                if retry_delay:
+                    self.sleeper(retry_delay)
+        raise AIRevolutionError(_error_details(last_error))
+
+
+def _error_details(exc: Exception | None) -> str:
+    """Return an auditable provider error without leaking request headers."""
+
+    if isinstance(exc, HTTPError):
+        return f"HTTP {exc.code}: {exc.reason}"
+    if exc is None:
+        return "Unknown SEC provider error"
+    return f"{type(exc).__name__}: {exc}"
 
 
 def latest_periodic_filing(submissions: dict[str, Any]) -> dict[str, Any] | None:
@@ -177,12 +210,13 @@ def refresh_ai_revolution(
             valid += 1
         except Exception as exc:  # One issuer must not erase six valid records.
             old = previous_companies.get(company)
+            refresh_error = _error_details(exc)
             if old:
                 companies.append(
                     {
                         **old,
                         "data_status": "STALE",
-                        "refresh_error": type(exc).__name__,
+                        "refresh_error": refresh_error,
                         "filing_changed": False,
                     }
                 )
@@ -196,7 +230,7 @@ def refresh_ai_revolution(
                         "latest_capex_fact": None,
                         "latest_operating_cash_flow_fact": None,
                         "filing_changed": False,
-                        "refresh_error": type(exc).__name__,
+                        "refresh_error": refresh_error,
                     }
                 )
 
@@ -204,10 +238,11 @@ def refresh_ai_revolution(
     unreviewed = [
         item["company"]
         for item in companies
-        if (item.get("latest_periodic_filing") or {}).get("accession_number")
+        if not (item.get("latest_periodic_filing") or {}).get("accession_number")
+        or (item.get("latest_periodic_filing") or {}).get("accession_number")
         != reviewed_accessions.get(item["company"])
     ]
-    review_required = bool(unreviewed)
+    review_required = valid != len(COMPANIES) or bool(unreviewed)
     reviewed_signals = review.get("signals", {})
     signals = {}
     for name in ("ai_infrastructure", "ai_capex", "ai_adoption", "overall"):
@@ -229,6 +264,13 @@ def refresh_ai_revolution(
         "companies_expected": len(COMPANIES),
         "companies_valid": valid,
         "data_coverage_pct": round(valid / len(COMPANIES) * 100, 2),
+        "cache_status": (
+            "VALID"
+            if valid == len(COMPANIES)
+            else "PARTIAL"
+            if valid
+            else "UNKNOWN"
+        ),
         "review_required": review_required,
         "unreviewed_companies": unreviewed,
         "new_periodic_filings": changed,
