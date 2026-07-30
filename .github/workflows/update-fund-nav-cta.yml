@@ -1,0 +1,41 @@
+name: Update Fund NAV CTA
+
+on:
+  workflow_dispatch:
+  schedule:
+    # 09:30 Asia/Taipei, Monday-Friday (01:30 UTC).
+    # ETF CTA refresh finishes earlier at 06:30 Asia/Taipei.
+    - cron: "30 1 * * 1-5"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-fund-nav-cta
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install project
+        run: pip install -e .
+      - name: Refresh seven fund NAV histories and CTA
+        run: python scripts/update_fund_nav_cta.py
+      - name: Commit only when daily NAV or CTA changed
+        run: |
+          git add             data/market/fund_nav/history             data/market/fund_nav/fund_cta_latest.json
+          if git diff --cached --quiet; then
+            echo "No new fund NAV or CTA data."
+            exit 0
+          fi
+          git config user.name "onecool-os-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git commit -m "Update daily fund NAV CTA"
+          git push
