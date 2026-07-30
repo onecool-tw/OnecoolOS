@@ -26,6 +26,14 @@ class MarketSymbol:
     theme: str
 
 
+US_INDEX_CTA_PROXIES = {
+    "S&P 500": "SPY",
+    "Nasdaq": "QQQ",
+    "Dow": "DIA",
+    "Russell 2000": "RUSSELL_2000",
+}
+
+
 MARKET_SYMBOLS = (
     MarketSymbol("SPY", "SPY", "US", "broad_market"),
     MarketSymbol("QQQ", "QQQ", "US", "growth_ai"),
@@ -139,13 +147,22 @@ def market_summary(records: Iterable[MarketCTA]) -> dict[str, str]:
 
 
 def build_dashboard_payload(records: Iterable[MarketCTA]) -> dict[str, Any]:
-    """Build the GitHub-cached SSOT payload."""
+    """Build the GitHub-cached SSOT payload after passing the US date gate."""
 
     values = list(records)
+    expected_as_of = _validate_us_index_cta_dates(values)
+    generated_at = datetime.now(UTC).isoformat()
     return {
-        "schema_version": "1.2",
+        "schema_version": "1.3",
         "module": "Onecool Market Dashboard",
-        "generated_at": datetime.now(UTC).isoformat(),
+        "generated_at": generated_at,
+        "expected_as_of": expected_as_of,
+        "data_status": "READY",
+        "last_successful_update_at": generated_at,
+        "index_cta_basis": {
+            "method": "ETF/index proxies; shared CTA engine",
+            "mappings": US_INDEX_CTA_PROXIES,
+        },
         "provider": "mixed_by_symbol",
         "provider_by_symbol": {
             "SPY": "alpha_vantage",
@@ -167,6 +184,27 @@ def build_dashboard_payload(records: Iterable[MarketCTA]) -> dict[str, Any]:
         "summary": market_summary(values),
         "results": [asdict(item) for item in values],
     }
+
+
+def _validate_us_index_cta_dates(records: Iterable[MarketCTA]) -> str:
+    """Require all four US CTA proxies to use one complete market date."""
+
+    items = {item.symbol: item for item in records}
+    missing = [
+        symbol for symbol in US_INDEX_CTA_PROXIES.values() if symbol not in items
+    ]
+    if missing:
+        raise ValueError(
+            "Market Dashboard is missing US CTA proxies: " + ", ".join(missing)
+        )
+    dates = {items[symbol].as_of for symbol in US_INDEX_CTA_PROXIES.values()}
+    if len(dates) != 1:
+        details = ", ".join(
+            f"{symbol}={items[symbol].as_of}"
+            for symbol in US_INDEX_CTA_PROXIES.values()
+        )
+        raise ValueError("US CTA proxy dates are inconsistent: " + details)
+    return dates.pop()
 
 
 def load_latest_dashboard(root: Path) -> dict[str, Any] | None:
