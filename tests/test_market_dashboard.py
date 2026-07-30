@@ -99,7 +99,7 @@ def test_market_summary_is_deterministic_and_not_a_forecast() -> None:
     assert payload["summary"]["taiwan_market_trend"] == "BULLISH"
     assert payload["summary"]["us_taiwan_synchronization"] == "SYNCHRONIZED"
     assert payload["summary_method"] == "deterministic CTA aggregation; no forecast"
-    assert payload["schema_version"] == "1.4"
+    assert payload["schema_version"] == "1.5"
     assert payload["expected_as_of"] == "2026-07-17"
     assert payload["data_status"] == "READY"
     assert payload["last_successful_update_at"] == payload["generated_at"]
@@ -108,20 +108,17 @@ def test_market_summary_is_deterministic_and_not_a_forecast() -> None:
         US_PORTFOLIO_CTA_SYMBOLS
     )
     assert payload["portfolio_cta_basis"]["as_of"] == "2026-07-17"
-    assert payload["provider"] == "mixed_by_symbol"
-    assert payload["provider_by_symbol"]["SPY"] == "alpha_vantage"
-    assert payload["provider_by_symbol"]["0050"] == "yahoo_finance"
-    assert payload["provider_by_symbol"]["2330"] == "yahoo_finance"
-    assert payload["provider_by_symbol"]["RUSSELL_2000"] == "yahoo_finance"
-    assert payload["provider_by_symbol"]["BABA"] == "yahoo_finance"
-    assert payload["provider_by_symbol"]["XYZ"] == "yahoo_finance"
-    assert payload["provider_by_symbol"]["QRVO"] == "yahoo_finance"
-    assert payload["provider_by_symbol"]["RH"] == "yahoo_finance"
-    assert payload["provider_by_symbol"]["UPBD"] == "yahoo_finance"
-    assert payload["provider_by_symbol"]["VIX"] == "yahoo_finance"
-    assert payload["provider_by_symbol"]["DXY"] == "yahoo_finance"
-    assert payload["provider_by_symbol"]["US30Y"] == "yahoo_finance"
-    assert payload["history_bootstrap_provider"].startswith("yahoo_finance")
+    assert payload["provider"] == "yahoo_finance_raw_primary"
+    assert set(payload["provider_by_symbol"].values()) == {
+        "yahoo_finance_raw"
+    }
+    assert payload["provider_by_symbol"]["SPY"] == "yahoo_finance_raw"
+    assert payload["provider_by_symbol"]["BABA"] == "yahoo_finance_raw"
+    assert payload["provider_by_symbol"]["0050"] == "yahoo_finance_raw"
+    assert payload["provider_by_symbol"]["VIX"] == "yahoo_finance_raw"
+    assert payload["history_bootstrap_provider"].startswith(
+        "yahoo_finance_raw"
+    )
 
 
 def test_cache_loader_and_fund_context_never_query_provider(tmp_path: Path) -> None:
