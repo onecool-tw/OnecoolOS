@@ -1,0 +1,41 @@
+name: Update Fund Weekly Analytics
+
+on:
+  workflow_dispatch:
+  schedule:
+    # 14:00 Asia/Taipei every Sunday (06:00 UTC), after the weekly
+    # Market Dashboard, AI evidence, and StockQ rotation refreshes.
+    - cron: "0 6 * * 0"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-fund-weekly-analytics
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install project
+        run: pip install -e .
+      - name: Refresh weekly fund analytics
+        run: python scripts/update_fund_alpha.py
+      - name: Commit only when weekly fund analytics changed
+        run: |
+          git add             data/market/fund_nav/history             data/market/fund_nav/fund_cta_latest.json             data/market/fund_nav/alpha_latest.json             data/market/fund_nav/peer_ranking_latest.json
+          if git diff --cached --quiet; then
+            echo "No new weekly fund analytics."
+            exit 0
+          fi
+          git config user.name "onecool-os-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git commit -m "Update weekly fund analytics"
+          git push

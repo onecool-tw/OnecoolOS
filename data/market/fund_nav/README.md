@@ -4,8 +4,10 @@ This directory contains only public share-class NAV history for the seven Fund
 Watchlist funds. It never stores units, cost, market value, profit/loss, cash
 flows, account information, or portfolio allocation.
 
-Fund NAVs are read weekly from the public `NavHIS` endpoint used by Anue Fund's
-own detail pages. The source is identified as `anuefund_public`; it is a
+Fund NAVs are read every weekday from the public `NavHIS` endpoint used by Anue Fund's
+own detail pages. The lightweight daily workflow refreshes only NAV history and
+`fund_cta_latest.json`; the weekly workflow separately recalculates Onecool Excess
+Return and peer-ranking context. The source is identified as `anuefund_public`; it is a
 platform source and is not represented as an official fund-company source.
 
 `alpha_latest.json` defines Onecool Excess Return as:
