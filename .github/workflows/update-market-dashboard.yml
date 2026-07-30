@@ -3,8 +3,9 @@ name: Update Market Dashboard
 on:
   workflow_dispatch:
   schedule:
-    # 06:30 Asia/Taipei every Sunday (22:30 UTC Saturday).
-    - cron: "30 22 * * 6"
+    # 05:00 Asia/Taipei, Tuesday-Saturday (21:00 UTC Monday-Friday).
+    # This completes before the 06:00 US Stock Intelligence consumer runs.
+    - cron: "0 21 * * 1-5"
 
 permissions:
   contents: write
