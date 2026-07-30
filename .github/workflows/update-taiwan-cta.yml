@@ -9,8 +9,11 @@ on:
         type: boolean
         default: true
   schedule:
-    # 17:30 Asia/Taipei, Monday-Friday (09:30 UTC).
-    - cron: "30 9 * * 1-5"
+    # 17:00 and 17:40 Asia/Taipei, Monday-Friday (09:00/09:40 UTC).
+    # The second run is an idempotent fallback when the first scheduled run
+    # is delayed or the latest complete Taiwan market data is not ready yet.
+    - cron: "0 9 * * 1-5"
+    - cron: "40 9 * * 1-5"
 
 permissions:
   contents: write
