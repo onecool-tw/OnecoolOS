@@ -1,4 +1,4 @@
-"""Update the GitHub-cached Onecool Market Dashboard once per week."""
+"""Update the GitHub-cached Onecool Market Dashboard after each US session."""
 
 from __future__ import annotations
 
