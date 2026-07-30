@@ -3,6 +3,7 @@ from datetime import date, timedelta
 from pathlib import Path
 
 from onecool_os.market.dashboard import (
+    DASHBOARD_ACTION_REFRESH_GROUPS,
     MARKET_SYMBOLS,
     US_PORTFOLIO_CTA_SYMBOLS,
     MarketCTA,
@@ -42,6 +43,13 @@ def test_dashboard_symbols_are_fixed_and_provider_mapped() -> None:
     assert {item.symbol: item.provider_symbol for item in MARKET_SYMBOLS}[
         "US30Y"
     ] == "^TYX"
+    assert DASHBOARD_ACTION_REFRESH_GROUPS == {
+        "group_a": ("SPY", "QQQ", "DIA"),
+        "group_b": ("SOXX", "NVDA"),
+    }
+    assert set().union(*DASHBOARD_ACTION_REFRESH_GROUPS.values()) == {
+        "SPY", "QQQ", "DIA", "SOXX", "NVDA"
+    }
 
 
 def test_dashboard_record_uses_shared_cta_values() -> None:

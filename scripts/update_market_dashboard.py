@@ -2,12 +2,14 @@
 
 from __future__ import annotations
 
+import argparse
 import json
 import os
 from datetime import date
 from pathlib import Path
 
 from onecool_os.market.dashboard import (
+    DASHBOARD_ACTION_REFRESH_GROUPS,
     MARKET_SYMBOLS,
     US_PORTFOLIO_CTA_SYMBOLS,
     build_dashboard_payload,
@@ -17,6 +19,7 @@ from onecool_os.market.etf_cta import (
     AlphaVantageClient,
     apply_corporate_actions,
     calculate_cta,
+    has_new_price_anomaly,
     merge_and_adjust,
     read_history,
     write_history,
@@ -29,6 +32,7 @@ def update(
     api_key: str,
     *,
     bootstrapper: YahooHistoryBootstrapper | None = None,
+    refresh_action_symbols: set[str] | None = None,
 ) -> dict:
     """Use AV for core US assets and Yahoo for context and portfolio series."""
 
@@ -67,14 +71,24 @@ def update(
                 daily = client.fetch_daily(
                     config.provider_symbol, outputsize="compact"
                 )
-                actions = client.fetch_actions(config.provider_symbol)
                 combined = merge_and_adjust(existing, daily)
-                history = merge_and_adjust(
-                    [],
-                    apply_corporate_actions(
-                        combined, actions, authoritative=True
-                    ),
+                existing_actions = {
+                    bar.trading_date: (bar.dividend, bar.split_factor)
+                    for bar in existing
+                    if bar.dividend or bar.split_factor != 1.0
+                }
+                combined = apply_corporate_actions(combined, existing_actions)
+                should_refresh_actions = (
+                    config.symbol in (refresh_action_symbols or set())
+                    or has_new_price_anomaly(existing, daily)
                 )
+                if should_refresh_actions:
+                    combined = apply_corporate_actions(
+                        combined,
+                        client.fetch_actions(config.provider_symbol),
+                        authoritative=True,
+                    )
+                history = merge_and_adjust([], combined)
                 providers[config.symbol] = "alpha_vantage"
             except Exception:
                 # A missing key or a provider failure must degrade to the
@@ -109,5 +123,25 @@ def update(
     return payload
 
 
+def main() -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--refresh-actions-group",
+        choices=tuple(DASHBOARD_ACTION_REFRESH_GROUPS),
+        help="Refresh one API-safe dashboard dividend/split group.",
+    )
+    args = parser.parse_args()
+    update(
+        Path("."),
+        os.environ.get("ALPHA_VANTAGE_API_KEY", ""),
+        refresh_action_symbols=set(
+            DASHBOARD_ACTION_REFRESH_GROUPS.get(
+                args.refresh_actions_group, ()
+            )
+        ),
+    )
+    return 0
+
+
 if __name__ == "__main__":
-    update(Path("."), os.environ.get("ALPHA_VANTAGE_API_KEY", ""))
+    raise SystemExit(main())
