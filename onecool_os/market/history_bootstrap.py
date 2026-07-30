@@ -19,6 +19,19 @@ class YahooHistoryBootstrapper:
     def fetch_daily(self, symbol: str) -> list[DailyBar]:
         """Fetch enough raw daily history for the shared CTA engine."""
 
+        bars = self.fetch_raw_daily(symbol, period="5y")
+        if len(bars) < 260:
+            raise ETFCTAError(
+                f"Yahoo Finance bootstrap for {symbol} returned only "
+                f"{len(bars)} observations; at least 260 are required."
+            )
+        return bars
+
+    def fetch_raw_daily(
+        self, symbol: str, *, period: str = "10d"
+    ) -> list[DailyBar]:
+        """Fetch raw Yahoo OHLCV plus dividends and splits."""
+
         if self._yfinance is None:
             try:
                 self._yfinance = __import__("yfinance")
@@ -29,10 +42,10 @@ class YahooHistoryBootstrapper:
 
         try:
             frame = self._yfinance.Ticker(symbol).history(
-                period="5y",
+                period=period,
                 interval="1d",
                 auto_adjust=False,
-                actions=False,
+                actions=True,
             )
         except Exception as exc:  # noqa: BLE001 - provider boundary.
             raise ETFCTAError(
@@ -54,15 +67,14 @@ class YahooHistoryBootstrapper:
                     low=_number(row, "Low"),
                     close=_number(row, "Close"),
                     volume=int(_number(row, "Volume", 0.0)),
-                    source=self.provider_id,
+                    dividend=_number(row, "Dividends", 0.0),
+                    split_factor=(
+                        _number(row, "Stock Splits", 0.0) or 1.0
+                    ),
+                    source="yahoo_finance_raw",
                 )
             )
         bars.sort(key=lambda bar: bar.trading_date)
-        if len(bars) < 260:
-            raise ETFCTAError(
-                f"Yahoo Finance bootstrap for {symbol} returned only "
-                f"{len(bars)} observations; at least 260 are required."
-            )
         return bars
 
     def fetch_adjusted_daily(self, symbol: str) -> list[DailyBar]:
