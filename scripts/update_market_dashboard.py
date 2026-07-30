@@ -9,6 +9,7 @@ from pathlib import Path
 
 from onecool_os.market.dashboard import (
     MARKET_SYMBOLS,
+    US_PORTFOLIO_CTA_SYMBOLS,
     build_dashboard_payload,
     dashboard_record,
 )
@@ -29,7 +30,7 @@ def update(
     *,
     bootstrapper: YahooHistoryBootstrapper | None = None,
 ) -> dict:
-    """Use AV for core US assets and Yahoo for unsupported context series."""
+    """Use AV for core US assets and Yahoo for context and portfolio series."""
 
     data_dir = root / "data" / "market" / "dashboard"
     history_dir = data_dir / "history"
@@ -42,7 +43,11 @@ def update(
     # Fetch and calculate every symbol before replacing any successful cache.
     for config in MARKET_SYMBOLS:
         existing = read_history(history_dir / f"{config.symbol}.csv")
-        if config.market in {"TW", "CONTEXT"} or config.symbol == "RUSSELL_2000":
+        if (
+            config.market in {"TW", "CONTEXT"}
+            or config.symbol == "RUSSELL_2000"
+            or config.symbol in US_PORTFOLIO_CTA_SYMBOLS
+        ):
             # Alpha Vantage rejects Taiwan tickers and the Yahoo-style index
             # symbols used for macro context. Yahoo returns adjusted OHLC, so
             # do not apply corporate actions a second time.

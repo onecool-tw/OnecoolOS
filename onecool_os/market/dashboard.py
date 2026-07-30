@@ -33,6 +33,8 @@ US_INDEX_CTA_PROXIES = {
     "Russell 2000": "RUSSELL_2000",
 }
 
+US_PORTFOLIO_CTA_SYMBOLS = ("BABA", "XYZ", "QRVO", "RH", "UPBD")
+
 
 MARKET_SYMBOLS = (
     MarketSymbol("SPY", "SPY", "US", "broad_market"),
@@ -41,6 +43,11 @@ MARKET_SYMBOLS = (
     MarketSymbol("DIA", "DIA", "US", "blue_chip"),
     MarketSymbol("SOXX", "SOXX", "US", "semiconductor"),
     MarketSymbol("NVDA", "NVDA", "US", "ai"),
+    MarketSymbol("BABA", "BABA", "US", "portfolio"),
+    MarketSymbol("XYZ", "XYZ", "US", "portfolio"),
+    MarketSymbol("QRVO", "QRVO", "US", "portfolio"),
+    MarketSymbol("RH", "RH", "US", "portfolio"),
+    MarketSymbol("UPBD", "UPBD", "US", "portfolio"),
     MarketSymbol("0050", "0050.TW", "TW", "broad_market"),
     MarketSymbol("2330", "2330.TW", "TW", "semiconductor_ai"),
     MarketSymbol("VIX", "^VIX", "CONTEXT", "volatility"),
@@ -130,8 +137,11 @@ def market_summary(records: Iterable[MarketCTA]) -> dict[str, str]:
         if us_trend == tw_trend and us_trend != "MIXED"
         else "DIVERGENT_OR_MIXED"
     )
+    summary_items = [
+        item for item in items.values() if item.symbol not in US_PORTFOLIO_CTA_SYMBOLS
+    ]
     counts = {
-        signal: sum(item.cta == signal for item in items.values())
+        signal: sum(item.cta == signal for item in summary_items)
         for signal in ("BUY", "HOLD", "WATCH", "SELL")
     }
     return {
@@ -151,9 +161,10 @@ def build_dashboard_payload(records: Iterable[MarketCTA]) -> dict[str, Any]:
 
     values = list(records)
     expected_as_of = _validate_us_index_cta_dates(values)
+    portfolio_as_of = _validate_us_portfolio_cta_dates(values, expected_as_of)
     generated_at = datetime.now(UTC).isoformat()
     return {
-        "schema_version": "1.3",
+        "schema_version": "1.4",
         "module": "Onecool Market Dashboard",
         "generated_at": generated_at,
         "expected_as_of": expected_as_of,
@@ -163,6 +174,11 @@ def build_dashboard_payload(records: Iterable[MarketCTA]) -> dict[str, Any]:
             "method": "ETF/index proxies; shared CTA engine",
             "mappings": US_INDEX_CTA_PROXIES,
         },
+        "portfolio_cta_basis": {
+            "method": "Adjusted-close histories; shared CTA engine",
+            "symbols": list(US_PORTFOLIO_CTA_SYMBOLS),
+            "as_of": portfolio_as_of,
+        },
         "provider": "mixed_by_symbol",
         "provider_by_symbol": {
             "SPY": "alpha_vantage",
@@ -171,6 +187,11 @@ def build_dashboard_payload(records: Iterable[MarketCTA]) -> dict[str, Any]:
             "DIA": "alpha_vantage",
             "SOXX": "alpha_vantage",
             "NVDA": "alpha_vantage",
+            "BABA": "yahoo_finance",
+            "XYZ": "yahoo_finance",
+            "QRVO": "yahoo_finance",
+            "RH": "yahoo_finance",
+            "UPBD": "yahoo_finance",
             "0050": "yahoo_finance",
             "2330": "yahoo_finance",
             "VIX": "yahoo_finance",
@@ -205,6 +226,33 @@ def _validate_us_index_cta_dates(records: Iterable[MarketCTA]) -> str:
         )
         raise ValueError("US CTA proxy dates are inconsistent: " + details)
     return dates.pop()
+
+
+def _validate_us_portfolio_cta_dates(
+    records: Iterable[MarketCTA], expected_as_of: str
+) -> str:
+    """Require every US portfolio CTA to use the complete US market date."""
+
+    items = {item.symbol: item for item in records}
+    missing = [
+        symbol for symbol in US_PORTFOLIO_CTA_SYMBOLS if symbol not in items
+    ]
+    if missing:
+        raise ValueError(
+            "Market Dashboard is missing US portfolio CTA symbols: "
+            + ", ".join(missing)
+        )
+    dates = {items[symbol].as_of for symbol in US_PORTFOLIO_CTA_SYMBOLS}
+    if dates != {expected_as_of}:
+        details = ", ".join(
+            f"{symbol}={items[symbol].as_of}"
+            for symbol in US_PORTFOLIO_CTA_SYMBOLS
+        )
+        raise ValueError(
+            "US portfolio CTA dates must match the US market date "
+            f"{expected_as_of}: {details}"
+        )
+    return expected_as_of
 
 
 def load_latest_dashboard(root: Path) -> dict[str, Any] | None:
