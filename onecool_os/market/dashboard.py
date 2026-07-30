@@ -35,6 +35,11 @@ US_INDEX_CTA_PROXIES = {
 
 US_PORTFOLIO_CTA_SYMBOLS = ("BABA", "XYZ", "QRVO", "RH", "UPBD")
 
+DASHBOARD_ACTION_REFRESH_GROUPS = {
+    "group_a": ("SPY", "QQQ", "DIA"),
+    "group_b": ("SOXX", "NVDA"),
+}
+
 
 MARKET_SYMBOLS = (
     MarketSymbol("SPY", "SPY", "US", "broad_market"),
