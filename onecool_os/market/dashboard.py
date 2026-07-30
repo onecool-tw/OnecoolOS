@@ -169,7 +169,7 @@ def build_dashboard_payload(records: Iterable[MarketCTA]) -> dict[str, Any]:
     portfolio_as_of = _validate_us_portfolio_cta_dates(values, expected_as_of)
     generated_at = datetime.now(UTC).isoformat()
     return {
-        "schema_version": "1.4",
+        "schema_version": "1.5",
         "module": "Onecool Market Dashboard",
         "generated_at": generated_at,
         "expected_as_of": expected_as_of,
@@ -184,26 +184,13 @@ def build_dashboard_payload(records: Iterable[MarketCTA]) -> dict[str, Any]:
             "symbols": list(US_PORTFOLIO_CTA_SYMBOLS),
             "as_of": portfolio_as_of,
         },
-        "provider": "mixed_by_symbol",
+        "provider": "yahoo_finance_raw_primary",
         "provider_by_symbol": {
-            "SPY": "alpha_vantage",
-            "QQQ": "alpha_vantage",
-            "RUSSELL_2000": "yahoo_finance",
-            "DIA": "alpha_vantage",
-            "SOXX": "alpha_vantage",
-            "NVDA": "alpha_vantage",
-            "BABA": "yahoo_finance",
-            "XYZ": "yahoo_finance",
-            "QRVO": "yahoo_finance",
-            "RH": "yahoo_finance",
-            "UPBD": "yahoo_finance",
-            "0050": "yahoo_finance",
-            "2330": "yahoo_finance",
-            "VIX": "yahoo_finance",
-            "DXY": "yahoo_finance",
-            "US30Y": "yahoo_finance",
+            item.symbol: "yahoo_finance_raw" for item in MARKET_SYMBOLS
         },
-        "history_bootstrap_provider": "yahoo_finance_once_when_missing",
+        "history_bootstrap_provider": (
+            "yahoo_finance_raw_with_actions_once_when_missing_or_migrating"
+        ),
         "cache_policy": "scheduled_writer_only; consumers_read_github_cache",
         "cta_engine": "onecool_os.market.etf_cta.calculate_cta",
         "summary_method": "deterministic CTA aggregation; no forecast",
