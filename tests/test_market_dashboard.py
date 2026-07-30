@@ -70,6 +70,7 @@ def test_market_summary_is_deterministic_and_not_a_forecast() -> None:
         record("SPY", "US", "BULLISH", "BUY"),
         record("QQQ", "US", "BULLISH", "BUY"),
         record("DIA", "US", "BULLISH", "HOLD"),
+        record("RUSSELL_2000", "US", "BULLISH", "BUY"),
         record("SOXX", "US", "BULLISH", "BUY"),
         record("NVDA", "US", "BULLISH", "BUY"),
         record("0050", "TW", "BULLISH", "BUY"),
@@ -83,6 +84,11 @@ def test_market_summary_is_deterministic_and_not_a_forecast() -> None:
     assert payload["summary"]["taiwan_market_trend"] == "BULLISH"
     assert payload["summary"]["us_taiwan_synchronization"] == "SYNCHRONIZED"
     assert payload["summary_method"] == "deterministic CTA aggregation; no forecast"
+    assert payload["schema_version"] == "1.3"
+    assert payload["expected_as_of"] == "2026-07-17"
+    assert payload["data_status"] == "READY"
+    assert payload["last_successful_update_at"] == payload["generated_at"]
+    assert payload["index_cta_basis"]["mappings"]["Nasdaq"] == "QQQ"
     assert payload["provider"] == "mixed_by_symbol"
     assert payload["provider_by_symbol"]["SPY"] == "alpha_vantage"
     assert payload["provider_by_symbol"]["0050"] == "yahoo_finance"
@@ -131,3 +137,22 @@ def test_cache_loader_and_fund_context_never_query_provider(tmp_path: Path) -> N
     assert context["peer_ranking"] == {
         "results": [{"fund_code": "A10124"}]
     }
+
+
+def test_dashboard_rejects_mixed_us_proxy_dates() -> None:
+    records = [
+        record("SPY", "US", "BULLISH", "BUY"),
+        record("QQQ", "US", "BULLISH", "BUY"),
+        record("DIA", "US", "BULLISH", "BUY"),
+        record("RUSSELL_2000", "US", "BULLISH", "BUY"),
+    ]
+    records[-1] = MarketCTA(
+        **{**records[-1].__dict__, "as_of": "2026-07-16"}
+    )
+
+    try:
+        build_dashboard_payload(records)
+    except ValueError as exc:
+        assert "dates are inconsistent" in str(exc)
+    else:
+        raise AssertionError("Mixed US CTA dates must not be published")
