@@ -3,6 +3,7 @@ from datetime import date, timedelta
 from pathlib import Path
 
 from onecool_os.market.dashboard import (
+    COUNTRY_INDEX_CTA_PROXIES,
     DASHBOARD_ACTION_REFRESH_GROUPS,
     MARKET_SYMBOLS,
     US_PORTFOLIO_CTA_SYMBOLS,
@@ -36,19 +37,19 @@ def record(symbol: str, market: str, trend: str, cta: str) -> MarketCTA:
 
 def test_dashboard_symbols_are_fixed_and_provider_mapped() -> None:
     assert [item.symbol for item in MARKET_SYMBOLS] == [
-        "SPY", "QQQ", "RUSSELL_2000", "DIA", "SOXX", "NVDA", "BABA",
-        "XYZ", "QRVO", "RH", "UPBD", "0050", "2330", "VIX", "DXY",
+        "SPY", "QQQ", "RUSSELL_2000", "DIA", "SOXX", "NVDA", "EWJ",
+        "EWY", "BABA", "XYZ", "QRVO", "RH", "UPBD", "0050", "2330", "VIX", "DXY",
         "US30Y",
     ]
     assert {item.symbol: item.provider_symbol for item in MARKET_SYMBOLS}[
         "US30Y"
     ] == "^TYX"
     assert DASHBOARD_ACTION_REFRESH_GROUPS == {
-        "group_a": ("SPY", "QQQ", "DIA"),
-        "group_b": ("SOXX", "NVDA"),
+        "group_a": ("SPY", "QQQ", "DIA", "EWJ"),
+        "group_b": ("SOXX", "NVDA", "EWY"),
     }
     assert set().union(*DASHBOARD_ACTION_REFRESH_GROUPS.values()) == {
-        "SPY", "QQQ", "DIA", "SOXX", "NVDA"
+        "SPY", "QQQ", "DIA", "SOXX", "NVDA", "EWJ", "EWY"
     }
 
 
@@ -83,6 +84,8 @@ def test_market_summary_is_deterministic_and_not_a_forecast() -> None:
         record("RUSSELL_2000", "US", "BULLISH", "BUY"),
         record("SOXX", "US", "BULLISH", "BUY"),
         record("NVDA", "US", "BULLISH", "BUY"),
+        record("EWJ", "JP", "BULLISH", "BUY"),
+        record("EWY", "KR", "BULLISH", "BUY"),
         record("BABA", "US", "MIXED", "HOLD"),
         record("XYZ", "US", "BEARISH", "SELL"),
         record("QRVO", "US", "MIXED", "WATCH"),
@@ -99,11 +102,13 @@ def test_market_summary_is_deterministic_and_not_a_forecast() -> None:
     assert payload["summary"]["taiwan_market_trend"] == "BULLISH"
     assert payload["summary"]["us_taiwan_synchronization"] == "SYNCHRONIZED"
     assert payload["summary_method"] == "deterministic CTA aggregation; no forecast"
-    assert payload["schema_version"] == "1.5"
+    assert payload["schema_version"] == "1.6"
     assert payload["expected_as_of"] == "2026-07-17"
     assert payload["data_status"] == "READY"
     assert payload["last_successful_update_at"] == payload["generated_at"]
     assert payload["index_cta_basis"]["mappings"]["Nasdaq"] == "QQQ"
+    assert payload["country_index_cta_basis"]["mappings"] == COUNTRY_INDEX_CTA_PROXIES
+    assert payload["country_index_cta_basis"]["as_of"] == "2026-07-17"
     assert payload["portfolio_cta_basis"]["symbols"] == list(
         US_PORTFOLIO_CTA_SYMBOLS
     )
@@ -166,9 +171,11 @@ def test_dashboard_rejects_mixed_us_proxy_dates() -> None:
         record("QQQ", "US", "BULLISH", "BUY"),
         record("DIA", "US", "BULLISH", "BUY"),
         record("RUSSELL_2000", "US", "BULLISH", "BUY"),
+        record("EWJ", "JP", "BULLISH", "BUY"),
+        record("EWY", "KR", "BULLISH", "BUY"),
     ]
-    records[-1] = MarketCTA(
-        **{**records[-1].__dict__, "as_of": "2026-07-16"}
+    records[3] = MarketCTA(
+        **{**records[3].__dict__, "as_of": "2026-07-16"}
     )
 
     try:
@@ -185,6 +192,8 @@ def test_dashboard_rejects_mixed_us_portfolio_dates() -> None:
         record("QQQ", "US", "BULLISH", "BUY"),
         record("DIA", "US", "BULLISH", "BUY"),
         record("RUSSELL_2000", "US", "BULLISH", "BUY"),
+        record("EWJ", "JP", "BULLISH", "BUY"),
+        record("EWY", "KR", "BULLISH", "BUY"),
         *[
             record(symbol, "US", "MIXED", "HOLD")
             for symbol in US_PORTFOLIO_CTA_SYMBOLS
@@ -200,3 +209,24 @@ def test_dashboard_rejects_mixed_us_portfolio_dates() -> None:
         assert "portfolio CTA dates must match" in str(exc)
     else:
         raise AssertionError("Mixed US portfolio CTA dates must not be published")
+
+
+def test_dashboard_rejects_mixed_country_proxy_dates() -> None:
+    records = [
+        record("SPY", "US", "BULLISH", "BUY"),
+        record("QQQ", "US", "BULLISH", "BUY"),
+        record("DIA", "US", "BULLISH", "BUY"),
+        record("RUSSELL_2000", "US", "BULLISH", "BUY"),
+        record("EWJ", "JP", "BULLISH", "BUY"),
+        record("EWY", "KR", "BULLISH", "BUY"),
+    ]
+    records[-1] = MarketCTA(
+        **{**records[-1].__dict__, "as_of": "2026-07-16"}
+    )
+
+    try:
+        build_dashboard_payload(records)
+    except ValueError as exc:
+        assert "Country CTA proxy dates must match" in str(exc)
+    else:
+        raise AssertionError("Mixed country CTA dates must not be published")
