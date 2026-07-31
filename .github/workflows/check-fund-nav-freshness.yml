@@ -3,9 +3,9 @@ name: Check Fund NAV CTA Freshness
 on:
   workflow_dispatch:
   schedule:
-    # 10:15 Asia/Taipei, Monday-Friday (02:15 UTC), shortly before
+    # 10:15 Asia/Taipei, Monday-Saturday (02:15 UTC), shortly before
     # the 10:30 Fund CTA Daily output.
-    - cron: "15 2 * * 1-5"
+    - cron: "15 2 * * 1-6"
 
 permissions:
   contents: read
