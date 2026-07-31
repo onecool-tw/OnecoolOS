@@ -33,11 +33,16 @@ US_INDEX_CTA_PROXIES = {
     "Russell 2000": "RUSSELL_2000",
 }
 
+COUNTRY_INDEX_CTA_PROXIES = {
+    "Japan": "EWJ",
+    "South Korea": "EWY",
+}
+
 US_PORTFOLIO_CTA_SYMBOLS = ("BABA", "XYZ", "QRVO", "RH", "UPBD")
 
 DASHBOARD_ACTION_REFRESH_GROUPS = {
-    "group_a": ("SPY", "QQQ", "DIA"),
-    "group_b": ("SOXX", "NVDA"),
+    "group_a": ("SPY", "QQQ", "DIA", "EWJ"),
+    "group_b": ("SOXX", "NVDA", "EWY"),
 }
 
 
@@ -48,6 +53,8 @@ MARKET_SYMBOLS = (
     MarketSymbol("DIA", "DIA", "US", "blue_chip"),
     MarketSymbol("SOXX", "SOXX", "US", "semiconductor"),
     MarketSymbol("NVDA", "NVDA", "US", "ai"),
+    MarketSymbol("EWJ", "EWJ", "JP", "broad_market"),
+    MarketSymbol("EWY", "EWY", "KR", "broad_market"),
     MarketSymbol("BABA", "BABA", "US", "portfolio"),
     MarketSymbol("XYZ", "XYZ", "US", "portfolio"),
     MarketSymbol("QRVO", "QRVO", "US", "portfolio"),
@@ -166,10 +173,11 @@ def build_dashboard_payload(records: Iterable[MarketCTA]) -> dict[str, Any]:
 
     values = list(records)
     expected_as_of = _validate_us_index_cta_dates(values)
+    country_as_of = _validate_country_index_cta_dates(values, expected_as_of)
     portfolio_as_of = _validate_us_portfolio_cta_dates(values, expected_as_of)
     generated_at = datetime.now(UTC).isoformat()
     return {
-        "schema_version": "1.5",
+        "schema_version": "1.6",
         "module": "Onecool Market Dashboard",
         "generated_at": generated_at,
         "expected_as_of": expected_as_of,
@@ -178,6 +186,14 @@ def build_dashboard_payload(records: Iterable[MarketCTA]) -> dict[str, Any]:
         "index_cta_basis": {
             "method": "ETF/index proxies; shared CTA engine",
             "mappings": US_INDEX_CTA_PROXIES,
+        },
+        "country_index_cta_basis": {
+            "method": "US-listed country ETF proxies; shared CTA engine",
+            "mappings": COUNTRY_INDEX_CTA_PROXIES,
+            "as_of": country_as_of,
+            "currency_policy": (
+                "unhedged USD-listed ETFs; local equity plus FX effect"
+            ),
         },
         "portfolio_cta_basis": {
             "method": "Adjusted-close histories; shared CTA engine",
@@ -218,6 +234,34 @@ def _validate_us_index_cta_dates(records: Iterable[MarketCTA]) -> str:
         )
         raise ValueError("US CTA proxy dates are inconsistent: " + details)
     return dates.pop()
+
+
+def _validate_country_index_cta_dates(
+    records: Iterable[MarketCTA], expected_as_of: str
+) -> str:
+    """Require country ETF proxies to match the complete US market date."""
+
+    items = {item.symbol: item for item in records}
+    missing = [
+        symbol for symbol in COUNTRY_INDEX_CTA_PROXIES.values()
+        if symbol not in items
+    ]
+    if missing:
+        raise ValueError(
+            "Market Dashboard is missing country CTA proxies: "
+            + ", ".join(missing)
+        )
+    dates = {items[symbol].as_of for symbol in COUNTRY_INDEX_CTA_PROXIES.values()}
+    if dates != {expected_as_of}:
+        details = ", ".join(
+            f"{symbol}={items[symbol].as_of}"
+            for symbol in COUNTRY_INDEX_CTA_PROXIES.values()
+        )
+        raise ValueError(
+            "Country CTA proxy dates must match the US market date "
+            f"{expected_as_of}: {details}"
+        )
+    return expected_as_of
 
 
 def _validate_us_portfolio_cta_dates(
