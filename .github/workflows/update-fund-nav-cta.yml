@@ -3,9 +3,9 @@ name: Update Fund NAV CTA
 on:
   workflow_dispatch:
   schedule:
-    # 08:30 Asia/Taipei, Monday-Friday (00:30 UTC).
+    # 08:30 Asia/Taipei, Monday-Saturday (00:30 UTC).
     # This leaves two hours before the 10:30 Fund CTA Daily output.
-    - cron: "30 0 * * 1-5"
+    - cron: "30 0 * * 1-6"
 
 permissions:
   contents: write
