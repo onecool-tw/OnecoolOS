@@ -13,9 +13,10 @@ on:
           - group_b
         default: none
   schedule:
-    # 05:00 Asia/Taipei, Tuesday-Saturday (21:00 UTC Monday-Friday).
-    # This completes before the 10:30 US Stock Intelligence consumer runs.
+    # US close: 05:00 Asia/Taipei, Tuesday-Saturday.
     - cron: "0 21 * * 1-5"
+    # Taiwan/Japan/Korea close: 16:00 Asia/Taipei, Monday-Friday.
+    - cron: "0 8 * * 1-5"
 
 permissions:
   contents: write
@@ -41,13 +42,13 @@ jobs:
           ALPHA_VANTAGE_API_KEY: ${{ secrets.ALPHA_VANTAGE_API_KEY }}
         run: |
           args=()
-          # Prices refresh every run. Corporate actions rotate on Tuesday and
-          # Wednesday Taipei time, away from the ETF CTA action groups.
+          # Prices refresh every run. Alpha Vantage corporate-action checks
+          # only run on the 21:00 UTC US-close schedule to avoid duplicate calls.
           if [[ "${{ inputs.refresh_actions_group }}" != "" && "${{ inputs.refresh_actions_group }}" != "none" ]]; then
             args+=(--refresh-actions-group "${{ inputs.refresh_actions_group }}")
-          elif [[ "${{ github.event_name }}" == "schedule" && "$(date -u +%u)" == "1" ]]; then
+          elif [[ "${{ github.event_name }}" == "schedule" && "$(date -u +%H)" == "21" && "$(date -u +%u)" == "1" ]]; then
             args+=(--refresh-actions-group group_a)
-          elif [[ "${{ github.event_name }}" == "schedule" && "$(date -u +%u)" == "2" ]]; then
+          elif [[ "${{ github.event_name }}" == "schedule" && "$(date -u +%H)" == "21" && "$(date -u +%u)" == "2" ]]; then
             args+=(--refresh-actions-group group_b)
           fi
           python scripts/update_market_dashboard.py "${args[@]}"
