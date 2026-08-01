@@ -7,6 +7,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+from onecool_os.market.etf_cta import ETFCTAError
 from onecool_os.market.fund_alpha import (
     FUND_WATCHLIST,
     AnueFundClient,
@@ -29,7 +30,7 @@ def update(
     client: AnueFundClient | None = None,
     generated_at: str | None = None,
 ) -> dict[str, Any]:
-    """Fetch NAV once per fund and update CTA without weekly report modules."""
+    """Refresh each fund independently and retain valid NAV on failures."""
 
     fund_dir = root / "data" / "market" / "fund_nav"
     nav_client = client or AnueFundClient()
@@ -43,14 +44,66 @@ def update(
         item["symbol"]: item for item in benchmark_payload.get("results", [])
     }
 
-    # Complete all provider reads first. A single failed fund must not publish a
-    # mixed-date, partially refreshed daily cache.
-    histories = {}
+    histories: dict[str, Any] = {}
+    refresh_by_fund: dict[str, dict[str, Any]] = {}
+    failed_reads = 0
+    missing_history = []
+
     for fund_code in FUND_WATCHLIST:
         path = fund_dir / "history" / f"{fund_code}.csv"
-        histories[fund_code] = merge_nav_history(
-            read_nav_history(path),
-            nav_client.fetch_history(fund_code),
+        existing = read_nav_history(path)
+        previous_date = existing[-1].nav_date if existing else None
+        try:
+            incoming = nav_client.fetch_history(fund_code)
+            history = merge_nav_history(existing, incoming)
+            latest_date = history[-1].nav_date if history else None
+            status = (
+                "UPDATED"
+                if latest_date is not None
+                and (previous_date is None or latest_date > previous_date)
+                else "NO_NEW_NAV"
+            )
+            refresh_by_fund[fund_code] = {
+                "status": status,
+                "provider_read": "SUCCESS",
+                "previous_nav_date": (
+                    previous_date.isoformat() if previous_date else None
+                ),
+                "effective_nav_date": (
+                    latest_date.isoformat() if latest_date else None
+                ),
+                "error": None,
+            }
+        except Exception as exc:  # provider errors must remain fund-scoped
+            failed_reads += 1
+            history = existing
+            latest_date = history[-1].nav_date if history else None
+            refresh_by_fund[fund_code] = {
+                "status": "FALLBACK_EXISTING",
+                "provider_read": "FAILED",
+                "previous_nav_date": (
+                    previous_date.isoformat() if previous_date else None
+                ),
+                "effective_nav_date": (
+                    latest_date.isoformat() if latest_date else None
+                ),
+                "error": f"{type(exc).__name__}: {exc}",
+            }
+            print(
+                f"::warning::NAV refresh failed for {fund_code}; "
+                f"using {latest_date or 'no existing NAV'}: {exc}"
+            )
+        histories[fund_code] = history
+        if not history:
+            missing_history.append(fund_code)
+
+    if failed_reads == len(FUND_WATCHLIST):
+        raise ETFCTAError(
+            "All seven fund NAV provider reads failed; no cache was published."
+        )
+    if missing_history:
+        raise ETFCTAError(
+            "No valid existing NAV history for: " + ", ".join(missing_history)
         )
 
     results = []
@@ -74,9 +127,17 @@ def update(
         )
 
     payload = fund_cta_payload(results)
+    for item in payload["results"]:
+        item["nav_refresh"] = refresh_by_fund[item["fund_code"]]
     payload["generated_at"] = generated_at or datetime.now(timezone.utc).isoformat()
     payload["update_mode"] = "DAILY_NAV_CTA_ONLY"
     payload["nav_provider"] = "Anue Fund public NavHIS"
+    payload["nav_refresh"] = {
+        "status": "PARTIAL" if failed_reads else "COMPLETE",
+        "successful_provider_reads": len(FUND_WATCHLIST) - failed_reads,
+        "failed_provider_reads": failed_reads,
+        "funds": refresh_by_fund,
+    }
     fund_dir.mkdir(parents=True, exist_ok=True)
     (fund_dir / "fund_cta_latest.json").write_text(
         json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
