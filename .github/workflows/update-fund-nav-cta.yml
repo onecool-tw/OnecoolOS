@@ -68,6 +68,11 @@ jobs:
               raise SystemExit("Unexpected update_mode")
           if not payload.get("generated_at"):
               raise SystemExit("generated_at is missing")
+          refresh = payload.get("nav_refresh") or {}
+          refresh_status = refresh.get("status")
+          if refresh_status not in {"COMPLETE", "PARTIAL"}:
+              raise SystemExit(f"Unexpected nav_refresh status: {refresh_status}")
+          failed_reads = int(refresh.get("failed_provider_reads", 0))
 
           lines = [
               "## Fund NAV CTA refresh",
@@ -75,7 +80,9 @@ jobs:
               f"- Generated at: `{payload['generated_at']}`",
               f"- Fund NAV dates: `{', '.join(dates)}`",
               f"- Funds: `{len(results)}`",
-              "- Validation: `PASS`",
+              f"- Provider refresh: `{refresh_status}`",
+              f"- Failed provider reads: `{failed_reads}`",
+              f"- Validation: `{'PASS' if failed_reads == 0 else 'CONDITIONAL PASS'}`",
           ]
           summary = os.environ.get("GITHUB_STEP_SUMMARY")
           if summary:
