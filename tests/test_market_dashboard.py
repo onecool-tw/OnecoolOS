@@ -1,4 +1,5 @@
 import json
+import math
 from datetime import date, timedelta
 from pathlib import Path
 
@@ -108,7 +109,7 @@ def test_market_summary_is_deterministic_and_not_a_forecast() -> None:
     assert payload["summary"]["taiwan_market_trend"] == "BULLISH"
     assert payload["summary"]["us_taiwan_synchronization"] == "SYNCHRONIZED"
     assert payload["summary_method"] == "deterministic CTA aggregation; no forecast"
-    assert payload["schema_version"] == "1.7"
+    assert payload["schema_version"] == "1.8"
     assert payload["expected_as_of"] == "2026-07-17"
     assert payload["data_status"] == "READY"
     assert payload["last_successful_update_at"] == payload["generated_at"]
@@ -135,6 +136,27 @@ def test_market_summary_is_deterministic_and_not_a_forecast() -> None:
     assert payload["history_bootstrap_provider"].startswith(
         "yahoo_finance_raw"
     )
+
+
+def test_dashboard_record_rejects_non_finite_values() -> None:
+    result = CTAResult(
+        symbol="0050",
+        as_of="2026-07-31",
+        price=math.nan,
+        daily_50ma=90,
+        daily_200ma=80,
+        weekly_30ma=85,
+        weekly_50ma=75,
+        cta="BUY",
+        reason="invalid",
+    )
+
+    try:
+        dashboard_record(next(x for x in MARKET_SYMBOLS if x.symbol == "0050"), result)
+    except ValueError as exc:
+        assert "non-finite" in str(exc)
+    else:
+        raise AssertionError("Non-finite dashboard values must not be published")
 
 
 def test_cache_loader_and_fund_context_never_query_provider(tmp_path: Path) -> None:

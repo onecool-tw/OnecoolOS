@@ -3,8 +3,8 @@ name: Update Fund Weekly Analytics
 on:
   workflow_dispatch:
   schedule:
-    # 14:00 Asia/Taipei every Sunday (06:00 UTC), after the weekly
-    # Market Dashboard, AI evidence, and StockQ rotation refreshes.
+    # 14:00 Asia/Taipei every Sunday (06:00 UTC), after Saturday's final
+    # Market Dashboard and ETF CTA refreshes.
     - cron: "0 6 * * 0"
 
 permissions:
@@ -26,16 +26,34 @@ jobs:
           cache: pip
       - name: Install project
         run: pip install -e .
+      - name: Refresh official AI evidence
+        env:
+          SEC_USER_AGENT: OnecoolOS research onecool-tw@users.noreply.github.com
+        run: python scripts/update_ai_revolution.py
+      - name: Refresh Global Market Rotation and TWD conversion
+        run: python scripts/update_stockq_rotation.py
+      - name: Refresh US Sector Rotation
+        run: python scripts/update_sector_rotation.py
       - name: Refresh weekly fund analytics
         run: python scripts/update_fund_alpha.py
-      - name: Commit only when weekly fund analytics changed
+      - name: Validate all Fund Intelligence inputs
+        run: python scripts/validate_fund_intelligence.py
+      - name: Commit the complete weekly preflight atomically
         run: |
-          git add             data/market/fund_nav/history             data/market/fund_nav/fund_cta_latest.json             data/market/fund_nav/alpha_latest.json             data/market/fund_nav/peer_ranking_latest.json
+          git add \
+            data/market/ai_revolution \
+            data/market/stockq_rotation \
+            data/market/sector_rotation \
+            data/market/fund_intelligence \
+            data/market/fund_nav/history \
+            data/market/fund_nav/fund_cta_latest.json \
+            data/market/fund_nav/alpha_latest.json \
+            data/market/fund_nav/peer_ranking_latest.json
           if git diff --cached --quiet; then
             echo "No new weekly fund analytics."
             exit 0
           fi
           git config user.name "onecool-os-bot"
           git config user.email "actions@users.noreply.github.com"
-          git commit -m "Update weekly fund analytics"
+          git commit -m "Update Fund Intelligence weekly preflight"
           git push

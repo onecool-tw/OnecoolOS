@@ -55,6 +55,15 @@ TWD_SERIES = {
     "西班牙": ("^IBEX", "EURTWD=X"),
     "義大利": ("FTSEMIB.MI", "EURTWD=X"),
     "葡萄牙": ("PSI20.LS", "EURTWD=X"),
+    "匈牙利": ("^BUX", "HUFTWD=X"),
+    "匈牙利股市": ("^BUX", "HUFTWD=X"),
+}
+
+# Yahoo does not consistently publish every direct TWD cross.  These pairs
+# produce TWD per unit of local currency through a same-date USD bridge.
+TRIANGULAR_TWD_FX = {
+    "PLNTWD=X": ("PLNUSD=X", "USDTWD=X"),
+    "HUFTWD=X": ("HUFUSD=X", "USDTWD=X"),
 }
 
 REQUIRED_TWD_FX_SYMBOLS = {
@@ -62,7 +71,49 @@ REQUIRED_TWD_FX_SYMBOLS = {
     "AUDTWD=X", "CADTWD=X", "CHFTWD=X", "INRTWD=X",
     "IDRTWD=X", "MYRTWD=X", "PHPTWD=X",
     "THBTWD=X", "SGDTWD=X", "JPYTWD=X", "KRWTWD=X", "HKDTWD=X",
+    "HUFTWD=X",
 }
+
+
+def _dated_values(bars: list) -> list[DatedValue]:
+    return [
+        DatedValue(item.trading_date, item.adjusted_close or item.close)
+        for item in bars
+    ]
+
+
+def _fetch_twd_fx(
+    fx_symbol: str, bootstrapper: YahooHistoryBootstrapper
+) -> tuple[list[DatedValue], str]:
+    """Fetch direct TWD FX, then use a same-date USD bridge if unavailable."""
+
+    try:
+        return _dated_values(bootstrapper.fetch_adjusted_daily(fx_symbol)), "DIRECT"
+    except Exception as direct_error:
+        bridge = TRIANGULAR_TWD_FX.get(fx_symbol)
+        if not bridge:
+            raise direct_error
+        local_usd_symbol, usd_twd_symbol = bridge
+        local_usd = {
+            item.trading_date: item.adjusted_close or item.close
+            for item in bootstrapper.fetch_adjusted_daily(local_usd_symbol)
+        }
+        usd_twd = {
+            item.trading_date: item.adjusted_close or item.close
+            for item in bootstrapper.fetch_adjusted_daily(usd_twd_symbol)
+        }
+        common_dates = sorted(local_usd.keys() & usd_twd.keys())
+        if len(common_dates) < 2:
+            raise RuntimeError(
+                f"No same-date USD bridge is available for {fx_symbol}."
+            ) from direct_error
+        return (
+            [
+                DatedValue(day, local_usd[day] * usd_twd[day])
+                for day in common_dates
+            ],
+            f"TRIANGULAR:{local_usd_symbol}*{usd_twd_symbol}",
+        )
 
 
 def _twd_returns_for_pass_markets(
@@ -82,7 +133,7 @@ def _twd_returns_for_pass_markets(
         market_symbol, fx_symbol = TWD_SERIES[market.market]
         try:
             local = bootstrapper.fetch_adjusted_daily(market_symbol)
-            fx = bootstrapper.fetch_adjusted_daily(fx_symbol)
+            fx, fx_method = _fetch_twd_fx(fx_symbol, bootstrapper)
         except Exception as exc:  # Provider failure must not erase the radar.
             results[market.market] = {
                 period: {
@@ -98,16 +149,12 @@ def _twd_returns_for_pass_markets(
             }
             continue
         results[market.market] = calculate_twd_returns(
-            [
-                DatedValue(item.trading_date, item.adjusted_close or item.close)
-                for item in local
-            ],
-            [
-                DatedValue(item.trading_date, item.adjusted_close or item.close)
-                for item in fx
-            ],
+            _dated_values(local),
+            fx,
             as_of=cutoff,
         )
+        for period in results[market.market].values():
+            period["fx_method"] = fx_method
     return results
 
 

@@ -142,19 +142,30 @@ def update(
             history = merge_and_adjust(existing, client.fetch_wti_daily())
             wti_status = "CURRENT"
             wti_reason = None
+            wti_source = "alpha_vantage_wti_eia_fred"
         except ETFCTAError as error:
-            if not existing or not _is_alpha_vantage_rate_limit(error):
-                raise
-            history = existing
-            wti_status = "STALE"
-            wti_reason = "alpha_vantage_daily_quota"
+            try:
+                incoming = fetch_yahoo_daily("CL=F")
+                history = merge_and_adjust(existing, incoming)
+                wti_status = "CURRENT"
+                wti_reason = f"primary_failed:{type(error).__name__}"
+                wti_source = "yahoo_cl_f_fallback"
+            except Exception as fallback_error:
+                if not existing:
+                    raise ETFCTAError(
+                        "WTI primary and CL=F fallback both failed."
+                    ) from fallback_error
+                history = existing
+                wti_status = "STALE"
+                wti_reason = "primary_and_fallback_failed"
+                wti_source = "last_known_valid"
         write_history(path, history)
         results.append(asdict(calculate_cta(symbol, history)))
         status = {
             "symbol": symbol,
             "dataset": "daily_price",
             "status": wti_status,
-            "source": "alpha_vantage_wti_eia_fred",
+            "source": wti_source,
             "as_of": history[-1].trading_date.isoformat(),
         }
         if wti_reason:

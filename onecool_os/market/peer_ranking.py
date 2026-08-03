@@ -5,7 +5,7 @@ from __future__ import annotations
 import html
 import re
 from dataclasses import asdict, dataclass, replace
-from datetime import date
+from datetime import UTC, date, datetime
 from html.parser import HTMLParser
 from typing import Any, Callable
 from urllib.parse import quote
@@ -15,6 +15,7 @@ from onecool_os.market.fund_alpha import FUND_WATCHLIST
 
 
 PERIOD_INDEX = {"3m": 1, "6m": 2, "1y": 4}
+LAST_KNOWN_VALID_DAYS = 14
 
 # Fund-platform codes are not always Cnyes page identifiers.  Keep the mapping
 # explicit so a similarly named share class can never be selected implicitly.
@@ -178,11 +179,20 @@ def refresh_peer_rankings(
         except Exception as exc:  # One page must not erase six valid records.
             old = previous.get(fund_code)
             if old and old.get("data_quality") != "UNKNOWN":
+                age_days = _age_days(old.get("as_of"))
+                quality = (
+                    "LAST_KNOWN_VALID"
+                    if age_days is not None and age_days <= LAST_KNOWN_VALID_DAYS
+                    else "STALE"
+                )
                 results.append(
                     replace(
                         _record_from_dict(old),
-                        data_quality="STALE",
-                        reason=f"Refresh failed; retained last success: {type(exc).__name__}.",
+                        data_quality=quality,
+                        reason=(
+                            "Refresh failed; retained dated last success "
+                            f"({age_days} days old): {type(exc).__name__}."
+                        ),
                     )
                 )
             else:
@@ -211,12 +221,14 @@ def refresh_peer_rankings(
 
 def peer_ranking_payload(results: list[PeerRanking]) -> dict[str, Any]:
     return {
-        "schema_version": "1.1",
+        "schema_version": "1.2",
+        "generated_at": datetime.now(UTC).isoformat(),
         "metric": "Onecool Peer Ranking",
         "source_policy": {
             "ssot": "Cnyes published Morningstar peer ranking",
             "funddj": "cross_check_only_not_mixed",
             "missing": "Unknown; no imputation",
+            "last_known_valid_days": LAST_KNOWN_VALID_DAYS,
         },
         "periods": ["3m", "6m", "1y"],
         "decision_role": "third_layer_manager_selection_quality",
@@ -254,7 +266,23 @@ def _record_from_dict(value: dict[str, Any]) -> PeerRanking:
     return PeerRanking(**{key: value.get(key) for key in fields})
 
 
+def _age_days(value: str | None) -> int | None:
+    if not value:
+        return None
+    try:
+        return max(0, (date.today() - date.fromisoformat(value)).days)
+    except ValueError:
+        return None
+
+
 def _download(url: str) -> bytes:
     request = Request(url, headers={"User-Agent": "OnecoolOS/1.0 peer-ranking"})
-    with urlopen(request, timeout=60) as response:  # noqa: S310 - fixed Cnyes host.
-        return response.read()
+    last_error: Exception | None = None
+    for _ in range(3):
+        try:
+            with urlopen(request, timeout=60) as response:  # noqa: S310
+                return response.read()
+        except Exception as exc:  # Provider boundary; retry transient failures.
+            last_error = exc
+    assert last_error is not None
+    raise last_error

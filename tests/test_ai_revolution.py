@@ -167,6 +167,41 @@ def test_partial_provider_failure_cannot_unlock_lights() -> None:
     assert payload["signals"]["overall"]["usable_for_report"] is False
 
 
+def test_transient_failure_keeps_recent_official_revision_valid() -> None:
+    previous = {
+        "generated_at": "2026-07-31T00:00:00+00:00",
+        "companies": [
+            {
+                "company": company,
+                "cik": cik,
+                "data_status": "OFFICIAL_IR_AVAILABLE",
+                "evidence_revision": f"ir:{company}",
+                "official_ir": {"fetched_at": "2026-07-31T00:00:00+00:00"},
+            }
+            for company, cik in COMPANIES.items()
+        ],
+    }
+
+    def fail(*_):
+        raise AIRevolutionError("temporary provider failure")
+
+    payload = refresh_ai_revolution(
+        SecClient("OnecoolOS test test@example.com", request=fail),
+        previous=previous,
+        ir_client=OfficialIRClient(
+            "OnecoolOS test test@example.com", request=fail
+        ),
+        generated_at="2026-08-03T00:00:00+00:00",
+    )
+
+    assert payload["companies_official_evidence_valid"] == 7
+    assert payload["official_evidence_coverage_pct"] == 100.0
+    assert payload["cache_status"] == "VALID"
+    assert {item["data_status"] for item in payload["companies"]} == {
+        "LAST_KNOWN_VALID"
+    }
+
+
 def test_official_ir_fallback_tracks_revision_without_inventing_facts() -> None:
     def sec_request(_: str, __: str) -> dict:
         raise AIRevolutionError("HTTP 403: Forbidden")

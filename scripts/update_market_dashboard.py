@@ -197,7 +197,11 @@ def update(
     for config, history in staged:
         write_history(history_dir / f"{config.symbol}.csv", history)
     data_dir.mkdir(parents=True, exist_ok=True)
-    serialized = json.dumps(payload, indent=2, ensure_ascii=False) + "\n"
+    # JSON NaN is not valid JSON. Refuse the whole staged refresh and leave the
+    # last successful cache untouched when a provider returns a non-finite bar.
+    serialized = json.dumps(
+        payload, indent=2, ensure_ascii=False, allow_nan=False
+    ) + "\n"
     (data_dir / "dashboard_latest.json").write_text(serialized, encoding="utf-8")
     snapshot_date = max(date.fromisoformat(item.as_of) for item in records)
     snapshots = data_dir / "snapshots"

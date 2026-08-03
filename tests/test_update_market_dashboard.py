@@ -53,12 +53,15 @@ class FakeBootstrapper:
             for index in range(500)
         ]
 
+    def fetch_raw_daily(self, symbol: str, *, period: str = "10d"):
+        return self.fetch_daily(symbol)
+
     def fetch_adjusted_daily(self, symbol: str):
         self.adjusted_calls.append(symbol)
         return self.fetch_daily(symbol)
 
 
-def test_update_uses_av_for_us_and_yahoo_fallback_for_taiwan(
+def test_update_uses_raw_yahoo_primary_for_all_dashboard_symbols(
     tmp_path: Path, monkeypatch
 ) -> None:
     FakeClient.calls = []
@@ -70,19 +73,20 @@ def test_update_uses_av_for_us_and_yahoo_fallback_for_taiwan(
         tmp_path, "secret", bootstrapper=FakeBootstrapper()
     )
 
-    assert len(FakeClient.calls) == 15
-    assert len(FakeBootstrapper.calls) == 11
-    assert FakeBootstrapper.adjusted_calls == [
-        "^RUT", "0050.TW", "2330.TW", "^VIX", "DX-Y.NYB", "^TYX"
+    assert FakeClient.calls == []
+    assert FakeBootstrapper.calls == [
+        config.provider_symbol for config in update_market_dashboard.MARKET_SYMBOLS
     ]
-    assert all(call[0] != "daily:full" for call in FakeClient.calls)
-    assert len(payload["results"]) == 11
-    assert payload["provider_by_symbol"]["SPY"] == "alpha_vantage"
-    assert payload["provider_by_symbol"]["VIX"] == "yahoo_finance"
+    assert FakeBootstrapper.adjusted_calls == []
+    assert len(payload["results"]) == len(update_market_dashboard.MARKET_SYMBOLS)
+    assert payload["provider_by_symbol"]["SPY"] == "yahoo_finance_raw"
+    assert payload["provider_by_symbol"]["VIX"] == "yahoo_finance_raw"
     assert payload["cta_engine"] == "onecool_os.market.etf_cta.calculate_cta"
     latest = tmp_path / "data" / "market" / "dashboard" / "dashboard_latest.json"
     assert latest.exists()
-    assert len(list((latest.parent / "history").glob("*.csv"))) == 11
+    assert len(list((latest.parent / "history").glob("*.csv"))) == len(
+        update_market_dashboard.MARKET_SYMBOLS
+    )
     assert len(list((latest.parent / "snapshots").glob("*.json"))) == 1
 
 
@@ -104,14 +108,12 @@ def test_missing_api_key_uses_yahoo_for_all_symbols(
         tmp_path, "", bootstrapper=bootstrapper
     )
 
-    assert len(payload["results"]) == 11
-    assert FakeBootstrapper.adjusted_calls == [
+    assert len(payload["results"]) == len(update_market_dashboard.MARKET_SYMBOLS)
+    assert FakeBootstrapper.calls == [
         config.provider_symbol for config in update_market_dashboard.MARKET_SYMBOLS
     ]
-    assert set(payload["provider_by_symbol"].values()) == {
-        "yahoo_finance",
-        "yahoo_finance_fallback",
-    }
+    assert FakeBootstrapper.adjusted_calls == []
+    assert set(payload["provider_by_symbol"].values()) == {"yahoo_finance_raw"}
 
 
 def test_both_providers_failing_keeps_last_successful_cache(
@@ -127,14 +129,14 @@ def test_both_providers_failing_keeps_last_successful_cache(
             raise RuntimeError(f"provider failed for {symbol}")
 
     class FailingBootstrapper(FakeBootstrapper):
-        def fetch_adjusted_daily(self, symbol: str):
+        def fetch_raw_daily(self, symbol: str, *, period: str = "10d"):
             raise RuntimeError(f"backup failed for {symbol}")
 
     monkeypatch.setattr(
         update_market_dashboard, "AlphaVantageClient", FailingClient
     )
 
-    with pytest.raises(RuntimeError, match="backup failed"):
+    with pytest.raises(RuntimeError, match="raw-history rebuild"):
         update_market_dashboard.update(
             tmp_path, "secret", bootstrapper=FailingBootstrapper()
         )
@@ -165,9 +167,7 @@ def test_existing_histories_skip_yahoo_bootstrap(tmp_path: Path, monkeypatch) ->
     )
 
     assert FakeBootstrapper.calls == [
-        "^RUT", "0050.TW", "2330.TW", "^VIX", "DX-Y.NYB", "^TYX"
+        config.provider_symbol for config in update_market_dashboard.MARKET_SYMBOLS
     ]
-    assert FakeBootstrapper.adjusted_calls == [
-        "^RUT", "0050.TW", "2330.TW", "^VIX", "DX-Y.NYB", "^TYX"
-    ]
-    assert len(FakeClient.calls) == 15
+    assert FakeBootstrapper.adjusted_calls == []
+    assert FakeClient.calls == []

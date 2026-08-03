@@ -55,6 +55,7 @@ OPERATING_CASH_FLOW_TAGS = (
     "NetCashProvidedByUsedInOperatingActivitiesContinuingOperations",
 )
 PERIODIC_FORMS = {"10-Q", "10-K"}
+LAST_KNOWN_VALID_DAYS = 45
 
 
 class AIRevolutionError(RuntimeError):
@@ -198,6 +199,29 @@ def _error_details(exc: Exception | None) -> str:
     if exc is None:
         return "Unknown SEC provider error"
     return f"{type(exc).__name__}: {exc}"
+
+
+def _evidence_age_days(
+    old: dict[str, Any], previous: dict[str, Any], reference: datetime
+) -> int | None:
+    """Return the age of the last attributable official evidence."""
+
+    candidates = [
+        (old.get("official_ir") or {}).get("fetched_at"),
+        (old.get("latest_periodic_filing") or {}).get("filing_date"),
+        previous.get("generated_at"),
+    ]
+    for value in candidates:
+        if not value:
+            continue
+        try:
+            observed = datetime.fromisoformat(str(value).replace("Z", "+00:00"))
+            if observed.tzinfo is None:
+                observed = observed.replace(tzinfo=timezone.utc)
+            return max(0, (reference - observed).days)
+        except ValueError:
+            continue
+    return None
 
 
 def tesla_update_urls(reference: datetime) -> tuple[str, ...]:
@@ -387,16 +411,26 @@ def refresh_ai_revolution(
                     }
                 )
                 official_valid += 1
-            elif old:
+            elif old and old.get("evidence_revision"):
+                evidence_age = _evidence_age_days(old, previous, reference_time)
+                within_ttl = (
+                    evidence_age is not None
+                    and evidence_age <= LAST_KNOWN_VALID_DAYS
+                )
                 companies.append(
                     {
                         **old,
-                        "data_status": "STALE",
+                        "data_status": (
+                            "LAST_KNOWN_VALID" if within_ttl else "STALE"
+                        ),
+                        "evidence_age_days": evidence_age,
                         "refresh_error": refresh_error,
                         "official_ir_refresh_error": ir_error,
                         "filing_changed": False,
                     }
                 )
+                if within_ttl:
+                    official_valid += 1
             else:
                 companies.append(
                     {
@@ -440,7 +474,7 @@ def refresh_ai_revolution(
 
     generated = generated_at or datetime.now(timezone.utc).isoformat()
     return {
-        "schema_version": "1.1",
+        "schema_version": "1.2",
         "generated_at": generated,
         "source_policy": (
             "SEC filings/companyfacts primary; official company IR pages fallback"
@@ -470,4 +504,11 @@ def refresh_ai_revolution(
             "Do not output current AI lights unless every current evidence revision "
             "(SEC accession or official IR fingerprint) has been reviewed."
         ),
+        "last_known_valid_policy": {
+            "maximum_age_days": LAST_KNOWN_VALID_DAYS,
+            "rule": (
+                "A transient provider failure retains the last reviewed official "
+                "revision until it exceeds the maximum age."
+            ),
+        },
     }

@@ -56,13 +56,40 @@ def load_fund_intelligence_context(root: Path) -> dict[str, Any]:
         if rotation_path.exists()
         else None
     )
+    sector_path = (
+        root / "data" / "market" / "sector_rotation" / "rotation_latest.json"
+    )
+    sector_rotation = (
+        json.loads(sector_path.read_text(encoding="utf-8"))
+        if sector_path.exists()
+        else None
+    )
+    ai_path = (
+        root / "data" / "market" / "ai_revolution" / "ai_revolution_latest.json"
+    )
+    ai_revolution = (
+        json.loads(ai_path.read_text(encoding="utf-8"))
+        if ai_path.exists()
+        else None
+    )
+    validation_path = (
+        root / "data" / "market" / "fund_intelligence" / "validation_latest.json"
+    )
+    validation = (
+        json.loads(validation_path.read_text(encoding="utf-8"))
+        if validation_path.exists()
+        else None
+    )
     return {
-        "schema_version": "1.3",
+        "schema_version": "1.4",
         "source_policy": "github_cache_only",
         "master_prompt": load_master_prompt(root),
         "fund_alpha": alpha,
         "fund_cta": fund_cta,
         "peer_ranking": peer_ranking,
         "stockq_rotation_radar": rotation_radar,
+        "sector_rotation": sector_rotation,
+        "ai_revolution": ai_revolution,
+        "data_validation": validation,
         "market_dashboard": load_latest_dashboard(root),
     }
