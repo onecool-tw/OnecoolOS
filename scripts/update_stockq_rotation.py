@@ -154,6 +154,24 @@ def _twd_returns_for_pass_markets(
         market_symbol, fx_symbol = TWD_SERIES[market.market]
         try:
             local = bootstrapper.fetch_adjusted_daily(market_symbol)
+        except Exception as exc:  # Provider failure must not erase the radar.
+            results[market.market] = {
+                period: {
+                    "start_date": None,
+                    "end_date": None,
+                    "local_return_pct": None,
+                    "fx_return_pct": None,
+                    "twd_return_pct": None,
+                    "status": "UNKNOWN",
+                    "reason": (
+                        "Local market series update failed: "
+                        f"{type(exc).__name__}"
+                    ),
+                }
+                for period in ("1w", "1m")
+            }
+            continue
+        try:
             fx, fx_method = _fetch_twd_fx(fx_symbol, bootstrapper)
         except Exception as exc:  # Provider failure must not erase the radar.
             results[market.market] = {
@@ -164,7 +182,10 @@ def _twd_returns_for_pass_markets(
                     "fx_return_pct": None,
                     "twd_return_pct": None,
                     "status": "UNKNOWN",
-                    "reason": f"Same-date FX update failed: {type(exc).__name__}",
+                    "reason": (
+                        "Same-date FX update failed: "
+                        f"{type(exc).__name__}"
+                    ),
                 }
                 for period in ("1w", "1m")
             }

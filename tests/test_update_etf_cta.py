@@ -46,7 +46,9 @@ def test_equity_daily_prices_do_not_use_alpha_vantage(
 
     payload = update_etf_cta.update(tmp_path, "key", allow_bootstrap=True)
 
-    assert set(yahoo_calls) == set(update_etf_cta.EQUITY_MARKET_SYMBOLS)
+    assert set(yahoo_calls) == set(update_etf_cta.EQUITY_MARKET_SYMBOLS) | {
+        "CL=F"
+    }
     price_statuses = [
         item
         for item in payload["data_status"]
@@ -108,6 +110,32 @@ def test_wti_uses_yahoo_crude_fallback_when_primary_fails(
     )
     assert status["status"] == "CURRENT"
     assert status["source"] == "yahoo_cl_f_fallback"
+
+
+def test_wti_uses_newer_yahoo_date_when_primary_succeeds_stale(
+    tmp_path, monkeypatch
+) -> None:
+    primary = bars(395)
+    fallback = bars(400)
+
+    def yahoo(symbol, **_):
+        return fallback if symbol == "CL=F" else bars()
+
+    monkeypatch.setattr(update_etf_cta, "fetch_yahoo_daily", yahoo)
+    monkeypatch.setattr(
+        update_etf_cta.AlphaVantageClient,
+        "fetch_wti_daily",
+        lambda *_: primary,
+    )
+
+    payload = update_etf_cta.update(tmp_path, "key", allow_bootstrap=True)
+
+    status = next(
+        item for item in payload["data_status"] if item["symbol"] == "WTI"
+    )
+    assert status["source"] == "yahoo_cl_f_fallback"
+    assert status["as_of"] == fallback[-1].trading_date.isoformat()
+    assert status["reason"].startswith("primary_older_as_of:")
 
 
 def test_rate_limit_keeps_existing_actions_and_marks_stale(
