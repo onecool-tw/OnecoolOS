@@ -1,4 +1,5 @@
 import json
+import subprocess
 from datetime import date
 
 from onecool_os.market.fund_intelligence_validation import (
@@ -59,3 +60,15 @@ def test_preflight_passes_complete_finite_current_caches(tmp_path) -> None:
 
     assert result["status"] == "PASS"
     assert result["issues"] == []
+
+
+def test_generated_preflight_caches_are_git_trackable() -> None:
+    for path in (
+        "data/market/sector_rotation/rotation_latest.json",
+        "data/market/fund_intelligence/validation_latest.json",
+    ):
+        result = subprocess.run(
+            ["git", "check-ignore", "-q", path],
+            check=False,
+        )
+        assert result.returncode == 1, f"{path} must be committed by the workflow"
