@@ -62,8 +62,17 @@ TWD_SERIES = {
 # Yahoo does not consistently publish every direct TWD cross.  These pairs
 # produce TWD per unit of local currency through a same-date USD bridge.
 TRIANGULAR_TWD_FX = {
-    "PLNTWD=X": ("PLNUSD=X", "USDTWD=X"),
-    "HUFTWD=X": ("HUFUSD=X", "USDTWD=X"),
+    # Try local-currency-per-USD pairs first because Yahoo publishes these
+    # more consistently.  The third field means the first series must be
+    # inverted before multiplying by USD/TWD.
+    "PLNTWD=X": (
+        ("USDPLN=X", "USDTWD=X", True),
+        ("PLNUSD=X", "USDTWD=X", False),
+    ),
+    "HUFTWD=X": (
+        ("USDHUF=X", "USDTWD=X", True),
+        ("HUFUSD=X", "USDTWD=X", False),
+    ),
 }
 
 REQUIRED_TWD_FX_SYMBOLS = {
@@ -90,30 +99,42 @@ def _fetch_twd_fx(
     try:
         return _dated_values(bootstrapper.fetch_adjusted_daily(fx_symbol)), "DIRECT"
     except Exception as direct_error:
-        bridge = TRIANGULAR_TWD_FX.get(fx_symbol)
-        if not bridge:
+        bridges = TRIANGULAR_TWD_FX.get(fx_symbol)
+        if not bridges:
             raise direct_error
-        local_usd_symbol, usd_twd_symbol = bridge
-        local_usd = {
-            item.trading_date: item.adjusted_close or item.close
-            for item in bootstrapper.fetch_adjusted_daily(local_usd_symbol)
-        }
-        usd_twd = {
-            item.trading_date: item.adjusted_close or item.close
-            for item in bootstrapper.fetch_adjusted_daily(usd_twd_symbol)
-        }
-        common_dates = sorted(local_usd.keys() & usd_twd.keys())
-        if len(common_dates) < 2:
-            raise RuntimeError(
-                f"No same-date USD bridge is available for {fx_symbol}."
-            ) from direct_error
-        return (
-            [
-                DatedValue(day, local_usd[day] * usd_twd[day])
-                for day in common_dates
-            ],
-            f"TRIANGULAR:{local_usd_symbol}*{usd_twd_symbol}",
-        )
+        bridge_errors = []
+        for local_usd_symbol, usd_twd_symbol, invert_local in bridges:
+            try:
+                local_series = {
+                    item.trading_date: item.adjusted_close or item.close
+                    for item in bootstrapper.fetch_adjusted_daily(local_usd_symbol)
+                }
+                usd_twd = {
+                    item.trading_date: item.adjusted_close or item.close
+                    for item in bootstrapper.fetch_adjusted_daily(usd_twd_symbol)
+                }
+                common_dates = sorted(local_series.keys() & usd_twd.keys())
+                if len(common_dates) < 2:
+                    raise RuntimeError("fewer than two same-date observations")
+                values = []
+                for day in common_dates:
+                    local_usd = (
+                        1 / local_series[day] if invert_local else local_series[day]
+                    )
+                    values.append(DatedValue(day, local_usd * usd_twd[day]))
+                operator = "1/" if invert_local else ""
+                return (
+                    values,
+                    f"TRIANGULAR:{operator}{local_usd_symbol}*{usd_twd_symbol}",
+                )
+            except Exception as exc:
+                bridge_errors.append(
+                    f"{local_usd_symbol}: {type(exc).__name__}"
+                )
+        raise RuntimeError(
+            f"No same-date USD bridge is available for {fx_symbol}: "
+            + ", ".join(bridge_errors)
+        ) from direct_error
 
 
 def _twd_returns_for_pass_markets(
