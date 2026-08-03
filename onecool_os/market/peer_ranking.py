@@ -20,7 +20,10 @@ LAST_KNOWN_VALID_DAYS = 14
 # Fund-platform codes are not always Cnyes page identifiers.  Keep the mapping
 # explicit so a similarly named share class can never be selected implicitly.
 CNYES_FUND_PAGES = {
-    "A10124": ("A10124", "富邦AI智能新趨勢多重資產型基金-A(美元)"),
+    "A10124": (
+        "A40QHTT",
+        "富邦AI智能新趨勢多重資產型基金-A類型(美元)",
+    ),
     "A16075": ("A16075", "群益印度中小基金-美元"),
     "B23554": ("B1MSY6T", "施羅德環球基金系列－環球黃金(美元)A-累積"),
     "B15080": ("B15,080", "富蘭克林坦伯頓全球投資系列-生技領航基金美元A(acc)股"),

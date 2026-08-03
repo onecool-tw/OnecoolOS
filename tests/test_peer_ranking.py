@@ -1,9 +1,17 @@
 from onecool_os.market.peer_ranking import (
+    CNYES_FUND_PAGES,
     CnyesPeerRankingClient,
     parse_cnyes_peer_ranking,
     ranking_band,
     refresh_peer_rankings,
 )
+
+
+def test_fubon_ai_uses_cnyes_page_identifier_not_internal_fund_code() -> None:
+    assert CNYES_FUND_PAGES["A10124"] == (
+        "A40QHTT",
+        "富邦AI智能新趨勢多重資產型基金-A類型(美元)",
+    )
 
 
 HTML = """

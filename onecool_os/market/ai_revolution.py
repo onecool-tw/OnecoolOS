@@ -36,6 +36,8 @@ OFFICIAL_IR_URLS = {
     ),),
     "Apple": ("https://investor.apple.com/investor-relations/default.aspx",),
     "Tesla": (
+        "https://ir.tesla.com/",
+        "https://ir.tesla.com/sec-filings",
         "https://ir.tesla.com/press",
         (
             "https://ir.tesla.com/press-release/"
@@ -146,9 +148,18 @@ class OfficialIRClient:
             request = Request(
                 url,
                 headers={
-                    "User-Agent": self.user_agent,
-                    "Accept": "text/html,application/xhtml+xml",
+                    "User-Agent": (
+                        "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 "
+                        "(KHTML, like Gecko) Chrome/127.0 Safari/537.36"
+                    ),
+                    "From": self.user_agent.rsplit(" ", 1)[-1],
+                    "Referer": "https://ir.tesla.com/",
+                    "Accept": (
+                        "text/html,application/xhtml+xml,application/pdf,"
+                        "application/octet-stream;q=0.9,*/*;q=0.8"
+                    ),
                     "Accept-Encoding": "gzip",
+                    "Accept-Language": "en-US,en;q=0.9",
                 },
             )
             try:
