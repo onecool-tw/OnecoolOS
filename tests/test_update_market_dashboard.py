@@ -1,4 +1,7 @@
+import json
+from dataclasses import replace
 from datetime import date, timedelta
+from math import nan
 from pathlib import Path
 
 import pytest
@@ -171,3 +174,32 @@ def test_existing_histories_skip_yahoo_bootstrap(tmp_path: Path, monkeypatch) ->
     ]
     assert FakeBootstrapper.adjusted_calls == []
     assert FakeClient.calls == []
+
+
+def test_non_finite_yahoo_row_is_dropped_without_aborting_dashboard(
+    tmp_path: Path, monkeypatch
+) -> None:
+    class BootstrapperWithOneBadRow(FakeBootstrapper):
+        def fetch_raw_daily(self, symbol: str, *, period: str = "10d"):
+            bars = super().fetch_raw_daily(symbol, period=period)
+            if symbol == "0050.TW":
+                bars[-5] = replace(
+                    bars[-5],
+                    open=nan,
+                    high=nan,
+                    low=nan,
+                    close=nan,
+                )
+            return bars
+
+    monkeypatch.setattr(update_market_dashboard, "AlphaVantageClient", FakeClient)
+    payload = update_market_dashboard.update(
+        tmp_path, "secret", bootstrapper=BootstrapperWithOneBadRow()
+    )
+
+    record = next(item for item in payload["results"] if item["symbol"] == "0050")
+    assert record["current_price"] == 500.0
+    assert record["sma50"] == record["sma50"]
+    latest = tmp_path / "data" / "market" / "dashboard" / "dashboard_latest.json"
+    parsed = json.loads(latest.read_text(encoding="utf-8"))
+    assert parsed["data_status"] == "READY"
