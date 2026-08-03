@@ -1,6 +1,8 @@
 from datetime import date
 from types import SimpleNamespace
 
+import pytest
+
 from scripts.update_stockq_rotation import _fetch_twd_fx
 
 
@@ -39,8 +41,9 @@ def test_pln_twd_uses_inverse_usd_bridge_when_direct_pair_fails() -> None:
     values, method = _fetch_twd_fx("PLNTWD=X", client)
 
     assert method == "TRIANGULAR:1/USDPLN=X*USDTWD=X"
-    assert [(item.value_date, item.value) for item in values] == [
-        (date(2026, 7, 24), 8.0),
-        (date(2026, 7, 31), 6.6),
+    assert [item.value_date for item in values] == [
+        date(2026, 7, 24),
+        date(2026, 7, 31),
     ]
+    assert [item.value for item in values] == pytest.approx([8.0, 6.6])
     assert "PLNUSD=X" not in client.calls

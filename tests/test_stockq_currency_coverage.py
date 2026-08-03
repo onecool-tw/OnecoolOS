@@ -51,8 +51,14 @@ def test_every_mapping_uses_a_direct_twd_pair() -> None:
 
 
 def test_pln_and_huf_have_same_date_usd_bridge() -> None:
-    assert TRIANGULAR_TWD_FX["PLNTWD=X"] == ("PLNUSD=X", "USDTWD=X")
-    assert TRIANGULAR_TWD_FX["HUFTWD=X"] == ("HUFUSD=X", "USDTWD=X")
+    assert TRIANGULAR_TWD_FX["PLNTWD=X"] == (
+        ("USDPLN=X", "USDTWD=X", True),
+        ("PLNUSD=X", "USDTWD=X", False),
+    )
+    assert TRIANGULAR_TWD_FX["HUFTWD=X"] == (
+        ("USDHUF=X", "USDTWD=X", True),
+        ("HUFUSD=X", "USDTWD=X", False),
+    )
 
 
 def test_fx_falls_back_to_same_date_triangulation() -> None:
@@ -60,7 +66,7 @@ def test_fx_falls_back_to_same_date_triangulation() -> None:
 
     class Bootstrapper:
         def fetch_adjusted_daily(self, symbol):
-            if symbol == "PLNTWD=X":
+            if symbol in {"PLNTWD=X", "USDPLN=X"}:
                 raise RuntimeError("direct pair unavailable")
             value = 0.25 if symbol == "PLNUSD=X" else 30.0
             return [
@@ -79,4 +85,31 @@ def test_fx_falls_back_to_same_date_triangulation() -> None:
     values, method = _fetch_twd_fx("PLNTWD=X", Bootstrapper())
 
     assert method == "TRIANGULAR:PLNUSD=X*USDTWD=X"
+    assert [item.value for item in values] == [7.5, 7.5]
+
+
+def test_fx_uses_inverse_same_date_triangulation() -> None:
+    start = date(2026, 7, 1)
+
+    class Bootstrapper:
+        def fetch_adjusted_daily(self, symbol):
+            if symbol == "PLNTWD=X":
+                raise RuntimeError("direct pair unavailable")
+            value = 4.0 if symbol == "USDPLN=X" else 30.0
+            return [
+                DailyBar(
+                    trading_date=start + timedelta(days=index),
+                    open=value,
+                    high=value,
+                    low=value,
+                    close=value,
+                    volume=0,
+                    adjusted_close=value,
+                )
+                for index in range(2)
+            ]
+
+    values, method = _fetch_twd_fx("PLNTWD=X", Bootstrapper())
+
+    assert method == "TRIANGULAR:1/USDPLN=X*USDTWD=X"
     assert [item.value for item in values] == [7.5, 7.5]

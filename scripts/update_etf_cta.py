@@ -138,27 +138,57 @@ def update(
             raise ETFCTAError(f"Unsupported commodity confirmation: {symbol}.")
         path = data_dir / "history" / f"{symbol}.csv"
         existing = read_history(path)
+        primary = None
+        fallback = None
+        primary_error = None
+        fallback_error = None
         try:
-            history = merge_and_adjust(existing, client.fetch_wti_daily())
-            wti_status = "CURRENT"
-            wti_reason = None
-            wti_source = "alpha_vantage_wti_eia_fred"
+            primary = client.fetch_wti_daily()
         except ETFCTAError as error:
-            try:
-                incoming = fetch_yahoo_daily("CL=F")
-                history = merge_and_adjust(existing, incoming)
-                wti_status = "CURRENT"
-                wti_reason = f"primary_failed:{type(error).__name__}"
+            primary_error = error
+        try:
+            fallback = fetch_yahoo_daily("CL=F")
+        except Exception as error:  # noqa: BLE001 - provider boundary.
+            fallback_error = error
+
+        # A provider may respond successfully while its latest observation is
+        # stale. Compare dates before deciding which valid series to retain.
+        if primary and fallback:
+            if fallback[-1].trading_date > primary[-1].trading_date:
+                history = merge_and_adjust(existing, fallback)
                 wti_source = "yahoo_cl_f_fallback"
-            except Exception as fallback_error:
-                if not existing:
-                    raise ETFCTAError(
-                        "WTI primary and CL=F fallback both failed."
-                    ) from fallback_error
-                history = existing
-                wti_status = "STALE"
-                wti_reason = "primary_and_fallback_failed"
-                wti_source = "last_known_valid"
+                wti_reason = (
+                    "primary_older_as_of:"
+                    f"{primary[-1].trading_date.isoformat()}"
+                )
+            else:
+                history = merge_and_adjust(existing, primary)
+                wti_source = "alpha_vantage_wti_eia_fred"
+                wti_reason = None
+            wti_status = "CURRENT"
+        elif primary:
+            history = merge_and_adjust(existing, primary)
+            wti_status = "CURRENT"
+            wti_reason = (
+                f"fallback_failed:{type(fallback_error).__name__}"
+                if fallback_error
+                else None
+            )
+            wti_source = "alpha_vantage_wti_eia_fred"
+        elif fallback:
+            history = merge_and_adjust(existing, fallback)
+            wti_status = "CURRENT"
+            wti_reason = f"primary_failed:{type(primary_error).__name__}"
+            wti_source = "yahoo_cl_f_fallback"
+        else:
+            if not existing:
+                raise ETFCTAError(
+                    "WTI primary and CL=F fallback both failed."
+                ) from fallback_error
+            history = existing
+            wti_status = "STALE"
+            wti_reason = "primary_and_fallback_failed"
+            wti_source = "last_known_valid"
         write_history(path, history)
         results.append(asdict(calculate_cta(symbol, history)))
         status = {
