@@ -17,7 +17,7 @@ concurrency:
 jobs:
   update:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 35
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-python@v6
@@ -26,6 +26,14 @@ jobs:
           cache: pip
       - name: Install project
         run: pip install -e .
+      - name: Refresh Market Dashboard before validation
+        env:
+          ALPHA_VANTAGE_API_KEY: ${{ secrets.ALPHA_VANTAGE_API_KEY }}
+        run: python scripts/update_market_dashboard.py
+      - name: Refresh ETF CTA and WTI before fund calculations
+        env:
+          ALPHA_VANTAGE_API_KEY: ${{ secrets.ALPHA_VANTAGE_API_KEY }}
+        run: python scripts/update_etf_cta.py --allow-bootstrap
       - name: Refresh official AI evidence
         env:
           SEC_USER_AGENT: OnecoolOS research onecool-tw@users.noreply.github.com
@@ -41,6 +49,8 @@ jobs:
       - name: Commit the complete weekly preflight atomically
         run: |
           git add \
+            data/market/dashboard \
+            data/market/etf_cta \
             data/market/ai_revolution \
             data/market/stockq_rotation \
             data/market/sector_rotation \
