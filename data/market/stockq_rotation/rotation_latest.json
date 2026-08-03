@@ -38,30 +38,32 @@
           "start_date": "2026-07-24",
           "end_date": "2026-07-31",
           "local_return_pct": 0.7186,
-          "fx_return_pct": 0.9534,
-          "twd_return_pct": 1.6789,
-          "status": "VALID"
+          "fx_return_pct": 1.1865,
+          "twd_return_pct": 1.9137,
+          "status": "VALID",
+          "fx_method": "DIRECT"
         },
         "1m": {
           "start_date": "2026-06-30",
           "end_date": "2026-07-31",
           "local_return_pct": 8.8548,
-          "fx_return_pct": 2.3082,
-          "twd_return_pct": 11.3673,
-          "status": "VALID"
+          "fx_return_pct": 2.5444,
+          "twd_return_pct": 11.6245,
+          "status": "VALID",
+          "fx_method": "DIRECT"
         }
       },
       "stage2": "PASS",
       "funds": [
         {
-          "name": "新加坡大華新加坡增長基金/星幣",
+          "name": "利安資金新加坡信託基金/新元",
           "returns": {
-            "一個月": 5.19,
-            "三個月": 9.25,
-            "六個月": 11.65,
-            "一年": 29.14
+            "一個月": 3.98,
+            "三個月": 7.86,
+            "六個月": 23.72,
+            "一年": 36.23
           },
-          "consistency_score": 86.25
+          "consistency_score": 83.75
         },
         {
           "name": "利安資金新加坡均衡基金/美元",
@@ -71,17 +73,17 @@
             "六個月": 17.32,
             "一年": 35.09
           },
-          "consistency_score": 83.75
+          "consistency_score": 82.5
         },
         {
-          "name": "利安資金新加坡信託基金/新元",
+          "name": "利安資金新加坡信託基金/美元",
           "returns": {
-            "一個月": 3.98,
-            "三個月": 7.86,
-            "六個月": 23.72,
-            "一年": 36.23
+            "一個月": 3.18,
+            "三個月": 6.07,
+            "六個月": 22.63,
+            "一年": 39.56
           },
-          "consistency_score": 81.25
+          "consistency_score": 71.25
         }
       ]
     },
@@ -148,7 +150,7 @@
           "fx_return_pct": null,
           "twd_return_pct": null,
           "status": "UNKNOWN",
-          "reason": "Same-date FX conversion has not completed."
+          "reason": "Same-date FX update failed: ETFCTAError"
         },
         "1m": {
           "start_date": null,
@@ -157,7 +159,7 @@
           "fx_return_pct": null,
           "twd_return_pct": null,
           "status": "UNKNOWN",
-          "reason": "Same-date FX conversion has not completed."
+          "reason": "Same-date FX update failed: ETFCTAError"
         }
       },
       "stage2": "NO_ELIGIBLE_FUND",
