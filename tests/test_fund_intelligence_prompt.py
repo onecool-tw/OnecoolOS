@@ -31,6 +31,9 @@ def test_concise_freeze_prompt_contains_finalized_contract() -> None:
     assert "SMH 不再使用" in prompt
     assert "不輸出 Bottom、SPY、12W、均線、交叉、成交量或候選清單" in prompt
     assert "印度、世界礦業、環球消費維持續扣" in prompt
+    assert "Tesla 報告層官方覆核" in prompt
+    assert "REPORT_LAYER_OFFICIAL_REVIEW" in prompt
+    assert "不得把 GitHub 快取本身改稱 7／7" in prompt
 
 
 def test_master_prompt_loader_exposes_version_and_stable_hash() -> None:

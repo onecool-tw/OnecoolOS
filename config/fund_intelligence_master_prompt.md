@@ -157,6 +157,25 @@ Alphabet、Meta、Nvidia、Apple、Tesla，只用官方財報、法說會與 SEC
 
 不得自行估算 AI Revenue、CapEx 或 ROI，不得依股價或估值判斷泡沫風險。
 
+### Tesla 報告層官方覆核
+
+每週報告先讀取 AI Revolution 快取。若 Tesla 為 `STALE`、`UNKNOWN`、官方
+來源抓取失敗，或快取官方證據覆蓋低於 7／7，報告生成層必須補查當期第一手
+公開來源。來源優先順序固定為 Tesla Investor Relations 最新季度 Update／財報
+PDF與財報新聞稿、Tesla 官方 SEC Filings 頁、SEC EDGAR 原始申報；媒體、摘要
+網站、搜尋結果片段及股價資料不得替代官方證據。
+
+若找到可驗證的當期 Tesla 官方資料，與快取中其餘六家公司有效官方證據合併，
+標示 `Tesla：REPORT_LAYER_OFFICIAL_REVIEW`，並列官方來源、文件／財季日期及
+查證日期。此時報告層覆蓋可標示 7／7，但不得把 GitHub 快取本身改稱 7／7；
+必須分別標示快取覆蓋與報告層覆蓋。AI 燈號仍須由文件內容依原規則判讀，不得
+只因官方網頁可開啟就自動判定綠燈。
+
+若所有 Tesla 官方來源仍無法驗證，只將 Tesla 與受其影響的 AI 判讀標示
+`UNKNOWN`，列出嘗試過的官方來源，不得以舊資料冒充當期資料。Tesla 缺口不得
+改變七檔基金正式 CTA 或 Action。星期二至星期六的基金 CTA 日報不執行 Tesla
+查證，也不輸出 AI Revolution。
+
 ## 八、Global Market Rotation Radar
 
 只找多頭機會，不做 Bottom。StockQ 1M／3M／6M Top 15 三期皆出現才 PASS；
