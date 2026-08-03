@@ -8,6 +8,7 @@ import time
 from collections.abc import Callable, Iterable
 from dataclasses import asdict, dataclass
 from datetime import date
+from math import isfinite
 from pathlib import Path
 from typing import Any
 from urllib.parse import urlencode
@@ -333,8 +334,12 @@ def merge_and_adjust(
 ) -> list[DailyBar]:
     """Merge by market date and recalculate one adjusted-close history."""
 
-    merged = {bar.trading_date: bar for bar in existing}
-    merged.update({bar.trading_date: bar for bar in incoming})
+    merged = {
+        bar.trading_date: bar for bar in existing if _bar_is_finite(bar)
+    }
+    merged.update({
+        bar.trading_date: bar for bar in incoming if _bar_is_finite(bar)
+    })
     bars = [merged[key] for key in sorted(merged)]
     if not bars:
         return []
@@ -432,9 +437,10 @@ def read_history(path: Path) -> list[DailyBar]:
 
     if not path.exists():
         return []
+    bars = []
     with path.open(newline="", encoding="utf-8") as handle:
-        return [
-            DailyBar(
+        for row in csv.DictReader(handle):
+            bar = DailyBar(
                 trading_date=date.fromisoformat(row["date"]),
                 open=float(row["open"]),
                 high=float(row["high"]),
@@ -446,8 +452,9 @@ def read_history(path: Path) -> list[DailyBar]:
                 adjusted_close=float(row["adjusted_close"]),
                 source=row["source"],
             )
-            for row in csv.DictReader(handle)
-        ]
+            if _bar_is_finite(bar):
+                bars.append(bar)
+    return bars
 
 
 def write_history(path: Path, bars: Iterable[DailyBar]) -> None:
@@ -472,6 +479,24 @@ def write_history(path: Path, bars: Iterable[DailyBar]) -> None:
                     "source": bar.source,
                 }
             )
+
+
+def _bar_is_finite(bar: DailyBar) -> bool:
+    """Reject provider or legacy CSV rows that would poison every later MA."""
+
+    values = (
+        bar.open,
+        bar.high,
+        bar.low,
+        bar.close,
+        bar.dividend,
+        bar.split_factor,
+    )
+    if not all(isfinite(float(value)) for value in values):
+        return False
+    if bar.adjusted_close is not None and not isfinite(float(bar.adjusted_close)):
+        return False
+    return bar.split_factor > 0
 
 
 def _weekly_last_closes(history: list[DailyBar]) -> list[float]:
