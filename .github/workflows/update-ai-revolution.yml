@@ -2,9 +2,8 @@ name: Update AI Revolution Evidence
 
 on:
   workflow_dispatch:
-  schedule:
-    # 07:30 Asia/Taipei every Sunday (23:30 UTC Saturday).
-    - cron: "30 23 * * 6"
+  # The scheduled refresh is orchestrated by update-fund-weekly-analytics.yml
+  # so all report caches are committed atomically. Keep manual dispatch here.
 
 permissions:
   contents: write

@@ -1,4 +1,12 @@
-from scripts.update_stockq_rotation import REQUIRED_TWD_FX_SYMBOLS, TWD_SERIES
+from datetime import date, timedelta
+
+from onecool_os.market.etf_cta import DailyBar
+from scripts.update_stockq_rotation import (
+    REQUIRED_TWD_FX_SYMBOLS,
+    TRIANGULAR_TWD_FX,
+    TWD_SERIES,
+    _fetch_twd_fx,
+)
 
 
 def test_required_twd_currency_pairs_are_covered() -> None:
@@ -31,6 +39,7 @@ def test_current_stockq_names_and_currency_groups_are_mapped() -> None:
         "日經225": ("^N225", "JPYTWD=X"),
         "南韓": ("^KS11", "KRWTWD=X"),
         "香港恆生": ("^HSI", "HKDTWD=X"),
+        "匈牙利": ("^BUX", "HUFTWD=X"),
     }
 
     for market, series in expected.items():
@@ -39,3 +48,35 @@ def test_current_stockq_names_and_currency_groups_are_mapped() -> None:
 
 def test_every_mapping_uses_a_direct_twd_pair() -> None:
     assert all(fx_symbol.endswith("TWD=X") for _, fx_symbol in TWD_SERIES.values())
+
+
+def test_pln_and_huf_have_same_date_usd_bridge() -> None:
+    assert TRIANGULAR_TWD_FX["PLNTWD=X"] == ("PLNUSD=X", "USDTWD=X")
+    assert TRIANGULAR_TWD_FX["HUFTWD=X"] == ("HUFUSD=X", "USDTWD=X")
+
+
+def test_fx_falls_back_to_same_date_triangulation() -> None:
+    start = date(2026, 7, 1)
+
+    class Bootstrapper:
+        def fetch_adjusted_daily(self, symbol):
+            if symbol == "PLNTWD=X":
+                raise RuntimeError("direct pair unavailable")
+            value = 0.25 if symbol == "PLNUSD=X" else 30.0
+            return [
+                DailyBar(
+                    trading_date=start + timedelta(days=index),
+                    open=value,
+                    high=value,
+                    low=value,
+                    close=value,
+                    volume=0,
+                    adjusted_close=value,
+                )
+                for index in range(2)
+            ]
+
+    values, method = _fetch_twd_fx("PLNTWD=X", Bootstrapper())
+
+    assert method == "TRIANGULAR:PLNUSD=X*USDTWD=X"
+    assert [item.value for item in values] == [7.5, 7.5]

@@ -5,6 +5,7 @@ from __future__ import annotations
 import json
 from dataclasses import asdict, dataclass
 from datetime import UTC, datetime
+from math import isfinite
 from pathlib import Path
 from typing import Any, Iterable
 
@@ -93,6 +94,20 @@ class MarketCTA:
 def dashboard_record(config: MarketSymbol, result: CTAResult) -> MarketCTA:
     """Adapt one shared CTA result without introducing another CTA engine."""
 
+    numeric_fields = {
+        "price": result.price,
+        "daily_50ma": result.daily_50ma,
+        "daily_200ma": result.daily_200ma,
+        "weekly_30ma": result.weekly_30ma,
+        "weekly_50ma": result.weekly_50ma,
+    }
+    invalid = [name for name, value in numeric_fields.items() if not isfinite(value)]
+    if invalid:
+        raise ValueError(
+            f"{config.symbol} contains non-finite CTA fields: "
+            + ", ".join(invalid)
+        )
+
     bullish = sum(
         (
             result.price > result.daily_50ma,
@@ -177,7 +192,7 @@ def build_dashboard_payload(records: Iterable[MarketCTA]) -> dict[str, Any]:
     portfolio_as_of = _validate_us_portfolio_cta_dates(values, expected_as_of)
     generated_at = datetime.now(UTC).isoformat()
     return {
-        "schema_version": "1.7",
+        "schema_version": "1.8",
         "module": "Onecool Market Dashboard",
         "generated_at": generated_at,
         "expected_as_of": expected_as_of,

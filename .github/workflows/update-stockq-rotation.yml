@@ -2,9 +2,8 @@ name: Update StockQ Rotation Radar
 
 on:
   workflow_dispatch:
-  schedule:
-    # 13:00 Asia/Taipei every Sunday, before the Monday fund report.
-    - cron: "0 5 * * 0"
+  # The scheduled refresh is orchestrated by update-fund-weekly-analytics.yml
+  # so all report caches are committed atomically. Keep manual dispatch here.
 
 permissions:
   contents: write
@@ -38,4 +37,3 @@ jobs:
           git config user.email "actions@users.noreply.github.com"
           git commit -m "Update StockQ rotation radar"
           git push
-

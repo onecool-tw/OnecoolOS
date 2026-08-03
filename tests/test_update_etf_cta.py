@@ -63,9 +63,12 @@ def test_rate_limit_keeps_existing_wti_and_marks_stale(
     history_dir = tmp_path / "history"
     write_history(history_dir / "WTI.csv", existing)
 
-    monkeypatch.setattr(
-        update_etf_cta, "fetch_yahoo_daily", lambda _symbol, **_: bars()
-    )
+    def yahoo(symbol, **_):
+        if symbol == "CL=F":
+            raise ETFCTAError("Yahoo unavailable")
+        return bars()
+
+    monkeypatch.setattr(update_etf_cta, "fetch_yahoo_daily", yahoo)
     monkeypatch.setattr(
         update_etf_cta.AlphaVantageClient,
         "fetch_wti_daily",
@@ -82,7 +85,29 @@ def test_rate_limit_keeps_existing_wti_and_marks_stale(
         if item["symbol"] == "WTI" and item["dataset"] == "daily_price"
     )
     assert wti_status["status"] == "STALE"
-    assert wti_status["reason"] == "alpha_vantage_daily_quota"
+    assert wti_status["reason"] == "primary_and_fallback_failed"
+    assert wti_status["source"] == "last_known_valid"
+
+
+def test_wti_uses_yahoo_crude_fallback_when_primary_fails(
+    tmp_path, monkeypatch
+) -> None:
+    monkeypatch.setattr(
+        update_etf_cta, "fetch_yahoo_daily", lambda _symbol, **_: bars()
+    )
+    monkeypatch.setattr(
+        update_etf_cta.AlphaVantageClient,
+        "fetch_wti_daily",
+        lambda *_: (_ for _ in ()).throw(ETFCTAError("provider unavailable")),
+    )
+
+    payload = update_etf_cta.update(tmp_path, "key", allow_bootstrap=True)
+
+    status = next(
+        item for item in payload["data_status"] if item["symbol"] == "WTI"
+    )
+    assert status["status"] == "CURRENT"
+    assert status["source"] == "yahoo_cl_f_fallback"
 
 
 def test_rate_limit_keeps_existing_actions_and_marks_stale(

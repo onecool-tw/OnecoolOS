@@ -70,6 +70,39 @@ def test_refresh_preserves_last_success_as_stale() -> None:
     assert payload["source_policy"]["funddj"] == "cross_check_only_not_mixed"
 
 
+def test_refresh_preserves_recent_success_as_last_known_valid() -> None:
+    previous = {
+        "results": [
+            {
+                "fund_code": "A16075",
+                "fund_name": "群益印度中小基金-美元",
+                "source": "cnyes_morningstar_published",
+                "source_url": "https://example.test",
+                "category": "股票-印度美元",
+                "as_of": "2099-07-17",
+                "percentile_3m": 63,
+                "percentile_6m": 82,
+                "percentile_1y": 74,
+                "peer_average_3m": 7.01,
+                "peer_average_6m": -6.43,
+                "peer_average_1y": -2.89,
+                "data_quality": "VALID",
+                "ranking_band": "ABOVE_AVERAGE",
+                "reason": "ok",
+            }
+        ]
+    }
+    client = CnyesPeerRankingClient(
+        request=lambda _: (_ for _ in ()).throw(OSError())
+    )
+
+    payload = refresh_peer_rankings(client, previous)
+    item = next(x for x in payload["results"] if x["fund_code"] == "A16075")
+
+    assert item["data_quality"] == "LAST_KNOWN_VALID"
+    assert item["percentile_1y"] == 74
+
+
 def test_published_ranking_survives_missing_category_label() -> None:
     result = parse_cnyes_peer_ranking(
         HTML.replace("股票-印度美元同組基金排行", ""),
