@@ -4,8 +4,11 @@ from __future__ import annotations
 
 import json
 import re
+import csv
+import io
 from datetime import datetime, timezone
 from pathlib import Path
+from urllib.request import Request, urlopen
 
 from onecool_os.market.stockq_rotation import (
     DatedValue,
@@ -16,6 +19,7 @@ from onecool_os.market.stockq_rotation import (
     screen_markets,
 )
 from onecool_os.market.history_bootstrap import YahooHistoryBootstrapper
+from onecool_os.market.etf_cta import DailyBar, ETFCTAError
 
 
 TWD_SERIES = {
@@ -58,6 +62,65 @@ TWD_SERIES = {
     "匈牙利": ("^BUX", "HUFTWD=X"),
     "匈牙利股市": ("^BUX", "HUFTWD=X"),
 }
+
+STOOQ_MARKET_FALLBACKS = {
+    "^WIG": "wig",
+    "^BUX": "bux",
+}
+
+
+def _fetch_stooq_daily(symbol: str) -> list[DailyBar]:
+    """Fetch an adjusted index close from Stooq when Yahoo has no series."""
+
+    stooq_symbol = STOOQ_MARKET_FALLBACKS[symbol]
+    url = f"https://stooq.com/q/d/l/?s={stooq_symbol}&i=d"
+    request = Request(
+        url,
+        headers={
+            "User-Agent": "Mozilla/5.0 OnecoolOS/1.0",
+            "Accept": "text/csv,*/*;q=0.8",
+        },
+    )
+    try:
+        with urlopen(request, timeout=60) as response:  # noqa: S310
+            document = response.read().decode("utf-8-sig")
+    except Exception as exc:  # noqa: BLE001 - provider boundary.
+        raise ETFCTAError(f"Stooq fallback failed for {symbol}.") from exc
+    bars = []
+    try:
+        for row in csv.DictReader(io.StringIO(document)):
+            close = float(row["Close"])
+            bars.append(
+                DailyBar(
+                    trading_date=datetime.strptime(
+                        row["Date"], "%Y-%m-%d"
+                    ).date(),
+                    open=float(row.get("Open") or close),
+                    high=float(row.get("High") or close),
+                    low=float(row.get("Low") or close),
+                    close=close,
+                    volume=int(float(row.get("Volume") or 0)),
+                    adjusted_close=close,
+                    source="stooq_index_fallback",
+                )
+            )
+    except (KeyError, TypeError, ValueError) as exc:
+        raise ETFCTAError(f"Stooq fallback is invalid for {symbol}.") from exc
+    if len(bars) < 260:
+        raise ETFCTAError(
+            f"Stooq fallback for {symbol} returned only {len(bars)} rows."
+        )
+    bars.sort(key=lambda item: item.trading_date)
+    return bars
+
+
+def _fetch_local_market(symbol: str, bootstrapper: YahooHistoryBootstrapper):
+    try:
+        return bootstrapper.fetch_adjusted_daily(symbol), "YAHOO"
+    except Exception as yahoo_error:
+        if symbol not in STOOQ_MARKET_FALLBACKS:
+            raise yahoo_error
+        return _fetch_stooq_daily(symbol), "STOOQ_FALLBACK"
 
 # Yahoo does not consistently publish every direct TWD cross.  These pairs
 # produce TWD per unit of local currency through a same-date USD bridge.
@@ -153,7 +216,9 @@ def _twd_returns_for_pass_markets(
             continue
         market_symbol, fx_symbol = TWD_SERIES[market.market]
         try:
-            local = bootstrapper.fetch_adjusted_daily(market_symbol)
+            local, local_method = _fetch_local_market(
+                market_symbol, bootstrapper
+            )
         except Exception as exc:  # Provider failure must not erase the radar.
             results[market.market] = {
                 period: {
@@ -197,6 +262,7 @@ def _twd_returns_for_pass_markets(
         )
         for period in results[market.market].values():
             period["fx_method"] = fx_method
+            period["local_market_method"] = local_method
     return results
 
 

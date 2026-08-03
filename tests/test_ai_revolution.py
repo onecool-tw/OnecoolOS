@@ -271,6 +271,15 @@ def test_tesla_quarterly_pdf_candidates_roll_back_across_year() -> None:
     assert urls[-1].endswith("TSLA-Q4-2024-Update.pdf")
 
 
+def test_tesla_official_urls_include_stable_ir_and_sec_pages() -> None:
+    from onecool_os.market.ai_revolution import OFFICIAL_IR_URLS
+
+    assert OFFICIAL_IR_URLS["Tesla"][:2] == (
+        "https://ir.tesla.com/",
+        "https://ir.tesla.com/sec-filings",
+    )
+
+
 def test_official_ir_client_fingerprints_pdf_bytes() -> None:
     body = b"%PDF-1.7\n" + (b"official Tesla quarterly evidence\n" * 100)
     evidence = OfficialIRClient(
