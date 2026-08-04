@@ -15,8 +15,12 @@ on:
   schedule:
     # US close: 05:00 Asia/Taipei, Tuesday-Saturday.
     - cron: "0 21 * * 1-5"
-    # Taiwan/Japan/Korea close: 16:00 Asia/Taipei, Monday-Friday.
-    - cron: "0 8 * * 1-5"
+    # Asia close primary run: 17:00 Asia/Taipei, Monday-Friday.
+    # This allows Yahoo Finance time to publish final Japan/Korea daily bars.
+    - cron: "0 9 * * 1-5"
+    # Asia close retry: 17:30 Asia/Taipei, Monday-Friday.
+    # A no-change run exits without committing; a delayed daily bar is recovered.
+    - cron: "30 9 * * 1-5"
 
 permissions:
   contents: write
