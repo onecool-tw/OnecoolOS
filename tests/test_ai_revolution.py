@@ -283,3 +283,59 @@ def test_matching_ir_revisions_unlock_only_reviewed_signal() -> None:
 
     assert reviewed["review_required"] is False
     assert reviewed["signals"]["overall"]["usable_for_report"] is True
+
+
+def test_ai_monitor_exposes_demand_quality_and_capital_efficiency() -> None:
+    def request(url: str, _: str) -> dict:
+        return submissions() if "submissions" in url else companyfacts()
+
+    payload = refresh_ai_revolution(
+        SecClient("OnecoolOS test test@example.com", request=request)
+    )
+
+    assert set(payload["signals"]) == {
+        "ai_infrastructure",
+        "ai_capex",
+        "ai_adoption",
+        "independent_demand_quality",
+        "capital_efficiency",
+        "overall",
+    }
+    methodology = payload["signal_methodology"]
+    assert "supplier loans" in methodology["independent_demand_quality"]
+    assert "Do not double count" in methodology["independent_demand_quality"]
+    assert "free cash flow" in methodology["capital_efficiency"]
+    assert payload["schema_version"] == "1.3"
+
+
+def test_complete_review_unlocks_independent_demand_quality() -> None:
+    accession = "0000000000-26-000001"
+
+    def request(url: str, _: str) -> dict:
+        return submissions(accession) if "submissions" in url else companyfacts()
+
+    payload = refresh_ai_revolution(
+        SecClient("OnecoolOS test test@example.com", request=request),
+        review={
+            "reviewed_accessions": {company: accession for company in COMPANIES},
+            "signals": {
+                "independent_demand_quality": {
+                    "status": "YELLOW",
+                    "reason": "Supplier-supported purchases were down-weighted.",
+                    "reviewed_at": "2026-08-10",
+                },
+                "capital_efficiency": {
+                    "status": "YELLOW",
+                    "reason": "Cash conversion trails gross capex growth.",
+                    "reviewed_at": "2026-08-10",
+                },
+            },
+        },
+    )
+
+    assert payload["review_required"] is False
+    assert (
+        payload["signals"]["independent_demand_quality"]["usable_for_report"] is True
+    )
+    assert payload["signals"]["independent_demand_quality"]["status"] == "YELLOW"
+    assert payload["signals"]["capital_efficiency"]["usable_for_report"] is True
