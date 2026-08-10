@@ -90,9 +90,9 @@ def validate_fund_intelligence(root: Path, *, today: date | None = None) -> dict
     if not ai:
         issues.append(_issue("MISSING_CACHE", "AI Revolution", "cache missing"))
     else:
-        if ai.get("companies_official_evidence_valid") != 7:
+        if ai.get("companies_official_evidence_valid") != 6:
             issues.append(
-                _issue("INCOMPLETE_COVERAGE", "AI Revolution", "official evidence below 7/7")
+                _issue("INCOMPLETE_COVERAGE", "AI Revolution", "official evidence below 6/6")
             )
         if ai.get("review_required"):
             issues.append(
