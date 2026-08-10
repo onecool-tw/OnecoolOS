@@ -48,6 +48,31 @@ OPERATING_CASH_FLOW_TAGS = (
 PERIODIC_FORMS = {"10-Q", "10-K"}
 LAST_KNOWN_VALID_DAYS = 45
 
+SIGNAL_NAMES = (
+    "ai_infrastructure",
+    "ai_capex",
+    "ai_adoption",
+    "independent_demand_quality",
+    "capital_efficiency",
+    "overall",
+)
+
+SIGNAL_METHODOLOGY = {
+    "ai_capex": (
+        "Measure disclosed spending, but do not treat supplier-financed purchases "
+        "as independent end demand."
+    ),
+    "independent_demand_quality": (
+        "Down-weight purchases supported by supplier loans, equity investments, "
+        "guarantees, purchase commitments, or equivalent financing. Do not double "
+        "count supplier revenue and customer capex as two independent demand signals."
+    ),
+    "capital_efficiency": (
+        "Evaluate operating cash flow, free cash flow, and commercialization "
+        "separately from gross capex."
+    ),
+}
+
 
 class AIRevolutionError(RuntimeError):
     """Raised when official AI evidence cannot be refreshed safely."""
@@ -441,7 +466,7 @@ def refresh_ai_revolution(
     review_required = official_valid != len(COMPANIES) or bool(unreviewed)
     reviewed_signals = review.get("signals", {})
     signals = {}
-    for name in ("ai_infrastructure", "ai_capex", "ai_adoption", "overall"):
+    for name in SIGNAL_NAMES:
         signal = reviewed_signals.get(name, {})
         signals[name] = {
             "status": signal.get("status", "UNKNOWN"),
@@ -454,7 +479,7 @@ def refresh_ai_revolution(
 
     generated = generated_at or datetime.now(timezone.utc).isoformat()
     return {
-        "schema_version": "1.2",
+        "schema_version": "1.3",
         "generated_at": generated,
         "source_policy": (
             "SEC filings/companyfacts primary; official company IR pages fallback"
@@ -479,10 +504,14 @@ def refresh_ai_revolution(
         "unreviewed_companies": unreviewed,
         "new_periodic_filings": changed,
         "signals": signals,
+        "signal_methodology": SIGNAL_METHODOLOGY,
         "companies": companies,
         "decision_policy": (
             "Do not output current AI lights unless every current evidence revision "
-            "(SEC accession or official IR fingerprint) has been reviewed."
+            "(SEC accession or official IR fingerprint) has been reviewed. Supplier-"
+            "financed or supplier-investment-supported purchases must be down-weighted "
+            "in independent demand quality and cannot independently change a fund CTA "
+            "or Action."
         ),
         "last_known_valid_policy": {
             "maximum_age_days": LAST_KNOWN_VALID_DAYS,
