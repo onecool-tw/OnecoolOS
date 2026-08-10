@@ -22,7 +22,6 @@ COMPANIES = {
     "Meta": "0001326801",
     "Nvidia": "0001045810",
     "Apple": "0000320193",
-    "Tesla": "0001318605",
 }
 
 OFFICIAL_IR_URLS = {
@@ -35,16 +34,6 @@ OFFICIAL_IR_URLS = {
         "financial-reports-and-results/default.aspx"
     ),),
     "Apple": ("https://investor.apple.com/investor-relations/default.aspx",),
-    "Tesla": (
-        "https://ir.tesla.com/",
-        "https://ir.tesla.com/sec-filings",
-        "https://ir.tesla.com/press",
-        (
-            "https://ir.tesla.com/press-release/"
-            "tesla-releases-second-quarter-2026-financial-results"
-        ),
-        "https://ir.tesla.com/#quarterly-disclosure",
-    ),
 }
 
 CAPEX_TAGS = (
@@ -153,7 +142,7 @@ class OfficialIRClient:
                         "(KHTML, like Gecko) Chrome/127.0 Safari/537.36"
                     ),
                     "From": self.user_agent.rsplit(" ", 1)[-1],
-                    "Referer": "https://ir.tesla.com/",
+                    "Referer": url,
                     "Accept": (
                         "text/html,application/xhtml+xml,application/pdf,"
                         "application/octet-stream;q=0.9,*/*;q=0.8"
@@ -235,24 +224,6 @@ def _evidence_age_days(
     return None
 
 
-def tesla_update_urls(reference: datetime) -> tuple[str, ...]:
-    """Build newest-first official Tesla quarterly-update PDF candidates."""
-
-    year = reference.year
-    quarter = (reference.month - 1) // 3 + 1
-    urls = []
-    for _ in range(6):
-        urls.append(
-            "https://assets-ir.tesla.com/tesla-contents/IR/"
-            f"TSLA-Q{quarter}-{year}-Update.pdf"
-        )
-        quarter -= 1
-        if quarter == 0:
-            quarter = 4
-            year -= 1
-    return tuple(urls)
-
-
 def latest_periodic_filing(submissions: dict[str, Any]) -> dict[str, Any] | None:
     """Return the most recently filed 10-Q/10-K from SEC submissions."""
 
@@ -321,7 +292,7 @@ def refresh_ai_revolution(
     ir_client: OfficialIRClient | None = None,
     generated_at: str | None = None,
 ) -> dict[str, Any]:
-    """Refresh seven-company SEC evidence and gate stale qualitative signals."""
+    """Refresh six-company SEC evidence and gate stale qualitative signals."""
 
     previous = previous or {}
     review = review or {}
@@ -383,8 +354,6 @@ def refresh_ai_revolution(
             if ir_client:
                 try:
                     urls = OFFICIAL_IR_URLS[company]
-                    if company == "Tesla":
-                        urls = tesla_update_urls(reference_time) + urls
                     ir_evidence = ir_client.fetch_first(urls)
                 except Exception as ir_exc:
                     ir_error = _error_details(ir_exc)
@@ -477,7 +446,7 @@ def refresh_ai_revolution(
         signals[name] = {
             "status": signal.get("status", "UNKNOWN"),
             "reason": signal.get(
-                "reason", "No complete seven-company official review is available."
+                "reason", "No complete six-company official review is available."
             ),
             "reviewed_at": signal.get("reviewed_at"),
             "usable_for_report": not review_required and signal.get("status") != "UNKNOWN",

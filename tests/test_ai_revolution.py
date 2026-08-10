@@ -1,5 +1,3 @@
-from datetime import datetime, timezone
-
 from onecool_os.market.ai_revolution import (
     AIRevolutionError,
     COMPANIES,
@@ -8,7 +6,6 @@ from onecool_os.market.ai_revolution import (
     latest_periodic_filing,
     latest_usd_fact,
     refresh_ai_revolution,
-    tesla_update_urls,
 )
 
 
@@ -99,7 +96,7 @@ def test_new_filings_force_review_and_block_lights() -> None:
         generated_at="2026-07-28T00:00:00+00:00",
     )
 
-    assert len(payload["companies"]) == len(COMPANIES) == 7
+    assert len(payload["companies"]) == len(COMPANIES) == 6
     assert payload["data_coverage_pct"] == 100.0
     assert payload["review_required"] is True
     assert payload["signals"]["overall"]["usable_for_report"] is False
@@ -116,7 +113,7 @@ def test_matching_reviewed_accessions_unlock_reviewed_signal() -> None:
         "signals": {
             "overall": {
                 "status": "GREEN",
-                "reason": "Seven official filings reviewed.",
+                "reason": "Six official filings reviewed.",
                 "reviewed_at": "2026-07-28",
             }
         },
@@ -194,7 +191,7 @@ def test_transient_failure_keeps_recent_official_revision_valid() -> None:
         generated_at="2026-08-03T00:00:00+00:00",
     )
 
-    assert payload["companies_official_evidence_valid"] == 7
+    assert payload["companies_official_evidence_valid"] == 6
     assert payload["official_evidence_coverage_pct"] == 100.0
     assert payload["cache_status"] == "VALID"
     assert {item["data_status"] for item in payload["companies"]} == {
@@ -221,7 +218,7 @@ def test_official_ir_fallback_tracks_revision_without_inventing_facts() -> None:
         generated_at="2026-07-28T00:00:00+00:00",
     )
 
-    assert payload["companies_valid"] == 7
+    assert payload["companies_valid"] == 6
     assert payload["companies_sec_structured_valid"] == 0
     assert payload["official_evidence_coverage_pct"] == 100.0
     assert payload["cache_status"] == "VALID"
@@ -234,58 +231,19 @@ def test_official_ir_fallback_tracks_revision_without_inventing_facts() -> None:
     )
 
 
-def test_tesla_tries_alternate_official_ir_endpoint() -> None:
-    attempted = []
-
-    def request(url: str, _: str) -> str:
-        attempted.append(url)
-        if url.endswith("/press"):
-            raise AIRevolutionError("HTTP 403: Forbidden")
-        return f"<html><body>{url} {'official Tesla evidence ' * 20}</body></html>"
-
-    evidence = OfficialIRClient(
-        "OnecoolOS test test@example.com", request=request
-    ).fetch_first((
-        "https://ir.tesla.com/press",
-        (
-            "https://ir.tesla.com/press-release/"
-            "tesla-releases-second-quarter-2026-financial-results"
-        ),
-    ))
-
-    assert attempted == [
-        "https://ir.tesla.com/press",
-        (
-            "https://ir.tesla.com/press-release/"
-            "tesla-releases-second-quarter-2026-financial-results"
-        ),
-    ]
-    assert "second-quarter-2026" in evidence["source_url"]
-
-
-def test_tesla_quarterly_pdf_candidates_roll_back_across_year() -> None:
-    urls = tesla_update_urls(datetime(2026, 1, 15, tzinfo=timezone.utc))
-
-    assert urls[0].endswith("TSLA-Q1-2026-Update.pdf")
-    assert urls[1].endswith("TSLA-Q4-2025-Update.pdf")
-    assert urls[-1].endswith("TSLA-Q4-2024-Update.pdf")
-
-
-def test_tesla_official_urls_include_stable_ir_and_sec_pages() -> None:
+def test_tesla_is_excluded_from_ai_revolution_universe() -> None:
     from onecool_os.market.ai_revolution import OFFICIAL_IR_URLS
 
-    assert OFFICIAL_IR_URLS["Tesla"][:2] == (
-        "https://ir.tesla.com/",
-        "https://ir.tesla.com/sec-filings",
-    )
+    assert "Tesla" not in COMPANIES
+    assert "Tesla" not in OFFICIAL_IR_URLS
 
 
 def test_official_ir_client_fingerprints_pdf_bytes() -> None:
-    body = b"%PDF-1.7\n" + (b"official Tesla quarterly evidence\n" * 100)
+    body = b"%PDF-1.7\n" + (b"official quarterly evidence\n" * 100)
     evidence = OfficialIRClient(
         "OnecoolOS test test@example.com",
         request=lambda _url, _agent: body,
-    ).fetch("https://assets-ir.tesla.com/example.pdf")
+    ).fetch("https://example.com/official-quarterly-update.pdf")
 
     assert evidence["content_kind"] == "PDF"
     assert evidence["content_length"] == len(body)
