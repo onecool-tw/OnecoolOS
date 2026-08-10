@@ -38,7 +38,7 @@ def test_preflight_passes_complete_finite_current_caches(tmp_path) -> None:
     write(
         tmp_path,
         "data/market/ai_revolution/ai_revolution_latest.json",
-        {"companies_official_evidence_valid": 7, "review_required": False},
+        {"companies_official_evidence_valid": 6, "review_required": False},
     )
     write(
         tmp_path,
