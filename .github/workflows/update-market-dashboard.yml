@@ -13,8 +13,16 @@ on:
           - group_b
         default: none
   schedule:
-    # US close: 05:00 Asia/Taipei, Tuesday-Saturday.
-    - cron: "0 21 * * 1-5"
+    # US close primary run: 08:30 Asia/Taipei, Tuesday-Saturday.
+    # During both US daylight-saving and standard time this leaves enough time
+    # for Yahoo Finance to publish completed regular-session daily bars.
+    - cron: "30 0 * * 2-6"
+    # US close retry 1: 09:00 Asia/Taipei, Tuesday-Saturday.
+    # A no-change run exits without committing.
+    - cron: "0 1 * * 2-6"
+    # US close retry 2: 09:30 Asia/Taipei, Tuesday-Saturday.
+    # This is the final refresh before the 10:30 US Stock Intelligence report.
+    - cron: "30 1 * * 2-6"
     # Asia close primary run: 17:00 Asia/Taipei, Monday-Friday.
     # This allows Yahoo Finance time to publish final Japan/Korea daily bars.
     - cron: "0 9 * * 1-5"
@@ -46,13 +54,14 @@ jobs:
           ALPHA_VANTAGE_API_KEY: ${{ secrets.ALPHA_VANTAGE_API_KEY }}
         run: |
           args=()
-          # Prices refresh every run. Alpha Vantage corporate-action checks
-          # only run on the 21:00 UTC US-close schedule to avoid duplicate calls.
+          # Prices refresh every run and the updater merges the latest 10 days,
+          # so missed sessions are backfilled automatically. Alpha Vantage
+          # corporate-action checks run only on the 08:30 primary schedule.
           if [[ "${{ inputs.refresh_actions_group }}" != "" && "${{ inputs.refresh_actions_group }}" != "none" ]]; then
             args+=(--refresh-actions-group "${{ inputs.refresh_actions_group }}")
-          elif [[ "${{ github.event_name }}" == "schedule" && "$(date -u +%H)" == "21" && "$(date -u +%u)" == "1" ]]; then
+          elif [[ "${{ github.event_name }}" == "schedule" && "$(date -u +%H:%M)" == "00:30" && "$(date -u +%u)" == "2" ]]; then
             args+=(--refresh-actions-group group_a)
-          elif [[ "${{ github.event_name }}" == "schedule" && "$(date -u +%H)" == "21" && "$(date -u +%u)" == "2" ]]; then
+          elif [[ "${{ github.event_name }}" == "schedule" && "$(date -u +%H:%M)" == "00:30" && "$(date -u +%u)" == "3" ]]; then
             args+=(--refresh-actions-group group_b)
           fi
           python scripts/update_market_dashboard.py "${args[@]}"
