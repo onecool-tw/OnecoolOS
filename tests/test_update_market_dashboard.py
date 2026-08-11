@@ -203,3 +203,54 @@ def test_non_finite_yahoo_row_is_dropped_without_aborting_dashboard(
     latest = tmp_path / "data" / "market" / "dashboard" / "dashboard_latest.json"
     parsed = json.loads(latest.read_text(encoding="utf-8"))
     assert parsed["data_status"] == "READY"
+
+
+@pytest.mark.parametrize(
+    ("yahoo_dividend", "alpha_dividend"),
+    [
+        (1.428, 1.428117),
+        (1.966, 1.965548),
+    ],
+)
+def test_corporate_action_validation_accepts_provider_rounding(
+    yahoo_dividend: float, alpha_dividend: float
+) -> None:
+    trading_date = date(2024, 12, 20)
+    bars = [
+        DailyBar(
+            trading_date=trading_date,
+            open=100.0,
+            high=101.0,
+            low=99.0,
+            close=100.0,
+            volume=100,
+            dividend=yahoo_dividend,
+        )
+    ]
+
+    assert update_market_dashboard._corporate_action_mismatches(
+        bars, {trading_date: (alpha_dividend, 1.0)}
+    ) == []
+
+
+def test_corporate_action_validation_rejects_material_dividend_difference() -> None:
+    trading_date = date(2024, 12, 20)
+    bars = [
+        DailyBar(
+            trading_date=trading_date,
+            open=100.0,
+            high=101.0,
+            low=99.0,
+            close=100.0,
+            volume=100,
+            dividend=1.428,
+        )
+    ]
+
+    mismatches = update_market_dashboard._corporate_action_mismatches(
+        bars, {trading_date: (1.438, 1.0)}
+    )
+
+    assert mismatches == [
+        "2024-12-20: dividend yahoo=1.428 alpha=1.438 difference=0.010000"
+    ]
