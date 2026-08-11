@@ -120,7 +120,7 @@ def calculate_fund_cta(
         daily_cross=cta.daily_cross,
         weekly_cross=cta.weekly_cross,
         technical_conclusion=technical_conclusion(benchmark_cta, cta.cta),
-        dca_action=dca_action(benchmark_cta, cta.cta),
+        dca_action=dca_action(cta.cta, cta.weekly_cross),
         **auxiliary,
     )
 
@@ -186,14 +186,28 @@ def technical_conclusion(benchmark_cta: str | None, fund_cta: str) -> str:
     return fund_cta if fund_cta in {"BUY", "HOLD", "WATCH", "SELL"} else "UNKNOWN"
 
 
-def dca_action(benchmark_cta: str | None, fund_cta: str) -> str:
-    """A technical SELL triggers review; it never implies automatic redemption."""
+def dca_action(fund_cta: str, weekly_cross: CrossSignal | None) -> str:
+    """Apply Onecool Fund Intelligence v1.3 weekly-led transition actions.
 
-    if benchmark_cta == "SELL" and fund_cta == "SELL":
-        return "REVIEW_DCA"
-    if benchmark_cta not in {"BUY", "HOLD", "WATCH", "SELL"}:
+    The weekly trend owns capital deployment. Daily signals and ETF
+    confirmations remain disclosure-only and never change this action.
+    """
+
+    if fund_cta not in {"BUY", "HOLD", "WATCH", "SELL"} or weekly_cross is None:
         return "DATA_REVIEW"
-    return "MAINTAIN_DCA"
+
+    current_cross = weekly_cross.cross_status
+    current_phase = weekly_cross.phase
+    if current_cross == "GOLDEN" and current_phase in {"NEW", "CONFIRMED"}:
+        return "STOP_DCA_AND_DEPLOY_LUMP_SUM"
+    if current_cross == "DEATH" and current_phase in {"NEW", "CONFIRMED"}:
+        return "REDEEM_AT_NEXT_AVAILABLE_NAV"
+
+    if weekly_cross.alignment == "GOLDEN":
+        return "TRANSITION_STOP_NEW_DCA"
+    if weekly_cross.alignment == "DEATH":
+        return "REDUCED_DCA"
+    return "DATA_REVIEW"
 
 
 def classify_signal_alignment(
@@ -220,13 +234,18 @@ def fund_cta_payload(results: Iterable[FundCTAResult]) -> dict[str, Any]:
     """Build the cache consumed by Fund Intelligence without provider calls."""
 
     return {
-        "schema_version": "1.4",
+        "schema_version": "1.5",
         "metric": "Onecool Fund NAV CTA",
         "source": "OnecoolOS committed fund NAV history",
         "engine": "shared_onecool_cta_engine",
         "decision_layers": {
             "technical_conclusion": "trend verdict; SELL is explicit when fund and benchmark are both SELL",
-            "dca_action": "periodic-investment disposition; REVIEW_DCA is not automatic redemption",
+            "dca_action": (
+                "v1.3 weekly-led capital action; existing weekly bull stops new "
+                "DCA without retroactive lump sum, existing weekly bear uses "
+                "reduced DCA, new bull deploys lump sum, new bear redeems at "
+                "the next available NAV"
+            ),
         },
         "auxiliary_confirmation": {
             "gold": "GLD confirms RING",
@@ -237,7 +256,7 @@ def fund_cta_payload(results: Iterable[FundCTAResult]) -> dict[str, Any]:
         "method": {
             "daily": ["fund_nav", "SMA50", "SMA200"],
             "weekly": ["last_published_nav", "SMA30", "SMA50"],
-            "rules": "Onecool CTA v2 weekly crossover priority",
+            "rules": "Onecool Fund Intelligence v1.3 weekly-led transition",
             "cross_detection": {
                 "daily": "SMA50 crosses SMA200",
                 "weekly": "SMA30 crosses SMA50",

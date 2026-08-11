@@ -2,6 +2,7 @@ from datetime import date, timedelta
 
 from onecool_os.market.fund_alpha import FundNav
 from onecool_os.market.fund_cta import (
+    CrossSignal,
     calculate_fund_cta,
     classify_signal_alignment,
     fund_cta_payload,
@@ -63,7 +64,7 @@ def test_payload_declares_shared_engine() -> None:
     payload = fund_cta_payload([result])
 
     assert payload["engine"] == "shared_onecool_cta_engine"
-    assert payload["schema_version"] == "1.4"
+    assert payload["schema_version"] == "1.5"
     assert payload["method"]["cross_detection"]["priority"].startswith(
         "weekly crossover"
     )
@@ -76,15 +77,58 @@ def test_payload_declares_shared_engine() -> None:
     assert payload["results"][0]["fund_code"] == "A10124"
 
 
-def test_joint_sell_is_explicit_but_does_not_auto_redeem() -> None:
-    assert technical_conclusion("SELL", "SELL") == "SELL"
-    assert dca_action("SELL", "SELL") == "REVIEW_DCA"
+def weekly_signal(
+    alignment: str,
+    *,
+    cross_status: str = "NONE",
+    phase: str = "AGING",
+) -> CrossSignal:
+    return CrossSignal(
+        alignment=alignment,
+        cross_status=cross_status,
+        last_cross_status=alignment,
+        last_cross_date="2026-08-11",
+        periods_since_cross=1,
+        spread_pct=1.0,
+        phase=phase,
+    )
 
 
-def test_non_joint_sell_keeps_dca_separate() -> None:
-    assert technical_conclusion("SELL", "WATCH") == "WATCH"
-    assert dca_action("SELL", "WATCH") == "MAINTAIN_DCA"
-    assert dca_action(None, "SELL") == "DATA_REVIEW"
+def test_existing_weekly_bull_uses_transition_without_retroactive_lump_sum() -> None:
+    assert (
+        dca_action("BUY", weekly_signal("GOLDEN"))
+        == "TRANSITION_STOP_NEW_DCA"
+    )
+    assert (
+        dca_action("WATCH", weekly_signal("GOLDEN"))
+        == "TRANSITION_STOP_NEW_DCA"
+    )
+
+
+def test_existing_weekly_bear_uses_reduced_dca() -> None:
+    assert dca_action("SELL", weekly_signal("DEATH")) == "REDUCED_DCA"
+
+
+def test_new_weekly_cross_owns_capital_action() -> None:
+    assert (
+        dca_action(
+            "BUY",
+            weekly_signal("GOLDEN", cross_status="GOLDEN", phase="NEW"),
+        )
+        == "STOP_DCA_AND_DEPLOY_LUMP_SUM"
+    )
+    assert (
+        dca_action(
+            "SELL",
+            weekly_signal("DEATH", cross_status="DEATH", phase="CONFIRMED"),
+        )
+        == "REDEEM_AT_NEXT_AVAILABLE_NAV"
+    )
+
+
+def test_action_requires_valid_fund_and_weekly_signal() -> None:
+    assert dca_action("UNKNOWN", weekly_signal("GOLDEN")) == "DATA_REVIEW"
+    assert dca_action("SELL", None) == "DATA_REVIEW"
 
 
 def auxiliary(symbol: str, cta: str, phase: str = "AGING") -> dict:
