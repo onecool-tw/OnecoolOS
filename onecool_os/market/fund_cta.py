@@ -120,7 +120,7 @@ def calculate_fund_cta(
         daily_cross=cta.daily_cross,
         weekly_cross=cta.weekly_cross,
         technical_conclusion=technical_conclusion(benchmark_cta, cta.cta),
-        dca_action=dca_action(cta.cta, cta.weekly_cross),
+        dca_action=dca_action(cta.cta, cta.daily_cross, cta.weekly_cross),
         **auxiliary,
     )
 
@@ -186,27 +186,39 @@ def technical_conclusion(benchmark_cta: str | None, fund_cta: str) -> str:
     return fund_cta if fund_cta in {"BUY", "HOLD", "WATCH", "SELL"} else "UNKNOWN"
 
 
-def dca_action(fund_cta: str, weekly_cross: CrossSignal | None) -> str:
-    """Apply Onecool Fund Intelligence v1.3 weekly-led transition actions.
+def dca_action(
+    fund_cta: str,
+    daily_cross: CrossSignal | None,
+    weekly_cross: CrossSignal | None,
+) -> str:
+    """Apply the accepted v1.3 transition and weekly-led capital rules.
 
-    The weekly trend owns capital deployment. Daily signals and ETF
-    confirmations remain disclosure-only and never change this action.
+    Existing weekly-bull holdings keep their original DCA during transition.
+    In a weekly-bear phase, the daily trend controls low DCA versus pause.
+    A new weekly cross alone controls lump-sum deployment or full redemption.
     """
 
-    if fund_cta not in {"BUY", "HOLD", "WATCH", "SELL"} or weekly_cross is None:
+    if (
+        fund_cta not in {"BUY", "HOLD", "WATCH", "SELL"}
+        or daily_cross is None
+        or weekly_cross is None
+    ):
         return "DATA_REVIEW"
 
     current_cross = weekly_cross.cross_status
     current_phase = weekly_cross.phase
     if current_cross == "GOLDEN" and current_phase in {"NEW", "CONFIRMED"}:
-        return "STOP_DCA_AND_DEPLOY_LUMP_SUM"
+        return "DEPLOY_LUMP_SUM_AND_CONTINUE_DCA"
     if current_cross == "DEATH" and current_phase in {"NEW", "CONFIRMED"}:
         return "REDEEM_AT_NEXT_AVAILABLE_NAV"
 
     if weekly_cross.alignment == "GOLDEN":
-        return "TRANSITION_STOP_NEW_DCA"
+        return "TRANSITION_CONTINUE_ORIGINAL_DCA"
     if weekly_cross.alignment == "DEATH":
-        return "REDUCED_DCA"
+        if daily_cross.alignment == "GOLDEN":
+            return "REDUCED_DCA"
+        if daily_cross.alignment == "DEATH":
+            return "PAUSE_DCA"
     return "DATA_REVIEW"
 
 
@@ -234,17 +246,17 @@ def fund_cta_payload(results: Iterable[FundCTAResult]) -> dict[str, Any]:
     """Build the cache consumed by Fund Intelligence without provider calls."""
 
     return {
-        "schema_version": "1.5",
+        "schema_version": "1.6",
         "metric": "Onecool Fund NAV CTA",
         "source": "OnecoolOS committed fund NAV history",
         "engine": "shared_onecool_cta_engine",
         "decision_layers": {
             "technical_conclusion": "trend verdict; SELL is explicit when fund and benchmark are both SELL",
             "dca_action": (
-                "v1.3 weekly-led capital action; existing weekly bull stops new "
-                "DCA without retroactive lump sum, existing weekly bear uses "
-                "reduced DCA, new bull deploys lump sum, new bear redeems at "
-                "the next available NAV"
+                "v1.3 transition action; existing weekly bull keeps the original "
+                "DCA, weekly bear uses low DCA only while daily trend is "
+                "bullish and otherwise pauses, new bull deploys lump sum and "
+                "continues DCA, new bear redeems at the next available NAV"
             ),
         },
         "auxiliary_confirmation": {

@@ -64,7 +64,7 @@ def test_payload_declares_shared_engine() -> None:
     payload = fund_cta_payload([result])
 
     assert payload["engine"] == "shared_onecool_cta_engine"
-    assert payload["schema_version"] == "1.5"
+    assert payload["schema_version"] == "1.6"
     assert payload["method"]["cross_detection"]["priority"].startswith(
         "weekly crossover"
     )
@@ -94,42 +94,58 @@ def weekly_signal(
     )
 
 
-def test_existing_weekly_bull_uses_transition_without_retroactive_lump_sum() -> None:
+def test_existing_weekly_bull_continues_original_dca() -> None:
+    daily_bull = weekly_signal("GOLDEN")
+    daily_bear = weekly_signal("DEATH")
+    weekly_bull = weekly_signal("GOLDEN")
+
     assert (
-        dca_action("BUY", weekly_signal("GOLDEN"))
-        == "TRANSITION_STOP_NEW_DCA"
+        dca_action("BUY", daily_bull, weekly_bull)
+        == "TRANSITION_CONTINUE_ORIGINAL_DCA"
     )
     assert (
-        dca_action("WATCH", weekly_signal("GOLDEN"))
-        == "TRANSITION_STOP_NEW_DCA"
+        dca_action("WATCH", daily_bear, weekly_bull)
+        == "TRANSITION_CONTINUE_ORIGINAL_DCA"
     )
 
 
-def test_existing_weekly_bear_uses_reduced_dca() -> None:
-    assert dca_action("SELL", weekly_signal("DEATH")) == "REDUCED_DCA"
+def test_existing_weekly_bear_uses_daily_trend_for_dca() -> None:
+    weekly_bear = weekly_signal("DEATH")
+
+    assert (
+        dca_action("SELL", weekly_signal("GOLDEN"), weekly_bear)
+        == "REDUCED_DCA"
+    )
+    assert (
+        dca_action("SELL", weekly_signal("DEATH"), weekly_bear)
+        == "PAUSE_DCA"
+    )
 
 
 def test_new_weekly_cross_owns_capital_action() -> None:
     assert (
         dca_action(
             "BUY",
+            weekly_signal("GOLDEN"),
             weekly_signal("GOLDEN", cross_status="GOLDEN", phase="NEW"),
         )
-        == "STOP_DCA_AND_DEPLOY_LUMP_SUM"
+        == "DEPLOY_LUMP_SUM_AND_CONTINUE_DCA"
     )
     assert (
         dca_action(
             "SELL",
+            weekly_signal("DEATH"),
             weekly_signal("DEATH", cross_status="DEATH", phase="CONFIRMED"),
         )
         == "REDEEM_AT_NEXT_AVAILABLE_NAV"
     )
 
 
-def test_action_requires_valid_fund_and_weekly_signal() -> None:
-    assert dca_action("UNKNOWN", weekly_signal("GOLDEN")) == "DATA_REVIEW"
-    assert dca_action("SELL", None) == "DATA_REVIEW"
-
+def test_action_requires_valid_fund_and_signals() -> None:
+    signal = weekly_signal("GOLDEN")
+    assert dca_action("UNKNOWN", signal, signal) == "DATA_REVIEW"
+    assert dca_action("SELL", None, signal) == "DATA_REVIEW"
+    assert dca_action("SELL", signal, None) == "DATA_REVIEW"
 
 def auxiliary(symbol: str, cta: str, phase: str = "AGING") -> dict:
     cross = {"phase": phase}
