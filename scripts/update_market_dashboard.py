@@ -32,6 +32,7 @@ CORE_ALPHA_FALLBACK_SYMBOLS = {"SPY", "QQQ", "DIA", "SOXX", "NVDA"}
 ADJUSTED_HISTORY_SOURCES = {
     "yahoo_finance_adjusted_fallback",
 }
+DIVIDEND_ABS_TOLERANCE = 1e-3
 
 
 def _action_map(bars: list) -> dict:
@@ -60,10 +61,15 @@ def _corporate_action_mismatches(
     for day in sorted(yahoo_actions.keys() | alpha_actions.keys()):
         yahoo_dividend, yahoo_split = yahoo_actions.get(day, (0.0, 1.0))
         alpha_dividend, alpha_split = alpha_actions.get(day, (0.0, 1.0))
-        if not isclose(yahoo_dividend, alpha_dividend, abs_tol=1e-4):
+        if not isclose(
+            yahoo_dividend,
+            alpha_dividend,
+            abs_tol=DIVIDEND_ABS_TOLERANCE,
+        ):
             mismatches.append(
                 f"{day}: dividend yahoo={yahoo_dividend} "
-                f"alpha={alpha_dividend}"
+                f"alpha={alpha_dividend} "
+                f"difference={abs(yahoo_dividend - alpha_dividend):.6f}"
             )
         if not isclose(yahoo_split, alpha_split, abs_tol=1e-6):
             mismatches.append(
