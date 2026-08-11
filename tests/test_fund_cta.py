@@ -2,6 +2,7 @@ from datetime import date, timedelta
 
 from onecool_os.market.fund_alpha import FundNav
 from onecool_os.market.fund_cta import (
+    CrossSignal,
     calculate_fund_cta,
     classify_signal_alignment,
     fund_cta_payload,
