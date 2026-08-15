@@ -6,6 +6,8 @@ from pathlib import Path
 from onecool_os.market.dashboard import (
     COUNTRY_INDEX_CTA_PROXIES,
     DASHBOARD_ACTION_REFRESH_GROUPS,
+    INNOVATION_OPTION_POLICY,
+    INNOVATION_OPTION_SYMBOLS,
     MARKET_SYMBOLS,
     US_PORTFOLIO_CTA_SYMBOLS,
     MarketCTA,
@@ -15,6 +17,13 @@ from onecool_os.market.dashboard import (
 )
 from onecool_os.market.etf_cta import CTAResult, DailyBar
 from onecool_os.market.fund_intelligence import load_fund_intelligence_context
+
+
+def innovation_rows(as_of: str = "2026-07-17") -> list[dict]:
+    return [
+        {"symbol": symbol, "as_of": as_of, "data_status": "READY"}
+        for symbol in INNOVATION_OPTION_SYMBOLS
+    ]
 
 
 def record(
@@ -45,8 +54,8 @@ def record(
 def test_dashboard_symbols_are_fixed_and_provider_mapped() -> None:
     assert [item.symbol for item in MARKET_SYMBOLS] == [
         "SPY", "QQQ", "RUSSELL_2000", "DIA", "SOXX", "NVDA", "1306",
-        "069500", "BABA", "XYZ", "QRVO", "RH", "UPBD", "0050", "2330", "VIX", "DXY",
-        "US30Y",
+        "069500", "BABA", "XYZ", "QRVO", "RH", "UPBD", "TSLA", "0050",
+        "2330", "VIX", "DXY", "US30Y",
     ]
     assert {item.symbol: item.provider_symbol for item in MARKET_SYMBOLS}[
         "US30Y"
@@ -102,14 +111,16 @@ def test_market_summary_is_deterministic_and_not_a_forecast() -> None:
         record("2330", "TW", "BULLISH", "HOLD"),
     ]
 
-    payload = build_dashboard_payload(records)
+    payload = build_dashboard_payload(
+        records, innovation_option_watch=innovation_rows()
+    )
 
     assert payload["summary"]["us_market_trend"] == "BULLISH"
     assert payload["summary"]["ai_market_line"] == "CONFIRMED"
     assert payload["summary"]["taiwan_market_trend"] == "BULLISH"
     assert payload["summary"]["us_taiwan_synchronization"] == "SYNCHRONIZED"
     assert payload["summary_method"] == "deterministic CTA aggregation; no forecast"
-    assert payload["schema_version"] == "1.8"
+    assert payload["schema_version"] == "1.9"
     assert payload["expected_as_of"] == "2026-07-17"
     assert payload["data_status"] == "READY"
     assert payload["last_successful_update_at"] == payload["generated_at"]
@@ -123,6 +134,16 @@ def test_market_summary_is_deterministic_and_not_a_forecast() -> None:
         US_PORTFOLIO_CTA_SYMBOLS
     )
     assert payload["portfolio_cta_basis"]["as_of"] == "2026-07-17"
+    assert payload["innovation_option_cta_basis"]["symbols"] == [
+        "TSLA", "SPCX"
+    ]
+    assert payload["innovation_option_cta_basis"]["policy"] == (
+        INNOVATION_OPTION_POLICY
+    )
+    assert payload["innovation_option_cta_basis"]["display_policy"] == (
+        "always_show_in_us_stock_daily_report"
+    )
+    assert payload["innovation_option_watch"] == innovation_rows()
     assert payload["provider"] == "yahoo_finance_raw_primary"
     assert set(payload["provider_by_symbol"].values()) == {
         "yahoo_finance_raw"
@@ -259,3 +280,5 @@ def test_dashboard_rejects_missing_country_proxy() -> None:
         assert "missing country CTA proxies: 069500" in str(exc)
     else:
         raise AssertionError("A missing local-market CTA must not be published")
+    INNOVATION_OPTION_POLICY,
+    INNOVATION_OPTION_SYMBOLS,

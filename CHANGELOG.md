@@ -1,5 +1,17 @@
 # Changelog
 
+## 2026-08-15
+
+- Added TSLA and SPCX as daily `innovation_option_watch` assets in the US
+  Market Dashboard.
+- Added a distinct innovation-option CTA policy: completed-week 30/50 entry,
+  buy-and-hold after entry, daily 50/200 as risk context, and no automatic
+  death-cross exit.
+- Added an explicit accumulating-data state for SPCX so its short post-IPO
+  history cannot be mislabeled as a bearish CTA signal.
+- Added the US Stock Intelligence daily-report contract requiring TSLA and
+  SPCX to appear every day.
+
 All notable changes to Onecool OS will be documented in this file.
 
 The format follows Keep a Changelog principles, and commits follow Conventional

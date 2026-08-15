@@ -11,8 +11,11 @@ from pathlib import Path
 
 from onecool_os.market.dashboard import (
     DASHBOARD_ACTION_REFRESH_GROUPS,
+    INNOVATION_OPTION_POLICY,
+    INNOVATION_OPTION_SYMBOLS,
     MARKET_SYMBOLS,
     US_PORTFOLIO_CTA_SYMBOLS,
+    MarketSymbol,
     build_dashboard_payload,
     dashboard_record,
 )
@@ -33,6 +36,69 @@ ADJUSTED_HISTORY_SOURCES = {
     "yahoo_finance_adjusted_fallback",
 }
 DIVIDEND_ABS_TOLERANCE = 1e-3
+INNOVATION_OPTION_CONFIGS = {
+    "TSLA": next(item for item in MARKET_SYMBOLS if item.symbol == "TSLA"),
+    "SPCX": MarketSymbol("SPCX", "SPCX", "US", "innovation_option"),
+}
+
+
+def _innovation_option_state(config, history: list) -> dict:
+    """Return a daily display row without inventing immature CTA values."""
+
+    weekly_observations = len({
+        (bar.trading_date.isocalendar().year, bar.trading_date.isocalendar().week)
+        for bar in history
+    })
+    base = {
+        "symbol": config.symbol,
+        "as_of": history[-1].trading_date.isoformat(),
+        "current_price": round(float(history[-1].adjusted_close), 6),
+        "daily_observations": len(history),
+        "weekly_observations": weekly_observations,
+        "classification": INNOVATION_OPTION_POLICY["classification"],
+        "holding_rule": INNOVATION_OPTION_POLICY["holding_rule"],
+        "exit_rule": INNOVATION_OPTION_POLICY["exit_rule"],
+    }
+    if len(history) < 200 or weekly_observations < 50:
+        return {
+            **base,
+            "data_status": "ACCUMULATING",
+            "weekly_entry_status": "UNKNOWN",
+            "daily_risk_status": "UNKNOWN",
+            "display_action": "資料累積中；不得建立CTA訊號",
+            "required_daily_observations": 200,
+            "required_weekly_observations": 50,
+        }
+
+    result = calculate_cta(config.symbol, history)
+    weekly = result.weekly_cross
+    daily = result.daily_cross
+    if weekly.cross_status == "GOLDEN":
+        entry_status = "NEW_ENTRY_ELIGIBLE"
+        action = "週線剛翻多：可建立小比例長期部位"
+    elif weekly.alignment == "GOLDEN":
+        entry_status = "ENTRY_ELIGIBLE"
+        action = "週線多頭：既有小部位長期持有"
+    else:
+        entry_status = "NO_NEW_ENTRY"
+        action = "週線空頭：停止新增；既有小部位不自動賣出，檢核投資邏輯"
+    daily_status = (
+        "BULLISH" if daily.alignment == "GOLDEN" else
+        "BEARISH" if daily.alignment == "DEATH" else "NEUTRAL"
+    )
+    return {
+        **base,
+        "data_status": "READY",
+        "weekly_entry_status": entry_status,
+        "daily_risk_status": daily_status,
+        "display_action": action,
+        "weekly_ma30": result.weekly_30ma,
+        "weekly_ma50": result.weekly_50ma,
+        "daily_sma50": result.daily_50ma,
+        "daily_sma200": result.daily_200ma,
+        "weekly_cross": result.weekly_cross.__dict__,
+        "daily_cross": result.daily_cross.__dict__,
+    }
 
 
 def _action_map(bars: list) -> dict:
@@ -125,6 +191,7 @@ def update(
     staged = []
     records = []
     providers: dict[str, str] = {}
+    innovation_histories: dict[str, list] = {}
 
     action_validation = []
     # Fetch and calculate every symbol before replacing any successful cache.
@@ -188,11 +255,33 @@ def update(
             )
 
         staged.append((config, history))
+        if config.symbol in INNOVATION_OPTION_SYMBOLS:
+            innovation_histories[config.symbol] = history
         records.append(
             dashboard_record(config, calculate_cta(config.symbol, history))
         )
 
-    payload = build_dashboard_payload(records)
+    # SPCX has less than 50 completed weeks after its 2026 IPO.  Collect and
+    # publish its maturity state without weakening the shared CTA engine.
+    spcx = INNOVATION_OPTION_CONFIGS["SPCX"]
+    spcx_existing = read_history(history_dir / "SPCX.csv")
+    spcx_incoming = history_bootstrapper.fetch_raw_daily(
+        spcx.provider_symbol, period="5y" if not spcx_existing else "10d"
+    )
+    spcx_history = merge_and_adjust(spcx_existing, spcx_incoming)
+    providers["SPCX"] = "yahoo_finance_raw"
+    staged.append((spcx, spcx_history))
+    innovation_histories["SPCX"] = spcx_history
+
+    innovation_watch = [
+        _innovation_option_state(
+            INNOVATION_OPTION_CONFIGS[symbol], innovation_histories[symbol]
+        )
+        for symbol in INNOVATION_OPTION_SYMBOLS
+    ]
+    payload = build_dashboard_payload(
+        records, innovation_option_watch=innovation_watch
+    )
     payload["provider_by_symbol"] = providers
     payload["corporate_action_validation"] = action_validation
     payload["provider_fallback_policy"] = (
@@ -241,3 +330,5 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+    INNOVATION_OPTION_POLICY,
+    INNOVATION_OPTION_SYMBOLS,
