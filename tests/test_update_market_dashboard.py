@@ -79,7 +79,7 @@ def test_update_uses_raw_yahoo_primary_for_all_dashboard_symbols(
     assert FakeClient.calls == []
     assert FakeBootstrapper.calls == [
         config.provider_symbol for config in update_market_dashboard.MARKET_SYMBOLS
-    ]
+    ] + ["SPCX"]
     assert FakeBootstrapper.adjusted_calls == []
     assert len(payload["results"]) == len(update_market_dashboard.MARKET_SYMBOLS)
     assert payload["provider_by_symbol"]["SPY"] == "yahoo_finance_raw"
@@ -89,7 +89,7 @@ def test_update_uses_raw_yahoo_primary_for_all_dashboard_symbols(
     assert latest.exists()
     assert len(list((latest.parent / "history").glob("*.csv"))) == len(
         update_market_dashboard.MARKET_SYMBOLS
-    )
+    ) + 1
     assert len(list((latest.parent / "snapshots").glob("*.json"))) == 1
 
 
@@ -114,7 +114,7 @@ def test_missing_api_key_uses_yahoo_for_all_symbols(
     assert len(payload["results"]) == len(update_market_dashboard.MARKET_SYMBOLS)
     assert FakeBootstrapper.calls == [
         config.provider_symbol for config in update_market_dashboard.MARKET_SYMBOLS
-    ]
+    ] + ["SPCX"]
     assert FakeBootstrapper.adjusted_calls == []
     assert set(payload["provider_by_symbol"].values()) == {"yahoo_finance_raw"}
 
@@ -171,9 +171,38 @@ def test_existing_histories_skip_yahoo_bootstrap(tmp_path: Path, monkeypatch) ->
 
     assert FakeBootstrapper.calls == [
         config.provider_symbol for config in update_market_dashboard.MARKET_SYMBOLS
-    ]
+    ] + ["SPCX"]
     assert FakeBootstrapper.adjusted_calls == []
     assert FakeClient.calls == []
+
+
+def test_immature_innovation_option_is_displayed_without_fake_cta() -> None:
+    start = date(2026, 6, 12)
+    history = merge_and_adjust(
+        [],
+        [
+            DailyBar(
+                trading_date=start + timedelta(days=index),
+                open=100.0 + index,
+                high=101.0 + index,
+                low=99.0 + index,
+                close=100.0 + index,
+                volume=100,
+            )
+            for index in range(60)
+        ],
+    )
+
+    state = update_market_dashboard._innovation_option_state(
+        update_market_dashboard.INNOVATION_OPTION_CONFIGS["SPCX"], history
+    )
+
+    assert state["symbol"] == "SPCX"
+    assert state["data_status"] == "ACCUMULATING"
+    assert state["weekly_entry_status"] == "UNKNOWN"
+    assert state["daily_risk_status"] == "UNKNOWN"
+    assert state["display_action"] == "資料累積中；不得建立CTA訊號"
+    assert "weekly_ma30" not in state
 
 
 def test_non_finite_yahoo_row_is_dropped_without_aborting_dashboard(

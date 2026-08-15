@@ -41,6 +41,17 @@ COUNTRY_INDEX_CTA_PROXIES = {
 
 US_PORTFOLIO_CTA_SYMBOLS = ("BABA", "XYZ", "QRVO", "RH", "UPBD")
 
+INNOVATION_OPTION_SYMBOLS = ("TSLA", "SPCX")
+
+INNOVATION_OPTION_POLICY = {
+    "classification": "small_long_term_innovation_option",
+    "entry_rule": "completed_week_sma30_crosses_above_sma50",
+    "holding_rule": "buy_and_hold_after_entry",
+    "daily_rule": "daily_sma50_200_is_risk_context_only",
+    "death_cross_rule": "stop_adding_and_review_thesis; no_automatic_exit",
+    "exit_rule": "thesis_break_or_position_limit_breach_only",
+}
+
 DASHBOARD_ACTION_REFRESH_GROUPS = {
     "group_a": ("SPY", "QQQ", "DIA"),
     "group_b": ("SOXX", "NVDA"),
@@ -61,6 +72,7 @@ MARKET_SYMBOLS = (
     MarketSymbol("QRVO", "QRVO", "US", "portfolio"),
     MarketSymbol("RH", "RH", "US", "portfolio"),
     MarketSymbol("UPBD", "UPBD", "US", "portfolio"),
+    MarketSymbol("TSLA", "TSLA", "US", "innovation_option"),
     MarketSymbol("0050", "0050.TW", "TW", "broad_market"),
     MarketSymbol("2330", "2330.TW", "TW", "semiconductor_ai"),
     MarketSymbol("VIX", "^VIX", "CONTEXT", "volatility"),
@@ -165,7 +177,8 @@ def market_summary(records: Iterable[MarketCTA]) -> dict[str, str]:
         else "DIVERGENT_OR_MIXED"
     )
     summary_items = [
-        item for item in items.values() if item.symbol not in US_PORTFOLIO_CTA_SYMBOLS
+        item for item in items.values()
+        if item.symbol not in US_PORTFOLIO_CTA_SYMBOLS + INNOVATION_OPTION_SYMBOLS
     ]
     counts = {
         signal: sum(item.cta == signal for item in summary_items)
@@ -183,16 +196,24 @@ def market_summary(records: Iterable[MarketCTA]) -> dict[str, str]:
     }
 
 
-def build_dashboard_payload(records: Iterable[MarketCTA]) -> dict[str, Any]:
+def build_dashboard_payload(
+    records: Iterable[MarketCTA],
+    *,
+    innovation_option_watch: Iterable[dict[str, Any]] = (),
+) -> dict[str, Any]:
     """Build the GitHub-cached SSOT payload after passing the US date gate."""
 
     values = list(records)
     expected_as_of = _validate_us_index_cta_dates(values)
     country_as_of = _validate_country_index_cta_dates(values)
     portfolio_as_of = _validate_us_portfolio_cta_dates(values, expected_as_of)
+    innovation_values = list(innovation_option_watch)
+    _validate_innovation_option_dates(
+        innovation_values, expected_as_of
+    )
     generated_at = datetime.now(UTC).isoformat()
     return {
-        "schema_version": "1.8",
+        "schema_version": "1.9",
         "module": "Onecool Market Dashboard",
         "generated_at": generated_at,
         "expected_as_of": expected_as_of,
@@ -213,6 +234,12 @@ def build_dashboard_payload(records: Iterable[MarketCTA]) -> dict[str, Any]:
             "symbols": list(US_PORTFOLIO_CTA_SYMBOLS),
             "as_of": portfolio_as_of,
         },
+        "innovation_option_cta_basis": {
+            "symbols": list(INNOVATION_OPTION_SYMBOLS),
+            "policy": INNOVATION_OPTION_POLICY,
+            "display_policy": "always_show_in_us_stock_daily_report",
+        },
+        "innovation_option_watch": innovation_values,
         "provider": "yahoo_finance_raw_primary",
         "provider_by_symbol": {
             item.symbol: "yahoo_finance_raw" for item in MARKET_SYMBOLS
@@ -295,6 +322,30 @@ def _validate_us_portfolio_cta_dates(
             f"{expected_as_of}: {details}"
         )
     return expected_as_of
+
+
+def _validate_innovation_option_dates(
+    records: Iterable[dict[str, Any]], expected_as_of: str
+) -> None:
+    """Require both innovation-option rows and the completed US market date."""
+
+    items = {str(item.get("symbol")): item for item in records}
+    missing = [symbol for symbol in INNOVATION_OPTION_SYMBOLS if symbol not in items]
+    if missing:
+        raise ValueError(
+            "Market Dashboard is missing innovation-option symbols: "
+            + ", ".join(missing)
+        )
+    dates = {str(items[symbol].get("as_of")) for symbol in INNOVATION_OPTION_SYMBOLS}
+    if dates != {expected_as_of}:
+        details = ", ".join(
+            f"{symbol}={items[symbol].get('as_of')}"
+            for symbol in INNOVATION_OPTION_SYMBOLS
+        )
+        raise ValueError(
+            "Innovation-option dates must match the US market date "
+            f"{expected_as_of}: {details}"
+        )
 
 
 def load_latest_dashboard(root: Path) -> dict[str, Any] | None:
