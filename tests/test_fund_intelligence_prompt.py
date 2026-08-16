@@ -33,6 +33,9 @@ def test_concise_freeze_prompt_contains_finalized_contract() -> None:
     assert "印度、世界礦業、環球消費維持續扣" in prompt
     assert "Tesla 正式排除" in prompt
     assert "完整覆蓋固定為六家公司 `6／6`" in prompt
+    assert prompt.index("| DXY |") < prompt.index("| US 30Y |") < prompt.index("| BTC |")
+    assert "BTC週線為UTC週一至週日" in prompt
+    assert "不得改變任何基金CTA" in prompt
 
 
 def test_master_prompt_loader_exposes_version_and_stable_hash() -> None:
@@ -40,6 +43,6 @@ def test_master_prompt_loader_exposes_version_and_stable_hash() -> None:
 
     loaded = load_master_prompt(root)
 
-    assert loaded["version"] == "v1.0 Freeze"
+    assert loaded["version"] == "v1.1 Freeze"
     assert len(loaded["sha256"]) == 64
-    assert loaded["content"].startswith("# Onecool Fund Intelligence v1.0")
+    assert loaded["content"].startswith("# Onecool Fund Intelligence v1.1")

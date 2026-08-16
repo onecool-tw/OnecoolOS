@@ -257,9 +257,14 @@ def update(
         staged.append((config, history))
         if config.symbol in INNOVATION_OPTION_SYMBOLS:
             innovation_histories[config.symbol] = history
-        records.append(
-            dashboard_record(config, calculate_cta(config.symbol, history))
+        result = calculate_cta(
+            config.symbol,
+            history,
+            required_weekly_close_weekday=(
+                6 if config.symbol == "BTC" else None
+            ),
         )
+        records.append(dashboard_record(config, result))
 
     # SPCX has less than 50 completed weeks after its 2026 IPO.  Collect and
     # publish its maturity state without weakening the shared CTA engine.
@@ -330,5 +335,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-    INNOVATION_OPTION_POLICY,
-    INNOVATION_OPTION_SYMBOLS,

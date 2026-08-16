@@ -10,7 +10,7 @@ from typing import Any
 
 
 REQUIRED_DASHBOARD_SYMBOLS = {
-    "SPY", "QQQ", "RUSSELL_2000", "0050", "VIX", "DXY", "US30Y"
+    "SPY", "QQQ", "RUSSELL_2000", "0050", "VIX", "DXY", "US30Y", "BTC"
 }
 REQUIRED_FINITE_FIELDS = {
     "current_price", "sma50", "sma200", "weekly_ma30", "weekly_ma50"
