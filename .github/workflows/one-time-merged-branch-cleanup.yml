@@ -1,0 +1,57 @@
+name: One-time merged branch cleanup
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete verified merged agent branches
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          branches=(
+            "agent/add-saturday-fund-daily"
+            "agent/add-us-portfolio-cta"
+            "agent/ai-demand-quality"
+            "agent/asia-cta-close-retries"
+            "agent/complete-fund-input-fallbacks"
+            "agent/daily-fund-nav-cta"
+            "agent/filter-nonfinite-market-bars"
+            "agent/fix-dashboard-dividend-tolerance"
+            "agent/fix-v1-3-transition-dca"
+            "agent/fix-weekly-preflight-cache-tracking"
+            "agent/fix-wti-fx-fallbacks"
+            "agent/fund-action-v1-3-transition"
+            "agent/fund-input-fallbacks-v2"
+            "agent/fund-nav-partial-refresh"
+            "agent/harden-daily-fund-nav-refresh"
+            "agent/harden-fund-intelligence-preflight"
+            "agent/reduce-alpha-vantage-usage"
+            "agent/remove-tesla-ai-universe"
+            "agent/tesla-report-layer-review"
+            "agent/tsla-spcx-innovation-option-cta"
+            "agent/yahoo-primary-market-data"
+          )
+          for branch in "${branches[@]}"; do
+            gh api --method DELETE "repos/${GITHUB_REPOSITORY}/git/refs/heads/${branch}"
+          done
+
+      - name: Remove this one-time workflow
+        if: always()
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          workflow_path=".github/workflows/one-time-merged-branch-cleanup.yml"
+          sha="$(gh api "repos/${GITHUB_REPOSITORY}/contents/${workflow_path}?ref=main" --jq '.sha')"
+          gh api --method DELETE "repos/${GITHUB_REPOSITORY}/contents/${workflow_path}" \
+            -f message="Remove one-time merged branch cleanup" \
+            -f sha="${sha}" \
+            -f branch="main"
