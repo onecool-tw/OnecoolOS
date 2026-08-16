@@ -1,10 +1,10 @@
 {
-  "schema_version": "1.8",
+  "schema_version": "1.9",
   "module": "Onecool Market Dashboard",
-  "generated_at": "2026-08-15T02:29:08.182306+00:00",
+  "generated_at": "2026-08-16T06:41:33.650815+00:00",
   "expected_as_of": "2026-08-14",
   "data_status": "READY",
-  "last_successful_update_at": "2026-08-15T02:29:08.182306+00:00",
+  "last_successful_update_at": "2026-08-16T06:41:33.650815+00:00",
   "index_cta_basis": {
     "method": "ETF/index proxies; shared CTA engine",
     "mappings": {
@@ -37,6 +37,75 @@
     ],
     "as_of": "2026-08-14"
   },
+  "innovation_option_cta_basis": {
+    "symbols": [
+      "TSLA",
+      "SPCX"
+    ],
+    "policy": {
+      "classification": "small_long_term_innovation_option",
+      "entry_rule": "completed_week_sma30_crosses_above_sma50",
+      "holding_rule": "buy_and_hold_after_entry",
+      "daily_rule": "daily_sma50_200_is_risk_context_only",
+      "death_cross_rule": "stop_adding_and_review_thesis; no_automatic_exit",
+      "exit_rule": "thesis_break_or_position_limit_breach_only"
+    },
+    "display_policy": "always_show_in_us_stock_daily_report"
+  },
+  "innovation_option_watch": [
+    {
+      "symbol": "TSLA",
+      "as_of": "2026-08-14",
+      "current_price": 342.269989,
+      "daily_observations": 1255,
+      "weekly_observations": 261,
+      "classification": "small_long_term_innovation_option",
+      "holding_rule": "buy_and_hold_after_entry",
+      "exit_rule": "thesis_break_or_position_limit_breach_only",
+      "data_status": "READY",
+      "weekly_entry_status": "NO_NEW_ENTRY",
+      "daily_risk_status": "BEARISH",
+      "display_action": "週線空頭：停止新增；既有小部位不自動賣出，檢核投資邏輯",
+      "weekly_ma30": 389.483666,
+      "weekly_ma50": 406.3346,
+      "daily_sma50": 371.085398,
+      "daily_sma200": 406.07945,
+      "weekly_cross": {
+        "alignment": "DEATH",
+        "cross_status": "NONE",
+        "last_cross_status": "DEATH",
+        "last_cross_date": "2026-07-17",
+        "periods_since_cross": 4,
+        "spread_pct": -4.147059,
+        "phase": "CONFIRMED"
+      },
+      "daily_cross": {
+        "alignment": "DEATH",
+        "cross_status": "NONE",
+        "last_cross_status": "DEATH",
+        "last_cross_date": "2026-04-09",
+        "periods_since_cross": 88,
+        "spread_pct": -8.617538,
+        "phase": "AGING"
+      }
+    },
+    {
+      "symbol": "SPCX",
+      "as_of": "2026-08-14",
+      "current_price": 140.0,
+      "daily_observations": 44,
+      "weekly_observations": 10,
+      "classification": "small_long_term_innovation_option",
+      "holding_rule": "buy_and_hold_after_entry",
+      "exit_rule": "thesis_break_or_position_limit_breach_only",
+      "data_status": "ACCUMULATING",
+      "weekly_entry_status": "UNKNOWN",
+      "daily_risk_status": "UNKNOWN",
+      "display_action": "資料累積中；不得建立CTA訊號",
+      "required_daily_observations": 200,
+      "required_weekly_observations": 50
+    }
+  ],
   "provider": "yahoo_finance_raw_primary",
   "provider_by_symbol": {
     "SPY": "yahoo_finance_raw",
@@ -52,11 +121,13 @@
     "QRVO": "yahoo_finance_raw",
     "RH": "yahoo_finance_raw",
     "UPBD": "yahoo_finance_raw",
+    "TSLA": "yahoo_finance_raw",
     "0050": "yahoo_finance_raw",
     "2330": "yahoo_finance_raw",
     "VIX": "yahoo_finance_raw",
     "DXY": "yahoo_finance_raw",
-    "US30Y": "yahoo_finance_raw"
+    "US30Y": "yahoo_finance_raw",
+    "SPCX": "yahoo_finance_raw"
   },
   "history_bootstrap_provider": "yahoo_finance_raw_with_actions_once_when_missing_or_migrating",
   "cache_policy": "scheduled_writer_only; consumers_read_github_cache",
@@ -144,11 +215,11 @@
       "market": "US",
       "theme": "small_cap",
       "as_of": "2026-08-14",
-      "current_price": 3068.415283,
-      "sma50": 2970.04771,
-      "sma200": 2703.472679,
-      "weekly_ma30": 2781.257861,
-      "weekly_ma50": 2661.253916,
+      "current_price": 3068.419922,
+      "sma50": 2970.047803,
+      "sma200": 2703.472703,
+      "weekly_ma30": 2781.258016,
+      "weekly_ma50": 2661.254009,
       "trend": "BULLISH",
       "cta": "BUY",
       "confidence": 100,
@@ -159,7 +230,7 @@
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2025-08-06",
         "periods_since_cross": 257,
-        "spread_pct": 9.860467,
+        "spread_pct": 9.860469,
         "phase": "AGING"
       },
       "weekly_cross": {
@@ -168,7 +239,7 @@
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2025-10-31",
         "periods_since_cross": 41,
-        "spread_pct": 4.509301,
+        "spread_pct": 4.509303,
         "phase": "ACTIVE"
       }
     },
@@ -513,6 +584,40 @@
       }
     },
     {
+      "symbol": "TSLA",
+      "provider_symbol": "TSLA",
+      "market": "US",
+      "theme": "innovation_option",
+      "as_of": "2026-08-14",
+      "current_price": 342.269989,
+      "sma50": 371.085398,
+      "sma200": 406.07945,
+      "weekly_ma30": 389.483666,
+      "weekly_ma50": 406.3346,
+      "trend": "BEARISH",
+      "cta": "SELL",
+      "confidence": 100,
+      "reason": "Weekly death cross remains confirmed or active.",
+      "daily_cross": {
+        "alignment": "DEATH",
+        "cross_status": "NONE",
+        "last_cross_status": "DEATH",
+        "last_cross_date": "2026-04-09",
+        "periods_since_cross": 88,
+        "spread_pct": -8.617538,
+        "phase": "AGING"
+      },
+      "weekly_cross": {
+        "alignment": "DEATH",
+        "cross_status": "NONE",
+        "last_cross_status": "DEATH",
+        "last_cross_date": "2026-07-17",
+        "periods_since_cross": 4,
+        "spread_pct": -4.147059,
+        "phase": "CONFIRMED"
+      }
+    },
+    {
       "symbol": "0050",
       "provider_symbol": "0050.TW",
       "market": "TW",
@@ -620,11 +725,11 @@
       "market": "CONTEXT",
       "theme": "us_dollar",
       "as_of": "2026-08-14",
-      "current_price": 99.636002,
-      "sma50": 100.55392,
-      "sma200": 99.19013,
-      "weekly_ma30": 99.253867,
-      "weekly_ma50": 99.04132,
+      "current_price": 99.669998,
+      "sma50": 100.5546,
+      "sma200": 99.1903,
+      "weekly_ma30": 99.255,
+      "weekly_ma50": 99.042,
       "trend": "BULLISH",
       "cta": "BUY",
       "confidence": 75,
@@ -635,7 +740,7 @@
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2026-04-08",
         "periods_since_cross": 89,
-        "spread_pct": 1.374925,
+        "spread_pct": 1.375437,
         "phase": "AGING"
       },
       "weekly_cross": {
@@ -644,7 +749,7 @@
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2026-04-02",
         "periods_since_cross": 19,
-        "spread_pct": 0.214604,
+        "spread_pct": 0.21506,
         "phase": "ACTIVE"
       }
     },

@@ -1,15 +1,15 @@
 {
-  "schema_version": "1.2",
-  "generated_at": "2026-08-09T06:59:57.888348+00:00",
+  "schema_version": "1.3",
+  "generated_at": "2026-08-16T06:42:27.393443+00:00",
   "source_policy": "SEC filings/companyfacts primary; official company IR pages fallback",
-  "companies_expected": 7,
+  "companies_expected": 6,
   "companies_valid": 6,
-  "data_coverage_pct": 85.71,
+  "data_coverage_pct": 100.0,
   "companies_sec_structured_valid": 0,
   "sec_structured_coverage_pct": 0.0,
   "companies_official_evidence_valid": 6,
-  "official_evidence_coverage_pct": 85.71,
-  "cache_status": "PARTIAL",
+  "official_evidence_coverage_pct": 100.0,
+  "cache_status": "VALID",
   "review_required": true,
   "unreviewed_companies": [
     "Microsoft",
@@ -17,8 +17,7 @@
     "Alphabet",
     "Meta",
     "Nvidia",
-    "Apple",
-    "Tesla"
+    "Apple"
   ],
   "new_periodic_filings": [
     "Microsoft"
@@ -26,28 +25,45 @@
   "signals": {
     "ai_infrastructure": {
       "status": "UNKNOWN",
-      "reason": "Awaiting complete seven-company official review.",
+      "reason": "Awaiting complete six-company official review.",
       "reviewed_at": null,
       "usable_for_report": false
     },
     "ai_capex": {
       "status": "UNKNOWN",
-      "reason": "Awaiting complete seven-company official review.",
+      "reason": "Awaiting complete six-company official review.",
       "reviewed_at": null,
       "usable_for_report": false
     },
     "ai_adoption": {
       "status": "UNKNOWN",
-      "reason": "Awaiting complete seven-company official review.",
+      "reason": "Awaiting complete six-company official review.",
+      "reviewed_at": null,
+      "usable_for_report": false
+    },
+    "independent_demand_quality": {
+      "status": "UNKNOWN",
+      "reason": "Awaiting review of customer funding independence and supplier-financing exposure.",
+      "reviewed_at": null,
+      "usable_for_report": false
+    },
+    "capital_efficiency": {
+      "status": "UNKNOWN",
+      "reason": "Awaiting review of operating cash flow, free cash flow, and AI monetization relative to capex.",
       "reviewed_at": null,
       "usable_for_report": false
     },
     "overall": {
       "status": "UNKNOWN",
-      "reason": "Awaiting complete seven-company official review.",
+      "reason": "Awaiting complete six-company official review.",
       "reviewed_at": null,
       "usable_for_report": false
     }
+  },
+  "signal_methodology": {
+    "ai_capex": "Measure disclosed spending, but do not treat supplier-financed purchases as independent end demand.",
+    "independent_demand_quality": "Down-weight purchases supported by supplier loans, equity investments, guarantees, purchase commitments, or equivalent financing. Do not double count supplier revenue and customer capex as two independent demand signals.",
+    "capital_efficiency": "Evaluate operating cash flow, free cash flow, and commercialization separately from gross capex."
   },
   "companies": [
     {
@@ -55,16 +71,16 @@
       "cik": "0000789019",
       "data_status": "OFFICIAL_IR_AVAILABLE",
       "evidence_source": "OFFICIAL_IR",
-      "evidence_revision": "ir:7073f7dfe3c5d845c2f91a0c1a1211f9bb18f7851a17f51e64fd747f2197dff6",
+      "evidence_revision": "ir:2424367f401849dde060ecc443dba94a39213078ed8ffa1eff0a3acb14b124b5",
       "latest_periodic_filing": null,
       "latest_capex_fact": null,
       "latest_operating_cash_flow_fact": null,
       "official_ir": {
         "source_url": "https://www.microsoft.com/en-us/Investor",
-        "content_sha256": "7073f7dfe3c5d845c2f91a0c1a1211f9bb18f7851a17f51e64fd747f2197dff6",
+        "content_sha256": "2424367f401849dde060ecc443dba94a39213078ed8ffa1eff0a3acb14b124b5",
         "content_length": 4114,
         "content_kind": "HTML",
-        "fetched_at": "2026-08-09T06:59:09.530926+00:00",
+        "fetched_at": "2026-08-16T06:41:46.127180+00:00",
         "content_changed": true
       },
       "filing_changed": false,
@@ -85,7 +101,7 @@
         "content_sha256": "c62b1a7fe2e06972e2544fdf3f14b33340232ee55be858f82cf5956abd1d0a4e",
         "content_length": 1243,
         "content_kind": "HTML",
-        "fetched_at": "2026-08-09T06:59:17.511216+00:00",
+        "fetched_at": "2026-08-16T06:41:54.362615+00:00",
         "content_changed": false
       },
       "filing_changed": false,
@@ -106,7 +122,7 @@
         "content_sha256": "2d92e63f7b89ac7efaf5c3b12506c38a0802d697b6c17a47d2ce71271d2f4857",
         "content_length": 1608,
         "content_kind": "HTML",
-        "fetched_at": "2026-08-09T06:59:25.575224+00:00",
+        "fetched_at": "2026-08-16T06:42:02.454448+00:00",
         "content_changed": false
       },
       "filing_changed": false,
@@ -127,7 +143,7 @@
         "content_sha256": "f6128306386e4635fc1538dc8a05db039f9ce3aefe9981f813f0b165d278199b",
         "content_length": 2908,
         "content_kind": "HTML",
-        "fetched_at": "2026-08-09T06:59:33.629918+00:00",
+        "fetched_at": "2026-08-16T06:42:10.831264+00:00",
         "content_changed": false
       },
       "filing_changed": false,
@@ -148,7 +164,7 @@
         "content_sha256": "e2502a77b74b06a18bf53949f8e496f5a0ef33a352adc4757584fd10eddd2939",
         "content_length": 4401,
         "content_kind": "HTML",
-        "fetched_at": "2026-08-09T06:59:41.796756+00:00",
+        "fetched_at": "2026-08-16T06:42:19.198020+00:00",
         "content_changed": false
       },
       "filing_changed": false,
@@ -169,26 +185,15 @@
         "content_sha256": "5b72e66ab6adec5b85ffe6221cb22b4ed3ad1d6f15170a54db259a18fdb51fb3",
         "content_length": 1533,
         "content_kind": "HTML",
-        "fetched_at": "2026-08-09T06:59:49.811208+00:00",
+        "fetched_at": "2026-08-16T06:42:27.393402+00:00",
         "content_changed": false
       },
       "filing_changed": false,
       "sec_refresh_error": "AIRevolutionError: HTTP 403: Forbidden",
       "interpretation_policy": "Official IR change detection only; quantitative facts, AI attribution and ROI require review."
-    },
-    {
-      "company": "Tesla",
-      "cik": "0001318605",
-      "data_status": "UNKNOWN",
-      "latest_periodic_filing": null,
-      "latest_capex_fact": null,
-      "latest_operating_cash_flow_fact": null,
-      "filing_changed": false,
-      "refresh_error": "AIRevolutionError: HTTP 403: Forbidden",
-      "official_ir_refresh_error": "AIRevolutionError: https://assets-ir.tesla.com/tesla-contents/IR/TSLA-Q3-2026-Update.pdf: AIRevolutionError: HTTP 403: Forbidden; https://assets-ir.tesla.com/tesla-contents/IR/TSLA-Q2-2026-Update.pdf: AIRevolutionError: HTTP 403: Forbidden; https://assets-ir.tesla.com/tesla-contents/IR/TSLA-Q1-2026-Update.pdf: AIRevolutionError: HTTP 403: Forbidden; https://assets-ir.tesla.com/tesla-contents/IR/TSLA-Q4-2025-Update.pdf: AIRevolutionError: HTTP 403: Forbidden; https://assets-ir.tesla.com/tesla-contents/IR/TSLA-Q3-2025-Update.pdf: AIRevolutionError: HTTP 403: Forbidden; https://assets-ir.tesla.com/tesla-contents/IR/TSLA-Q2-2025-Update.pdf: AIRevolutionError: HTTP 403: Forbidden; https://ir.tesla.com/: AIRevolutionError: HTTP 403: Forbidden; https://ir.tesla.com/sec-filings: AIRevolutionError: HTTP 403: Forbidden; https://ir.tesla.com/press: AIRevolutionError: HTTP 403: Forbidden; https://ir.tesla.com/press-release/tesla-releases-second-quarter-2026-financial-results: AIRevolutionError: HTTP 403: Forbidden; https://ir.tesla.com/#quarterly-disclosure: AIRevolutionError: HTTP 403: Forbidden"
     }
   ],
-  "decision_policy": "Do not output current AI lights unless every current evidence revision (SEC accession or official IR fingerprint) has been reviewed.",
+  "decision_policy": "Do not output current AI lights unless every current evidence revision (SEC accession or official IR fingerprint) has been reviewed. Supplier-financed or supplier-investment-supported purchases must be down-weighted in independent demand quality and cannot independently change a fund CTA or Action.",
   "last_known_valid_policy": {
     "maximum_age_days": 45,
     "rule": "A transient provider failure retains the last reviewed official revision until it exceeds the maximum age."
