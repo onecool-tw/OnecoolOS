@@ -55,7 +55,7 @@ def test_dashboard_symbols_are_fixed_and_provider_mapped() -> None:
     assert [item.symbol for item in MARKET_SYMBOLS] == [
         "SPY", "QQQ", "RUSSELL_2000", "DIA", "SOXX", "NVDA", "1306",
         "069500", "BABA", "XYZ", "QRVO", "RH", "UPBD", "TSLA", "0050",
-        "2330", "VIX", "DXY", "US30Y",
+        "2330", "VIX", "DXY", "US30Y", "BTC",
     ]
     assert {item.symbol: item.provider_symbol for item in MARKET_SYMBOLS}[
         "US30Y"
@@ -109,6 +109,7 @@ def test_market_summary_is_deterministic_and_not_a_forecast() -> None:
         record("UPBD", "US", "BULLISH", "BUY"),
         record("0050", "TW", "BULLISH", "BUY"),
         record("2330", "TW", "BULLISH", "HOLD"),
+        record("BTC", "CONTEXT", "BEARISH", "SELL", "2026-07-19"),
     ]
 
     payload = build_dashboard_payload(
@@ -119,6 +120,9 @@ def test_market_summary_is_deterministic_and_not_a_forecast() -> None:
     assert payload["summary"]["ai_market_line"] == "CONFIRMED"
     assert payload["summary"]["taiwan_market_trend"] == "BULLISH"
     assert payload["summary"]["us_taiwan_synchronization"] == "SYNCHRONIZED"
+    assert payload["summary"]["market_cta_summary"] == (
+        "BUY=8, HOLD=2, WATCH=0, SELL=0"
+    )
     assert payload["summary_method"] == "deterministic CTA aggregation; no forecast"
     assert payload["schema_version"] == "1.9"
     assert payload["expected_as_of"] == "2026-07-17"
@@ -280,5 +284,3 @@ def test_dashboard_rejects_missing_country_proxy() -> None:
         assert "missing country CTA proxies: 069500" in str(exc)
     else:
         raise AssertionError("A missing local-market CTA must not be published")
-    INNOVATION_OPTION_POLICY,
-    INNOVATION_OPTION_SYMBOLS,

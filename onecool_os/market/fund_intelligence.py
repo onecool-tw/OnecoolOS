@@ -9,7 +9,7 @@ from typing import Any
 
 from onecool_os.market.dashboard import load_latest_dashboard
 
-MASTER_PROMPT_VERSION = "v1.0 Freeze"
+MASTER_PROMPT_VERSION = "v1.1 Freeze"
 MASTER_PROMPT_PATH = Path("config/fund_intelligence_master_prompt.md")
 
 

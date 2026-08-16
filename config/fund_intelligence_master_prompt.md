@@ -1,9 +1,9 @@
-# Onecool Fund Intelligence v1.0
+# Onecool Fund Intelligence v1.1
 
-Master Prompt｜Concise Freeze Version  
-版本：v1.0 Freeze  
-狀態：Production  
-校正日：2026-07-27
+Master Prompt｜Concise Freeze Version
+版本：v1.1 Freeze
+狀態：Production
+校正日：2026-08-16
 
 本文件是 Onecool Fund Intelligence 唯一有效 Master Prompt。舊 Prompt、長版
 Freeze 與零散補充規則全部失效。未經使用者確認不得改動版面、增加評分或恢復
@@ -68,10 +68,21 @@ Freeze 與零散補充規則全部失效。未經使用者確認不得改動版�
 | VIX |  |  |
 | DXY |  |  |
 | US 30Y |  |  |
+| BTC |  |  |
 | Market Regime |  |  |
 
 另標示資料截止日、真正的本週變化及 Data Status。不得用10年債取代30年債，
 不得重抓 Cache 已有資料。
+
+BTC固定顯示在DXY與US 30Y之後，直接讀取Market Dashboard的`BTC`紀錄：
+
+- 日線使用SMA50／SMA200；週線使用SMA30／SMA50。
+- BTC週線為UTC週一至週日，只能使用已完成的星期日週線；不得使用未完成週。
+- BTC與美股、基金可使用各自最近完成資料日，不得為追求同日而刪除有效週末資料。
+- BTC只作全球流動性、風險偏好與高波動資產趨勢背景，不得改變任何基金CTA、
+  Action、定期定額或單筆操作建議。
+- 週線與日線同多可寫「風險偏好偏強」；同空可寫「風險偏好偏弱」；不同步則寫
+  「趨勢分歧」。以上均為狀態描述，不得改寫成預測。
 
 ## 四、Fund CTA Dashboard
 

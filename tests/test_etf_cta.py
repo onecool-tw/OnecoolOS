@@ -277,6 +277,32 @@ def test_calculate_cta_uses_aging_golden_cross_as_hold() -> None:
     result = calculate_cta("QQQ", history)
 
     assert result.cta == "HOLD"
+
+
+def test_bitcoin_weekly_cta_excludes_an_unfinished_sunday_week() -> None:
+    start = date(2025, 6, 1)  # Sunday
+    history = [
+        bar(start + timedelta(days=index), float(index + 1))
+        for index in range(402)  # Ends on Tuesday in an unfinished ISO week.
+    ]
+
+    result = calculate_cta(
+        "BTC",
+        history,
+        required_weekly_close_weekday=6,
+    )
+
+    completed_sundays = [
+        item.adjusted_close for item in history
+        if item.trading_date.weekday() == 6
+    ]
+    assert result.weekly_30ma == pytest.approx(
+        sum(completed_sundays[-30:]) / 30
+    )
+    assert result.weekly_50ma == pytest.approx(
+        sum(completed_sundays[-50:]) / 50
+    )
+    assert result.as_of == history[-1].trading_date.isoformat()
     assert result.daily_50ma > result.daily_200ma
     assert result.weekly_30ma > result.weekly_50ma
 

@@ -78,6 +78,7 @@ MARKET_SYMBOLS = (
     MarketSymbol("VIX", "^VIX", "CONTEXT", "volatility"),
     MarketSymbol("DXY", "DX-Y.NYB", "CONTEXT", "us_dollar"),
     MarketSymbol("US30Y", "^TYX", "CONTEXT", "us_30y_yield"),
+    MarketSymbol("BTC", "BTC-USD", "CONTEXT", "crypto_risk_appetite"),
 )
 
 
@@ -178,7 +179,8 @@ def market_summary(records: Iterable[MarketCTA]) -> dict[str, str]:
     )
     summary_items = [
         item for item in items.values()
-        if item.symbol not in US_PORTFOLIO_CTA_SYMBOLS + INNOVATION_OPTION_SYMBOLS
+        if item.symbol
+        not in US_PORTFOLIO_CTA_SYMBOLS + INNOVATION_OPTION_SYMBOLS + ("BTC",)
     ]
     counts = {
         signal: sum(item.cta == signal for item in summary_items)

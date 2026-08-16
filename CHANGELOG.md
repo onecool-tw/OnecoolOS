@@ -1,5 +1,13 @@
 # Changelog
 
+## 2026-08-16
+
+- Added BTC daily 50/200 and completed-week 30/50 CTA context to the Fund
+  Intelligence Market Dashboard, displayed below DXY and the US 30Y yield.
+- Added a Sunday-completion gate so a seven-day Bitcoin market cannot publish
+  an unfinished weekly CTA observation.
+- Kept BTC as context only; it cannot alter any fund CTA or action.
+
 ## 2026-08-15
 
 - Added TSLA and SPCX as daily `innovation_option_watch` assets in the US

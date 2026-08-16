@@ -24,7 +24,10 @@ def test_preflight_passes_complete_finite_current_caches(tmp_path) -> None:
                 "weekly_ma30": 97,
                 "weekly_ma50": 96,
             }
-            for symbol in ("SPY", "QQQ", "RUSSELL_2000", "0050", "VIX", "DXY", "US30Y")
+            for symbol in (
+                "SPY", "QQQ", "RUSSELL_2000", "0050", "VIX", "DXY",
+                "US30Y", "BTC",
+            )
         ]
     }
     write(tmp_path, "data/market/dashboard/dashboard_latest.json", dashboard)

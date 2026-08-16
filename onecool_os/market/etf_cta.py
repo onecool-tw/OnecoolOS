@@ -387,7 +387,12 @@ def _effective_split_factor(
     return 1.0 if raw_gap <= split_adjusted_gap else split_factor
 
 
-def calculate_cta(symbol: str, bars: Iterable[DailyBar]) -> CTAResult:
+def calculate_cta(
+    symbol: str,
+    bars: Iterable[DailyBar],
+    *,
+    required_weekly_close_weekday: int | None = None,
+) -> CTAResult:
     """Calculate the fixed Onecool CTA rule from adjusted closes."""
 
     history = sorted(bars, key=lambda bar: bar.trading_date)
@@ -396,7 +401,10 @@ def calculate_cta(symbol: str, bars: Iterable[DailyBar]) -> CTAResult:
     if any(bar.adjusted_close is None for bar in history):
         raise ETFCTAError(f"{symbol} history contains unadjusted observations.")
     closes = [float(bar.adjusted_close) for bar in history]
-    weekly_points = _weekly_last_points(history)
+    weekly_points = _weekly_last_points(
+        history,
+        required_close_weekday=required_weekly_close_weekday,
+    )
     weekly = [value for _, value in weekly_points]
     if len(weekly) < 50:
         raise ETFCTAError(f"{symbol} needs at least 50 weekly observations.")
@@ -503,8 +511,19 @@ def _weekly_last_closes(history: list[DailyBar]) -> list[float]:
     return [value for _, value in _weekly_last_points(history)]
 
 
-def _weekly_last_points(history: list[DailyBar]) -> list[tuple[date, float]]:
-    """Return the final published observation and value for each ISO week."""
+def _weekly_last_points(
+    history: list[DailyBar],
+    *,
+    required_close_weekday: int | None = None,
+) -> list[tuple[date, float]]:
+    """Return completed ISO-week observations.
+
+    Exchange-traded assets leave ``required_close_weekday`` unset because the
+    last published observation naturally falls on that market's final trading
+    day.  Seven-day assets such as Bitcoin pass ``6`` (Sunday), which prevents
+    a Tuesday-Saturday scheduled refresh from treating an unfinished crypto
+    week as complete.
+    """
 
     weekly: dict[tuple[int, int], tuple[date, float]] = {}
     for bar in history:
@@ -513,7 +532,13 @@ def _weekly_last_points(history: list[DailyBar]) -> list[tuple[date, float]]:
             bar.trading_date,
             float(bar.adjusted_close),
         )
-    return list(weekly.values())
+    points = list(weekly.values())
+    if required_close_weekday is not None:
+        points = [
+            point for point in points
+            if point[0].weekday() == required_close_weekday
+        ]
+    return points
 
 
 def _detect_cross(
