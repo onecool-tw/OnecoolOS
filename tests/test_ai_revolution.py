@@ -9,6 +9,41 @@ from onecool_os.market.ai_revolution import (
 )
 
 
+def test_committed_six_company_review_baseline_is_reportable() -> None:
+    import json
+    from pathlib import Path
+
+    root = Path(__file__).resolve().parents[1]
+    review = json.loads(
+        (root / "config" / "ai_revolution_review.json").read_text(
+            encoding="utf-8"
+        )
+    )
+    cache = json.loads(
+        (
+            root
+            / "data"
+            / "market"
+            / "ai_revolution"
+            / "ai_revolution_latest.json"
+        ).read_text(encoding="utf-8")
+    )
+
+    revisions = {
+        item["company"]: item["evidence_revision"]
+        for item in cache["companies"]
+    }
+    assert set(revisions) == set(COMPANIES)
+    assert review["reviewed_revisions"] == revisions
+    assert cache["review_required"] is False
+    assert cache["unreviewed_companies"] == []
+    assert all(
+        signal["status"] in {"GREEN", "YELLOW", "RED"}
+        and signal["usable_for_report"] is True
+        for signal in cache["signals"].values()
+    )
+
+
 def submissions(accession: str = "0000000000-26-000001") -> dict:
     return {
         "cik": "789019",
