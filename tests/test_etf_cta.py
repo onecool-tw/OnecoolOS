@@ -282,7 +282,11 @@ def test_calculate_cta_uses_aging_golden_cross_as_hold() -> None:
 def test_bitcoin_weekly_cta_excludes_an_unfinished_sunday_week() -> None:
     start = date(2025, 6, 1)  # Sunday
     history = [
-        bar(start + timedelta(days=index), float(index + 1))
+        bar(
+            start + timedelta(days=index),
+            float(index + 1),
+            adjusted_close=float(index + 1),
+        )
         for index in range(402)  # Ends on Tuesday in an unfinished ISO week.
     ]
 
