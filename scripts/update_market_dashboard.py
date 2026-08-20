@@ -29,6 +29,7 @@ from onecool_os.market.etf_cta import (
     write_history,
 )
 from onecool_os.market.history_bootstrap import YahooHistoryBootstrapper
+from onecool_os.market.us_portfolio_scores import build_portfolio_score_payload
 
 
 CORE_ALPHA_FALLBACK_SYMBOLS = {"SPY", "QQQ", "DIA", "SOXX", "NVDA"}
@@ -287,6 +288,14 @@ def update(
     payload = build_dashboard_payload(
         records, innovation_option_watch=innovation_watch
     )
+    histories_by_symbol = {
+        config.symbol: history for config, history in staged
+    }
+    portfolio_scores = build_portfolio_score_payload(
+        histories_by_symbol,
+        expected_as_of=payload["expected_as_of"],
+    )
+    payload["us_portfolio_dual_system_scores"] = portfolio_scores
     payload["provider_by_symbol"] = providers
     payload["corporate_action_validation"] = action_validation
     payload["provider_fallback_policy"] = (
@@ -303,6 +312,14 @@ def update(
         payload, indent=2, ensure_ascii=False, allow_nan=False
     ) + "\n"
     (data_dir / "dashboard_latest.json").write_text(serialized, encoding="utf-8")
+    scores_dir = root / "data" / "market" / "us_stock_intelligence"
+    scores_dir.mkdir(parents=True, exist_ok=True)
+    scores_serialized = json.dumps(
+        portfolio_scores, indent=2, ensure_ascii=False, allow_nan=False
+    ) + "\n"
+    (scores_dir / "portfolio_scores_latest.json").write_text(
+        scores_serialized, encoding="utf-8"
+    )
     snapshot_date = max(date.fromisoformat(item.as_of) for item in records)
     snapshots = data_dir / "snapshots"
     snapshots.mkdir(parents=True, exist_ok=True)

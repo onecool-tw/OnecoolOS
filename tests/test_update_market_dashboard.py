@@ -18,7 +18,7 @@ class FakeClient:
 
     def fetch_daily(self, symbol: str, *, outputsize: str = "compact"):
         self.calls.append((f"daily:{outputsize}", symbol))
-        start = date(2020, 1, 1)
+        start = date(2025, 10, 1)
         return [
             DailyBar(
                 trading_date=start + timedelta(days=index),
@@ -42,7 +42,7 @@ class FakeBootstrapper:
 
     def fetch_daily(self, symbol: str):
         self.calls.append(symbol)
-        start = date(2020, 1, 1)
+        start = date(2025, 10, 1)
         return [
             DailyBar(
                 trading_date=start + timedelta(days=index),
