@@ -29,6 +29,10 @@ from onecool_os.market.etf_cta import (
     write_history,
 )
 from onecool_os.market.history_bootstrap import YahooHistoryBootstrapper
+from onecool_os.market.us_breakout_scan import (
+    build_breakout_scan_payload,
+    fetch_yahoo_breakout_inputs,
+)
 from onecool_os.market.us_portfolio_scores import build_portfolio_score_payload
 
 
@@ -182,6 +186,8 @@ def update(
     *,
     bootstrapper: YahooHistoryBootstrapper | None = None,
     refresh_action_symbols: set[str] | None = None,
+    refresh_us_scan: bool = False,
+    breakout_input_loader=None,
 ) -> dict:
     """Use raw Yahoo prices, AV action validation, and core AV fallback."""
 
@@ -296,6 +302,48 @@ def update(
         expected_as_of=payload["expected_as_of"],
     )
     payload["us_portfolio_dual_system_scores"] = portfolio_scores
+    intelligence_dir = root / "data" / "market" / "us_stock_intelligence"
+    scan_path = intelligence_dir / "breakout_scan_latest.json"
+    breakout_scan = None
+    if refresh_us_scan:
+        try:
+            if breakout_input_loader is None:
+                yfinance = __import__("yfinance")
+                scan_histories, scan_fundamentals = fetch_yahoo_breakout_inputs(
+                    yfinance,
+                    expected_as_of=payload["expected_as_of"],
+                    spy_history=histories_by_symbol["SPY"],
+                )
+            else:
+                scan_histories, scan_fundamentals = breakout_input_loader(
+                    payload["expected_as_of"]
+                )
+            breakout_scan = build_breakout_scan_payload(
+                scan_histories,
+                scan_fundamentals,
+                spy_history=histories_by_symbol["SPY"],
+                expected_as_of=payload["expected_as_of"],
+            )
+        except Exception as exc:  # noqa: BLE001 - retain last valid artifact.
+            if scan_path.exists():
+                breakout_scan = json.loads(scan_path.read_text(encoding="utf-8"))
+                breakout_scan["publication_status"] = "LAST_VALID"
+                breakout_scan["attempted_as_of"] = payload["expected_as_of"]
+                breakout_scan["last_attempt_error"] = str(exc)[:500]
+            else:
+                breakout_scan = {
+                    "schema_version": "1.0",
+                    "data_status": "NOT_PUBLISHED",
+                    "publication_status": "NO_VALID_SCAN",
+                    "attempted_as_of": payload["expected_as_of"],
+                    "last_attempt_error": str(exc)[:500],
+                    "top5": [],
+                }
+    elif scan_path.exists():
+        breakout_scan = json.loads(scan_path.read_text(encoding="utf-8"))
+    if breakout_scan is not None:
+        breakout_scan.setdefault("publication_status", "CURRENT")
+        payload["daily_top5_scan"] = breakout_scan
     payload["provider_by_symbol"] = providers
     payload["corporate_action_validation"] = action_validation
     payload["provider_fallback_policy"] = (
@@ -312,7 +360,7 @@ def update(
         payload, indent=2, ensure_ascii=False, allow_nan=False
     ) + "\n"
     (data_dir / "dashboard_latest.json").write_text(serialized, encoding="utf-8")
-    scores_dir = root / "data" / "market" / "us_stock_intelligence"
+    scores_dir = intelligence_dir
     scores_dir.mkdir(parents=True, exist_ok=True)
     scores_serialized = json.dumps(
         portfolio_scores, indent=2, ensure_ascii=False, allow_nan=False
@@ -320,6 +368,14 @@ def update(
     (scores_dir / "portfolio_scores_latest.json").write_text(
         scores_serialized, encoding="utf-8"
     )
+    if (
+        breakout_scan is not None
+        and breakout_scan.get("publication_status") == "CURRENT"
+    ):
+        scan_serialized = json.dumps(
+            breakout_scan, indent=2, ensure_ascii=False, allow_nan=False
+        ) + "\n"
+        scan_path.write_text(scan_serialized, encoding="utf-8")
     snapshot_date = max(date.fromisoformat(item.as_of) for item in records)
     snapshots = data_dir / "snapshots"
     snapshots.mkdir(parents=True, exist_ok=True)
@@ -337,6 +393,11 @@ def main() -> int:
         choices=tuple(DASHBOARD_ACTION_REFRESH_GROUPS),
         help="Refresh one API-safe dashboard dividend/split group.",
     )
+    parser.add_argument(
+        "--refresh-us-scan",
+        action="store_true",
+        help="Refresh the same-cutoff US breakout scan and Daily Top 5.",
+    )
     args = parser.parse_args()
     update(
         Path("."),
@@ -346,6 +407,7 @@ def main() -> int:
                 args.refresh_actions_group, ()
             )
         ),
+        refresh_us_scan=args.refresh_us_scan,
     )
     return 0
 
