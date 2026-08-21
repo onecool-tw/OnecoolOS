@@ -293,22 +293,26 @@ def fetch_yahoo_breakout_inputs(
 def _fetch_fundamental(yfinance_module, symbol: str, expected: date):
     info = yfinance_module.Ticker(symbol).info or {}
     most_recent_quarter = info.get("mostRecentQuarter")
-    fundamental_date = (
-        datetime.fromtimestamp(
-            float(most_recent_quarter), tz=timezone.utc
-        ).date()
-        if most_recent_quarter
-        else expected
-    )
+    if not most_recent_quarter:
+        return None
+    fundamental_date = datetime.fromtimestamp(
+        float(most_recent_quarter), tz=timezone.utc
+    ).date()
+    eps_growth = _optional_number(info.get("earningsQuarterlyGrowth"))
+    revenue_growth = _optional_number(info.get("revenueGrowth"))
+    annual_growth = _optional_number(info.get("earningsGrowth"))
+    if any(
+        value is None
+        for value in (eps_growth, revenue_growth, annual_growth)
+    ):
+        return None
     if fundamental_date > expected:
         return None
     return FundamentalMetrics(
         as_of=fundamental_date.isoformat(),
-        quarterly_eps_growth=_optional_number(
-            info.get("earningsQuarterlyGrowth")
-        ),
-        quarterly_revenue_growth=_optional_number(info.get("revenueGrowth")),
-        annual_eps_growth=_optional_number(info.get("earningsGrowth")),
+        quarterly_eps_growth=eps_growth,
+        quarterly_revenue_growth=revenue_growth,
+        annual_eps_growth=annual_growth,
         institutional_holders_available=(
             _optional_number(info.get("heldPercentInstitutions")) is not None
         ),
