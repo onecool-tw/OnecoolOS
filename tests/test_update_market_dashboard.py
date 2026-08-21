@@ -7,6 +7,7 @@ from pathlib import Path
 import pytest
 
 from onecool_os.market.etf_cta import DailyBar, merge_and_adjust
+from onecool_os.market.us_breakout_scan import FundamentalMetrics
 from scripts import update_market_dashboard
 
 
@@ -62,6 +63,14 @@ class FakeBootstrapper:
     def fetch_adjusted_daily(self, symbol: str):
         self.adjusted_calls.append(symbol)
         return self.fetch_daily(symbol)
+
+
+class LiquidFakeBootstrapper(FakeBootstrapper):
+    def fetch_daily(self, symbol: str):
+        return [
+            replace(bar, volume=1_000_000)
+            for bar in super().fetch_daily(symbol)
+        ]
 
 
 def test_update_uses_raw_yahoo_primary_for_all_dashboard_symbols(
@@ -283,3 +292,75 @@ def test_corporate_action_validation_rejects_material_dividend_difference() -> N
     assert mismatches == [
         "2024-12-20: dividend yahoo=1.428 alpha=1.438 difference=0.010000"
     ]
+
+
+def test_us_scan_is_published_with_same_dashboard_cutoff(
+    tmp_path: Path, monkeypatch
+) -> None:
+    monkeypatch.setattr(update_market_dashboard, "AlphaVantageClient", FakeClient)
+    bootstrapper = LiquidFakeBootstrapper()
+
+    def loader(expected_as_of: str):
+        history = merge_and_adjust([], bootstrapper.fetch_daily("RTX"))
+        return {"RTX": history}, {
+            "RTX": FundamentalMetrics(
+                as_of=expected_as_of,
+                quarterly_eps_growth=0.5,
+                quarterly_revenue_growth=0.3,
+                annual_eps_growth=0.4,
+                institutional_holders_available=True,
+            )
+        }
+
+    payload = update_market_dashboard.update(
+        tmp_path,
+        "secret",
+        bootstrapper=bootstrapper,
+        refresh_us_scan=True,
+        breakout_input_loader=loader,
+    )
+
+    scan = payload["daily_top5_scan"]
+    assert scan["publication_status"] == "CURRENT"
+    assert scan["expected_as_of"] == payload["expected_as_of"]
+    assert scan["top5"][0]["symbol"] == "RTX"
+    latest = (
+        tmp_path / "data" / "market" / "us_stock_intelligence"
+        / "breakout_scan_latest.json"
+    )
+    assert json.loads(latest.read_text(encoding="utf-8"))["expected_as_of"] == (
+        payload["expected_as_of"]
+    )
+
+
+def test_failed_us_scan_keeps_and_labels_last_valid_artifact(
+    tmp_path: Path, monkeypatch
+) -> None:
+    monkeypatch.setattr(update_market_dashboard, "AlphaVantageClient", FakeClient)
+    scan_dir = tmp_path / "data" / "market" / "us_stock_intelligence"
+    scan_dir.mkdir(parents=True)
+    scan_path = scan_dir / "breakout_scan_latest.json"
+    previous = {
+        "data_status": "READY",
+        "publication_status": "CURRENT",
+        "expected_as_of": "2026-08-07",
+        "top5": [],
+    }
+    scan_path.write_text(json.dumps(previous), encoding="utf-8")
+
+    def failing_loader(expected_as_of: str):
+        raise RuntimeError(f"provider unavailable for {expected_as_of}")
+
+    payload = update_market_dashboard.update(
+        tmp_path,
+        "secret",
+        bootstrapper=LiquidFakeBootstrapper(),
+        refresh_us_scan=True,
+        breakout_input_loader=failing_loader,
+    )
+
+    scan = payload["daily_top5_scan"]
+    assert scan["publication_status"] == "LAST_VALID"
+    assert scan["expected_as_of"] == "2026-08-07"
+    assert scan["attempted_as_of"] == payload["expected_as_of"]
+    assert json.loads(scan_path.read_text(encoding="utf-8")) == previous

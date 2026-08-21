@@ -12,6 +12,11 @@ on:
           - group_a
           - group_b
         default: none
+      refresh_us_scan:
+        description: Refresh the same-cutoff US Breakout Scan and Daily Top 5
+        required: false
+        type: boolean
+        default: true
   schedule:
     # US close primary run: 08:30 Asia/Taipei, Tuesday-Saturday.
     # During both US daylight-saving and standard time this leaves enough time
@@ -63,6 +68,13 @@ jobs:
             args+=(--refresh-actions-group group_a)
           elif [[ "${{ github.event_name }}" == "schedule" && "$(date -u +%H:%M)" == "00:30" && "$(date -u +%u)" == "3" ]]; then
             args+=(--refresh-actions-group group_b)
+          fi
+          # The three US-close runs all refresh Daily Top 5.  Asia-close runs
+          # preserve the last valid scan instead of mixing market cutoffs.
+          if [[ "${{ github.event_name }}" == "workflow_dispatch" && "${{ inputs.refresh_us_scan }}" == "true" ]]; then
+            args+=(--refresh-us-scan)
+          elif [[ "${{ github.event_name }}" == "schedule" && "$(date -u +%H)" =~ ^(00|01)$ ]]; then
+            args+=(--refresh-us-scan)
           fi
           python scripts/update_market_dashboard.py "${args[@]}"
       - name: Commit only a complete dashboard update
