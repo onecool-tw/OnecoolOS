@@ -116,9 +116,11 @@ def test_yahoo_input_loader_uses_batch_prices_and_shortlists_fundamentals() -> N
             row.extend((close - 0.5, close + 1, close - 1, close, 2_000_000))
         rows.append(row)
     frame = pd.DataFrame(rows, index=dates, columns=columns)
+    quarter_timestamp = int(pd.Timestamp(spy[-1].trading_date, tz="UTC").timestamp())
 
     class FakeTicker:
         info = {
+            "mostRecentQuarter": quarter_timestamp,
             "earningsQuarterlyGrowth": 0.5,
             "revenueGrowth": 0.3,
             "earningsGrowth": 0.4,
