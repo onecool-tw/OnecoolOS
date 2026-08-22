@@ -81,6 +81,10 @@ jobs:
           # preserve the last valid scan instead of mixing market cutoffs.
           if [[ "${{ github.event_name }}" == "workflow_dispatch" && "${{ inputs.refresh_us_scan }}" == "true" ]]; then
             args+=(--refresh-us-scan)
+          elif [[ "${{ github.event_name }}" == "push" ]]; then
+            # A publication-path/workflow recovery push must validate the full
+            # US report, including the same-cutoff breakout scan artifact.
+            args+=(--refresh-us-scan)
           elif [[ "${{ github.event_name }}" == "schedule" && "$(date -u +%H)" =~ ^(00|01)$ ]]; then
             args+=(--refresh-us-scan)
           fi
