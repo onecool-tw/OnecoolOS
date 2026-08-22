@@ -1,10 +1,10 @@
 {
   "schema_version": "1.9",
   "module": "Onecool Market Dashboard",
-  "generated_at": "2026-08-22T02:35:36.492778+00:00",
+  "generated_at": "2026-08-22T02:39:04.825028+00:00",
   "expected_as_of": "2026-08-21",
   "data_status": "READY",
-  "last_successful_update_at": "2026-08-22T02:35:36.492778+00:00",
+  "last_successful_update_at": "2026-08-22T02:39:04.825028+00:00",
   "index_cta_basis": {
     "method": "ETF/index proxies; shared CTA engine",
     "mappings": {
@@ -794,9 +794,9 @@
       "market": "CONTEXT",
       "theme": "crypto_risk_appetite",
       "as_of": "2026-08-22",
-      "current_price": 78195.40625,
-      "sma50": 64567.760391,
-      "sma200": 68972.893965,
+      "current_price": 78362.0625,
+      "sma50": 64571.093516,
+      "sma200": 68973.727246,
       "weekly_ma30": 69655.865234,
       "weekly_ma50": 82463.036328,
       "trend": "BEARISH",
@@ -809,7 +809,7 @@
         "last_cross_status": "DEATH",
         "last_cross_date": "2025-11-16",
         "periods_since_cross": 278,
-        "spread_pct": -6.386761,
+        "spread_pct": -6.383059,
         "phase": "AGING"
       },
       "weekly_cross": {
@@ -948,6 +948,413 @@
         "fundamental_source_url": "https://investor.upbound.com/node/24801/html"
       }
     ]
+  },
+  "daily_top5_scan": {
+    "schema_version": "1.0",
+    "scan_version": "onecool_us_breakout_v1",
+    "classification": "Onecool proxy scores; not IBD official ratings",
+    "expected_as_of": "2026-08-21",
+    "data_status": "READY",
+    "price_basis": "adjusted_close",
+    "universe_size": 70,
+    "validated_count": 8,
+    "minimum_technical_confidence": 90,
+    "formal_breakout_count": 0,
+    "top5": [
+      {
+        "symbol": "ABNB",
+        "company_name": "Airbnb, Inc.",
+        "security_type": "COMMON_STOCK",
+        "price_as_of": "2026-08-21",
+        "fundamentals_as_of": "2026-06-30",
+        "price_basis": "adjusted_close",
+        "technical_confidence": 100,
+        "canslim_score": 80,
+        "minervini_score": 100,
+        "rank_score": 86.0,
+        "status": "WAIT",
+        "trigger": "突破52週高點且成交量至少為50日均量1.5倍",
+        "formal_breakout": false,
+        "passes_dual_system": true
+      },
+      {
+        "symbol": "THC",
+        "company_name": "Tenet Healthcare Corporation",
+        "security_type": "COMMON_STOCK",
+        "price_as_of": "2026-08-21",
+        "fundamentals_as_of": "2026-06-30",
+        "price_basis": "adjusted_close",
+        "technical_confidence": 100,
+        "canslim_score": 82,
+        "minervini_score": 95,
+        "rank_score": 84.65,
+        "status": "WAIT",
+        "trigger": "突破52週高點且成交量至少為50日均量1.5倍",
+        "formal_breakout": false,
+        "passes_dual_system": true
+      },
+      {
+        "symbol": "ABBV",
+        "company_name": "AbbVie Inc.",
+        "security_type": "COMMON_STOCK",
+        "price_as_of": "2026-08-21",
+        "fundamentals_as_of": "2026-06-30",
+        "price_basis": "adjusted_close",
+        "technical_confidence": 100,
+        "canslim_score": 82,
+        "minervini_score": 94,
+        "rank_score": 84.2,
+        "status": "WAIT",
+        "trigger": "突破52週高點且成交量至少為50日均量1.5倍",
+        "formal_breakout": false,
+        "passes_dual_system": true
+      },
+      {
+        "symbol": "AMGN",
+        "company_name": "Amgen Inc.",
+        "security_type": "COMMON_STOCK",
+        "price_as_of": "2026-08-21",
+        "fundamentals_as_of": "2026-06-30",
+        "price_basis": "adjusted_close",
+        "technical_confidence": 100,
+        "canslim_score": 82,
+        "minervini_score": 93,
+        "rank_score": 83.75,
+        "status": "WAIT",
+        "trigger": "突破52週高點且成交量至少為50日均量1.5倍",
+        "formal_breakout": false,
+        "passes_dual_system": true
+      },
+      {
+        "symbol": "LLY",
+        "company_name": "Eli Lilly and Company",
+        "security_type": "COMMON_STOCK",
+        "price_as_of": "2026-08-21",
+        "fundamentals_as_of": "2026-06-30",
+        "price_basis": "adjusted_close",
+        "technical_confidence": 100,
+        "canslim_score": 75,
+        "minervini_score": 96,
+        "rank_score": 81.95,
+        "status": "WAIT",
+        "trigger": "突破52週高點且成交量至少為50日均量1.5倍",
+        "formal_breakout": false,
+        "passes_dual_system": true
+      }
+    ],
+    "exclusions": [
+      {
+        "symbol": "AAPL",
+        "technical_confidence": 100,
+        "reason": "fundamental validation unavailable"
+      },
+      {
+        "symbol": "ADBE",
+        "technical_confidence": 100,
+        "reason": "fundamental validation unavailable"
+      },
+      {
+        "symbol": "ADI",
+        "technical_confidence": 100,
+        "reason": "fundamental validation unavailable"
+      },
+      {
+        "symbol": "AMD",
+        "technical_confidence": 100,
+        "reason": "fundamental validation unavailable"
+      },
+      {
+        "symbol": "AMAT",
+        "technical_confidence": 100,
+        "reason": "fundamental validation unavailable"
+      },
+      {
+        "symbol": "AMZN",
+        "technical_confidence": 100,
+        "reason": "fundamental validation unavailable"
+      },
+      {
+        "symbol": "APP",
+        "technical_confidence": 100,
+        "reason": "fundamental validation unavailable"
+      },
+      {
+        "symbol": "AVGO",
+        "technical_confidence": 100,
+        "reason": "fundamental validation unavailable"
+      },
+      {
+        "symbol": "AXP",
+        "technical_confidence": 100,
+        "reason": "fundamental validation unavailable"
+      },
+      {
+        "symbol": "BA",
+        "technical_confidence": 100,
+        "reason": "fundamental validation unavailable"
+      },
+      {
+        "symbol": "BKNG",
+        "technical_confidence": 100,
+        "reason": "fundamental validation unavailable"
+      },
+      {
+        "symbol": "CAT",
+        "technical_confidence": 100,
+        "reason": "fundamental validation unavailable"
+      },
+      {
+        "symbol": "CEG",
+        "technical_confidence": 100,
+        "reason": "fundamental validation unavailable"
+      },
+      {
+        "symbol": "CLS",
+        "technical_confidence": 100,
+        "reason": "fundamental validation unavailable"
+      },
+      {
+        "symbol": "COIN",
+        "technical_confidence": 100,
+        "reason": "fundamental validation unavailable"
+      },
+      {
+        "symbol": "COST",
+        "technical_confidence": 100,
+        "reason": "fundamental validation unavailable"
+      },
+      {
+        "symbol": "CRDO",
+        "technical_confidence": 100,
+        "reason": "fundamental validation unavailable"
+      },
+      {
+        "symbol": "CRWD",
+        "technical_confidence": 100,
+        "reason": "fundamental validation unavailable"
+      },
+      {
+        "symbol": "CSCO",
+        "technical_confidence": 100,
+        "reason": "fundamental validation unavailable"
+      },
+      {
+        "symbol": "CVX",
+        "technical_confidence": 100,
+        "reason": "fundamental validation unavailable"
+      },
+      {
+        "symbol": "DDOG",
+        "technical_confidence": 100,
+        "reason": "fundamental validation unavailable"
+      },
+      {
+        "symbol": "DE",
+        "technical_confidence": 100,
+        "reason": "fundamental validation unavailable"
+      },
+      {
+        "symbol": "DUOL",
+        "technical_confidence": 100,
+        "reason": "fundamental validation unavailable"
+      },
+      {
+        "symbol": "ETN",
+        "technical_confidence": 100,
+        "reason": "fundamental validation unavailable"
+      },
+      {
+        "symbol": "GE",
+        "technical_confidence": 100,
+        "reason": "fundamental validation unavailable"
+      },
+      {
+        "symbol": "GEV",
+        "technical_confidence": 100,
+        "reason": "fundamental validation unavailable"
+      },
+      {
+        "symbol": "GILD",
+        "technical_confidence": 100,
+        "reason": "fundamental validation unavailable"
+      },
+      {
+        "symbol": "GOOGL",
+        "technical_confidence": 100,
+        "reason": "fundamental validation unavailable"
+      },
+      {
+        "symbol": "GS",
+        "technical_confidence": 100,
+        "reason": "fundamental validation unavailable"
+      },
+      {
+        "symbol": "HOOD",
+        "technical_confidence": 100,
+        "reason": "fundamental validation unavailable"
+      },
+      {
+        "symbol": "IBM",
+        "technical_confidence": 100,
+        "reason": "fundamental validation unavailable"
+      },
+      {
+        "symbol": "JPM",
+        "technical_confidence": 100,
+        "reason": "fundamental validation unavailable"
+      },
+      {
+        "symbol": "KLAC",
+        "technical_confidence": 100,
+        "reason": "fundamental validation unavailable"
+      },
+      {
+        "symbol": "LRCX",
+        "technical_confidence": 100,
+        "reason": "fundamental validation unavailable"
+      },
+      {
+        "symbol": "MA",
+        "technical_confidence": 100,
+        "reason": "fundamental validation unavailable"
+      },
+      {
+        "symbol": "META",
+        "technical_confidence": 100,
+        "reason": "fundamental validation unavailable"
+      },
+      {
+        "symbol": "MPWR",
+        "technical_confidence": 100,
+        "reason": "fundamental validation unavailable"
+      },
+      {
+        "symbol": "MRVL",
+        "technical_confidence": 100,
+        "reason": "fundamental validation unavailable"
+      },
+      {
+        "symbol": "MS",
+        "technical_confidence": 100,
+        "reason": "fundamental validation unavailable"
+      },
+      {
+        "symbol": "MSFT",
+        "technical_confidence": 100,
+        "reason": "fundamental validation unavailable"
+      },
+      {
+        "symbol": "MU",
+        "technical_confidence": 100,
+        "reason": "fundamental validation unavailable"
+      },
+      {
+        "symbol": "NFLX",
+        "technical_confidence": 100,
+        "reason": "fundamental validation unavailable"
+      },
+      {
+        "symbol": "NOW",
+        "technical_confidence": 100,
+        "reason": "fundamental validation unavailable"
+      },
+      {
+        "symbol": "NVDA",
+        "technical_confidence": 100,
+        "reason": "fundamental validation unavailable"
+      },
+      {
+        "symbol": "ORCL",
+        "technical_confidence": 100,
+        "reason": "fundamental validation unavailable"
+      },
+      {
+        "symbol": "PANW",
+        "technical_confidence": 100,
+        "reason": "fundamental validation unavailable"
+      },
+      {
+        "symbol": "PLTR",
+        "technical_confidence": 100,
+        "reason": "fundamental validation unavailable"
+      },
+      {
+        "symbol": "QCOM",
+        "technical_confidence": 100,
+        "reason": "fundamental validation unavailable"
+      },
+      {
+        "symbol": "RTX",
+        "technical_confidence": 100,
+        "reason": "fundamental validation unavailable"
+      },
+      {
+        "symbol": "SNDK",
+        "technical_confidence": 100,
+        "reason": "fundamental validation unavailable"
+      },
+      {
+        "symbol": "SNOW",
+        "technical_confidence": 100,
+        "reason": "fundamental validation unavailable"
+      },
+      {
+        "symbol": "SPOT",
+        "technical_confidence": 100,
+        "reason": "fundamental validation unavailable"
+      },
+      {
+        "symbol": "SYM",
+        "technical_confidence": 100,
+        "reason": "fundamental validation unavailable"
+      },
+      {
+        "symbol": "TSM",
+        "technical_confidence": 100,
+        "reason": "fundamental validation unavailable"
+      },
+      {
+        "symbol": "TSLA",
+        "technical_confidence": 100,
+        "reason": "fundamental validation unavailable"
+      },
+      {
+        "symbol": "UBER",
+        "technical_confidence": 100,
+        "reason": "fundamental validation unavailable"
+      },
+      {
+        "symbol": "V",
+        "technical_confidence": 100,
+        "reason": "fundamental validation unavailable"
+      },
+      {
+        "symbol": "VRT",
+        "technical_confidence": 100,
+        "reason": "fundamental validation unavailable"
+      },
+      {
+        "symbol": "WAB",
+        "technical_confidence": 100,
+        "reason": "fundamental validation unavailable"
+      },
+      {
+        "symbol": "WDC",
+        "technical_confidence": 100,
+        "reason": "fundamental validation unavailable"
+      },
+      {
+        "symbol": "WMT",
+        "technical_confidence": 100,
+        "reason": "fundamental validation unavailable"
+      },
+      {
+        "symbol": "GD",
+        "technical_confidence": 100,
+        "reason": "fundamental validation unavailable"
+      }
+    ],
+    "publication_status": "CURRENT"
   },
   "corporate_action_validation": [],
   "provider_fallback_policy": "yahoo_finance_raw_primary; alpha_vantage_core_price_fallback; last_successful_cache_on_failure"
