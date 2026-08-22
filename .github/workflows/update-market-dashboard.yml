@@ -1,6 +1,14 @@
 name: Update Market Dashboard
 
 on:
+  # Re-run after updater workflow/config changes so publication fixes are
+  # validated immediately instead of waiting for the next market schedule.
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/update-market-dashboard.yml"
+      - ".gitignore"
   workflow_dispatch:
     inputs:
       refresh_actions_group:
