@@ -1,5 +1,15 @@
 # Changelog
 
+## 2026-08-25
+
+- Formalized the existing Fund Intelligence `Market Regime` row as a compact,
+  deterministic market-implied macro context covering liquidity, growth,
+  inflation, risk appetite, and one prioritized scenario.
+- Reused cached DXY, US 30Y, broad equity, VIX, BTC, and WTI CTA states; no new
+  external macro dependency or unfinished weekly data was introduced.
+- Kept macro context explanatory only: it cannot override fund weekly CTA,
+  fund/ETF confirmation, Action, DCA, or lump-sum rules.
+
 ## 2026-08-16
 
 - Added BTC daily 50/200 and completed-week 30/50 CTA context to the Fund
