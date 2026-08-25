@@ -1,0 +1,55 @@
+name: Update Taiwan Stock Screen
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/update-taiwan-stock-screen.yml"
+      - "onecool_os/market/taiwan_stock_screen.py"
+      - "scripts/update_taiwan_stock_screen.py"
+      - ".gitignore"
+  schedule:
+    # 17:15, 17:35, 17:50 Asia/Taipei, Monday-Friday. Repeated idempotent
+    # attempts absorb TWSE publication and GitHub Actions queue delays.
+    - cron: "15 9 * * 1-5"
+    - cron: "35 9 * * 1-5"
+    - cron: "50 9 * * 1-5"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-taiwan-stock-screen
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Install project
+        run: pip install -e .
+      - name: Build official-data Taiwan stock screen
+        run: python scripts/update_taiwan_stock_screen.py
+      - name: Commit only when the validated screen changed
+        run: |
+          git add data/market/taiwan_stock_intelligence
+          if git diff --cached --quiet; then
+            echo "No new validated Taiwan stock screen."
+            exit 0
+          fi
+          git config user.name "onecool-os-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git commit -m "Update Taiwan stock screen"
+          # Another market updater may have committed while this job fetched
+          # the slower MOPS endpoints. Rebase because the artifacts are on
+          # independent paths, then publish the validated screen.
+          git pull --rebase origin main
+          git push
