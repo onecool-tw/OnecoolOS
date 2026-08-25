@@ -163,6 +163,34 @@ def validate_fund_intelligence(root: Path, *, today: date | None = None) -> dict
                     _issue("STALE_CACHE", "Fundamental Cycle", "not refreshed this month")
                 )
 
+    regime = _read(root, "data/market/macro_regime/macro_regime_latest.json")
+    if not regime:
+        issues.append(_issue("MISSING_CACHE", "Market Regime", "weekly cache missing"))
+    else:
+        if regime.get("decision_authority") != "CONTEXT_ONLY":
+            issues.append(
+                _issue("INVALID_AUTHORITY", "Market Regime", "must remain context only")
+            )
+        scenario = (regime.get("market_regime") or {}).get("primary_scenario")
+        if scenario not in {
+            "A LIQUIDITY RISK-ON", "B GROWTH EXPANSION",
+            "C INFLATION / LATE CYCLE", "D DEFENSIVE STRESS",
+            "MIXED / DIVERGENT", "UNKNOWN",
+        }:
+            issues.append(_issue("INVALID_SCENARIO", "Market Regime", "unsupported scenario"))
+        if regime.get("macro_confirmation") not in {
+            "ALIGNED_POSITIVE", "MARKET_LEADS_DIVERGENT",
+            "FUNDAMENTALS_LEAD_DIVERGENT", "ALIGNED_DEFENSIVE",
+            "MIXED_DIVERGENT", "UNKNOWN",
+        }:
+            issues.append(
+                _issue("INVALID_CONFIRMATION", "Market Regime", "unsupported confirmation")
+            )
+        if regime.get("cta_override_allowed") is not False:
+            issues.append(
+                _issue("INVALID_AUTHORITY", "Market Regime", "CTA override must be false")
+            )
+
     generated = datetime.now(UTC).isoformat()
     return {
         "schema_version": "1.0",

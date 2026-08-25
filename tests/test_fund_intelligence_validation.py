@@ -67,6 +67,16 @@ def test_preflight_passes_complete_finite_current_caches(tmp_path) -> None:
             "decision_authority": "CONTEXT_ONLY",
         },
     )
+    write(
+        tmp_path,
+        "data/market/macro_regime/macro_regime_latest.json",
+        {
+            "decision_authority": "CONTEXT_ONLY",
+            "market_regime": {"primary_scenario": "B GROWTH EXPANSION"},
+            "macro_confirmation": "ALIGNED_POSITIVE",
+            "cta_override_allowed": False,
+        },
+    )
 
     result = validate_fund_intelligence(tmp_path, today=date(2026, 8, 3))
 
@@ -78,6 +88,7 @@ def test_generated_preflight_caches_are_git_trackable() -> None:
     for path in (
         "data/market/sector_rotation/rotation_latest.json",
         "data/market/fundamental_cycle/fundamental_cycle_latest.json",
+        "data/market/macro_regime/macro_regime_latest.json",
         "data/market/fund_intelligence/validation_latest.json",
     ):
         result = subprocess.run(

@@ -1,7 +1,7 @@
-# Onecool Fund Intelligence v1.3
+# Onecool Fund Intelligence v1.4
 
 Master Prompt｜Concise Freeze Version
-版本：v1.3 Freeze
+版本：v1.4 Freeze
 狀態：Production
 校正日：2026-08-25
 
@@ -84,8 +84,10 @@ BTC固定顯示在DXY與US 30Y之後，直接讀取Market Dashboard的`BTC`紀�
 - 週線與日線同多可寫「風險偏好偏強」；同空可寫「風險偏好偏弱」；不同步則寫
   「趨勢分歧」。以上均為狀態描述，不得改寫成預測。
 
-Market Regime 固定作為「市場隱含總經情境」摘要，只使用當期 Cache 已有且已完成
-的 CTA 資料，不另抓總經資料，也不預測景氣或市場價格。固定輸出：
+Market Regime 固定作為「市場隱含總經情境」摘要，直接讀取
+`data/market/macro_regime/macro_regime_latest.json`，不得在週報內重新計算。
+該快取只使用當期 Cache 已有且已完成的 CTA 資料，不另抓總經資料，也不預測
+景氣或市場價格。固定輸出：
 
 `Liquidity｜Market-implied Growth｜Inflation｜Risk Appetite｜Primary Scenario`
 
@@ -145,6 +147,20 @@ Fundamental Cycle 是 IZAAX 景氣循環觀念啟發的 Onecool 美國月度實�
   同向時提高情境信心，分歧時降低情境信心。
 - Fundamental Cycle 只作月度基本面確認；不得推翻基金自身週線 CTA、基金／ETF
   Confirm、Action、定期定額或單筆操作規則，不得產生獨立買賣訊號。
+
+Macro Confirmation 必須直接讀取 Market Regime 快取的 `macro_confirmation`，固定
+只能是 `ALIGNED_POSITIVE`、`MARKET_LEADS_DIVERGENT`、
+`FUNDAMENTALS_LEAD_DIVERGENT`、`ALIGNED_DEFENSIVE`、`MIXED_DIVERGENT` 或
+`UNKNOWN`。對應操作只能使用定性文字，不得輸出配置百分比：
+
+- 同向偏多：提高多頭信心，實際行動仍依 CTA。
+- 市場領先分歧：CTA 照常，新增部位採保守節奏。
+- 基本面領先分歧：等待週線 CTA 翻多，不得提前重押。
+- 同向防禦：降低新增風險曝險，但不得由總經訊號單獨賣出。
+- 分歧或 Unknown：維持 CTA 原判斷。
+
+權限順序固定為：週線 CTA ＞ 日線 CTA ＞ 市場壓力燈 ＞ 台股候選池 ＞
+Macro Confirmation。總經確認不得跨越前四層取得交易權限。
 
 ## 四、Fund CTA Dashboard
 
@@ -291,7 +307,7 @@ Delta、Action、Market Regime 與 Fundamental Cycle 規則一致性，並檢查
 
 ## 十、Freeze
 
-本文件為 v1.3 Freeze。新增功能須先建立 Change Request；後續小幅規則調整升級
+本文件為 v1.4 Freeze。新增功能須先建立 Change Request；後續小幅規則調整升級
 v1.x，架構或決策模型重大變更升級 v2.0。資料修正不等於規則變更。不得預測
 短期價格、承諾報酬、編造缺值、用單一交叉自動交易、推薦台灣不可申購產品，
 或改寫使用者已確認的續扣決策。

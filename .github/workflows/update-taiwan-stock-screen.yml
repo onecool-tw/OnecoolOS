@@ -8,7 +8,10 @@ on:
     paths:
       - ".github/workflows/update-taiwan-stock-screen.yml"
       - "onecool_os/market/taiwan_stock_screen.py"
+      - "onecool_os/market/taiwan_stock_intelligence.py"
       - "scripts/update_taiwan_stock_screen.py"
+      - "scripts/update_taiwan_stock_daily_context.py"
+      - "config/taiwan_stock_intelligence_master_prompt.md"
       - ".gitignore"
   schedule:
     # 17:15, 17:35, 17:50 Asia/Taipei, Monday-Friday. Repeated idempotent
@@ -36,8 +39,11 @@ jobs:
           cache: pip
       - name: Install project
         run: pip install -e .
-      - name: Build official-data Taiwan stock screen
+      - name: Attempt official-data Taiwan stock screen refresh
+        continue-on-error: true
         run: python scripts/update_taiwan_stock_screen.py
+      - name: Publish daily context from the latest successful screen
+        run: python scripts/update_taiwan_stock_daily_context.py
       - name: Commit only when the validated screen changed
         run: |
           git add data/market/taiwan_stock_intelligence

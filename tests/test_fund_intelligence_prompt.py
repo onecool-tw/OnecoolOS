@@ -47,6 +47,10 @@ def test_concise_freeze_prompt_contains_finalized_contract() -> None:
     assert "只在每個曆月第一份週報" in prompt
     assert "IZAAX-inspired Onecool interpretation" in prompt
     assert "不得產生獨立買賣訊號" in prompt
+    assert "macro_regime_latest.json" in prompt
+    assert "ALIGNED_POSITIVE" in prompt
+    assert "不得輸出配置百分比" in prompt
+    assert "週線 CTA ＞ 日線 CTA ＞ 市場壓力燈" in prompt
 
 
 def test_master_prompt_loader_exposes_version_and_stable_hash() -> None:
@@ -54,6 +58,6 @@ def test_master_prompt_loader_exposes_version_and_stable_hash() -> None:
 
     loaded = load_master_prompt(root)
 
-    assert loaded["version"] == "v1.3 Freeze"
+    assert loaded["version"] == "v1.4 Freeze"
     assert len(loaded["sha256"]) == 64
-    assert loaded["content"].startswith("# Onecool Fund Intelligence v1.3")
+    assert loaded["content"].startswith("# Onecool Fund Intelligence v1.4")

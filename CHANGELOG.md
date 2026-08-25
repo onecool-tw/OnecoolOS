@@ -2,6 +2,16 @@
 
 ## 2026-08-25
 
+- Added a deterministic weekly Market Regime cache and a fixed qualitative
+  confirmation between market-implied conditions and the monthly Fundamental
+  Cycle; no percentage allocation or CTA override is permitted.
+- Added bootstrap-on-missing behavior for the first Fundamental Cycle cache.
+- Formalized the authority order as weekly CTA, daily CTA, market pressure,
+  Taiwan candidate pool, then macro confirmation.
+- Added a cache-only Taiwan daily-report context that always exposes the latest
+  successful candidate screen with its original date, marks delayed data
+  `STALE`, and disables action eligibility until 0050, individual CTA, and the
+  report's market-pressure gate permit it.
 - Formalized the existing Fund Intelligence `Market Regime` row as a compact,
   deterministic market-implied macro context covering liquidity, growth,
   inflation, risk appetite, and one prioritized scenario.

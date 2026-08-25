@@ -1,7 +1,8 @@
 # Onecool Taiwan Stock Intelligence — Screening Contract
 
-版本：v1.0 Taiwan Broad Screen  
+版本：v1.1 Taiwan Broad Screen
 正式篩選檔：`data/market/taiwan_stock_intelligence/screen_latest.json`
+正式日報上下文：`data/market/taiwan_stock_intelligence/daily_context_latest.json`
 
 ## 唯一名單來源
 
@@ -21,10 +22,15 @@
 - 正式表格最多5檔、同產業最多2檔，不硬湊。
 - 缺漏、重複、異常或非正值EPS／本益比／股價淨值比一律排除，不得用
   推估值補齊。
-- 日報只有在 `data_status=READY` 且 `publication_status=CURRENT` 時發布
-  `top5`；否則揭露資料異常，不沿用對話中的舊名單冒充當日結果。
+- 日報固定讀取正式日報上下文。最新資料延遲時仍顯示最近一次成功的 `top5`，
+  但必須同時顯示原始截止日與 `STALE`，不得顯示成 Unknown、不得冒充當日結果，
+  也不得由舊名單產生新的買進建議。只有完全沒有成功資料時才顯示 `MISSING`。
 
 ## 行動層
 
 篩選分數只決定研究優先順序。實際行動仍依0050 CTA、個股正式CTA、
 估值及市場壓力燈共同決定；市場黃／紅燈時不得因高分而新增主動部位。
+
+權限順序固定為：週線CTA ＞ 日線CTA ＞ 市場壓力燈 ＞ 台股候選池 ＞
+Macro Confirmation。0050週線空頭時候選股只能觀察；0050週線多頭時仍必須
+通過個股CTA與市場壓力綠燈，候選分數本身永遠不是買進訊號。

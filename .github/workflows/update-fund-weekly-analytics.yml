@@ -47,11 +47,13 @@ jobs:
         continue-on-error: true
         run: |
           day="$(date -u +%d)"
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ] || [ "$day" -le 7 ]; then
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] || [ "$day" -le 7 ] || [ ! -f data/market/fundamental_cycle/fundamental_cycle_latest.json ]; then
             python scripts/update_fundamental_cycle.py
           else
             echo "Fundamental Cycle refresh is limited to the first weekly run of each month."
           fi
+      - name: Refresh deterministic Market Regime and macro confirmation
+        run: python scripts/update_macro_regime.py
       - name: Refresh weekly fund analytics
         run: python scripts/update_fund_alpha.py
       - name: Validate all Fund Intelligence inputs
@@ -65,6 +67,7 @@ jobs:
             data/market/stockq_rotation \
             data/market/sector_rotation \
             data/market/fundamental_cycle \
+            data/market/macro_regime \
             data/market/fund_intelligence \
             data/market/fund_nav/history \
             data/market/fund_nav/fund_cta_latest.json \
