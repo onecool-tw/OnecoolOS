@@ -105,4 +105,19 @@ jobs:
           git config user.name "onecool-os-bot"
           git config user.email "actions@users.noreply.github.com"
           git commit -m "Update Market Dashboard"
-          git push
+          # Other scheduled writers may update main while this slower market
+          # job is running. Rebase and retry so an unrelated cache commit does
+          # not turn a valid Dashboard refresh into a non-fast-forward failure.
+          for attempt in 1 2 3; do
+            echo "Publish attempt ${attempt}/3"
+            if ! git pull --rebase origin main; then
+              git rebase --abort || true
+              echo "::error::Market Dashboard could not rebase onto current main."
+              exit 1
+            fi
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+          done
+          echo "::error::Market Dashboard push failed after 3 synchronized attempts."
+          exit 1

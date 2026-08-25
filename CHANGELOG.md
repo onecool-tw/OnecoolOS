@@ -2,6 +2,9 @@
 
 ## 2026-08-25
 
+- Made Market Dashboard publication resilient to concurrent GitHub cache
+  writers by rebasing onto current `main` and retrying non-fast-forward pushes
+  up to three times without changing market data or CTA calculations.
 - Added a source-backed Super Growth Quality Gate after the US new-candidate
   scan, with A/B/C/Reject research buckets, explicit evidence gaps, and no new
   numerical score or power to rewrite technical rankings or CTA.
