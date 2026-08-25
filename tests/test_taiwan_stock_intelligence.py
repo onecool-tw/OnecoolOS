@@ -15,7 +15,10 @@ def write(root, relative, payload):
 def setup_prompt(root):
     path = root / "config/taiwan_stock_intelligence_master_prompt.md"
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text("版本：v1.1 Taiwan Broad Screen\n", encoding="utf-8")
+    path.write_text(
+        "版本：v1.2 Taiwan Broad Screen with Optional Quality Note\n",
+        encoding="utf-8",
+    )
 
 
 def test_current_candidates_require_cta_and_green_pressure(tmp_path):
@@ -37,6 +40,10 @@ def test_current_candidates_require_cta_and_green_pressure(tmp_path):
     assert payload["display_status"] == "CURRENT"
     assert payload["candidate_action_gate"] == "REQUIRES_INDIVIDUAL_CTA_AND_PRESSURE_GREEN"
     assert payload["top5"][0]["candidate_role"] == "RESEARCH_PRIORITY_ONLY"
+    assert payload["top5"][0]["action_eligibility"] == (
+        "REQUIRES_INDIVIDUAL_CTA_AND_PRESSURE_GREEN"
+    )
+    assert payload["optional_quality_research"]["authority"] == "NONE"
 
 
 def test_stale_screen_is_displayed_with_original_date_but_cannot_trade(tmp_path):
@@ -74,3 +81,28 @@ def test_bearish_0050_keeps_current_candidates_watch_only(tmp_path):
     )
 
     assert payload["candidate_action_gate"] == "WATCH_ONLY_0050_WEEKLY_BEARISH"
+    assert payload["top5"][0]["action_eligibility"] == (
+        "WATCH_ONLY_0050_WEEKLY_BEARISH"
+    )
+
+
+def test_optional_quality_review_never_blocks_a_taiwan_candidate(tmp_path):
+    setup_prompt(tmp_path)
+    write(tmp_path, "data/market/taiwan_stock_intelligence/screen_latest.json", {
+        "expected_as_of": "2026-08-25", "data_status": "READY",
+        "top5": [{"symbol": "2330", "score": 99, "industry": "半導體業"}],
+    })
+    write(tmp_path, "data/market/taiwan_cta/cta_latest.json", {
+        "results": [{"symbol": "0050", "weekly_cross": {"alignment": "GOLDEN"}}]
+    })
+
+    payload = build_taiwan_stock_daily_context(tmp_path, today=date(2026, 8, 25))
+    item = payload["top5"][0]
+
+    assert "super_growth_bucket" not in item
+    assert item["action_eligibility"] == (
+        "REQUIRES_INDIVIDUAL_CTA_AND_PRESSURE_GREEN"
+    )
+    assert payload["optional_quality_research"]["application"] == (
+        "MANUAL_ON_REQUEST_ONLY"
+    )

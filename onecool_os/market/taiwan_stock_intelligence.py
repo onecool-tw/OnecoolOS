@@ -8,8 +8,7 @@ from hashlib import sha256
 from pathlib import Path
 from typing import Any, Mapping
 
-
-MASTER_PROMPT_VERSION = "v1.1 Taiwan Broad Screen"
+MASTER_PROMPT_VERSION = "v1.2 Taiwan Broad Screen with Optional Quality Note"
 MASTER_PROMPT_PATH = Path("config/taiwan_stock_intelligence_master_prompt.md")
 SCREEN_PATH = Path("data/market/taiwan_stock_intelligence/screen_latest.json")
 CONTEXT_PATH = Path("data/market/taiwan_stock_intelligence/daily_context_latest.json")
@@ -100,7 +99,7 @@ def build_taiwan_stock_daily_context(
 
     timestamp = generated_at or datetime.now(UTC)
     return {
-        "schema_version": "1.0",
+        "schema_version": "1.1",
         "module": "Onecool Taiwan Stock Daily Context",
         "generated_at": timestamp.isoformat(),
         "source_policy": "LATEST_SUCCESSFUL_SCREEN_WITH_EXPLICIT_DATE",
@@ -111,6 +110,12 @@ def build_taiwan_stock_daily_context(
         "0050_weekly_alignment": weekly_0050,
         "market_pressure_gate": "REQUIRED_FROM_DAILY_REPORT",
         "candidate_action_gate": eligibility,
+        "optional_quality_research": {
+            "framework": "SUPER_GROWTH_QUALITY",
+            "authority": "NONE",
+            "application": "MANUAL_ON_REQUEST_ONLY",
+            "policy": "NEVER_BLOCK_OR_PROMOTE_A_TAIWAN_CANDIDATE_AUTOMATICALLY",
+        },
         "top5": top5,
         "authority_order": [
             "WEEKLY_CTA", "DAILY_CTA", "MARKET_PRESSURE",

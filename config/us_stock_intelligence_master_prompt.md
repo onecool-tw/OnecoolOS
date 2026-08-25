@@ -1,6 +1,6 @@
 # Onecool 美股個股系統｜每日報告規則
 
-版本：v1.2 Daily Top 5 Pipeline
+版本：v1.3 US Super Growth Quality Gate
 資料來源：`data/market/dashboard/dashboard_latest.json`  
 排程：台北時間週二至週六 10:30
 
@@ -41,9 +41,27 @@
 - 單一候選失敗只排除該檔；整批掃描失敗則保留上一個有效檔並標示
   `LAST_VALID`與原始有效日期，不影響四大CTA發布。
 
+## 美股超級成長品質閘門
+
+Daily Top 5技術排名完成後，所有「新候選」必須再讀取
+`data/market/us_stock_intelligence/super_growth_evidence_latest.json`，逐檔檢查具日期、
+理由及來源的競爭優勢、結構性成長續航、財務品質、集中度與治理風險、能力圈及估值。
+缺少證據一律為`UNKNOWN`，不得由CAN SLIM分數、股價上漲或新聞印象推測。
+
+- A：品質與估值全部通過；仍須等待正式技術觸發、市場CTA、個股CTA與壓力綠燈。
+- B：品質通過但估值未通過或未確認；只研究，不行動。
+- C：品質證據不足或成長仍待證明；只研究，不行動。
+- `REJECT`：任一必要品質閘門有具證據的失敗結果。
+
+品質閘門只註記候選，不得改寫原始技術排名、CAN SLIM／Minervini分數或CTA。
+既有BABA、XYZ、QRVO、RH、UPBD部位不因品質分級自動賣出；仍依既有CTA與投資邏輯管理。
+CAN SLIM只作概念對照，不另加一層分數：C/A為盈餘與營收成長，N/L為創新與領導地位，
+S/I為供需與法人證據，M由美股大盤CTA負責。
+
 ## TSLA／SPCX特有CTA規則
 
 TSLA與SPCX屬於「小比例、長期創新選擇權部位」，不適用一般美股個股的完整進出CTA。
+兩者亦明確豁免超級成長品質閘門，不得因A／B／C分級改寫其特有規則。
 
 - 進場：只有完成週30週均線上穿50週均線，才取得小比例建倉資格；最早下一交易日執行。
 - 持有：建倉後原則上Buy & Hold。

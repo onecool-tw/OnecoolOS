@@ -34,6 +34,7 @@ from onecool_os.market.us_breakout_scan import (
     fetch_yahoo_breakout_inputs,
 )
 from onecool_os.market.us_portfolio_scores import build_portfolio_score_payload
+from onecool_os.market.us_stock_quality import apply_us_super_growth_quality_gate
 
 
 CORE_ALPHA_FALLBACK_SYMBOLS = {"SPY", "QQQ", "DIA", "SOXX", "NVDA"}
@@ -342,6 +343,15 @@ def update(
     elif scan_path.exists():
         breakout_scan = json.loads(scan_path.read_text(encoding="utf-8"))
     if breakout_scan is not None:
+        evidence_path = intelligence_dir / "super_growth_evidence_latest.json"
+        evidence = (
+            json.loads(evidence_path.read_text(encoding="utf-8"))
+            if evidence_path.exists()
+            else None
+        )
+        breakout_scan = apply_us_super_growth_quality_gate(
+            breakout_scan, evidence
+        )
         breakout_scan.setdefault("publication_status", "CURRENT")
         payload["daily_top5_scan"] = breakout_scan
     payload["provider_by_symbol"] = providers

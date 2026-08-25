@@ -2,6 +2,13 @@
 
 ## 2026-08-25
 
+- Added a source-backed Super Growth Quality Gate after the US new-candidate
+  scan, with A/B/C/Reject research buckets, explicit evidence gaps, and no new
+  numerical score or power to rewrite technical rankings or CTA.
+- Kept Taiwan quality review optional and non-blocking, and explicitly exempted
+  the TSLA/SPCX innovation-option policy and existing US portfolio positions.
+- Documented CAN SLIM as a conceptual crosswalk only; market CTA remains the
+  direction gate and incomplete quality evidence can never be inferred.
 - Added a deterministic weekly Market Regime cache and a fixed qualitative
   confirmation between market-implied conditions and the monthly Fundamental
   Cycle; no percentage allocation or CTA override is permitted.

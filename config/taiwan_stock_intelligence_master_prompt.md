@@ -1,6 +1,6 @@
 # Onecool Taiwan Stock Intelligence — Screening Contract
 
-版本：v1.1 Taiwan Broad Screen
+版本：v1.2 Taiwan Broad Screen with Optional Quality Note
 正式篩選檔：`data/market/taiwan_stock_intelligence/screen_latest.json`
 正式日報上下文：`data/market/taiwan_stock_intelligence/daily_context_latest.json`
 
@@ -34,3 +34,10 @@
 權限順序固定為：週線CTA ＞ 日線CTA ＞ 市場壓力燈 ＞ 台股候選池 ＞
 Macro Confirmation。0050週線空頭時候選股只能觀察；0050週線多頭時仍必須
 通過個股CTA與市場壓力綠燈，候選分數本身永遠不是買進訊號。
+
+## 選用品質研究
+
+林子揚超級成長股／CAN SLIM對照只可在使用者要求個股深度研究時作為附註，
+不屬於台股每日自動篩選條件，也不得升級、降級或否決候選股。台股正式行動仍只依
+原有量化候選池、0050週線、個股CTA與市場壓力燈；不得因美股式品質證據難以取得，
+把候選股自動標成不合格。

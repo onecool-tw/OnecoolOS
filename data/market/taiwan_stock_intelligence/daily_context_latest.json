@@ -1,7 +1,7 @@
 {
-  "schema_version": "1.0",
+  "schema_version": "1.1",
   "module": "Onecool Taiwan Stock Daily Context",
-  "generated_at": "2026-08-25T12:08:27.189817+00:00",
+  "generated_at": "2026-08-25T12:41:15.265544+00:00",
   "source_policy": "LATEST_SUCCESSFUL_SCREEN_WITH_EXPLICIT_DATE",
   "screen_as_of": "2026-08-24",
   "screen_business_day_lag": 1,
@@ -10,6 +10,12 @@
   "0050_weekly_alignment": "GOLDEN",
   "market_pressure_gate": "REQUIRED_FROM_DAILY_REPORT",
   "candidate_action_gate": "REQUIRES_INDIVIDUAL_CTA_AND_PRESSURE_GREEN",
+  "optional_quality_research": {
+    "framework": "SUPER_GROWTH_QUALITY",
+    "authority": "NONE",
+    "application": "MANUAL_ON_REQUEST_ONLY",
+    "policy": "NEVER_BLOCK_OR_PROMOTE_A_TAIWAN_CANDIDATE_AUTOMATICALLY"
+  },
   "top5": [
     {
       "symbol": "4967",
@@ -172,8 +178,8 @@
   "decision_authority": "RESEARCH_PRIORITY_ONLY",
   "stale_policy": "DISPLAY_LATEST_WITH_AS_OF; NEVER_TRADE_FROM_STALE_SCREEN",
   "master_prompt": {
-    "version": "v1.1 Taiwan Broad Screen",
-    "sha256": "19e22b6955cd66216bd7fe492d2b75f5a9fa2c28f75616ac46fba25adb8bd4ce",
-    "content": "# Onecool Taiwan Stock Intelligence — Screening Contract\n\n版本：v1.1 Taiwan Broad Screen\n正式篩選檔：`data/market/taiwan_stock_intelligence/screen_latest.json`\n正式日報上下文：`data/market/taiwan_stock_intelligence/daily_context_latest.json`\n\n## 唯一名單來源\n\n- 日報研究優先名單只能讀取正式篩選檔的 `top5`，不得從對話內容、\n  單一股票查詢、新聞或主觀判斷增補標的。\n- 使用者詢問某檔股票只代表個股研究，不代表該股通過系統篩選。\n- 0050、2330及亞洲CTA仍只讀 Onecool Market Dashboard；本篩選器不得\n  計算、改寫或推導CTA。\n\n## 發布條件\n\n- 候選池為正式上市、具月營收資料的四位數普通股，按官方成交金額取\n  前200檔。\n- 所有候選股必須使用同一價格／估值截止日、同一月營收期間、同一財報\n  期間及同一版評分規則。\n- 分數80分以上為正式候選；75至79.99分只列觀察，不進正式Top表格。\n- 正式表格最多5檔、同產業最多2檔，不硬湊。\n- 缺漏、重複、異常或非正值EPS／本益比／股價淨值比一律排除，不得用\n  推估值補齊。\n- 日報固定讀取正式日報上下文。最新資料延遲時仍顯示最近一次成功的 `top5`，\n  但必須同時顯示原始截止日與 `STALE`，不得顯示成 Unknown、不得冒充當日結果，\n  也不得由舊名單產生新的買進建議。只有完全沒有成功資料時才顯示 `MISSING`。\n\n## 行動層\n\n篩選分數只決定研究優先順序。實際行動仍依0050 CTA、個股正式CTA、\n估值及市場壓力燈共同決定；市場黃／紅燈時不得因高分而新增主動部位。\n\n權限順序固定為：週線CTA ＞ 日線CTA ＞ 市場壓力燈 ＞ 台股候選池 ＞\nMacro Confirmation。0050週線空頭時候選股只能觀察；0050週線多頭時仍必須\n通過個股CTA與市場壓力綠燈，候選分數本身永遠不是買進訊號。\n"
+    "version": "v1.2 Taiwan Broad Screen with Optional Quality Note",
+    "sha256": "4d20bb7fb0e194a55b7306a72b8b89cabf97995d3d8c1bf2dd3a3c2291cd2df8",
+    "content": "# Onecool Taiwan Stock Intelligence — Screening Contract\n\n版本：v1.2 Taiwan Broad Screen with Optional Quality Note\n正式篩選檔：`data/market/taiwan_stock_intelligence/screen_latest.json`\n正式日報上下文：`data/market/taiwan_stock_intelligence/daily_context_latest.json`\n\n## 唯一名單來源\n\n- 日報研究優先名單只能讀取正式篩選檔的 `top5`，不得從對話內容、\n  單一股票查詢、新聞或主觀判斷增補標的。\n- 使用者詢問某檔股票只代表個股研究，不代表該股通過系統篩選。\n- 0050、2330及亞洲CTA仍只讀 Onecool Market Dashboard；本篩選器不得\n  計算、改寫或推導CTA。\n\n## 發布條件\n\n- 候選池為正式上市、具月營收資料的四位數普通股，按官方成交金額取\n  前200檔。\n- 所有候選股必須使用同一價格／估值截止日、同一月營收期間、同一財報\n  期間及同一版評分規則。\n- 分數80分以上為正式候選；75至79.99分只列觀察，不進正式Top表格。\n- 正式表格最多5檔、同產業最多2檔，不硬湊。\n- 缺漏、重複、異常或非正值EPS／本益比／股價淨值比一律排除，不得用\n  推估值補齊。\n- 日報固定讀取正式日報上下文。最新資料延遲時仍顯示最近一次成功的 `top5`，\n  但必須同時顯示原始截止日與 `STALE`，不得顯示成 Unknown、不得冒充當日結果，\n  也不得由舊名單產生新的買進建議。只有完全沒有成功資料時才顯示 `MISSING`。\n\n## 行動層\n\n篩選分數只決定研究優先順序。實際行動仍依0050 CTA、個股正式CTA、\n估值及市場壓力燈共同決定；市場黃／紅燈時不得因高分而新增主動部位。\n\n權限順序固定為：週線CTA ＞ 日線CTA ＞ 市場壓力燈 ＞ 台股候選池 ＞\nMacro Confirmation。0050週線空頭時候選股只能觀察；0050週線多頭時仍必須\n通過個股CTA與市場壓力綠燈，候選分數本身永遠不是買進訊號。\n\n## 選用品質研究\n\n林子揚超級成長股／CAN SLIM對照只可在使用者要求個股深度研究時作為附註，\n不屬於台股每日自動篩選條件，也不得升級、降級或否決候選股。台股正式行動仍只依\n原有量化候選池、0050週線、個股CTA與市場壓力燈；不得因美股式品質證據難以取得，\n把候選股自動標成不合格。\n"
   }
 }
