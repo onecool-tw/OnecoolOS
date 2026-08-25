@@ -129,6 +129,40 @@ def validate_fund_intelligence(root: Path, *, today: date | None = None) -> dict
         if lag > 2:
             issues.append(_issue("STALE_WTI", "ETF CTA", f"WTI is {lag} business days old"))
 
+    if now.day <= 7:
+        cycle = _read(
+            root,
+            "data/market/fundamental_cycle/fundamental_cycle_latest.json",
+        )
+        if not cycle:
+            issues.append(
+                _issue("MISSING_CACHE", "Fundamental Cycle", "monthly cache missing")
+            )
+        else:
+            if cycle.get("decision_authority") != "CONTEXT_ONLY":
+                issues.append(
+                    _issue(
+                        "INVALID_AUTHORITY",
+                        "Fundamental Cycle",
+                        "must remain context only",
+                    )
+                )
+            if cycle.get("phase") not in {
+                "RECOVERY", "GROWTH", "BOOM", "RECESSION", "DIVERGENT", "UNKNOWN"
+            }:
+                issues.append(
+                    _issue("INVALID_PHASE", "Fundamental Cycle", "unsupported phase")
+                )
+            generated_at = cycle.get("generated_at")
+            try:
+                generated_month = datetime.fromisoformat(generated_at).date().replace(day=1)
+            except (TypeError, ValueError):
+                generated_month = None
+            if generated_month != now.replace(day=1):
+                issues.append(
+                    _issue("STALE_CACHE", "Fundamental Cycle", "not refreshed this month")
+                )
+
     generated = datetime.now(UTC).isoformat()
     return {
         "schema_version": "1.0",

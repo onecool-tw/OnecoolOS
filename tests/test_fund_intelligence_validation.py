@@ -58,6 +58,15 @@ def test_preflight_passes_complete_finite_current_caches(tmp_path) -> None:
         "data/market/etf_cta/cta_latest.json",
         {"results": [{"symbol": "WTI", "as_of": "2026-07-31"}]},
     )
+    write(
+        tmp_path,
+        "data/market/fundamental_cycle/fundamental_cycle_latest.json",
+        {
+            "generated_at": "2026-08-03T00:00:00+00:00",
+            "phase": "GROWTH",
+            "decision_authority": "CONTEXT_ONLY",
+        },
+    )
 
     result = validate_fund_intelligence(tmp_path, today=date(2026, 8, 3))
 
@@ -68,6 +77,7 @@ def test_preflight_passes_complete_finite_current_caches(tmp_path) -> None:
 def test_generated_preflight_caches_are_git_trackable() -> None:
     for path in (
         "data/market/sector_rotation/rotation_latest.json",
+        "data/market/fundamental_cycle/fundamental_cycle_latest.json",
         "data/market/fund_intelligence/validation_latest.json",
     ):
         result = subprocess.run(

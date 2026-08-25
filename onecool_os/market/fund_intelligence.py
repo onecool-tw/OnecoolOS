@@ -8,8 +8,9 @@ from pathlib import Path
 from typing import Any
 
 from onecool_os.market.dashboard import load_latest_dashboard
+from onecool_os.market.fundamental_cycle import load_fundamental_cycle
 
-MASTER_PROMPT_VERSION = "v1.2 Freeze"
+MASTER_PROMPT_VERSION = "v1.3 Freeze"
 MASTER_PROMPT_PATH = Path("config/fund_intelligence_master_prompt.md")
 
 
@@ -81,7 +82,7 @@ def load_fund_intelligence_context(root: Path) -> dict[str, Any]:
         else None
     )
     return {
-        "schema_version": "1.4",
+        "schema_version": "1.5",
         "source_policy": "github_cache_only",
         "master_prompt": load_master_prompt(root),
         "fund_alpha": alpha,
@@ -92,4 +93,5 @@ def load_fund_intelligence_context(root: Path) -> dict[str, Any]:
         "ai_revolution": ai_revolution,
         "data_validation": validation,
         "market_dashboard": load_latest_dashboard(root),
+        "fundamental_cycle": load_fundamental_cycle(root),
     }

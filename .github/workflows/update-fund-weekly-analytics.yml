@@ -42,6 +42,16 @@ jobs:
         run: python scripts/update_stockq_rotation.py
       - name: Refresh US Sector Rotation
         run: python scripts/update_sector_rotation.py
+      - name: Refresh monthly Fundamental Cycle context
+        if: github.event_name == 'workflow_dispatch' || github.event.schedule == '0 6 * * 0'
+        continue-on-error: true
+        run: |
+          day="$(date -u +%d)"
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ] || [ "$day" -le 7 ]; then
+            python scripts/update_fundamental_cycle.py
+          else
+            echo "Fundamental Cycle refresh is limited to the first weekly run of each month."
+          fi
       - name: Refresh weekly fund analytics
         run: python scripts/update_fund_alpha.py
       - name: Validate all Fund Intelligence inputs
@@ -54,6 +64,7 @@ jobs:
             data/market/ai_revolution \
             data/market/stockq_rotation \
             data/market/sector_rotation \
+            data/market/fundamental_cycle \
             data/market/fund_intelligence \
             data/market/fund_nav/history \
             data/market/fund_nav/fund_cta_latest.json \

@@ -43,6 +43,10 @@ def test_concise_freeze_prompt_contains_finalized_contract() -> None:
     assert "VIX必須反向解讀" in prompt
     assert "總經情境只負責解釋市場環境" in prompt
     assert "不得推翻基金" in prompt
+    assert "Fundamental Cycle" in prompt
+    assert "只在每個曆月第一份週報" in prompt
+    assert "IZAAX-inspired Onecool interpretation" in prompt
+    assert "不得產生獨立買賣訊號" in prompt
 
 
 def test_master_prompt_loader_exposes_version_and_stable_hash() -> None:
@@ -50,6 +54,6 @@ def test_master_prompt_loader_exposes_version_and_stable_hash() -> None:
 
     loaded = load_master_prompt(root)
 
-    assert loaded["version"] == "v1.2 Freeze"
+    assert loaded["version"] == "v1.3 Freeze"
     assert len(loaded["sha256"]) == 64
-    assert loaded["content"].startswith("# Onecool Fund Intelligence v1.2")
+    assert loaded["content"].startswith("# Onecool Fund Intelligence v1.3")

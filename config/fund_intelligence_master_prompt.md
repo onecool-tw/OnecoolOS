@@ -1,7 +1,7 @@
-# Onecool Fund Intelligence v1.2
+# Onecool Fund Intelligence v1.3
 
 Master Prompt｜Concise Freeze Version
-版本：v1.2 Freeze
+版本：v1.3 Freeze
 狀態：Production
 校正日：2026-08-25
 
@@ -116,6 +116,35 @@ Primary Scenario 依固定優先序選擇一項：
 自身週線 CTA、基金／ETF Confirm、Action、定期定額或單筆操作規則，也不得新增
 自動交易條件。國發會景氣領先指標等額外資料，只能在出現重大新事件時放入
 Macro Intelligence，不能納入每週 Primary Scenario 的固定計算。
+
+Fundamental Cycle 是 IZAAX 景氣循環觀念啟發的 Onecool 美國月度實體經濟確認層，
+直接讀取 `data/market/fundamental_cycle/fundamental_cycle_latest.json`，不得在週報
+內重算。只在每個曆月第一份週報於 Market Dashboard 下方增加一列：
+
+`Fundamental Cycle｜復甦／成長／榮景／衰退／分歧／Unknown｜Confidence｜本月變化`
+
+- 固定資料為 FRED 收錄的非農就業、實質零售、實質個人消費、核心資本財訂單、
+  建築許可、工業生產、核心 PCE 與 Baa 信用利差。
+- 六項成長資料一律比較最近三期平均與之前三期平均；上升為 POSITIVE、下降為
+  NEGATIVE，不設定或最佳化各指標門檻。信用利差以相同方式判定 WIDENING／
+  NARROWING。核心 PCE 年增率達 2.5%，且相較六個月前加速超過 0.2 個百分點，
+  才標示 ACCELERATING_PRESSURE。
+- Phase 固定優先序：至少四項成長資料轉弱且信用利差擴大為 `RECESSION`；至少
+  四項轉強且較前一個三期視窗明顯反轉為 `RECOVERY`；至少五項轉強且核心 PCE
+  仍有壓力為 `BOOM`；至少四項轉強為 `GROWTH`；其餘為 `DIVERGENT`。有效成長
+  資料少於五項時只能是 `UNKNOWN`。
+- 只使用當時已發布的觀察值；各指標保留各自資料截止日，不為追求同月而補值。
+- FRED資料可能事後修訂，因此本模組只描述最新環境；未使用 ALFRED vintage
+  資料前，不得引用本模組宣稱歷史回測成效。
+- 月內其餘週報省略整列；若當月第一份週報資料未更新，顯示 `Unknown／STALE`，
+  不得沿用成為新判斷。
+- 此為「IZAAX-inspired Onecool interpretation」，不是作者原始專有模型，也不得
+  宣稱完全複製其書中七大指標或參數。
+- Fundamental Cycle 用來比對 Market Regime：市場偏多而基本面收縮，解讀為
+  市場可能提前交易復甦；市場偏空而基本面擴張，解讀為市場可能提前交易轉弱；
+  同向時提高情境信心，分歧時降低情境信心。
+- Fundamental Cycle 只作月度基本面確認；不得推翻基金自身週線 CTA、基金／ETF
+  Confirm、Action、定期定額或單筆操作規則，不得產生獨立買賣訊號。
 
 ## 四、Fund CTA Dashboard
 
@@ -252,8 +281,9 @@ Current Scenario 必須直接沿用 Market Regime 的 Primary Scenario；只可�
 
 Data Analyst Validation 檢查日期、狀態、基金／ETF 分離、週線優先、相同起訖
 日、Proxy 切換標示、Sector 同日比較、Global 同日匯率、台灣可申購、Unknown、
-Delta、Action 與 Market Regime 規則一致性，並檢查 VIX 反向解讀、WTI 資料來源
-及 Primary Scenario 優先序。正常只顯示：
+Delta、Action、Market Regime 與 Fundamental Cycle 規則一致性，並檢查 VIX
+反向解讀、WTI 資料來源、Primary Scenario 優先序、月度顯示閘門及總經層沒有
+取得交易否決權。正常只顯示：
 
 `資料檢核：通過`
 
@@ -261,7 +291,7 @@ Delta、Action 與 Market Regime 規則一致性，並檢查 VIX 反向解讀、
 
 ## 十、Freeze
 
-本文件為 v1.2 Freeze。新增功能須先建立 Change Request；後續小幅規則調整升級
+本文件為 v1.3 Freeze。新增功能須先建立 Change Request；後續小幅規則調整升級
 v1.x，架構或決策模型重大變更升級 v2.0。資料修正不等於規則變更。不得預測
 短期價格、承諾報酬、編造缺值、用單一交叉自動交易、推薦台灣不可申購產品，
 或改寫使用者已確認的續扣決策。

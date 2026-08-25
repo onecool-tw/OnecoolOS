@@ -9,6 +9,11 @@
   external macro dependency or unfinished weekly data was introduced.
 - Kept macro context explanatory only: it cannot override fund weekly CTA,
   fund/ETF confirmation, Action, DCA, or lump-sum rules.
+- Added an IZAAX-inspired monthly Fundamental Cycle cache using eight official
+  FRED series across employment, consumption, investment, housing, production,
+  inflation, and credit conditions.
+- Added a first-week-only report gate, deterministic phase classification,
+  freshness validation, and an explicit `CONTEXT_ONLY` authority boundary.
 
 ## 2026-08-16
 
