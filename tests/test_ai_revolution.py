@@ -284,6 +284,47 @@ def test_official_ir_client_fingerprints_pdf_bytes() -> None:
     assert evidence["content_length"] == len(body)
 
 
+def test_official_ir_client_ignores_request_specific_trace_id() -> None:
+    trace_ids = iter(
+        [
+            "83d8352b342a99328c0bbe7c4298bf46",
+            "5fd5090ecaf04c479dce156e0ec8bee7",
+        ]
+    )
+
+    def request(_url: str, _agent: str) -> str:
+        return (
+            "<html><body><p>This is the Trace Id: "
+            f"{next(trace_ids)}</p><h1>Investor relations</h1>"
+            f"<p>{'official evidence ' * 20}</p></body></html>"
+        )
+
+    client = OfficialIRClient("OnecoolOS test test@example.com", request=request)
+    first = client.fetch("https://www.microsoft.com/en-us/Investor")
+    second = client.fetch("https://www.microsoft.com/en-us/Investor")
+
+    assert first["content_sha256"] == second["content_sha256"]
+    assert first["content_length"] == second["content_length"]
+
+
+def test_official_ir_client_still_detects_material_text_change() -> None:
+    pages = iter(
+        [
+            f"<html><body><p>{'official evidence ' * 20}</p></body></html>",
+            f"<html><body><p>{'new quarterly evidence ' * 20}</p></body></html>",
+        ]
+    )
+    client = OfficialIRClient(
+        "OnecoolOS test test@example.com",
+        request=lambda _url, _agent: next(pages),
+    )
+
+    first = client.fetch("https://example.com/investor")
+    second = client.fetch("https://example.com/investor")
+
+    assert first["content_sha256"] != second["content_sha256"]
+
+
 def test_matching_ir_revisions_unlock_only_reviewed_signal() -> None:
     def sec_request(_: str, __: str) -> dict:
         raise AIRevolutionError("HTTP 403: Forbidden")

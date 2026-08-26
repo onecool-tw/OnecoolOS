@@ -146,6 +146,23 @@ class _VisibleTextParser(HTMLParser):
             self.parts.append(data)
 
 
+def _normalize_official_ir_text(text: str) -> str:
+    """Return stable visible IR text without request-specific diagnostics."""
+
+    normalized = re.sub(r"\s+", " ", text).strip()
+    # Microsoft's Investor Relations landing page renders a request-specific
+    # 32-character trace identifier as visible text.  It is operational page
+    # metadata, not issuer evidence, and otherwise forces a false review on
+    # every refresh while leaving the actual investor content unchanged.
+    normalized = re.sub(
+        r"\bThis is the Trace Id:\s*[0-9a-f]{32}\b\s*",
+        "",
+        normalized,
+        flags=re.IGNORECASE,
+    )
+    return normalized.strip()
+
+
 @dataclass
 class OfficialIRClient:
     """Fetch and fingerprint official investor-relations landing pages."""
@@ -194,7 +211,7 @@ class OfficialIRClient:
             }
         parser = _VisibleTextParser()
         parser.feed(body.decode("utf-8", errors="replace"))
-        normalized = re.sub(r"\s+", " ", " ".join(parser.parts)).strip()
+        normalized = _normalize_official_ir_text(" ".join(parser.parts))
         if len(normalized) < 100:
             raise AIRevolutionError("Official IR page returned insufficient content")
         return {
