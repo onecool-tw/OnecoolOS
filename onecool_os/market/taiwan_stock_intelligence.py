@@ -8,9 +8,10 @@ from hashlib import sha256
 from pathlib import Path
 from typing import Any, Mapping
 
-MASTER_PROMPT_VERSION = "v1.2 Taiwan Broad Screen with Optional Quality Note"
+MASTER_PROMPT_VERSION = "v1.3 Taiwan Broad Screen with Background CTA"
 MASTER_PROMPT_PATH = Path("config/taiwan_stock_intelligence_master_prompt.md")
 SCREEN_PATH = Path("data/market/taiwan_stock_intelligence/screen_latest.json")
+STOCK_CTA_PATH = Path("data/market/taiwan_stock_intelligence/cta/cta_latest.json")
 CONTEXT_PATH = Path("data/market/taiwan_stock_intelligence/daily_context_latest.json")
 
 
@@ -63,6 +64,10 @@ def build_taiwan_stock_daily_context(
 
     current_date = today or date.today()
     screen = _read(root, SCREEN_PATH)
+    stock_cta = _read(root, STOCK_CTA_PATH) or {}
+    stock_cta_items = {
+        str(item.get("symbol")): item for item in stock_cta.get("results", [])
+    }
     taiwan_cta = _read(root, "data/market/taiwan_cta/cta_latest.json") or {}
     cta_items = {
         str(item.get("symbol")): item for item in taiwan_cta.get("results", [])
@@ -95,11 +100,15 @@ def build_taiwan_stock_daily_context(
     for item in top5:
         item["candidate_role"] = "RESEARCH_PRIORITY_ONLY"
         item["individual_cta_required"] = True
-        item["action_eligibility"] = eligibility
+        individual = stock_cta_items.get(str(item.get("symbol")))
+        item["individual_cta"] = _individual_cta_context(individual)
+        item["action_eligibility"] = _individual_action_eligibility(
+            eligibility, individual
+        )
 
     timestamp = generated_at or datetime.now(UTC)
     return {
-        "schema_version": "1.1",
+        "schema_version": "1.2",
         "module": "Onecool Taiwan Stock Daily Context",
         "generated_at": timestamp.isoformat(),
         "source_policy": "LATEST_SUCCESSFUL_SCREEN_WITH_EXPLICIT_DATE",
@@ -110,6 +119,15 @@ def build_taiwan_stock_daily_context(
         "0050_weekly_alignment": weekly_0050,
         "market_pressure_gate": "REQUIRED_FROM_DAILY_REPORT",
         "candidate_action_gate": eligibility,
+        "candidate_cta_cache": {
+            "screen_as_of": stock_cta.get("screen_as_of"),
+            "generated_at": stock_cta.get("generated_at"),
+            "requested_count": stock_cta.get("requested_count", 0),
+            "coverage": stock_cta.get("coverage", {
+                "current": 0, "stale_last_known": 0, "unknown": 0,
+            }),
+            "ranking_authority": "NONE",
+        },
         "optional_quality_research": {
             "framework": "SUPER_GROWTH_QUALITY",
             "authority": "NONE",
@@ -142,3 +160,37 @@ def update_taiwan_stock_daily_context(root: Path) -> dict[str, Any]:
 
 def load_taiwan_stock_daily_context(root: Path) -> dict[str, Any] | None:
     return _read(root, CONTEXT_PATH)
+
+
+def _individual_cta_context(item: Mapping[str, Any] | None) -> dict[str, Any]:
+    if not item:
+        return {
+            "update_status": "UNKNOWN",
+            "as_of": None,
+            "state": "UNKNOWN",
+            "cta": "UNKNOWN",
+            "daily_cross": None,
+            "weekly_cross": None,
+            "reason": "Symbol is not available in the background CTA cache.",
+        }
+    return {
+        key: item.get(key)
+        for key in (
+            "update_status", "as_of", "state", "cta", "reason",
+            "source_data_as_of", "weekly_data_as_of",
+            "daily_50ma", "daily_200ma", "weekly_30ma", "weekly_50ma",
+            "daily_cross", "weekly_cross", "last_attempt_at", "error",
+        )
+    }
+
+
+def _individual_action_eligibility(
+    market_gate: str, item: Mapping[str, Any] | None
+) -> str:
+    if market_gate != "REQUIRES_INDIVIDUAL_CTA_AND_PRESSURE_GREEN":
+        return market_gate
+    if not item or item.get("update_status") == "UNKNOWN":
+        return "WATCH_ONLY_INDIVIDUAL_CTA_UNKNOWN"
+    if item.get("update_status") != "CURRENT":
+        return "WATCH_ONLY_INDIVIDUAL_CTA_STALE"
+    return str(item.get("action", "WATCH_ONLY_INDIVIDUAL_CTA_UNKNOWN"))

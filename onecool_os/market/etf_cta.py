@@ -392,6 +392,7 @@ def calculate_cta(
     bars: Iterable[DailyBar],
     *,
     required_weekly_close_weekday: int | None = None,
+    exclude_incomplete_latest_week: bool = False,
 ) -> CTAResult:
     """Calculate the fixed Onecool CTA rule from adjusted closes."""
 
@@ -405,6 +406,15 @@ def calculate_cta(
         history,
         required_close_weekday=required_weekly_close_weekday,
     )
+    if (
+        exclude_incomplete_latest_week
+        and weekly_points
+        and weekly_points[-1][0].weekday() != 4
+    ):
+        # Keep every historical holiday-shortened week.  Only the newest ISO
+        # week is withheld until a later week proves it complete; a normal
+        # Friday close is usable immediately.
+        weekly_points.pop()
     weekly = [value for _, value in weekly_points]
     if len(weekly) < 50:
         raise ETFCTAError(f"{symbol} needs at least 50 weekly observations.")

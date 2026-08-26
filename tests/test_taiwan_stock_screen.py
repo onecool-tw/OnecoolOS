@@ -41,6 +41,8 @@ def test_screen_builds_broad_ranked_universe_and_limits_industries():
     assert payload["data_status"] == "READY"
     assert payload["expected_as_of"] == "2026-08-25"
     assert payload["universe_size"] == 10
+    assert len(payload["universe"]) == 10
+    assert payload["universe"][0]["provider_symbol"].endswith(".TW")
     assert payload["validated_count"] == 10
     assert len(payload["top5"]) <= 4  # only two industries, max two each
     assert all(item["score"] >= 80 for item in payload["top5"])

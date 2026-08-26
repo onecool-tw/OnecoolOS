@@ -73,6 +73,19 @@ def build_taiwan_stock_screen_payload(
         liquid.append((trade_value, code))
     liquid.sort(key=lambda item: (item[0], item[1]), reverse=True)
     universe = [code for _, code in liquid[:universe_size]]
+    universe_members = [
+        {
+            "symbol": code,
+            "company_name": str(
+                (revenue_map.get(code) or {}).get(
+                    "公司名稱", (price_map.get(code) or {}).get("Name", "")
+                )
+            ).strip(),
+            "liquidity_rank": rank,
+            "provider_symbol": f"{code}.TW",
+        }
+        for rank, code in enumerate(universe, start=1)
+    ]
 
     raw_candidates = []
     exclusions = []
@@ -163,6 +176,7 @@ def build_taiwan_stock_screen_payload(
         "monthly_revenue_as_of": _roc_month_to_iso(revenue_period),
         "universe_method": "top common stocks by official daily trade value",
         "universe_size": len(universe),
+        "universe": universe_members,
         "validated_count": len(ranked),
         "formal_threshold": FORMAL_THRESHOLD,
         "watch_threshold": WATCH_THRESHOLD,

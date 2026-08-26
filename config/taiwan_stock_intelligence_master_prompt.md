@@ -1,7 +1,8 @@
 # Onecool Taiwan Stock Intelligence — Screening Contract
 
-版本：v1.2 Taiwan Broad Screen with Optional Quality Note
+版本：v1.3 Taiwan Broad Screen with Background CTA
 正式篩選檔：`data/market/taiwan_stock_intelligence/screen_latest.json`
+正式個股CTA快取：`data/market/taiwan_stock_intelligence/cta/cta_latest.json`
 正式日報上下文：`data/market/taiwan_stock_intelligence/daily_context_latest.json`
 
 ## 唯一名單來源
@@ -9,8 +10,8 @@
 - 日報研究優先名單只能讀取正式篩選檔的 `top5`，不得從對話內容、
   單一股票查詢、新聞或主觀判斷增補標的。
 - 使用者詢問某檔股票只代表個股研究，不代表該股通過系統篩選。
-- 0050、2330及亞洲CTA仍只讀 Onecool Market Dashboard；本篩選器不得
-  計算、改寫或推導CTA。
+- 0050、2330及亞洲CTA仍只讀 Onecool Market Dashboard。個股CTA由獨立背景
+  快取計算；不得回寫、改變或參與基本面分數與排名。
 
 ## 發布條件
 
@@ -34,6 +35,19 @@
 權限順序固定為：週線CTA ＞ 日線CTA ＞ 市場壓力燈 ＞ 台股候選池 ＞
 Macro Confirmation。0050週線空頭時候選股只能觀察；0050週線多頭時仍必須
 通過個股CTA與市場壓力綠燈，候選分數本身永遠不是買進訊號。
+
+## 個股CTA背景快取
+
+- 每次以正式篩選檔的完整前200檔流動性股票為母體，背景維護個股CTA；報表
+  仍只顯示正式篩選出的Top 5，不因CTA增刪或重排股票。
+- 週線30／50為主要趨勢，日線50／200只作短期確認與加碼限制。週線空頭時，
+  日線黃金交叉只能視為反彈或早期復甦，不得判定為正式翻多。
+- 所有均線使用含股息及拆分調整後日資料；週線只採已完成交易週最後一筆資料。
+- 每檔保留資料截止日、日／週均線、目前排列、最近黃金／死亡交叉與更新狀態。
+- 單檔資料不足或資料商失敗時標示 `UNKNOWN`；若已有上次有效結果則標示
+  `STALE_LAST_KNOWN`。兩者都只能觀察，不得放寬條件或產生新買進建議。
+- 0050週線、個股週線、個股日線與市場壓力燈全部符合時，才具有研究後採取
+  行動的資格；這仍不是自動下單訊號。
 
 ## 選用品質研究
 

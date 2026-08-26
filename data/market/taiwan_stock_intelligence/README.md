@@ -13,6 +13,14 @@
 - Data quality: one price/valuation cutoff, one revenue month, one financial
   quarter, duplicate checks, and no estimated-value filling.
 
-CTA is intentionally out of scope.  The screen must never calculate or rewrite
-0050 or 2330 CTA.  User-requested ticker reviews remain separate unless that
-symbol appears in `top5` or `watchlist`.
+CTA is maintained in a separate background cache under `cta/`.  All 200
+liquidity-universe members are updated so a newly selected candidate already
+has a technical state, but CTA never changes the fundamental score, rank, or
+Top 5 membership.  The daily context attaches CTA only to the published Top 5.
+
+- Weekly 30/50 is the primary trend authority.
+- Daily 50/200 is auxiliary confirmation and may only restrict adding.
+- Adjusted history and completed trading weeks are required.
+- Per-symbol failures become `UNKNOWN`, or `STALE_LAST_KNOWN` when a prior
+  valid observation exists; neither state is actionable.
+- 0050 and 2330 market CTA remain owned by the separate Taiwan CTA module.

@@ -8,8 +8,10 @@ on:
     paths:
       - ".github/workflows/update-taiwan-stock-screen.yml"
       - "onecool_os/market/taiwan_stock_screen.py"
+      - "onecool_os/market/taiwan_stock_cta.py"
       - "onecool_os/market/taiwan_stock_intelligence.py"
       - "scripts/update_taiwan_stock_screen.py"
+      - "scripts/update_taiwan_stock_cta.py"
       - "scripts/update_taiwan_stock_daily_context.py"
       - "config/taiwan_stock_intelligence_master_prompt.md"
       - ".gitignore"
@@ -30,7 +32,7 @@ concurrency:
 jobs:
   update:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 40
     steps:
       - uses: actions/checkout@v5
       - uses: actions/setup-python@v6
@@ -42,6 +44,9 @@ jobs:
       - name: Attempt official-data Taiwan stock screen refresh
         continue-on-error: true
         run: python scripts/update_taiwan_stock_screen.py
+      - name: Maintain background CTA for the full 200-stock universe
+        continue-on-error: true
+        run: python scripts/update_taiwan_stock_cta.py
       - name: Publish daily context from the latest successful screen
         run: python scripts/update_taiwan_stock_daily_context.py
       - name: Commit only when the validated screen changed
