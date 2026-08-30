@@ -1,0 +1,129 @@
+name: Check Unified Schedule Health
+
+on:
+  workflow_dispatch:
+    inputs:
+      scope:
+        description: Health scope to evaluate for recovery and final gating
+        required: true
+        type: choice
+        options:
+          - all
+          - morning
+          - asia
+          - weekly
+        default: all
+      phase:
+        description: Primary dispatches one recovery; verify publishes and gates
+        required: true
+        type: choice
+        options:
+          - primary
+          - verify
+        default: primary
+  schedule:
+    # Daily report inputs: recover at 10:15 and verify at 10:50 Taipei.
+    - cron: "15 2 * * 1-6"
+    - cron: "50 2 * * 1-6"
+    # Taiwan close inputs: recover at 18:00 and verify at 18:50 Taipei.
+    - cron: "0 10 * * 1-5"
+    - cron: "50 10 * * 1-5"
+    # Weekly preflight: recover at 15:00 and verify at 16:00 Taipei Sunday.
+    - cron: "0 7 * * 0"
+    - cron: "0 8 * * 0"
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: unified-schedule-health-${{ github.event.schedule || inputs.scope || 'manual' }}
+  cancel-in-progress: false
+
+jobs:
+  health:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+          cache: pip
+      - name: Resolve scheduled phase and scope
+        id: mode
+        shell: bash
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          EVENT_SCHEDULE: ${{ github.event.schedule }}
+          INPUT_SCOPE: ${{ inputs.scope }}
+          INPUT_PHASE: ${{ inputs.phase }}
+        run: |
+          if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
+            scope="${INPUT_SCOPE:-all}"
+            phase="${INPUT_PHASE:-primary}"
+          else
+            case "$EVENT_SCHEDULE" in
+              "15 2 * * 1-6") scope="morning"; phase="primary" ;;
+              "50 2 * * 1-6") scope="morning"; phase="verify" ;;
+              "0 10 * * 1-5") scope="asia"; phase="primary" ;;
+              "50 10 * * 1-5") scope="asia"; phase="verify" ;;
+              "0 7 * * 0") scope="weekly"; phase="primary" ;;
+              "0 8 * * 0") scope="weekly"; phase="verify" ;;
+              *) echo "Unknown schedule: $EVENT_SCHEDULE" >&2; exit 2 ;;
+            esac
+          fi
+          echo "scope=$scope" >> "$GITHUB_OUTPUT"
+          echo "phase=$phase" >> "$GITHUB_OUTPUT"
+      - name: Install project
+        run: pip install -e .
+      - name: Evaluate all committed data caches
+        id: health
+        run: python scripts/check_system_health.py --scope "${{ steps.mode.outputs.scope }}"
+      - name: Dispatch one safe recovery cycle
+        if: steps.mode.outputs.phase == 'primary' && steps.health.outputs.blocked_count != '0'
+        uses: actions/github-script@v7
+        env:
+          RECOVERY_WORKFLOWS: ${{ steps.health.outputs.recovery_workflows }}
+        with:
+          script: |
+            const workflows = JSON.parse(process.env.RECOVERY_WORKFLOWS || '[]');
+            for (const workflow_id of workflows) {
+              await github.rest.actions.createWorkflowDispatch({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                workflow_id,
+                ref: 'main'
+              });
+              core.warning(`Dispatched recovery workflow: ${workflow_id}`);
+            }
+      - name: Publish verified health cache
+        if: steps.mode.outputs.phase == 'verify'
+        shell: bash
+        run: |
+          git config user.name "onecool-os-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add data/market/system_health/system_health_latest.json
+          if git diff --cached --quiet; then
+            echo "Health cache is unchanged."
+            exit 0
+          fi
+          git commit -m "Update unified schedule health"
+          for attempt in 1 2 3; do
+            if git pull --rebase origin main && git push origin HEAD:main; then
+              exit 0
+            fi
+            echo "Health cache push attempt $attempt failed; retrying."
+            git rebase --abort 2>/dev/null || true
+            sleep $((attempt * 5))
+          done
+          echo "Unable to publish verified health cache." >&2
+          exit 1
+      - name: Fail only after recovery remains blocked
+        if: steps.mode.outputs.phase == 'verify' && steps.health.outputs.scope_status == 'BLOCKED'
+        run: |
+          echo "${{ steps.mode.outputs.scope }} health remains BLOCKED after the recovery window." >&2
+          exit 1
+      - name: Note non-blocking manual review
+        if: steps.mode.outputs.phase == 'verify' && steps.health.outputs.scope_status == 'PARTIAL'
+        run: echo "Health is PARTIAL. Reports remain usable with the limitations listed in the job summary."

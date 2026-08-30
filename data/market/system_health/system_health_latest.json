@@ -1,0 +1,340 @@
+{
+  "schema_version": "1.0",
+  "module": "Onecool Unified Schedule Health",
+  "generated_at": "2026-08-30T23:31:20.538564+00:00",
+  "taipei_date": "2026-08-31",
+  "status": "BLOCKED",
+  "scope_status": {
+    "morning": "BLOCKED",
+    "asia": "BLOCKED",
+    "weekly": "PARTIAL"
+  },
+  "action_readiness": "UNSAFE_FOR_AFFECTED_REPORTS",
+  "counts": {
+    "ready": 12,
+    "partial": 3,
+    "blocked": 2
+  },
+  "modules": [
+    {
+      "module_id": "market_dashboard",
+      "label": "Market Dashboard",
+      "scope": "morning",
+      "critical": true,
+      "status": "READY",
+      "reason": "current",
+      "observed_as_of": "2026-08-28",
+      "recovery_workflow": "update-market-dashboard.yml",
+      "retryable": true,
+      "impacted_reports": [
+        "Market Dashboard",
+        "美股日報"
+      ]
+    },
+    {
+      "module_id": "us_breakout_scan",
+      "label": "US Breakout Scan",
+      "scope": "morning",
+      "critical": true,
+      "status": "READY",
+      "reason": "current",
+      "observed_as_of": "2026-08-28",
+      "recovery_workflow": "update-market-dashboard.yml",
+      "retryable": true,
+      "impacted_reports": [
+        "美股日報"
+      ]
+    },
+    {
+      "module_id": "us_portfolio_scores",
+      "label": "US Portfolio Scores",
+      "scope": "morning",
+      "critical": true,
+      "status": "READY",
+      "reason": "current",
+      "observed_as_of": "2026-08-28",
+      "recovery_workflow": "update-market-dashboard.yml",
+      "retryable": true,
+      "impacted_reports": [
+        "美股日報"
+      ]
+    },
+    {
+      "module_id": "etf_cta",
+      "label": "ETF CTA",
+      "scope": "morning",
+      "critical": true,
+      "status": "READY",
+      "reason": "all symbols current",
+      "observed_as_of": "2026-08-28",
+      "recovery_workflow": "update-etf-cta.yml",
+      "retryable": true,
+      "impacted_reports": [
+        "基金日報",
+        "基金週報"
+      ]
+    },
+    {
+      "module_id": "fund_nav_cta",
+      "label": "Fund NAV CTA",
+      "scope": "morning",
+      "critical": true,
+      "status": "BLOCKED",
+      "reason": "daily generation timestamp is missing or stale",
+      "observed_as_of": null,
+      "recovery_workflow": "update-fund-nav-cta.yml",
+      "retryable": true,
+      "impacted_reports": [
+        "基金日報",
+        "基金週報"
+      ]
+    },
+    {
+      "module_id": "taiwan_market_cta",
+      "label": "Taiwan 0050/2330 CTA",
+      "scope": "asia",
+      "critical": true,
+      "status": "BLOCKED",
+      "reason": "data is stale",
+      "observed_as_of": "2026-08-26",
+      "recovery_workflow": "update-taiwan-cta.yml",
+      "retryable": true,
+      "impacted_reports": [
+        "台股日報"
+      ]
+    },
+    {
+      "module_id": "taiwan_stock_screen",
+      "label": "Taiwan Stock Screen",
+      "scope": "asia",
+      "critical": true,
+      "status": "READY",
+      "reason": "current",
+      "observed_as_of": "2026-08-27",
+      "recovery_workflow": "update-taiwan-stock-screen.yml",
+      "retryable": true,
+      "impacted_reports": [
+        "台股日報"
+      ]
+    },
+    {
+      "module_id": "taiwan_candidate_cta",
+      "label": "Taiwan 200-stock CTA",
+      "scope": "asia",
+      "critical": true,
+      "status": "PARTIAL",
+      "reason": "current 199, stale 0, unknown 1",
+      "observed_as_of": "2026-08-27",
+      "recovery_workflow": "update-taiwan-stock-screen.yml",
+      "retryable": false,
+      "impacted_reports": [
+        "台股日報"
+      ]
+    },
+    {
+      "module_id": "taiwan_daily_context",
+      "label": "Taiwan Daily Context",
+      "scope": "asia",
+      "critical": true,
+      "status": "READY",
+      "reason": "current",
+      "observed_as_of": "2026-08-27",
+      "recovery_workflow": "update-taiwan-stock-screen.yml",
+      "retryable": true,
+      "impacted_reports": [
+        "台股日報"
+      ]
+    },
+    {
+      "module_id": "macro_regime",
+      "label": "Macro Regime",
+      "scope": "weekly",
+      "critical": false,
+      "status": "READY",
+      "reason": "current",
+      "observed_as_of": "2026-08-30",
+      "recovery_workflow": "update-fund-weekly-analytics.yml",
+      "retryable": false,
+      "impacted_reports": [
+        "基金週報"
+      ]
+    },
+    {
+      "module_id": "fund_alpha",
+      "label": "Fund Alpha",
+      "scope": "weekly",
+      "critical": false,
+      "status": "READY",
+      "reason": "current",
+      "observed_as_of": "2026-08-28",
+      "recovery_workflow": "update-fund-weekly-analytics.yml",
+      "retryable": false,
+      "impacted_reports": [
+        "基金週報"
+      ]
+    },
+    {
+      "module_id": "peer_ranking",
+      "label": "Peer Ranking",
+      "scope": "weekly",
+      "critical": false,
+      "status": "READY",
+      "reason": "current",
+      "observed_as_of": "2026-08-30",
+      "recovery_workflow": "update-fund-weekly-analytics.yml",
+      "retryable": false,
+      "impacted_reports": [
+        "基金週報"
+      ]
+    },
+    {
+      "module_id": "stockq_rotation",
+      "label": "StockQ Rotation",
+      "scope": "weekly",
+      "critical": false,
+      "status": "READY",
+      "reason": "current",
+      "observed_as_of": "2026-08-28",
+      "recovery_workflow": "update-fund-weekly-analytics.yml",
+      "retryable": false,
+      "impacted_reports": [
+        "基金週報"
+      ]
+    },
+    {
+      "module_id": "sector_rotation",
+      "label": "Sector Rotation",
+      "scope": "weekly",
+      "critical": false,
+      "status": "READY",
+      "reason": "current",
+      "observed_as_of": "2026-08-28",
+      "recovery_workflow": "update-fund-weekly-analytics.yml",
+      "retryable": false,
+      "impacted_reports": [
+        "基金週報"
+      ]
+    },
+    {
+      "module_id": "fundamental_cycle",
+      "label": "Fundamental Cycle",
+      "scope": "weekly",
+      "critical": false,
+      "status": "READY",
+      "reason": "current",
+      "observed_as_of": "2026-08-25",
+      "recovery_workflow": "update-fund-weekly-analytics.yml",
+      "retryable": false,
+      "impacted_reports": [
+        "基金週報"
+      ]
+    },
+    {
+      "module_id": "ai_revolution",
+      "label": "AI Revolution",
+      "scope": "weekly",
+      "critical": false,
+      "status": "PARTIAL",
+      "reason": "official evidence requires manual review",
+      "observed_as_of": "2026-08-30",
+      "recovery_workflow": null,
+      "retryable": false,
+      "impacted_reports": [
+        "基金週報"
+      ]
+    },
+    {
+      "module_id": "fund_validation",
+      "label": "Fund Intelligence Validation",
+      "scope": "weekly",
+      "critical": true,
+      "status": "PARTIAL",
+      "reason": "validation CONDITIONAL_PASS",
+      "observed_as_of": "2026-08-30",
+      "recovery_workflow": null,
+      "retryable": false,
+      "impacted_reports": [
+        "基金週報"
+      ]
+    }
+  ],
+  "issues": [
+    {
+      "module_id": "fund_nav_cta",
+      "label": "Fund NAV CTA",
+      "scope": "morning",
+      "critical": true,
+      "status": "BLOCKED",
+      "reason": "daily generation timestamp is missing or stale",
+      "observed_as_of": null,
+      "recovery_workflow": "update-fund-nav-cta.yml",
+      "retryable": true,
+      "impacted_reports": [
+        "基金日報",
+        "基金週報"
+      ]
+    },
+    {
+      "module_id": "taiwan_market_cta",
+      "label": "Taiwan 0050/2330 CTA",
+      "scope": "asia",
+      "critical": true,
+      "status": "BLOCKED",
+      "reason": "data is stale",
+      "observed_as_of": "2026-08-26",
+      "recovery_workflow": "update-taiwan-cta.yml",
+      "retryable": true,
+      "impacted_reports": [
+        "台股日報"
+      ]
+    },
+    {
+      "module_id": "taiwan_candidate_cta",
+      "label": "Taiwan 200-stock CTA",
+      "scope": "asia",
+      "critical": true,
+      "status": "PARTIAL",
+      "reason": "current 199, stale 0, unknown 1",
+      "observed_as_of": "2026-08-27",
+      "recovery_workflow": "update-taiwan-stock-screen.yml",
+      "retryable": false,
+      "impacted_reports": [
+        "台股日報"
+      ]
+    },
+    {
+      "module_id": "ai_revolution",
+      "label": "AI Revolution",
+      "scope": "weekly",
+      "critical": false,
+      "status": "PARTIAL",
+      "reason": "official evidence requires manual review",
+      "observed_as_of": "2026-08-30",
+      "recovery_workflow": null,
+      "retryable": false,
+      "impacted_reports": [
+        "基金週報"
+      ]
+    },
+    {
+      "module_id": "fund_validation",
+      "label": "Fund Intelligence Validation",
+      "scope": "weekly",
+      "critical": true,
+      "status": "PARTIAL",
+      "reason": "validation CONDITIONAL_PASS",
+      "observed_as_of": "2026-08-30",
+      "recovery_workflow": null,
+      "retryable": false,
+      "impacted_reports": [
+        "基金週報"
+      ]
+    }
+  ],
+  "recovery_workflows": [
+    "update-fund-nav-cta.yml",
+    "update-taiwan-cta.yml"
+  ],
+  "issue_fingerprint": "d1f08b0988609977fa8b9d50008c18a679b911c6bd787028a95239683ea58d3c",
+  "policy": "Health monitoring only; never changes CTA, rankings, or investment decisions."
+}
