@@ -1,6 +1,6 @@
 {
   "schema_version": "1.3",
-  "generated_at": "2026-08-26T00:21:50.365404+00:00",
+  "generated_at": "2026-08-30T11:28:49.741733+00:00",
   "source_policy": "SEC filings/companyfacts primary; official company IR pages fallback",
   "companies_expected": 6,
   "companies_valid": 6,
@@ -10,45 +10,49 @@
   "companies_official_evidence_valid": 6,
   "official_evidence_coverage_pct": 100.0,
   "cache_status": "VALID",
-  "review_required": false,
-  "unreviewed_companies": [],
-  "new_periodic_filings": [],
+  "review_required": true,
+  "unreviewed_companies": [
+    "Nvidia"
+  ],
+  "new_periodic_filings": [
+    "Nvidia"
+  ],
   "signals": {
     "ai_infrastructure": {
       "status": "GREEN",
       "reason": "Six-company official evidence supports continued AI infrastructure expansion.",
       "reviewed_at": "2026-08-17",
-      "usable_for_report": true
+      "usable_for_report": false
     },
     "ai_capex": {
       "status": "GREEN",
       "reason": "Six-company official evidence supports continued AI capital-spending expansion.",
       "reviewed_at": "2026-08-17",
-      "usable_for_report": true
+      "usable_for_report": false
     },
     "ai_adoption": {
       "status": "GREEN",
       "reason": "Six-company official evidence supports continued enterprise and consumer AI adoption.",
       "reviewed_at": "2026-08-17",
-      "usable_for_report": true
+      "usable_for_report": false
     },
     "independent_demand_quality": {
       "status": "YELLOW",
       "reason": "Supplier-supported purchases and circular-financing exposure are down-weighted rather than counted as independent demand.",
       "reviewed_at": "2026-08-17",
-      "usable_for_report": true
+      "usable_for_report": false
     },
     "capital_efficiency": {
       "status": "YELLOW",
       "reason": "Cash-flow conversion and AI monetization have not yet fully caught up with gross capital-spending growth.",
       "reviewed_at": "2026-08-17",
-      "usable_for_report": true
+      "usable_for_report": false
     },
     "overall": {
       "status": "YELLOW",
       "reason": "AI expansion remains intact, but demand quality and capital efficiency require monitoring.",
       "reviewed_at": "2026-08-17",
-      "usable_for_report": true
+      "usable_for_report": false
     }
   },
   "signal_methodology": {
@@ -71,17 +75,17 @@
         "content_sha256": "76efe894374109e27c5d660262a5d212bba5349ef09e5f48cc1b093994412b4b",
         "content_length": 4059,
         "content_kind": "HTML",
-        "fetched_at": "2026-08-26T00:20:59.780790+00:00",
+        "fetched_at": "2026-08-30T11:28:08.828197+00:00",
         "content_changed": false
       },
       "filing_changed": false,
-      "sec_refresh_error": "AttributeError: 'NoneType' object has no attribute 'get'",
+      "sec_refresh_error": "AIRevolutionError: HTTP 403: Forbidden",
       "interpretation_policy": "Official IR change detection only; quantitative facts, AI attribution and ROI require review."
     },
     {
       "company": "Amazon",
       "cik": "0001018724",
-      "data_status": "LAST_KNOWN_VALID",
+      "data_status": "OFFICIAL_IR_AVAILABLE",
       "evidence_source": "OFFICIAL_IR",
       "evidence_revision": "ir:c62b1a7fe2e06972e2544fdf3f14b33340232ee55be858f82cf5956abd1d0a4e",
       "latest_periodic_filing": null,
@@ -92,15 +96,12 @@
         "content_sha256": "c62b1a7fe2e06972e2544fdf3f14b33340232ee55be858f82cf5956abd1d0a4e",
         "content_length": 1243,
         "content_kind": "HTML",
-        "fetched_at": "2026-08-23T06:42:34.141670+00:00",
+        "fetched_at": "2026-08-30T11:28:16.902863+00:00",
         "content_changed": false
       },
       "filing_changed": false,
       "sec_refresh_error": "AIRevolutionError: HTTP 403: Forbidden",
-      "interpretation_policy": "Official IR change detection only; quantitative facts, AI attribution and ROI require review.",
-      "evidence_age_days": 2,
-      "refresh_error": "AttributeError: 'NoneType' object has no attribute 'get'",
-      "official_ir_refresh_error": "AIRevolutionError: https://ir.aboutamazon.com/quarterly-results/default.aspx: AIRevolutionError: HTTP 403: Forbidden"
+      "interpretation_policy": "Official IR change detection only; quantitative facts, AI attribution and ROI require review."
     },
     {
       "company": "Alphabet",
@@ -116,17 +117,17 @@
         "content_sha256": "2d92e63f7b89ac7efaf5c3b12506c38a0802d697b6c17a47d2ce71271d2f4857",
         "content_length": 1608,
         "content_kind": "HTML",
-        "fetched_at": "2026-08-26T00:21:19.614590+00:00",
+        "fetched_at": "2026-08-30T11:28:25.005043+00:00",
         "content_changed": false
       },
       "filing_changed": false,
-      "sec_refresh_error": "AttributeError: 'NoneType' object has no attribute 'get'",
+      "sec_refresh_error": "AIRevolutionError: HTTP 403: Forbidden",
       "interpretation_policy": "Official IR change detection only; quantitative facts, AI attribution and ROI require review."
     },
     {
       "company": "Meta",
       "cik": "0001326801",
-      "data_status": "LAST_KNOWN_VALID",
+      "data_status": "OFFICIAL_IR_AVAILABLE",
       "evidence_source": "OFFICIAL_IR",
       "evidence_revision": "ir:f6128306386e4635fc1538dc8a05db039f9ce3aefe9981f813f0b165d278199b",
       "latest_periodic_filing": null,
@@ -137,39 +138,33 @@
         "content_sha256": "f6128306386e4635fc1538dc8a05db039f9ce3aefe9981f813f0b165d278199b",
         "content_length": 2908,
         "content_kind": "HTML",
-        "fetched_at": "2026-08-23T06:42:50.180259+00:00",
+        "fetched_at": "2026-08-30T11:28:33.290970+00:00",
         "content_changed": false
       },
       "filing_changed": false,
       "sec_refresh_error": "AIRevolutionError: HTTP 403: Forbidden",
-      "interpretation_policy": "Official IR change detection only; quantitative facts, AI attribution and ROI require review.",
-      "evidence_age_days": 2,
-      "refresh_error": "AttributeError: 'NoneType' object has no attribute 'get'",
-      "official_ir_refresh_error": "AIRevolutionError: https://investor.atmeta.com/financials/default.aspx: AIRevolutionError: HTTP 403: Forbidden"
+      "interpretation_policy": "Official IR change detection only; quantitative facts, AI attribution and ROI require review."
     },
     {
       "company": "Nvidia",
       "cik": "0001045810",
-      "data_status": "LAST_KNOWN_VALID",
+      "data_status": "OFFICIAL_IR_AVAILABLE",
       "evidence_source": "OFFICIAL_IR",
-      "evidence_revision": "ir:e2502a77b74b06a18bf53949f8e496f5a0ef33a352adc4757584fd10eddd2939",
+      "evidence_revision": "ir:ac3ae6bf30070fb5d3959d52a80538902d6015c408695d4eb8cb3a38748f85bd",
       "latest_periodic_filing": null,
       "latest_capex_fact": null,
       "latest_operating_cash_flow_fact": null,
       "official_ir": {
         "source_url": "https://investor.nvidia.com/financial-info/financial-reports-and-results/default.aspx",
-        "content_sha256": "e2502a77b74b06a18bf53949f8e496f5a0ef33a352adc4757584fd10eddd2939",
-        "content_length": 4401,
+        "content_sha256": "ac3ae6bf30070fb5d3959d52a80538902d6015c408695d4eb8cb3a38748f85bd",
+        "content_length": 4232,
         "content_kind": "HTML",
-        "fetched_at": "2026-08-23T06:42:58.296541+00:00",
-        "content_changed": false
+        "fetched_at": "2026-08-30T11:28:41.584373+00:00",
+        "content_changed": true
       },
       "filing_changed": false,
       "sec_refresh_error": "AIRevolutionError: HTTP 403: Forbidden",
-      "interpretation_policy": "Official IR change detection only; quantitative facts, AI attribution and ROI require review.",
-      "evidence_age_days": 2,
-      "refresh_error": "AttributeError: 'NoneType' object has no attribute 'get'",
-      "official_ir_refresh_error": "AIRevolutionError: https://investor.nvidia.com/financial-info/financial-reports-and-results/default.aspx: AIRevolutionError: HTTP 403: Forbidden"
+      "interpretation_policy": "Official IR change detection only; quantitative facts, AI attribution and ROI require review."
     },
     {
       "company": "Apple",
@@ -185,11 +180,11 @@
         "content_sha256": "5b72e66ab6adec5b85ffe6221cb22b4ed3ad1d6f15170a54db259a18fdb51fb3",
         "content_length": 1533,
         "content_kind": "HTML",
-        "fetched_at": "2026-08-26T00:21:50.365325+00:00",
+        "fetched_at": "2026-08-30T11:28:49.741695+00:00",
         "content_changed": false
       },
       "filing_changed": false,
-      "sec_refresh_error": "AttributeError: 'NoneType' object has no attribute 'get'",
+      "sec_refresh_error": "AIRevolutionError: HTTP 403: Forbidden",
       "interpretation_policy": "Official IR change detection only; quantitative facts, AI attribution and ROI require review."
     }
   ],
