@@ -83,15 +83,13 @@ jobs:
           elif [[ "${{ github.event_name }}" == "schedule" && "${{ github.event.schedule }}" == "30 0 * * 2-6" && "$(date -u +%u)" == "3" ]]; then
             args+=(--refresh-actions-group group_b)
           fi
-          # The three US-close runs all refresh Daily Top 5.  Asia-close runs
-          # preserve the last valid scan instead of mixing market cutoffs.
+          # Every scheduled dashboard run refreshes Daily Top 5 against the
+          # latest completed US session. This makes an Asia-close run a safe
+          # recovery path when GitHub delays all US-close schedules: both the
+          # Dashboard and Breakout Scan then publish the same US cutoff.
           if [[ "${{ github.event_name }}" == "workflow_dispatch" && "${{ inputs.refresh_us_scan }}" == "true" ]]; then
             args+=(--refresh-us-scan)
-          elif [[ "${{ github.event_name }}" == "push" ]]; then
-            # A publication-path/workflow recovery push must validate the full
-            # US report, including the same-cutoff breakout scan artifact.
-            args+=(--refresh-us-scan)
-          elif [[ "${{ github.event_name }}" == "schedule" && ( "${{ github.event.schedule }}" == "30 0 * * 2-6" || "${{ github.event.schedule }}" == "0 1 * * 2-6" || "${{ github.event.schedule }}" == "30 1 * * 2-6" ) ]]; then
+          elif [[ "${{ github.event_name }}" == "push" || "${{ github.event_name }}" == "schedule" ]]; then
             args+=(--refresh-us-scan)
           fi
           python scripts/update_market_dashboard.py "${args[@]}"
