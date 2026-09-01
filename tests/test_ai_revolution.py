@@ -42,6 +42,10 @@ def test_committed_six_company_review_baseline_is_reportable() -> None:
         and signal["usable_for_report"] is True
         for signal in cache["signals"].values()
     )
+    nvidia_review = review["review_basis"]["Nvidia"]
+    assert nvidia_review["change_type"] == "SUBSTANTIVE_QUARTERLY_RESULTS"
+    assert nvidia_review["reviewed_at"] == "2026-09-01"
+    assert nvidia_review["source_url"].startswith("https://investor.nvidia.com/")
 
 
 def submissions(accession: str = "0000000000-26-000001") -> dict:
