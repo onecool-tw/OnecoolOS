@@ -42,6 +42,8 @@ ADJUSTED_HISTORY_SOURCES = {
     "yahoo_finance_adjusted_fallback",
 }
 DIVIDEND_ABS_TOLERANCE = 1e-3
+MINOR_DIVIDEND_ABS_TOLERANCE = 5e-3
+MINOR_DIVIDEND_REL_TOLERANCE = 1e-2
 INNOVATION_OPTION_CONFIGS = {
     "TSLA": next(item for item in MARKET_SYMBOLS if item.symbol == "TSLA"),
     "SPCX": MarketSymbol("SPCX", "SPCX", "US", "innovation_option"),
@@ -115,11 +117,11 @@ def _action_map(bars: list) -> dict:
     }
 
 
-def _corporate_action_mismatches(
+def _corporate_action_discrepancies(
     bars: list, authoritative: dict
-) -> list[str]:
+) -> tuple[list[str], list[str]]:
     if not bars:
-        return ["history is empty"]
+        return ["history is empty"], []
     yahoo_actions = _action_map(bars)
     first_date = bars[0].trading_date
     last_date = bars[-1].trading_date
@@ -130,6 +132,7 @@ def _corporate_action_mismatches(
         and (values[0] or values[1] != 1.0)
     }
     mismatches = []
+    minor_differences = []
     for day in sorted(yahoo_actions.keys() | alpha_actions.keys()):
         yahoo_dividend, yahoo_split = yahoo_actions.get(day, (0.0, 1.0))
         alpha_dividend, alpha_split = alpha_actions.get(day, (0.0, 1.0))
@@ -138,15 +141,35 @@ def _corporate_action_mismatches(
             alpha_dividend,
             abs_tol=DIVIDEND_ABS_TOLERANCE,
         ):
-            mismatches.append(
+            difference = abs(yahoo_dividend - alpha_dividend)
+            relative_difference = difference / max(
+                abs(yahoo_dividend), abs(alpha_dividend), 1e-12
+            )
+            detail = (
                 f"{day}: dividend yahoo={yahoo_dividend} "
                 f"alpha={alpha_dividend} "
-                f"difference={abs(yahoo_dividend - alpha_dividend):.6f}"
+                f"difference={difference:.6f}"
             )
+            if (
+                difference <= MINOR_DIVIDEND_ABS_TOLERANCE
+                and relative_difference <= MINOR_DIVIDEND_REL_TOLERANCE
+            ):
+                minor_differences.append(detail)
+            else:
+                mismatches.append(detail)
         if not isclose(yahoo_split, alpha_split, abs_tol=1e-6):
             mismatches.append(
                 f"{day}: split yahoo={yahoo_split} alpha={alpha_split}"
             )
+    return mismatches, minor_differences
+
+
+def _corporate_action_mismatches(
+    bars: list, authoritative: dict
+) -> list[str]:
+    """Return only material differences that must block publication."""
+
+    mismatches, _ = _corporate_action_discrepancies(bars, authoritative)
     return mismatches
 
 
@@ -244,7 +267,7 @@ def update(
                     "corporate-action validation"
                 )
             alpha_actions = client.fetch_actions(config.provider_symbol)
-            mismatches = _corporate_action_mismatches(
+            mismatches, minor_differences = _corporate_action_discrepancies(
                 history, alpha_actions
             )
             if mismatches:
@@ -252,15 +275,23 @@ def update(
                     f"Corporate Action Mismatch for {config.symbol}: "
                     + "; ".join(mismatches[:10])
                 )
-            action_validation.append(
-                {
-                    "symbol": config.symbol,
-                    "status": "MATCHED",
-                    "source_a": "yahoo_finance_raw",
-                    "source_b": "alpha_vantage",
-                    "as_of": history[-1].trading_date.isoformat(),
-                }
-            )
+            validation = {
+                "symbol": config.symbol,
+                "status": (
+                    "MATCHED_WITH_MINOR_PROVIDER_DIFFERENCE"
+                    if minor_differences else "MATCHED"
+                ),
+                "source_a": "yahoo_finance_raw",
+                "source_b": "alpha_vantage",
+                "as_of": history[-1].trading_date.isoformat(),
+            }
+            if minor_differences:
+                validation["minor_differences"] = minor_differences
+                validation["minor_difference_policy"] = (
+                    "non_blocking_only_when_absolute_difference_lte_0.005_"
+                    "and_relative_difference_lte_1pct"
+                )
+            action_validation.append(validation)
 
         staged.append((config, history))
         if config.symbol in INNOVATION_OPTION_SYMBOLS:

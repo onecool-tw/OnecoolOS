@@ -271,6 +271,110 @@ def test_corporate_action_validation_accepts_provider_rounding(
     ) == []
 
 
+def test_corporate_action_validation_tracks_qqq_minor_provider_difference() -> None:
+    trading_date = date(2023, 9, 18)
+    bars = [
+        DailyBar(
+            trading_date=trading_date,
+            open=370.0,
+            high=371.0,
+            low=369.0,
+            close=370.0,
+            volume=100,
+            dividend=0.536,
+        )
+    ]
+
+    mismatches, minor_differences = (
+        update_market_dashboard._corporate_action_discrepancies(
+            bars, {trading_date: (0.53885, 1.0)}
+        )
+    )
+
+    assert mismatches == []
+    assert minor_differences == [
+        "2023-09-18: dividend yahoo=0.536 alpha=0.53885 "
+        "difference=0.002850"
+    ]
+
+
+def test_dashboard_publishes_minor_provider_difference_as_non_blocking(
+    tmp_path: Path, monkeypatch
+) -> None:
+    action_date = date(2025, 10, 11)
+
+    class MinorDifferenceClient(FakeClient):
+        def fetch_actions(self, symbol: str):
+            if symbol == "QQQ":
+                return {action_date: (0.53885, 1.0)}
+            return {}
+
+    class QqqDividendBootstrapper(FakeBootstrapper):
+        def fetch_raw_daily(self, symbol: str, *, period: str = "10d"):
+            bars = super().fetch_raw_daily(symbol, period=period)
+            if symbol == "QQQ":
+                bars[10] = replace(bars[10], dividend=0.536)
+            return bars
+
+    monkeypatch.setattr(
+        update_market_dashboard, "AlphaVantageClient", MinorDifferenceClient
+    )
+
+    payload = update_market_dashboard.update(
+        tmp_path,
+        "secret",
+        bootstrapper=QqqDividendBootstrapper(),
+        refresh_action_symbols={"QQQ"},
+    )
+
+    assert payload["data_status"] == "READY"
+    assert payload["corporate_action_validation"] == [
+        {
+            "symbol": "QQQ",
+            "status": "MATCHED_WITH_MINOR_PROVIDER_DIFFERENCE",
+            "source_a": "yahoo_finance_raw",
+            "source_b": "alpha_vantage",
+            "as_of": "2027-02-12",
+            "minor_differences": [
+                "2025-10-11: dividend yahoo=0.536 alpha=0.53885 "
+                "difference=0.002850"
+            ],
+            "minor_difference_policy": (
+                "non_blocking_only_when_absolute_difference_lte_0.005_"
+                "and_relative_difference_lte_1pct"
+            ),
+        }
+    ]
+
+
+def test_corporate_action_validation_rejects_small_absolute_large_relative_gap(
+) -> None:
+    trading_date = date(2024, 12, 20)
+    bars = [
+        DailyBar(
+            trading_date=trading_date,
+            open=10.0,
+            high=10.1,
+            low=9.9,
+            close=10.0,
+            volume=100,
+            dividend=0.01,
+        )
+    ]
+
+    mismatches, minor_differences = (
+        update_market_dashboard._corporate_action_discrepancies(
+            bars, {trading_date: (0.014, 1.0)}
+        )
+    )
+
+    assert mismatches == [
+        "2024-12-20: dividend yahoo=0.01 alpha=0.014 "
+        "difference=0.004000"
+    ]
+    assert minor_differences == []
+
+
 def test_corporate_action_validation_rejects_material_dividend_difference() -> None:
     trading_date = date(2024, 12, 20)
     bars = [
