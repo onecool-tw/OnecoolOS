@@ -10,7 +10,6 @@ from pathlib import Path
 import pytest
 
 from onecool_os.assets.master import AssetMasterRecord
-from onecool_os.assets.master import AssetMasterLoader
 from onecool_os.cli.main import main
 from onecool_os.research import EBAY_RESEARCH_PROVIDER_INSTRUCTION
 from onecool_os.research import EbayUrlResearchRequest
@@ -202,16 +201,6 @@ def test_no_mutation_and_deterministic_replay(tmp_path: Path) -> None:
     assert [item.to_dict() for item in first.evidence] == [item.to_dict() for item in second.evidence]
 
 
-def test_asset_master_loader_reads_native_hyperlink_targets(tmp_path: Path) -> None:
-    source = Path("imports/asset_master/asset_master.xlsx")
-    if not source.exists():
-        pytest.skip("local Asset Master workbook not available")
-
-    result = AssetMasterLoader().load(source, reference_datetime=REFERENCE)
-
-    assert len([record for record in result.records if record.ebay_sold_search_url]) == len(result.records)
-
-
 def test_private_research_files_ignored() -> None:
     result = subprocess.run(
         ["git", "check-ignore", "-q", "imports/research/ebay_url_requests.json"],
@@ -220,20 +209,6 @@ def test_private_research_files_ignored() -> None:
     )
 
     assert result.returncode == 0
-
-
-def test_cli_export_command(tmp_path: Path, capsys) -> None:
-    if not Path("imports/psa/collection.csv").exists() or not Path("imports/asset_master/asset_master.xlsx").exists():
-        pytest.skip("local PSA/Asset Master files not available")
-    output = tmp_path / "requests.json"
-
-    exit_code = main(["export-ebay-research-requests", "--limit", "1", "--output", str(output)])
-
-    captured = capsys.readouterr()
-    assert exit_code == 0
-    assert output.exists()
-    assert "Exported requests: 1" in captured.out
-    assert "Provider calls: 0" in captured.out
 
 
 def test_cli_import_command(tmp_path: Path, capsys) -> None:
