@@ -2,7 +2,7 @@
   "schema_version": "1.0",
   "scan_version": "onecool_us_breakout_v1",
   "classification": "Onecool proxy scores; not IBD official ratings",
-  "expected_as_of": "2026-08-31",
+  "expected_as_of": "2026-09-01",
   "data_status": "READY",
   "price_basis": "adjusted_close",
   "universe_size": 70,
@@ -14,13 +14,83 @@
       "symbol": "ABNB",
       "company_name": "Airbnb, Inc.",
       "security_type": "COMMON_STOCK",
-      "price_as_of": "2026-08-31",
+      "price_as_of": "2026-09-01",
       "fundamentals_as_of": "2026-06-30",
       "price_basis": "adjusted_close",
       "technical_confidence": 100,
-      "canslim_score": 79,
+      "canslim_score": 75,
       "minervini_score": 100,
-      "rank_score": 85.55,
+      "rank_score": 83.75,
+      "status": "WAIT",
+      "trigger": "突破52週高點且成交量至少為50日均量1.5倍",
+      "formal_breakout": false,
+      "passes_dual_system": true,
+      "super_growth_bucket": "C",
+      "super_growth_reason": "CYCLICAL_OR_UNPROVEN_GROWTH",
+      "quality_gate_status": {
+        "competitive_advantage": {
+          "status": "UNKNOWN",
+          "as_of": null,
+          "rationale": null,
+          "sources": []
+        },
+        "structural_growth_runway": {
+          "status": "UNKNOWN",
+          "as_of": null,
+          "rationale": null,
+          "sources": []
+        },
+        "financial_quality": {
+          "status": "UNKNOWN",
+          "as_of": null,
+          "rationale": null,
+          "sources": []
+        },
+        "business_risk_and_governance": {
+          "status": "UNKNOWN",
+          "as_of": null,
+          "rationale": null,
+          "sources": []
+        },
+        "circle_of_competence": {
+          "status": "UNKNOWN",
+          "as_of": null,
+          "rationale": null,
+          "sources": []
+        },
+        "valuation": {
+          "status": "UNKNOWN",
+          "as_of": null,
+          "rationale": null,
+          "sources": []
+        }
+      },
+      "evidence_coverage": "NONE",
+      "missing_evidence": [
+        "competitive_advantage",
+        "structural_growth_runway",
+        "financial_quality",
+        "business_risk_and_governance",
+        "circle_of_competence",
+        "valuation"
+      ],
+      "cyclical_review_required": false,
+      "evidence_as_of": null,
+      "decision_authority": "RESEARCH_QUALITY_ONLY",
+      "quality_gate_application": "FORMAL_NEW_CANDIDATE_RESEARCH_GATE",
+      "action_eligibility": "RESEARCH_ONLY_QUALITY_EVIDENCE_INCOMPLETE"
+    },
+    {
+      "symbol": "CVX",
+      "company_name": "Chevron Corporation",
+      "security_type": "COMMON_STOCK",
+      "price_as_of": "2026-09-01",
+      "fundamentals_as_of": "2026-06-30",
+      "price_basis": "adjusted_close",
+      "technical_confidence": 100,
+      "canslim_score": 82,
+      "minervini_score": 90,
+      "rank_score": 82.4,
       "status": "WAIT",
       "trigger": "突破52週高點且成交量至少為50日均量1.5倍",
       "formal_breakout": false,
@@ -84,13 +154,13 @@
       "symbol": "AMGN",
       "company_name": "Amgen Inc.",
       "security_type": "COMMON_STOCK",
-      "price_as_of": "2026-08-31",
+      "price_as_of": "2026-09-01",
       "fundamentals_as_of": "2026-06-30",
       "price_basis": "adjusted_close",
       "technical_confidence": 100,
-      "canslim_score": 80,
+      "canslim_score": 75,
       "minervini_score": 90,
-      "rank_score": 81.5,
+      "rank_score": 79.25,
       "status": "WAIT",
       "trigger": "突破52週高點且成交量至少為50日均量1.5倍",
       "formal_breakout": false,
@@ -154,13 +224,13 @@
       "symbol": "ABBV",
       "company_name": "AbbVie Inc.",
       "security_type": "COMMON_STOCK",
-      "price_as_of": "2026-08-31",
+      "price_as_of": "2026-09-01",
       "fundamentals_as_of": "2026-06-30",
       "price_basis": "adjusted_close",
       "technical_confidence": 100,
-      "canslim_score": 79,
+      "canslim_score": 75,
       "minervini_score": 90,
-      "rank_score": 81.05,
+      "rank_score": 79.25,
       "status": "WAIT",
       "trigger": "突破52週高點且成交量至少為50日均量1.5倍",
       "formal_breakout": false,
@@ -219,34 +289,9 @@
       "decision_authority": "RESEARCH_QUALITY_ONLY",
       "quality_gate_application": "FORMAL_NEW_CANDIDATE_RESEARCH_GATE",
       "action_eligibility": "RESEARCH_ONLY_QUALITY_EVIDENCE_INCOMPLETE"
-    },
-    {
-      "symbol": "XYZ",
-      "company_name": "Block, Inc.",
-      "security_type": "COMMON_STOCK",
-      "price_as_of": "2026-08-31",
-      "fundamentals_as_of": "2026-06-30",
-      "price_basis": "adjusted_close",
-      "technical_confidence": 100,
-      "canslim_score": 49,
-      "minervini_score": 93,
-      "rank_score": 68.9,
-      "status": "WAIT",
-      "trigger": "突破52週高點且成交量至少為50日均量1.5倍",
-      "formal_breakout": false,
-      "passes_dual_system": false,
-      "super_growth_bucket": "EXISTING_POSITION",
-      "super_growth_reason": "EXISTING_PORTFOLIO_POLICY_PREVAILS",
-      "quality_gate_application": "NOT_APPLICABLE",
-      "action_eligibility": "FOLLOW_EXISTING_CTA_AND_THESIS_POLICY"
     }
   ],
   "exclusions": [
-    {
-      "symbol": "AAPL",
-      "technical_confidence": 100,
-      "reason": "fundamental validation unavailable"
-    },
     {
       "symbol": "ADBE",
       "technical_confidence": 100,
@@ -334,11 +379,6 @@
     },
     {
       "symbol": "CSCO",
-      "technical_confidence": 100,
-      "reason": "fundamental validation unavailable"
-    },
-    {
-      "symbol": "CVX",
       "technical_confidence": 100,
       "reason": "fundamental validation unavailable"
     },
@@ -448,6 +488,11 @@
       "reason": "fundamental validation unavailable"
     },
     {
+      "symbol": "MU",
+      "technical_confidence": 100,
+      "reason": "fundamental validation unavailable"
+    },
+    {
       "symbol": "NFLX",
       "technical_confidence": 100,
       "reason": "fundamental validation unavailable"
@@ -553,6 +598,11 @@
       "reason": "fundamental validation unavailable"
     },
     {
+      "symbol": "XYZ",
+      "technical_confidence": 100,
+      "reason": "fundamental validation unavailable"
+    },
+    {
       "symbol": "GD",
       "technical_confidence": 100,
       "reason": "fundamental validation unavailable"
@@ -564,10 +614,10 @@
     "bucket_counts": {
       "A": 0,
       "B": 0,
-      "C": 3,
+      "C": 4,
       "REJECT": 0,
       "INNOVATION_OPTION": 0,
-      "EXISTING_POSITION": 1
+      "EXISTING_POSITION": 0
     },
     "ranking_policy": "ANNOTATE_ONLY; NEVER_REORDER_TECHNICAL_SCAN",
     "missing_evidence_policy": "UNKNOWN_NEVER_INFERRED",
