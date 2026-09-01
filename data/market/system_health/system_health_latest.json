@@ -1,19 +1,19 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-08-31T17:42:55.509954+00:00",
+  "generated_at": "2026-09-01T07:59:20.301661+00:00",
   "taipei_date": "2026-09-01",
-  "status": "BLOCKED",
+  "status": "PARTIAL",
   "scope_status": {
-    "morning": "BLOCKED",
+    "morning": "READY",
     "asia": "PARTIAL",
     "weekly": "PARTIAL"
   },
-  "action_readiness": "UNSAFE_FOR_AFFECTED_REPORTS",
+  "action_readiness": "LIMITED",
   "counts": {
-    "ready": 12,
-    "partial": 3,
-    "blocked": 2
+    "ready": 15,
+    "partial": 2,
+    "blocked": 0
   },
   "modules": [
     {
@@ -36,9 +36,9 @@
       "label": "US Breakout Scan",
       "scope": "morning",
       "critical": true,
-      "status": "BLOCKED",
-      "reason": "date does not match Market Dashboard",
-      "observed_as_of": "2026-08-28",
+      "status": "READY",
+      "reason": "current",
+      "observed_as_of": "2026-08-31",
       "recovery_workflow": "update-market-dashboard.yml",
       "retryable": true,
       "impacted_reports": [
@@ -66,7 +66,7 @@
       "critical": true,
       "status": "READY",
       "reason": "all symbols current",
-      "observed_as_of": "2026-08-28",
+      "observed_as_of": "2026-08-31",
       "recovery_workflow": "update-etf-cta.yml",
       "retryable": true,
       "impacted_reports": [
@@ -79,11 +79,11 @@
       "label": "Fund NAV CTA",
       "scope": "morning",
       "critical": true,
-      "status": "BLOCKED",
-      "reason": "daily generation timestamp is missing or stale",
+      "status": "READY",
+      "reason": "current",
       "observed_as_of": "2026-08-31",
       "recovery_workflow": "update-fund-nav-cta.yml",
-      "retryable": true,
+      "retryable": false,
       "impacted_reports": [
         "基金日報",
         "基金週報"
@@ -234,8 +234,8 @@
       "label": "AI Revolution",
       "scope": "weekly",
       "critical": false,
-      "status": "PARTIAL",
-      "reason": "official evidence requires manual review",
+      "status": "READY",
+      "reason": "current and reviewed",
       "observed_as_of": "2026-08-30",
       "recovery_workflow": null,
       "retryable": false,
@@ -250,7 +250,7 @@
       "critical": true,
       "status": "PARTIAL",
       "reason": "validation CONDITIONAL_PASS",
-      "observed_as_of": "2026-08-30",
+      "observed_as_of": "2026-09-01",
       "recovery_workflow": null,
       "retryable": false,
       "impacted_reports": [
@@ -259,35 +259,6 @@
     }
   ],
   "issues": [
-    {
-      "module_id": "us_breakout_scan",
-      "label": "US Breakout Scan",
-      "scope": "morning",
-      "critical": true,
-      "status": "BLOCKED",
-      "reason": "date does not match Market Dashboard",
-      "observed_as_of": "2026-08-28",
-      "recovery_workflow": "update-market-dashboard.yml",
-      "retryable": true,
-      "impacted_reports": [
-        "美股日報"
-      ]
-    },
-    {
-      "module_id": "fund_nav_cta",
-      "label": "Fund NAV CTA",
-      "scope": "morning",
-      "critical": true,
-      "status": "BLOCKED",
-      "reason": "daily generation timestamp is missing or stale",
-      "observed_as_of": "2026-08-31",
-      "recovery_workflow": "update-fund-nav-cta.yml",
-      "retryable": true,
-      "impacted_reports": [
-        "基金日報",
-        "基金週報"
-      ]
-    },
     {
       "module_id": "taiwan_candidate_cta",
       "label": "Taiwan 200-stock CTA",
@@ -303,27 +274,13 @@
       ]
     },
     {
-      "module_id": "ai_revolution",
-      "label": "AI Revolution",
-      "scope": "weekly",
-      "critical": false,
-      "status": "PARTIAL",
-      "reason": "official evidence requires manual review",
-      "observed_as_of": "2026-08-30",
-      "recovery_workflow": null,
-      "retryable": false,
-      "impacted_reports": [
-        "基金週報"
-      ]
-    },
-    {
       "module_id": "fund_validation",
       "label": "Fund Intelligence Validation",
       "scope": "weekly",
       "critical": true,
       "status": "PARTIAL",
       "reason": "validation CONDITIONAL_PASS",
-      "observed_as_of": "2026-08-30",
+      "observed_as_of": "2026-09-01",
       "recovery_workflow": null,
       "retryable": false,
       "impacted_reports": [
@@ -331,10 +288,7 @@
       ]
     }
   ],
-  "recovery_workflows": [
-    "update-fund-nav-cta.yml",
-    "update-market-dashboard.yml"
-  ],
-  "issue_fingerprint": "f5dcdc8d4f75a45bea6c2e91c8f52863ff304cd7085b6c3cc6a1e9e97b2a2e22",
+  "recovery_workflows": [],
+  "issue_fingerprint": "9e4bb5a8119eb8f5d36bcc0fc5dd695f813fc9bc24a231102a4100dac37b79c3",
   "policy": "Health monitoring only; never changes CTA, rankings, or investment decisions."
 }
