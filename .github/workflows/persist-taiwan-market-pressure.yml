@@ -7,6 +7,11 @@ on:
         description: "Formal market-pressure JSON produced by Onecool Taiwan Work"
         required: true
         type: string
+  push:
+    branches:
+      - main
+    paths:
+      - "data/market/taiwan_stock_intelligence/market_pressure_request_latest.json"
 
 permissions:
   contents: write
@@ -19,6 +24,8 @@ concurrency:
 
 jobs:
   persist:
+    # Do not recurse on the bot commit that updates daily_context_latest.json;
+    # this workflow's push trigger watches only the request mailbox path.
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -32,8 +39,15 @@ jobs:
         run: git pull --ff-only origin main
       - name: Persist formal market pressure
         env:
+          EVENT_NAME: ${{ github.event_name }}
           PAYLOAD_JSON: ${{ inputs.payload_json }}
-        run: python scripts/persist_taiwan_market_pressure.py --payload-json "$PAYLOAD_JSON"
+        run: |
+          if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
+            python scripts/persist_taiwan_market_pressure.py --payload-json "$PAYLOAD_JSON"
+          else
+            python scripts/persist_taiwan_market_pressure.py \
+              --payload-file data/market/taiwan_stock_intelligence/market_pressure_request_latest.json
+          fi
       - name: Verify formal pressure exists in SSOT
         run: |
           python - <<'PY'
