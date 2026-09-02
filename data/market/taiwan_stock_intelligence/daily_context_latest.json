@@ -10,19 +10,35 @@
   "0050_weekly_alignment": "GOLDEN",
   "market_pressure_gate": "FORMAL_FROM_DAILY_CONTEXT",
   "market_pressure": {
-    "as_of": null,
-    "status": "UNKNOWN",
-    "light": "UNKNOWN",
+    "as_of": "2026-09-02",
+    "status": "CURRENT",
+    "light": "RED",
     "action": "PAUSE_NEW_EXPOSURE",
     "reason": [
-      "pipeline_ready_awaiting_first_formal_work_write"
+      "index_selloff",
+      "institutional_selling",
+      "derivatives_stress"
     ],
-    "confirmed_inputs": {},
-    "input_data_as_of": {},
+    "confirmed_inputs": {
+      "spot": true,
+      "futures": true,
+      "pcr": true,
+      "volatility": true,
+      "institutional_flow": true,
+      "margin": true
+    },
+    "input_data_as_of": {
+      "spot": "2026-09-02",
+      "futures": "2026-09-02",
+      "pcr": "2026-09-02",
+      "volatility": "2026-09-02",
+      "institutional_flow": "2026-09-02",
+      "margin": "2026-09-01"
+    },
     "previous_light": "UNKNOWN",
-    "changed": false,
-    "last_change_date": null,
-    "data_quality": "MISSING"
+    "changed": true,
+    "last_change_date": "2026-09-02",
+    "data_quality": "READY"
   },
   "candidate_action_gate": "REQUIRES_INDIVIDUAL_CTA_AND_PRESSURE_GREEN",
   "candidate_cta_cache": {
