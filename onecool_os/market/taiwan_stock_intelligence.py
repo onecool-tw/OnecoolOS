@@ -8,7 +8,7 @@ from hashlib import sha256
 from pathlib import Path
 from typing import Any, Mapping
 
-MASTER_PROMPT_VERSION = "v1.3 Taiwan Broad Screen with Background CTA"
+MASTER_PROMPT_VERSION = "v1.4 Taiwan Broad Screen with Formal Market Pressure"
 MASTER_PROMPT_PATH = Path("config/taiwan_stock_intelligence_master_prompt.md")
 SCREEN_PATH = Path("data/market/taiwan_stock_intelligence/screen_latest.json")
 STOCK_CTA_PATH = Path("data/market/taiwan_stock_intelligence/cta/cta_latest.json")
@@ -43,6 +43,60 @@ def _weekly_alignment(item: Mapping[str, Any] | None) -> str:
     return "GOLDEN" if fast > slow else "DEATH" if fast < slow else "NEUTRAL"
 
 
+def _default_market_pressure() -> dict[str, Any]:
+    return {
+        "as_of": None,
+        "status": "UNKNOWN",
+        "light": "UNKNOWN",
+        "action": "PAUSE_NEW_EXPOSURE",
+        "reason": ["formal_market_pressure_not_persisted_yet"],
+        "confirmed_inputs": {},
+        "input_data_as_of": {},
+        "previous_light": None,
+        "changed": False,
+        "last_change_date": None,
+        "data_quality": "MISSING",
+    }
+
+
+def _normalize_market_pressure(item: Mapping[str, Any] | None) -> dict[str, Any]:
+    """Preserve a formally persisted pressure result; otherwise fail closed."""
+
+    if not item:
+        return _default_market_pressure()
+
+    light = str(item.get("light", "UNKNOWN")).upper()
+    status = str(item.get("status", "UNKNOWN")).upper()
+    if light not in {"GREEN", "YELLOW", "RED", "UNKNOWN"}:
+        light = "UNKNOWN"
+    if status not in {"CURRENT", "STALE_LAST_KNOWN", "UNKNOWN"}:
+        status = "UNKNOWN"
+
+    normalized = _default_market_pressure()
+    normalized.update({
+        "as_of": item.get("as_of"),
+        "status": status,
+        "light": light,
+        "action": item.get("action") or (
+            "ALLOW_EVALUATE_NEW_EXPOSURE"
+            if light == "GREEN" and status == "CURRENT"
+            else "PAUSE_NEW_EXPOSURE"
+        ),
+        "reason": list(item.get("reason") or []),
+        "confirmed_inputs": dict(item.get("confirmed_inputs") or {}),
+        "input_data_as_of": dict(item.get("input_data_as_of") or {}),
+        "previous_light": item.get("previous_light"),
+        "changed": bool(item.get("changed", False)),
+        "last_change_date": item.get("last_change_date"),
+        "data_quality": item.get("data_quality") or (
+            "READY" if status == "CURRENT" else "STALE" if status == "STALE_LAST_KNOWN" else "MISSING"
+        ),
+    })
+    if status != "CURRENT" or light != "GREEN":
+        normalized["action"] = "PAUSE_NEW_EXPOSURE"
+    return normalized
+
+
 def load_master_prompt(root: Path) -> dict[str, str]:
     content = (root / MASTER_PROMPT_PATH).read_text(encoding="utf-8")
     if f"版本：{MASTER_PROMPT_VERSION}" not in content:
@@ -65,6 +119,8 @@ def build_taiwan_stock_daily_context(
     current_date = today or date.today()
     screen = _read(root, SCREEN_PATH)
     stock_cta = _read(root, STOCK_CTA_PATH) or {}
+    previous_context = _read(root, CONTEXT_PATH) or {}
+    market_pressure = _normalize_market_pressure(previous_context.get("market_pressure"))
     stock_cta_items = {
         str(item.get("symbol")): item for item in stock_cta.get("results", [])
     }
@@ -108,7 +164,7 @@ def build_taiwan_stock_daily_context(
 
     timestamp = generated_at or datetime.now(UTC)
     return {
-        "schema_version": "1.2",
+        "schema_version": "1.3",
         "module": "Onecool Taiwan Stock Daily Context",
         "generated_at": timestamp.isoformat(),
         "source_policy": "LATEST_SUCCESSFUL_SCREEN_WITH_EXPLICIT_DATE",
@@ -117,7 +173,8 @@ def build_taiwan_stock_daily_context(
         "display_status": display_status,
         "screen_data_status": (screen or {}).get("data_status", "MISSING"),
         "0050_weekly_alignment": weekly_0050,
-        "market_pressure_gate": "REQUIRED_FROM_DAILY_REPORT",
+        "market_pressure_gate": "FORMAL_FROM_DAILY_CONTEXT",
+        "market_pressure": market_pressure,
         "candidate_action_gate": eligibility,
         "candidate_cta_cache": {
             "screen_as_of": stock_cta.get("screen_as_of"),
