@@ -25,8 +25,10 @@ on:
 permissions:
   contents: write
 
+# This workflow and the formal market-pressure writer both touch
+# daily_context_latest.json. Serialize them so neither can overwrite the other.
 concurrency:
-  group: update-taiwan-stock-screen
+  group: taiwan-daily-context-writers
   cancel-in-progress: false
 
 jobs:
