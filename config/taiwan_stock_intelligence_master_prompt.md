@@ -1,6 +1,6 @@
 # Onecool Taiwan Stock Intelligence — Screening Contract
 
-版本：v1.3 Taiwan Broad Screen with Background CTA
+版本：v1.4 Taiwan Broad Screen with Formal Market Pressure
 正式篩選檔：`data/market/taiwan_stock_intelligence/screen_latest.json`
 正式個股CTA快取：`data/market/taiwan_stock_intelligence/cta/cta_latest.json`
 正式日報上下文：`data/market/taiwan_stock_intelligence/daily_context_latest.json`
@@ -36,6 +36,77 @@
 Macro Confirmation。0050週線空頭時候選股只能觀察；0050週線多頭時仍必須
 通過個股CTA與市場壓力綠燈，候選分數本身永遠不是買進訊號。
 
+## 正式市場壓力燈 SSOT
+
+- `daily_context_latest.json.market_pressure` 是台股日報、共享Project及其他消費端
+  唯一正式市場壓力燈來源。任何消費端不得在已有正式結果時另行計算、覆寫或
+  以新聞／主觀判斷替代正式燈號。
+- 市場壓力燈只控制是否暫停新增主動部位；不得修改0050、2330或個股CTA，
+  不得修改基本面分數、Top 5成員或排名。
+- 正式欄位至少包含：`as_of`、`status`、`light`、`action`、`reason`、
+  `confirmed_inputs`、`input_data_as_of`、`previous_light`、`changed`、
+  `last_change_date`、`data_quality`。
+- `light` 只允許 `GREEN`、`YELLOW`、`RED`、`UNKNOWN`。
+- `status` 只允許 `CURRENT`、`STALE_LAST_KNOWN`、`UNKNOWN`。
+- `CURRENT + GREEN` 才具有重新評估新增曝險的資格；其他任何組合一律
+  `PAUSE_NEW_EXPOSURE`。
+- `STALE_LAST_KNOWN` 必須保留最近可驗證燈號與原始資料日，但不得產生新的
+  加碼資格；`UNKNOWN` 一律停止新增。
+- 當必要輸入不足、來源互相衝突、資料日期無法驗證或公司行動／結算異常尚未
+  排除時，不得把燈號轉為綠燈；應保留最近有效結果或降為 Unknown，採保守處理。
+- 新聞只能提供背景。只有價量、期貨、波動率、匯率或其他正式市場資料同步確認後，
+  才能成為市場壓力判定的證據之一；新聞本身沒有燈號權限。
+
+### 壓力燈必要輸入
+
+日報／壓力引擎應檢查至少：
+
+1. 加權指數收盤、漲跌幅、盤中高低點。
+2. 成交金額與量能變化。
+3. 市場上漲／下跌家數。
+4. 台指期近月。
+5. 期現貨正逆價差。
+6. 外資台指期多方未平倉。
+7. 外資台指期空方未平倉。
+8. 外資台指期淨部位。
+9. 臺指選擇權成交量PCR。
+10. 臺指選擇權未平倉量PCR。
+11. 臺指選擇權波動率指數。
+12. 外資現貨買賣超。
+13. 投信買賣超。
+14. 自營商買賣超。
+15. 三大法人合計。
+16. 融資餘額與日增減。
+17. 融券餘額與日增減。
+18. 借券賣出壓力。
+19. 公司行動、MSCI調整或結算造成的異常量。
+20. 全球流動性、油價、利率或地緣政治壓力。
+
+### 解除規則
+
+- 紅燈不得因隔日反彈直接解除。
+- 紅燈降為黃燈至少須同時符合：
+  1. 連續兩個交易日未再觸發紅燈。
+  2. 指數未再創收盤新低。
+  3. 量能壓力改善。
+  4. 波動率改善。
+  5. 衍生品壓力改善。
+  6. 期現貨價差改善。
+  7. PCR不再惡化。
+- 黃燈回到綠燈必須確認異常因素持續解除。
+- 不得只因單日大漲、單日外資買超、單日期貨轉正價差、單日PCR下降或
+  單日VIX下降，就直接解除黃燈或紅燈。
+
+### 正式寫回規則
+
+- 產生市場壓力判斷的日報／壓力引擎在完成資料驗證後，必須把正式結果寫回
+  `daily_context_latest.json.market_pressure`，再由其他報告或共享Project讀取。
+- 寫回時需保留 `previous_light` 與 `last_change_date`，讓「今日變化」可重現。
+- 每個主要輸入的有效資料日寫入 `input_data_as_of`；已成功驗證的輸入寫入
+  `confirmed_inputs`。不得把不同日期資料假裝成同一時點。
+- 後續篩選／CTA排程重建 `daily_context_latest.json` 時，必須保留最近一次正式
+  `market_pressure`，不得因篩選更新而清空壓力燈。
+
 ## 個股CTA背景快取
 
 - 每次以正式篩選檔的完整前200檔流動性股票為母體，背景維護個股CTA；報表
@@ -53,5 +124,4 @@ Macro Confirmation。0050週線空頭時候選股只能觀察；0050週線多頭
 
 林子揚超級成長股／CAN SLIM對照只可在使用者要求個股深度研究時作為附註，
 不屬於台股每日自動篩選條件，也不得升級、降級或否決候選股。台股正式行動仍只依
-原有量化候選池、0050週線、個股CTA與市場壓力燈；不得因美股式品質證據難以取得，
-把候選股自動標成不合格。
+原有量化候選池、0050週線、個股CTA與市場壓力燈；不得因美股式品質證據難以取得，n把候選股自動標成不合格。
