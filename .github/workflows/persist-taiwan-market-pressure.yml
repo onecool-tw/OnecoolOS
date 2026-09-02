@@ -1,0 +1,68 @@
+name: Persist Taiwan Market Pressure
+
+on:
+  workflow_dispatch:
+    inputs:
+      payload_json:
+        description: "Formal market-pressure JSON produced by Onecool Taiwan Work"
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+# Serialize every writer of daily_context_latest.json so the pressure result and
+# screen/CTA refresh cannot overwrite each other.
+concurrency:
+  group: taiwan-daily-context-writers
+  cancel-in-progress: false
+
+jobs:
+  persist:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - name: Sync latest main before writing shared context
+        run: git pull --ff-only origin main
+      - name: Persist formal market pressure
+        env:
+          PAYLOAD_JSON: ${{ inputs.payload_json }}
+        run: python scripts/persist_taiwan_market_pressure.py --payload-json "$PAYLOAD_JSON"
+      - name: Verify formal pressure exists in SSOT
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          path = Path("data/market/taiwan_stock_intelligence/daily_context_latest.json")
+          payload = json.loads(path.read_text(encoding="utf-8"))
+          pressure = payload.get("market_pressure") or {}
+          assert pressure.get("light") in {"GREEN", "YELLOW", "RED", "UNKNOWN"}
+          assert pressure.get("status") in {"CURRENT", "STALE_LAST_KNOWN", "UNKNOWN"}
+          if pressure.get("status") == "CURRENT":
+              assert pressure.get("as_of")
+          if pressure.get("light") == "GREEN":
+              assert pressure.get("status") == "CURRENT"
+              assert pressure.get("action") == "ALLOW_EVALUATE_NEW_EXPOSURE"
+          else:
+              assert pressure.get("action") == "PAUSE_NEW_EXPOSURE"
+          print(json.dumps(pressure, ensure_ascii=False, indent=2))
+          PY
+      - name: Commit formal pressure only when changed
+        run: |
+          git add data/market/taiwan_stock_intelligence/daily_context_latest.json
+          if git diff --cached --quiet; then
+            echo "Formal Taiwan market pressure unchanged."
+            exit 0
+          fi
+          git config user.name "onecool-os-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git commit -m "Update Taiwan market pressure"
+          git pull --rebase origin main
+          git push origin HEAD:main
