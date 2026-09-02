@@ -117,6 +117,24 @@ def _action_map(bars: list) -> dict:
     }
 
 
+def _dividend_on_latest_share_basis(
+    trading_date: date, dividend: float, actions: dict
+) -> float:
+    """Convert a raw historical dividend to the latest post-split share basis.
+
+    Yahoo reports historical dividends on the current share basis, while Alpha
+    Vantage reports the cash amount that was paid at the time.  Reconcile the
+    two only after applying every later split reported in the same authoritative
+    corporate-action history.
+    """
+
+    cumulative_split = 1.0
+    for action_date, (_, split_factor) in actions.items():
+        if action_date > trading_date and split_factor != 1.0:
+            cumulative_split *= split_factor
+    return dividend / cumulative_split
+
+
 def _corporate_action_discrepancies(
     bars: list, authoritative: dict
 ) -> tuple[list[str], list[str]]:
@@ -135,7 +153,10 @@ def _corporate_action_discrepancies(
     minor_differences = []
     for day in sorted(yahoo_actions.keys() | alpha_actions.keys()):
         yahoo_dividend, yahoo_split = yahoo_actions.get(day, (0.0, 1.0))
-        alpha_dividend, alpha_split = alpha_actions.get(day, (0.0, 1.0))
+        alpha_raw_dividend, alpha_split = alpha_actions.get(day, (0.0, 1.0))
+        alpha_dividend = _dividend_on_latest_share_basis(
+            day, alpha_raw_dividend, alpha_actions
+        )
         if not isclose(
             yahoo_dividend,
             alpha_dividend,
@@ -146,8 +167,8 @@ def _corporate_action_discrepancies(
                 abs(yahoo_dividend), abs(alpha_dividend), 1e-12
             )
             detail = (
-                f"{day}: dividend yahoo={yahoo_dividend} "
-                f"alpha={alpha_dividend} "
+                f"{day}: dividend yahoo={yahoo_dividend:.12g} "
+                f"alpha={alpha_dividend:.12g} "
                 f"difference={difference:.6f}"
             )
             if (

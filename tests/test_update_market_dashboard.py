@@ -298,6 +298,94 @@ def test_corporate_action_validation_tracks_qqq_minor_provider_difference() -> N
     ]
 
 
+def test_corporate_action_validation_normalizes_dividends_before_split() -> None:
+    dividend_date = date(2021, 9, 24)
+    split_date = date(2024, 3, 7)
+    bars = [
+        DailyBar(
+            trading_date=dividend_date,
+            open=100.0,
+            high=101.0,
+            low=99.0,
+            close=100.0,
+            volume=100,
+            dividend=0.385667,
+        ),
+        DailyBar(
+            trading_date=split_date,
+            open=70.0,
+            high=71.0,
+            low=69.0,
+            close=70.0,
+            volume=100,
+            split_factor=3.0,
+        ),
+    ]
+    alpha_actions = {
+        dividend_date: (1.156708, 1.0),
+        split_date: (0.0, 3.0),
+    }
+
+    assert update_market_dashboard._corporate_action_mismatches(
+        bars, alpha_actions
+    ) == []
+
+
+def test_corporate_action_validation_rejects_post_normalization_gap() -> None:
+    dividend_date = date(2021, 9, 24)
+    split_date = date(2024, 3, 7)
+    bars = [
+        DailyBar(
+            trading_date=dividend_date,
+            open=100.0,
+            high=101.0,
+            low=99.0,
+            close=100.0,
+            volume=100,
+            dividend=0.385667,
+        ),
+        DailyBar(
+            trading_date=split_date,
+            open=70.0,
+            high=71.0,
+            low=69.0,
+            close=70.0,
+            volume=100,
+            split_factor=3.0,
+        ),
+    ]
+    alpha_actions = {
+        dividend_date: (1.2, 1.0),
+        split_date: (0.0, 3.0),
+    }
+
+    assert update_market_dashboard._corporate_action_mismatches(
+        bars, alpha_actions
+    ) == [
+        "2021-09-24: dividend yahoo=0.385667 alpha=0.4 "
+        "difference=0.014333"
+    ]
+
+
+def test_corporate_action_validation_still_rejects_split_mismatch() -> None:
+    split_date = date(2024, 3, 7)
+    bars = [
+        DailyBar(
+            trading_date=split_date,
+            open=70.0,
+            high=71.0,
+            low=69.0,
+            close=70.0,
+            volume=100,
+            split_factor=3.0,
+        )
+    ]
+
+    assert update_market_dashboard._corporate_action_mismatches(
+        bars, {split_date: (0.0, 2.0)}
+    ) == ["2024-03-07: split yahoo=3.0 alpha=2.0"]
+
+
 def test_dashboard_publishes_minor_provider_difference_as_non_blocking(
     tmp_path: Path, monkeypatch
 ) -> None:
