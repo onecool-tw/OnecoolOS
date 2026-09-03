@@ -20,7 +20,28 @@
       "phase": "NEW, CONFIRMED, ACTIVE, AGING"
     }
   },
-  "action_refreshes": [],
+  "action_refreshes": [
+    {
+      "symbol": "AIQ",
+      "reason": "weekly"
+    },
+    {
+      "symbol": "SMIN",
+      "reason": "weekly"
+    },
+    {
+      "symbol": "RING",
+      "reason": "weekly"
+    },
+    {
+      "symbol": "IBB",
+      "reason": "weekly"
+    },
+    {
+      "symbol": "PICK",
+      "reason": "weekly"
+    }
+  ],
   "data_status": [
     {
       "symbol": "AIQ",
@@ -83,8 +104,8 @@
       "dataset": "daily_price",
       "status": "CURRENT",
       "source": "yahoo_cl_f_fallback",
-      "as_of": "2026-09-01",
-      "reason": "primary_older_as_of:2026-08-25"
+      "as_of": "2026-09-02",
+      "reason": "primary_older_as_of:2026-09-01"
     }
   ],
   "auxiliary_confirmation_policy": {
@@ -247,11 +268,11 @@
     {
       "symbol": "RXI",
       "as_of": "2026-09-01",
-      "price": 195.375,
-      "daily_50ma": 197.378664,
-      "daily_200ma": 198.760475,
-      "weekly_30ma": 196.147248,
-      "weekly_50ma": 199.371756,
+      "price": 195.380005,
+      "daily_50ma": 197.378764,
+      "daily_200ma": 198.7605,
+      "weekly_30ma": 196.147415,
+      "weekly_50ma": 199.371857,
       "cta": "SELL",
       "reason": "Weekly death cross remains confirmed or active.",
       "price_basis": "locally_adjusted_close",
@@ -261,7 +282,7 @@
         "last_cross_status": "DEATH",
         "last_cross_date": "2026-04-02",
         "periods_since_cross": 104,
-        "spread_pct": -0.695214,
+        "spread_pct": -0.695176,
         "phase": "AGING"
       },
       "weekly_cross": {
@@ -270,7 +291,7 @@
         "last_cross_status": "DEATH",
         "last_cross_date": "2026-07-02",
         "periods_since_cross": 9,
-        "spread_pct": -1.617335,
+        "spread_pct": -1.6173,
         "phase": "ACTIVE"
       }
     },
@@ -336,12 +357,12 @@
     },
     {
       "symbol": "WTI",
-      "as_of": "2026-09-01",
-      "price": 91.050003,
-      "daily_50ma": 80.255,
-      "daily_200ma": 79.40175,
-      "weekly_30ma": 88.061333,
-      "weekly_50ma": 76.9338,
+      "as_of": "2026-09-02",
+      "price": 90.75,
+      "daily_50ma": 80.561,
+      "daily_200ma": 79.55365,
+      "weekly_30ma": 88.051333,
+      "weekly_50ma": 76.9278,
       "cta": "BUY",
       "reason": "Weekly golden cross remains confirmed or active.",
       "price_basis": "locally_adjusted_close",
@@ -350,8 +371,8 @@
         "cross_status": "NONE",
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2026-03-09",
-        "periods_since_cross": 122,
-        "spread_pct": 1.074598,
+        "periods_since_cross": 123,
+        "spread_pct": 1.266252,
         "phase": "AGING"
       },
       "weekly_cross": {
@@ -360,7 +381,7 @@
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2026-03-27",
         "periods_since_cross": 23,
-        "spread_pct": 14.463777,
+        "spread_pct": 14.459705,
         "phase": "ACTIVE"
       }
     }
