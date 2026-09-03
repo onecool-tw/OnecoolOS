@@ -1,6 +1,6 @@
 # Onecool Taiwan Stock Intelligence — Screening Contract
 
-版本：v1.4 Taiwan Broad Screen with Formal Market Pressure
+版本：v1.5 Taiwan Broad Screen with Formal Market Pressure
 正式篩選檔：`data/market/taiwan_stock_intelligence/screen_latest.json`
 正式個股CTA快取：`data/market/taiwan_stock_intelligence/cta/cta_latest.json`
 正式日報上下文：`data/market/taiwan_stock_intelligence/daily_context_latest.json`
@@ -35,6 +35,23 @@
 權限順序固定為：週線CTA ＞ 日線CTA ＞ 市場壓力燈 ＞ 台股候選池 ＞
 Macro Confirmation。0050週線空頭時候選股只能觀察；0050週線多頭時仍必須
 通過個股CTA與市場壓力綠燈，候選分數本身永遠不是買進訊號。
+
+
+### Top 5 行動文字（所有消費端共用）
+
+正式版、老婆共享Project、未來親友版及其他消費端，Top 5「行動」欄必須依
+相同閘門顯示下列明確文字，不得只寫語意不清的「等待」：
+
+- 個股CTA為 `BUY`，但市場壓力為黃／紅燈，或其他新增閘門尚未通過：
+  顯示「等待市場轉綠」。
+- 個股CTA為 `HOLD`：顯示「續抱／不新增」。
+- 個股CTA為 `SELL`：顯示「停止新增／覆核」。
+- 個股CTA為 `BUY`，且0050為 `BUY`、市場壓力為 `CURRENT + GREEN`、
+  資料與估值檢核均通過：顯示「評估新增」，仍非自動買進指令。
+- 個股CTA為 `UNKNOWN`，或只有不可產生新行動的過期／異常資料：
+  顯示「資料待確認／不新增」。
+
+此映射只改善文字呈現，不得改寫CTA、分數、估值、Top 5排名或市場壓力燈。
 
 ## 正式市場壓力燈 SSOT
 
