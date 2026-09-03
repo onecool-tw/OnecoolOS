@@ -96,6 +96,16 @@ The Work must not fabricate those derived fields.
 
 The owner report, wife shared Project, future parent/friend Projects and any other consumer must read `daily_context_latest.json.market_pressure` as the sole formal pressure result. They may explain the formal result with public context, but may not overwrite or recompute it.
 
+All consumers must also use the same Top 5 action-label mapping:
+
+- Stock CTA `BUY` while market pressure is yellow/red or another entry gate is not satisfied: `等待市場轉綠`.
+- Stock CTA `HOLD`: `續抱／不新增`.
+- Stock CTA `SELL`: `停止新增／覆核`.
+- Stock CTA `BUY` with 0050 `BUY`, `CURRENT + GREEN` market pressure, and valid valuation/data gates: `評估新增`.
+- Stock CTA `UNKNOWN` or unusable stale/anomalous data: `資料待確認／不新增`.
+
+This is a presentation contract only. It must not modify CTA values, scores, valuation, ranking, or the formal pressure light.
+
 ## Smoke-test status
 
 The mailbox → GitHub Actions → validator → `daily_context_latest.json.market_pressure` path was smoke-tested successfully on 2026-09-02. Until the first formal Work write arrives, the SSOT remains `UNKNOWN` and `PAUSE_NEW_EXPOSURE` by design.
