@@ -8,7 +8,7 @@
   "universe_size": 70,
   "validated_count": 9,
   "minimum_technical_confidence": 90,
-  "formal_breakout_count": 0,
+  "formal_breakout_count": 2,
   "top5": [
     {
       "symbol": "DELL",
@@ -18,13 +18,83 @@
       "fundamentals_as_of": "2026-05-01",
       "price_basis": "adjusted_close",
       "technical_confidence": 100,
-      "canslim_score": 89,
-      "minervini_score": 96,
-      "rank_score": 88.25,
-      "status": "WAIT",
-      "trigger": "突破52週高點且成交量至少為50日均量1.5倍",
-      "formal_breakout": false,
+      "canslim_score": 91,
+      "minervini_score": 100,
+      "rank_score": 95.95,
+      "status": "BREAKOUT",
+      "trigger": "維持突破區且成交量至少為50日均量1.5倍",
+      "formal_breakout": true,
       "passes_dual_system": true,
+      "super_growth_bucket": "C",
+      "super_growth_reason": "CYCLICAL_OR_UNPROVEN_GROWTH",
+      "quality_gate_status": {
+        "competitive_advantage": {
+          "status": "UNKNOWN",
+          "as_of": null,
+          "rationale": null,
+          "sources": []
+        },
+        "structural_growth_runway": {
+          "status": "UNKNOWN",
+          "as_of": null,
+          "rationale": null,
+          "sources": []
+        },
+        "financial_quality": {
+          "status": "UNKNOWN",
+          "as_of": null,
+          "rationale": null,
+          "sources": []
+        },
+        "business_risk_and_governance": {
+          "status": "UNKNOWN",
+          "as_of": null,
+          "rationale": null,
+          "sources": []
+        },
+        "circle_of_competence": {
+          "status": "UNKNOWN",
+          "as_of": null,
+          "rationale": null,
+          "sources": []
+        },
+        "valuation": {
+          "status": "UNKNOWN",
+          "as_of": null,
+          "rationale": null,
+          "sources": []
+        }
+      },
+      "evidence_coverage": "NONE",
+      "missing_evidence": [
+        "competitive_advantage",
+        "structural_growth_runway",
+        "financial_quality",
+        "business_risk_and_governance",
+        "circle_of_competence",
+        "valuation"
+      ],
+      "cyclical_review_required": false,
+      "evidence_as_of": null,
+      "decision_authority": "RESEARCH_QUALITY_ONLY",
+      "quality_gate_application": "FORMAL_NEW_CANDIDATE_RESEARCH_GATE",
+      "action_eligibility": "RESEARCH_ONLY_QUALITY_EVIDENCE_INCOMPLETE"
+    },
+    {
+      "symbol": "DE",
+      "company_name": "Deere & Company",
+      "security_type": "COMMON_STOCK",
+      "price_as_of": "2026-09-02",
+      "fundamentals_as_of": "2020-08-02",
+      "price_basis": "adjusted_close",
+      "technical_confidence": 100,
+      "canslim_score": 38,
+      "minervini_score": 91,
+      "rank_score": 68.05,
+      "status": "BREAKOUT",
+      "trigger": "維持突破區且成交量至少為50日均量1.5倍",
+      "formal_breakout": true,
+      "passes_dual_system": false,
       "super_growth_bucket": "C",
       "super_growth_reason": "CYCLICAL_OR_UNPROVEN_GROWTH",
       "quality_gate_status": {
@@ -289,79 +359,14 @@
       "decision_authority": "RESEARCH_QUALITY_ONLY",
       "quality_gate_application": "FORMAL_NEW_CANDIDATE_RESEARCH_GATE",
       "action_eligibility": "RESEARCH_ONLY_QUALITY_EVIDENCE_INCOMPLETE"
-    },
-    {
-      "symbol": "ABBV",
-      "company_name": "AbbVie Inc.",
-      "security_type": "COMMON_STOCK",
-      "price_as_of": "2026-09-02",
-      "fundamentals_as_of": "2026-06-30",
-      "price_basis": "adjusted_close",
-      "technical_confidence": 100,
-      "canslim_score": 75,
-      "minervini_score": 91,
-      "rank_score": 79.7,
-      "status": "WAIT",
-      "trigger": "突破52週高點且成交量至少為50日均量1.5倍",
-      "formal_breakout": false,
-      "passes_dual_system": true,
-      "super_growth_bucket": "C",
-      "super_growth_reason": "CYCLICAL_OR_UNPROVEN_GROWTH",
-      "quality_gate_status": {
-        "competitive_advantage": {
-          "status": "UNKNOWN",
-          "as_of": null,
-          "rationale": null,
-          "sources": []
-        },
-        "structural_growth_runway": {
-          "status": "UNKNOWN",
-          "as_of": null,
-          "rationale": null,
-          "sources": []
-        },
-        "financial_quality": {
-          "status": "UNKNOWN",
-          "as_of": null,
-          "rationale": null,
-          "sources": []
-        },
-        "business_risk_and_governance": {
-          "status": "UNKNOWN",
-          "as_of": null,
-          "rationale": null,
-          "sources": []
-        },
-        "circle_of_competence": {
-          "status": "UNKNOWN",
-          "as_of": null,
-          "rationale": null,
-          "sources": []
-        },
-        "valuation": {
-          "status": "UNKNOWN",
-          "as_of": null,
-          "rationale": null,
-          "sources": []
-        }
-      },
-      "evidence_coverage": "NONE",
-      "missing_evidence": [
-        "competitive_advantage",
-        "structural_growth_runway",
-        "financial_quality",
-        "business_risk_and_governance",
-        "circle_of_competence",
-        "valuation"
-      ],
-      "cyclical_review_required": false,
-      "evidence_as_of": null,
-      "decision_authority": "RESEARCH_QUALITY_ONLY",
-      "quality_gate_application": "FORMAL_NEW_CANDIDATE_RESEARCH_GATE",
-      "action_eligibility": "RESEARCH_ONLY_QUALITY_EVIDENCE_INCOMPLETE"
     }
   ],
   "exclusions": [
+    {
+      "symbol": "ABBV",
+      "technical_confidence": 100,
+      "reason": "fundamental validation unavailable"
+    },
     {
       "symbol": "ADBE",
       "technical_confidence": 100,
@@ -553,17 +558,17 @@
       "reason": "fundamental validation unavailable"
     },
     {
-      "symbol": "MU",
-      "technical_confidence": 100,
-      "reason": "fundamental validation unavailable"
-    },
-    {
       "symbol": "NFLX",
       "technical_confidence": 100,
       "reason": "fundamental validation unavailable"
     },
     {
       "symbol": "NOW",
+      "technical_confidence": 100,
+      "reason": "fundamental validation unavailable"
+    },
+    {
+      "symbol": "NVDA",
       "technical_confidence": 100,
       "reason": "fundamental validation unavailable"
     },
@@ -654,11 +659,6 @@
     },
     {
       "symbol": "WMT",
-      "technical_confidence": 100,
-      "reason": "fundamental validation unavailable"
-    },
-    {
-      "symbol": "XYZ",
       "technical_confidence": 100,
       "reason": "fundamental validation unavailable"
     },
