@@ -5,9 +5,10 @@ from __future__ import annotations
 import argparse
 import json
 import os
-from datetime import date
+from datetime import UTC, date, datetime, time
 from math import isclose
 from pathlib import Path
+from zoneinfo import ZoneInfo
 
 from onecool_os.market.dashboard import (
     DASHBOARD_ACTION_REFRESH_GROUPS,
@@ -48,6 +49,40 @@ INNOVATION_OPTION_CONFIGS = {
     "TSLA": next(item for item in MARKET_SYMBOLS if item.symbol == "TSLA"),
     "SPCX": MarketSymbol("SPCX", "SPCX", "US", "innovation_option"),
 }
+US_MARKET_TIME_ZONE = ZoneInfo("America/New_York")
+US_DAILY_BAR_READY_TIME = time(16, 15)
+
+
+def _incomplete_us_session_date(
+    reference_time: datetime | None = None,
+) -> date | None:
+    """Return the New York date whose regular session is not safely complete."""
+
+    current = reference_time or datetime.now(UTC)
+    if current.tzinfo is None:
+        raise ValueError("reference_time must be timezone-aware")
+    new_york = current.astimezone(US_MARKET_TIME_ZONE)
+    if new_york.weekday() >= 5 or new_york.time() >= US_DAILY_BAR_READY_TIME:
+        return None
+    return new_york.date()
+
+
+def _drop_incomplete_us_session(
+    config: MarketSymbol,
+    bars: list,
+    incomplete_session: date | None,
+) -> list:
+    """Discard a provider's provisional current-session daily bar."""
+
+    is_us_session_symbol = config.market == "US" or config.symbol == "VIX"
+    if (
+        incomplete_session is None
+        or not is_us_session_symbol
+        or not bars
+        or bars[-1].trading_date != incomplete_session
+    ):
+        return bars
+    return bars[:-1]
 
 
 def _innovation_option_state(config, history: list) -> dict:
@@ -233,6 +268,7 @@ def update(
     refresh_action_symbols: set[str] | None = None,
     refresh_us_scan: bool = False,
     breakout_input_loader=None,
+    reference_time: datetime | None = None,
 ) -> dict:
     """Use raw Yahoo prices, AV action validation, and core AV fallback."""
 
@@ -244,6 +280,7 @@ def update(
     records = []
     providers: dict[str, str] = {}
     innovation_histories: dict[str, list] = {}
+    incomplete_us_session = _incomplete_us_session_date(reference_time)
 
     action_validation = []
     # Fetch and calculate every symbol before replacing any successful cache.
@@ -261,7 +298,12 @@ def update(
                 config.provider_symbol,
                 period="5y" if needs_raw_rebuild else "10d",
             )
-            base = [] if needs_raw_rebuild else existing
+            incoming = _drop_incomplete_us_session(
+                config, incoming, incomplete_us_session
+            )
+            base = [] if needs_raw_rebuild else _drop_incomplete_us_session(
+                config, existing, incomplete_us_session
+            )
             anomaly = has_new_price_anomaly(base, incoming)
             history = merge_and_adjust(base, incoming)
             providers[config.symbol] = "yahoo_finance_raw"
@@ -276,6 +318,9 @@ def update(
             )
             providers[config.symbol] = "alpha_vantage_fallback"
             anomaly = False
+            history = _drop_incomplete_us_session(
+                config, history, incomplete_us_session
+            )
 
         should_validate_actions = (
             config.symbol in (refresh_action_symbols or set())
@@ -333,6 +378,12 @@ def update(
     spcx_incoming = history_bootstrapper.fetch_raw_daily(
         spcx.provider_symbol, period="5y" if not spcx_existing else "10d"
     )
+    spcx_incoming = _drop_incomplete_us_session(
+        spcx, spcx_incoming, incomplete_us_session
+    )
+    spcx_existing = _drop_incomplete_us_session(
+        spcx, spcx_existing, incomplete_us_session
+    )
     spcx_history = merge_and_adjust(spcx_existing, spcx_incoming)
     providers["SPCX"] = "yahoo_finance_raw"
     staged.append((spcx, spcx_history))
@@ -346,6 +397,12 @@ def update(
     ]
     payload = build_dashboard_payload(
         records, innovation_option_watch=innovation_watch
+    )
+    payload["us_session_cutoff_policy"] = (
+        "exclude_current_New_York_daily_bar_until_16:15_America/New_York"
+    )
+    payload["excluded_incomplete_us_session"] = (
+        incomplete_us_session.isoformat() if incomplete_us_session else None
     )
     histories_by_symbol = {
         config.symbol: history for config, history in staged
