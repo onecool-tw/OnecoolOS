@@ -2,6 +2,7 @@ import json
 from datetime import UTC, date, datetime
 
 from onecool_os.market.taiwan_stock_intelligence import (
+    MASTER_PROMPT_VERSION,
     build_taiwan_stock_daily_context,
 )
 
@@ -16,7 +17,7 @@ def setup_prompt(root):
     path = root / "config/taiwan_stock_intelligence_master_prompt.md"
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(
-        "版本：v1.3 Taiwan Broad Screen with Background CTA\n",
+        f"版本：{MASTER_PROMPT_VERSION}\n",
         encoding="utf-8",
     )
 
