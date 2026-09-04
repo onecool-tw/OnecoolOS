@@ -10,14 +10,14 @@
   "0050_weekly_alignment": "GOLDEN",
   "market_pressure_gate": "FORMAL_FROM_DAILY_CONTEXT",
   "market_pressure": {
-    "as_of": "2026-09-03",
+    "as_of": "2026-09-04",
     "status": "CURRENT",
     "light": "RED",
     "action": "PAUSE_NEW_EXPOSURE",
     "reason": [
-      "new_closing_low",
-      "institutional_selling",
-      "derivatives_stress"
+      "red_cooldown_incomplete",
+      "single_day_rebound",
+      "foreign_futures_short_increase"
     ],
     "confirmed_inputs": {
       "spot": true,
@@ -28,12 +28,12 @@
       "margin": true
     },
     "input_data_as_of": {
-      "spot": "2026-09-03",
-      "futures": "2026-09-03",
-      "pcr": "2026-09-03",
-      "volatility": "2026-09-03",
-      "institutional_flow": "2026-09-03",
-      "margin": "2026-09-02"
+      "spot": "2026-09-04",
+      "futures": "2026-09-04",
+      "pcr": "2026-09-04",
+      "volatility": "2026-09-04",
+      "institutional_flow": "2026-09-04",
+      "margin": "2026-09-03"
     },
     "previous_light": "RED",
     "changed": false,
