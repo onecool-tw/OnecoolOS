@@ -1,6 +1,6 @@
 import json
 from dataclasses import replace
-from datetime import date, timedelta
+from datetime import UTC, date, datetime, timedelta
 from math import nan
 from pathlib import Path
 
@@ -71,6 +71,88 @@ class LiquidFakeBootstrapper(FakeBootstrapper):
             replace(bar, volume=1_000_000)
             for bar in super().fetch_daily(symbol)
         ]
+
+
+def test_delayed_asia_run_excludes_incomplete_us_session(
+    tmp_path: Path, monkeypatch
+) -> None:
+    """A delayed Asia-close job must not consume bars from the open US session."""
+
+    completed = date(2026, 9, 2)
+    provisional = date(2026, 9, 3)
+
+    class DelayedRunBootstrapper(FakeBootstrapper):
+        def fetch_daily(self, symbol: str):
+            start = completed - timedelta(days=499)
+            bars = [
+                DailyBar(
+                    trading_date=start + timedelta(days=index),
+                    open=float(index + 1),
+                    high=float(index + 1),
+                    low=float(index + 1),
+                    close=float(index + 1),
+                    volume=1_000_000,
+                    source="yahoo_finance_bootstrap",
+                )
+                for index in range(500)
+            ]
+            if symbol != "^RUT":
+                bars.append(
+                    DailyBar(
+                        trading_date=provisional,
+                        open=501.0,
+                        high=501.0,
+                        low=501.0,
+                        close=501.0,
+                        volume=1_000_000,
+                        source="yahoo_finance_bootstrap",
+                    )
+                )
+            return bars
+
+    monkeypatch.setattr(update_market_dashboard, "AlphaVantageClient", FakeClient)
+
+    payload = update_market_dashboard.update(
+        tmp_path,
+        "secret",
+        bootstrapper=DelayedRunBootstrapper(),
+        reference_time=datetime(2026, 9, 3, 13, 43, tzinfo=UTC),
+    )
+
+    us_index_dates = {
+        item["symbol"]: item["as_of"]
+        for item in payload["results"]
+        if item["symbol"] in {"SPY", "QQQ", "DIA", "RUSSELL_2000"}
+    }
+    assert payload["expected_as_of"] == completed.isoformat()
+    assert set(us_index_dates.values()) == {completed.isoformat()}
+    assert payload["excluded_incomplete_us_session"] == provisional.isoformat()
+    assert payload["data_status"] == "READY"
+
+
+def test_completed_us_session_is_retained_after_close() -> None:
+    config = next(
+        item for item in update_market_dashboard.MARKET_SYMBOLS
+        if item.symbol == "SPY"
+    )
+    bars = [
+        DailyBar(
+            trading_date=date(2026, 9, 3),
+            open=100.0,
+            high=101.0,
+            low=99.0,
+            close=100.0,
+            volume=100,
+        )
+    ]
+    incomplete = update_market_dashboard._incomplete_us_session_date(
+        datetime(2026, 9, 3, 20, 30, tzinfo=UTC)
+    )
+
+    assert incomplete is None
+    assert update_market_dashboard._drop_incomplete_us_session(
+        config, bars, incomplete
+    ) == bars
 
 
 def test_update_uses_raw_yahoo_primary_for_all_dashboard_symbols(
