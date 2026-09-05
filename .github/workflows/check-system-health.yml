@@ -22,9 +22,10 @@ on:
           - verify
         default: primary
   schedule:
-    # Daily report inputs: recover at 10:15 and verify at 10:50 Taipei.
+    # Daily report inputs: recover at 10:15 and run the final data gate at
+    # 15:30 Taipei, after the 14:00 US dashboard retry.
     - cron: "15 2 * * 1-6"
-    - cron: "50 2 * * 1-6"
+    - cron: "30 7 * * 1-6"
     # Taiwan close inputs: recover at 18:00 and verify at 18:50 Taipei.
     - cron: "0 10 * * 1-5"
     - cron: "50 10 * * 1-5"
@@ -65,7 +66,7 @@ jobs:
           else
             case "$EVENT_SCHEDULE" in
               "15 2 * * 1-6") scope="morning"; phase="primary" ;;
-              "50 2 * * 1-6") scope="morning"; phase="verify" ;;
+              "30 7 * * 1-6") scope="morning"; phase="verify" ;;
               "0 10 * * 1-5") scope="asia"; phase="primary" ;;
               "50 10 * * 1-5") scope="asia"; phase="verify" ;;
               "0 7 * * 0") scope="weekly"; phase="primary" ;;
