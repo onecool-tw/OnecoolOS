@@ -40,8 +40,12 @@ on:
     # A no-change run exits without committing.
     - cron: "0 1 * * 2-6"
     # US close retry 2: 09:30 Asia/Taipei, Tuesday-Saturday.
-    # This is the final refresh before the 10:30 US Stock Intelligence report.
+    # Keep the early retry for normal days.
     - cron: "30 1 * * 2-6"
+    # US close final retry: 14:00 Asia/Taipei, Tuesday-Saturday.
+    # This provides a late recovery window before the 15:30 data gate and
+    # 16:00 US Stock Intelligence report when GitHub schedules are delayed.
+    - cron: "0 6 * * 2-6"
     # Asia close primary run: 17:00 Asia/Taipei, Monday-Friday.
     # This allows Yahoo Finance time to publish final Japan/Korea daily bars.
     - cron: "0 9 * * 1-5"
