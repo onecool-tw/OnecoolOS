@@ -12,6 +12,7 @@ on:
       - main
     paths:
       - "data/market/taiwan_stock_intelligence/market_pressure_request_latest.json"
+      - ".github/workflows/persist-taiwan-market-pressure.yml"
 
 permissions:
   contents: write
@@ -68,9 +69,13 @@ jobs:
               assert pressure.get("action") == "PAUSE_NEW_EXPOSURE"
           print(json.dumps(pressure, ensure_ascii=False, indent=2))
           PY
+      - name: Export and verify read-only family snapshot
+        run: |
+          python scripts/export_taiwan_family_snapshot.py
+          python scripts/export_taiwan_family_snapshot.py --check
       - name: Commit formal pressure only when changed
         run: |
-          git add data/market/taiwan_stock_intelligence/daily_context_latest.json
+          git add data/market/taiwan_stock_intelligence/daily_context_latest.json data/public/taiwan_stock_family_latest.json
           if git diff --cached --quiet; then
             echo "Formal Taiwan market pressure unchanged."
             exit 0

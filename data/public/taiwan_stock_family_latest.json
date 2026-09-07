@@ -1,0 +1,223 @@
+{
+  "schema_version": "1.0",
+  "module": "Onecool Taiwan Family Read-only Snapshot",
+  "consumer_policy": {
+    "read_only": true,
+    "recalculate_cta": false,
+    "recalculate_market_pressure": false,
+    "rerank_top5": false,
+    "preserve_source_dates_and_status": true,
+    "stale_or_missing_data": "NO_NEW_EXPOSURE"
+  },
+  "sources": {
+    "dashboard": {
+      "path": "data/market/dashboard/dashboard_latest.json",
+      "sha256": "ceeee3db5bcda70ebb518df248a4fec07e60ad7114a03abc4467a707e58ff453"
+    },
+    "screen": {
+      "path": "data/market/taiwan_stock_intelligence/screen_latest.json",
+      "sha256": "235cf466e71b22a642654cab252171d6ed624b62b5d76293357881da5f0cd00e"
+    },
+    "cta": {
+      "path": "data/market/taiwan_stock_intelligence/cta/cta_latest.json",
+      "sha256": "5a5c3901721f70c05046d20e1def6981b26988d363e795c14537e82e45cc49d8"
+    },
+    "context": {
+      "path": "data/market/taiwan_stock_intelligence/daily_context_latest.json",
+      "sha256": "099e655831523e3d87a61d96ce30c69fa2614b8582d56e4726ff22d4fdbce3ab"
+    }
+  },
+  "source_generated_at": {
+    "dashboard": "2026-09-06T10:28:38.183936+00:00",
+    "screen": null,
+    "cta": "2026-09-04T13:49:39.021835+00:00",
+    "context": "2026-09-04T13:49:43.890906+00:00"
+  },
+  "screen_as_of": "2026-09-03",
+  "display_status": "CURRENT",
+  "candidate_action_gate": "REQUIRES_INDIVIDUAL_CTA_AND_PRESSURE_GREEN",
+  "market_pressure": {
+    "as_of": "2026-09-04",
+    "status": "CURRENT",
+    "light": "RED",
+    "action": "PAUSE_NEW_EXPOSURE",
+    "reason": [
+      "red_cooldown_incomplete",
+      "single_day_rebound",
+      "foreign_futures_short_increase"
+    ],
+    "confirmed_inputs": {
+      "spot": true,
+      "futures": true,
+      "pcr": true,
+      "volatility": true,
+      "institutional_flow": true,
+      "margin": true
+    },
+    "input_data_as_of": {
+      "spot": "2026-09-04",
+      "futures": "2026-09-04",
+      "pcr": "2026-09-04",
+      "volatility": "2026-09-04",
+      "institutional_flow": "2026-09-04",
+      "margin": "2026-09-03"
+    },
+    "previous_light": "RED",
+    "changed": false,
+    "last_change_date": "2026-09-02",
+    "data_quality": "READY"
+  },
+  "market_cta": {
+    "0050": {
+      "symbol": "0050",
+      "as_of": "2026-09-04",
+      "cta": "BUY",
+      "trend": "BULLISH"
+    },
+    "2330": {
+      "symbol": "2330",
+      "as_of": "2026-09-04",
+      "cta": "BUY",
+      "trend": "BULLISH"
+    },
+    "1306": {
+      "symbol": "1306",
+      "as_of": "2026-09-04",
+      "cta": "HOLD",
+      "trend": "BULLISH"
+    },
+    "069500": {
+      "symbol": "069500",
+      "as_of": "2026-09-04",
+      "cta": "HOLD",
+      "trend": "BULLISH"
+    }
+  },
+  "top5": [
+    {
+      "symbol": "3006",
+      "company_name": "晶豪科",
+      "industry": "半導體業",
+      "score": 95.51,
+      "pe": 8.74,
+      "pb": 4.15,
+      "price_as_of": "2026-09-03",
+      "fundamentals_as_of": "2026Q2",
+      "monthly_revenue_as_of": "2026-07",
+      "price_basis": "official_unadjusted_close",
+      "selection_status": "FORMAL",
+      "action_eligibility": "ELIGIBLE_IF_0050_BULLISH_AND_PRESSURE_GREEN",
+      "individual_cta": {
+        "symbol": "3006",
+        "as_of": "2026-09-04",
+        "cta": "BUY",
+        "state": "WEEKLY_BULLISH_DAILY_BULLISH",
+        "update_status": "CURRENT",
+        "price_basis": "locally_adjusted_close",
+        "weekly_data_as_of": "2026-09-04",
+        "source_data_as_of": "2026-09-04",
+        "error": null
+      }
+    },
+    {
+      "symbol": "3036",
+      "company_name": "文曄",
+      "industry": "電子通路業",
+      "score": 93.7,
+      "pe": 9.78,
+      "pb": 1.94,
+      "price_as_of": "2026-09-03",
+      "fundamentals_as_of": "2026Q2",
+      "monthly_revenue_as_of": "2026-07",
+      "price_basis": "official_unadjusted_close",
+      "selection_status": "FORMAL",
+      "action_eligibility": "ELIGIBLE_IF_0050_BULLISH_AND_PRESSURE_GREEN",
+      "individual_cta": {
+        "symbol": "3036",
+        "as_of": "2026-09-04",
+        "cta": "HOLD",
+        "state": "WEEKLY_BULLISH_DAILY_BULLISH",
+        "update_status": "CURRENT",
+        "price_basis": "locally_adjusted_close",
+        "weekly_data_as_of": "2026-09-04",
+        "source_data_as_of": "2026-09-04",
+        "error": null
+      }
+    },
+    {
+      "symbol": "6669",
+      "company_name": "緯穎",
+      "industry": "電腦及週邊設備業",
+      "score": 93.67,
+      "pe": 7.93,
+      "pb": 3.37,
+      "price_as_of": "2026-09-03",
+      "fundamentals_as_of": "2026Q2",
+      "monthly_revenue_as_of": "2026-07",
+      "price_basis": "official_unadjusted_close",
+      "selection_status": "FORMAL",
+      "action_eligibility": "HOLD_EXISTING_PAUSE_RIGHT_SIDE_ADD",
+      "individual_cta": {
+        "symbol": "6669",
+        "as_of": "2026-09-04",
+        "cta": "WATCH",
+        "state": "WEEKLY_BULLISH_DAILY_BEARISH",
+        "update_status": "CURRENT",
+        "price_basis": "locally_adjusted_close",
+        "weekly_data_as_of": "2026-09-04",
+        "source_data_as_of": "2026-09-04",
+        "error": null
+      }
+    },
+    {
+      "symbol": "2408",
+      "company_name": "南亞科",
+      "industry": "半導體業",
+      "score": 92.0,
+      "pe": 18.53,
+      "pb": 5.11,
+      "price_as_of": "2026-09-03",
+      "fundamentals_as_of": "2026Q2",
+      "monthly_revenue_as_of": "2026-07",
+      "price_basis": "official_unadjusted_close",
+      "selection_status": "FORMAL",
+      "action_eligibility": "ELIGIBLE_IF_0050_BULLISH_AND_PRESSURE_GREEN",
+      "individual_cta": {
+        "symbol": "2408",
+        "as_of": "2026-09-04",
+        "cta": "HOLD",
+        "state": "WEEKLY_BULLISH_DAILY_BULLISH",
+        "update_status": "CURRENT",
+        "price_basis": "locally_adjusted_close",
+        "weekly_data_as_of": "2026-09-04",
+        "source_data_as_of": "2026-09-04",
+        "error": null
+      }
+    },
+    {
+      "symbol": "2357",
+      "company_name": "華碩",
+      "industry": "電腦及週邊設備業",
+      "score": 91.11,
+      "pe": 14.2,
+      "pb": 2.39,
+      "price_as_of": "2026-09-03",
+      "fundamentals_as_of": "2026Q2",
+      "monthly_revenue_as_of": "2026-07",
+      "price_basis": "official_unadjusted_close",
+      "selection_status": "FORMAL",
+      "action_eligibility": "ELIGIBLE_IF_0050_BULLISH_AND_PRESSURE_GREEN",
+      "individual_cta": {
+        "symbol": "2357",
+        "as_of": "2026-09-04",
+        "cta": "BUY",
+        "state": "WEEKLY_BULLISH_DAILY_BULLISH",
+        "update_status": "CURRENT",
+        "price_basis": "locally_adjusted_close",
+        "weekly_data_as_of": "2026-09-04",
+        "source_data_as_of": "2026-09-04",
+        "error": null
+      }
+    }
+  ]
+}
