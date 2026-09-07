@@ -1,0 +1,61 @@
+name: Publish Taiwan Family Snapshot Pages
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - data/public/taiwan_stock_family_latest.json
+      - .github/workflows/publish-taiwan-family-pages.yml
+      - scripts/verify_taiwan_family_pages.py
+  workflow_run:
+    workflows: [Update Taiwan Stock Screen, Update Taiwan CTA, Persist Taiwan Market Pressure]
+    types: [completed]
+    branches: [main]
+
+permissions:
+  contents: read
+
+# Serialize deployments; each run reads latest main only after acquiring the lock.
+concurrency:
+  group: taiwan-family-pages
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    if: >-
+      github.repository == 'onecool-tw/OnecoolOS' &&
+      (github.event_name != 'workflow_run' ||
+       github.event.workflow_run.conclusion == 'success')
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          persist-credentials: false
+      - name: Stage only the existing public snapshot
+        run: |
+          mkdir -p "$RUNNER_TEMP/family-pages"
+          cp data/public/taiwan_stock_family_latest.json "$RUNNER_TEMP/family-pages/taiwan_stock_family_latest.json"
+          python scripts/verify_taiwan_family_pages.py "$RUNNER_TEMP/family-pages/taiwan_stock_family_latest.json"
+          echo "Source commit: $(git rev-parse HEAD)" >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: ${{ runner.temp }}/family-pages
+      - name: Deploy snapshot
+        id: deployment
+        uses: actions/deploy-pages@v4
+      - name: Verify public HTTPS snapshot against this checkout
+        env:
+          PAGE_URL: ${{ steps.deployment.outputs.page_url }}
+        run: |
+          python scripts/verify_taiwan_family_pages.py "${PAGE_URL%/}/taiwan_stock_family_latest.json" --attempts 12 --delay 10
