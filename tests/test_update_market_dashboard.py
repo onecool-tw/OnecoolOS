@@ -314,7 +314,8 @@ def test_non_finite_yahoo_row_is_dropped_without_aborting_dashboard(
 
     monkeypatch.setattr(update_market_dashboard, "AlphaVantageClient", FakeClient)
     payload = update_market_dashboard.update(
-        tmp_path, "secret", bootstrapper=BootstrapperWithOneBadRow()
+        tmp_path, "secret", bootstrapper=BootstrapperWithOneBadRow(),
+        reference_time=datetime(2027, 2, 13, 12, tzinfo=UTC),
     )
 
     record = next(item for item in payload["results"] if item["symbol"] == "0050")
