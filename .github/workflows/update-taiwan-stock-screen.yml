@@ -2,6 +2,10 @@ name: Update Taiwan Stock Screen
 
 on:
   workflow_dispatch:
+  workflow_run:
+    workflows: ["Update Market Dashboard"]
+    types: [completed]
+    branches: [main]
   push:
     branches:
       - main
@@ -17,6 +21,8 @@ on:
       - ".gitignore"
       - "scripts/export_taiwan_family_snapshot.py"
       - "tests/test_taiwan_family_snapshot.py"
+      - "onecool_os/market/session_cutoff.py"
+      - "tests/test_taiwan_freshness.py"
   schedule:
     # 17:15, 17:35, 17:50 Asia/Taipei, Monday-Friday. Repeated idempotent
     # attempts absorb TWSE publication and GitHub Actions queue delays.
@@ -35,6 +41,7 @@ concurrency:
 
 jobs:
   update:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     timeout-minutes: 40
     steps:
@@ -51,9 +58,11 @@ jobs:
       - name: Install project
         run: pip install -e .
       - name: Attempt official-data Taiwan stock screen refresh
+        id: screen
         continue-on-error: true
         run: python scripts/update_taiwan_stock_screen.py
       - name: Maintain background CTA for the full 200-stock universe
+        id: cta
         continue-on-error: true
         run: python scripts/update_taiwan_stock_cta.py
       - name: Publish daily context from the latest successful screen
@@ -77,3 +86,8 @@ jobs:
           # independent paths, then publish the validated screen.
           git pull --rebase origin main
           git push
+      - name: Report unsuccessful refresh after preserving the last valid snapshot
+        if: steps.screen.outcome == 'failure' || steps.cta.outcome == 'failure'
+        run: |
+          echo "::error::Taiwan refresh incomplete; retained source dates, not a current-day success."
+          exit 1

@@ -116,7 +116,10 @@ def build_taiwan_stock_daily_context(
 ) -> dict[str, Any]:
     """Expose the latest successful screen with explicit CTA/action gates."""
 
-    current_date = today or date.today()
+    from zoneinfo import ZoneInfo
+    timestamp = generated_at or datetime.now(UTC)
+    local_now = timestamp.astimezone(ZoneInfo("Asia/Taipei"))
+    current_date = today or local_now.date()
     screen = _read(root, SCREEN_PATH)
     stock_cta = _read(root, STOCK_CTA_PATH) or {}
     previous_context = _read(root, CONTEXT_PATH) or {}
@@ -141,7 +144,8 @@ def build_taiwan_stock_daily_context(
             lag = _business_day_lag(date.fromisoformat(screen_as_of), current_date)
         except (TypeError, ValueError):
             lag = None
-        display_status = "CURRENT" if lag is not None and lag <= 1 else "STALE"
+        allowed_lag = 1 if local_now.hour < 14 else 0
+        display_status = "CURRENT" if lag is not None and 0 <= lag <= allowed_lag else "STALE"
         top5 = [dict(item) for item in screen.get("top5", [])]
 
     if display_status != "CURRENT":

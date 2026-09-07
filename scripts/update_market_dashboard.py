@@ -36,6 +36,7 @@ from onecool_os.market.us_breakout_scan import (
 )
 from onecool_os.market.us_portfolio_scores import build_portfolio_score_payload
 from onecool_os.market.us_stock_quality import apply_us_super_growth_quality_gate
+from onecool_os.market.session_cutoff import completed_daily_bars
 
 
 CORE_ALPHA_FALLBACK_SYMBOLS = {"SPY", "QQQ", "DIA", "SOXX", "NVDA"}
@@ -285,7 +286,9 @@ def update(
     action_validation = []
     # Fetch and calculate every symbol before replacing any successful cache.
     for config in MARKET_SYMBOLS:
-        existing = read_history(history_dir / f"{config.symbol}.csv")
+        existing = completed_daily_bars(
+            read_history(history_dir / f"{config.symbol}.csv"), config.market, reference_time
+        )
         needs_raw_rebuild = (
             not existing
             or any(
@@ -301,6 +304,7 @@ def update(
             incoming = _drop_incomplete_us_session(
                 config, incoming, incomplete_us_session
             )
+            incoming = completed_daily_bars(incoming, config.market, reference_time)
             base = [] if needs_raw_rebuild else _drop_incomplete_us_session(
                 config, existing, incomplete_us_session
             )

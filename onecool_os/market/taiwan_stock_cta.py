@@ -14,6 +14,7 @@ from dataclasses import asdict
 from datetime import UTC, date, datetime
 from pathlib import Path
 from typing import Any
+from onecool_os.market.session_cutoff import completed_daily_bars
 
 from onecool_os.market.etf_cta import (
     CTAResult,
@@ -143,8 +144,10 @@ def update_candidate_cta(
     results: list[dict[str, Any]] = []
     for provider, member in provider_to_member.items():
         symbol = str(member["symbol"])
-        existing = histories[provider] or bootstrap.get(provider, [])
-        incoming = incremental.get(provider, [])
+        existing = completed_daily_bars(
+            histories[provider] or bootstrap.get(provider, []), "TW", timestamp
+        )
+        incoming = completed_daily_bars(incremental.get(provider, []), "TW", timestamp)
         error = incremental_errors.get(provider) or bootstrap_errors.get(provider)
         try:
             if not existing:
