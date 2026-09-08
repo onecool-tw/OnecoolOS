@@ -1,10 +1,10 @@
 {
   "schema_version": "1.9",
   "module": "Onecool Market Dashboard",
-  "generated_at": "2026-09-08T04:59:10.667463+00:00",
+  "generated_at": "2026-09-08T05:35:36.005003+00:00",
   "expected_as_of": "2026-09-04",
   "data_status": "READY",
-  "last_successful_update_at": "2026-09-08T04:59:10.667463+00:00",
+  "last_successful_update_at": "2026-09-08T05:35:36.005003+00:00",
   "index_cta_basis": {
     "method": "ETF/index proxies; shared CTA engine",
     "mappings": {
@@ -726,11 +726,11 @@
       "market": "CONTEXT",
       "theme": "us_dollar",
       "as_of": "2026-09-08",
-      "current_price": 98.832001,
-      "sma50": 100.07064,
-      "sma200": 99.14956,
-      "weekly_ma30": 99.500534,
-      "weekly_ma50": 99.14912,
+      "current_price": 98.833,
+      "sma50": 100.07066,
+      "sma200": 99.149565,
+      "weekly_ma30": 99.500567,
+      "weekly_ma50": 99.14914,
       "trend": "BULLISH",
       "cta": "BUY",
       "confidence": 50,
@@ -741,7 +741,7 @@
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2026-04-08",
         "periods_since_cross": 108,
-        "spread_pct": 0.928981,
+        "spread_pct": 0.928996,
         "phase": "AGING"
       },
       "weekly_cross": {
@@ -750,7 +750,7 @@
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2026-04-02",
         "periods_since_cross": 23,
-        "spread_pct": 0.35443,
+        "spread_pct": 0.354443,
         "phase": "ACTIVE"
       }
     },
@@ -794,9 +794,9 @@
       "market": "CONTEXT",
       "theme": "crypto_risk_appetite",
       "as_of": "2026-09-08",
-      "current_price": 78685.640625,
-      "sma50": 69962.656406,
-      "sma200": 69867.615,
+      "current_price": 78645.828125,
+      "sma50": 69961.860156,
+      "sma200": 69867.415938,
       "weekly_ma30": 69721.248307,
       "weekly_ma50": 80340.866641,
       "trend": "MIXED",
@@ -809,7 +809,7 @@
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2026-09-08",
         "periods_since_cross": 0,
-        "spread_pct": 0.136031,
+        "spread_pct": 0.135176,
         "phase": "NEW"
       },
       "weekly_cross": {
@@ -1640,32 +1640,6 @@
     },
     "publication_status": "CURRENT"
   },
-  "corporate_action_validation": [
-    {
-      "symbol": "SPY",
-      "status": "MATCHED",
-      "source_a": "yahoo_finance_raw",
-      "source_b": "alpha_vantage",
-      "as_of": "2026-09-04"
-    },
-    {
-      "symbol": "QQQ",
-      "status": "MATCHED_WITH_MINOR_PROVIDER_DIFFERENCE",
-      "source_a": "yahoo_finance_raw",
-      "source_b": "alpha_vantage",
-      "as_of": "2026-09-04",
-      "minor_differences": [
-        "2023-09-18: dividend yahoo=0.536 alpha=0.53885 difference=0.002850"
-      ],
-      "minor_difference_policy": "non_blocking_only_when_absolute_difference_lte_0.005_and_relative_difference_lte_1pct"
-    },
-    {
-      "symbol": "DIA",
-      "status": "MATCHED",
-      "source_a": "yahoo_finance_raw",
-      "source_b": "alpha_vantage",
-      "as_of": "2026-09-04"
-    }
-  ],
+  "corporate_action_validation": [],
   "provider_fallback_policy": "yahoo_finance_raw_primary; alpha_vantage_core_price_fallback; last_successful_cache_on_failure"
 }
