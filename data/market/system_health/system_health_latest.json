@@ -1,19 +1,19 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-09-07T16:06:07.672344+00:00",
+  "generated_at": "2026-09-08T12:15:02.211642+00:00",
   "taipei_date": "2026-09-08",
-  "status": "BLOCKED",
+  "status": "PARTIAL",
   "scope_status": {
-    "morning": "BLOCKED",
+    "morning": "READY",
     "asia": "PARTIAL",
     "weekly": "PARTIAL"
   },
-  "action_readiness": "UNSAFE_FOR_AFFECTED_REPORTS",
+  "action_readiness": "LIMITED",
   "counts": {
-    "ready": 13,
+    "ready": 14,
     "partial": 3,
-    "blocked": 1
+    "blocked": 0
   },
   "modules": [
     {
@@ -66,7 +66,7 @@
       "critical": true,
       "status": "READY",
       "reason": "all symbols current",
-      "observed_as_of": "2026-09-04",
+      "observed_as_of": "2026-09-07",
       "recovery_workflow": "update-etf-cta.yml",
       "retryable": true,
       "impacted_reports": [
@@ -79,11 +79,11 @@
       "label": "Fund NAV CTA",
       "scope": "morning",
       "critical": true,
-      "status": "BLOCKED",
-      "reason": "daily generation timestamp is missing or stale",
+      "status": "READY",
+      "reason": "current",
       "observed_as_of": "2026-09-07",
       "recovery_workflow": "update-fund-nav-cta.yml",
-      "retryable": true,
+      "retryable": false,
       "impacted_reports": [
         "基金日報",
         "基金週報"
@@ -96,7 +96,7 @@
       "critical": true,
       "status": "READY",
       "reason": "current",
-      "observed_as_of": "2026-09-07",
+      "observed_as_of": "2026-09-08",
       "recovery_workflow": "update-taiwan-cta.yml",
       "retryable": true,
       "impacted_reports": [
@@ -110,7 +110,7 @@
       "critical": true,
       "status": "READY",
       "reason": "current",
-      "observed_as_of": "2026-09-04",
+      "observed_as_of": "2026-09-08",
       "recovery_workflow": "update-taiwan-stock-screen.yml",
       "retryable": true,
       "impacted_reports": [
@@ -124,7 +124,7 @@
       "critical": true,
       "status": "PARTIAL",
       "reason": "current 199, stale 0, unknown 1",
-      "observed_as_of": "2026-09-04",
+      "observed_as_of": "2026-09-08",
       "recovery_workflow": "update-taiwan-stock-screen.yml",
       "retryable": false,
       "impacted_reports": [
@@ -138,7 +138,7 @@
       "critical": true,
       "status": "READY",
       "reason": "current",
-      "observed_as_of": "2026-09-04",
+      "observed_as_of": "2026-09-08",
       "recovery_workflow": "update-taiwan-stock-screen.yml",
       "retryable": true,
       "impacted_reports": [
@@ -260,28 +260,13 @@
   ],
   "issues": [
     {
-      "module_id": "fund_nav_cta",
-      "label": "Fund NAV CTA",
-      "scope": "morning",
-      "critical": true,
-      "status": "BLOCKED",
-      "reason": "daily generation timestamp is missing or stale",
-      "observed_as_of": "2026-09-07",
-      "recovery_workflow": "update-fund-nav-cta.yml",
-      "retryable": true,
-      "impacted_reports": [
-        "基金日報",
-        "基金週報"
-      ]
-    },
-    {
       "module_id": "taiwan_candidate_cta",
       "label": "Taiwan 200-stock CTA",
       "scope": "asia",
       "critical": true,
       "status": "PARTIAL",
       "reason": "current 199, stale 0, unknown 1",
-      "observed_as_of": "2026-09-04",
+      "observed_as_of": "2026-09-08",
       "recovery_workflow": "update-taiwan-stock-screen.yml",
       "retryable": false,
       "impacted_reports": [
@@ -317,9 +302,7 @@
       ]
     }
   ],
-  "recovery_workflows": [
-    "update-fund-nav-cta.yml"
-  ],
-  "issue_fingerprint": "e5eca75299c3c63ecf65e5be333698354c96d4ed07d3b4b19cfbd571339fe7c8",
+  "recovery_workflows": [],
+  "issue_fingerprint": "cab23082e39372904f663e88b098aede616575c0a513aa7afd3f2de5bca91682",
   "policy": "Health monitoring only; never changes CTA, rankings, or investment decisions."
 }
