@@ -51,14 +51,14 @@ def test_missing_price_column_is_not_estimated():
         normalize_dated_report(payload, date(2026, 9, 7), {"證券代號": "Code", "收盤價": "ClosingPrice"})
 
 
-def test_dashboard_trigger_is_non_blocking_but_formal_refresh_stays_strict():
+def test_automatic_sync_is_non_blocking_but_formal_refresh_stays_strict():
     root = Path(__file__).resolve().parents[1]
     workflow = (
         root / ".github" / "workflows" / "update-taiwan-stock-screen.yml"
     ).read_text(encoding="utf-8")
 
-    assert "github.event_name == 'workflow_run'" in workflow
+    assert "github.event_name == 'workflow_run' || github.event_name == 'push'" in workflow
     assert "::warning::Opportunistic Taiwan refresh incomplete" in workflow
-    assert "github.event_name != 'workflow_run'" in workflow
+    assert "github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'" in workflow
     assert "::error::Formal Taiwan refresh incomplete" in workflow
     assert workflow.count("steps.screen.outcome == 'failure'") == 2
