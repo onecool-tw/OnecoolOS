@@ -47,3 +47,18 @@ from Actions (or rerun a failed initial deployment).
 
 Local or external publication check:
 `python scripts/verify_taiwan_family_pages.py <staged-file-or-https-url>`
+
+## Crawler-readable HTML entrance
+
+https://onecool-tw.github.io/OnecoolOS/taiwan-stock-family.html
+
+Use this HTML URL in Shared Projects without the GitHub connector. All core
+fields are server-rendered as ordinary HTML text and tables, with no JavaScript.
+The same Pages job renders it directly from the existing committed Snapshot,
+then verifies the public HTTPS response byte for byte against that rendering.
+The renderer neither imports engines nor fetches market data, sorts candidates,
+or calculates scores or actions. Missing fields display Unknown. The footer
+preserves source timestamps and CTA dates plus the exact Snapshot SHA-256.
+`generated_at` is Unknown if absent from Snapshot; it is never fabricated from
+the deployment time. An escaped, visible source payload preserves all fields.
+HTML is a disposable presentation artifact, not another source of truth.

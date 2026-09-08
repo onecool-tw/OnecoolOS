@@ -8,6 +8,7 @@ on:
       - data/public/taiwan_stock_family_latest.json
       - .github/workflows/publish-taiwan-family-pages.yml
       - scripts/verify_taiwan_family_pages.py
+      - scripts/render_taiwan_family_html.py
   workflow_run:
     workflows: [Update Taiwan Stock Screen, Update Taiwan CTA, Persist Taiwan Market Pressure]
     types: [completed]
@@ -46,6 +47,7 @@ jobs:
           mkdir -p "$RUNNER_TEMP/family-pages"
           cp data/public/taiwan_stock_family_latest.json "$RUNNER_TEMP/family-pages/taiwan_stock_family_latest.json"
           python scripts/verify_taiwan_family_pages.py "$RUNNER_TEMP/family-pages/taiwan_stock_family_latest.json"
+          python scripts/render_taiwan_family_html.py --output "$RUNNER_TEMP/family-pages/taiwan-stock-family.html"
           echo "Source commit: $(git rev-parse HEAD)" >> "$GITHUB_STEP_SUMMARY"
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
@@ -59,3 +61,5 @@ jobs:
           PAGE_URL: ${{ steps.deployment.outputs.page_url }}
         run: |
           python scripts/verify_taiwan_family_pages.py "${PAGE_URL%/}/taiwan_stock_family_latest.json" --attempts 12 --delay 10
+
+          python scripts/render_taiwan_family_html.py --verify-url "${PAGE_URL%/}/taiwan-stock-family.html"
