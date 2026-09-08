@@ -86,8 +86,16 @@ jobs:
           # independent paths, then publish the validated screen.
           git pull --rebase origin main
           git push
-      - name: Report unsuccessful refresh after preserving the last valid snapshot
-        if: steps.screen.outcome == 'failure' || steps.cta.outcome == 'failure'
+      - name: Warn when an opportunistic dashboard-triggered refresh is incomplete
+        if: >-
+          (steps.screen.outcome == 'failure' || steps.cta.outcome == 'failure') &&
+          github.event_name == 'workflow_run'
         run: |
-          echo "::error::Taiwan refresh incomplete; retained source dates, not a current-day success."
+          echo "::warning::Opportunistic Taiwan refresh incomplete; retained and published the last valid dated snapshot."
+      - name: Report unsuccessful formal refresh after preserving the last valid snapshot
+        if: >-
+          (steps.screen.outcome == 'failure' || steps.cta.outcome == 'failure') &&
+          github.event_name != 'workflow_run'
+        run: |
+          echo "::error::Formal Taiwan refresh incomplete; retained source dates, not a current-day success."
           exit 1
