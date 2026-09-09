@@ -1,14 +1,15 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Taiwan Market Pressure Request",
-  "as_of": "2026-09-08",
+  "as_of": "2026-09-09",
   "status": "CURRENT",
   "light": "RED",
   "reason": [
     "red_release_conditions_not_met",
-    "futures_basis_turned_negative",
-    "foreign_futures_net_short_82262",
-    "volatility_and_margin_latest_values_unverified"
+    "futures_basis_improved_to_positive_3_64",
+    "foreign_futures_net_short_decreased_to_81066",
+    "weekly_option_expiry_limits_pcr_comparability",
+    "latest_volatility_improvement_unverified"
   ],
   "confirmed_inputs": {
     "spot": true,
@@ -16,15 +17,15 @@
     "pcr": true,
     "volatility": false,
     "institutional_flow": true,
-    "margin": false
+    "margin": true
   },
   "input_data_as_of": {
-    "spot": "2026-09-08",
-    "futures": "2026-09-08",
-    "pcr": "2026-09-08",
+    "spot": "2026-09-09",
+    "futures": "2026-09-09",
+    "pcr": "2026-09-09",
     "volatility": null,
-    "institutional_flow": "2026-09-08",
-    "margin": null
+    "institutional_flow": "2026-09-09",
+    "margin": "2026-09-09"
   },
   "writer": "FORMAL_TAIWAN_WORK_ONLY"
 }
