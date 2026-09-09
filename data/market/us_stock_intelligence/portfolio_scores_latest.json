@@ -1,126 +1,104 @@
 {
-  "schema_version": "1.0",
-  "score_version": "onecool_us_portfolio_dual_v1",
+  "schema_version": "2.0",
+  "score_version": "onecool_us_dual_v2",
   "classification": "Onecool proxy scores; not IBD official ratings",
   "expected_as_of": "2026-09-08",
-  "data_status": "READY",
-  "price_basis": "locally_adjusted_close",
-  "fundamentals_policy": "dated reviewed snapshot; refresh only after validated filing",
+  "price_basis": "adjusted_close",
+  "data_status": "PARTIAL",
+  "thresholds": {
+    "canslim": 70,
+    "minervini": 80
+  },
+  "fundamentals_policy": "same-run shared inputs; missing or stale inputs are Unknown",
   "results": [
     {
       "symbol": "BABA",
       "price_as_of": "2026-09-08",
-      "fundamentals_as_of": "2026-05-13",
-      "price_basis": "locally_adjusted_close",
+      "fundamentals_as_of": "2026-06-30",
+      "price_basis": "adjusted_close",
+      "score_version": "onecool_us_dual_v2",
+      "thresholds": {
+        "canslim": 70,
+        "minervini": 80
+      },
+      "technical_confidence": 100,
       "validation_status": "PASSED",
-      "canslim_score": 39,
+      "validation_errors": [],
+      "canslim_score": 28,
       "minervini_score": 4,
-      "canslim_components": {
-        "fundamentals_45": 18.9,
-        "new_high_momentum_10": 0.95,
-        "supply_demand_10": 4.63,
-        "leadership_15": 0.0,
-        "market_20": 15
-      },
-      "minervini_components": {
-        "trend_template_64": 0,
-        "relative_strength_20": 0.0,
-        "price_volume_quality_16": 4
-      },
-      "fundamental_source": "Alibaba FY2026 results (company release)",
-      "fundamental_source_url": "https://www.alibabagroup.com/en-US/document-1991237455038119936"
+      "passes_dual_system": false
     },
     {
       "symbol": "XYZ",
       "price_as_of": "2026-09-08",
-      "fundamentals_as_of": "2026-05-07",
-      "price_basis": "locally_adjusted_close",
+      "fundamentals_as_of": "2026-06-30",
+      "price_basis": "adjusted_close",
+      "score_version": "onecool_us_dual_v2",
+      "thresholds": {
+        "canslim": 70,
+        "minervini": 80
+      },
+      "technical_confidence": 100,
       "validation_status": "PASSED",
-      "canslim_score": 72,
+      "validation_errors": [],
+      "canslim_score": 42,
       "minervini_score": 78,
-      "canslim_components": {
-        "fundamentals_45": 35.1,
-        "new_high_momentum_10": 7.04,
-        "supply_demand_10": 4.61,
-        "leadership_15": 10.37,
-        "market_20": 15
-      },
-      "minervini_components": {
-        "trend_template_64": 56,
-        "relative_strength_20": 13.83,
-        "price_volume_quality_16": 8
-      },
-      "fundamental_source": "Block Q1 2026 Form 10-Q",
-      "fundamental_source_url": "https://www.sec.gov/Archives/edgar/data/1512673/000162828026032200/0001628280-26-032200-index.htm"
+      "passes_dual_system": false
     },
     {
       "symbol": "QRVO",
       "price_as_of": "2026-09-08",
-      "fundamentals_as_of": "2026-05-05",
-      "price_basis": "locally_adjusted_close",
+      "fundamentals_as_of": "2026-06-27",
+      "price_basis": "adjusted_close",
+      "score_version": "onecool_us_dual_v2",
+      "thresholds": {
+        "canslim": 70,
+        "minervini": 80
+      },
+      "technical_confidence": 100,
       "validation_status": "PASSED",
-      "canslim_score": 67,
+      "validation_errors": [],
+      "canslim_score": 79,
       "minervini_score": 99,
-      "canslim_components": {
-        "fundamentals_45": 23.4,
-        "new_high_momentum_10": 8.89,
-        "supply_demand_10": 5.48,
-        "leadership_15": 14.05,
-        "market_20": 15
-      },
-      "minervini_components": {
-        "trend_template_64": 64,
-        "relative_strength_20": 18.73,
-        "price_volume_quality_16": 16
-      },
-      "fundamental_source": "Qorvo FY2026 Q4 results (company release)",
-      "fundamental_source_url": "https://www.qorvo.com/about/news-events/news-releases/2026/qorvo-announces-fiscal-2026-fourth-quarter-financial-results"
+      "passes_dual_system": true
     },
     {
       "symbol": "RH",
       "price_as_of": "2026-09-08",
-      "fundamentals_as_of": "2026-06-11",
-      "price_basis": "locally_adjusted_close",
-      "validation_status": "PASSED",
-      "canslim_score": 39,
+      "fundamentals_as_of": null,
+      "price_basis": "adjusted_close",
+      "score_version": "onecool_us_dual_v2",
+      "thresholds": {
+        "canslim": 70,
+        "minervini": 80
+      },
+      "technical_confidence": 100,
+      "validation_status": "Technical Data Validation Failed",
+      "validation_errors": [
+        "fundamental validation unavailable"
+      ],
+      "canslim_score": null,
       "minervini_score": 12,
-      "canslim_components": {
-        "fundamentals_45": 14.4,
-        "new_high_momentum_10": 3.46,
-        "supply_demand_10": 2.38,
-        "leadership_15": 3.29,
-        "market_20": 15
-      },
-      "minervini_components": {
-        "trend_template_64": 8,
-        "relative_strength_20": 4.38,
-        "price_volume_quality_16": 0
-      },
-      "fundamental_source": "RH Q1 2026 results (company filing)",
-      "fundamental_source_url": "https://ir.rh.com/financials-filings/sec-filings/content/0001104659-26-072941/rh-20260611xex99d2.htm"
+      "passes_dual_system": null
     },
     {
       "symbol": "UPBD",
       "price_as_of": "2026-09-08",
-      "fundamentals_as_of": "2026-07-30",
-      "price_basis": "locally_adjusted_close",
-      "validation_status": "PASSED",
-      "canslim_score": 55,
-      "minervini_score": 28,
-      "canslim_components": {
-        "fundamentals_45": 28.8,
-        "new_high_momentum_10": 3.49,
-        "supply_demand_10": 4.47,
-        "leadership_15": 3.33,
-        "market_20": 15
+      "fundamentals_as_of": "2026-06-30",
+      "price_basis": "adjusted_close",
+      "score_version": "onecool_us_dual_v2",
+      "thresholds": {
+        "canslim": 70,
+        "minervini": 80
       },
-      "minervini_components": {
-        "trend_template_64": 24,
-        "relative_strength_20": 4.45,
-        "price_volume_quality_16": 0
-      },
-      "fundamental_source": "Upbound Q2 2026 results (company filing)",
-      "fundamental_source_url": "https://investor.upbound.com/node/24801/html"
+      "technical_confidence": 85,
+      "validation_status": "Technical Data Validation Failed",
+      "validation_errors": [
+        "50-day dollar liquidity below $20m"
+      ],
+      "canslim_score": null,
+      "minervini_score": null,
+      "passes_dual_system": null
     }
   ]
 }
