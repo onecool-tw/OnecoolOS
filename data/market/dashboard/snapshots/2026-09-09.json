@@ -1,10 +1,10 @@
 {
   "schema_version": "1.9",
   "module": "Onecool Market Dashboard",
-  "generated_at": "2026-09-09T13:15:07.166381+00:00",
+  "generated_at": "2026-09-09T13:45:11.181144+00:00",
   "expected_as_of": "2026-09-08",
   "data_status": "READY",
-  "last_successful_update_at": "2026-09-09T13:15:07.166381+00:00",
+  "last_successful_update_at": "2026-09-09T13:45:11.181144+00:00",
   "index_cta_basis": {
     "method": "ETF/index proxies; shared CTA engine",
     "mappings": {
@@ -726,11 +726,11 @@
       "market": "CONTEXT",
       "theme": "us_dollar",
       "as_of": "2026-09-09",
-      "current_price": 98.652,
-      "sma50": 100.02664,
-      "sma200": 99.14216,
-      "weekly_ma30": 99.494534,
-      "weekly_ma50": 99.14552,
+      "current_price": 98.647003,
+      "sma50": 100.02654,
+      "sma200": 99.142135,
+      "weekly_ma30": 99.494367,
+      "weekly_ma50": 99.14542,
       "trend": "BULLISH",
       "cta": "BUY",
       "confidence": 50,
@@ -741,7 +741,7 @@
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2026-04-08",
         "periods_since_cross": 109,
-        "spread_pct": 0.892133,
+        "spread_pct": 0.892058,
         "phase": "AGING"
       },
       "weekly_cross": {
@@ -750,7 +750,7 @@
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2026-04-02",
         "periods_since_cross": 23,
-        "spread_pct": 0.352022,
+        "spread_pct": 0.351955,
         "phase": "ACTIVE"
       }
     },
@@ -760,11 +760,11 @@
       "market": "CONTEXT",
       "theme": "us_30y_yield",
       "as_of": "2026-09-09",
-      "current_price": 5.255,
-      "sma50": 5.16788,
-      "sma200": 4.94511,
-      "weekly_ma30": 5.014033,
-      "weekly_ma50": 4.91066,
+      "current_price": 5.251,
+      "sma50": 5.1678,
+      "sma200": 4.94509,
+      "weekly_ma30": 5.0139,
+      "weekly_ma50": 4.91058,
       "trend": "BULLISH",
       "cta": "BUY",
       "confidence": 100,
@@ -775,7 +775,7 @@
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2026-03-13",
         "periods_since_cross": 123,
-        "spread_pct": 4.504854,
+        "spread_pct": 4.503659,
         "phase": "AGING"
       },
       "weekly_cross": {
@@ -784,7 +784,7 @@
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2026-05-22",
         "periods_since_cross": 16,
-        "spread_pct": 2.10508,
+        "spread_pct": 2.104028,
         "phase": "ACTIVE"
       }
     },
@@ -794,9 +794,9 @@
       "market": "CONTEXT",
       "theme": "crypto_risk_appetite",
       "as_of": "2026-09-09",
-      "current_price": 79503.976562,
-      "sma50": 70218.470469,
-      "sma200": 69924.075313,
+      "current_price": 79214.75,
+      "sma50": 70212.685938,
+      "sma200": 69922.62918,
       "weekly_ma30": 69721.248307,
       "weekly_ma50": 80340.866641,
       "trend": "MIXED",
@@ -809,7 +809,7 @@
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2026-09-08",
         "periods_since_cross": 1,
-        "spread_pct": 0.421021,
+        "spread_pct": 0.414825,
         "phase": "CONFIRMED"
       },
       "weekly_cross": {
@@ -928,7 +928,7 @@
       {
         "symbol": "UPBD",
         "price_as_of": "2026-09-08",
-        "fundamentals_as_of": "2026-06-30",
+        "fundamentals_as_of": null,
         "fundamental_sources": [],
         "fundamentals_published_as_of": null,
         "liquidity_average_50d_usd": 19289499.29,
@@ -942,22 +942,14 @@
         "technical_confidence": 85,
         "validation_status": "Technical Data Validation Failed",
         "validation_errors": [
-          "50-day dollar liquidity below $20m"
+          "50-day dollar liquidity below $20m",
+          "fundamental validation unavailable"
         ],
         "canslim_score": null,
         "minervini_score": null,
         "passes_dual_system": null
       }
     ]
-  },
-  "ai_right_side_confirmation": {
-    "data_status": "UNKNOWN",
-    "expected_as_of": "2026-09-08",
-    "price_basis": "adjusted_close",
-    "passed_count": null,
-    "total_conditions": 4,
-    "rule_version": null,
-    "reason": "Approved four-condition rules and same-cutoff evidence unavailable"
   },
   "daily_top5_scan": {
     "schema_version": "1.0",
@@ -1144,7 +1136,7 @@
         "fundamentals_as_of": "2026-07-26",
         "fundamental_sources": [],
         "fundamentals_published_as_of": null,
-        "liquidity_average_50d_usd": 27481222603.06,
+        "liquidity_average_50d_usd": 27481222603.05,
         "liquidity_minimum_50d_usd": 20000000,
         "price_basis": "adjusted_close",
         "score_version": "onecool_us_dual_v2",
