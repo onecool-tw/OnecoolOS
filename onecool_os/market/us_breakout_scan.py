@@ -49,6 +49,9 @@ class FundamentalMetrics:
     quarterly_revenue_growth: float | None = None
     annual_eps_growth: float | None = None
     institutional_holders_available: bool = False
+    source_urls: tuple[str, ...] = ()
+    published_as_of: str | None = None
+    valid_through: str | None = None
 
 
 @dataclass(frozen=True)
@@ -146,6 +149,13 @@ def fundamental_validation_error(fundamental, expected: date) -> str | None:
         return "fundamental cutoff is after price cutoff"
     if age > MAX_FUNDAMENTAL_AGE_DAYS:
         return "stale fundamentals: older than 180 days"
+    try:
+        if fundamental.published_as_of and date.fromisoformat(fundamental.published_as_of) > expected:
+            return "fundamentals not yet published at cutoff"
+        if fundamental.valid_through and date.fromisoformat(fundamental.valid_through) < expected:
+            return "reviewed fundamentals require refresh"
+    except (ValueError, TypeError):
+        return "invalid fundamental publication/expiry date"
     if any(_optional_number(v) is None for v in (
         fundamental.quarterly_eps_growth, fundamental.quarterly_revenue_growth,
         fundamental.annual_eps_growth,
@@ -176,6 +186,16 @@ def score_security(symbol, history, fundamental, spy_history, expected_as_of):
     return {
         "symbol": symbol, "price_as_of": expected_as_of,
         "fundamentals_as_of": fundamental.as_of if fundamental else None,
+        "fundamental_sources": list(fundamental.source_urls) if fundamental else [],
+        "fundamentals_published_as_of": fundamental.published_as_of if fundamental else None,
+        "liquidity_average_50d_usd": (
+            round(_mean(float(b.adjusted_close) * b.volume for b in history[-50:]), 2)
+            if len(history) >= 50 and all(
+                _optional_number(b.adjusted_close) is not None and
+                _optional_number(b.volume) is not None for b in history[-50:]
+            ) else None
+        ),
+        "liquidity_minimum_50d_usd": 20_000_000,
         "price_basis": PRICE_BASIS, "score_version": SCORE_VERSION,
         "thresholds": {"canslim": CANSLIM_PASS, "minervini": MINERVINI_PASS},
         "technical_confidence": confidence,
