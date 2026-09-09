@@ -1,67 +1,71 @@
-from datetime import date, timedelta
+from dataclasses import replace
+from datetime import timedelta
 
 import pytest
 
-from onecool_os.market.etf_cta import DailyBar, merge_and_adjust
-from onecool_os.market.us_portfolio_scores import (
-    FUNDAMENTAL_SNAPSHOTS,
-    build_portfolio_score_payload,
+from onecool_os.market.us_breakout_scan import (
+    FundamentalMetrics, PORTFOLIO_SYMBOLS, build_breakout_scan_payload,
 )
+from onecool_os.market.us_portfolio_scores import build_portfolio_score_payload
+from tests.test_us_breakout_scan import _history, _fundamental
 
 
-def _history(*, strength: float = 1.0, days: int = 320):
-    start = date(2025, 10, 1)
-    return merge_and_adjust(
-        [],
-        [
-            DailyBar(
-                trading_date=start + timedelta(days=index),
-                open=100 + index * strength,
-                high=101 + index * strength,
-                low=99 + index * strength,
-                close=100 + index * strength,
-                volume=1000 + index,
-            )
-            for index in range(days)
-        ],
-    )
+def inputs():
+    histories = {s: _history() for s in (*PORTFOLIO_SYMBOLS, "SPY")}
+    cutoff = histories["SPY"][-1].trading_date.isoformat()
+    fundamentals = {s: _fundamental(cutoff) for s in PORTFOLIO_SYMBOLS}
+    return histories, cutoff, fundamentals
 
 
-def test_scores_are_current_bounded_and_auditable() -> None:
-    histories = {"SPY": _history(strength=0.5)}
-    histories.update({symbol: _history() for symbol in FUNDAMENTAL_SNAPSHOTS})
-    as_of = histories["SPY"][-1].trading_date.isoformat()
-
-    payload = build_portfolio_score_payload(histories, expected_as_of=as_of)
-
-    assert payload["data_status"] == "READY"
-    assert payload["expected_as_of"] == as_of
-    assert len(payload["results"]) == 5
-    for result in payload["results"]:
-        assert result["price_as_of"] == as_of
-        assert result["validation_status"] == "PASSED"
-        assert 0 <= result["canslim_score"] <= 100
-        assert 0 <= result["minervini_score"] <= 100
-        assert result["fundamentals_as_of"] <= as_of
-        assert result["canslim_components"]
-        assert result["minervini_components"]
+def test_scan_and_portfolio_use_identical_scores_and_thresholds():
+    histories, cutoff, fundamentals = inputs()
+    portfolio = build_portfolio_score_payload(histories, expected_as_of=cutoff,
+                                              fundamentals=fundamentals)
+    scan = build_breakout_scan_payload(histories, fundamentals,
+        spy_history=histories["SPY"], expected_as_of=cutoff, universe=PORTFOLIO_SYMBOLS)
+    assert portfolio["data_status"] == "READY"
+    assert portfolio["score_version"] == scan["score_version"]
+    assert portfolio["price_basis"] == scan["price_basis"]
+    assert portfolio["thresholds"] == scan["thresholds"] == {"canslim": 70, "minervini": 80}
+    by_symbol = {r["symbol"]: r for r in scan["top5"]}
+    for result in portfolio["results"]:
+        for field in ("canslim_score", "minervini_score", "passes_dual_system",
+                      "fundamentals_as_of", "validation_status"):
+            assert result[field] == by_symbol[result["symbol"]][field]
 
 
-def test_scores_reject_mixed_price_dates() -> None:
-    histories = {"SPY": _history()}
-    histories.update({symbol: _history() for symbol in FUNDAMENTAL_SNAPSHOTS})
+@pytest.mark.parametrize("kind", ["missing", "stale", "future", "incomplete"])
+def test_invalid_fundamentals_are_unknown_not_old_baselines(kind):
+    histories, cutoff, fundamentals = inputs()
+    f = fundamentals["XYZ"]
+    if kind == "missing":
+        del fundamentals["XYZ"]
+    elif kind == "stale":
+        fundamentals["XYZ"] = replace(f, as_of="2020-08-02")
+    elif kind == "future":
+        fundamentals["XYZ"] = replace(f, as_of="2099-01-01")
+    else:
+        fundamentals["XYZ"] = replace(f, annual_eps_growth=None)
+    p = build_portfolio_score_payload(histories, expected_as_of=cutoff, fundamentals=fundamentals)
+    xyz = next(r for r in p["results"] if r["symbol"] == "XYZ")
+    assert p["data_status"] == "PARTIAL"
+    assert xyz["canslim_score"] is None
+    assert xyz["minervini_score"] is not None
+    assert xyz["passes_dual_system"] is None
+    assert xyz["validation_status"] == "Technical Data Validation Failed"
+
+
+def test_bad_history_is_isolated_to_affected_holding():
+    histories, cutoff, fundamentals = inputs()
     histories["BABA"] = histories["BABA"][:-1]
-    as_of = histories["SPY"][-1].trading_date.isoformat()
+    p = build_portfolio_score_payload(histories, expected_as_of=cutoff, fundamentals=fundamentals)
+    assert p["results"][0]["minervini_score"] is None
+    assert p["results"][1]["validation_status"] == "PASSED"
 
-    with pytest.raises(ValueError, match="BABA price date"):
-        build_portfolio_score_payload(histories, expected_as_of=as_of)
 
-
-def test_scores_reject_insufficient_history() -> None:
-    histories = {"SPY": _history()}
-    histories.update({symbol: _history() for symbol in FUNDAMENTAL_SNAPSHOTS})
-    histories["RH"] = histories["RH"][-200:]
-    as_of = histories["SPY"][-1].trading_date.isoformat()
-
-    with pytest.raises(ValueError, match="RH needs at least 252"):
-        build_portfolio_score_payload(histories, expected_as_of=as_of)
+def test_no_fundamental_inputs_never_returns_ready():
+    histories, cutoff, _ = inputs()
+    p = build_portfolio_score_payload(histories, expected_as_of=cutoff)
+    assert len(p["results"]) == 5
+    assert p["data_status"] == "PARTIAL"
+    assert all(r["canslim_score"] is None for r in p["results"])

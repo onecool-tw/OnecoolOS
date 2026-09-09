@@ -17,6 +17,10 @@ from onecool_os.market.etf_cta import DailyBar
 
 
 SCAN_VERSION = "onecool_us_breakout_v1"
+SCORE_VERSION = "onecool_us_dual_v2"
+PRICE_BASIS = "adjusted_close"
+MAX_FUNDAMENTAL_AGE_DAYS = 180
+PORTFOLIO_SYMBOLS = ("BABA", "XYZ", "QRVO", "RH", "UPBD")
 MIN_TECHNICAL_CONFIDENCE = 90
 CANSLIM_PASS = 70
 MINERVINI_PASS = 80
@@ -124,7 +128,65 @@ US_SECURITY_MASTER = {
     "WMT": SecurityIdentity("Walmart Inc."),
     "XYZ": SecurityIdentity("Block, Inc."),
     "GD": SecurityIdentity("General Dynamics Corporation"),
+    "BABA": SecurityIdentity("Alibaba Group Holding Limited", "ADR"),
+    "QRVO": SecurityIdentity("Qorvo, Inc."),
+    "RH": SecurityIdentity("RH"),
+    "UPBD": SecurityIdentity("Upbound Group, Inc."),
 }
+
+
+def fundamental_validation_error(fundamental, expected: date) -> str | None:
+    if fundamental is None:
+        return "fundamental validation unavailable"
+    try:
+        age = (expected - date.fromisoformat(fundamental.as_of)).days
+    except (ValueError, TypeError):
+        return "invalid fundamental date"
+    if age < 0:
+        return "fundamental cutoff is after price cutoff"
+    if age > MAX_FUNDAMENTAL_AGE_DAYS:
+        return "stale fundamentals: older than 180 days"
+    if any(_optional_number(v) is None for v in (
+        fundamental.quarterly_eps_growth, fundamental.quarterly_revenue_growth,
+        fundamental.annual_eps_growth,
+    )):
+        return "incomplete fundamental growth inputs"
+    return None
+
+
+def score_security(symbol, history, fundamental, spy_history, expected_as_of):
+    """Single scoring and validation entry point for scan and holdings."""
+    expected = date.fromisoformat(expected_as_of)
+    confidence, reasons = technical_confidence(history, expected)
+    spy_confidence, spy_reasons = technical_confidence(spy_history, expected)
+    if spy_confidence < MIN_TECHNICAL_CONFIDENCE or spy_reasons:
+        reasons.append("SPY reference validation failed")
+    if symbol not in US_SECURITY_MASTER:
+        reasons.append("security mapping unavailable")
+    if history and [b.trading_date for b in history[-252:]] != [
+        b.trading_date for b in spy_history[-252:]
+    ]:
+        reasons.append("trading calendar differs from SPY")
+    technical_ok = confidence >= MIN_TECHNICAL_CONFIDENCE and not reasons
+    fundamental_error = fundamental_validation_error(fundamental, expected)
+    metrics = _technical_metrics(history, spy_history) if technical_ok else None
+    canslim = _canslim_score(metrics, fundamental) if metrics and not fundamental_error else None
+    minervini = _minervini_score(metrics) if metrics else None
+    errors = reasons + ([fundamental_error] if fundamental_error else [])
+    return {
+        "symbol": symbol, "price_as_of": expected_as_of,
+        "fundamentals_as_of": fundamental.as_of if fundamental else None,
+        "price_basis": PRICE_BASIS, "score_version": SCORE_VERSION,
+        "thresholds": {"canslim": CANSLIM_PASS, "minervini": MINERVINI_PASS},
+        "technical_confidence": confidence,
+        "validation_status": "PASSED" if not errors else "Technical Data Validation Failed",
+        "validation_errors": errors,
+        "canslim_score": canslim, "minervini_score": minervini,
+        "passes_dual_system": (
+            canslim >= CANSLIM_PASS and minervini >= MINERVINI_PASS
+            if canslim is not None and minervini is not None else None
+        ),
+    }
 
 
 def build_breakout_scan_payload(
@@ -144,35 +206,24 @@ def build_breakout_scan_payload(
     exclusions = []
     for symbol in universe:
         history = histories.get(symbol, [])
-        confidence, reasons = technical_confidence(history, expected)
         fundamental = fundamentals.get(symbol)
-        if confidence < MIN_TECHNICAL_CONFIDENCE or fundamental is None:
+        scored = score_security(symbol, history, fundamental, spy_history, expected_as_of)
+        confidence = scored["technical_confidence"]
+        if scored["validation_status"] != "PASSED":
             exclusions.append({
                 "symbol": symbol,
                 "technical_confidence": confidence,
-                "reason": (
-                    "; ".join(reasons)
-                    if confidence < MIN_TECHNICAL_CONFIDENCE
-                    else "fundamental validation unavailable"
-                ),
-            })
-            continue
-        if date.fromisoformat(fundamental.as_of) > expected:
-            exclusions.append({
-                "symbol": symbol,
-                "technical_confidence": confidence,
-                "reason": "fundamental cutoff is after price cutoff",
+                "reason": "; ".join(scored["validation_errors"]),
             })
             continue
         metrics = _technical_metrics(history, spy_history)
-        identity = US_SECURITY_MASTER.get(
-            symbol, SecurityIdentity(symbol, "UNMAPPED_TEST_SYMBOL")
-        )
-        canslim = _canslim_score(metrics, fundamental)
-        minervini = _minervini_score(metrics)
+        identity = US_SECURITY_MASTER[symbol]
+        canslim = scored["canslim_score"]
+        minervini = scored["minervini_score"]
         status, trigger, breakout_quality = _candidate_state(metrics)
         rank_score = round(canslim * 0.45 + minervini * 0.45 + breakout_quality, 2)
         results.append({
+            **scored,
             "symbol": symbol,
             "company_name": identity.company_name,
             "security_type": identity.security_type,
@@ -208,6 +259,8 @@ def build_breakout_scan_payload(
     return {
         "schema_version": "1.0",
         "scan_version": SCAN_VERSION,
+        "score_version": SCORE_VERSION,
+        "thresholds": {"canslim": CANSLIM_PASS, "minervini": MINERVINI_PASS},
         "classification": "Onecool proxy scores; not IBD official ratings",
         "expected_as_of": expected_as_of,
         "data_status": "READY",
@@ -228,6 +281,7 @@ def fetch_yahoo_breakout_inputs(
     spy_history: list[DailyBar],
     universe: Iterable[str] = US_BREAKOUT_UNIVERSE,
     fundamental_shortlist_size: int = 10,
+    required_fundamental_symbols: Iterable[str] = (),
 ) -> tuple[dict[str, list[DailyBar]], dict[str, FundamentalMetrics]]:
     """Batch-download prices, then fetch fundamentals only for leaders.
 
@@ -237,7 +291,9 @@ def fetch_yahoo_breakout_inputs(
     """
 
     expected = date.fromisoformat(expected_as_of)
-    symbols = tuple(dict.fromkeys(universe))
+    ranking_symbols = tuple(dict.fromkeys(universe))
+    required_fundamental_symbols = tuple(required_fundamental_symbols)
+    symbols = tuple(dict.fromkeys((*ranking_symbols, *required_fundamental_symbols)))
     frame = yfinance_module.download(
         list(symbols),
         period="2y",
@@ -255,7 +311,7 @@ def fetch_yahoo_breakout_inputs(
     spy = spy_history
     _validate_spy(spy, expected)
     leaders = []
-    for symbol in universe:
+    for symbol in ranking_symbols:
         history = histories.get(symbol, [])
         confidence, _ = technical_confidence(history, expected)
         if confidence < MIN_TECHNICAL_CONFIDENCE:
@@ -269,6 +325,7 @@ def fetch_yahoo_breakout_inputs(
     shortlist = [
         symbol for _, _, symbol in sorted(leaders, reverse=True)
     ][:fundamental_shortlist_size]
+    shortlist = list(dict.fromkeys([*shortlist, *required_fundamental_symbols]))
     fundamentals = {}
     # Yahoo's quote-summary endpoint is materially slower than price download.
     # Bound the number of calls and issue them concurrently after pre-screening.
@@ -306,7 +363,7 @@ def _fetch_fundamental(yfinance_module, symbol: str, expected: date):
         for value in (eps_growth, revenue_growth, annual_growth)
     ):
         return None
-    if fundamental_date > expected:
+    if fundamental_date > expected or (expected - fundamental_date).days > MAX_FUNDAMENTAL_AGE_DAYS:
         return None
     return FundamentalMetrics(
         as_of=fundamental_date.isoformat(),
@@ -339,16 +396,16 @@ def _bars_from_download(frame, symbol: str, expected: date) -> list[DailyBar]:
             values = [float(row[key]) for key in ("Open", "High", "Low", "Close")]
             volume = int(float(row["Volume"]))
         except (KeyError, TypeError, ValueError, OverflowError):
-            continue
+            return []
         if not all(isfinite(value) and value > 0 for value in values):
-            continue
+            return []
         bars.append(DailyBar(
             trading_date=trading_date,
             open=values[0],
             high=values[1],
             low=values[2],
             close=values[3],
-            volume=max(0, volume),
+            volume=volume,
             adjusted_close=values[3],
             source="yahoo_finance_adjusted_batch",
         ))
@@ -383,16 +440,18 @@ def technical_confidence(bars: list[DailyBar], expected: date) -> tuple[int, lis
     else:
         reasons.append("duplicate or unsorted dates")
     valid = bool(bars) and all(
-        all(isfinite(float(value)) and float(value) > 0 for value in (
+        all(_optional_number(value) is not None and float(value) > 0 for value in (
             bar.open, bar.high, bar.low, bar.close, bar.adjusted_close
-        )) and bar.volume >= 0
+        )) and isfinite(bar.volume) and bar.volume >= 0
+        and bar.high >= max(bar.open, bar.close, bar.low)
+        and bar.low <= min(bar.open, bar.close)
         for bar in bars
     )
     if valid:
         score += 20
     else:
         reasons.append("invalid OHLCV or adjusted close")
-    if len(bars) >= 50:
+    if valid and len(bars) >= 50:
         dollar_volume = _mean(
             float(bar.adjusted_close) * bar.volume for bar in bars[-50:]
         )
