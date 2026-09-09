@@ -1,11 +1,11 @@
 {
   "schema_version": "1.3",
   "module": "Onecool Taiwan Stock Daily Context",
-  "generated_at": "2026-09-09T05:44:38.373606+00:00",
+  "generated_at": "2026-09-09T06:10:01.702113+00:00",
   "source_policy": "LATEST_SUCCESSFUL_SCREEN_WITH_EXPLICIT_DATE",
   "screen_as_of": "2026-09-08",
   "screen_business_day_lag": 1,
-  "display_status": "CURRENT",
+  "display_status": "STALE",
   "screen_data_status": "READY",
   "0050_weekly_alignment": "GOLDEN",
   "market_pressure_gate": "FORMAL_FROM_DAILY_CONTEXT",
@@ -41,10 +41,10 @@
     "last_change_date": "2026-09-02",
     "data_quality": "READY"
   },
-  "candidate_action_gate": "REQUIRES_INDIVIDUAL_CTA_AND_PRESSURE_GREEN",
+  "candidate_action_gate": "WATCH_ONLY_STALE_OR_MISSING_SCREEN",
   "candidate_cta_cache": {
     "screen_as_of": "2026-09-08",
-    "generated_at": "2026-09-09T05:44:33.364657+00:00",
+    "generated_at": "2026-09-09T06:09:56.777423+00:00",
     "requested_count": 200,
     "coverage": {
       "current": 199,
@@ -90,14 +90,14 @@
       "individual_cta_required": true,
       "individual_cta": {
         "update_status": "CURRENT",
-        "as_of": "2026-09-08",
+        "as_of": "2026-09-09",
         "state": "WEEKLY_BULLISH_DAILY_BEARISH",
         "cta": "WATCH",
         "reason": "Weekly golden trend remains, but daily trend weakened.",
-        "source_data_as_of": "2026-09-08",
+        "source_data_as_of": "2026-09-09",
         "weekly_data_as_of": "2026-09-04",
-        "daily_50ma": 3563.609941,
-        "daily_200ma": 4062.020816,
+        "daily_50ma": 3509.409941,
+        "daily_200ma": 4051.973483,
         "weekly_30ma": 4106.346886,
         "weekly_50ma": 4016.441285,
         "daily_cross": {
@@ -105,8 +105,8 @@
           "cross_status": "NONE",
           "last_cross_status": "DEATH",
           "last_cross_date": "2026-08-20",
-          "periods_since_cross": 13,
-          "spread_pct": -12.270023,
+          "periods_since_cross": 14,
+          "spread_pct": -13.390106,
           "phase": "ACTIVE"
         },
         "weekly_cross": {
@@ -118,10 +118,10 @@
           "spread_pct": 2.238439,
           "phase": "AGING"
         },
-        "last_attempt_at": "2026-09-09T05:44:33.364657+00:00",
+        "last_attempt_at": "2026-09-09T06:09:56.777423+00:00",
         "error": null
       },
-      "action_eligibility": "HOLD_EXISTING_PAUSE_RIGHT_SIDE_ADD"
+      "action_eligibility": "WATCH_ONLY_STALE_OR_MISSING_SCREEN"
     },
     {
       "symbol": "3006",
@@ -153,14 +153,14 @@
       "individual_cta_required": true,
       "individual_cta": {
         "update_status": "CURRENT",
-        "as_of": "2026-09-08",
+        "as_of": "2026-09-09",
         "state": "WEEKLY_BULLISH_DAILY_BULLISH",
         "cta": "BUY",
         "reason": "Weekly golden cross remains confirmed or active.",
-        "source_data_as_of": "2026-09-08",
+        "source_data_as_of": "2026-09-09",
         "weekly_data_as_of": "2026-09-04",
-        "daily_50ma": 239.95,
-        "daily_200ma": 180.854871,
+        "daily_50ma": 241.84,
+        "daily_200ma": 181.913108,
         "weekly_30ma": 203.976682,
         "weekly_50ma": 162.638141,
         "daily_cross": {
@@ -168,8 +168,8 @@
           "cross_status": "NONE",
           "last_cross_status": "GOLDEN",
           "last_cross_date": "2025-09-24",
-          "periods_since_cross": 231,
-          "spread_pct": 32.675442,
+          "periods_since_cross": 232,
+          "spread_pct": 32.942591,
           "phase": "AGING"
         },
         "weekly_cross": {
@@ -181,10 +181,10 @@
           "spread_pct": 25.417495,
           "phase": "ACTIVE"
         },
-        "last_attempt_at": "2026-09-09T05:44:33.364657+00:00",
+        "last_attempt_at": "2026-09-09T06:09:56.777423+00:00",
         "error": null
       },
-      "action_eligibility": "ELIGIBLE_IF_0050_BULLISH_AND_PRESSURE_GREEN"
+      "action_eligibility": "WATCH_ONLY_STALE_OR_MISSING_SCREEN"
     },
     {
       "symbol": "4967",
@@ -216,14 +216,14 @@
       "individual_cta_required": true,
       "individual_cta": {
         "update_status": "CURRENT",
-        "as_of": "2026-09-08",
+        "as_of": "2026-09-09",
         "state": "WEEKLY_BULLISH_DAILY_BULLISH",
         "cta": "BUY",
         "reason": "Weekly golden cross remains confirmed or active.",
-        "source_data_as_of": "2026-09-08",
+        "source_data_as_of": "2026-09-09",
         "weekly_data_as_of": "2026-09-04",
-        "daily_50ma": 247.146381,
-        "daily_200ma": 220.638733,
+        "daily_50ma": 247.92342,
+        "daily_200ma": 221.324585,
         "weekly_30ma": 240.588455,
         "weekly_50ma": 200.847029,
         "daily_cross": {
@@ -231,8 +231,8 @@
           "cross_status": "NONE",
           "last_cross_status": "GOLDEN",
           "last_cross_date": "2025-10-08",
-          "periods_since_cross": 223,
-          "spread_pct": 12.01405,
+          "periods_since_cross": 224,
+          "spread_pct": 12.018021,
           "phase": "AGING"
         },
         "weekly_cross": {
@@ -244,10 +244,10 @@
           "spread_pct": 19.786912,
           "phase": "ACTIVE"
         },
-        "last_attempt_at": "2026-09-09T05:44:33.364657+00:00",
+        "last_attempt_at": "2026-09-09T06:09:56.777423+00:00",
         "error": null
       },
-      "action_eligibility": "ELIGIBLE_IF_0050_BULLISH_AND_PRESSURE_GREEN"
+      "action_eligibility": "WATCH_ONLY_STALE_OR_MISSING_SCREEN"
     },
     {
       "symbol": "2382",
@@ -279,14 +279,14 @@
       "individual_cta_required": true,
       "individual_cta": {
         "update_status": "CURRENT",
-        "as_of": "2026-09-08",
+        "as_of": "2026-09-09",
         "state": "WEEKLY_BULLISH_DAILY_BULLISH",
         "cta": "BUY",
         "reason": "Weekly golden cross remains confirmed or active.",
-        "source_data_as_of": "2026-09-08",
+        "source_data_as_of": "2026-09-09",
         "weekly_data_as_of": "2026-09-04",
-        "daily_50ma": 331.236315,
-        "daily_200ma": 302.144984,
+        "daily_50ma": 330.940945,
+        "daily_200ma": 302.488331,
         "weekly_30ma": 313.409606,
         "weekly_50ma": 297.119102,
         "daily_cross": {
@@ -294,8 +294,8 @@
           "cross_status": "NONE",
           "last_cross_status": "GOLDEN",
           "last_cross_date": "2025-07-04",
-          "periods_since_cross": 288,
-          "spread_pct": 9.628269,
+          "periods_since_cross": 289,
+          "spread_pct": 9.406186,
           "phase": "AGING"
         },
         "weekly_cross": {
@@ -307,10 +307,10 @@
           "spread_pct": 5.482819,
           "phase": "ACTIVE"
         },
-        "last_attempt_at": "2026-09-09T05:44:33.364657+00:00",
+        "last_attempt_at": "2026-09-09T06:09:56.777423+00:00",
         "error": null
       },
-      "action_eligibility": "ELIGIBLE_IF_0050_BULLISH_AND_PRESSURE_GREEN"
+      "action_eligibility": "WATCH_ONLY_STALE_OR_MISSING_SCREEN"
     },
     {
       "symbol": "3036",
@@ -342,14 +342,14 @@
       "individual_cta_required": true,
       "individual_cta": {
         "update_status": "CURRENT",
-        "as_of": "2026-09-08",
+        "as_of": "2026-09-09",
         "state": "WEEKLY_BULLISH_DAILY_BULLISH",
         "cta": "HOLD",
         "reason": "Weekly golden trend is aging without a fresh daily cross.",
-        "source_data_as_of": "2026-09-08",
+        "source_data_as_of": "2026-09-09",
         "weekly_data_as_of": "2026-09-04",
-        "daily_50ma": 203.87,
-        "daily_200ma": 195.994962,
+        "daily_50ma": 203.48,
+        "daily_200ma": 196.225698,
         "weekly_30ma": 216.561351,
         "weekly_50ma": 185.550065,
         "daily_cross": {
@@ -357,8 +357,8 @@
           "cross_status": "NONE",
           "last_cross_status": "GOLDEN",
           "last_cross_date": "2025-05-29",
-          "periods_since_cross": 313,
-          "spread_pct": 4.01798,
+          "periods_since_cross": 314,
+          "spread_pct": 3.696917,
           "phase": "AGING"
         },
         "weekly_cross": {
@@ -370,10 +370,10 @@
           "spread_pct": 16.713164,
           "phase": "AGING"
         },
-        "last_attempt_at": "2026-09-09T05:44:33.364657+00:00",
+        "last_attempt_at": "2026-09-09T06:09:56.777423+00:00",
         "error": null
       },
-      "action_eligibility": "ELIGIBLE_IF_0050_BULLISH_AND_PRESSURE_GREEN"
+      "action_eligibility": "WATCH_ONLY_STALE_OR_MISSING_SCREEN"
     }
   ],
   "authority_order": [
