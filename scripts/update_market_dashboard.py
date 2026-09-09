@@ -36,6 +36,7 @@ from onecool_os.market.us_breakout_scan import (
     fetch_yahoo_breakout_inputs,
 )
 from onecool_os.market.us_portfolio_scores import build_portfolio_score_payload
+from onecool_os.market.reviewed_us_fundamentals import load_reviewed_fundamentals
 from onecool_os.market.us_stock_quality import apply_us_super_growth_quality_gate
 from onecool_os.market.session_cutoff import completed_daily_bars
 
@@ -414,6 +415,11 @@ def update(
     }
     scan_fundamentals = {}
     intelligence_dir = root / "data" / "market" / "us_stock_intelligence"
+    reviewed_path = intelligence_dir / "reviewed_fundamentals.json"
+    reviewed_fundamentals = load_reviewed_fundamentals(
+        json.loads(reviewed_path.read_text(encoding="utf-8")) if reviewed_path.exists() else {},
+        payload["expected_as_of"],
+    )
     scan_path = intelligence_dir / "breakout_scan_latest.json"
     breakout_scan = None
     if refresh_us_scan:
@@ -431,6 +437,8 @@ def update(
                     payload["expected_as_of"]
                 )
             # Use the same adjusted bars as Dashboard for overlapping symbols.
+            for symbol, fundamental in reviewed_fundamentals.items():
+                scan_fundamentals.setdefault(symbol, fundamental)
             scan_histories.update({s: h for s, h in histories_by_symbol.items()
                                    if s in scan_histories})
             breakout_scan = build_breakout_scan_payload(
@@ -457,6 +465,8 @@ def update(
     elif scan_path.exists():
         breakout_scan = json.loads(scan_path.read_text(encoding="utf-8"))
         breakout_scan["publication_status"] = "LAST_VALID"
+    for symbol, fundamental in reviewed_fundamentals.items():
+        scan_fundamentals.setdefault(symbol, fundamental)
     portfolio_scores = build_portfolio_score_payload(
         histories_by_symbol, expected_as_of=payload["expected_as_of"],
         fundamentals=scan_fundamentals,
