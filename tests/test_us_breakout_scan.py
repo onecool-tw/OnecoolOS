@@ -1,4 +1,5 @@
 from datetime import date, timedelta
+from dataclasses import replace
 
 import pandas as pd
 import pytest
@@ -45,7 +46,7 @@ def _fundamental(as_of: str) -> FundamentalMetrics:
 def test_breakout_scan_is_same_cutoff_ranked_and_limited_to_five() -> None:
     spy = _history(strength=0.1)
     as_of = spy[-1].trading_date.isoformat()
-    universe = tuple(f"STK{index}" for index in range(7))
+    universe = US_BREAKOUT_UNIVERSE[:7]
     histories = {
         symbol: _history(strength=0.2 + index * 0.03)
         for index, symbol in enumerate(universe)
@@ -72,10 +73,10 @@ def test_breakout_scan_is_same_cutoff_ranked_and_limited_to_five() -> None:
 def test_mixed_cutoff_is_excluded_instead_of_carried_forward() -> None:
     spy = _history()
     as_of = spy[-1].trading_date.isoformat()
-    histories = {"GOOD": _history(), "STALE": _history()[:-1]}
+    histories = {"NVDA": _history(), "XYZ": _history()[:-1]}
     fundamentals = {
-        "GOOD": _fundamental(as_of),
-        "STALE": _fundamental(as_of),
+        "NVDA": _fundamental(as_of),
+        "XYZ": _fundamental(as_of),
     }
 
     payload = build_breakout_scan_payload(
@@ -83,11 +84,11 @@ def test_mixed_cutoff_is_excluded_instead_of_carried_forward() -> None:
         fundamentals,
         spy_history=spy,
         expected_as_of=as_of,
-        universe=("GOOD", "STALE"),
+        universe=("NVDA", "XYZ"),
     )
 
-    assert [item["symbol"] for item in payload["top5"]] == ["GOOD"]
-    stale = next(item for item in payload["exclusions"] if item["symbol"] == "STALE")
+    assert [item["symbol"] for item in payload["top5"]] == ["NVDA"]
+    stale = next(item for item in payload["exclusions"] if item["symbol"] == "XYZ")
     assert stale["technical_confidence"] < 90
     assert "cutoff mismatch" in stale["reason"]
 
@@ -167,5 +168,29 @@ def test_scan_refuses_to_publish_an_empty_validated_universe() -> None:
 
 
 def test_production_universe_has_an_explicit_security_mapping() -> None:
-    assert set(US_BREAKOUT_UNIVERSE) == set(US_SECURITY_MASTER)
+    assert set(US_BREAKOUT_UNIVERSE) <= set(US_SECURITY_MASTER)
     assert US_SECURITY_MASTER["TSM"].security_type == "ADR"
+
+
+@pytest.mark.parametrize("bad", ["stale", "unmapped", "ohlc", "missing_close", "calendar"])
+def test_validation_gate_excludes_bad_candidate(bad):
+    history = _history()
+    cutoff = history[-1].trading_date.isoformat()
+    symbol = "DE" if bad != "unmapped" else "UNKNOWN_SYMBOL"
+    candidate = list(history)
+    fundamental = _fundamental(cutoff)
+    if bad == "stale":
+        fundamental = replace(fundamental, as_of="2020-08-02")
+    elif bad == "ohlc":
+        candidate[-1] = replace(candidate[-1], high=1)
+    elif bad == "missing_close":
+        candidate[-1] = replace(candidate[-1], adjusted_close=None)
+    elif bad == "calendar":
+        candidate.pop(-100)
+    scan = build_breakout_scan_payload(
+        {"NVDA": history, symbol: candidate},
+        {"NVDA": _fundamental(cutoff), symbol: fundamental},
+        spy_history=history, expected_as_of=cutoff, universe=("NVDA", symbol),
+    )
+    assert [r["symbol"] for r in scan["top5"]] == ["NVDA"]
+    assert scan["exclusions"][0]["symbol"] == symbol

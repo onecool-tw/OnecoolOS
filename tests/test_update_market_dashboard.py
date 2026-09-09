@@ -128,6 +128,11 @@ def test_delayed_asia_run_excludes_incomplete_us_session(
     assert set(us_index_dates.values()) == {completed.isoformat()}
     assert payload["excluded_incomplete_us_session"] == provisional.isoformat()
     assert payload["data_status"] == "READY"
+    ai = payload["ai_right_side_confirmation"]
+    assert ai["data_status"] == "UNKNOWN"
+    assert ai["passed_count"] is None
+    assert ai["rule_version"] is None
+    assert ai["expected_as_of"] == completed.isoformat()
 
 
 def test_completed_us_session_is_retained_after_close() -> None:

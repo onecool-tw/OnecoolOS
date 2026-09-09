@@ -31,6 +31,7 @@ from onecool_os.market.etf_cta import (
 )
 from onecool_os.market.history_bootstrap import YahooHistoryBootstrapper
 from onecool_os.market.us_breakout_scan import (
+    PORTFOLIO_SYMBOLS,
     build_breakout_scan_payload,
     fetch_yahoo_breakout_inputs,
 )
@@ -411,11 +412,7 @@ def update(
     histories_by_symbol = {
         config.symbol: history for config, history in staged
     }
-    portfolio_scores = build_portfolio_score_payload(
-        histories_by_symbol,
-        expected_as_of=payload["expected_as_of"],
-    )
-    payload["us_portfolio_dual_system_scores"] = portfolio_scores
+    scan_fundamentals = {}
     intelligence_dir = root / "data" / "market" / "us_stock_intelligence"
     scan_path = intelligence_dir / "breakout_scan_latest.json"
     breakout_scan = None
@@ -427,11 +424,15 @@ def update(
                     yfinance,
                     expected_as_of=payload["expected_as_of"],
                     spy_history=histories_by_symbol["SPY"],
+                    required_fundamental_symbols=PORTFOLIO_SYMBOLS,
                 )
             else:
                 scan_histories, scan_fundamentals = breakout_input_loader(
                     payload["expected_as_of"]
                 )
+            # Use the same adjusted bars as Dashboard for overlapping symbols.
+            scan_histories.update({s: h for s, h in histories_by_symbol.items()
+                                   if s in scan_histories})
             breakout_scan = build_breakout_scan_payload(
                 scan_histories,
                 scan_fundamentals,
@@ -455,6 +456,19 @@ def update(
                 }
     elif scan_path.exists():
         breakout_scan = json.loads(scan_path.read_text(encoding="utf-8"))
+        breakout_scan["publication_status"] = "LAST_VALID"
+    portfolio_scores = build_portfolio_score_payload(
+        histories_by_symbol, expected_as_of=payload["expected_as_of"],
+        fundamentals=scan_fundamentals,
+    )
+    payload["us_portfolio_dual_system_scores"] = portfolio_scores
+    # No approved four-condition definition/evidence exists. Never infer 1/4.
+    payload["ai_right_side_confirmation"] = {
+        "data_status": "UNKNOWN", "expected_as_of": payload["expected_as_of"],
+        "price_basis": "adjusted_close", "passed_count": None,
+        "total_conditions": 4, "rule_version": None,
+        "reason": "Approved four-condition rules and same-cutoff evidence unavailable",
+    }
     if breakout_scan is not None:
         evidence_path = intelligence_dir / "super_growth_evidence_latest.json"
         evidence = (

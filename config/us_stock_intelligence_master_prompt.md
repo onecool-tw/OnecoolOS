@@ -28,6 +28,21 @@
 
 ## Daily Top 5發布規則
 
+### 共用評分契約（onecool_us_dual_v2）
+
+- 候選與五檔持股必須使用同一次輸入與 `score_security`；禁止固定基本面舊分數。
+- 正式門檻直接讀取產物 `thresholds`：沿用程式 CANSLIM 70、Minervini 80；
+  不得再於報告中另寫 CANSLIM 80。門檻調整須另行版本化與驗證。
+- 價格基準統一標示 `adjusted_close`；重疊標的使用 Dashboard 的相同歷史。
+- 基本面缺漏、日期在未來、超過180日或數值不完整，一律 Unknown，不能補零。
+  180日是過期上限，不代表較新的資料自動完成最新財報查核。
+- Technical Confidence不是投資分數；資料日期、OHLCV、映射、交易日不一致即排除。
+- 個別持股驗證失敗只影響該檔；基本面失敗可保留已驗證技術分數，雙系統狀態為Unknown。
+- `data_status=READY`只代表該模組；不得把Dashboard READY解讀成候選、基本面與AI全部通過。
+- AI四項確認只讀取 `ai_right_side_confirmation`。缺少已批准的四項規則與同日證據時，
+  `passed_count=null`、`data_status=UNKNOWN`，禁止沿用1／4或把CTA綜合狀態換算成確認數。
+- 每個指數／AI CTA一行；資料品質錯誤不得改寫CTA或自動當成市場SELL。
+
 - 美股收盤後的08:30、09:00、09:30三次Dashboard工作流都執行
   Onecool Breakout Scan。
 - 候選池使用同一批調整後日線資料與同一`expected_as_of`，通過OHLCV、
