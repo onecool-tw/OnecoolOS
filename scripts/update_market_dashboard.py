@@ -472,13 +472,7 @@ def update(
         fundamentals=scan_fundamentals,
     )
     payload["us_portfolio_dual_system_scores"] = portfolio_scores
-    # No approved four-condition definition/evidence exists. Never infer 1/4.
-    payload["ai_right_side_confirmation"] = {
-        "data_status": "UNKNOWN", "expected_as_of": payload["expected_as_of"],
-        "price_basis": "adjusted_close", "passed_count": None,
-        "total_conditions": 4, "rule_version": None,
-        "reason": "Approved four-condition rules and same-cutoff evidence unavailable",
-    }
+    # Four-condition AI confirmation retired by user; retain individual CTAs.
     if breakout_scan is not None:
         evidence_path = intelligence_dir / "super_growth_evidence_latest.json"
         evidence = (

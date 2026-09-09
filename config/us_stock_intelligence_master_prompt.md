@@ -21,7 +21,7 @@
 1. 市場狀態與曝險
 2. 四大指數CTA
 3. 三項重要變化
-4. AI右側燈號
+4. AI／半導體CTA與具體短期風險
 5. 美股投組Top 5變化
 6. 創新選擇權部位（TSLA／SPCX；每日固定顯示）
 7. 今日行動
@@ -39,8 +39,8 @@
 - Technical Confidence不是投資分數；資料日期、OHLCV、映射、交易日不一致即排除。
 - 個別持股驗證失敗只影響該檔；基本面失敗可保留已驗證技術分數，雙系統狀態為Unknown。
 - `data_status=READY`只代表該模組；不得把Dashboard READY解讀成候選、基本面與AI全部通過。
-- AI四項確認只讀取 `ai_right_side_confirmation`。缺少已批准的四項規則與同日證據時，
-  `passed_count=null`、`data_status=UNKNOWN`，禁止沿用1／4或把CTA綜合狀態換算成確認數。
+- 已依使用者決定停用AI右側四項確認；不計算或顯示X／4，也不保留Unknown佔位。
+- AI／半導體判斷使用QQQ、SOXX、NVDA CTA與具日期及來源的短期風險事實；不得合成確認數或改寫CTA。
 - 每個指數／AI CTA一行；資料品質錯誤不得改寫CTA或自動當成市場SELL。
 
 - 美股收盤後的08:30、09:00、09:30三次Dashboard工作流都執行
