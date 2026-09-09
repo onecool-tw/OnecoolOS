@@ -164,10 +164,21 @@ def fundamental_validation_error(fundamental, expected: date) -> str | None:
     return None
 
 
-def score_security(symbol, history, fundamental, spy_history, expected_as_of):
-    """Single scoring and validation entry point for scan and holdings."""
+def score_security(
+    symbol, history, fundamental, spy_history, expected_as_of, *,
+    existing_position=False,
+):
+    """Single scoring entry point with a separate existing-position policy.
+
+    The dollar-liquidity minimum is an entry/capacity gate.  It remains a
+    blocking validation for new candidates, but an existing position keeps its
+    technical score and receives a no-new-entry warning when it falls below the
+    minimum.  All price-integrity validations remain blocking in both roles.
+    """
     expected = date.fromisoformat(expected_as_of)
-    confidence, reasons = technical_confidence(history, expected)
+    confidence, reasons = technical_confidence(
+        history, expected, enforce_minimum_liquidity=not existing_position,
+    )
     spy_confidence, spy_reasons = technical_confidence(spy_history, expected)
     if spy_confidence < MIN_TECHNICAL_CONFIDENCE or spy_reasons:
         reasons.append("SPY reference validation failed")
@@ -183,19 +194,35 @@ def score_security(symbol, history, fundamental, spy_history, expected_as_of):
     canslim = _canslim_score(metrics, fundamental) if metrics and not fundamental_error else None
     minervini = _minervini_score(metrics) if metrics else None
     errors = reasons + ([fundamental_error] if fundamental_error else [])
+    liquidity_average = (
+        round(_mean(float(b.adjusted_close) * b.volume for b in history[-50:]), 2)
+        if len(history) >= 50 and all(
+            _optional_number(b.adjusted_close) is not None and
+            _optional_number(b.volume) is not None for b in history[-50:]
+        ) else None
+    )
+    below_entry_minimum = (
+        liquidity_average is not None and liquidity_average < 20_000_000
+    )
+    warnings = []
+    if existing_position and below_entry_minimum:
+        warnings.append(
+            "50-day dollar liquidity below $20m; existing-position monitoring "
+            "retained, new entry ineligible"
+        )
     return {
         "symbol": symbol, "price_as_of": expected_as_of,
         "fundamentals_as_of": fundamental.as_of if fundamental else None,
         "fundamental_sources": list(fundamental.source_urls) if fundamental else [],
         "fundamentals_published_as_of": fundamental.published_as_of if fundamental else None,
-        "liquidity_average_50d_usd": (
-            round(_mean(float(b.adjusted_close) * b.volume for b in history[-50:]), 2)
-            if len(history) >= 50 and all(
-                _optional_number(b.adjusted_close) is not None and
-                _optional_number(b.volume) is not None for b in history[-50:]
-            ) else None
-        ),
+        "liquidity_average_50d_usd": liquidity_average,
         "liquidity_minimum_50d_usd": 20_000_000,
+        "liquidity_status": (
+            "BELOW_NEW_ENTRY_MINIMUM" if below_entry_minimum else
+            "PASSED" if liquidity_average is not None else "UNKNOWN"
+        ),
+        "new_entry_eligible": not below_entry_minimum if liquidity_average is not None else None,
+        "validation_warnings": warnings,
         "price_basis": PRICE_BASIS, "score_version": SCORE_VERSION,
         "thresholds": {"canslim": CANSLIM_PASS, "minervini": MINERVINI_PASS},
         "technical_confidence": confidence,
@@ -441,7 +468,9 @@ def _optional_number(value) -> float | None:
     return number if isfinite(number) else None
 
 
-def technical_confidence(bars: list[DailyBar], expected: date) -> tuple[int, list[str]]:
+def technical_confidence(
+    bars: list[DailyBar], expected: date, *, enforce_minimum_liquidity: bool = True,
+) -> tuple[int, list[str]]:
     """Return a data-validation confidence score, not an attractiveness score."""
 
     score = 10  # symbol mapping is fixed by the versioned universe.
@@ -475,7 +504,7 @@ def technical_confidence(bars: list[DailyBar], expected: date) -> tuple[int, lis
         dollar_volume = _mean(
             float(bar.adjusted_close) * bar.volume for bar in bars[-50:]
         )
-        if dollar_volume >= 20_000_000:
+        if dollar_volume >= 20_000_000 or not enforce_minimum_liquidity:
             score += 15
         else:
             reasons.append("50-day dollar liquidity below $20m")

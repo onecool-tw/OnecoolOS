@@ -69,3 +69,21 @@ def test_no_fundamental_inputs_never_returns_ready():
     assert len(p["results"]) == 5
     assert p["data_status"] == "PARTIAL"
     assert all(r["canslim_score"] is None for r in p["results"])
+
+
+def test_existing_holding_below_liquidity_minimum_keeps_scores_and_warns():
+    histories, cutoff, fundamentals = inputs()
+    histories["UPBD"] = [replace(bar, volume=100) for bar in histories["UPBD"]]
+
+    p = build_portfolio_score_payload(
+        histories, expected_as_of=cutoff, fundamentals=fundamentals,
+    )
+    upbd = next(r for r in p["results"] if r["symbol"] == "UPBD")
+
+    assert p["data_status"] == "READY"
+    assert upbd["validation_status"] == "PASSED"
+    assert upbd["canslim_score"] is not None
+    assert upbd["minervini_score"] is not None
+    assert upbd["liquidity_status"] == "BELOW_NEW_ENTRY_MINIMUM"
+    assert upbd["new_entry_eligible"] is False
+    assert "existing-position monitoring retained" in upbd["validation_warnings"][0]

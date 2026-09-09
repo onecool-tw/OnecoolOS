@@ -12,7 +12,7 @@ def build_portfolio_score_payload(histories, *, expected_as_of, fundamentals=Non
     spy = histories.get("SPY", [])
     results = [
         score_security(symbol, histories.get(symbol, []), fundamentals.get(symbol),
-                       spy, expected_as_of)
+                       spy, expected_as_of, existing_position=True)
         for symbol in PORTFOLIO_SYMBOLS
     ]
     return {
