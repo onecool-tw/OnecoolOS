@@ -86,6 +86,7 @@ def build_snapshot(root: Path):
         'source_generated_at': {k: v.get('generated_at') for k, v in docs.items()},
         'screen_as_of': context['screen_as_of'],
         'display_status': context['display_status'],
+        'report_readiness': context.get('report_readiness', {'status': 'Unknown'}),
         'candidate_action_gate': context['candidate_action_gate'],
         'market_pressure': pressure,
         'market_cta': {symbol: project(indices[symbol], CTA_FIELDS)

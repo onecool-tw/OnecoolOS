@@ -37,6 +37,7 @@ def render(raw):
            '</head><body><main><h1>Onecool 台股親友版</h1>',
            '<p>正式唯讀 Snapshot。所有訊號、分數與順序沿用來源；缺漏欄位顯示 Unknown。更新頁面不代表資料日期更新。</p>',
            '<section><h2>市場壓力燈</h2>']
+    out.append('<p>資料更新檢核：' + text(data.get('report_readiness')) + '</p>')
     for key, label in (("light", "市場壓力燈"), ("status", "狀態"), ("action", "正式行動"), ("as_of", "資料日"), ("reason", "判定原因")):
         out.append(f'<p>{label}：{text(pressure.get(key))}</p>')
     out.append(f'<p>資料狀態：{text(data.get("display_status"))}</p><p>候選行動閘門：{text(data.get("candidate_action_gate"))}</p></section>')

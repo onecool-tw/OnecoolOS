@@ -23,12 +23,13 @@ on:
       - "tests/test_taiwan_family_snapshot.py"
       - "onecool_os/market/session_cutoff.py"
       - "tests/test_taiwan_freshness.py"
+      - "scripts/check_taiwan_report_readiness.py"
+      - "tests/test_taiwan_report_readiness.py"
   schedule:
-    # 17:15, 17:35, 17:50 Asia/Taipei, Monday-Friday. Repeated idempotent
-    # attempts absorb TWSE publication and GitHub Actions queue delays.
-    - cron: "15 9 * * 1-5"
-    - cron: "35 9 * * 1-5"
-    - cron: "50 9 * * 1-5"
+    # Start soon after Taiwan close; retries leave room before the 18:00 report.
+    # GitHub cron is best effort, so readiness is checked independently.
+    - cron: "17,47 6-8 * * 1-5"
+    - cron: "17,37 9 * * 1-5"
 
 permissions:
   contents: write
@@ -71,6 +72,10 @@ jobs:
         run: |
           python scripts/export_taiwan_family_snapshot.py
           python scripts/export_taiwan_family_snapshot.py --check
+      - name: Check same-session report readiness
+        id: readiness
+        continue-on-error: true
+        run: python scripts/check_taiwan_report_readiness.py
       - name: Commit only when the validated screen changed
         run: |
           git add data/market/taiwan_stock_intelligence data/public/taiwan_stock_family_latest.json
@@ -88,13 +93,13 @@ jobs:
           git push
       - name: Warn when an opportunistic refresh is incomplete
         if: >-
-          (steps.screen.outcome == 'failure' || steps.cta.outcome == 'failure') &&
+          (steps.screen.outcome == 'failure' || steps.cta.outcome == 'failure' || steps.readiness.outcome == 'failure') &&
           (github.event_name == 'workflow_run' || github.event_name == 'push')
         run: |
           echo "::warning::Opportunistic Taiwan refresh incomplete; retained and published the last valid dated snapshot."
       - name: Report unsuccessful formal refresh after preserving the last valid snapshot
         if: >-
-          (steps.screen.outcome == 'failure' || steps.cta.outcome == 'failure') &&
+          (steps.screen.outcome == 'failure' || steps.cta.outcome == 'failure' || steps.readiness.outcome == 'failure') &&
           (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch')
         run: |
           echo "::error::Formal Taiwan refresh incomplete; retained source dates, not a current-day success."

@@ -108,6 +108,46 @@ def load_master_prompt(root: Path) -> dict[str, str]:
     }
 
 
+def report_readiness(screen, stock_cta, dashboard, expected_as_of):
+    """Check dates/availability only. No CTA, pressure or ranking calculation."""
+    issues = []
+    cutoff = (screen or {}).get("expected_as_of")
+    if cutoff != expected_as_of or (screen or {}).get("data_status") != "READY":
+        issues.append("screen_not_current")
+    rows = (screen or {}).get("top5", [])
+    if not screen or not isinstance(rows, list):
+        rows = []
+        issues.append("screen_missing")
+    symbols = [r.get("symbol") for r in rows]
+    if len(symbols) != len(set(symbols)):
+        issues.append("duplicate_top5")
+    indices = (dashboard or {}).get("results", [])
+    stocks = (stock_cta or {}).get("results", [])
+    dates = {}
+    for symbol in ("0050", "2330"):
+        matches = [r for r in indices if r.get("symbol") == symbol]
+        item = matches[0] if len(matches) == 1 else {}
+        dates[symbol] = item.get("as_of")
+        if item.get("as_of") != expected_as_of or item.get("cta") not in {"BUY", "HOLD", "WATCH", "SELL"}:
+            issues.append("dashboard_" + symbol + "_not_current")
+    for row in rows:
+        symbol = row.get("symbol")
+        matches = [r for r in stocks if r.get("symbol") == symbol]
+        item = matches[0] if len(matches) == 1 else {}
+        dates[symbol] = item.get("as_of")
+        if row.get("price_as_of") != expected_as_of:
+            issues.append(str(symbol) + "_price_not_current")
+        if (item.get("as_of") != expected_as_of or item.get("update_status") != "CURRENT"
+                or item.get("error") or item.get("cta") not in {"BUY", "HOLD", "WATCH", "SELL"}):
+            issues.append(str(symbol) + "_cta_not_current")
+    return {"status": "READY" if not issues else "UPDATE_INCOMPLETE",
+            "expected_as_of": expected_as_of, "screen_as_of": cutoff,
+            "taiwan_cta_dates": dates, "issues": issues,
+            "scope": "TAIWAN_PRICE_VALUATION_AND_CTA_ONLY",
+            "consumer_rule": "INCOMPLETE_MEANS_NO_NEW_EXPOSURE_AND_NO_UNCHANGED_RANKING_CLAIM",
+            "asia_and_margin_policy": "KEEP_ACTUAL_LOCAL_SOURCE_DATES"}
+
+
 def build_taiwan_stock_daily_context(
     root: Path,
     *,
@@ -169,6 +209,10 @@ def build_taiwan_stock_daily_context(
     timestamp = generated_at or datetime.now(UTC)
     return {
         "schema_version": "1.3",
+        "report_readiness": report_readiness(
+            screen, stock_cta, _read(root, "data/market/dashboard/dashboard_latest.json"),
+            current_date.isoformat(),
+        ),
         "module": "Onecool Taiwan Stock Daily Context",
         "generated_at": timestamp.isoformat(),
         "source_policy": "LATEST_SUCCESSFUL_SCREEN_WITH_EXPLICIT_DATE",
