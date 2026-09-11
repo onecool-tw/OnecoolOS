@@ -4,7 +4,7 @@
   "classification": "Onecool proxy scores; not IBD official ratings",
   "expected_as_of": "2026-09-10",
   "price_basis": "adjusted_close",
-  "data_status": "PARTIAL",
+  "data_status": "READY",
   "thresholds": {
     "canslim": 70,
     "minervini": 80
@@ -86,9 +86,12 @@
     {
       "symbol": "RH",
       "price_as_of": "2026-09-10",
-      "fundamentals_as_of": null,
-      "fundamental_sources": [],
-      "fundamentals_published_as_of": null,
+      "fundamentals_as_of": "2026-05-02",
+      "fundamental_sources": [
+        "https://ir.rh.com/financials-filings/sec-filings/content/0001104659-26-072941/rh-20260611xex99d2.htm",
+        "https://www.sec.gov/Archives/edgar/data/1528849/000110465926037775/rh-20260331xex99d2.htm"
+      ],
+      "fundamentals_published_as_of": "2026-06-11",
       "liquidity_average_50d_usd": 120933314.42,
       "liquidity_minimum_50d_usd": 20000000,
       "liquidity_status": "PASSED",
@@ -101,13 +104,11 @@
         "minervini": 80
       },
       "technical_confidence": 100,
-      "validation_status": "Technical Data Validation Failed",
-      "validation_errors": [
-        "fundamental validation unavailable"
-      ],
-      "canslim_score": null,
+      "validation_status": "PASSED",
+      "validation_errors": [],
+      "canslim_score": 31,
       "minervini_score": 10,
-      "passes_dual_system": null
+      "passes_dual_system": false
     },
     {
       "symbol": "UPBD",
