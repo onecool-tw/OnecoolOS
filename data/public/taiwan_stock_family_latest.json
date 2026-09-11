@@ -12,7 +12,7 @@
   "sources": {
     "dashboard": {
       "path": "data/market/dashboard/dashboard_latest.json",
-      "sha256": "e1d36557830a39a25c2d7fe925608deae842ccda2486fa2b344684b431984c2f"
+      "sha256": "aef32cd507aab37d6135e0e4d560a365085c6ab4e04dd84ca8acf9df294c45f5"
     },
     "screen": {
       "path": "data/market/taiwan_stock_intelligence/screen_latest.json",
@@ -20,24 +20,24 @@
     },
     "cta": {
       "path": "data/market/taiwan_stock_intelligence/cta/cta_latest.json",
-      "sha256": "304700b81e5fbaf25d1ded14aedd957d6f224545f69266a21490f5c748c91fe5"
+      "sha256": "a9418bb155202fdb0d8ffc14b30862555783b4893c71c779722455d3843f4798"
     },
     "context": {
       "path": "data/market/taiwan_stock_intelligence/daily_context_latest.json",
-      "sha256": "0f93aa7af825d000e7ea1394137fe9647a5f16e17a1959f3a3ee090c9ba6f7c5"
+      "sha256": "ec61ff854c91851416b73dcee1aee334e3e51ba5eb4ab915846b0df0e421bcbd"
     }
   },
   "source_generated_at": {
-    "dashboard": "2026-09-10T13:43:59.005613+00:00",
+    "dashboard": "2026-09-11T04:57:18.545868+00:00",
     "screen": null,
-    "cta": "2026-09-10T13:45:09.162238+00:00",
-    "context": "2026-09-10T13:45:13.119973+00:00"
+    "cta": "2026-09-11T04:58:29.740096+00:00",
+    "context": "2026-09-11T04:58:34.831229+00:00"
   },
   "screen_as_of": "2026-09-10",
   "display_status": "CURRENT",
   "report_readiness": {
-    "status": "READY",
-    "expected_as_of": "2026-09-10",
+    "status": "UPDATE_INCOMPLETE",
+    "expected_as_of": "2026-09-11",
     "screen_as_of": "2026-09-10",
     "taiwan_cta_dates": {
       "0050": "2026-09-10",
@@ -48,7 +48,21 @@
       "2408": "2026-09-10",
       "2357": "2026-09-10"
     },
-    "issues": [],
+    "issues": [
+      "screen_not_current",
+      "dashboard_0050_not_current",
+      "dashboard_2330_not_current",
+      "3006_price_not_current",
+      "3006_cta_not_current",
+      "6669_price_not_current",
+      "6669_cta_not_current",
+      "3036_price_not_current",
+      "3036_cta_not_current",
+      "2408_price_not_current",
+      "2408_cta_not_current",
+      "2357_price_not_current",
+      "2357_cta_not_current"
+    ],
     "scope": "TAIWAN_PRICE_VALUATION_AND_CTA_ONLY",
     "consumer_rule": "INCOMPLETE_MEANS_NO_NEW_EXPOSURE_AND_NO_UNCHANGED_RANKING_CLAIM",
     "asia_and_margin_policy": "KEEP_ACTUAL_LOCAL_SOURCE_DATES"
