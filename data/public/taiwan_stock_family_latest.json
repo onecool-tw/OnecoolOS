@@ -24,7 +24,7 @@
     },
     "context": {
       "path": "data/market/taiwan_stock_intelligence/daily_context_latest.json",
-      "sha256": "295be7f66131a61f33a209f71f56937620aedc86de9288691f12b3f01b183fc5"
+      "sha256": "5392737675079e088ced88aeb7841d95c26f49a90fdc9be4b95ac717a6c8f2c3"
     }
   },
   "source_generated_at": {
@@ -62,32 +62,31 @@
   },
   "candidate_action_gate": "WATCH_ONLY_STALE_OR_MISSING_SCREEN",
   "market_pressure": {
-    "as_of": "2026-09-10",
+    "as_of": "2026-09-11",
     "status": "CURRENT",
     "light": "RED",
     "action": "PAUSE_NEW_EXPOSURE",
     "reason": [
       "red_release_conditions_not_met",
-      "futures_basis_turned_negative_70_49",
-      "foreign_futures_net_short_increased_to_83918",
-      "institutional_net_selling",
-      "latest_taiwan_volatility_unverified"
+      "taiwan_futures_fell_651_to_46218",
+      "foreign_futures_net_short_increased_to_85067",
+      "spot_pcr_volatility_and_institutional_flow_not_fully_verified"
     ],
     "confirmed_inputs": {
-      "spot": true,
+      "spot": false,
       "futures": true,
-      "pcr": true,
+      "pcr": false,
       "volatility": false,
-      "institutional_flow": true,
-      "margin": true
+      "institutional_flow": false,
+      "margin": false
     },
     "input_data_as_of": {
-      "spot": "2026-09-10",
-      "futures": "2026-09-10",
-      "pcr": "2026-09-10",
+      "spot": null,
+      "futures": "2026-09-11",
+      "pcr": null,
       "volatility": null,
-      "institutional_flow": "2026-09-10",
-      "margin": "2026-09-09"
+      "institutional_flow": null,
+      "margin": null
     },
     "previous_light": "RED",
     "changed": false,
