@@ -77,7 +77,7 @@ def _drop_incomplete_us_session(
 ) -> list:
     """Discard a provider's provisional current-session daily bar."""
 
-    is_us_session_symbol = config.market == "US" or config.symbol == "VIX"
+    is_us_session_symbol = config.market == "US" or config.symbol in {"VIX", "DXY", "US30Y"}
     if (
         incomplete_session is None
         or not is_us_session_symbol
@@ -365,6 +365,12 @@ def update(
                 )
             action_validation.append(validation)
 
+        if config.symbol in {"VIX", "DXY", "US30Y"}:
+            # SPY is loaded first. Context markets may publish on a different
+            # calendar; never include a bar beyond the report's US session.
+            spy_history = next((h for c, h in staged if c.symbol == "SPY"), [])
+            history = [b for b in history if spy_history and
+                       b.trading_date <= spy_history[-1].trading_date]
         staged.append((config, history))
         if config.symbol in INNOVATION_OPTION_SYMBOLS:
             innovation_histories[config.symbol] = history
@@ -436,9 +442,11 @@ def update(
                 scan_histories, scan_fundamentals = breakout_input_loader(
                     payload["expected_as_of"]
                 )
-            # Use the same adjusted bars as Dashboard for overlapping symbols.
+            # Reviewed point-in-time filing versions take precedence over a
+            # provider's latest snapshot (which can include after-hours news).
             for symbol, fundamental in reviewed_fundamentals.items():
-                scan_fundamentals.setdefault(symbol, fundamental)
+                scan_fundamentals[symbol] = fundamental
+            # Use the same adjusted bars as Dashboard for overlapping symbols.
             scan_histories.update({s: h for s, h in histories_by_symbol.items()
                                    if s in scan_histories})
             breakout_scan = build_breakout_scan_payload(
@@ -466,7 +474,7 @@ def update(
         breakout_scan = json.loads(scan_path.read_text(encoding="utf-8"))
         breakout_scan["publication_status"] = "LAST_VALID"
     for symbol, fundamental in reviewed_fundamentals.items():
-        scan_fundamentals.setdefault(symbol, fundamental)
+        scan_fundamentals[symbol] = fundamental
     portfolio_scores = build_portfolio_score_payload(
         histories_by_symbol, expected_as_of=payload["expected_as_of"],
         fundamentals=scan_fundamentals,

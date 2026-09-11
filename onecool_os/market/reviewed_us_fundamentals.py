@@ -11,6 +11,7 @@ from onecool_os.market.us_breakout_scan import (
 def load_reviewed_fundamentals(payload, expected_as_of):
     expected = date.fromisoformat(expected_as_of)
     results = {}
+    selected_versions = {}
     for row in payload.get("results", []):
         try:
             symbol = row["symbol"]
@@ -19,6 +20,10 @@ def load_reviewed_fundamentals(payload, expected_as_of):
             if row["review_status"] != "VERIFIED" or not row["sources"]:
                 continue
             sources = row["sources"]
+            published = max(date.fromisoformat(s["published_as_of"]) for s in sources)
+            effective = date.fromisoformat(row.get("effective_from", published.isoformat()))
+            if not published <= effective <= expected or effective > date.fromisoformat(row["valid_through"]):
+                continue
             if any(not s["url"].startswith("https://") or
                    date.fromisoformat(s["published_as_of"]) > expected for s in sources):
                 continue
@@ -46,7 +51,10 @@ def load_reviewed_fundamentals(payload, expected_as_of):
                 valid_through=row["valid_through"],
             )
             if fundamental_validation_error(f, expected) is None:
-                results[symbol] = f
+                version = (f.as_of, effective, published)
+                if symbol not in selected_versions or version > selected_versions[symbol]:
+                    results[symbol] = f
+                    selected_versions[symbol] = version
         except (ValueError, TypeError, KeyError, ZeroDivisionError):
             continue
     return results

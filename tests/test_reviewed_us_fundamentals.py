@@ -21,9 +21,28 @@ def test_rh_official_inputs_reproduce_growth_without_stored_score():
     assert len(f.source_urls) == 2
 
 
-@pytest.mark.parametrize("cutoff", ["2026-06-10", "2026-09-10"])
+@pytest.mark.parametrize("cutoff", ["2026-06-11", "2026-12-01"])
 def test_fallback_never_uses_unpublished_or_expired_evidence(cutoff):
     assert load_reviewed_fundamentals(evidence(), cutoff) == {}
+
+
+@pytest.mark.parametrize("reverse", [False, True])
+def test_after_hours_earnings_switch_only_on_next_close(reverse):
+    p = evidence()
+    if reverse:
+        p["results"].reverse()
+    old = load_reviewed_fundamentals(p, "2026-09-10")["RH"]
+    new = load_reviewed_fundamentals(p, "2026-09-11")["RH"]
+    assert old.as_of == "2026-05-02"
+    assert new.as_of == "2026-08-01"
+    assert new.quarterly_eps_growth == pytest.approx(3.06 / 2.62 - 1)
+    assert new.quarterly_revenue_growth == pytest.approx(922150 / 899151 - 1)
+
+
+def test_effective_date_cannot_precede_publication():
+    p = evidence()
+    p["results"][1]["effective_from"] = "2026-09-09"
+    assert load_reviewed_fundamentals(p, "2026-09-11") == {}
 
 
 @pytest.mark.parametrize("defect", ["missing", "zero", "non_gaap", "period", "source"])
