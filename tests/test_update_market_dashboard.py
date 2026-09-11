@@ -129,6 +129,10 @@ def test_delayed_asia_run_excludes_incomplete_us_session(
     assert payload["excluded_incomplete_us_session"] == provisional.isoformat()
     assert payload["data_status"] == "READY"
     assert "ai_right_side_confirmation" not in payload
+    rows = {r["symbol"]: r for r in payload["results"]}
+    for symbol in ("DXY", "VIX", "US30Y"):
+        assert rows[symbol]["as_of"] == completed.isoformat()
+    assert rows["BTC"]["as_of"] == provisional.isoformat()
 
 
 def test_completed_us_session_is_retained_after_close() -> None:
