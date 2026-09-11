@@ -12,7 +12,7 @@
   "sources": {
     "dashboard": {
       "path": "data/market/dashboard/dashboard_latest.json",
-      "sha256": "d18f4d7dc82b175187317d4d2bbc4cd4c8e5b8e133bce9b5b55958af59cdcfb7"
+      "sha256": "054420ee54309c52af1faa75fe7f1727df7761d9ea62934ef878f22ceadb5c85"
     },
     "screen": {
       "path": "data/market/taiwan_stock_intelligence/screen_latest.json",
@@ -20,54 +20,47 @@
     },
     "cta": {
       "path": "data/market/taiwan_stock_intelligence/cta/cta_latest.json",
-      "sha256": "73b3620bca3190e5c52886b7adf05c34a3b33ff8690c32a04a3f3a82d843831f"
+      "sha256": "56fe9feeab77ae3e33f7a0ba92f41b3abe980e0f968abdc50166785f9e670614"
     },
     "context": {
       "path": "data/market/taiwan_stock_intelligence/daily_context_latest.json",
-      "sha256": "98186481db94409305c181407535ff8d82eb49748d001b6a8eb6d6c4b457998f"
+      "sha256": "ed898703a41fcef31778c1fd58cdbd2e06ccdf5e1ae919c668b9891d11266932"
     }
   },
   "source_generated_at": {
-    "dashboard": "2026-09-11T05:36:30.397763+00:00",
+    "dashboard": "2026-09-11T06:11:35.252303+00:00",
     "screen": null,
-    "cta": "2026-09-11T05:37:54.563402+00:00",
-    "context": "2026-09-11T05:38:00.113512+00:00"
+    "cta": "2026-09-11T06:12:44.246712+00:00",
+    "context": "2026-09-11T06:12:49.307418+00:00"
   },
   "screen_as_of": "2026-09-10",
-  "display_status": "CURRENT",
+  "display_status": "STALE",
   "report_readiness": {
     "status": "UPDATE_INCOMPLETE",
     "expected_as_of": "2026-09-11",
     "screen_as_of": "2026-09-10",
     "taiwan_cta_dates": {
-      "0050": "2026-09-10",
-      "2330": "2026-09-10",
-      "3006": "2026-09-10",
-      "6669": "2026-09-10",
-      "3036": "2026-09-10",
-      "2408": "2026-09-10",
-      "2357": "2026-09-10"
+      "0050": "2026-09-11",
+      "2330": "2026-09-11",
+      "3006": "2026-09-11",
+      "6669": "2026-09-11",
+      "3036": "2026-09-11",
+      "2408": "2026-09-11",
+      "2357": "2026-09-11"
     },
     "issues": [
       "screen_not_current",
-      "dashboard_0050_not_current",
-      "dashboard_2330_not_current",
       "3006_price_not_current",
-      "3006_cta_not_current",
       "6669_price_not_current",
-      "6669_cta_not_current",
       "3036_price_not_current",
-      "3036_cta_not_current",
       "2408_price_not_current",
-      "2408_cta_not_current",
-      "2357_price_not_current",
-      "2357_cta_not_current"
+      "2357_price_not_current"
     ],
     "scope": "TAIWAN_PRICE_VALUATION_AND_CTA_ONLY",
     "consumer_rule": "INCOMPLETE_MEANS_NO_NEW_EXPOSURE_AND_NO_UNCHANGED_RANKING_CLAIM",
     "asia_and_margin_policy": "KEEP_ACTUAL_LOCAL_SOURCE_DATES"
   },
-  "candidate_action_gate": "REQUIRES_INDIVIDUAL_CTA_AND_PRESSURE_GREEN",
+  "candidate_action_gate": "WATCH_ONLY_STALE_OR_MISSING_SCREEN",
   "market_pressure": {
     "as_of": "2026-09-10",
     "status": "CURRENT",
@@ -104,13 +97,13 @@
   "market_cta": {
     "0050": {
       "symbol": "0050",
-      "as_of": "2026-09-10",
+      "as_of": "2026-09-11",
       "cta": "BUY",
       "trend": "BULLISH"
     },
     "2330": {
       "symbol": "2330",
-      "as_of": "2026-09-10",
+      "as_of": "2026-09-11",
       "cta": "BUY",
       "trend": "BULLISH"
     },
@@ -140,16 +133,16 @@
       "monthly_revenue_as_of": "2026-07",
       "price_basis": "official_unadjusted_close",
       "selection_status": "FORMAL",
-      "action_eligibility": "ELIGIBLE_IF_0050_BULLISH_AND_PRESSURE_GREEN",
+      "action_eligibility": "WATCH_ONLY_STALE_OR_MISSING_SCREEN",
       "individual_cta": {
         "symbol": "3006",
-        "as_of": "2026-09-10",
+        "as_of": "2026-09-11",
         "cta": "BUY",
         "state": "WEEKLY_BULLISH_DAILY_BULLISH",
         "update_status": "CURRENT",
         "price_basis": "locally_adjusted_close",
-        "weekly_data_as_of": "2026-09-04",
-        "source_data_as_of": "2026-09-10",
+        "weekly_data_as_of": "2026-09-11",
+        "source_data_as_of": "2026-09-11",
         "error": null
       }
     },
@@ -165,16 +158,16 @@
       "monthly_revenue_as_of": "2026-07",
       "price_basis": "official_unadjusted_close",
       "selection_status": "FORMAL",
-      "action_eligibility": "HOLD_EXISTING_PAUSE_RIGHT_SIDE_ADD",
+      "action_eligibility": "WATCH_ONLY_STALE_OR_MISSING_SCREEN",
       "individual_cta": {
         "symbol": "6669",
-        "as_of": "2026-09-10",
+        "as_of": "2026-09-11",
         "cta": "WATCH",
         "state": "WEEKLY_BULLISH_DAILY_BEARISH",
         "update_status": "CURRENT",
         "price_basis": "locally_adjusted_close",
-        "weekly_data_as_of": "2026-09-04",
-        "source_data_as_of": "2026-09-10",
+        "weekly_data_as_of": "2026-09-11",
+        "source_data_as_of": "2026-09-11",
         "error": null
       }
     },
@@ -190,16 +183,16 @@
       "monthly_revenue_as_of": "2026-07",
       "price_basis": "official_unadjusted_close",
       "selection_status": "FORMAL",
-      "action_eligibility": "ELIGIBLE_IF_0050_BULLISH_AND_PRESSURE_GREEN",
+      "action_eligibility": "WATCH_ONLY_STALE_OR_MISSING_SCREEN",
       "individual_cta": {
         "symbol": "3036",
-        "as_of": "2026-09-10",
+        "as_of": "2026-09-11",
         "cta": "HOLD",
         "state": "WEEKLY_BULLISH_DAILY_BULLISH",
         "update_status": "CURRENT",
         "price_basis": "locally_adjusted_close",
-        "weekly_data_as_of": "2026-09-04",
-        "source_data_as_of": "2026-09-10",
+        "weekly_data_as_of": "2026-09-11",
+        "source_data_as_of": "2026-09-11",
         "error": null
       }
     },
@@ -215,16 +208,16 @@
       "monthly_revenue_as_of": "2026-07",
       "price_basis": "official_unadjusted_close",
       "selection_status": "FORMAL",
-      "action_eligibility": "ELIGIBLE_IF_0050_BULLISH_AND_PRESSURE_GREEN",
+      "action_eligibility": "WATCH_ONLY_STALE_OR_MISSING_SCREEN",
       "individual_cta": {
         "symbol": "2408",
-        "as_of": "2026-09-10",
+        "as_of": "2026-09-11",
         "cta": "HOLD",
         "state": "WEEKLY_BULLISH_DAILY_BULLISH",
         "update_status": "CURRENT",
         "price_basis": "locally_adjusted_close",
-        "weekly_data_as_of": "2026-09-04",
-        "source_data_as_of": "2026-09-10",
+        "weekly_data_as_of": "2026-09-11",
+        "source_data_as_of": "2026-09-11",
         "error": null
       }
     },
@@ -240,16 +233,16 @@
       "monthly_revenue_as_of": "2026-07",
       "price_basis": "official_unadjusted_close",
       "selection_status": "FORMAL",
-      "action_eligibility": "ELIGIBLE_IF_0050_BULLISH_AND_PRESSURE_GREEN",
+      "action_eligibility": "WATCH_ONLY_STALE_OR_MISSING_SCREEN",
       "individual_cta": {
         "symbol": "2357",
-        "as_of": "2026-09-10",
+        "as_of": "2026-09-11",
         "cta": "BUY",
         "state": "WEEKLY_BULLISH_DAILY_BULLISH",
         "update_status": "CURRENT",
         "price_basis": "locally_adjusted_close",
-        "weekly_data_as_of": "2026-09-04",
-        "source_data_as_of": "2026-09-10",
+        "weekly_data_as_of": "2026-09-11",
+        "source_data_as_of": "2026-09-11",
         "error": null
       }
     }
