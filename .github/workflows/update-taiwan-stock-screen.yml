@@ -91,15 +91,21 @@ jobs:
           # independent paths, then publish the validated screen.
           git pull --rebase origin main
           git push
+      - name: Warn when a transient source failure did not block readiness
+        if: >-
+          (steps.screen.outcome == 'failure' || steps.cta.outcome == 'failure') &&
+          steps.readiness.outcome == 'success'
+        run: |
+          echo "::warning::A Taiwan source refresh attempt failed, but the final same-day report is READY."
       - name: Warn when an opportunistic refresh is incomplete
         if: >-
-          (steps.screen.outcome == 'failure' || steps.cta.outcome == 'failure' || steps.readiness.outcome == 'failure') &&
+          steps.readiness.outcome == 'failure' &&
           (github.event_name == 'workflow_run' || github.event_name == 'push')
         run: |
           echo "::warning::Opportunistic Taiwan refresh incomplete; retained and published the last valid dated snapshot."
       - name: Report unsuccessful formal refresh after preserving the last valid snapshot
         if: >-
-          (steps.screen.outcome == 'failure' || steps.cta.outcome == 'failure' || steps.readiness.outcome == 'failure') &&
+          steps.readiness.outcome == 'failure' &&
           (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch')
         run: |
           echo "::error::Formal Taiwan refresh incomplete; retained source dates, not a current-day success."
