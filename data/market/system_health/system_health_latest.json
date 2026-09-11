@@ -1,18 +1,18 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-09-10T14:39:55.725768+00:00",
-  "taipei_date": "2026-09-10",
+  "generated_at": "2026-09-11T12:18:55.350171+00:00",
+  "taipei_date": "2026-09-11",
   "status": "PARTIAL",
   "scope_status": {
     "morning": "READY",
-    "asia": "PARTIAL",
+    "asia": "READY",
     "weekly": "PARTIAL"
   },
   "action_readiness": "LIMITED",
   "counts": {
-    "ready": 15,
-    "partial": 2,
+    "ready": 16,
+    "partial": 1,
     "blocked": 0
   },
   "modules": [
@@ -23,7 +23,7 @@
       "critical": true,
       "status": "READY",
       "reason": "current",
-      "observed_as_of": "2026-09-09",
+      "observed_as_of": "2026-09-10",
       "recovery_workflow": "update-market-dashboard.yml",
       "retryable": true,
       "impacted_reports": [
@@ -38,7 +38,7 @@
       "critical": true,
       "status": "READY",
       "reason": "current",
-      "observed_as_of": "2026-09-09",
+      "observed_as_of": "2026-09-10",
       "recovery_workflow": "update-market-dashboard.yml",
       "retryable": true,
       "impacted_reports": [
@@ -52,7 +52,7 @@
       "critical": true,
       "status": "READY",
       "reason": "current",
-      "observed_as_of": "2026-09-09",
+      "observed_as_of": "2026-09-10",
       "recovery_workflow": "update-market-dashboard.yml",
       "retryable": true,
       "impacted_reports": [
@@ -66,7 +66,7 @@
       "critical": true,
       "status": "READY",
       "reason": "all symbols current",
-      "observed_as_of": "2026-09-09",
+      "observed_as_of": "2026-09-10",
       "recovery_workflow": "update-etf-cta.yml",
       "retryable": true,
       "impacted_reports": [
@@ -81,7 +81,7 @@
       "critical": true,
       "status": "READY",
       "reason": "current",
-      "observed_as_of": "2026-09-09",
+      "observed_as_of": "2026-09-10",
       "recovery_workflow": "update-fund-nav-cta.yml",
       "retryable": false,
       "impacted_reports": [
@@ -96,7 +96,7 @@
       "critical": true,
       "status": "READY",
       "reason": "current",
-      "observed_as_of": "2026-09-10",
+      "observed_as_of": "2026-09-11",
       "recovery_workflow": "update-taiwan-cta.yml",
       "retryable": true,
       "impacted_reports": [
@@ -110,7 +110,7 @@
       "critical": true,
       "status": "READY",
       "reason": "current",
-      "observed_as_of": "2026-09-10",
+      "observed_as_of": "2026-09-11",
       "recovery_workflow": "update-taiwan-stock-screen.yml",
       "retryable": true,
       "impacted_reports": [
@@ -122,11 +122,11 @@
       "label": "Taiwan 200-stock CTA",
       "scope": "asia",
       "critical": true,
-      "status": "PARTIAL",
-      "reason": "current 199, stale 0, unknown 1",
-      "observed_as_of": "2026-09-10",
+      "status": "READY",
+      "reason": "200 stocks current",
+      "observed_as_of": "2026-09-11",
       "recovery_workflow": "update-taiwan-stock-screen.yml",
-      "retryable": false,
+      "retryable": true,
       "impacted_reports": [
         "台股日報"
       ]
@@ -138,7 +138,7 @@
       "critical": true,
       "status": "READY",
       "reason": "current",
-      "observed_as_of": "2026-09-10",
+      "observed_as_of": "2026-09-11",
       "recovery_workflow": "update-taiwan-stock-screen.yml",
       "retryable": true,
       "impacted_reports": [
@@ -260,20 +260,6 @@
   ],
   "issues": [
     {
-      "module_id": "taiwan_candidate_cta",
-      "label": "Taiwan 200-stock CTA",
-      "scope": "asia",
-      "critical": true,
-      "status": "PARTIAL",
-      "reason": "current 199, stale 0, unknown 1",
-      "observed_as_of": "2026-09-10",
-      "recovery_workflow": "update-taiwan-stock-screen.yml",
-      "retryable": false,
-      "impacted_reports": [
-        "台股日報"
-      ]
-    },
-    {
       "module_id": "fund_validation",
       "label": "Fund Intelligence Validation",
       "scope": "weekly",
@@ -289,6 +275,6 @@
     }
   ],
   "recovery_workflows": [],
-  "issue_fingerprint": "9e4bb5a8119eb8f5d36bcc0fc5dd695f813fc9bc24a231102a4100dac37b79c3",
+  "issue_fingerprint": "77c0dd981e81c6b5413612bbbd732735d5f2cd22fbd5f5522e8f787f3ac5c5e3",
   "policy": "Health monitoring only; never changes CTA, rankings, or investment decisions."
 }
