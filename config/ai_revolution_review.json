@@ -2,11 +2,11 @@
   "schema_version": "1.2",
   "reviewed_revisions": {
     "Microsoft": "ir:148e302cee016cbca9185fb1d5508ae4781ef44fd69a6a51f130e1027e0b5c8c",
-    "Amazon": "ir:c62b1a7fe2e06972e2544fdf3f14b33340232ee55be858f82cf5956abd1d0a4e",
+    "Amazon": "ir:d165c2953bc154bd7dcd45312b6cacecaec20a344ff9c6a0809dfd05b0c30b9c",
     "Alphabet": "ir:2d92e63f7b89ac7efaf5c3b12506c38a0802d697b6c17a47d2ce71271d2f4857",
     "Meta": "ir:f6128306386e4635fc1538dc8a05db039f9ce3aefe9981f813f0b165d278199b",
-    "Nvidia": "ir:ac3ae6bf30070fb5d3959d52a80538902d6015c408695d4eb8cb3a38748f85bd",
-    "Apple": "ir:5b72e66ab6adec5b85ffe6221cb22b4ed3ad1d6f15170a54db259a18fdb51fb3"
+    "Nvidia": "ir:cd467ab0bcc657598fef7fdc427865b8e0a11f745987f632bb7bfbe18feb7fa2",
+    "Apple": "ir:b4475bda3f6d00467baae550bb99b25ab7f55fb2909cce646ae8a66b5095b195"
   },
   "reviewed_accessions": {},
   "review_basis": {
@@ -17,10 +17,37 @@
       "summary": "FY27 reporting moves to Agents and Infra plus Devices and Consumer, reclassifies GitHub and Security Copilot into Microsoft 365 cloud, and leaves Q1 outlook including over $50 billion of capital expenditures unchanged. AI infrastructure and adoption remain supported; demand-quality and capital-efficiency cautions remain in force."
     },
     "Nvidia": {
-      "reviewed_at": "2026-09-01",
-      "change_type": "SUBSTANTIVE_QUARTERLY_RESULTS",
+      "reviewed_at": "2026-09-12",
+      "change_type": "PERIODIC_SOURCE_REVIEW_WITH_CAPTURED_LANDING_SENTINEL",
+      "reviewed_revision": "ir:cd467ab0bcc657598fef7fdc427865b8e0a11f745987f632bb7bfbe18feb7fa2",
+      "landing_source_url": "https://investor.nvidia.com/financial-info/financial-reports-and-results/default.aspx",
+      "landing_fetched_at": "2026-09-12T23:26:40.916635+00:00",
       "source_url": "https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Announces-Financial-Results-for-Second-Quarter-Fiscal-2027/default.aspx",
-      "summary": "FY2027 Q2 revenue and Data Center growth confirm continued AI infrastructure expansion; existing demand-quality and capital-efficiency cautions remain in force."
+      "source_published_at": "2026-08-26",
+      "summary": "Captured landing text matches the FY2027 Q2 earnings release: revenue $96.2bn and Data Center revenue $89.0bn, up 117% year over year. Infrastructure expansion remains supported. Supplier sales alone do not establish customers' AI ROI or independent demand.",
+      "limitation": "Reviewer inspected the exact normalized text retained by Actions and corroborated the official earnings release. Direct local landing-page access returned HTTP 403."
+    },
+    "Amazon": {
+      "reviewed_at": "2026-09-12",
+      "change_type": "PERIODIC_SOURCE_REVIEW_WITH_CAPTURED_LANDING_SENTINEL",
+      "reviewed_revision": "ir:d165c2953bc154bd7dcd45312b6cacecaec20a344ff9c6a0809dfd05b0c30b9c",
+      "landing_source_url": "https://ir.aboutamazon.com/quarterly-results/default.aspx",
+      "landing_fetched_at": "2026-09-12T23:26:16.729881+00:00",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000024/amzn-20260630xex991.htm",
+      "source_published_at": "2026-07-30",
+      "summary": "Q2 2026 AWS sales grew 37% to $42.2bn. TTM operating cash flow was $161.4bn but free cash flow was negative $7.6bn amid AI-related property/equipment spending. Cloud expansion is supported; investment-related income is not independent AI demand.",
+      "limitation": "Captured landing text is navigation only. Financial conclusions use the linked SEC-hosted earnings release, not the landing-page fingerprint."
+    },
+    "Apple": {
+      "reviewed_at": "2026-09-12",
+      "change_type": "PERIODIC_SOURCE_REVIEW_WITH_CAPTURED_LANDING_SENTINEL",
+      "reviewed_revision": "ir:b4475bda3f6d00467baae550bb99b25ab7f55fb2909cce646ae8a66b5095b195",
+      "landing_source_url": "https://investor.apple.com/investor-relations/default.aspx",
+      "landing_fetched_at": "2026-09-12T23:26:48.962623+00:00",
+      "source_url": "https://www.apple.com/hk/en/newsroom/2026/07/apple-reports-third-quarter-results/",
+      "source_published_at": "2026-07-31",
+      "summary": "FY2026 Q3 revenue was $109.4bn, up 16%; EPS included a $0.11 tariff-refund benefit. The release describes Siri AI introduction but does not isolate AI revenue or AI ROI. Adoption remains qualitative; total company growth is not attributed to AI.",
+      "limitation": "Captured landing text is navigation only. Financial/product claims use the linked official newsroom release."
     }
   },
   "signals": {
