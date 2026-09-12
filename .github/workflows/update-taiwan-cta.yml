@@ -13,11 +13,9 @@ on:
     paths:
       - ".github/workflows/update-taiwan-cta.yml"
   schedule:
-    # 15:00, 16:00, and 17:00 Asia/Taipei, Monday-Friday
-    # (07:00, 08:00, and 09:00 UTC). Multiple idempotent attempts absorb
-    # GitHub schedule queue delays before the 18:00 Taiwan stock report.
+    # 15:00 primary and 17:00 final attempt. The 18:00 health monitor dispatches
+    # recovery only when the current-day CTA remains blocked.
     - cron: "0 7 * * 1-5"
-    - cron: "0 8 * * 1-5"
     - cron: "0 9 * * 1-5"
 
 permissions:

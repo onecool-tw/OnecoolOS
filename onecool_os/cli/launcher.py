@@ -14,6 +14,7 @@ from decimal import InvalidOperation
 from pathlib import Path
 from typing import Any
 
+from onecool_os import __version__
 from onecool_os.assets.master import AssetMasterError
 from onecool_os.assets.master import AssetMasterLoadResult
 from onecool_os.assets.master import AssetMasterLoader
@@ -27,7 +28,7 @@ from onecool_os.valuation.models import ValuationRecord
 from onecool_os.valuation.providers import ValuationProvider
 from onecool_os.valuation.providers import valuation_records_from_provider
 
-ONECOOL_VERSION = "v0.4.0-beta"
+ONECOOL_VERSION = f"v{__version__}"
 DEFAULT_PSA_COLLECTION_PATH = Path("imports/psa/collection.csv")
 DEFAULT_ASSET_MASTER_XLSX_PATH = Path("imports/asset_master/asset_master.xlsx")
 DEFAULT_ASSET_MASTER_CSV_PATH = Path("imports/asset_master/asset_master.csv")

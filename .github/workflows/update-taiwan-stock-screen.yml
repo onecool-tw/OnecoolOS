@@ -26,10 +26,11 @@ on:
       - "scripts/check_taiwan_report_readiness.py"
       - "tests/test_taiwan_report_readiness.py"
   schedule:
-    # Start soon after Taiwan close; retries leave room before the 18:00 report.
-    # GitHub cron is best effort, so readiness is checked independently.
-    - cron: "17,47 6-8 * * 1-5"
-    - cron: "17,37 9 * * 1-5"
+    # 15:17 primary and 17:17 final scheduled attempt. Successful afternoon
+    # Dashboard runs provide two additional event-driven opportunities, and
+    # the 18:00 health monitor dispatches recovery only when still blocked.
+    - cron: "17 7 * * 1-5"
+    - cron: "17 9 * * 1-5"
 
 permissions:
   contents: write

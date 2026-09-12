@@ -65,3 +65,6 @@ def test_automatic_sync_is_non_blocking_but_final_readiness_stays_strict():
     assert workflow.count("steps.screen.outcome == 'failure'") == 1
     assert "steps.readiness.outcome == 'success'" in workflow
     assert "final same-day report is READY" in workflow
+    assert workflow.count("- cron:") == 2
+    assert 'cron: "17 7 * * 1-5"' in workflow
+    assert 'cron: "17 9 * * 1-5"' in workflow

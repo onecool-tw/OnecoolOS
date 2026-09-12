@@ -1,4 +1,5 @@
 from datetime import date, timedelta
+from pathlib import Path
 
 import pytest
 
@@ -50,3 +51,12 @@ def test_taiwan_cta_rejects_mixed_cutoffs(tmp_path) -> None:
 
     with pytest.raises(ETFCTAError, match="one complete trading-date cutoff"):
         update(tmp_path, allow_bootstrap=True, fetcher=fetcher)
+
+
+def test_taiwan_cta_uses_two_schedules_plus_health_recovery() -> None:
+    root = Path(__file__).resolve().parents[1]
+    workflow = (root / ".github" / "workflows" / "update-taiwan-cta.yml").read_text()
+
+    assert workflow.count("- cron:") == 2
+    assert 'cron: "0 7 * * 1-5"' in workflow
+    assert 'cron: "0 9 * * 1-5"' in workflow

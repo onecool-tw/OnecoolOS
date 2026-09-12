@@ -1,6 +1,13 @@
 # Onecool OS
 
-Current Version: v0.4.0-beta
+Current Runtime Version: v0.6.1
+
+Architecture Contract: v1.0
+
+The runtime/package version follows `pyproject.toml`, `config/settings.yaml`,
+and `onecool_os.__version__`. The v1.0 documents define the frozen product and
+architecture contract; earlier beta release documents remain historical
+milestones rather than the current runtime version.
 
 Onecool OS is a Python-based personal asset operating system. Milestone 1
 delivers the Core Engine: SQLite persistence, plugin loading, event publishing,
@@ -129,7 +136,7 @@ or:
 python -m onecool_os.cli
 ```
 
-The launcher displays the v0.4.0-beta menu for PSA import, Dashboard, Daily
+The launcher displays the current runtime version for PSA import, Dashboard, Daily
 Radar Report, Decision Queue, and OFAI Context. PSA import is wired to the
 connector-layer `PSACollectionImporter` and keeps imported records in memory
 for the current launcher session. Dashboard displays a presentation-only

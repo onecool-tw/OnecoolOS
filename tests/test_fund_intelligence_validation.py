@@ -96,3 +96,31 @@ def test_generated_preflight_caches_are_git_trackable() -> None:
             check=False,
         )
         assert result.returncode == 1, f"{path} must be committed by the workflow"
+
+
+def test_context_only_rotation_gap_is_warning_not_system_partial(tmp_path) -> None:
+    test_preflight_passes_complete_finite_current_caches(tmp_path)
+    rotation_path = tmp_path / "data/market/stockq_rotation/rotation_latest.json"
+    write(
+        tmp_path,
+        "data/market/stockq_rotation/rotation_latest.json",
+        {
+            "passed_markets": [{
+                "market": "秘魯股市",
+                "twd_returns": {
+                    "1w": {"status": "UNKNOWN"},
+                    "1m": {"status": "UNKNOWN"},
+                },
+            }],
+        },
+    )
+
+    result = validate_fund_intelligence(tmp_path, today=date(2026, 8, 3))
+
+    assert rotation_path.exists()
+    assert result["status"] == "PASS"
+    assert result["issues"] == []
+    assert result["warning_count"] == 2
+    assert {item["code"] for item in result["warnings"]} == {
+        "TWD_CONVERSION_UNAVAILABLE"
+    }

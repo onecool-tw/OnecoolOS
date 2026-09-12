@@ -15,7 +15,7 @@ def test_launcher_imports_successfully() -> None:
 
 def test_menu_renders() -> None:
     assert menu_lines() == (
-        "Onecool OS v0.4.0-beta",
+        "Onecool OS v0.6.1",
         "",
         "1. Import PSA Collection",
         "2. Show Dashboard",

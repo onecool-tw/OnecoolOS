@@ -1,18 +1,18 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-09-12T11:41:44.266667+00:00",
+  "generated_at": "2026-09-12T11:46:34.928455+00:00",
   "taipei_date": "2026-09-12",
-  "status": "PARTIAL",
+  "status": "READY",
   "scope_status": {
     "morning": "READY",
     "asia": "READY",
-    "weekly": "PARTIAL"
+    "weekly": "READY"
   },
-  "action_readiness": "LIMITED",
+  "action_readiness": "SAFE",
   "counts": {
-    "ready": 16,
-    "partial": 1,
+    "ready": 17,
+    "partial": 0,
     "blocked": 0
   },
   "modules": [
@@ -248,9 +248,9 @@
       "label": "Fund Intelligence Validation",
       "scope": "weekly",
       "critical": true,
-      "status": "PARTIAL",
-      "reason": "validation CONDITIONAL_PASS",
-      "observed_as_of": "2026-09-06",
+      "status": "READY",
+      "reason": "validation PASS",
+      "observed_as_of": "2026-09-12",
       "recovery_workflow": null,
       "retryable": false,
       "impacted_reports": [
@@ -258,23 +258,8 @@
       ]
     }
   ],
-  "issues": [
-    {
-      "module_id": "fund_validation",
-      "label": "Fund Intelligence Validation",
-      "scope": "weekly",
-      "critical": true,
-      "status": "PARTIAL",
-      "reason": "validation CONDITIONAL_PASS",
-      "observed_as_of": "2026-09-06",
-      "recovery_workflow": null,
-      "retryable": false,
-      "impacted_reports": [
-        "基金週報"
-      ]
-    }
-  ],
+  "issues": [],
   "recovery_workflows": [],
-  "issue_fingerprint": "77c0dd981e81c6b5413612bbbd732735d5f2cd22fbd5f5522e8f787f3ac5c5e3",
+  "issue_fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
   "policy": "Health monitoring only; never changes CTA, rankings, or investment decisions."
 }

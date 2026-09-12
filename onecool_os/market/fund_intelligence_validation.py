@@ -16,6 +16,17 @@ REQUIRED_FINITE_FIELDS = {
     "current_price", "sma50", "sma200", "weekly_ma30", "weekly_ma50"
 }
 
+# These modules are context-only and have no authority to change CTA or fund
+# actions. Preserve their gaps for the weekly report without degrading the
+# unified operating status of otherwise complete decision inputs.
+NON_BLOCKING_CONTEXT_GAPS = {
+    ("REVIEW_REQUIRED", "AI Revolution"),
+    ("TWD_CONVERSION_UNAVAILABLE", "Global Rotation"),
+    ("PEER_RANKING_UNAVAILABLE", "Peer Ranking"),
+    ("STALE_CACHE", "Fundamental Cycle"),
+    ("STALE_WTI", "ETF CTA"),
+}
+
 
 def _read(root: Path, relative: str) -> dict[str, Any] | None:
     path = root / relative
@@ -191,12 +202,22 @@ def validate_fund_intelligence(root: Path, *, today: date | None = None) -> dict
                 _issue("INVALID_AUTHORITY", "Market Regime", "CTA override must be false")
             )
 
+    warnings = [
+        item for item in issues
+        if (item["code"], item["module"]) in NON_BLOCKING_CONTEXT_GAPS
+    ]
+    blocking_issues = [
+        item for item in issues
+        if (item["code"], item["module"]) not in NON_BLOCKING_CONTEXT_GAPS
+    ]
     generated = datetime.now(UTC).isoformat()
     return {
         "schema_version": "1.0",
         "module": "Onecool Fund Intelligence Data Validation",
         "generated_at": generated,
-        "status": "PASS" if not issues else "CONDITIONAL_PASS",
-        "issue_count": len(issues),
-        "issues": issues,
+        "status": "PASS" if not blocking_issues else "CONDITIONAL_PASS",
+        "issue_count": len(blocking_issues),
+        "warning_count": len(warnings),
+        "issues": blocking_issues,
+        "warnings": warnings,
     }

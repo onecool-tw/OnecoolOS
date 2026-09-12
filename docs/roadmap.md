@@ -1,5 +1,13 @@
 # Onecool OS Roadmap
 
+Current runtime/package release: `v0.6.1`
+
+Current architecture and product contract: `v1.0`
+
+The numbered sections below preserve the original implementation roadmap and
+historical beta milestones. They are capability tracks, not competing current
+runtime-version declarations.
+
 ## Vision
 
 Onecool OS is a personal operating system for managing and optimizing all
