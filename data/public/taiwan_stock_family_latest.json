@@ -12,43 +12,57 @@
   "sources": {
     "dashboard": {
       "path": "data/market/dashboard/dashboard_latest.json",
-      "sha256": "459044e69487e1a0552d3497b6727c642f681de8c3f7b1c1e1bb79c561a4641f"
+      "sha256": "2ef75eab592e64ec8ae3a75fbbab43eda17fc5b643264197962dafac13ddc5b9"
     },
     "screen": {
       "path": "data/market/taiwan_stock_intelligence/screen_latest.json",
-      "sha256": "c51927c507d5c63a07c49110e9b2f761f801bc936b65f8670df4e8200ee84c5a"
+      "sha256": "9c3aa6b5a11c9510cf85749b94fef7c995e16027c40b532fdedf61e6b07277e7"
     },
     "cta": {
       "path": "data/market/taiwan_stock_intelligence/cta/cta_latest.json",
-      "sha256": "79b73860e86e3af94fc81c7c8257376b025036be32bde3aead3f92a83d60031f"
+      "sha256": "2c4a4d4da4bb0c9adfefee45ec2034c5604b37c1ce23bfec618b3b11f88dfc19"
     },
     "context": {
       "path": "data/market/taiwan_stock_intelligence/daily_context_latest.json",
-      "sha256": "1e2c96d023339a972748a673b4b9f3dad6f7feaf3a4351ddf6e40c239fb03a0a"
+      "sha256": "e1523efe0e9bdc86fc4c24bb0bda8926c9aaf6c942cdcab54bec25cf3d495bdd"
     }
   },
   "source_generated_at": {
-    "dashboard": "2026-09-11T13:42:16.470052+00:00",
+    "dashboard": "2026-09-12T04:49:59.560901+00:00",
     "screen": null,
-    "cta": "2026-09-11T13:43:59.359527+00:00",
-    "context": "2026-09-11T13:44:04.139026+00:00"
+    "cta": "2026-09-12T04:50:58.879779+00:00",
+    "context": "2026-09-12T04:51:03.826861+00:00"
   },
   "screen_as_of": "2026-09-11",
   "display_status": "CURRENT",
   "report_readiness": {
-    "status": "READY",
-    "expected_as_of": "2026-09-11",
+    "status": "UPDATE_INCOMPLETE",
+    "expected_as_of": "2026-09-12",
     "screen_as_of": "2026-09-11",
     "taiwan_cta_dates": {
       "0050": "2026-09-11",
       "2330": "2026-09-11",
       "3006": "2026-09-11",
-      "2357": "2026-09-11",
       "6669": "2026-09-11",
+      "2357": "2026-09-11",
       "2408": "2026-09-11",
       "3036": "2026-09-11"
     },
-    "issues": [],
+    "issues": [
+      "screen_not_current",
+      "dashboard_0050_not_current",
+      "dashboard_2330_not_current",
+      "3006_price_not_current",
+      "3006_cta_not_current",
+      "6669_price_not_current",
+      "6669_cta_not_current",
+      "2357_price_not_current",
+      "2357_cta_not_current",
+      "2408_price_not_current",
+      "2408_cta_not_current",
+      "3036_price_not_current",
+      "3036_cta_not_current"
+    ],
     "scope": "TAIWAN_PRICE_VALUATION_AND_CTA_ONLY",
     "consumer_rule": "INCOMPLETE_MEANS_NO_NEW_EXPOSURE_AND_NO_UNCHANGED_RANKING_CLAIM",
     "asia_and_margin_policy": "KEEP_ACTUAL_LOCAL_SOURCE_DATES"
@@ -117,12 +131,12 @@
       "symbol": "3006",
       "company_name": "晶豪科",
       "industry": "半導體業",
-      "score": 94.61,
+      "score": 94.58,
       "pe": 9.16,
       "pb": 4.35,
       "price_as_of": "2026-09-11",
       "fundamentals_as_of": "2026Q2",
-      "monthly_revenue_as_of": "2026-07",
+      "monthly_revenue_as_of": "2026-08",
       "price_basis": "official_unadjusted_close",
       "selection_status": "FORMAL",
       "action_eligibility": "ELIGIBLE_IF_0050_BULLISH_AND_PRESSURE_GREEN",
@@ -139,40 +153,15 @@
       }
     },
     {
-      "symbol": "2357",
-      "company_name": "華碩",
-      "industry": "電腦及週邊設備業",
-      "score": 93.36,
-      "pe": 13.51,
-      "pb": 2.28,
-      "price_as_of": "2026-09-11",
-      "fundamentals_as_of": "2026Q2",
-      "monthly_revenue_as_of": "2026-07",
-      "price_basis": "official_unadjusted_close",
-      "selection_status": "FORMAL",
-      "action_eligibility": "ELIGIBLE_IF_0050_BULLISH_AND_PRESSURE_GREEN",
-      "individual_cta": {
-        "symbol": "2357",
-        "as_of": "2026-09-11",
-        "cta": "BUY",
-        "state": "WEEKLY_BULLISH_DAILY_BULLISH",
-        "update_status": "CURRENT",
-        "price_basis": "locally_adjusted_close",
-        "weekly_data_as_of": "2026-09-11",
-        "source_data_as_of": "2026-09-11",
-        "error": null
-      }
-    },
-    {
       "symbol": "6669",
       "company_name": "緯穎",
       "industry": "電腦及週邊設備業",
-      "score": 91.7,
+      "score": 93.67,
       "pe": 7.41,
       "pb": 3.14,
       "price_as_of": "2026-09-11",
       "fundamentals_as_of": "2026Q2",
-      "monthly_revenue_as_of": "2026-07",
+      "monthly_revenue_as_of": "2026-08",
       "price_basis": "official_unadjusted_close",
       "selection_status": "FORMAL",
       "action_eligibility": "HOLD_EXISTING_PAUSE_RIGHT_SIDE_ADD",
@@ -189,15 +178,40 @@
       }
     },
     {
+      "symbol": "2357",
+      "company_name": "華碩",
+      "industry": "電腦及週邊設備業",
+      "score": 93.33,
+      "pe": 13.51,
+      "pb": 2.28,
+      "price_as_of": "2026-09-11",
+      "fundamentals_as_of": "2026Q2",
+      "monthly_revenue_as_of": "2026-08",
+      "price_basis": "official_unadjusted_close",
+      "selection_status": "FORMAL",
+      "action_eligibility": "ELIGIBLE_IF_0050_BULLISH_AND_PRESSURE_GREEN",
+      "individual_cta": {
+        "symbol": "2357",
+        "as_of": "2026-09-11",
+        "cta": "BUY",
+        "state": "WEEKLY_BULLISH_DAILY_BULLISH",
+        "update_status": "CURRENT",
+        "price_basis": "locally_adjusted_close",
+        "weekly_data_as_of": "2026-09-11",
+        "source_data_as_of": "2026-09-11",
+        "error": null
+      }
+    },
+    {
       "symbol": "2408",
       "company_name": "南亞科",
       "industry": "半導體業",
-      "score": 91.59,
+      "score": 91.58,
       "pe": 19.13,
       "pb": 5.27,
       "price_as_of": "2026-09-11",
       "fundamentals_as_of": "2026Q2",
-      "monthly_revenue_as_of": "2026-07",
+      "monthly_revenue_as_of": "2026-08",
       "price_basis": "official_unadjusted_close",
       "selection_status": "FORMAL",
       "action_eligibility": "ELIGIBLE_IF_0050_BULLISH_AND_PRESSURE_GREEN",
@@ -217,12 +231,12 @@
       "symbol": "3036",
       "company_name": "文曄",
       "industry": "電子通路業",
-      "score": 89.69,
+      "score": 90.25,
       "pe": 9.8,
       "pb": 1.95,
       "price_as_of": "2026-09-11",
       "fundamentals_as_of": "2026Q2",
-      "monthly_revenue_as_of": "2026-07",
+      "monthly_revenue_as_of": "2026-08",
       "price_basis": "official_unadjusted_close",
       "selection_status": "FORMAL",
       "action_eligibility": "ELIGIBLE_IF_0050_BULLISH_AND_PRESSURE_GREEN",
