@@ -219,6 +219,9 @@ class OfficialIRClient:
             "content_sha256": hashlib.sha256(normalized.encode("utf-8")).hexdigest(),
             "content_length": len(normalized),
             "content_kind": "HTML",
+            # Preserve exactly what was fingerprinted so a reviewer can inspect
+            # a changed revision even when their network cannot reach the page.
+            "review_text": normalized,
         }
 
     def fetch_first(self, urls: tuple[str, ...]) -> dict[str, Any]:

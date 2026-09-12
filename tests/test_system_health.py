@@ -4,6 +4,8 @@ import json
 from datetime import datetime, timezone
 from pathlib import Path
 
+import pytest
+
 from onecool_os.health.monitor import BLOCKED, PARTIAL, READY, build_health_report
 
 
@@ -113,3 +115,38 @@ def test_stale_daily_cache_blocks_only_affected_scope(tmp_path: Path) -> None:
     assert report["scope_status"]["asia"] == BLOCKED
     assert report["scope_status"]["morning"] == READY
     assert "update-taiwan-cta.yml" in report["recovery_workflows"]
+
+
+@pytest.mark.parametrize("now,generated,expected", [
+    ("2026-09-13T07:00:00+08:00", "2026-09-12T04:50:45+00:00", READY),
+    ("2026-09-13T16:00:00+08:00", "2026-09-12T04:50:45+00:00", READY),
+    ("2026-09-14T10:14:59+08:00", "2026-09-12T04:50:45+00:00", READY),
+    ("2026-09-14T10:15:00+08:00", "2026-09-12T04:50:45+00:00", BLOCKED),
+    ("2026-09-14T10:15:00+08:00", "2026-09-13T23:30:00+00:00", READY),
+    ("2026-09-13T16:00:00+08:00", "2026-09-11T04:50:45+00:00", BLOCKED),
+    ("2026-09-12T10:15:00+08:00", "2026-09-11T04:50:45+00:00", BLOCKED),
+    ("2026-09-13T16:00:00+08:00", None, BLOCKED),
+    ("2026-09-13T16:00:00+08:00", "bad timestamp", BLOCKED),
+    ("2026-09-13T16:00:00+08:00", "2026-09-13T10:00:00", BLOCKED),
+    ("2026-09-13T16:00:00+08:00", "2026-09-14T04:50:45+00:00", BLOCKED),
+])
+def test_fund_generation_follows_taipei_schedule(tmp_path, now, generated, expected):
+    _seed_ready(tmp_path)
+    _write(tmp_path, "data/market/fund_nav/fund_cta_latest.json", {
+        "generated_at": generated,
+        "nav_refresh": {"status": "COMPLETE"},
+        "results": [{"fund_nav_as_of": "2026-09-11"} for _ in range(7)],
+    })
+    report = build_health_report(tmp_path, now=datetime.fromisoformat(now))
+    assert _module(report, "fund_nav_cta")["status"] == expected
+
+
+def test_weekend_schedule_does_not_excuse_stale_nav_data(tmp_path):
+    _seed_ready(tmp_path)
+    _write(tmp_path, "data/market/fund_nav/fund_cta_latest.json", {
+        "generated_at": "2026-09-12T04:50:45+00:00",
+        "nav_refresh": {"status": "COMPLETE"},
+        "results": [{"fund_nav_as_of": "2026-09-07"} for _ in range(7)],
+    })
+    report = build_health_report(tmp_path, now=datetime.fromisoformat("2026-09-13T07:00:00+08:00"))
+    assert _module(report, "fund_nav_cta")["status"] == BLOCKED

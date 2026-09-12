@@ -68,6 +68,33 @@ def _business_lag(observed: date, today: date) -> int:
     return lag
 
 
+def _fund_generation_date(value: Any) -> date | None:
+    """Interpret producer timestamps in the same timezone as the schedule."""
+    if not isinstance(value, str):
+        return None
+    try:
+        generated = datetime.fromisoformat(value.replace("Z", "+00:00"))
+    except ValueError:
+        return None
+    if generated.tzinfo is None:
+        return None
+    return generated.astimezone(ZoneInfo("Asia/Taipei")).date()
+
+
+def _expected_fund_generation_date(taipei_now: datetime) -> date:
+    """Mon-Sat 08:30 writer, due by the first 10:15 health check.
+
+    Before that check, use the previous scheduled day. Sunday has no daily
+    NAV run; do not demand fabricated Sunday prices or a timestamp-only update.
+    """
+    expected = taipei_now.date()
+    if (taipei_now.hour, taipei_now.minute) < (10, 15):
+        expected -= timedelta(days=1)
+    while expected.weekday() == 6:
+        expected -= timedelta(days=1)
+    return expected
+
+
 def _max_date(values: Iterable[Any]) -> date | None:
     parsed = [item for item in (_date(value) for value in values) if item]
     return max(parsed) if parsed else None
@@ -199,11 +226,13 @@ def build_health_report(root: str | Path, *, now: datetime | None = None) -> dic
     fund = _load(root, "data/market/fund_nav/fund_cta_latest.json")
     fund_results = fund.get("results", []) if fund else []
     fund_date = _max_date(row.get("fund_nav_as_of") for row in fund_results if isinstance(row, dict))
-    fund_generated = _date(fund.get("generated_at")) if fund else None
+    fund_generated = _fund_generation_date(fund.get("generated_at")) if fund else None
+    expected_fund_generated = _expected_fund_generation_date(taipei_now)
     if len(fund_results) < 7 or not fund_date or _business_lag(fund_date, today) > 2:
         modules.append(_module("fund_nav_cta", "Fund NAV CTA", "morning", True, BLOCKED, "seven-fund cache missing, incomplete, or stale", fund_date, "update-fund-nav-cta.yml", ["基金日報", "基金週報"]))
-    elif fund_generated != today:
-        modules.append(_module("fund_nav_cta", "Fund NAV CTA", "morning", True, BLOCKED, "daily generation timestamp is missing or stale", fund_generated, "update-fund-nav-cta.yml", ["基金日報", "基金週報"]))
+    elif not fund_generated or not expected_fund_generated <= fund_generated <= today:
+        reason = f"generation timestamp missing, invalid or older than scheduled date {expected_fund_generated}"
+        modules.append(_module("fund_nav_cta", "Fund NAV CTA", "morning", True, BLOCKED, reason, fund_generated, "update-fund-nav-cta.yml", ["基金日報", "基金週報"]))
     else:
         refresh_status = str((fund.get("nav_refresh") or {}).get("status", "READY")).upper()
         status = PARTIAL if refresh_status not in {"READY", "CURRENT", "COMPLETE"} else READY

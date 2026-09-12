@@ -9,7 +9,7 @@ from onecool_os.market.ai_revolution import (
 )
 
 
-def test_committed_six_company_review_baseline_is_reportable() -> None:
+def test_committed_six_company_cache_preserves_review_gate() -> None:
     import json
     from pathlib import Path
 
@@ -34,12 +34,14 @@ def test_committed_six_company_review_baseline_is_reportable() -> None:
         for item in cache["companies"]
     }
     assert set(revisions) == set(COMPANIES)
-    assert review["reviewed_revisions"] == revisions
-    assert cache["review_required"] is False
-    assert cache["unreviewed_companies"] == []
+    assert set(review["reviewed_revisions"]) == set(COMPANIES)
+    # Live data may legitimately detect a new revision between human reviews.
+    # Test fail-closed publication, not an always-green production snapshot.
+    pending = bool(cache["unreviewed_companies"]) or cache["companies_valid"] < len(COMPANIES)
+    assert cache["review_required"] is pending
     assert all(
         signal["status"] in {"GREEN", "YELLOW", "RED"}
-        and signal["usable_for_report"] is True
+        and signal["usable_for_report"] is (not pending)
         for signal in cache["signals"].values()
     )
     microsoft_review = review["review_basis"]["Microsoft"]
@@ -316,6 +318,7 @@ def test_official_ir_client_ignores_request_specific_trace_id() -> None:
 
 
 def test_official_ir_client_still_detects_material_text_change() -> None:
+    import hashlib
     pages = iter(
         [
             f"<html><body><p>{'official evidence ' * 20}</p></body></html>",
@@ -331,6 +334,8 @@ def test_official_ir_client_still_detects_material_text_change() -> None:
     second = client.fetch("https://example.com/investor")
 
     assert first["content_sha256"] != second["content_sha256"]
+    for evidence in (first, second):
+        assert hashlib.sha256(evidence["review_text"].encode()).hexdigest() == evidence["content_sha256"]
 
 
 def test_matching_ir_revisions_unlock_only_reviewed_signal() -> None:

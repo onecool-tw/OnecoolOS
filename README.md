@@ -9,6 +9,13 @@ times. The publisher runs only in a disposable Actions checkout and never
 force-pushes. Unreviewed evidence remains subject to the existing review gate;
 successful publication does not imply that AI signals are approved for use.
 
+Fund NAV health uses Asia/Taipei timestamps and the Monday-Saturday writer
+schedule. The new day's generation is required at the first 10:15 health check;
+before that deadline and on Sunday, the previous scheduled day's output is
+accepted. Missing, invalid, future-dated or overdue generation dates still
+block readiness, as do stale NAV observations. AI HTML evidence now retains
+the exact normalized text behind its fingerprint for reproducible review.
+
 Current Runtime Version: v0.6.1
 
 Architecture Contract: v1.0
