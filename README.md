@@ -1,5 +1,14 @@
 # Onecool OS
 
+### AI evidence publication recovery
+
+The AI evidence workflow publishes evidence, Fund Intelligence validation and
+the unified health cache in one commit. If another writer advances `main`, it
+refreshes all three against the latest committed inputs and retries up to three
+times. The publisher runs only in a disposable Actions checkout and never
+force-pushes. Unreviewed evidence remains subject to the existing review gate;
+successful publication does not imply that AI signals are approved for use.
+
 Current Runtime Version: v0.6.1
 
 Architecture Contract: v1.0

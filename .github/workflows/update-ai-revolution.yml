@@ -8,6 +8,7 @@ on:
       - "config/ai_revolution_review.json"
       - "onecool_os/market/ai_revolution.py"
       - "scripts/update_ai_revolution.py"
+      - "scripts/publish_ai_revolution.sh"
       - ".github/workflows/update-ai-revolution.yml"
   # The scheduled refresh is orchestrated by update-fund-weekly-analytics.yml
   # so all report caches are committed atomically. Keep manual dispatch here.
@@ -31,20 +32,7 @@ jobs:
           cache: pip
       - name: Install project
         run: pip install -e .
-      - name: Refresh SEC and official IR evidence
+      - name: Refresh and publish AI evidence, validation and health
         env:
           SEC_USER_AGENT: OnecoolOS research onecool-tw@users.noreply.github.com
-        run: python scripts/update_ai_revolution.py
-      - name: Revalidate Fund Intelligence after evidence review
-        run: python scripts/validate_fund_intelligence.py
-      - name: Commit AI Revolution evidence and validation caches
-        run: |
-          git add data/market/ai_revolution data/market/fund_intelligence
-          if git diff --cached --quiet; then
-            echo "No new AI Revolution evidence or validation data."
-            exit 0
-          fi
-          git config user.name "onecool-os-bot"
-          git config user.email "actions@users.noreply.github.com"
-          git commit -m "Update AI Revolution evidence"
-          git push
+        run: bash scripts/publish_ai_revolution.sh
