@@ -52,11 +52,12 @@ def build_delivery_health(root: str | Path, now: datetime) -> dict:
                 if not isinstance(channels, dict):
                     raise ValueError('invalid channels')
                 required = ('conversation', 'email') if name == 'taiwan' else ('conversation',)
-                for channel in required:
+                for channel in (*required, "artifact"):
                     value = channels.get(channel, {})
                     channel_status[channel] = 'DELIVERED' if _verified_channel(value, due, local) else 'UNKNOWN'
-                verified = sum(v == 'DELIVERED' for v in channel_status.values())
-                status = 'DELIVERED' if verified == len(required) and receipt.get('writeback_status') == 'VERIFIED' else 'PARTIAL' if verified else 'UNKNOWN'
+                verified = sum(channel_status[k] == 'DELIVERED' for k in required)
+                any_verified = any(v == 'DELIVERED' for v in channel_status.values())
+                status = 'DELIVERED' if verified == len(required) and receipt.get('writeback_status') == 'VERIFIED' else 'PARTIAL' if any_verified else 'UNKNOWN'
                 reason = 'Per-channel evidence checked; missing channels remain unverified'
                 reports.append({'report_id': name, 'expected_report_date': expected, 'status': status, 'channels': channel_status, 'reason': reason})
                 continue

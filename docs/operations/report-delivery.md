@@ -51,3 +51,8 @@ a last-run timestamp or a prepared draft for delivery evidence. Historical
 receipts may be added only after real source verification, never inferred.
 
 Receipt commits trigger health evaluation immediately through GitHub Actions.
+
+An optional `artifact` channel records actual saved report readback independently.
+It can establish PARTIAL delivery but never substitutes for conversation/email.
+Recovery artifacts must identify their creation date and reconstruction scope;
+they do not establish on-time delivery of a historical report.

@@ -35,10 +35,21 @@ def test_email_success_does_not_imply_conversation_success(tmp_path):
     path.write_text(json.dumps(receipt))
     result = build_delivery_health(tmp_path, NOW)['reports'][0]
     assert result['status'] == 'PARTIAL'
-    assert result['channels'] == {'conversation': 'UNKNOWN', 'email': 'DELIVERED'}
+    assert result['channels'] == {'conversation': 'UNKNOWN', 'email': 'DELIVERED', 'artifact': 'UNKNOWN'}
     receipt['channels']['conversation'] = evidence
     path.write_text(json.dumps(receipt))
     assert build_delivery_health(tmp_path, NOW)['reports'][0]['status'] == 'DELIVERED'
     receipt['channels']['email'] = {**evidence, 'evidence_sha256': 'invalid'}
     path.write_text(json.dumps(receipt))
     assert build_delivery_health(tmp_path, NOW)['reports'][0]['status'] == 'PARTIAL'
+
+
+def test_verified_artifact_is_partial_until_conversation_is_observed(tmp_path):
+    path=tmp_path/'data/operations/report_delivery/us/2026-09-12.json'
+    path.parent.mkdir(parents=True)
+    receipt=dict(report_id='us',report_date='2026-09-12',generated_at='2026-09-12T17:00:00+08:00',writeback_status='VERIFIED',channels={'artifact':dict(status='DELIVERED',observed_at='2026-09-12T17:00:00+08:00',evidence_sha256='a'*64)})
+    path.write_text(json.dumps(receipt))
+    r=build_delivery_health(tmp_path,NOW)['reports'][1]
+    assert r['status']=='PARTIAL'
+    assert r['channels']['artifact']=='DELIVERED'
+    assert r['channels']['conversation']=='UNKNOWN'
