@@ -103,7 +103,8 @@ def test_technical_confidence_requires_liquidity() -> None:
     assert "liquidity" in "; ".join(reasons)
 
 
-def test_yahoo_input_loader_uses_batch_prices_and_shortlists_fundamentals() -> None:
+@pytest.mark.parametrize("batch_missing", [False, True])
+def test_yahoo_input_loader_uses_batch_prices_and_shortlists_fundamentals(batch_missing) -> None:
     spy = _history(strength=0.1)
     dates = pd.to_datetime([bar.trading_date for bar in spy])
     columns = pd.MultiIndex.from_product([
@@ -131,9 +132,11 @@ def test_yahoo_input_loader_uses_batch_prices_and_shortlists_fundamentals() -> N
     class FakeYahoo:
         @staticmethod
         def download(*args, **kwargs):
-            assert set(args[0]) == {"AAA", "BBB"}
             assert kwargs["auto_adjust"] is True
-            return frame
+            if set(args[0]) == {"AAA", "BBB"}:
+                return frame.drop(columns="BBB", level=0) if batch_missing else frame
+            assert args[0] == ["BBB"] and kwargs["threads"] is False
+            return frame[["BBB"]]
 
         @staticmethod
         def Ticker(symbol):

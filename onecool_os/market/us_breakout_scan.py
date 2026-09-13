@@ -360,6 +360,17 @@ def fetch_yahoo_breakout_inputs(
         symbol: _bars_from_download(frame, symbol, expected)
         for symbol in symbols
     }
+    # An empty symbol in a successful batch is not evidence of a short listing.
+    # Retry only empty histories once, individually; never synthesize bars.
+    for symbol in [s for s in symbols if not histories[s]][:5]:
+        try:
+            single = yfinance_module.download(
+                [symbol], period="2y", interval="1d", auto_adjust=True,
+                actions=False, group_by="ticker", threads=False, progress=False,
+            )
+            histories[symbol] = _bars_from_download(single, symbol, expected)
+        except Exception:
+            pass
     spy = spy_history
     _validate_spy(spy, expected)
     leaders = []

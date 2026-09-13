@@ -2198,3 +2198,10 @@ missing or stale inputs still fail their normal validation gates.
 
 The weekly Alpha updater no longer overwrites formal Fund NAV CTA or its provider
 refresh evidence. `update_fund_nav_cta.py` owns that artifact exclusively.
+
+Missing Yahoo fundamental inputs now fall back to SEC Company Facts, using the
+SEC ticker/CIK registry and a single sequential request per missing eligible
+company. Raw period, filing date, units, accession and values are preserved in
+`sec_fallback_latest.json`. Same-day/future filings, mixed currency, YTD EPS,
+nonpositive comparison bases and missing comparable periods never become scores.
+The fallback does not award institutional-evidence points without holder evidence.

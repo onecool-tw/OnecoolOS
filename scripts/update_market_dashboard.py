@@ -448,6 +448,15 @@ def update(
                     fundamental_cache=provider_cache,
                     fetch_diagnostics=fetch_diagnostics,
                 )
+                from onecool_os.market.ai_revolution import SecClient
+                from onecool_os.market.sec_fundamentals import fill_missing_fundamentals
+                sec_details = fill_missing_fundamentals(
+                    SecClient(os.environ.get("SEC_USER_AGENT", "OnecoolOS research onecool-tw@users.noreply.github.com"), retry_delays=()),
+                    scan_histories, scan_fundamentals, payload["expected_as_of"],
+                    provider_cache, fetch_diagnostics,
+                )
+                (intelligence_dir / "sec_fallback_latest.json").parent.mkdir(parents=True, exist_ok=True)
+                (intelligence_dir / "sec_fallback_latest.json").write_text(json.dumps(sec_details, indent=2) + "\n")
                 intelligence_dir.mkdir(parents=True, exist_ok=True)
                 cache_path.write_text(json.dumps(provider_cache, indent=2) + "\n")
             else:
@@ -471,6 +480,8 @@ def update(
                 breakout_scan["fundamental_fetch_status"] = fetch_diagnostics
                 for item in breakout_scan["exclusions"]:
                     item["fundamental_fetch_status"] = fetch_diagnostics.get(item["symbol"], "NOT_REQUESTED")
+                    if item["symbol"] in sec_details:
+                        item["fundamental_validation_detail"] = sec_details[item["symbol"]]["status"]
         except Exception as exc:  # noqa: BLE001 - retain last valid artifact.
             if scan_path.exists():
                 breakout_scan = json.loads(scan_path.read_text(encoding="utf-8"))
