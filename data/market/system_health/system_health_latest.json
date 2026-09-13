@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-09-13T06:25:41.608012+00:00",
+  "generated_at": "2026-09-13T11:47:44.218999+00:00",
   "taipei_date": "2026-09-13",
   "status": "PARTIAL",
   "scope_status": {
@@ -15,8 +15,12 @@
       {
         "report_id": "taiwan",
         "expected_report_date": "2026-09-11",
-        "status": "UNKNOWN",
-        "reason": "No verifiable receipt for the latest completed reporting window"
+        "status": "PARTIAL",
+        "channels": {
+          "conversation": "UNKNOWN",
+          "email": "DELIVERED"
+        },
+        "reason": "Per-channel evidence checked; missing channels remain unverified"
       },
       {
         "report_id": "us",
@@ -189,7 +193,7 @@
       "critical": false,
       "status": "READY",
       "reason": "current",
-      "observed_as_of": "2026-09-06",
+      "observed_as_of": "2026-09-13",
       "recovery_workflow": "update-fund-weekly-analytics.yml",
       "retryable": false,
       "impacted_reports": [
@@ -203,7 +207,7 @@
       "critical": false,
       "status": "READY",
       "reason": "current",
-      "observed_as_of": "2026-09-04",
+      "observed_as_of": "2026-09-10",
       "recovery_workflow": "update-fund-weekly-analytics.yml",
       "retryable": false,
       "impacted_reports": [
@@ -217,7 +221,7 @@
       "critical": false,
       "status": "READY",
       "reason": "current",
-      "observed_as_of": "2026-09-06",
+      "observed_as_of": "2026-09-13",
       "recovery_workflow": "update-fund-weekly-analytics.yml",
       "retryable": false,
       "impacted_reports": [
@@ -231,7 +235,7 @@
       "critical": false,
       "status": "READY",
       "reason": "current",
-      "observed_as_of": "2026-09-04",
+      "observed_as_of": "2026-09-11",
       "recovery_workflow": "update-fund-weekly-analytics.yml",
       "retryable": false,
       "impacted_reports": [
@@ -245,7 +249,7 @@
       "critical": false,
       "status": "READY",
       "reason": "current",
-      "observed_as_of": "2026-09-04",
+      "observed_as_of": "2026-09-11",
       "recovery_workflow": "update-fund-weekly-analytics.yml",
       "retryable": false,
       "impacted_reports": [
@@ -273,7 +277,7 @@
       "critical": false,
       "status": "READY",
       "reason": "current and reviewed",
-      "observed_as_of": "2026-09-12",
+      "observed_as_of": "2026-09-13",
       "recovery_workflow": null,
       "retryable": false,
       "impacted_reports": [
@@ -287,7 +291,7 @@
       "critical": true,
       "status": "READY",
       "reason": "validation PASS",
-      "observed_as_of": "2026-09-12",
+      "observed_as_of": "2026-09-13",
       "recovery_workflow": null,
       "retryable": false,
       "impacted_reports": [

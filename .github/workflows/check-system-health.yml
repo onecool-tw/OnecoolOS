@@ -1,6 +1,12 @@
 name: Check Unified Schedule Health
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - "data/operations/report_delivery/**"
+      - "onecool_os/health/**"
+      - "scripts/check_system_health.py"
   workflow_dispatch:
     inputs:
       scope:
@@ -63,6 +69,8 @@ jobs:
           if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
             scope="${INPUT_SCOPE:-all}"
             phase="${INPUT_PHASE:-primary}"
+          elif [ "$EVENT_NAME" = "push" ]; then
+            scope="all"; phase="verify"
           else
             case "$EVENT_SCHEDULE" in
               "15 2 * * 1-6") scope="morning"; phase="primary" ;;

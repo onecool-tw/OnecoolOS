@@ -7,7 +7,6 @@ from datetime import date
 from pathlib import Path
 
 from onecool_os.market.etf_cta import read_history
-from onecool_os.market.fund_cta import calculate_fund_cta, fund_cta_payload
 from onecool_os.market.peer_ranking import (
     CnyesPeerRankingClient,
     refresh_peer_rankings,
@@ -34,23 +33,6 @@ def update(root: Path) -> dict:
     current = []
     monthly = {}
     periods = {}
-    fund_cta_results = []
-    benchmark_cta_path = root / "data" / "market" / "etf_cta" / "cta_latest.json"
-    benchmark_ctas = {}
-    benchmark_records = {}
-    if benchmark_cta_path.exists():
-        benchmark_payload = json.loads(
-            benchmark_cta_path.read_text(encoding="utf-8")
-        )
-        benchmark_ctas = {
-            item["symbol"]: item.get("cta")
-            for item in benchmark_payload.get("results", [])
-        }
-        benchmark_records = {
-            item["symbol"]: item
-            for item in benchmark_payload.get("results", [])
-        }
-
     for fund_code, (_, benchmark, _) in FUND_WATCHLIST.items():
         nav_path = fund_dir / "history" / f"{fund_code}.csv"
         fund_history = merge_nav_history(
@@ -81,32 +63,13 @@ def update(root: Path) -> dict:
             if result.end_date
             else date.today(),
         )
-        fund_cta_results.append(
-            calculate_fund_cta(
-                fund_code,
-                fund_history,
-                benchmark_cta=benchmark_ctas.get(benchmark),
-                auxiliary_signal=benchmark_records.get(
-                    {"B23554": "GLD", "B23070": "WTI"}.get(fund_code, "")
-                ),
-            )
-        )
-
     payload = alpha_payload(current, monthly, periods)
     fund_dir.mkdir(parents=True, exist_ok=True)
     (fund_dir / "alpha_latest.json").write_text(
         json.dumps(payload, ensure_ascii=False, indent=2) + "\n",
         encoding="utf-8",
     )
-    (fund_dir / "fund_cta_latest.json").write_text(
-        json.dumps(
-            fund_cta_payload(fund_cta_results),
-            ensure_ascii=False,
-            indent=2,
-        )
-        + "\n",
-        encoding="utf-8",
-    )
+    # Formal CTA and provider refresh evidence belong to the daily NAV writer.
     peer_path = fund_dir / "peer_ranking_latest.json"
     previous_peer = (
         json.loads(peer_path.read_text(encoding="utf-8"))

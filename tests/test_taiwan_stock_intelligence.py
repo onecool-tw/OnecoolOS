@@ -149,3 +149,14 @@ def test_missing_individual_cta_is_unknown_and_never_actionable(tmp_path):
     assert payload["top5"][0]["action_eligibility"] == (
         "WATCH_ONLY_INDIVIDUAL_CTA_UNKNOWN"
     )
+
+
+def test_weekend_readiness_uses_friday_cutoff(tmp_path):
+    setup_prompt(tmp_path)
+    result = build_taiwan_stock_daily_context(
+        tmp_path, today=date(2026, 9, 13),
+        generated_at=datetime(2026, 9, 13, 6, tzinfo=UTC),
+    )
+    assert result['report_readiness']['expected_as_of'] == '2026-09-11'
+    # Missing caches must still fail; a weekend is not permission to fake READY.
+    assert result['report_readiness']['status'] != 'READY'

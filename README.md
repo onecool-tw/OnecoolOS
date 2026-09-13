@@ -2181,8 +2181,8 @@ so a pending task of one type cannot silently cancel another type.
 Weekly analytics owns the scheduled Fund Alpha refresh and consumes Saturday's
 Dashboard/ETF caches. Manual Fund Alpha recovery remains available.
 
-US fundamentals rotate across up to 20 uncovered technical candidates per run
-plus required portfolio symbols, reusing validated provider snapshots for at most
+US fundamentals cover all uncovered eligible technical candidates each run
+plus required portfolio symbols, with at most five concurrent requests, reusing validated provider snapshots for at most
 7 days. Fetch status distinguishes unrequested, unavailable and failed calls;
 `coverage_status` and `validated_coverage_pct` expose the validated subset. A
 published scan can be READY while coverage is PARTIAL; rankings are subset-only.
@@ -2191,3 +2191,10 @@ See [card valuation boundaries](docs/operations/card-valuation-policy.md) and
 [report delivery contract](docs/operations/report-delivery.md). System health now
 separates cache status from acknowledged report delivery; missing delivery receipts
 remain UNVERIFIED and prevent end-to-end READY.
+
+Delivery monitoring supports per-channel receipts and immediate receipt-triggered
+health checks. Taiwan readiness uses Friday as the expected cutoff on weekends;
+missing or stale inputs still fail their normal validation gates.
+
+The weekly Alpha updater no longer overwrites formal Fund NAV CTA or its provider
+refresh evidence. `update_fund_nav_cta.py` owns that artifact exclusively.

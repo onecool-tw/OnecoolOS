@@ -25,3 +25,20 @@ def test_delivery_requires_receipt_evidence_and_verified_writeback(tmp_path):
     receipt['generated_at'] = '2026-09-14T18:30:00+08:00'
     path.write_text(json.dumps(receipt))
     assert build_delivery_health(tmp_path, NOW)['reports'][0]['status'] == 'UNKNOWN'
+
+
+def test_email_success_does_not_imply_conversation_success(tmp_path):
+    path = tmp_path / 'data/operations/report_delivery/taiwan/2026-09-11.json'
+    path.parent.mkdir(parents=True)
+    evidence = dict(status='DELIVERED', evidence_sha256='b' * 64, observed_at='2026-09-11T18:30:00+08:00')
+    receipt = dict(report_id='taiwan', report_date='2026-09-11', generated_at='2026-09-11T18:30:00+08:00', writeback_status='VERIFIED', channels={'email': evidence})
+    path.write_text(json.dumps(receipt))
+    result = build_delivery_health(tmp_path, NOW)['reports'][0]
+    assert result['status'] == 'PARTIAL'
+    assert result['channels'] == {'conversation': 'UNKNOWN', 'email': 'DELIVERED'}
+    receipt['channels']['conversation'] = evidence
+    path.write_text(json.dumps(receipt))
+    assert build_delivery_health(tmp_path, NOW)['reports'][0]['status'] == 'DELIVERED'
+    receipt['channels']['email'] = {**evidence, 'evidence_sha256': 'invalid'}
+    path.write_text(json.dumps(receipt))
+    assert build_delivery_health(tmp_path, NOW)['reports'][0]['status'] == 'PARTIAL'

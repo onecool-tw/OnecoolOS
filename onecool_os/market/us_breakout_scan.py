@@ -330,12 +330,12 @@ def fetch_yahoo_breakout_inputs(
     expected_as_of: str,
     spy_history: list[DailyBar],
     universe: Iterable[str] = US_BREAKOUT_UNIVERSE,
-    fundamental_shortlist_size: int = 20,
+    fundamental_shortlist_size: int | None = None,
     required_fundamental_symbols: Iterable[str] = (),
     fundamental_cache: dict | None = None,
     fetch_diagnostics: dict | None = None,
 ) -> tuple[dict[str, list[DailyBar]], dict[str, FundamentalMetrics]]:
-    """Batch-download prices, then rotate bounded fundamental requests.
+    """Batch-download prices and cover every eligible missing fundamental.
 
     The two-stage design keeps the scheduled job API-safe: all symbols receive
     the same batch price cutoff, while uncovered technical candidates
@@ -395,7 +395,7 @@ def fetch_yahoo_breakout_inputs(
     uncovered = [s for s in ranked_symbols if s not in fundamentals]
     # Rotate failed/unavailable names behind those not attempted this week.
     uncovered.sort(key=lambda s: cache.get(s, {}).get("attempted_as_of", ""))
-    shortlist = uncovered[:fundamental_shortlist_size]
+    shortlist = uncovered if fundamental_shortlist_size is None else uncovered[:fundamental_shortlist_size]
     shortlist = list(dict.fromkeys([*shortlist, *required_fundamental_symbols]))
     for symbol in symbols:
         diagnostics.setdefault(symbol, "NOT_REQUESTED")

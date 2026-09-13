@@ -35,3 +35,19 @@ the reporting task remains responsible for checking the underlying evidence.
 
 Current schedules: Taiwan Mon–Fri 18:00; US Tue–Sat 16:00; fund Mon–Sat 11:30;
 cards Saturday 07:00; home days 2/12/22 08:00. Update the monitor when schedules change.
+
+## Per-channel evidence (v2)
+
+Receipts may include `channels`, mapping `conversation` and (for Taiwan) `email`
+to `{status, observed_at, evidence_sha256}`. DELIVERED requires a real observed
+message/provider acknowledgement; `observed_at` is timezone-aware and within the
+reporting window. A successful email does not establish conversation delivery.
+The monitor verifies each required channel independently and returns PARTIAL if
+only some channels are proven. Report writeback must also be VERIFIED before
+all-channel DELIVERED. If the reporting executor cannot observe its own final
+conversation delivery, keep that channel UNKNOWN; a subsequent authorized audit
+may add evidence after observing the actual delivered message. Never substitute
+a last-run timestamp or a prepared draft for delivery evidence. Historical
+receipts may be added only after real source verification, never inferred.
+
+Receipt commits trigger health evaluation immediately through GitHub Actions.

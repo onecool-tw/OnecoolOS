@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import json
-from datetime import UTC, date, datetime
+from datetime import UTC, date, datetime, timedelta
 from hashlib import sha256
 from pathlib import Path
 from typing import Any, Mapping
@@ -160,6 +160,9 @@ def build_taiwan_stock_daily_context(
     timestamp = generated_at or datetime.now(UTC)
     local_now = timestamp.astimezone(ZoneInfo("Asia/Taipei"))
     current_date = today or local_now.date()
+    expected_session = current_date
+    while expected_session.weekday() >= 5:
+        expected_session -= timedelta(days=1)
     screen = _read(root, SCREEN_PATH)
     stock_cta = _read(root, STOCK_CTA_PATH) or {}
     previous_context = _read(root, CONTEXT_PATH) or {}
@@ -211,7 +214,7 @@ def build_taiwan_stock_daily_context(
         "schema_version": "1.3",
         "report_readiness": report_readiness(
             screen, stock_cta, _read(root, "data/market/dashboard/dashboard_latest.json"),
-            current_date.isoformat(),
+            expected_session.isoformat(),
         ),
         "module": "Onecool Taiwan Stock Daily Context",
         "generated_at": timestamp.isoformat(),
