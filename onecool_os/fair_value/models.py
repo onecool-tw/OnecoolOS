@@ -180,6 +180,8 @@ class OnecoolFairValueSnapshot:
         return {
             "asset_id": self.asset_id,
             "cert_number": self.cert_number,
+            "valuation_basis": "LEGACY_EBAY_EVIDENCE_MEDIAN",
+            "weekly_market_nav_compatible": False,
             "fair_value": _decimal_text(self.fair_value),
             "currency": self.currency,
             "minimum": _decimal_text(self.minimum),

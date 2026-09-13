@@ -139,18 +139,29 @@ def test_yahoo_input_loader_uses_batch_prices_and_shortlists_fundamentals() -> N
         def Ticker(symbol):
             return FakeTicker()
 
+    cache, diagnostics = {}, {}
     histories, fundamentals = fetch_yahoo_breakout_inputs(
         FakeYahoo,
         expected_as_of=spy[-1].trading_date.isoformat(),
         spy_history=spy,
         universe=("AAA", "BBB"),
         fundamental_shortlist_size=1,
+        fundamental_cache=cache, fetch_diagnostics=diagnostics,
     )
 
     assert set(histories) == {"AAA", "BBB"}
     assert all(len(history) == len(spy) for history in histories.values())
     assert len(fundamentals) == 1
     assert "AAA" in fundamentals
+    assert diagnostics == {"AAA": "FETCHED", "BBB": "NOT_REQUESTED"}
+    diagnostics = {}
+    _, second = fetch_yahoo_breakout_inputs(
+        FakeYahoo, expected_as_of=spy[-1].trading_date.isoformat(),
+        spy_history=spy, universe=("AAA", "BBB"), fundamental_shortlist_size=1,
+        fundamental_cache=cache, fetch_diagnostics=diagnostics,
+    )
+    assert set(second) == {"AAA", "BBB"}
+    assert diagnostics == {"AAA": "CACHED_VALID", "BBB": "FETCHED"}
 
 
 def test_scan_refuses_to_publish_an_empty_validated_universe() -> None:

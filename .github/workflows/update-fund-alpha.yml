@@ -2,9 +2,7 @@ name: Update Fund Relative Alpha
 
 on:
   workflow_dispatch:
-  schedule:
-    # 12:30 Asia/Taipei every Sunday, after Friday fund NAVs are available.
-    - cron: "30 4 * * 0"
+  # Weekly analytics owns the scheduled run; manual recovery remains available.
 
 permissions:
   contents: write
@@ -37,4 +35,4 @@ jobs:
           git config user.name "onecool-os-bot"
           git config user.email "actions@users.noreply.github.com"
           git commit -m "Update fund relative alpha"
-          git push
+          bash scripts/push_cache_commit.sh

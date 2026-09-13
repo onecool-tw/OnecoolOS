@@ -87,11 +87,7 @@ jobs:
           git config user.name "onecool-os-bot"
           git config user.email "actions@users.noreply.github.com"
           git commit -m "Update Taiwan stock screen"
-          # Another market updater may have committed while this job fetched
-          # the slower MOPS endpoints. Rebase because the artifacts are on
-          # independent paths, then publish the validated screen.
-          git pull --rebase origin main
-          git push
+          bash scripts/push_cache_commit.sh
       - name: Warn when a transient source failure did not block readiness
         if: >-
           (steps.screen.outcome == 'failure' || steps.cta.outcome == 'failure') &&

@@ -63,5 +63,4 @@ jobs:
           git config user.name "onecool-os-bot"
           git config user.email "actions@users.noreply.github.com"
           git commit -m "Update Taiwan CTA history"
-          git pull --rebase origin main
-          git push
+          bash scripts/push_cache_commit.sh

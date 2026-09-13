@@ -7,7 +7,7 @@ dated Top 5 artifact.  Scores are Onecool proxies, not IBD ratings.
 
 from __future__ import annotations
 
-from dataclasses import dataclass
+from dataclasses import dataclass, asdict
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import date, datetime, timezone
 from math import isfinite
@@ -314,6 +314,9 @@ def build_breakout_scan_payload(
         "price_basis": "adjusted_close",
         "universe_size": len(universe),
         "validated_count": len(results),
+        "coverage_status": "COMPLETE" if len(results) == len(universe) else "PARTIAL",
+        "validated_coverage_pct": round(100 * len(results) / len(universe), 2) if universe else 0,
+        "research_scope": "VALIDATED_SUBSET_ONLY",
         "minimum_technical_confidence": MIN_TECHNICAL_CONFIDENCE,
         "formal_breakout_count": sum(item["formal_breakout"] for item in results),
         "top5": top5,
@@ -327,14 +330,16 @@ def fetch_yahoo_breakout_inputs(
     expected_as_of: str,
     spy_history: list[DailyBar],
     universe: Iterable[str] = US_BREAKOUT_UNIVERSE,
-    fundamental_shortlist_size: int = 10,
+    fundamental_shortlist_size: int = 20,
     required_fundamental_symbols: Iterable[str] = (),
+    fundamental_cache: dict | None = None,
+    fetch_diagnostics: dict | None = None,
 ) -> tuple[dict[str, list[DailyBar]], dict[str, FundamentalMetrics]]:
-    """Batch-download prices, then fetch fundamentals only for leaders.
+    """Batch-download prices, then rotate bounded fundamental requests.
 
     The two-stage design keeps the scheduled job API-safe: all symbols receive
-    the same batch price cutoff, while only the strongest technical candidates
-    incur a fundamentals request.
+    the same batch price cutoff, while uncovered technical candidates
+    are progressively fetched and valid fundamentals are reused for seven days.
     """
 
     expected = date.fromisoformat(expected_as_of)
@@ -369,11 +374,31 @@ def fetch_yahoo_breakout_inputs(
             metrics["price"] / metrics["high52"],
             symbol,
         ))
-    shortlist = [
-        symbol for _, _, symbol in sorted(leaders, reverse=True)
-    ][:fundamental_shortlist_size]
-    shortlist = list(dict.fromkeys([*shortlist, *required_fundamental_symbols]))
+    cache = fundamental_cache if fundamental_cache is not None else {}
+    diagnostics = fetch_diagnostics if fetch_diagnostics is not None else {}
     fundamentals = {}
+    for symbol in symbols:
+        entry = cache.get(symbol, {})
+        if not isinstance(entry, dict):
+            entry = cache[symbol] = {}
+        try:
+            age = (expected - date.fromisoformat(entry["fetched_as_of"])).days
+            fundamental = FundamentalMetrics(**entry["metrics"])
+            if 0 <= age <= 7 and fundamental_validation_error(fundamental, expected) is None:
+                fundamentals[symbol] = fundamental
+                diagnostics[symbol] = "CACHED_VALID"
+        except (KeyError, TypeError, ValueError):
+            pass
+    # Fill uncovered names first; a valid cache prevents repeatedly spending
+    # every request on the same ten leaders. Cache dates remain explicit.
+    ranked_symbols = [symbol for _, _, symbol in sorted(leaders, reverse=True)]
+    uncovered = [s for s in ranked_symbols if s not in fundamentals]
+    # Rotate failed/unavailable names behind those not attempted this week.
+    uncovered.sort(key=lambda s: cache.get(s, {}).get("attempted_as_of", ""))
+    shortlist = uncovered[:fundamental_shortlist_size]
+    shortlist = list(dict.fromkeys([*shortlist, *required_fundamental_symbols]))
+    for symbol in symbols:
+        diagnostics.setdefault(symbol, "NOT_REQUESTED")
     # Yahoo's quote-summary endpoint is materially slower than price download.
     # Bound the number of calls and issue them concurrently after pre-screening.
     with ThreadPoolExecutor(max_workers=5) as executor:
@@ -385,12 +410,18 @@ def fetch_yahoo_breakout_inputs(
         }
         for future in as_completed(futures):
             symbol = futures[future]
+            cache.setdefault(symbol, {})["attempted_as_of"] = expected.isoformat()
             try:
                 fundamental = future.result()
             except Exception:  # noqa: BLE001 - exclude only the failed symbol.
+                diagnostics[symbol] = "FETCH_FAILED_USING_CACHE" if symbol in fundamentals else "FETCH_FAILED"
                 continue
             if fundamental is not None:
                 fundamentals[symbol] = fundamental
+                cache[symbol].update(fetched_as_of=expected.isoformat(), metrics=asdict(fundamental))
+                diagnostics[symbol] = "FETCHED"
+            else:
+                diagnostics[symbol] = "UNAVAILABLE_USING_CACHE" if symbol in fundamentals else "UNAVAILABLE"
     return histories, fundamentals
 
 

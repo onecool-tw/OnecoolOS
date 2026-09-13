@@ -7,6 +7,8 @@ def test_market_dashboard_publish_rebases_and_retries_concurrent_writers() -> No
         root / ".github" / "workflows" / "update-market-dashboard.yml"
     ).read_text(encoding="utf-8")
 
+    assert "bash scripts/push_cache_commit.sh" in workflow
+    workflow = (root / "scripts/push_cache_commit.sh").read_text()
     assert "for attempt in 1 2 3" in workflow
     assert "git pull --rebase origin main" in workflow
     assert "git push origin HEAD:main" in workflow

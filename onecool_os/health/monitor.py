@@ -209,6 +209,13 @@ def build_health_report(root: str | Path, *, now: datetime | None = None) -> dic
         )
         if item.status == READY and dashboard_as_of and item.observed_as_of != dashboard_as_of:
             item = _module(module_id, label, "morning", True, BLOCKED, "date does not match Market Dashboard", _date(item.observed_as_of), "update-market-dashboard.yml", ["美股日報"])
+        if module_id == "us_breakout_scan" and item.status == READY:
+            scan = _load(root, f"data/market/us_stock_intelligence/{filename}") or {}
+            total, validated = scan.get("universe_size", 0), scan.get("validated_count", 0)
+            if total and validated < total:
+                item = _module(module_id, label, "morning", True, PARTIAL,
+                               f"validated subset {validated}/{total}; see per-symbol fetch/validation status",
+                               _date(item.observed_as_of), "update-market-dashboard.yml", ["美股日報"], retryable=False)
         modules.append(item)
 
     etf = _load(root, "data/market/etf_cta/cta_latest.json")
@@ -305,6 +312,9 @@ def build_health_report(root: str | Path, *, now: datetime | None = None) -> dic
         reason=f"validation {raw_validation}",
     ))
 
+    from onecool_os.health.delivery import build_delivery_health
+    delivery = build_delivery_health(root, now)
+
     full_status = max((item.status for item in modules), key=lambda value: _ORDER[value])
     scope_status: dict[str, str] = {}
     for scope in ("morning", "asia", "weekly"):
@@ -320,6 +330,8 @@ def build_health_report(root: str | Path, *, now: datetime | None = None) -> dic
         "taipei_date": today.isoformat(),
         "status": full_status,
         "scope_status": scope_status,
+        "report_delivery": delivery,
+        "end_to_end_status": "READY" if full_status == READY and delivery["status"] == "READY" else "NOT_FULLY_VERIFIED",
         "action_readiness": "SAFE" if full_status == READY else "LIMITED" if full_status == PARTIAL else "UNSAFE_FOR_AFFECTED_REPORTS",
         "counts": {state.lower(): sum(item.status == state for item in modules) for state in (READY, PARTIAL, BLOCKED)},
         "modules": [asdict(item) for item in modules],

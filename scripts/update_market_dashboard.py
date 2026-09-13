@@ -432,12 +432,24 @@ def update(
         try:
             if breakout_input_loader is None:
                 yfinance = __import__("yfinance")
+                cache_path = intelligence_dir / "fundamental_provider_cache.json"
+                try:
+                    provider_cache = json.loads(cache_path.read_text()) if cache_path.exists() else {}
+                    if not isinstance(provider_cache, dict):
+                        provider_cache = {}
+                except (OSError, ValueError):
+                    provider_cache = {}
+                fetch_diagnostics = {}
                 scan_histories, scan_fundamentals = fetch_yahoo_breakout_inputs(
                     yfinance,
                     expected_as_of=payload["expected_as_of"],
                     spy_history=histories_by_symbol["SPY"],
                     required_fundamental_symbols=PORTFOLIO_SYMBOLS,
+                    fundamental_cache=provider_cache,
+                    fetch_diagnostics=fetch_diagnostics,
                 )
+                intelligence_dir.mkdir(parents=True, exist_ok=True)
+                cache_path.write_text(json.dumps(provider_cache, indent=2) + "\n")
             else:
                 scan_histories, scan_fundamentals = breakout_input_loader(
                     payload["expected_as_of"]
@@ -455,6 +467,10 @@ def update(
                 spy_history=histories_by_symbol["SPY"],
                 expected_as_of=payload["expected_as_of"],
             )
+            if breakout_input_loader is None:
+                breakout_scan["fundamental_fetch_status"] = fetch_diagnostics
+                for item in breakout_scan["exclusions"]:
+                    item["fundamental_fetch_status"] = fetch_diagnostics.get(item["symbol"], "NOT_REQUESTED")
         except Exception as exc:  # noqa: BLE001 - retain last valid artifact.
             if scan_path.exists():
                 breakout_scan = json.loads(scan_path.read_text(encoding="utf-8"))

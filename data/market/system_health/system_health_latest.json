@@ -1,18 +1,55 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-09-12T23:28:57.055835+00:00",
+  "generated_at": "2026-09-13T06:21:10.324846+00:00",
   "taipei_date": "2026-09-13",
-  "status": "READY",
+  "status": "PARTIAL",
   "scope_status": {
-    "morning": "READY",
+    "morning": "PARTIAL",
     "asia": "READY",
     "weekly": "READY"
   },
-  "action_readiness": "SAFE",
+  "report_delivery": {
+    "status": "UNVERIFIED",
+    "reports": [
+      {
+        "report_id": "taiwan",
+        "expected_report_date": "2026-09-11",
+        "status": "UNKNOWN",
+        "reason": "No verifiable receipt for the latest completed reporting window"
+      },
+      {
+        "report_id": "us",
+        "expected_report_date": "2026-09-12",
+        "status": "UNKNOWN",
+        "reason": "No verifiable receipt for the latest completed reporting window"
+      },
+      {
+        "report_id": "fund",
+        "expected_report_date": "2026-09-12",
+        "status": "UNKNOWN",
+        "reason": "No verifiable receipt for the latest completed reporting window"
+      },
+      {
+        "report_id": "cards",
+        "expected_report_date": "2026-09-12",
+        "status": "UNKNOWN",
+        "reason": "No verifiable receipt for the latest completed reporting window"
+      },
+      {
+        "report_id": "home",
+        "expected_report_date": "2026-09-12",
+        "status": "UNKNOWN",
+        "reason": "No verifiable receipt for the latest completed reporting window"
+      }
+    ],
+    "policy": "Data readiness does not prove report delivery. Never infer email success from a generated draft."
+  },
+  "end_to_end_status": "NOT_FULLY_VERIFIED",
+  "action_readiness": "LIMITED",
   "counts": {
-    "ready": 17,
-    "partial": 0,
+    "ready": 16,
+    "partial": 1,
     "blocked": 0
   },
   "modules": [
@@ -36,11 +73,11 @@
       "label": "US Breakout Scan",
       "scope": "morning",
       "critical": true,
-      "status": "READY",
-      "reason": "current",
+      "status": "PARTIAL",
+      "reason": "validated subset 8/70; see per-symbol fetch/validation status",
       "observed_as_of": "2026-09-11",
       "recovery_workflow": "update-market-dashboard.yml",
-      "retryable": true,
+      "retryable": false,
       "impacted_reports": [
         "美股日報"
       ]
@@ -258,8 +295,23 @@
       ]
     }
   ],
-  "issues": [],
+  "issues": [
+    {
+      "module_id": "us_breakout_scan",
+      "label": "US Breakout Scan",
+      "scope": "morning",
+      "critical": true,
+      "status": "PARTIAL",
+      "reason": "validated subset 8/70; see per-symbol fetch/validation status",
+      "observed_as_of": "2026-09-11",
+      "recovery_workflow": "update-market-dashboard.yml",
+      "retryable": false,
+      "impacted_reports": [
+        "美股日報"
+      ]
+    }
+  ],
   "recovery_workflows": [],
-  "issue_fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+  "issue_fingerprint": "67b9077c9bc1a626c1256e30c9e9e82ce6c18742df7f26a876e3b16859e9d01c",
   "policy": "Health monitoring only; never changes CTA, rankings, or investment decisions."
 }

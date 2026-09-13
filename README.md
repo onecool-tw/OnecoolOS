@@ -2171,3 +2171,21 @@ The official project roadmap is maintained in
 [docs/roadmap.md](docs/roadmap.md). It defines version planning from the
 foundation through Transaction Layer, Valuation Engine, Dashboard, Automation,
 OFAI Beta, and Onecool OS v1.0.
+
+### Module audit fixes (2026-09)
+
+Cache writers use `scripts/push_cache_commit.sh`: synchronize/rebase and retry
+independent push races three times; overlapping edits fail without overwriting.
+Weekly analytics owns the scheduled Fund Alpha refresh and consumes Saturday's
+Dashboard/ETF caches. Manual Fund Alpha recovery remains available.
+
+US fundamentals rotate across up to 20 uncovered technical candidates per run
+plus required portfolio symbols, reusing validated provider snapshots for at most
+7 days. Fetch status distinguishes unrequested, unavailable and failed calls;
+`coverage_status` and `validated_coverage_pct` expose the validated subset. A
+published scan can be READY while coverage is PARTIAL; rankings are subset-only.
+
+See [card valuation boundaries](docs/operations/card-valuation-policy.md) and
+[report delivery contract](docs/operations/report-delivery.md). System health now
+separates cache status from acknowledged report delivery; missing delivery receipts
+remain UNVERIFIED and prevent end-to-end READY.

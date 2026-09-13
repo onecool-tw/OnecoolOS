@@ -121,3 +121,25 @@ def test_failure_does_not_publish_partial_or_discard_user_changes(publication, m
         assert (runner / "revision").read_text() == "user edit"
     if mode == "push_failure":
         assert "attempt 3/3" in result.stdout
+
+
+@pytest.mark.parametrize('overlap', [False, True])
+def test_shared_publisher_preserves_competing_writes(publication, overlap):
+    runner, remote, env = publication
+    competitor = Path(env['COMPETITOR'])
+    (runner / 'revision').write_text('local')
+    git(runner, 'add', '.')
+    git(runner, 'commit', '-m', 'local change')
+    target = 'revision' if overlap else 'independent'
+    (competitor / target).write_text('remote')
+    git(competitor, 'add', '.')
+    git(competitor, 'commit', '-m', 'remote change')
+    git(competitor, 'push', 'origin', 'main')
+    result = subprocess.run(['bash', str(PUBLISHER.with_name('push_cache_commit.sh'))], cwd=runner, text=True, capture_output=True)
+    assert git(remote, 'show', f'main:{target}') == 'remote'
+    if overlap:
+        assert result.returncode != 0
+        assert git(runner, 'show', 'HEAD:revision') == 'local'
+    else:
+        assert result.returncode == 0, result.stderr
+        assert git(remote, 'show', 'main:revision') == 'local'

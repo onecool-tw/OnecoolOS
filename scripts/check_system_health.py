@@ -50,6 +50,8 @@ def main() -> int:
         lines.extend(f"| {item['label']} | {item['status']} | {item['reason']} |" for item in scoped_issues)
     else:
         lines.append("All checked modules are ready.")
+    lines.extend(["", "### Report delivery (separate from data health)", "", "| Report | Expected date | Status |", "|---|---|---|"])
+    lines.extend(f"| {item['report_id']} | {item['expected_report_date']} | {item['status']} |" for item in report["report_delivery"]["reports"])
     text = "\n".join(lines) + "\n"
     print(text)
     if summary_path := os.environ.get("GITHUB_STEP_SUMMARY"):

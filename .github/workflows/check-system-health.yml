@@ -110,16 +110,7 @@ jobs:
             exit 0
           fi
           git commit -m "Update unified schedule health"
-          for attempt in 1 2 3; do
-            if git pull --rebase origin main && git push origin HEAD:main; then
-              exit 0
-            fi
-            echo "Health cache push attempt $attempt failed; retrying."
-            git rebase --abort 2>/dev/null || true
-            sleep $((attempt * 5))
-          done
-          echo "Unable to publish verified health cache." >&2
-          exit 1
+          bash scripts/push_cache_commit.sh
       - name: Fail only after recovery remains blocked
         if: steps.mode.outputs.phase == 'verify' && steps.health.outputs.scope_status == 'BLOCKED'
         run: |
