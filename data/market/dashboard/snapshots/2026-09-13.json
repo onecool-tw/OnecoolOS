@@ -1,10 +1,10 @@
 {
   "schema_version": "1.9",
   "module": "Onecool Market Dashboard",
-  "generated_at": "2026-09-13T12:07:38.018202+00:00",
+  "generated_at": "2026-09-13T12:12:56.045903+00:00",
   "expected_as_of": "2026-09-11",
   "data_status": "READY",
-  "last_successful_update_at": "2026-09-13T12:07:38.018202+00:00",
+  "last_successful_update_at": "2026-09-13T12:12:56.045903+00:00",
   "index_cta_basis": {
     "method": "ETF/index proxies; shared CTA engine",
     "mappings": {
@@ -794,11 +794,11 @@
       "market": "CONTEXT",
       "theme": "crypto_risk_appetite",
       "as_of": "2026-09-13",
-      "current_price": 76749.148438,
-      "sma50": 71157.693828,
-      "sma200": 70135.079258,
-      "weekly_ma30": 69986.613672,
-      "weekly_ma50": 79633.396797,
+      "current_price": 76774.0625,
+      "sma50": 71158.192109,
+      "sma200": 70135.203828,
+      "weekly_ma30": 69987.444141,
+      "weekly_ma50": 79633.895078,
       "trend": "MIXED",
       "cta": "SELL",
       "confidence": 75,
@@ -809,7 +809,7 @@
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2026-09-08",
         "periods_since_cross": 5,
-        "spread_pct": 1.458064,
+        "spread_pct": 1.458595,
         "phase": "CONFIRMED"
       },
       "weekly_cross": {
@@ -818,7 +818,7 @@
         "last_cross_status": "DEATH",
         "last_cross_date": "2026-02-22",
         "periods_since_cross": 29,
-        "spread_pct": -12.113992,
+        "spread_pct": -12.113499,
         "phase": "ACTIVE"
       }
     }
@@ -978,9 +978,9 @@
     "data_status": "READY",
     "price_basis": "adjusted_close",
     "universe_size": 70,
-    "validated_count": 59,
+    "validated_count": 64,
     "coverage_status": "PARTIAL",
-    "validated_coverage_pct": 84.29,
+    "validated_coverage_pct": 91.43,
     "research_scope": "VALIDATED_SUBSET_ONLY",
     "minimum_technical_confidence": 90,
     "formal_breakout_count": 1,
@@ -1410,81 +1410,129 @@
       {
         "symbol": "BA",
         "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
+        "reason": "Reviewed nonpositive prior EPS; growth comparison is not meaningful under the existing rule",
+        "assessment_status": "RULE_EXCLUDED",
+        "reviewed_evidence": {
+          "symbol": "BA",
+          "status": "NONPOSITIVE_COMPARISON_BASE",
+          "review_status": "VERIFIED",
+          "period_end": "2026-06-30",
+          "prior_period_end": "2025-06-30",
+          "current_eps": -0.67,
+          "prior_eps": -0.92,
+          "published_as_of": "2026-07-28",
+          "valid_through": "2026-09-30",
+          "source_url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0000012927.json"
+        },
         "fundamental_fetch_status": "UNAVAILABLE",
-        "fundamental_validation_detail": "SEC_REGISTRY_UNAVAILABLE"
-      },
-      {
-        "symbol": "COIN",
-        "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
-        "fundamental_fetch_status": "UNAVAILABLE",
-        "fundamental_validation_detail": "SEC_REGISTRY_UNAVAILABLE"
-      },
-      {
-        "symbol": "COST",
-        "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
-        "fundamental_fetch_status": "UNAVAILABLE",
-        "fundamental_validation_detail": "SEC_REGISTRY_UNAVAILABLE"
+        "fundamental_validation_detail": "SEC_FETCH_FAILED"
       },
       {
         "symbol": "CRWD",
         "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
+        "reason": "Reviewed nonpositive prior EPS; growth comparison is not meaningful under the existing rule",
+        "assessment_status": "RULE_EXCLUDED",
+        "reviewed_evidence": {
+          "symbol": "CRWD",
+          "status": "NONPOSITIVE_COMPARISON_BASE",
+          "review_status": "VERIFIED",
+          "period_end": "2026-07-31",
+          "prior_period_end": "2025-07-31",
+          "current_eps": 0.01,
+          "prior_eps": -0.07,
+          "published_as_of": "2026-08-27",
+          "valid_through": "2026-09-30",
+          "source_url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001535527.json"
+        },
         "fundamental_fetch_status": "UNAVAILABLE",
-        "fundamental_validation_detail": "SEC_REGISTRY_UNAVAILABLE"
-      },
-      {
-        "symbol": "DE",
-        "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
-        "fundamental_fetch_status": "UNAVAILABLE",
-        "fundamental_validation_detail": "SEC_REGISTRY_UNAVAILABLE"
-      },
-      {
-        "symbol": "GILD",
-        "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
-        "fundamental_fetch_status": "UNAVAILABLE",
-        "fundamental_validation_detail": "SEC_REGISTRY_UNAVAILABLE"
-      },
-      {
-        "symbol": "PANW",
-        "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
-        "fundamental_fetch_status": "UNAVAILABLE",
-        "fundamental_validation_detail": "SEC_REGISTRY_UNAVAILABLE"
+        "fundamental_validation_detail": "SEC_FETCH_FAILED"
       },
       {
         "symbol": "SNDK",
         "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
+        "reason": "Reviewed nonpositive prior EPS; growth comparison is not meaningful under the existing rule",
+        "assessment_status": "RULE_EXCLUDED",
+        "reviewed_evidence": {
+          "symbol": "SNDK",
+          "status": "NONPOSITIVE_COMPARISON_BASE",
+          "review_status": "VERIFIED",
+          "period_end": "2026-04-03",
+          "prior_period_end": "2025-03-28",
+          "current_eps": 23.03,
+          "prior_eps": -13.33,
+          "published_as_of": "2026-05-01",
+          "valid_through": "2026-09-30",
+          "source_url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0002023554.json"
+        },
         "fundamental_fetch_status": "UNAVAILABLE",
-        "fundamental_validation_detail": "SEC_REGISTRY_UNAVAILABLE"
+        "fundamental_validation_detail": "SEC_FETCH_FAILED"
       },
       {
         "symbol": "SNOW",
         "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
+        "reason": "Reviewed nonpositive prior EPS; growth comparison is not meaningful under the existing rule",
+        "assessment_status": "RULE_EXCLUDED",
+        "reviewed_evidence": {
+          "symbol": "SNOW",
+          "status": "NONPOSITIVE_COMPARISON_BASE",
+          "review_status": "VERIFIED",
+          "period_end": "2026-07-31",
+          "prior_period_end": "2025-07-31",
+          "current_eps": -0.55,
+          "prior_eps": -0.89,
+          "published_as_of": "2026-09-04",
+          "valid_through": "2026-09-30",
+          "source_url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001640147.json"
+        },
         "fundamental_fetch_status": "UNAVAILABLE",
-        "fundamental_validation_detail": "SEC_REGISTRY_UNAVAILABLE"
+        "fundamental_validation_detail": "SEC_FETCH_FAILED"
       },
       {
         "symbol": "SPOT",
         "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
+        "reason": "Reviewed nonpositive prior EPS; growth comparison is not meaningful under the existing rule",
+        "assessment_status": "RULE_EXCLUDED",
+        "reviewed_evidence": {
+          "symbol": "SPOT",
+          "status": "NONPOSITIVE_COMPARISON_BASE",
+          "review_status": "VERIFIED",
+          "period_end": "2026-06-30",
+          "prior_period_end": "2025-06-30",
+          "current_eps": 2.61,
+          "prior_eps": -0.42,
+          "published_as_of": "2026-08-04",
+          "valid_through": "2026-09-30",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1639920/000162828026052543/spot-20260630x6xk.htm",
+          "accounting_basis": "IFRS",
+          "currency": "EUR"
+        },
         "fundamental_fetch_status": "UNAVAILABLE",
-        "fundamental_validation_detail": "SEC_REGISTRY_UNAVAILABLE"
+        "fundamental_validation_detail": "SEC_FETCH_FAILED"
       },
       {
         "symbol": "SYM",
         "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
+        "reason": "Reviewed nonpositive prior EPS; growth comparison is not meaningful under the existing rule",
+        "assessment_status": "RULE_EXCLUDED",
+        "reviewed_evidence": {
+          "symbol": "SYM",
+          "status": "NONPOSITIVE_COMPARISON_BASE",
+          "review_status": "VERIFIED",
+          "period_end": "2026-06-27",
+          "prior_period_end": "2025-06-28",
+          "current_eps": 0.09,
+          "prior_eps": -0.04,
+          "published_as_of": "2026-08-05",
+          "valid_through": "2026-09-30",
+          "source_url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001837240.json"
+        },
         "fundamental_fetch_status": "UNAVAILABLE",
-        "fundamental_validation_detail": "SEC_REGISTRY_UNAVAILABLE"
+        "fundamental_validation_detail": "SEC_FETCH_FAILED"
       }
     ],
+    "rule_excluded_count": 6,
+    "assessment_count": 70,
+    "assessment_status": "COMPLETE",
     "fundamental_fetch_status": {
       "AAPL": "CACHED_VALID",
       "ABBV": "CACHED_VALID",
@@ -1503,15 +1551,19 @@
       "CAT": "CACHED_VALID",
       "CEG": "CACHED_VALID",
       "CLS": "CACHED_VALID",
+      "COIN": "CACHED_VALID",
+      "COST": "CACHED_VALID",
       "CRDO": "CACHED_VALID",
       "CSCO": "CACHED_VALID",
       "CVX": "CACHED_VALID",
       "DDOG": "CACHED_VALID",
+      "DE": "CACHED_VALID",
       "DELL": "CACHED_VALID",
       "DUOL": "CACHED_VALID",
       "ETN": "CACHED_VALID",
       "GE": "CACHED_VALID",
       "GEV": "CACHED_VALID",
+      "GILD": "CACHED_VALID",
       "GOOGL": "CACHED_VALID",
       "GS": "CACHED_VALID",
       "HOOD": "CACHED_VALID",
@@ -1531,6 +1583,7 @@
       "NOW": "CACHED_VALID",
       "NVDA": "CACHED_VALID",
       "ORCL": "CACHED_VALID",
+      "PANW": "CACHED_VALID",
       "PLTR": "CACHED_VALID",
       "QCOM": "CACHED_VALID",
       "RTX": "CACHED_VALID",
@@ -1550,12 +1603,7 @@
       "RH": "FETCHED",
       "UPBD": "FETCHED",
       "BA": "UNAVAILABLE",
-      "COIN": "UNAVAILABLE",
-      "COST": "UNAVAILABLE",
       "CRWD": "UNAVAILABLE",
-      "DE": "UNAVAILABLE",
-      "GILD": "UNAVAILABLE",
-      "PANW": "UNAVAILABLE",
       "SNDK": "UNAVAILABLE",
       "SNOW": "UNAVAILABLE",
       "SPOT": "UNAVAILABLE",
