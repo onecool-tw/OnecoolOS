@@ -2205,3 +2205,9 @@ company. Raw period, filing date, units, accession and values are preserved in
 `sec_fallback_latest.json`. Same-day/future filings, mixed currency, YTD EPS,
 nonpositive comparison bases and missing comparable periods never become scores.
 The fallback does not award institutional-evidence points without holder evidence.
+
+A dated SEC ticker/CIK snapshot is available if the live registry cannot be read.
+Reviewed nonpositive EPS bases are explicit rule exclusions, with source,
+publication date and expiry. `assessment_status` counts validated stocks plus
+verified rule exclusions; `validated_count` and ranking coverage remain unchanged.
+Expired reviews or actual missing data still produce PARTIAL assessment health.

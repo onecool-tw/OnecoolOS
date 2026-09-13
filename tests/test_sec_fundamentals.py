@@ -43,3 +43,16 @@ def test_ytd_and_mismatched_currency_are_not_substituted():
     facts=fixture()
     facts['facts']['us-gaap']['EarningsPerShareDiluted']['units']['USD/shares'][0]['start']='2026-01-01'
     assert extract_fundamentals(facts,'2026-09-11')[1]!='SEC_VERIFIED'
+
+
+def test_verified_rule_exclusions_complete_assessment_without_inflating_validated_count():
+    from onecool_os.market.sec_fundamentals import annotate_reviewed_exclusions
+    scan={'validated_count':1,'universe_size':2,'exclusions':[{'symbol':'BA','technical_confidence':100,'reason':'fundamental validation unavailable'}]}
+    row={'symbol':'BA','review_status':'VERIFIED','status':'NONPOSITIVE_COMPARISON_BASE','prior_eps':-1,'current_eps':1,'period_end':'2026-06-30','prior_period_end':'2025-06-30','published_as_of':'2026-07-28','valid_through':'2026-09-30','source_url':'https://www.sec.gov/fixture'}
+    annotate_reviewed_exclusions(scan,{'results':[row]},'2026-09-11')
+    assert scan['assessment_status']=='COMPLETE'
+    assert scan['validated_count']==1
+    assert scan['rule_excluded_count']==1
+    scan={'validated_count':1,'universe_size':2,'exclusions':[{'symbol':'BA','technical_confidence':100,'reason':'fundamental validation unavailable'}]}
+    annotate_reviewed_exclusions(scan,{'results':[row]},'2026-10-01')
+    assert scan['assessment_status']=='PARTIAL'

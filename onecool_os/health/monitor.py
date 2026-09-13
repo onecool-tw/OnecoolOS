@@ -212,7 +212,7 @@ def build_health_report(root: str | Path, *, now: datetime | None = None) -> dic
         if module_id == "us_breakout_scan" and item.status == READY:
             scan = _load(root, f"data/market/us_stock_intelligence/{filename}") or {}
             total, validated = scan.get("universe_size", 0), scan.get("validated_count", 0)
-            if total and validated < total:
+            if total and validated < total and scan.get("assessment_status") != "COMPLETE":
                 item = _module(module_id, label, "morning", True, PARTIAL,
                                f"validated subset {validated}/{total}; see per-symbol fetch/validation status",
                                _date(item.observed_as_of), "update-market-dashboard.yml", ["美股日報"], retryable=False)

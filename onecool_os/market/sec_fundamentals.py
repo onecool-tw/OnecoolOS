@@ -91,7 +91,7 @@ def extract_fundamentals(facts, expected_as_of):
     return None, 'SEC_QUARTERLY_DILUTED_EPS_MISSING'
 
 
-def fill_missing_fundamentals(client, histories, fundamentals, expected_as_of, cache, diagnostics):
+def fill_missing_fundamentals(client, histories, fundamentals, expected_as_of, cache, diagnostics, registry_mapping=None):
     """Fetch SEC sequentially, retaining raw filing evidence and distinct exclusions."""
     from dataclasses import asdict
     from onecool_os.market.us_breakout_scan import FundamentalMetrics, technical_confidence
@@ -103,7 +103,9 @@ def fill_missing_fundamentals(client, histories, fundamentals, expected_as_of, c
         registry = client._fetch('https://www.sec.gov/files/company_tickers.json')
         mapping = {r['ticker']: str(r['cik_str']).zfill(10) for r in registry.values()}
     except Exception:
-        return {s: {'status': 'SEC_REGISTRY_UNAVAILABLE'} for s in missing}
+        mapping = registry_mapping or {}
+        if not mapping:
+            return {s: {'status': 'SEC_REGISTRY_UNAVAILABLE'} for s in missing}
     details = {}
     for symbol in missing:
         cik = mapping.get(symbol)
@@ -135,3 +137,31 @@ def fill_missing_fundamentals(client, histories, fundamentals, expected_as_of, c
         except Exception as exc:
             details[symbol] = {'status': 'SEC_FETCH_FAILED', 'error_type': type(exc).__name__}
     return details
+
+
+def annotate_reviewed_exclusions(scan, reviewed, expected_as_of):
+    """Explain reviewed rule exclusions without relabeling them as scored stocks."""
+    expected = date.fromisoformat(expected_as_of)
+    rules = {}
+    for row in reviewed.get('results', []):
+        try:
+            period = date.fromisoformat(row['period_end'])
+            if (row['review_status'] == 'VERIFIED' and row['status'] == 'NONPOSITIVE_COMPARISON_BASE'
+                and float(row['prior_eps']) <= 0 and isfinite(float(row['current_eps']))
+                and row['source_url'].startswith('https://')
+                and date.fromisoformat(row['published_as_of']) < expected <= date.fromisoformat(row['valid_through'])
+                and 0 <= (expected-period).days <= 180
+                and 350 <= (period-date.fromisoformat(row['prior_period_end'])).days <= 380):
+                rules[row['symbol']] = row
+        except (KeyError, ValueError, TypeError):
+            continue
+    for exclusion in scan.get('exclusions', []):
+        symbol = exclusion['symbol']
+        if symbol in rules and exclusion.get('technical_confidence', 0) >= 90 and exclusion.get('reason') == 'fundamental validation unavailable':
+            exclusion['assessment_status'] = 'RULE_EXCLUDED'
+            exclusion['reason'] = 'Reviewed nonpositive prior EPS; growth comparison is not meaningful under the existing rule'
+            exclusion['reviewed_evidence'] = rules[symbol]
+    ruled = sum(r.get('assessment_status') == 'RULE_EXCLUDED' for r in scan.get('exclusions', []))
+    scan['rule_excluded_count'] = ruled
+    scan['assessment_count'] = scan.get('validated_count', 0) + ruled
+    scan['assessment_status'] = 'COMPLETE' if scan['assessment_count'] == scan.get('universe_size', 0) else 'PARTIAL'

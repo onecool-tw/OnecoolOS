@@ -454,6 +454,7 @@ def update(
                     SecClient(os.environ.get("SEC_USER_AGENT", "OnecoolOS research onecool-tw@users.noreply.github.com"), retry_delays=()),
                     scan_histories, scan_fundamentals, payload["expected_as_of"],
                     provider_cache, fetch_diagnostics,
+                    registry_mapping=json.loads((root / "config/sec_fundamental_tickers.json").read_text())["tickers"],
                 )
                 (intelligence_dir / "sec_fallback_latest.json").parent.mkdir(parents=True, exist_ok=True)
                 (intelligence_dir / "sec_fallback_latest.json").write_text(json.dumps(sec_details, indent=2) + "\n")
@@ -476,6 +477,9 @@ def update(
                 spy_history=histories_by_symbol["SPY"],
                 expected_as_of=payload["expected_as_of"],
             )
+            from onecool_os.market.sec_fundamentals import annotate_reviewed_exclusions
+            exclusions_path = intelligence_dir / "reviewed_exclusions.json"
+            annotate_reviewed_exclusions(breakout_scan, json.loads(exclusions_path.read_text()) if exclusions_path.exists() else {}, payload["expected_as_of"])
             if breakout_input_loader is None:
                 breakout_scan["fundamental_fetch_status"] = fetch_diagnostics
                 for item in breakout_scan["exclusions"]:
