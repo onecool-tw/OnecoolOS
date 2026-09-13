@@ -20,7 +20,7 @@ permissions:
 # Serialize every writer of daily_context_latest.json so the pressure result and
 # screen/CTA refresh cannot overwrite each other.
 concurrency:
-  group: taiwan-daily-context-writers
+  group: persist-taiwan-market-pressure
   cancel-in-progress: false
 
 jobs:

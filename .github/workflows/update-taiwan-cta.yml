@@ -22,7 +22,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: taiwan-daily-context-writers
+  group: update-taiwan-cta
   cancel-in-progress: false
 
 jobs:
@@ -34,7 +34,7 @@ jobs:
         with:
           ref: main
           fetch-depth: 0
-      - name: Sync latest main after acquiring writer lock
+      - name: Sync latest main before calculating
         run: git pull --ff-only origin main
       - uses: actions/setup-python@v6
         with:

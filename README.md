@@ -2176,6 +2176,8 @@ OFAI Beta, and Onecool OS v1.0.
 
 Cache writers use `scripts/push_cache_commit.sh`: synchronize/rebase and retry
 independent push races three times; overlapping edits fail without overwriting.
+Taiwan CTA, stock screen and pressure persistence have separate workflow queues
+so a pending task of one type cannot silently cancel another type.
 Weekly analytics owns the scheduled Fund Alpha refresh and consumes Saturday's
 Dashboard/ETF caches. Manual Fund Alpha recovery remains available.
 
