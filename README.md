@@ -2218,3 +2218,8 @@ Fund NAV workflow changes on `main` trigger a real provider refresh. Every compl
 Fund NAV Actions run triggers the unified health verifier, including failed refreshes,
 so the published health cache reflects the recovery outcome without waiting for the
 next cron. The existing freshness gates and daily schedule remain in effect.
+
+Health audits triggered by a configuration or delivery-receipt push publish the
+observed state and dispatch any safe recovery workflows without raising a transient
+failed-run notification. Scheduled verification and post-recovery checks continue
+to fail when a module remains blocked after its recovery window.

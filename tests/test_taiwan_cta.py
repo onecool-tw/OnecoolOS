@@ -53,10 +53,11 @@ def test_taiwan_cta_rejects_mixed_cutoffs(tmp_path) -> None:
         update(tmp_path, allow_bootstrap=True, fetcher=fetcher)
 
 
-def test_taiwan_cta_uses_two_schedules_plus_health_recovery() -> None:
+def test_taiwan_cta_uses_three_schedules_plus_health_recovery() -> None:
     root = Path(__file__).resolve().parents[1]
     workflow = (root / ".github" / "workflows" / "update-taiwan-cta.yml").read_text()
 
-    assert workflow.count("- cron:") == 2
+    assert workflow.count("- cron:") == 3
     assert 'cron: "0 7 * * 1-5"' in workflow
+    assert 'cron: "0 8 * * 1-5"' in workflow
     assert 'cron: "0 9 * * 1-5"' in workflow
