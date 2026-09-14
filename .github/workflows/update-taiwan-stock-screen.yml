@@ -26,10 +26,11 @@ on:
       - "scripts/check_taiwan_report_readiness.py"
       - "tests/test_taiwan_report_readiness.py"
   schedule:
-    # 15:17 primary and 17:17 final scheduled attempt. Successful afternoon
-    # Dashboard runs provide two additional event-driven opportunities, and
-    # the 18:00 health monitor dispatches recovery only when still blocked.
+    # 15:17 primary plus 16:17 and 17:17 retries. Successful afternoon
+    # Dashboard runs add event-driven opportunities; pre-report health owns
+    # recovery when a current-session cache remains blocked.
     - cron: "17 7 * * 1-5"
+    - cron: "17 8 * * 1-5"
     - cron: "17 9 * * 1-5"
 
 permissions:

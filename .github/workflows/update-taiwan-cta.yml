@@ -13,9 +13,10 @@ on:
     paths:
       - ".github/workflows/update-taiwan-cta.yml"
   schedule:
-    # 15:00 primary and 17:00 final attempt. The 18:00 health monitor dispatches
+    # 15:00 primary plus 16:00 and 17:00 retries. Pre-report health dispatches
     # recovery only when the current-day CTA remains blocked.
     - cron: "0 7 * * 1-5"
+    - cron: "0 8 * * 1-5"
     - cron: "0 9 * * 1-5"
 
 permissions:
