@@ -117,6 +117,40 @@ def test_stale_daily_cache_blocks_only_affected_scope(tmp_path: Path) -> None:
     assert "update-taiwan-cta.yml" in report["recovery_workflows"]
 
 
+def test_monday_evening_requires_same_day_taiwan_caches(tmp_path: Path) -> None:
+    _seed_ready(tmp_path)
+
+    report = build_health_report(
+        tmp_path, now=datetime.fromisoformat("2026-09-14T18:00:00+08:00")
+    )
+
+    assert report["scope_status"]["asia"] == BLOCKED
+    assert {"update-taiwan-cta.yml", "update-taiwan-stock-screen.yml"}.issubset(
+        report["recovery_workflows"]
+    )
+
+
+def test_before_recovery_gate_previous_taiwan_session_is_acceptable(tmp_path: Path) -> None:
+    _seed_ready(tmp_path)
+    _write(tmp_path, "data/market/taiwan_cta/cta_latest.json", {"data_cutoff": "2026-09-11"})
+    _write(tmp_path, "data/market/taiwan_stock_intelligence/screen_latest.json", {
+        "expected_as_of": "2026-09-11", "data_status": READY,
+    })
+    _write(tmp_path, "data/market/taiwan_stock_intelligence/cta/cta_latest.json", {
+        "screen_as_of": "2026-09-11", "requested_count": 200,
+        "coverage": {"current": 200, "stale_last_known": 0, "unknown": 0},
+    })
+    _write(tmp_path, "data/market/taiwan_stock_intelligence/daily_context_latest.json", {
+        "screen_as_of": "2026-09-11", "display_status": "CURRENT",
+    })
+
+    report = build_health_report(
+        tmp_path, now=datetime.fromisoformat("2026-09-14T16:29:59+08:00")
+    )
+
+    assert report["scope_status"]["asia"] == READY
+
+
 @pytest.mark.parametrize("now,generated,expected", [
     ("2026-09-13T07:00:00+08:00", "2026-09-12T04:50:45+00:00", READY),
     ("2026-09-13T16:00:00+08:00", "2026-09-12T04:50:45+00:00", READY),
