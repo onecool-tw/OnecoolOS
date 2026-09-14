@@ -1,6 +1,10 @@
 name: Check Unified Schedule Health
 
 on:
+  workflow_run:
+    workflows: ["Update Fund NAV CTA"]
+    types: [completed]
+    branches: [main]
   push:
     branches: [main]
     paths:
@@ -69,7 +73,7 @@ jobs:
           if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
             scope="${INPUT_SCOPE:-all}"
             phase="${INPUT_PHASE:-primary}"
-          elif [ "$EVENT_NAME" = "push" ]; then
+          elif [ "$EVENT_NAME" = "push" ] || [ "$EVENT_NAME" = "workflow_run" ]; then
             scope="all"; phase="verify"
           else
             case "$EVENT_SCHEDULE" in

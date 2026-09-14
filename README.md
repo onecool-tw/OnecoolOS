@@ -2211,3 +2211,10 @@ Reviewed nonpositive EPS bases are explicit rule exclusions, with source,
 publication date and expiry. `assessment_status` counts validated stocks plus
 verified rule exclusions; `validated_count` and ranking coverage remain unchanged.
 Expired reviews or actual missing data still produce PARTIAL assessment health.
+
+### Fund NAV recovery verification
+
+Fund NAV workflow changes on `main` trigger a real provider refresh. Every completed
+Fund NAV Actions run triggers the unified health verifier, including failed refreshes,
+so the published health cache reflects the recovery outcome without waiting for the
+next cron. The existing freshness gates and daily schedule remain in effect.
