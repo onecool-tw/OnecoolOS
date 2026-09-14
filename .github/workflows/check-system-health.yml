@@ -2,12 +2,13 @@ name: Check Unified Schedule Health
 
 on:
   workflow_run:
-    workflows: ["Update Fund NAV CTA"]
+    workflows: ["Update Fund NAV CTA", "Update Taiwan Stock Screen"]
     types: [completed]
     branches: [main]
   push:
     branches: [main]
     paths:
+      - ".github/workflows/check-system-health.yml"
       - "data/operations/report_delivery/**"
       - "onecool_os/health/**"
       - "scripts/check_system_health.py"
