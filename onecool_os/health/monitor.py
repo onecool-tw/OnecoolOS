@@ -95,6 +95,22 @@ def _expected_fund_generation_date(taipei_now: datetime) -> date:
     return expected
 
 
+def _expected_asia_session(taipei_now: datetime) -> date:
+    """Return the Taiwan session that must be complete for the evening report.
+
+    Before the 16:30 recovery gate, the previous completed weekday remains
+    acceptable.  From 16:30 onward, a weekday must be represented by same-day
+    Taiwan screen and CTA caches.  This deliberately fails closed on an
+    unverified exchange holiday instead of silently calling a stale cache READY.
+    """
+    expected = taipei_now.date()
+    if expected.weekday() < 5 and (taipei_now.hour, taipei_now.minute) < (16, 30):
+        expected -= timedelta(days=1)
+    while expected.weekday() >= 5:
+        expected -= timedelta(days=1)
+    return expected
+
+
 def _max_date(values: Iterable[Any]) -> date | None:
     parsed = [item for item in (_date(value) for value in values) if item]
     return max(parsed) if parsed else None
@@ -187,6 +203,7 @@ def build_health_report(root: str | Path, *, now: datetime | None = None) -> dic
         now = now.replace(tzinfo=timezone.utc)
     taipei_now = now.astimezone(ZoneInfo("Asia/Taipei"))
     today = taipei_now.date()
+    expected_asia_session = _expected_asia_session(taipei_now)
     modules: list[ModuleHealth] = []
 
     dashboard = _daily_check(
@@ -246,14 +263,16 @@ def build_health_report(root: str | Path, *, now: datetime | None = None) -> dic
         modules.append(_module("fund_nav_cta", "Fund NAV CTA", "morning", True, status, "current" if status == READY else f"NAV refresh {refresh_status}", fund_date, "update-fund-nav-cta.yml", ["基金日報", "基金週報"], retryable=False))
 
     modules.append(_daily_check(
-        root, today, module_id="taiwan_market_cta", label="Taiwan 0050/2330 CTA", scope="asia",
+        root, expected_asia_session, module_id="taiwan_market_cta", label="Taiwan 0050/2330 CTA", scope="asia",
         relative="data/market/taiwan_cta/cta_latest.json", date_field="data_cutoff",
         status_field=None, good_statuses=set(), recovery="update-taiwan-cta.yml", reports=["台股日報"],
+        max_business_lag=0,
     ))
     modules.append(_daily_check(
-        root, today, module_id="taiwan_stock_screen", label="Taiwan Stock Screen", scope="asia",
+        root, expected_asia_session, module_id="taiwan_stock_screen", label="Taiwan Stock Screen", scope="asia",
         relative="data/market/taiwan_stock_intelligence/screen_latest.json", date_field="expected_as_of",
         status_field="data_status", good_statuses={READY}, recovery="update-taiwan-stock-screen.yml", reports=["台股日報"],
+        max_business_lag=0,
     ))
 
     tw_cta = _load(root, "data/market/taiwan_stock_intelligence/cta/cta_latest.json")
@@ -261,7 +280,7 @@ def build_health_report(root: str | Path, *, now: datetime | None = None) -> dic
     requested = int(tw_cta.get("requested_count", 0)) if tw_cta else 0
     covered = sum(int(coverage.get(key, 0)) for key in ("current", "stale_last_known", "unknown"))
     tw_cta_date = _date(tw_cta.get("screen_as_of")) if tw_cta else None
-    if requested < 200 or covered < requested or not tw_cta_date or _business_lag(tw_cta_date, today) > 2:
+    if requested < 200 or covered < requested or not tw_cta_date or _business_lag(tw_cta_date, expected_asia_session) > 0:
         modules.append(_module("taiwan_candidate_cta", "Taiwan 200-stock CTA", "asia", True, BLOCKED, "coverage incomplete or stale", tw_cta_date, "update-taiwan-stock-screen.yml", ["台股日報"]))
     elif int(coverage.get("unknown", 0)) or int(coverage.get("stale_last_known", 0)):
         reason = f"current {coverage.get('current', 0)}, stale {coverage.get('stale_last_known', 0)}, unknown {coverage.get('unknown', 0)}"
@@ -270,9 +289,10 @@ def build_health_report(root: str | Path, *, now: datetime | None = None) -> dic
         modules.append(_module("taiwan_candidate_cta", "Taiwan 200-stock CTA", "asia", True, READY, "200 stocks current", tw_cta_date, "update-taiwan-stock-screen.yml", ["台股日報"]))
 
     modules.append(_daily_check(
-        root, today, module_id="taiwan_daily_context", label="Taiwan Daily Context", scope="asia",
+        root, expected_asia_session, module_id="taiwan_daily_context", label="Taiwan Daily Context", scope="asia",
         relative="data/market/taiwan_stock_intelligence/daily_context_latest.json", date_field="screen_as_of",
         status_field="display_status", good_statuses={"CURRENT"}, recovery="update-taiwan-stock-screen.yml", reports=["台股日報"],
+        max_business_lag=0,
     ))
 
     # Weekly context modules are advisory unless the final validation explicitly fails.
