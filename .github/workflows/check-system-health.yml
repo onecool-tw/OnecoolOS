@@ -36,9 +36,12 @@ on:
     # 15:30 Taipei, after the 14:00 US dashboard retry.
     - cron: "15 2 * * 1-6"
     - cron: "30 7 * * 1-6"
-    # Taiwan close inputs: recover at 18:00 and verify at 18:50 Taipei.
-    - cron: "0 10 * * 1-5"
-    - cron: "50 10 * * 1-5"
+    # Taiwan close inputs: start recovery before the 18:00 report, verify it,
+    # then retain a final recovery/verification pair for delayed providers.
+    - cron: "30 8 * * 1-5"
+    - cron: "10 9 * * 1-5"
+    - cron: "20 9 * * 1-5"
+    - cron: "50 9 * * 1-5"
     # Weekly preflight: recover at 15:00 and verify at 16:00 Taipei Sunday.
     - cron: "0 7 * * 0"
     - cron: "0 8 * * 0"
@@ -79,8 +82,10 @@ jobs:
             case "$EVENT_SCHEDULE" in
               "15 2 * * 1-6") scope="morning"; phase="primary" ;;
               "30 7 * * 1-6") scope="morning"; phase="verify" ;;
-              "0 10 * * 1-5") scope="asia"; phase="primary" ;;
-              "50 10 * * 1-5") scope="asia"; phase="verify" ;;
+              "30 8 * * 1-5") scope="asia"; phase="primary" ;;
+              "10 9 * * 1-5") scope="asia"; phase="verify" ;;
+              "20 9 * * 1-5") scope="asia"; phase="primary" ;;
+              "50 9 * * 1-5") scope="asia"; phase="verify" ;;
               "0 7 * * 0") scope="weekly"; phase="primary" ;;
               "0 8 * * 0") scope="weekly"; phase="verify" ;;
               *) echo "Unknown schedule: $EVENT_SCHEDULE" >&2; exit 2 ;;
