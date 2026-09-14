@@ -1,27 +1,30 @@
 {
   "schema_version": "1.3",
   "report_readiness": {
-    "status": "READY",
-    "expected_as_of": "2026-09-11",
-    "screen_as_of": "2026-09-11",
+    "status": "UPDATE_INCOMPLETE",
+    "expected_as_of": "2026-09-14",
+    "screen_as_of": "2026-09-14",
     "taiwan_cta_dates": {
       "0050": "2026-09-11",
       "2330": "2026-09-11",
-      "3006": "2026-09-11",
-      "6669": "2026-09-11",
-      "2357": "2026-09-11",
-      "2408": "2026-09-11",
-      "3036": "2026-09-11"
+      "6669": "2026-09-14",
+      "3006": "2026-09-14",
+      "2357": "2026-09-14",
+      "2408": "2026-09-14",
+      "3036": "2026-09-14"
     },
-    "issues": [],
+    "issues": [
+      "dashboard_0050_not_current",
+      "dashboard_2330_not_current"
+    ],
     "scope": "TAIWAN_PRICE_VALUATION_AND_CTA_ONLY",
     "consumer_rule": "INCOMPLETE_MEANS_NO_NEW_EXPOSURE_AND_NO_UNCHANGED_RANKING_CLAIM",
     "asia_and_margin_policy": "KEEP_ACTUAL_LOCAL_SOURCE_DATES"
   },
   "module": "Onecool Taiwan Stock Daily Context",
-  "generated_at": "2026-09-13T12:14:10.997481+00:00",
+  "generated_at": "2026-09-14T11:31:43.590559+00:00",
   "source_policy": "LATEST_SUCCESSFUL_SCREEN_WITH_EXPLICIT_DATE",
-  "screen_as_of": "2026-09-11",
+  "screen_as_of": "2026-09-14",
   "screen_business_day_lag": 0,
   "display_status": "CURRENT",
   "screen_data_status": "READY",
@@ -63,8 +66,8 @@
   },
   "candidate_action_gate": "REQUIRES_INDIVIDUAL_CTA_AND_PRESSURE_GREEN",
   "candidate_cta_cache": {
-    "screen_as_of": "2026-09-11",
-    "generated_at": "2026-09-13T12:14:06.088284+00:00",
+    "screen_as_of": "2026-09-14",
+    "generated_at": "2026-09-14T11:31:38.461988+00:00",
     "requested_count": 200,
     "coverage": {
       "current": 200,
@@ -81,84 +84,19 @@
   },
   "top5": [
     {
-      "symbol": "3006",
-      "company_name": "晶豪科",
-      "industry": "半導體業",
-      "price_as_of": "2026-09-11",
-      "fundamentals_as_of": "2026Q2",
-      "monthly_revenue_as_of": "2026-08",
-      "price_basis": "official_unadjusted_close",
-      "liquidity_rank": 30,
-      "monthly_revenue_yoy": 605.2432014317565,
-      "cumulative_revenue_yoy": 324.37526455062414,
-      "eps": 27.58,
-      "pe": 9.16,
-      "pb": 4.35,
-      "outlier_flags": [
-        "monthly_revenue_yoy"
-      ],
-      "score_components": {
-        "monthly_revenue_yoy": 20.0,
-        "cumulative_revenue_yoy": 20.0,
-        "eps": 30.0,
-        "pe": 10.0,
-        "pb": 2.0,
-        "liquidity": 12.6
-      },
-      "score": 94.6,
-      "confidence": "HIGH",
-      "selection_status": "FORMAL",
-      "candidate_role": "RESEARCH_PRIORITY_ONLY",
-      "individual_cta_required": true,
-      "individual_cta": {
-        "update_status": "CURRENT",
-        "as_of": "2026-09-11",
-        "state": "WEEKLY_BULLISH_DAILY_BULLISH",
-        "cta": "BUY",
-        "reason": "Weekly golden cross remains confirmed or active.",
-        "source_data_as_of": "2026-09-11",
-        "weekly_data_as_of": "2026-09-11",
-        "daily_50ma": 245.3,
-        "daily_200ma": 184.003955,
-        "weekly_30ma": 208.351721,
-        "weekly_50ma": 166.991014,
-        "daily_cross": {
-          "alignment": "GOLDEN",
-          "cross_status": "NONE",
-          "last_cross_status": "GOLDEN",
-          "last_cross_date": "2025-09-24",
-          "periods_since_cross": 234,
-          "spread_pct": 33.312352,
-          "phase": "AGING"
-        },
-        "weekly_cross": {
-          "alignment": "GOLDEN",
-          "cross_status": "NONE",
-          "last_cross_status": "GOLDEN",
-          "last_cross_date": "2025-11-07",
-          "periods_since_cross": 43,
-          "spread_pct": 24.768223,
-          "phase": "ACTIVE"
-        },
-        "last_attempt_at": "2026-09-13T12:14:06.088284+00:00",
-        "error": null
-      },
-      "action_eligibility": "ELIGIBLE_IF_0050_BULLISH_AND_PRESSURE_GREEN"
-    },
-    {
       "symbol": "6669",
       "company_name": "緯穎",
       "industry": "電腦及週邊設備業",
-      "price_as_of": "2026-09-11",
+      "price_as_of": "2026-09-14",
       "fundamentals_as_of": "2026Q2",
       "monthly_revenue_as_of": "2026-08",
       "price_basis": "official_unadjusted_close",
-      "liquidity_rank": 41,
+      "liquidity_rank": 35,
       "monthly_revenue_yoy": 50.35813251850269,
       "cumulative_revenue_yoy": 42.79572821857782,
       "eps": 156.38,
-      "pe": 7.41,
-      "pb": 3.14,
+      "pe": 7.28,
+      "pb": 3.09,
       "outlier_flags": [],
       "score_components": {
         "monthly_revenue_yoy": 20.0,
@@ -166,23 +104,23 @@
         "eps": 30.0,
         "pe": 10.0,
         "pb": 2.0,
-        "liquidity": 11.69
+        "liquidity": 12.18
       },
-      "score": 93.69,
+      "score": 94.18,
       "confidence": "HIGH",
       "selection_status": "FORMAL",
       "candidate_role": "RESEARCH_PRIORITY_ONLY",
       "individual_cta_required": true,
       "individual_cta": {
         "update_status": "CURRENT",
-        "as_of": "2026-09-11",
+        "as_of": "2026-09-14",
         "state": "WEEKLY_BULLISH_DAILY_BEARISH",
         "cta": "WATCH",
         "reason": "Weekly golden trend remains, but daily trend weakened.",
-        "source_data_as_of": "2026-09-11",
+        "source_data_as_of": "2026-09-14",
         "weekly_data_as_of": "2026-09-11",
-        "daily_50ma": 3393.209941,
-        "daily_200ma": 4033.313004,
+        "daily_50ma": 3337.909941,
+        "daily_200ma": 4024.594229,
         "weekly_30ma": 4065.266686,
         "weekly_50ma": 3999.859549,
         "daily_cross": {
@@ -190,8 +128,8 @@
           "cross_status": "NONE",
           "last_cross_status": "DEATH",
           "last_cross_date": "2026-08-20",
-          "periods_since_cross": 16,
-          "spread_pct": -15.870404,
+          "periods_since_cross": 17,
+          "spread_pct": -17.062199,
           "phase": "ACTIVE"
         },
         "weekly_cross": {
@@ -203,25 +141,90 @@
           "spread_pct": 1.635236,
           "phase": "AGING"
         },
-        "last_attempt_at": "2026-09-13T12:14:06.088284+00:00",
+        "last_attempt_at": "2026-09-14T11:31:38.461988+00:00",
         "error": null
       },
       "action_eligibility": "HOLD_EXISTING_PAUSE_RIGHT_SIDE_ADD"
     },
     {
-      "symbol": "2357",
-      "company_name": "華碩",
-      "industry": "電腦及週邊設備業",
-      "price_as_of": "2026-09-11",
+      "symbol": "3006",
+      "company_name": "晶豪科",
+      "industry": "半導體業",
+      "price_as_of": "2026-09-14",
       "fundamentals_as_of": "2026Q2",
       "monthly_revenue_as_of": "2026-08",
       "price_basis": "official_unadjusted_close",
-      "liquidity_rank": 33,
+      "liquidity_rank": 38,
+      "monthly_revenue_yoy": 605.2432014317565,
+      "cumulative_revenue_yoy": 324.37526455062414,
+      "eps": 27.58,
+      "pe": 8.53,
+      "pb": 4.05,
+      "outlier_flags": [
+        "monthly_revenue_yoy"
+      ],
+      "score_components": {
+        "monthly_revenue_yoy": 20.0,
+        "cumulative_revenue_yoy": 20.0,
+        "eps": 30.0,
+        "pe": 10.0,
+        "pb": 2.0,
+        "liquidity": 11.93
+      },
+      "score": 93.93,
+      "confidence": "HIGH",
+      "selection_status": "FORMAL",
+      "candidate_role": "RESEARCH_PRIORITY_ONLY",
+      "individual_cta_required": true,
+      "individual_cta": {
+        "update_status": "CURRENT",
+        "as_of": "2026-09-14",
+        "state": "WEEKLY_BULLISH_DAILY_BULLISH",
+        "cta": "BUY",
+        "reason": "Weekly golden cross remains confirmed or active.",
+        "source_data_as_of": "2026-09-14",
+        "weekly_data_as_of": "2026-09-11",
+        "daily_50ma": 246.33,
+        "daily_200ma": 184.917526,
+        "weekly_30ma": 208.351721,
+        "weekly_50ma": 166.991014,
+        "daily_cross": {
+          "alignment": "GOLDEN",
+          "cross_status": "NONE",
+          "last_cross_status": "GOLDEN",
+          "last_cross_date": "2025-09-24",
+          "periods_since_cross": 235,
+          "spread_pct": 33.210738,
+          "phase": "AGING"
+        },
+        "weekly_cross": {
+          "alignment": "GOLDEN",
+          "cross_status": "NONE",
+          "last_cross_status": "GOLDEN",
+          "last_cross_date": "2025-11-07",
+          "periods_since_cross": 43,
+          "spread_pct": 24.768223,
+          "phase": "ACTIVE"
+        },
+        "last_attempt_at": "2026-09-14T11:31:38.461988+00:00",
+        "error": null
+      },
+      "action_eligibility": "ELIGIBLE_IF_0050_BULLISH_AND_PRESSURE_GREEN"
+    },
+    {
+      "symbol": "2357",
+      "company_name": "華碩",
+      "industry": "電腦及週邊設備業",
+      "price_as_of": "2026-09-14",
+      "fundamentals_as_of": "2026Q2",
+      "monthly_revenue_as_of": "2026-08",
+      "price_basis": "official_unadjusted_close",
+      "liquidity_rank": 52,
       "monthly_revenue_yoy": 51.16688342643828,
       "cumulative_revenue_yoy": 42.30457002299758,
       "eps": 38.83,
-      "pe": 13.51,
-      "pb": 2.28,
+      "pe": 13.65,
+      "pb": 2.3,
       "outlier_flags": [],
       "score_components": {
         "monthly_revenue_yoy": 20.0,
@@ -229,23 +232,23 @@
         "eps": 30.0,
         "pe": 8.0,
         "pb": 3.0,
-        "liquidity": 12.35
+        "liquidity": 10.94
       },
-      "score": 93.35,
+      "score": 91.94,
       "confidence": "HIGH",
       "selection_status": "FORMAL",
       "candidate_role": "RESEARCH_PRIORITY_ONLY",
       "individual_cta_required": true,
       "individual_cta": {
         "update_status": "CURRENT",
-        "as_of": "2026-09-11",
+        "as_of": "2026-09-14",
         "state": "WEEKLY_BULLISH_DAILY_BULLISH",
         "cta": "BUY",
         "reason": "Weekly golden cross remains confirmed or active.",
-        "source_data_as_of": "2026-09-11",
+        "source_data_as_of": "2026-09-14",
         "weekly_data_as_of": "2026-09-11",
-        "daily_50ma": 844.18,
-        "daily_200ma": 640.04265,
+        "daily_50ma": 849.26,
+        "daily_200ma": 642.06655,
         "weekly_30ma": 689.892667,
         "weekly_50ma": 639.5732,
         "daily_cross": {
@@ -253,8 +256,8 @@
           "cross_status": "NONE",
           "last_cross_status": "GOLDEN",
           "last_cross_date": "2026-05-28",
-          "periods_since_cross": 75,
-          "spread_pct": 31.894335,
+          "periods_since_cross": 76,
+          "spread_pct": 32.269778,
           "phase": "AGING"
         },
         "weekly_cross": {
@@ -266,7 +269,7 @@
           "spread_pct": 7.867663,
           "phase": "ACTIVE"
         },
-        "last_attempt_at": "2026-09-13T12:14:06.088284+00:00",
+        "last_attempt_at": "2026-09-14T11:31:38.461988+00:00",
         "error": null
       },
       "action_eligibility": "ELIGIBLE_IF_0050_BULLISH_AND_PRESSURE_GREEN"
@@ -275,16 +278,16 @@
       "symbol": "2408",
       "company_name": "南亞科",
       "industry": "半導體業",
-      "price_as_of": "2026-09-11",
+      "price_as_of": "2026-09-14",
       "fundamentals_as_of": "2026Q2",
       "monthly_revenue_as_of": "2026-08",
       "price_basis": "official_unadjusted_close",
-      "liquidity_rank": 6,
+      "liquidity_rank": 3,
       "monthly_revenue_yoy": 560.8541425724004,
       "cumulative_revenue_yoy": 638.1931640340957,
       "eps": 23.38,
-      "pe": 19.13,
-      "pb": 5.27,
+      "pe": 18.35,
+      "pb": 5.06,
       "outlier_flags": [
         "monthly_revenue_yoy",
         "cumulative_revenue_yoy"
@@ -295,23 +298,23 @@
         "eps": 30.0,
         "pe": 6.0,
         "pb": 1.0,
-        "liquidity": 14.59
+        "liquidity": 14.83
       },
-      "score": 91.59,
+      "score": 91.83,
       "confidence": "HIGH",
       "selection_status": "FORMAL",
       "candidate_role": "RESEARCH_PRIORITY_ONLY",
       "individual_cta_required": true,
       "individual_cta": {
         "update_status": "CURRENT",
-        "as_of": "2026-09-11",
+        "as_of": "2026-09-14",
         "state": "WEEKLY_BULLISH_DAILY_BULLISH",
         "cta": "HOLD",
         "reason": "Weekly golden trend is aging without a fresh daily cross.",
-        "source_data_as_of": "2026-09-11",
+        "source_data_as_of": "2026-09-14",
         "weekly_data_as_of": "2026-09-11",
-        "daily_50ma": 464.063057,
-        "daily_200ma": 311.517426,
+        "daily_50ma": 465.14,
+        "daily_200ma": 313.082497,
         "weekly_30ma": 347.660751,
         "weekly_50ma": 276.47828,
         "daily_cross": {
@@ -319,8 +322,8 @@
           "cross_status": "NONE",
           "last_cross_status": "GOLDEN",
           "last_cross_date": "2025-06-06",
-          "periods_since_cross": 311,
-          "spread_pct": 48.968571,
+          "periods_since_cross": 312,
+          "spread_pct": 48.567871,
           "phase": "AGING"
         },
         "weekly_cross": {
@@ -332,7 +335,7 @@
           "spread_pct": 25.746135,
           "phase": "AGING"
         },
-        "last_attempt_at": "2026-09-13T12:14:06.088284+00:00",
+        "last_attempt_at": "2026-09-14T11:31:38.461988+00:00",
         "error": null
       },
       "action_eligibility": "ELIGIBLE_IF_0050_BULLISH_AND_PRESSURE_GREEN"
@@ -341,16 +344,16 @@
       "symbol": "3036",
       "company_name": "文曄",
       "industry": "電子通路業",
-      "price_as_of": "2026-09-11",
+      "price_as_of": "2026-09-14",
       "fundamentals_as_of": "2026Q2",
       "monthly_revenue_as_of": "2026-08",
       "price_basis": "official_unadjusted_close",
-      "liquidity_rank": 113,
+      "liquidity_rank": 107,
       "monthly_revenue_yoy": 98.21291582397657,
       "cumulative_revenue_yoy": 109.20046830886439,
       "eps": 13.0,
-      "pe": 9.8,
-      "pb": 1.95,
+      "pe": 9.86,
+      "pb": 1.96,
       "outlier_flags": [],
       "score_components": {
         "monthly_revenue_yoy": 20.0,
@@ -358,23 +361,23 @@
         "eps": 30.0,
         "pe": 10.0,
         "pb": 4.0,
-        "liquidity": 6.13
+        "liquidity": 6.8
       },
-      "score": 90.13,
+      "score": 90.8,
       "confidence": "HIGH",
       "selection_status": "FORMAL",
       "candidate_role": "RESEARCH_PRIORITY_ONLY",
       "individual_cta_required": true,
       "individual_cta": {
         "update_status": "CURRENT",
-        "as_of": "2026-09-11",
+        "as_of": "2026-09-14",
         "state": "WEEKLY_BULLISH_DAILY_BULLISH",
         "cta": "HOLD",
         "reason": "Weekly golden trend is aging without a fresh daily cross.",
-        "source_data_as_of": "2026-09-11",
+        "source_data_as_of": "2026-09-14",
         "weekly_data_as_of": "2026-09-11",
-        "daily_50ma": 202.37,
-        "daily_200ma": 196.733422,
+        "daily_50ma": 201.83,
+        "daily_200ma": 197.05173,
         "weekly_30ma": 217.92088,
         "weekly_50ma": 186.667183,
         "daily_cross": {
@@ -382,8 +385,8 @@
           "cross_status": "NONE",
           "last_cross_status": "GOLDEN",
           "last_cross_date": "2025-05-29",
-          "periods_since_cross": 316,
-          "spread_pct": 2.865084,
+          "periods_since_cross": 317,
+          "spread_pct": 2.424881,
           "phase": "AGING"
         },
         "weekly_cross": {
@@ -395,7 +398,7 @@
           "spread_pct": 16.743006,
           "phase": "AGING"
         },
-        "last_attempt_at": "2026-09-13T12:14:06.088284+00:00",
+        "last_attempt_at": "2026-09-14T11:31:38.461988+00:00",
         "error": null
       },
       "action_eligibility": "ELIGIBLE_IF_0050_BULLISH_AND_PRESSURE_GREEN"
