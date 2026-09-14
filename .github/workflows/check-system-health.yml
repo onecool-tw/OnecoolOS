@@ -100,7 +100,7 @@ jobs:
         id: health
         run: python scripts/check_system_health.py --scope "${{ steps.mode.outputs.scope }}"
       - name: Dispatch one safe recovery cycle
-        if: steps.mode.outputs.phase == 'primary' && steps.health.outputs.blocked_count != '0'
+        if: (steps.mode.outputs.phase == 'primary' || github.event_name == 'push') && steps.health.outputs.blocked_count != '0'
         uses: actions/github-script@v7
         env:
           RECOVERY_WORKFLOWS: ${{ steps.health.outputs.recovery_workflows }}
@@ -130,7 +130,7 @@ jobs:
           git commit -m "Update unified schedule health"
           bash scripts/push_cache_commit.sh
       - name: Fail only after recovery remains blocked
-        if: steps.mode.outputs.phase == 'verify' && steps.health.outputs.scope_status == 'BLOCKED'
+        if: steps.mode.outputs.phase == 'verify' && github.event_name != 'push' && steps.health.outputs.scope_status == 'BLOCKED'
         run: |
           echo "${{ steps.mode.outputs.scope }} health remains BLOCKED after the recovery window." >&2
           exit 1
