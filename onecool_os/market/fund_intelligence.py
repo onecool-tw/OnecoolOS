@@ -11,7 +11,7 @@ from onecool_os.market.dashboard import load_latest_dashboard
 from onecool_os.market.fundamental_cycle import load_fundamental_cycle
 from onecool_os.market.macro_regime import load_macro_regime
 
-MASTER_PROMPT_VERSION = "v1.4 Freeze"
+MASTER_PROMPT_VERSION = "v1.5 Freeze"
 MASTER_PROMPT_PATH = Path("config/fund_intelligence_master_prompt.md")
 
 

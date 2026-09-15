@@ -17,9 +17,11 @@ from onecool_os.market.fund_alpha import (
     alpha_payload,
     calculate_excess_return,
     calculate_period_excess_return,
+    completed_half_year_scorecards,
     completed_month_snapshots,
     merge_nav_history,
     read_nav_history,
+    semiannual_governance,
     write_nav_history,
 )
 
@@ -33,6 +35,7 @@ def update(root: Path) -> dict:
     current = []
     monthly = {}
     periods = {}
+    governance = {}
     for fund_code, (_, benchmark, _) in FUND_WATCHLIST.items():
         nav_path = fund_dir / "history" / f"{fund_code}.csv"
         fund_history = merge_nav_history(
@@ -63,7 +66,15 @@ def update(root: Path) -> dict:
             if result.end_date
             else date.today(),
         )
-    payload = alpha_payload(current, monthly, periods)
+        governance[fund_code] = semiannual_governance(
+            completed_half_year_scorecards(
+                fund_code,
+                fund_history,
+                etf_history,
+                as_of=date.today(),
+            )
+        )
+    payload = alpha_payload(current, monthly, periods, governance)
     fund_dir.mkdir(parents=True, exist_ok=True)
     (fund_dir / "alpha_latest.json").write_text(
         json.dumps(payload, ensure_ascii=False, indent=2) + "\n",

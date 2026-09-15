@@ -10,10 +10,12 @@ from onecool_os.market.fund_alpha import (
     alpha_payload,
     calculate_excess_return,
     calculate_period_excess_return,
+    completed_half_year_scorecards,
     completed_month_snapshots,
     consecutive_status,
     merge_nav_history,
     parse_anue_nav_history,
+    semiannual_governance,
 )
 
 
@@ -216,6 +218,50 @@ def test_changed_proxy_backfills_completed_months_with_current_proxy() -> None:
     assert consecutive_status(snapshots) == "positive_3_months"
 
 
+def test_two_completed_half_years_trigger_etf_replacement_review() -> None:
+    fund_history = []
+    etf_history = []
+    day = date(2025, 6, 30)
+    fund_value = 100.0
+    etf_value = 100.0
+    while day <= date(2026, 6, 30):
+        if day.weekday() < 5:
+            fund_value *= 1.0002 if len(fund_history) % 9 else 0.998
+            etf_value *= 1.0008 if len(etf_history) % 13 else 0.999
+            fund_history.append(fund_nav(day, fund_value))
+            etf_history.append(etf_bar(day, etf_value))
+        day += timedelta(days=1)
+
+    scorecards = completed_half_year_scorecards(
+        "A10124",
+        fund_history,
+        etf_history,
+        as_of=date(2026, 7, 5),
+    )
+    governance = semiannual_governance(scorecards)
+
+    assert [item.period for item in scorecards] == ["2025H2", "2026H1"]
+    assert all(item.observations >= 60 for item in scorecards)
+    assert all(item.status == "NO_CLEAR_ADVANTAGE" for item in scorecards)
+    assert governance["status"] == "ETF_REPLACEMENT_REVIEW"
+    assert governance["decision_authority"] == "RESEARCH_REVIEW_ONLY"
+    assert governance["cta_override_allowed"] is False
+
+
+def test_half_year_unknown_is_not_treated_as_underperformance() -> None:
+    scorecards = completed_half_year_scorecards(
+        "A10124",
+        [fund_nav(date(2026, 6, 30), 100)],
+        [etf_bar(date(2026, 6, 30), 100)],
+        as_of=date(2026, 7, 5),
+    )
+
+    governance = semiannual_governance(scorecards)
+
+    assert governance["status"] == "INSUFFICIENT_DATA"
+    assert governance["cta_override_allowed"] is False
+
+
 def test_start_gap_over_ten_days_is_unknown() -> None:
     end = date(2026, 7, 15)
     old = date(2025, 6, 30)
@@ -262,7 +308,7 @@ def test_payload_labels_raw_difference_as_excess_return() -> None:
         [result], {"A16075": []}, {"A16075": {"3m": period}}
     )
 
-    assert payload["schema_version"] == "2.2"
+    assert payload["schema_version"] == "2.3"
     assert payload["metric"] == "Onecool Excess Return"
     assert "alpha" not in payload["definition"].lower()
     assert payload["results"][0]["proxy_etf"] == "SMIN"
@@ -273,6 +319,7 @@ def test_payload_labels_raw_difference_as_excess_return() -> None:
     assert payload["periods"] == ["3m", "6m", "1y"]
     assert payload["results"][0]["period_returns"]["3m"]["period"] == "3m"
     assert payload["results"][0]["fund_return_1y"] == result.fund_return_1y
+    assert payload["semiannual_governance_policy"]["cta_override_allowed"] is False
 
 
 def test_changed_proxy_is_labeled_historical_recast_not_live_record() -> None:

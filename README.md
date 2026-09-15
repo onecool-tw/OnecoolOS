@@ -2199,6 +2199,15 @@ missing or stale inputs still fail their normal validation gates.
 The weekly Alpha updater no longer overwrites formal Fund NAV CTA or its provider
 refresh evidence. `update_fund_nav_cta.py` owns that artifact exclusively.
 
+Fund Intelligence schema 2.3 adds a David Swensen-inspired governance check for
+active funds.  The updater compares every held fund with its CTA proxy over the
+two most recent completed calendar half-years using identical-date total return,
+zero-rate annualized daily Sharpe and maximum drawdown.  A fund must win at least
+two of the three comparisons to show a clear half-year advantage.  Two consecutive
+half-years without that advantage create an ETF replacement review only; the
+result cannot change CTA, stop contributions or execute a switch.  Allocation
+bands remain private Fund Master inputs and public caches store only band states.
+
 Missing Yahoo fundamental inputs now fall back to SEC Company Facts, using the
 SEC ticker/CIK registry and a single sequential request per missing eligible
 company. Raw period, filing date, units, accession and values are preserved in
