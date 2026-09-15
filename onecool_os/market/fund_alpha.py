@@ -4,6 +4,8 @@ from __future__ import annotations
 
 import csv
 import json
+import math
+import statistics
 from calendar import monthrange
 from collections.abc import Callable, Iterable
 from dataclasses import asdict, dataclass
@@ -73,6 +75,26 @@ class PeriodExcessReturn:
     fund_return: float | None
     proxy_return: float | None
     excess_return_percentage_points: float | None
+    status: str
+    reason: str
+
+
+@dataclass(frozen=True)
+class HalfYearScorecard:
+    """Risk-adjusted active-fund comparison for one completed half-year."""
+
+    period: str
+    start_date: str | None
+    end_date: str | None
+    observations: int
+    fund_return: float | None
+    proxy_return: float | None
+    excess_return_percentage_points: float | None
+    fund_sharpe_zero_rate: float | None
+    proxy_sharpe_zero_rate: float | None
+    fund_max_drawdown_pct: float | None
+    proxy_max_drawdown_pct: float | None
+    fund_wins: tuple[str, ...]
     status: str
     reason: str
 
@@ -284,6 +306,101 @@ def consecutive_status(snapshots: Iterable[ExcessReturn]) -> str:
     return "mixed"
 
 
+def completed_half_year_scorecards(
+    fund_code: str,
+    fund_history: Iterable[FundNav],
+    etf_history: Iterable[DailyBar],
+    *,
+    as_of: date,
+    periods: int = 2,
+    max_boundary_gap_days: int = 10,
+    min_observations: int = 60,
+) -> list[HalfYearScorecard]:
+    """Compare a fund and its proxy over completed calendar half-years.
+
+    Each scorecard uses common valuation dates only.  The start observation is
+    the latest common date on or before the prior half-year end, and the end is
+    the latest common date on or before the reviewed half-year end.
+    """
+
+    if periods <= 0:
+        raise ValueError("periods must be positive")
+    funds = {item.nav_date: item.nav for item in fund_history}
+    etfs = {
+        item.trading_date: float(item.adjusted_close)
+        for item in etf_history
+        if item.adjusted_close is not None
+    }
+    common = sorted(day for day in funds.keys() & etfs.keys() if day <= as_of)
+    if not common:
+        return [_unknown_half_year("UNKNOWN", "No common valuation date.")]
+
+    cursor = _last_completed_half_year_end(as_of)
+    scorecards = []
+    for _ in range(periods):
+        label = f"{cursor.year}H{1 if cursor.month == 6 else 2}"
+        start_boundary = (
+            date(cursor.year - 1, 12, 31)
+            if cursor.month == 6
+            else date(cursor.year, 6, 30)
+        )
+        start_candidates = [day for day in common if day <= start_boundary]
+        end_candidates = [day for day in common if day <= cursor]
+        if not start_candidates or not end_candidates:
+            scorecards.append(
+                _unknown_half_year(label, "Half-year boundary data missing.")
+            )
+        else:
+            start = start_candidates[-1]
+            end = end_candidates[-1]
+            if (
+                start_boundary - start > timedelta(days=max_boundary_gap_days)
+                or cursor - end > timedelta(days=max_boundary_gap_days)
+            ):
+                scorecards.append(
+                    _unknown_half_year(label, "Half-year boundary gap exceeds 10 days.")
+                )
+            else:
+                days = [day for day in common if start <= day <= end]
+                scorecards.append(
+                    _half_year_scorecard(
+                        label,
+                        days,
+                        funds,
+                        etfs,
+                        min_observations=min_observations,
+                    )
+                )
+        cursor = start_boundary
+    return list(reversed(scorecards))
+
+
+def semiannual_governance(scorecards: Iterable[HalfYearScorecard]) -> dict[str, Any]:
+    """Turn two completed scorecards into a review-only governance state."""
+
+    items = list(scorecards)
+    statuses = [item.status for item in items[-2:]]
+    if len(statuses) < 2 or "UNKNOWN" in statuses:
+        status = "INSUFFICIENT_DATA"
+        action = "資料不足，維持原CTA與既有決策"
+    elif statuses == ["NO_CLEAR_ADVANTAGE", "NO_CLEAR_ADVANTAGE"]:
+        status = "ETF_REPLACEMENT_REVIEW"
+        action = "比較主動基金與Proxy ETF，人工覆核是否縮減或改用ETF"
+    elif statuses[-1] == "NO_CLEAR_ADVANTAGE":
+        status = "MONITOR"
+        action = "累積下一個完整半年期，維持原CTA與既有決策"
+    else:
+        status = "NO_REPLACEMENT_REVIEW"
+        action = "本期不啟動ETF替換覆核"
+    return {
+        "periods": [asdict(item) for item in items],
+        "status": status,
+        "action": action,
+        "decision_authority": "RESEARCH_REVIEW_ONLY",
+        "cta_override_allowed": False,
+    }
+
+
 def read_nav_history(path: Path) -> list[FundNav]:
     if not path.exists():
         return []
@@ -319,12 +436,13 @@ def alpha_payload(
     current: Iterable[ExcessReturn],
     monthly: dict[str, list[ExcessReturn]],
     periods: dict[str, dict[str, PeriodExcessReturn]] | None = None,
+    governance: dict[str, dict[str, Any]] | None = None,
 ) -> dict[str, Any]:
     """Build one auditable schema-2 report without portfolio information."""
 
     current_list = list(current)
     return {
-        "schema_version": "2.2",
+        "schema_version": "2.3",
         "metric": "Onecool Excess Return",
         "definition": "fund_period_return - cta_proxy_etf_period_total_return",
         "periods": ["3m", "6m", "1y"],
@@ -333,6 +451,19 @@ def alpha_payload(
         "source": {
             "fund_nav": "Anue Fund public NavHIS",
             "benchmark": "OnecoolOS locally adjusted ETF history",
+        },
+        "semiannual_governance_policy": {
+            "inspiration": "David Swensen",
+            "schedule": "first weekly review after June 30 and December 31",
+            "metrics": [
+                "same-date total return",
+                "annualized daily Sharpe with zero risk-free rate",
+                "maximum drawdown",
+            ],
+            "advantage_rule": "fund wins at least two of three metrics",
+            "review_rule": "two consecutive completed half-years without clear advantage",
+            "decision_authority": "RESEARCH_REVIEW_ONLY",
+            "cta_override_allowed": False,
         },
         "results": [
             {
@@ -396,10 +527,117 @@ def alpha_payload(
                     .get(result.fund_code, {})
                     .items()
                 },
+                "semiannual_governance": (governance or {}).get(
+                    result.fund_code,
+                    {
+                        "periods": [],
+                        "status": "INSUFFICIENT_DATA",
+                        "action": "資料不足，維持原CTA與既有決策",
+                        "decision_authority": "RESEARCH_REVIEW_ONLY",
+                        "cta_override_allowed": False,
+                    },
+                ),
             }
             for result in current_list
         ],
     }
+
+
+def _last_completed_half_year_end(as_of: date) -> date:
+    if as_of >= date(as_of.year, 6, 30):
+        return date(as_of.year, 6, 30)
+    return date(as_of.year - 1, 12, 31)
+
+
+def _half_year_scorecard(
+    label: str,
+    days: list[date],
+    funds: dict[date, float],
+    etfs: dict[date, float],
+    *,
+    min_observations: int,
+) -> HalfYearScorecard:
+    if len(days) < min_observations:
+        return _unknown_half_year(
+            label, f"Fewer than {min_observations} common observations."
+        )
+    fund_values = [funds[day] for day in days]
+    proxy_values = [etfs[day] for day in days]
+    fund_return = (fund_values[-1] / fund_values[0] - 1.0) * 100.0
+    proxy_return = (proxy_values[-1] / proxy_values[0] - 1.0) * 100.0
+    fund_sharpe = _zero_rate_sharpe(fund_values)
+    proxy_sharpe = _zero_rate_sharpe(proxy_values)
+    fund_drawdown = _max_drawdown(fund_values)
+    proxy_drawdown = _max_drawdown(proxy_values)
+    comparisons = {
+        "total_return": fund_return > proxy_return,
+        "sharpe_zero_rate": (
+            fund_sharpe is not None
+            and proxy_sharpe is not None
+            and fund_sharpe > proxy_sharpe
+        ),
+        "maximum_drawdown": fund_drawdown > proxy_drawdown,
+    }
+    wins = tuple(name for name, won in comparisons.items() if won)
+    status = "ADVANTAGE" if len(wins) >= 2 else "NO_CLEAR_ADVANTAGE"
+    return HalfYearScorecard(
+        period=label,
+        start_date=days[0].isoformat(),
+        end_date=days[-1].isoformat(),
+        observations=len(days),
+        fund_return=round(fund_return, 4),
+        proxy_return=round(proxy_return, 4),
+        excess_return_percentage_points=round(fund_return - proxy_return, 4),
+        fund_sharpe_zero_rate=_round_optional(fund_sharpe),
+        proxy_sharpe_zero_rate=_round_optional(proxy_sharpe),
+        fund_max_drawdown_pct=round(fund_drawdown, 4),
+        proxy_max_drawdown_pct=round(proxy_drawdown, 4),
+        fund_wins=wins,
+        status=status,
+        reason=f"Fund won {len(wins)} of 3 risk/return comparisons.",
+    )
+
+
+def _unknown_half_year(label: str, reason: str) -> HalfYearScorecard:
+    return HalfYearScorecard(
+        period=label,
+        start_date=None,
+        end_date=None,
+        observations=0,
+        fund_return=None,
+        proxy_return=None,
+        excess_return_percentage_points=None,
+        fund_sharpe_zero_rate=None,
+        proxy_sharpe_zero_rate=None,
+        fund_max_drawdown_pct=None,
+        proxy_max_drawdown_pct=None,
+        fund_wins=(),
+        status="UNKNOWN",
+        reason=reason,
+    )
+
+
+def _zero_rate_sharpe(values: list[float]) -> float | None:
+    returns = [current / previous - 1.0 for previous, current in zip(values, values[1:])]
+    if len(returns) < 2:
+        return None
+    volatility = statistics.stdev(returns)
+    if volatility == 0:
+        return None
+    return statistics.mean(returns) / volatility * math.sqrt(252.0)
+
+
+def _max_drawdown(values: list[float]) -> float:
+    peak = values[0]
+    worst = 0.0
+    for value in values:
+        peak = max(peak, value)
+        worst = min(worst, value / peak - 1.0)
+    return worst * 100.0
+
+
+def _round_optional(value: float | None) -> float | None:
+    return round(value, 4) if value is not None else None
 
 
 def _unknown(

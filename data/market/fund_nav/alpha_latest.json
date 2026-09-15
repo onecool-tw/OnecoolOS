@@ -1,5 +1,5 @@
 {
-  "schema_version": "2.2",
+  "schema_version": "2.3",
   "metric": "Onecool Excess Return",
   "definition": "fund_period_return - cta_proxy_etf_period_total_return",
   "periods": [
@@ -12,6 +12,19 @@
   "source": {
     "fund_nav": "Anue Fund public NavHIS",
     "benchmark": "OnecoolOS locally adjusted ETF history"
+  },
+  "semiannual_governance_policy": {
+    "inspiration": "David Swensen",
+    "schedule": "first weekly review after June 30 and December 31",
+    "metrics": [
+      "same-date total return",
+      "annualized daily Sharpe with zero risk-free rate",
+      "maximum drawdown"
+    ],
+    "advantage_rule": "fund wins at least two of three metrics",
+    "review_rule": "two consecutive completed half-years without clear advantage",
+    "decision_authority": "RESEARCH_REVIEW_ONLY",
+    "cta_override_allowed": false
   },
   "results": [
     {
@@ -110,6 +123,53 @@
           "status": "positive",
           "reason": "Fund and CTA proxy use identical start and end dates."
         }
+      },
+      "semiannual_governance": {
+        "periods": [
+          {
+            "period": "2025H2",
+            "start_date": "2025-06-30",
+            "end_date": "2025-12-31",
+            "observations": 125,
+            "fund_return": 33.6404,
+            "proxy_return": 16.5132,
+            "excess_return_percentage_points": 17.1272,
+            "fund_sharpe_zero_rate": 2.3395,
+            "proxy_sharpe_zero_rate": 1.7625,
+            "fund_max_drawdown_pct": -13.026,
+            "proxy_max_drawdown_pct": -11.6318,
+            "fund_wins": [
+              "total_return",
+              "sharpe_zero_rate"
+            ],
+            "status": "ADVANTAGE",
+            "reason": "Fund won 2 of 3 risk/return comparisons."
+          },
+          {
+            "period": "2026H1",
+            "start_date": "2025-12-31",
+            "end_date": "2026-06-30",
+            "observations": 117,
+            "fund_return": 89.9347,
+            "proxy_return": 29.0021,
+            "excess_return_percentage_points": 60.9326,
+            "fund_sharpe_zero_rate": 3.8811,
+            "proxy_sharpe_zero_rate": 1.8293,
+            "fund_max_drawdown_pct": -11.3328,
+            "proxy_max_drawdown_pct": -16.4708,
+            "fund_wins": [
+              "total_return",
+              "sharpe_zero_rate",
+              "maximum_drawdown"
+            ],
+            "status": "ADVANTAGE",
+            "reason": "Fund won 3 of 3 risk/return comparisons."
+          }
+        ],
+        "status": "NO_REPLACEMENT_REVIEW",
+        "action": "本期不啟動ETF替換覆核",
+        "decision_authority": "RESEARCH_REVIEW_ONLY",
+        "cta_override_allowed": false
       }
     },
     {
@@ -208,6 +268,52 @@
           "status": "negative",
           "reason": "Fund and CTA proxy use identical start and end dates."
         }
+      },
+      "semiannual_governance": {
+        "periods": [
+          {
+            "period": "2025H2",
+            "start_date": "2025-06-30",
+            "end_date": "2025-12-31",
+            "observations": 119,
+            "fund_return": -5.8691,
+            "proxy_return": -7.5615,
+            "excess_return_percentage_points": 1.6924,
+            "fund_sharpe_zero_rate": -0.9876,
+            "proxy_sharpe_zero_rate": -1.0813,
+            "fund_max_drawdown_pct": -8.9841,
+            "proxy_max_drawdown_pct": -11.8789,
+            "fund_wins": [
+              "total_return",
+              "sharpe_zero_rate",
+              "maximum_drawdown"
+            ],
+            "status": "ADVANTAGE",
+            "reason": "Fund won 3 of 3 risk/return comparisons."
+          },
+          {
+            "period": "2026H1",
+            "start_date": "2025-12-31",
+            "end_date": "2026-06-30",
+            "observations": 109,
+            "fund_return": -2.2788,
+            "proxy_return": 1.1729,
+            "excess_return_percentage_points": -3.4517,
+            "fund_sharpe_zero_rate": -0.1119,
+            "proxy_sharpe_zero_rate": 0.2319,
+            "fund_max_drawdown_pct": -17.3495,
+            "proxy_max_drawdown_pct": -18.0261,
+            "fund_wins": [
+              "maximum_drawdown"
+            ],
+            "status": "NO_CLEAR_ADVANTAGE",
+            "reason": "Fund won 1 of 3 risk/return comparisons."
+          }
+        ],
+        "status": "MONITOR",
+        "action": "累積下一個完整半年期，維持原CTA與既有決策",
+        "decision_authority": "RESEARCH_REVIEW_ONLY",
+        "cta_override_allowed": false
       }
     },
     {
@@ -215,11 +321,11 @@
       "fund_name": "施羅德環球-環球黃金美元A累積",
       "proxy_etf": "RING",
       "theme": "黃金",
-      "start_date": "2025-09-10",
-      "end_date": "2026-09-10",
-      "fund_return_1y": 56.0921,
-      "proxy_return_1y": 45.5127,
-      "excess_return_percentage_points": 10.5794,
+      "start_date": "2025-09-11",
+      "end_date": "2026-09-11",
+      "fund_return_1y": 53.5728,
+      "proxy_return_1y": 45.2038,
+      "excess_return_percentage_points": 8.369,
       "status": "positive",
       "reason": "Fund and CTA proxy use identical start and end dates.",
       "legacy_proxy_etf": "GLD",
@@ -278,34 +384,81 @@
       "period_returns": {
         "3m": {
           "period": "3m",
-          "start_date": "2026-06-10",
-          "end_date": "2026-09-10",
-          "fund_return": 28.118,
-          "proxy_return": 33.32,
-          "excess_return_percentage_points": -5.202,
-          "status": "negative",
+          "start_date": "2026-06-11",
+          "end_date": "2026-09-11",
+          "fund_return": 31.298,
+          "proxy_return": 27.7771,
+          "excess_return_percentage_points": 3.5209,
+          "status": "positive",
           "reason": "Fund and CTA proxy use identical start and end dates."
         },
         "6m": {
           "period": "6m",
-          "start_date": "2026-03-10",
-          "end_date": "2026-09-10",
-          "fund_return": -7.6541,
-          "proxy_return": -4.2535,
-          "excess_return_percentage_points": -3.4006,
+          "start_date": "2026-03-11",
+          "end_date": "2026-09-11",
+          "fund_return": -4.3108,
+          "proxy_return": -1.0209,
+          "excess_return_percentage_points": -3.2899,
           "status": "negative",
           "reason": "Fund and CTA proxy use identical start and end dates."
         },
         "1y": {
           "period": "1y",
-          "start_date": "2025-09-10",
-          "end_date": "2026-09-10",
-          "fund_return": 56.0921,
-          "proxy_return": 45.5127,
-          "excess_return_percentage_points": 10.5794,
+          "start_date": "2025-09-11",
+          "end_date": "2026-09-11",
+          "fund_return": 53.5728,
+          "proxy_return": 45.2038,
+          "excess_return_percentage_points": 8.369,
           "status": "positive",
           "reason": "Fund and CTA proxy use identical start and end dates."
         }
+      },
+      "semiannual_governance": {
+        "periods": [
+          {
+            "period": "2025H2",
+            "start_date": "2025-06-30",
+            "end_date": "2025-12-31",
+            "observations": 127,
+            "fund_return": 84.6178,
+            "proxy_return": 69.0811,
+            "excess_return_percentage_points": 15.5367,
+            "fund_sharpe_zero_rate": 3.383,
+            "proxy_sharpe_zero_rate": 2.8838,
+            "fund_max_drawdown_pct": -17.3207,
+            "proxy_max_drawdown_pct": -19.2212,
+            "fund_wins": [
+              "total_return",
+              "sharpe_zero_rate",
+              "maximum_drawdown"
+            ],
+            "status": "ADVANTAGE",
+            "reason": "Fund won 3 of 3 risk/return comparisons."
+          },
+          {
+            "period": "2026H1",
+            "start_date": "2025-12-31",
+            "end_date": "2026-06-30",
+            "observations": 123,
+            "fund_return": -10.2041,
+            "proxy_return": -11.607,
+            "excess_return_percentage_points": 1.4029,
+            "fund_sharpe_zero_rate": -0.152,
+            "proxy_sharpe_zero_rate": -0.176,
+            "fund_max_drawdown_pct": -36.9707,
+            "proxy_max_drawdown_pct": -35.7172,
+            "fund_wins": [
+              "total_return",
+              "sharpe_zero_rate"
+            ],
+            "status": "ADVANTAGE",
+            "reason": "Fund won 2 of 3 risk/return comparisons."
+          }
+        ],
+        "status": "NO_REPLACEMENT_REVIEW",
+        "action": "本期不啟動ETF替換覆核",
+        "decision_authority": "RESEARCH_REVIEW_ONLY",
+        "cta_override_allowed": false
       }
     },
     {
@@ -313,11 +466,11 @@
       "fund_name": "富蘭克林坦伯頓-生技領航A(acc)",
       "proxy_etf": "IBB",
       "theme": "生技",
-      "start_date": "2025-09-10",
-      "end_date": "2026-09-10",
-      "fund_return_1y": 54.0194,
-      "proxy_return_1y": 44.4402,
-      "excess_return_percentage_points": 9.5792,
+      "start_date": "2025-09-11",
+      "end_date": "2026-09-11",
+      "fund_return_1y": 52.1425,
+      "proxy_return_1y": 41.4783,
+      "excess_return_percentage_points": 10.6642,
       "status": "positive",
       "reason": "Fund and CTA proxy use identical start and end dates.",
       "legacy_proxy_etf": null,
@@ -376,34 +529,81 @@
       "period_returns": {
         "3m": {
           "period": "3m",
-          "start_date": "2026-06-10",
-          "end_date": "2026-09-10",
-          "fund_return": 16.6221,
-          "proxy_return": 22.1408,
-          "excess_return_percentage_points": -5.5187,
+          "start_date": "2026-06-11",
+          "end_date": "2026-09-11",
+          "fund_return": 13.0258,
+          "proxy_return": 19.0441,
+          "excess_return_percentage_points": -6.0183,
           "status": "negative",
           "reason": "Fund and CTA proxy use identical start and end dates."
         },
         "6m": {
           "period": "6m",
-          "start_date": "2026-03-10",
-          "end_date": "2026-09-10",
-          "fund_return": 14.3279,
-          "proxy_return": 17.7315,
-          "excess_return_percentage_points": -3.4036,
+          "start_date": "2026-03-11",
+          "end_date": "2026-09-11",
+          "fund_return": 14.835,
+          "proxy_return": 18.866,
+          "excess_return_percentage_points": -4.031,
           "status": "negative",
           "reason": "Fund and CTA proxy use identical start and end dates."
         },
         "1y": {
           "period": "1y",
-          "start_date": "2025-09-10",
-          "end_date": "2026-09-10",
-          "fund_return": 54.0194,
-          "proxy_return": 44.4402,
-          "excess_return_percentage_points": 9.5792,
+          "start_date": "2025-09-11",
+          "end_date": "2026-09-11",
+          "fund_return": 52.1425,
+          "proxy_return": 41.4783,
+          "excess_return_percentage_points": 10.6642,
           "status": "positive",
           "reason": "Fund and CTA proxy use identical start and end dates."
         }
+      },
+      "semiannual_governance": {
+        "periods": [
+          {
+            "period": "2025H2",
+            "start_date": "2025-06-30",
+            "end_date": "2025-12-31",
+            "observations": 129,
+            "fund_return": 58.8645,
+            "proxy_return": 33.6275,
+            "excess_return_percentage_points": 25.237,
+            "fund_sharpe_zero_rate": 4.5211,
+            "proxy_sharpe_zero_rate": 3.2759,
+            "fund_max_drawdown_pct": -4.3767,
+            "proxy_max_drawdown_pct": -4.2916,
+            "fund_wins": [
+              "total_return",
+              "sharpe_zero_rate"
+            ],
+            "status": "ADVANTAGE",
+            "reason": "Fund won 2 of 3 risk/return comparisons."
+          },
+          {
+            "period": "2026H1",
+            "start_date": "2025-12-31",
+            "end_date": "2026-06-30",
+            "observations": 124,
+            "fund_return": 18.7795,
+            "proxy_return": 12.7897,
+            "excess_return_percentage_points": 5.9898,
+            "fund_sharpe_zero_rate": 1.4742,
+            "proxy_sharpe_zero_rate": 1.1918,
+            "fund_max_drawdown_pct": -9.1673,
+            "proxy_max_drawdown_pct": -9.6335,
+            "fund_wins": [
+              "total_return",
+              "sharpe_zero_rate",
+              "maximum_drawdown"
+            ],
+            "status": "ADVANTAGE",
+            "reason": "Fund won 3 of 3 risk/return comparisons."
+          }
+        ],
+        "status": "NO_REPLACEMENT_REVIEW",
+        "action": "本期不啟動ETF替換覆核",
+        "decision_authority": "RESEARCH_REVIEW_ONLY",
+        "cta_override_allowed": false
       }
     },
     {
@@ -411,12 +611,12 @@
       "fund_name": "貝萊德世界礦業A2美元",
       "proxy_etf": "PICK",
       "theme": "礦業",
-      "start_date": "2025-09-10",
-      "end_date": "2026-09-10",
-      "fund_return_1y": 53.511,
-      "proxy_return_1y": 55.5139,
-      "excess_return_percentage_points": -2.003,
-      "status": "negative",
+      "start_date": "2025-09-11",
+      "end_date": "2026-09-11",
+      "fund_return_1y": 53.9407,
+      "proxy_return_1y": 53.1623,
+      "excess_return_percentage_points": 0.7784,
+      "status": "positive",
       "reason": "Fund and CTA proxy use identical start and end dates.",
       "legacy_proxy_etf": null,
       "proxy_changed_at": null,
@@ -474,34 +674,77 @@
       "period_returns": {
         "3m": {
           "period": "3m",
-          "start_date": "2026-06-10",
-          "end_date": "2026-09-10",
-          "fund_return": 10.7471,
-          "proxy_return": 5.7202,
-          "excess_return_percentage_points": 5.0269,
+          "start_date": "2026-06-11",
+          "end_date": "2026-09-11",
+          "fund_return": 12.3962,
+          "proxy_return": 0.1604,
+          "excess_return_percentage_points": 12.2358,
           "status": "positive",
           "reason": "Fund and CTA proxy use identical start and end dates."
         },
         "6m": {
           "period": "6m",
-          "start_date": "2026-03-10",
-          "end_date": "2026-09-10",
-          "fund_return": 3.6696,
-          "proxy_return": 8.5444,
-          "excess_return_percentage_points": -4.8748,
+          "start_date": "2026-03-11",
+          "end_date": "2026-09-11",
+          "fund_return": 5.2265,
+          "proxy_return": 8.6803,
+          "excess_return_percentage_points": -3.4538,
           "status": "negative",
           "reason": "Fund and CTA proxy use identical start and end dates."
         },
         "1y": {
           "period": "1y",
-          "start_date": "2025-09-10",
-          "end_date": "2026-09-10",
-          "fund_return": 53.511,
-          "proxy_return": 55.5139,
-          "excess_return_percentage_points": -2.003,
-          "status": "negative",
+          "start_date": "2025-09-11",
+          "end_date": "2026-09-11",
+          "fund_return": 53.9407,
+          "proxy_return": 53.1623,
+          "excess_return_percentage_points": 0.7784,
+          "status": "positive",
           "reason": "Fund and CTA proxy use identical start and end dates."
         }
+      },
+      "semiannual_governance": {
+        "periods": [
+          {
+            "period": "2025H2",
+            "start_date": "2025-06-30",
+            "end_date": "2025-12-31",
+            "observations": 126,
+            "fund_return": 48.8686,
+            "proxy_return": 38.7068,
+            "excess_return_percentage_points": 10.1618,
+            "fund_sharpe_zero_rate": 3.6663,
+            "proxy_sharpe_zero_rate": 3.3795,
+            "fund_max_drawdown_pct": -7.9807,
+            "proxy_max_drawdown_pct": -7.8483,
+            "fund_wins": [
+              "total_return",
+              "sharpe_zero_rate"
+            ],
+            "status": "ADVANTAGE",
+            "reason": "Fund won 2 of 3 risk/return comparisons."
+          },
+          {
+            "period": "2026H1",
+            "start_date": "2025-12-31",
+            "end_date": "2026-06-30",
+            "observations": 120,
+            "fund_return": 4.7475,
+            "proxy_return": 14.2162,
+            "excess_return_percentage_points": -9.4687,
+            "fund_sharpe_zero_rate": 0.4437,
+            "proxy_sharpe_zero_rate": 0.9126,
+            "fund_max_drawdown_pct": -21.4204,
+            "proxy_max_drawdown_pct": -19.5436,
+            "fund_wins": [],
+            "status": "NO_CLEAR_ADVANTAGE",
+            "reason": "Fund won 0 of 3 risk/return comparisons."
+          }
+        ],
+        "status": "MONITOR",
+        "action": "累積下一個完整半年期，維持原CTA與既有決策",
+        "decision_authority": "RESEARCH_REVIEW_ONLY",
+        "cta_override_allowed": false
       }
     },
     {
@@ -509,11 +752,11 @@
       "fund_name": "景順環球消費趨勢基金A美元",
       "proxy_etf": "RXI",
       "theme": "消費",
-      "start_date": "2025-09-10",
-      "end_date": "2026-09-10",
-      "fund_return_1y": -8.2124,
-      "proxy_return_1y": -3.9783,
-      "excess_return_percentage_points": -4.2341,
+      "start_date": "2025-09-11",
+      "end_date": "2026-09-11",
+      "fund_return_1y": -9.8542,
+      "proxy_return_1y": -4.69,
+      "excess_return_percentage_points": -5.1642,
       "status": "negative",
       "reason": "Fund and CTA proxy use identical start and end dates.",
       "legacy_proxy_etf": "VCR",
@@ -572,34 +815,77 @@
       "period_returns": {
         "3m": {
           "period": "3m",
-          "start_date": "2026-06-10",
-          "end_date": "2026-09-10",
-          "fund_return": -5.2862,
-          "proxy_return": -1.0511,
-          "excess_return_percentage_points": -4.2352,
+          "start_date": "2026-06-11",
+          "end_date": "2026-09-11",
+          "fund_return": -6.9569,
+          "proxy_return": -2.0239,
+          "excess_return_percentage_points": -4.9329,
           "status": "negative",
           "reason": "Fund and CTA proxy use identical start and end dates."
         },
         "6m": {
           "period": "6m",
-          "start_date": "2026-03-10",
-          "end_date": "2026-09-10",
-          "fund_return": 10.6497,
-          "proxy_return": -2.4996,
-          "excess_return_percentage_points": 13.1492,
+          "start_date": "2026-03-11",
+          "end_date": "2026-09-11",
+          "fund_return": 8.8141,
+          "proxy_return": -1.4436,
+          "excess_return_percentage_points": 10.2577,
           "status": "positive",
           "reason": "Fund and CTA proxy use identical start and end dates."
         },
         "1y": {
           "period": "1y",
-          "start_date": "2025-09-10",
-          "end_date": "2026-09-10",
-          "fund_return": -8.2124,
-          "proxy_return": -3.9783,
-          "excess_return_percentage_points": -4.2341,
+          "start_date": "2025-09-11",
+          "end_date": "2026-09-11",
+          "fund_return": -9.8542,
+          "proxy_return": -4.69,
+          "excess_return_percentage_points": -5.1642,
           "status": "negative",
           "reason": "Fund and CTA proxy use identical start and end dates."
         }
+      },
+      "semiannual_governance": {
+        "periods": [
+          {
+            "period": "2025H2",
+            "start_date": "2025-06-30",
+            "end_date": "2025-12-31",
+            "observations": 126,
+            "fund_return": 6.0471,
+            "proxy_return": 9.9747,
+            "excess_return_percentage_points": -3.9276,
+            "fund_sharpe_zero_rate": 0.5233,
+            "proxy_sharpe_zero_rate": 1.4148,
+            "fund_max_drawdown_pct": -21.7846,
+            "proxy_max_drawdown_pct": -7.7927,
+            "fund_wins": [],
+            "status": "NO_CLEAR_ADVANTAGE",
+            "reason": "Fund won 0 of 3 risk/return comparisons."
+          },
+          {
+            "period": "2026H1",
+            "start_date": "2025-12-31",
+            "end_date": "2026-06-30",
+            "observations": 120,
+            "fund_return": 12.6074,
+            "proxy_return": -5.462,
+            "excess_return_percentage_points": 18.0694,
+            "fund_sharpe_zero_rate": 0.8735,
+            "proxy_sharpe_zero_rate": -0.5248,
+            "fund_max_drawdown_pct": -21.0328,
+            "proxy_max_drawdown_pct": -15.172,
+            "fund_wins": [
+              "total_return",
+              "sharpe_zero_rate"
+            ],
+            "status": "ADVANTAGE",
+            "reason": "Fund won 2 of 3 risk/return comparisons."
+          }
+        ],
+        "status": "NO_REPLACEMENT_REVIEW",
+        "action": "本期不啟動ETF替換覆核",
+        "decision_authority": "RESEARCH_REVIEW_ONLY",
+        "cta_override_allowed": false
       }
     },
     {
@@ -607,11 +893,11 @@
       "fund_name": "施羅德環球-環球能源A1累積",
       "proxy_etf": "IXC",
       "theme": "能源",
-      "start_date": "2025-09-10",
-      "end_date": "2026-09-10",
-      "fund_return_1y": 56.4241,
-      "proxy_return_1y": 48.5361,
-      "excess_return_percentage_points": 7.888,
+      "start_date": "2025-09-11",
+      "end_date": "2026-09-11",
+      "fund_return_1y": 52.4274,
+      "proxy_return_1y": 48.7932,
+      "excess_return_percentage_points": 3.6343,
       "status": "positive",
       "reason": "Fund and CTA proxy use identical start and end dates.",
       "legacy_proxy_etf": "XLE",
@@ -670,34 +956,81 @@
       "period_returns": {
         "3m": {
           "period": "3m",
-          "start_date": "2026-06-10",
-          "end_date": "2026-09-10",
-          "fund_return": 7.6111,
-          "proxy_return": 10.615,
-          "excess_return_percentage_points": -3.0039,
+          "start_date": "2026-06-11",
+          "end_date": "2026-09-11",
+          "fund_return": 4.1324,
+          "proxy_return": 11.9769,
+          "excess_return_percentage_points": -7.8445,
           "status": "negative",
           "reason": "Fund and CTA proxy use identical start and end dates."
         },
         "6m": {
           "period": "6m",
-          "start_date": "2026-03-10",
-          "end_date": "2026-09-10",
-          "fund_return": 16.9466,
-          "proxy_return": 16.0098,
-          "excess_return_percentage_points": 0.9367,
+          "start_date": "2026-03-11",
+          "end_date": "2026-09-11",
+          "fund_return": 15.0659,
+          "proxy_return": 13.4685,
+          "excess_return_percentage_points": 1.5973,
           "status": "positive",
           "reason": "Fund and CTA proxy use identical start and end dates."
         },
         "1y": {
           "period": "1y",
-          "start_date": "2025-09-10",
-          "end_date": "2026-09-10",
-          "fund_return": 56.4241,
-          "proxy_return": 48.5361,
-          "excess_return_percentage_points": 7.888,
+          "start_date": "2025-09-11",
+          "end_date": "2026-09-11",
+          "fund_return": 52.4274,
+          "proxy_return": 48.7932,
+          "excess_return_percentage_points": 3.6343,
           "status": "positive",
           "reason": "Fund and CTA proxy use identical start and end dates."
         }
+      },
+      "semiannual_governance": {
+        "periods": [
+          {
+            "period": "2025H2",
+            "start_date": "2025-06-30",
+            "end_date": "2025-12-31",
+            "observations": 127,
+            "fund_return": 10.6171,
+            "proxy_return": 8.8823,
+            "excess_return_percentage_points": 1.7348,
+            "fund_sharpe_zero_rate": 1.3433,
+            "proxy_sharpe_zero_rate": 1.2096,
+            "fund_max_drawdown_pct": -6.6955,
+            "proxy_max_drawdown_pct": -6.3329,
+            "fund_wins": [
+              "total_return",
+              "sharpe_zero_rate"
+            ],
+            "status": "ADVANTAGE",
+            "reason": "Fund won 2 of 3 risk/return comparisons."
+          },
+          {
+            "period": "2026H1",
+            "start_date": "2025-12-31",
+            "end_date": "2026-06-30",
+            "observations": 123,
+            "fund_return": 25.0177,
+            "proxy_return": 18.7595,
+            "excess_return_percentage_points": 6.2581,
+            "fund_sharpe_zero_rate": 2.3945,
+            "proxy_sharpe_zero_rate": 1.6725,
+            "fund_max_drawdown_pct": -13.0315,
+            "proxy_max_drawdown_pct": -14.5282,
+            "fund_wins": [
+              "total_return",
+              "sharpe_zero_rate",
+              "maximum_drawdown"
+            ],
+            "status": "ADVANTAGE",
+            "reason": "Fund won 3 of 3 risk/return comparisons."
+          }
+        ],
+        "status": "NO_REPLACEMENT_REVIEW",
+        "action": "本期不啟動ETF替換覆核",
+        "decision_authority": "RESEARCH_REVIEW_ONLY",
+        "cta_override_allowed": false
       }
     }
   ]

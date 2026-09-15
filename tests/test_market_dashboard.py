@@ -192,7 +192,7 @@ def test_cache_loader_and_fund_context_never_query_provider(tmp_path: Path) -> N
     prompt_dir = tmp_path / "config"
     prompt_dir.mkdir()
     prompt_dir.joinpath("fund_intelligence_master_prompt.md").write_text(
-        "版本：v1.4 Freeze\n", encoding="utf-8"
+        "版本：v1.5 Freeze\n", encoding="utf-8"
     )
     (dashboard_dir / "dashboard_latest.json").write_text(
         json.dumps({"generated_at": "2026-07-19T00:00:00Z"}), encoding="utf-8"
@@ -212,7 +212,7 @@ def test_cache_loader_and_fund_context_never_query_provider(tmp_path: Path) -> N
     assert load_latest_dashboard(tmp_path)["generated_at"]
     context = load_fund_intelligence_context(tmp_path)
     assert context["source_policy"] == "github_cache_only"
-    assert context["master_prompt"]["version"] == "v1.4 Freeze"
+    assert context["master_prompt"]["version"] == "v1.5 Freeze"
     assert context["market_dashboard"]["generated_at"]
     assert context["fund_alpha"] == {"results": []}
     assert context["fund_cta"] == {

@@ -51,6 +51,11 @@ def test_concise_freeze_prompt_contains_finalized_contract() -> None:
     assert "ALIGNED_POSITIVE" in prompt
     assert "不得輸出配置百分比" in prompt
     assert "週線 CTA ＞ 日線 CTA ＞ 市場壓力燈" in prompt
+    assert "史雲生半年治理檢查" in prompt
+    assert "ETF_REPLACEMENT_REVIEW" in prompt
+    assert "連續兩個完整半年期均無明確優勢" in prompt
+    assert "UNDER／IN_BAND／OVER" in prompt
+    assert "不得在公開 Cache 寫入個人配置比例" in prompt
 
 
 def test_master_prompt_loader_exposes_version_and_stable_hash() -> None:
@@ -58,6 +63,6 @@ def test_master_prompt_loader_exposes_version_and_stable_hash() -> None:
 
     loaded = load_master_prompt(root)
 
-    assert loaded["version"] == "v1.4 Freeze"
+    assert loaded["version"] == "v1.5 Freeze"
     assert len(loaded["sha256"]) == 64
-    assert loaded["content"].startswith("# Onecool Fund Intelligence v1.4")
+    assert loaded["content"].startswith("# Onecool Fund Intelligence v1.5")
