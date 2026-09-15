@@ -2232,3 +2232,16 @@ profits and preserves evidence and periods. It does not change rankings, CTA or
 action gates. Cash-flow conversion, ROE/leverage and comparative receivables/inventory
 are unavailable: no candidate earns NORMAL from this partial check. Financial sectors
 require separate rules. A warning means review, not a proven accounting problem.
+
+### Complete Top 5 financial statements
+
+The Taiwan workflow now enriches Top 5 from official MOPS consolidated inline XBRL
+before daily context/export. It checks entity, TWD scale/sign, dimension-free contexts,
+exact YTD/comparative dates, duplicate conflicts and balance/income reconciliation.
+It computes YTD consolidated ROE/ROA, equity multiplier, cash conversion and
+non-related trade receivables/inventory YoY versus revenue. These are advisory
+thresholds (documented in the screening contract), not ranking or action rules.
+Missing facts and failed downloads stay insufficient; financial industries require
+separate rules. Five bounded downloads, two workers, 24-hour company/quarter cache.
+The older income-only description applies to candidates outside Top 5. Evidence
+includes observation time and hash; it is not eligible for point-in-time backtests.
