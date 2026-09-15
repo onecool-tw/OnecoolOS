@@ -120,3 +120,18 @@ def _industry_counts(items):
     for item in items:
         result[item["industry"]] = result.get(item["industry"], 0) + 1
     return result
+
+
+def test_financial_notes_cannot_change_scores_or_selection():
+    inputs = _inputs()
+    before = build_taiwan_stock_screen_payload(*inputs)
+    for income in inputs[3]:
+        income.update({'營業利益（損失）': '-10', '營業外收入及支出': '20',
+                       '稅前淨利（淨損）': '10'})
+    after = build_taiwan_stock_screen_payload(*inputs)
+    for collection in ('rankings', 'top5', 'watchlist'):
+        assert [dict((k, v) for k, v in item.items() if k != 'financial_quality')
+                for item in before[collection]] == [
+            dict((k, v) for k, v in item.items() if k != 'financial_quality')
+            for item in after[collection]]
+    assert after['top5'][0]['financial_quality']['label'] == '需留意'

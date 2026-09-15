@@ -22,7 +22,8 @@ CTA_FIELDS = ('symbol', 'as_of', 'cta', 'trend', 'state', 'update_status',
               'price_basis', 'weekly_data_as_of', 'source_data_as_of', 'error')
 STOCK_FIELDS = ('symbol', 'company_name', 'industry', 'score', 'pe', 'pb',
                 'price_as_of', 'fundamentals_as_of', 'monthly_revenue_as_of',
-                'price_basis', 'selection_status', 'action_eligibility')
+                'price_basis', 'selection_status', 'action_eligibility',
+                'financial_quality')
 
 
 def unique(items):

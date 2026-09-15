@@ -12,6 +12,7 @@ from collections import Counter
 from datetime import date
 from math import isfinite
 from typing import Iterable
+from onecool_os.market.taiwan_financial_quality import assess_financial_quality
 
 
 SCREEN_VERSION = "onecool_tw_stock_screen_v1"
@@ -142,6 +143,11 @@ def build_taiwan_stock_screen_payload(
             "price_basis": "official_unadjusted_close",
             "liquidity_rank": liquidity_rank,
             **metrics,
+            "financial_quality": assess_financial_quality(
+                income,
+                str(revenue.get("產業別", "未分類")),
+                f"{_roc_year_to_ad(income_year)}Q{income_quarter}",
+            ),
             "outlier_flags": [
                 name for name in ("monthly_revenue_yoy", "cumulative_revenue_yoy")
                 if abs(metrics[name]) > 500

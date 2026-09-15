@@ -88,7 +88,7 @@ def update(data_dir: Path, *, fetcher=fetch_json, market_date=None) -> dict:
     revenues = fetcher(ENDPOINTS["revenues"])
     income = []
     for url in INCOME_ENDPOINTS:
-        income.extend(fetcher(url))
+        income.extend({**row, "_financial_source": url} for row in fetcher(url))
     payload = build_taiwan_stock_screen_payload(
         prices, valuations, revenues, income
     )

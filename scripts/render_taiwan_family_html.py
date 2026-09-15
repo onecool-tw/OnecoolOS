@@ -48,15 +48,17 @@ def render(raw):
             out.append(f'<p>{label}：{text(cta.get("cta"))}；趨勢：{text(cta.get("trend"))}；資料日：{text(cta.get("as_of"))}</p>')
         out.append('</section>')
     out.append('<section><h2>Top 5 研究名單</h2><p>排名為 Snapshot 陣列原有順序；不重新評分或排序。個股技術訊號不取代上方正式行動。</p><div class="table"><table><thead><tr>')
-    for label in ("排名", "標的", "分數", "估值 PE", "估值 PB", "個股 CTA", "CTA 資料日", "來源行動資格", "股價／估值日"):
+    for label in ("排名", "標的", "分數", "估值 PE", "估值 PB", "個股 CTA", "CTA 資料日", "來源行動資格", "股價／估值日", "財報品質（研究提醒）"):
         out.append(f'<th scope="col">{label}</th>')
     out.append('</tr></thead><tbody>')
     if not rows:
-        out.append('<tr><td colspan="9">Unknown</td></tr>')
+        out.append('<tr><td colspan="10">Unknown</td></tr>')
     for rank, row in enumerate(rows, 1):
         row = obj(row)
         cta = obj(row.get("individual_cta"))
         cells = [str(rank), text(row.get("symbol")) + ' ' + text(row.get("company_name")), text(row.get("score")), text(row.get("pe")), text(row.get("pb")), text(cta.get("cta")), text(cta.get("as_of")), text(row.get("action_eligibility")), text(row.get("price_as_of"))]
+        quality = obj(row.get('financial_quality'))
+        cells.append(text(quality.get('label', '資料不足')) + '：' + text(quality.get('reason', '尚無財報品質資料')))
         out.append('<tr>' + ''.join(f'<td>{cell}</td>' for cell in cells) + '</tr>')
     out.append('</tbody></table></div></section><footer><h2>資料日期與驗證</h2>')
     for key in ("generated_at", "screen_as_of", "source_generated_at"):

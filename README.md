@@ -2223,3 +2223,12 @@ Health audits triggered by a configuration or delivery-receipt push publish the
 observed state and dispatch any safe recovery workflows without raising a transient
 failed-run notification. Scheduled verification and post-recovery checks continue
 to fail when a module remains blocked after its recovery window.
+
+### Taiwan financial quality research notes
+
+Candidates carry `financial_quality` through the daily context and family snapshot.
+The first version checks reported income-statement operating versus non-operating
+profits and preserves evidence and periods. It does not change rankings, CTA or
+action gates. Cash-flow conversion, ROE/leverage and comparative receivables/inventory
+are unavailable: no candidate earns NORMAL from this partial check. Financial sectors
+require separate rules. A warning means review, not a proven accounting problem.
