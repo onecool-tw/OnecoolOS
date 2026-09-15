@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-09-15T06:16:45.508777+00:00",
+  "generated_at": "2026-09-15T10:10:20.610534+00:00",
   "taipei_date": "2026-09-15",
   "status": "BLOCKED",
   "scope_status": {
@@ -25,13 +25,9 @@
       },
       {
         "report_id": "us",
-        "expected_report_date": "2026-09-12",
-        "status": "PARTIAL",
-        "channels": {
-          "conversation": "UNKNOWN",
-          "artifact": "DELIVERED"
-        },
-        "reason": "Per-channel evidence checked; missing channels remain unverified"
+        "expected_report_date": "2026-09-15",
+        "status": "UNKNOWN",
+        "reason": "No verifiable receipt for the latest completed reporting window"
       },
       {
         "report_id": "fund",
@@ -61,9 +57,9 @@
   "end_to_end_status": "NOT_FULLY_VERIFIED",
   "action_readiness": "UNSAFE_FOR_AFFECTED_REPORTS",
   "counts": {
-    "ready": 16,
+    "ready": 13,
     "partial": 0,
-    "blocked": 1
+    "blocked": 4
   },
   "modules": [
     {
@@ -144,8 +140,8 @@
       "label": "Taiwan 0050/2330 CTA",
       "scope": "asia",
       "critical": true,
-      "status": "READY",
-      "reason": "current",
+      "status": "BLOCKED",
+      "reason": "data is stale",
       "observed_as_of": "2026-09-14",
       "recovery_workflow": "update-taiwan-cta.yml",
       "retryable": true,
@@ -158,8 +154,8 @@
       "label": "Taiwan Stock Screen",
       "scope": "asia",
       "critical": true,
-      "status": "READY",
-      "reason": "current",
+      "status": "BLOCKED",
+      "reason": "data is stale",
       "observed_as_of": "2026-09-14",
       "recovery_workflow": "update-taiwan-stock-screen.yml",
       "retryable": true,
@@ -172,8 +168,8 @@
       "label": "Taiwan 200-stock CTA",
       "scope": "asia",
       "critical": true,
-      "status": "READY",
-      "reason": "200 stocks current",
+      "status": "BLOCKED",
+      "reason": "coverage incomplete or stale",
       "observed_as_of": "2026-09-14",
       "recovery_workflow": "update-taiwan-stock-screen.yml",
       "retryable": true,
@@ -187,7 +183,7 @@
       "scope": "asia",
       "critical": true,
       "status": "BLOCKED",
-      "reason": "display_status is not ready",
+      "reason": "data is stale",
       "observed_as_of": "2026-09-14",
       "recovery_workflow": "update-taiwan-stock-screen.yml",
       "retryable": true,
@@ -310,12 +306,54 @@
   ],
   "issues": [
     {
+      "module_id": "taiwan_market_cta",
+      "label": "Taiwan 0050/2330 CTA",
+      "scope": "asia",
+      "critical": true,
+      "status": "BLOCKED",
+      "reason": "data is stale",
+      "observed_as_of": "2026-09-14",
+      "recovery_workflow": "update-taiwan-cta.yml",
+      "retryable": true,
+      "impacted_reports": [
+        "台股日報"
+      ]
+    },
+    {
+      "module_id": "taiwan_stock_screen",
+      "label": "Taiwan Stock Screen",
+      "scope": "asia",
+      "critical": true,
+      "status": "BLOCKED",
+      "reason": "data is stale",
+      "observed_as_of": "2026-09-14",
+      "recovery_workflow": "update-taiwan-stock-screen.yml",
+      "retryable": true,
+      "impacted_reports": [
+        "台股日報"
+      ]
+    },
+    {
+      "module_id": "taiwan_candidate_cta",
+      "label": "Taiwan 200-stock CTA",
+      "scope": "asia",
+      "critical": true,
+      "status": "BLOCKED",
+      "reason": "coverage incomplete or stale",
+      "observed_as_of": "2026-09-14",
+      "recovery_workflow": "update-taiwan-stock-screen.yml",
+      "retryable": true,
+      "impacted_reports": [
+        "台股日報"
+      ]
+    },
+    {
       "module_id": "taiwan_daily_context",
       "label": "Taiwan Daily Context",
       "scope": "asia",
       "critical": true,
       "status": "BLOCKED",
-      "reason": "display_status is not ready",
+      "reason": "data is stale",
       "observed_as_of": "2026-09-14",
       "recovery_workflow": "update-taiwan-stock-screen.yml",
       "retryable": true,
@@ -325,8 +363,9 @@
     }
   ],
   "recovery_workflows": [
+    "update-taiwan-cta.yml",
     "update-taiwan-stock-screen.yml"
   ],
-  "issue_fingerprint": "88fd4a14a24ff20ea363aba2ef8564db923d8aefd283f1fc19e7552a2aaed643",
+  "issue_fingerprint": "7437366fb59a56ff1cc240eb9e9e34842e72e3f2dd6d77e4c2f637683a038474",
   "policy": "Health monitoring only; never changes CTA, rankings, or investment decisions."
 }
