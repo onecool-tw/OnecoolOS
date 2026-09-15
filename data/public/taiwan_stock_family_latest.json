@@ -16,28 +16,28 @@
     },
     "screen": {
       "path": "data/market/taiwan_stock_intelligence/screen_latest.json",
-      "sha256": "d679ee62d7e321f7d57bd9d55143cb65eacbd3ac9bc30ea5319e8d5990988ba8"
+      "sha256": "0766ed0fdba59edafeb893fa37a35e14ad8e0beef38579987e8cc2197d8cc0b8"
     },
     "cta": {
       "path": "data/market/taiwan_stock_intelligence/cta/cta_latest.json",
-      "sha256": "849d70e826110a866ab113a2615f2420006f2bb707bc6d03b631034ca3f0d38a"
+      "sha256": "302669e9009b6538943c7072aeb4f22c67a5f939cb0c28916acbaf10f7228df0"
     },
     "context": {
       "path": "data/market/taiwan_stock_intelligence/daily_context_latest.json",
-      "sha256": "03043bc1327f71aef8d748699150d2b21472c45f4980687c6f1c0b68a4ad9776"
+      "sha256": "e34fa451111017d6f44b324239b8015c39c815b8760944efc7709c88ab704032"
     }
   },
   "source_generated_at": {
     "dashboard": "2026-09-14T15:57:21.361572+00:00",
     "screen": null,
-    "cta": "2026-09-14T15:58:31.878772+00:00",
-    "context": "2026-09-14T15:58:35.729189+00:00"
+    "cta": "2026-09-15T02:05:23.828088+00:00",
+    "context": "2026-09-15T02:05:28.764063+00:00"
   },
   "screen_as_of": "2026-09-14",
   "display_status": "CURRENT",
   "report_readiness": {
-    "status": "READY",
-    "expected_as_of": "2026-09-14",
+    "status": "UPDATE_INCOMPLETE",
+    "expected_as_of": "2026-09-15",
     "screen_as_of": "2026-09-14",
     "taiwan_cta_dates": {
       "0050": "2026-09-14",
@@ -48,7 +48,21 @@
       "2408": "2026-09-14",
       "3036": "2026-09-14"
     },
-    "issues": [],
+    "issues": [
+      "screen_not_current",
+      "dashboard_0050_not_current",
+      "dashboard_2330_not_current",
+      "6669_price_not_current",
+      "6669_cta_not_current",
+      "3006_price_not_current",
+      "3006_cta_not_current",
+      "2357_price_not_current",
+      "2357_cta_not_current",
+      "2408_price_not_current",
+      "2408_cta_not_current",
+      "3036_price_not_current",
+      "3036_cta_not_current"
+    ],
     "scope": "TAIWAN_PRICE_VALUATION_AND_CTA_ONLY",
     "consumer_rule": "INCOMPLETE_MEANS_NO_NEW_EXPOSURE_AND_NO_UNCHANGED_RANKING_CLAIM",
     "asia_and_margin_policy": "KEEP_ACTUAL_LOCAL_SOURCE_DATES"
@@ -128,6 +142,38 @@
       "price_basis": "official_unadjusted_close",
       "selection_status": "FORMAL",
       "action_eligibility": "HOLD_EXISTING_PAUSE_RIGHT_SIDE_ADD",
+      "financial_quality": {
+        "version": "onecool_tw_financial_quality_v1",
+        "status": "INSUFFICIENT_DATA",
+        "label": "資料不足",
+        "as_of": "2026Q2",
+        "source_snapshot_date": "1150915",
+        "scope": "INCOME_STATEMENT_ONLY",
+        "period_basis": "SOURCE_REPORTED_CUMULATIVE",
+        "ranking_effect": "NONE",
+        "missing_checks": [
+          "營業現金流與獲利核對",
+          "ROE與財務槓桿拆解",
+          "存貨及應收帳款同期變化"
+        ],
+        "flags": [],
+        "evidence": {
+          "operating_profit": {
+            "field": "營業利益（損失）",
+            "value": 37676176.0
+          },
+          "non_operating_profit": {
+            "field": "營業外收入及支出",
+            "value": -768187.0
+          },
+          "pretax_profit": {
+            "field": "稅前淨利（淨損）",
+            "value": 36907989.0
+          }
+        },
+        "source_url": "https://openapi.twse.com.tw/v1/opendata/t187ap06_L_ci",
+        "reason": "本業／業外初檢未見上述警示；現金流、槓桿及周轉資料不足"
+      },
       "individual_cta": {
         "symbol": "6669",
         "as_of": "2026-09-14",
@@ -153,6 +199,38 @@
       "price_basis": "official_unadjusted_close",
       "selection_status": "FORMAL",
       "action_eligibility": "ELIGIBLE_IF_0050_BULLISH_AND_PRESSURE_GREEN",
+      "financial_quality": {
+        "version": "onecool_tw_financial_quality_v1",
+        "status": "INSUFFICIENT_DATA",
+        "label": "資料不足",
+        "as_of": "2026Q2",
+        "source_snapshot_date": "1150915",
+        "scope": "INCOME_STATEMENT_ONLY",
+        "period_basis": "SOURCE_REPORTED_CUMULATIVE",
+        "ranking_effect": "NONE",
+        "missing_checks": [
+          "營業現金流與獲利核對",
+          "ROE與財務槓桿拆解",
+          "存貨及應收帳款同期變化"
+        ],
+        "flags": [],
+        "evidence": {
+          "operating_profit": {
+            "field": "營業利益（損失）",
+            "value": 9427597.0
+          },
+          "non_operating_profit": {
+            "field": "營業外收入及支出",
+            "value": 257265.0
+          },
+          "pretax_profit": {
+            "field": "稅前淨利（淨損）",
+            "value": 9684862.0
+          }
+        },
+        "source_url": "https://openapi.twse.com.tw/v1/opendata/t187ap06_L_ci",
+        "reason": "本業／業外初檢未見上述警示；現金流、槓桿及周轉資料不足"
+      },
       "individual_cta": {
         "symbol": "3006",
         "as_of": "2026-09-14",
@@ -178,6 +256,38 @@
       "price_basis": "official_unadjusted_close",
       "selection_status": "FORMAL",
       "action_eligibility": "ELIGIBLE_IF_0050_BULLISH_AND_PRESSURE_GREEN",
+      "financial_quality": {
+        "version": "onecool_tw_financial_quality_v1",
+        "status": "INSUFFICIENT_DATA",
+        "label": "資料不足",
+        "as_of": "2026Q2",
+        "source_snapshot_date": "1150915",
+        "scope": "INCOME_STATEMENT_ONLY",
+        "period_basis": "SOURCE_REPORTED_CUMULATIVE",
+        "ranking_effect": "NONE",
+        "missing_checks": [
+          "營業現金流與獲利核對",
+          "ROE與財務槓桿拆解",
+          "存貨及應收帳款同期變化"
+        ],
+        "flags": [],
+        "evidence": {
+          "operating_profit": {
+            "field": "營業利益（損失）",
+            "value": 32869663.0
+          },
+          "non_operating_profit": {
+            "field": "營業外收入及支出",
+            "value": 7247167.0
+          },
+          "pretax_profit": {
+            "field": "稅前淨利（淨損）",
+            "value": 40116830.0
+          }
+        },
+        "source_url": "https://openapi.twse.com.tw/v1/opendata/t187ap06_L_ci",
+        "reason": "本業／業外初檢未見上述警示；現金流、槓桿及周轉資料不足"
+      },
       "individual_cta": {
         "symbol": "2357",
         "as_of": "2026-09-14",
@@ -203,6 +313,38 @@
       "price_basis": "official_unadjusted_close",
       "selection_status": "FORMAL",
       "action_eligibility": "ELIGIBLE_IF_0050_BULLISH_AND_PRESSURE_GREEN",
+      "financial_quality": {
+        "version": "onecool_tw_financial_quality_v1",
+        "status": "INSUFFICIENT_DATA",
+        "label": "資料不足",
+        "as_of": "2026Q2",
+        "source_snapshot_date": "1150915",
+        "scope": "INCOME_STATEMENT_ONLY",
+        "period_basis": "SOURCE_REPORTED_CUMULATIVE",
+        "ranking_effect": "NONE",
+        "missing_checks": [
+          "營業現金流與獲利核對",
+          "ROE與財務槓桿拆解",
+          "存貨及應收帳款同期變化"
+        ],
+        "flags": [],
+        "evidence": {
+          "operating_profit": {
+            "field": "營業利益（損失）",
+            "value": 90937560.0
+          },
+          "non_operating_profit": {
+            "field": "營業外收入及支出",
+            "value": 3109911.0
+          },
+          "pretax_profit": {
+            "field": "稅前淨利（淨損）",
+            "value": 94047471.0
+          }
+        },
+        "source_url": "https://openapi.twse.com.tw/v1/opendata/t187ap06_L_ci",
+        "reason": "本業／業外初檢未見上述警示；現金流、槓桿及周轉資料不足"
+      },
       "individual_cta": {
         "symbol": "2408",
         "as_of": "2026-09-14",
@@ -228,6 +370,38 @@
       "price_basis": "official_unadjusted_close",
       "selection_status": "FORMAL",
       "action_eligibility": "ELIGIBLE_IF_0050_BULLISH_AND_PRESSURE_GREEN",
+      "financial_quality": {
+        "version": "onecool_tw_financial_quality_v1",
+        "status": "INSUFFICIENT_DATA",
+        "label": "資料不足",
+        "as_of": "2026Q2",
+        "source_snapshot_date": "1150915",
+        "scope": "INCOME_STATEMENT_ONLY",
+        "period_basis": "SOURCE_REPORTED_CUMULATIVE",
+        "ranking_effect": "NONE",
+        "missing_checks": [
+          "營業現金流與獲利核對",
+          "ROE與財務槓桿拆解",
+          "存貨及應收帳款同期變化"
+        ],
+        "flags": [],
+        "evidence": {
+          "operating_profit": {
+            "field": "營業利益（損失）",
+            "value": 22937422.0
+          },
+          "non_operating_profit": {
+            "field": "營業外收入及支出",
+            "value": -1687896.0
+          },
+          "pretax_profit": {
+            "field": "稅前淨利（淨損）",
+            "value": 21249526.0
+          }
+        },
+        "source_url": "https://openapi.twse.com.tw/v1/opendata/t187ap06_L_ci",
+        "reason": "本業／業外初檢未見上述警示；現金流、槓桿及周轉資料不足"
+      },
       "individual_cta": {
         "symbol": "3036",
         "as_of": "2026-09-14",
