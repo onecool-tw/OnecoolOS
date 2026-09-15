@@ -1,10 +1,10 @@
 {
   "schema_version": "1.9",
   "module": "Onecool Market Dashboard",
-  "generated_at": "2026-09-15T05:08:29.242212+00:00",
+  "generated_at": "2026-09-15T06:15:14.865353+00:00",
   "expected_as_of": "2026-09-14",
   "data_status": "READY",
-  "last_successful_update_at": "2026-09-15T05:08:29.242212+00:00",
+  "last_successful_update_at": "2026-09-15T06:15:14.865353+00:00",
   "index_cta_basis": {
     "method": "ETF/index proxies; shared CTA engine",
     "mappings": {
@@ -623,12 +623,12 @@
       "provider_symbol": "0050.TW",
       "market": "TW",
       "theme": "broad_market",
-      "as_of": "2026-09-14",
-      "current_price": 106.900002,
-      "sma50": 104.377432,
-      "sma200": 86.652604,
-      "weekly_ma30": 95.542544,
-      "weekly_ma50": 83.146711,
+      "as_of": "2026-09-15",
+      "current_price": 106.25,
+      "sma50": 104.391279,
+      "sma200": 86.889573,
+      "weekly_ma30": 95.520877,
+      "weekly_ma50": 83.133711,
       "trend": "BULLISH",
       "cta": "BUY",
       "confidence": 100,
@@ -638,8 +638,8 @@
         "cross_status": "NONE",
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2025-07-16",
-        "periods_since_cross": 285,
-        "spread_pct": 20.455044,
+        "periods_since_cross": 286,
+        "spread_pct": 20.142469,
         "phase": "AGING"
       },
       "weekly_cross": {
@@ -648,7 +648,7 @@
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2025-10-03",
         "periods_since_cross": 49,
-        "spread_pct": 14.908386,
+        "spread_pct": 14.900293,
         "phase": "ACTIVE"
       }
     },
@@ -657,12 +657,12 @@
       "provider_symbol": "2330.TW",
       "market": "TW",
       "theme": "semiconductor_ai",
-      "as_of": "2026-09-14",
-      "current_price": 2380.0,
-      "sma50": 2391.8,
-      "sma200": 2037.47216,
-      "weekly_ma30": 2225.95335,
-      "weekly_ma50": 1952.549825,
+      "as_of": "2026-09-15",
+      "current_price": 2385.0,
+      "sma50": 2390.7,
+      "sma200": 2042.486378,
+      "weekly_ma30": 2226.120017,
+      "weekly_ma50": 1952.649825,
       "trend": "BULLISH",
       "cta": "BUY",
       "confidence": 75,
@@ -672,8 +672,8 @@
         "cross_status": "NONE",
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2025-07-10",
-        "periods_since_cross": 288,
-        "spread_pct": 17.390561,
+        "periods_since_cross": 289,
+        "spread_pct": 17.048516,
         "phase": "AGING"
       },
       "weekly_cross": {
@@ -682,7 +682,7 @@
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2025-10-03",
         "periods_since_cross": 49,
-        "spread_pct": 14.002384,
+        "spread_pct": 14.005081,
         "phase": "ACTIVE"
       }
     },
@@ -794,9 +794,9 @@
       "market": "CONTEXT",
       "theme": "crypto_risk_appetite",
       "as_of": "2026-09-15",
-      "current_price": 77587.367188,
-      "sma50": 71701.212969,
-      "sma200": 70249.607188,
+      "current_price": 77555.21875,
+      "sma50": 71700.57,
+      "sma200": 70249.446445,
       "weekly_ma30": 69989.580599,
       "weekly_ma50": 79635.176953,
       "trend": "MIXED",
@@ -809,7 +809,7 @@
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2026-09-08",
         "periods_since_cross": 7,
-        "spread_pct": 2.066354,
+        "spread_pct": 2.065673,
         "phase": "ACTIVE"
       },
       "weekly_cross": {
@@ -1632,32 +1632,6 @@
     },
     "publication_status": "CURRENT"
   },
-  "corporate_action_validation": [
-    {
-      "symbol": "SPY",
-      "status": "MATCHED_WITH_MINOR_PROVIDER_DIFFERENCE",
-      "source_a": "yahoo_finance_raw",
-      "source_b": "alpha_vantage",
-      "as_of": "2026-09-14",
-      "minor_differences": [
-        "2021-12-17: dividend yahoo=1.633 alpha=1.636431 difference=0.003431"
-      ],
-      "minor_difference_policy": "non_blocking_only_when_absolute_difference_lte_0.005_and_relative_difference_lte_1pct"
-    },
-    {
-      "symbol": "QQQ",
-      "status": "MATCHED",
-      "source_a": "yahoo_finance_raw",
-      "source_b": "alpha_vantage",
-      "as_of": "2026-09-14"
-    },
-    {
-      "symbol": "DIA",
-      "status": "MATCHED",
-      "source_a": "yahoo_finance_raw",
-      "source_b": "alpha_vantage",
-      "as_of": "2026-09-14"
-    }
-  ],
+  "corporate_action_validation": [],
   "provider_fallback_policy": "yahoo_finance_raw_primary; alpha_vantage_core_price_fallback; last_successful_cache_on_failure"
 }
