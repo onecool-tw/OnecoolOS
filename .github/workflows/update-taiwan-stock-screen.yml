@@ -12,6 +12,8 @@ on:
     paths:
       - ".github/workflows/update-taiwan-stock-screen.yml"
       - "onecool_os/market/taiwan_stock_screen.py"
+      - "onecool_os/market/taiwan_financial_statements.py"
+      - "scripts/update_taiwan_financial_quality.py"
       - "onecool_os/market/taiwan_stock_cta.py"
       - "onecool_os/market/taiwan_stock_intelligence.py"
       - "scripts/update_taiwan_stock_screen.py"
@@ -68,6 +70,8 @@ jobs:
         id: cta
         continue-on-error: true
         run: python scripts/update_taiwan_stock_cta.py
+      - name: Verify Top 5 official financial statements
+        run: python scripts/update_taiwan_financial_quality.py
       - name: Publish daily context from the latest successful screen
         run: python scripts/update_taiwan_stock_daily_context.py
       - name: Export and verify read-only family snapshot
