@@ -102,8 +102,10 @@ def test_one_unknown_taiwan_candidate_is_partial_without_ranking_change(tmp_path
     item = _module(report, "taiwan_candidate_cta")
     assert item["status"] == PARTIAL
     assert item["retryable"] is False
+    assert item["critical"] is False
     assert "unknown 1" in item["reason"]
-    assert report["scope_status"]["asia"] == PARTIAL
+    assert report["status"] == PARTIAL
+    assert report["scope_status"]["asia"] == READY
 
 
 def test_stale_daily_cache_blocks_only_affected_scope(tmp_path: Path) -> None:
@@ -200,3 +202,5 @@ def test_history_wait_identifies_symbol_and_keeps_partial_gate(tmp_path):
     assert "7711 永擎" in item["reason"]
     assert "43/50" in item["reason"]
     assert item["retryable"] is False
+    assert item["critical"] is False
+    assert build_health_report(tmp_path, now=NOW)["scope_status"]["asia"] == READY

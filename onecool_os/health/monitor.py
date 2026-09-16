@@ -291,7 +291,7 @@ def build_health_report(root: str | Path, *, now: datetime | None = None) -> dic
         ]
         if waiting:
             reason += "; insufficient history: " + "; ".join(waiting)
-        modules.append(_module("taiwan_candidate_cta", "Taiwan 200-stock CTA", "asia", True, PARTIAL, reason, tw_cta_date, "update-taiwan-stock-screen.yml", ["台股日報"], retryable=False))
+        modules.append(_module("taiwan_candidate_cta", "Taiwan 200-stock CTA", "asia", False, PARTIAL, reason, tw_cta_date, "update-taiwan-stock-screen.yml", ["台股日報"], retryable=False))
     else:
         modules.append(_module("taiwan_candidate_cta", "Taiwan 200-stock CTA", "asia", True, READY, "200 stocks current", tw_cta_date, "update-taiwan-stock-screen.yml", ["台股日報"]))
 
@@ -345,7 +345,7 @@ def build_health_report(root: str | Path, *, now: datetime | None = None) -> dic
     full_status = max((item.status for item in modules), key=lambda value: _ORDER[value])
     scope_status: dict[str, str] = {}
     for scope in ("morning", "asia", "weekly"):
-        scoped = [item.status for item in modules if item.scope == scope]
+        scoped = [item.status for item in modules if item.scope == scope and item.critical]
         scope_status[scope] = max(scoped, key=lambda value: _ORDER[value]) if scoped else READY
     issues = [asdict(item) for item in modules if item.status != READY]
     recoveries = sorted({item.recovery_workflow for item in modules if item.status == BLOCKED and item.retryable and item.recovery_workflow})
