@@ -20,6 +20,7 @@ from onecool_os.market.etf_cta import (
     CTAResult,
     DailyBar,
     ETFCTAError,
+    InsufficientCTAHistory,
     calculate_cta,
     merge_and_adjust,
     read_history,
@@ -155,6 +156,8 @@ def update_candidate_cta(
             if not incoming:
                 raise ETFCTAError(error or f"{symbol} has no incremental observations.")
             history = merge_and_adjust(existing, incoming)
+            if not history:
+                raise ETFCTAError(f"{symbol} has no valid adjusted observations.")
             result: CTAResult = calculate_cta(
                 symbol, history, exclude_incomplete_latest_week=True
             )
@@ -180,6 +183,29 @@ def update_candidate_cta(
             ):
                 item["update_status"] = "STALE_LAST_KNOWN"
                 item["error"] = "Price history cutoff trails the screen by more than one business day."
+        except InsufficientCTAHistory as exc:
+            # Keep validated prices even before the full CTA window matures.
+            # Otherwise every run discards them and downloads a full bootstrap.
+            write_history(data_dir / "history" / f"{symbol}.csv", history)
+            item = _stale_or_unknown(
+                previous_items.get(symbol), member, provider, timestamp, str(exc)
+            )
+            item.update({
+                "reason_code": "INSUFFICIENT_HISTORY",
+                "reason": (
+                    f"{exc.period} observations {exc.observed}/{exc.required}; "
+                    "waiting for actual market observations, not a provider retry."
+                ),
+                "history_readiness": {
+                    "period": exc.period,
+                    "observed": exc.observed,
+                    "required": exc.required,
+                    "missing": exc.required - exc.observed,
+                },
+                "history_start": history[0].trading_date.isoformat(),
+                "source_data_as_of": history[-1].trading_date.isoformat(),
+                "weekly_data_as_of": _weekly_data_as_of(history),
+            })
         except Exception as exc:  # noqa: BLE001 - isolate provider/data failures.
             item = _stale_or_unknown(
                 previous_items.get(symbol), member, provider, timestamp, str(exc)
@@ -293,6 +319,8 @@ def _stale_or_unknown(
 ) -> dict[str, Any]:
     if previous and previous.get("as_of"):
         item = dict(previous)
+        for key in ("reason_code", "history_readiness"):
+            item.pop(key, None)
         item.update({
             "update_status": "STALE_LAST_KNOWN",
             "last_attempt_at": timestamp.isoformat(),

@@ -284,6 +284,13 @@ def build_health_report(root: str | Path, *, now: datetime | None = None) -> dic
         modules.append(_module("taiwan_candidate_cta", "Taiwan 200-stock CTA", "asia", True, BLOCKED, "coverage incomplete or stale", tw_cta_date, "update-taiwan-stock-screen.yml", ["台股日報"]))
     elif int(coverage.get("unknown", 0)) or int(coverage.get("stale_last_known", 0)):
         reason = f"current {coverage.get('current', 0)}, stale {coverage.get('stale_last_known', 0)}, unknown {coverage.get('unknown', 0)}"
+        waiting = [
+            f"{item.get('symbol')} {item.get('company_name', '')}: {item.get('reason')}"
+            for item in tw_cta.get("results", [])
+            if item.get("reason_code") == "INSUFFICIENT_HISTORY"
+        ]
+        if waiting:
+            reason += "; insufficient history: " + "; ".join(waiting)
         modules.append(_module("taiwan_candidate_cta", "Taiwan 200-stock CTA", "asia", True, PARTIAL, reason, tw_cta_date, "update-taiwan-stock-screen.yml", ["台股日報"], retryable=False))
     else:
         modules.append(_module("taiwan_candidate_cta", "Taiwan 200-stock CTA", "asia", True, READY, "200 stocks current", tw_cta_date, "update-taiwan-stock-screen.yml", ["台股日報"]))

@@ -43,6 +43,16 @@ class ETFCTAError(RuntimeError):
     """Raised when ETF history cannot be updated or evaluated safely."""
 
 
+class InsufficientCTAHistory(ETFCTAError):
+    """Valid observations exist, but the fixed CTA window is not yet available."""
+
+    def __init__(self, symbol: str, period: str, observed: int, required: int):
+        super().__init__(f"{symbol} needs at least {required} {period} observations.")
+        self.period = period
+        self.observed = observed
+        self.required = required
+
+
 @dataclass(frozen=True)
 class DailyBar:
     """One raw daily market observation plus corporate actions."""
@@ -398,7 +408,7 @@ def calculate_cta(
 
     history = sorted(bars, key=lambda bar: bar.trading_date)
     if len(history) < 200:
-        raise ETFCTAError(f"{symbol} needs at least 200 daily observations.")
+        raise InsufficientCTAHistory(symbol, "daily", len(history), 200)
     if any(bar.adjusted_close is None for bar in history):
         raise ETFCTAError(f"{symbol} history contains unadjusted observations.")
     closes = [float(bar.adjusted_close) for bar in history]
@@ -417,7 +427,7 @@ def calculate_cta(
         weekly_points.pop()
     weekly = [value for _, value in weekly_points]
     if len(weekly) < 50:
-        raise ETFCTAError(f"{symbol} needs at least 50 weekly observations.")
+        raise InsufficientCTAHistory(symbol, "weekly", len(weekly), 50)
 
     price = closes[-1]
     d50 = _mean(closes[-50:])

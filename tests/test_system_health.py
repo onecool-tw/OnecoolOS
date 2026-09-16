@@ -184,3 +184,19 @@ def test_weekend_schedule_does_not_excuse_stale_nav_data(tmp_path):
     })
     report = build_health_report(tmp_path, now=datetime.fromisoformat("2026-09-13T07:00:00+08:00"))
     assert _module(report, "fund_nav_cta")["status"] == BLOCKED
+
+
+def test_history_wait_identifies_symbol_and_keeps_partial_gate(tmp_path):
+    _seed_ready(tmp_path)
+    _write(tmp_path, "data/market/taiwan_stock_intelligence/cta/cta_latest.json", {
+        "screen_as_of": "2026-08-28", "requested_count": 200,
+        "coverage": {"current": 199, "stale_last_known": 0, "unknown": 1},
+        "results": [{"symbol": "7711", "company_name": "永擎",
+                     "reason_code": "INSUFFICIENT_HISTORY",
+                     "reason": "weekly observations 43/50"}],
+    })
+    item = _module(build_health_report(tmp_path, now=NOW), "taiwan_candidate_cta")
+    assert item["status"] == PARTIAL
+    assert "7711 永擎" in item["reason"]
+    assert "43/50" in item["reason"]
+    assert item["retryable"] is False
