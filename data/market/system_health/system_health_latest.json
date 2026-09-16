@@ -1,12 +1,12 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-09-16T09:52:08.456411+00:00",
+  "generated_at": "2026-09-16T09:57:42.800920+00:00",
   "taipei_date": "2026-09-16",
-  "status": "BLOCKED",
+  "status": "PARTIAL",
   "scope_status": {
     "morning": "READY",
-    "asia": "BLOCKED",
+    "asia": "PARTIAL",
     "weekly": "READY"
   },
   "report_delivery": {
@@ -59,11 +59,11 @@
     "policy": "Data readiness does not prove report delivery. Never infer email success from a generated draft."
   },
   "end_to_end_status": "NOT_FULLY_VERIFIED",
-  "action_readiness": "UNSAFE_FOR_AFFECTED_REPORTS",
+  "action_readiness": "LIMITED",
   "counts": {
-    "ready": 15,
+    "ready": 16,
     "partial": 1,
-    "blocked": 1
+    "blocked": 0
   },
   "modules": [
     {
@@ -144,9 +144,9 @@
       "label": "Taiwan 0050/2330 CTA",
       "scope": "asia",
       "critical": true,
-      "status": "BLOCKED",
-      "reason": "data is stale",
-      "observed_as_of": "2026-09-15",
+      "status": "READY",
+      "reason": "current",
+      "observed_as_of": "2026-09-16",
       "recovery_workflow": "update-taiwan-cta.yml",
       "retryable": true,
       "impacted_reports": [
@@ -310,20 +310,6 @@
   ],
   "issues": [
     {
-      "module_id": "taiwan_market_cta",
-      "label": "Taiwan 0050/2330 CTA",
-      "scope": "asia",
-      "critical": true,
-      "status": "BLOCKED",
-      "reason": "data is stale",
-      "observed_as_of": "2026-09-15",
-      "recovery_workflow": "update-taiwan-cta.yml",
-      "retryable": true,
-      "impacted_reports": [
-        "台股日報"
-      ]
-    },
-    {
       "module_id": "taiwan_candidate_cta",
       "label": "Taiwan 200-stock CTA",
       "scope": "asia",
@@ -338,9 +324,7 @@
       ]
     }
   ],
-  "recovery_workflows": [
-    "update-taiwan-cta.yml"
-  ],
-  "issue_fingerprint": "59cf6b9c441b2348e153e3355936374ee5392d26ae9997df6b73d2adf17ccd70",
+  "recovery_workflows": [],
+  "issue_fingerprint": "34dc922657b61a1d344fae305b20e4487f951618a8640eba836a8f94fe7f773d",
   "policy": "Health monitoring only; never changes CTA, rankings, or investment decisions."
 }
