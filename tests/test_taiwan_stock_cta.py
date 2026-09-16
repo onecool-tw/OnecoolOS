@@ -131,3 +131,50 @@ def test_daily_updates_but_unfinished_week_is_not_used_as_weekly_cutoff(tmp_path
 
     assert item["source_data_as_of"] == "2026-08-27"
     assert item["weekly_data_as_of"] == "2026-08-21"
+
+
+def test_short_history_is_saved_explained_and_recovers_without_bootstrap(tmp_path):
+    from onecool_os.market.etf_cta import read_history
+
+    screen = tmp_path / 'screen.json'
+    write_screen(screen)
+    data_dir = tmp_path / 'cta'
+    # Enough daily bars, fewer than 50 completed weekly observations.
+    bars = business_history(date(2026, 8, 25))[-210:]
+    calls = []
+
+    def fetcher(symbols, period):
+        calls.append(period)
+        return {symbol: bars if period == '5y' else bars[-20:] for symbol in symbols}
+
+    payload = update_candidate_cta(screen, data_dir, fetcher=fetcher)
+    item = payload['results'][0]
+    assert item['update_status'] == 'UNKNOWN'
+    assert item['cta'] == 'UNKNOWN'
+    assert item['action'] == 'WATCH_ONLY_CTA_UNKNOWN'
+    assert item['reason_code'] == 'INSUFFICIENT_HISTORY'
+    assert item['history_readiness']['period'] == 'weekly'
+    assert item['history_readiness']['observed'] < 50
+    assert item['history_readiness']['missing'] == 50 - item['history_readiness']['observed']
+    assert len(read_history(data_dir / 'history/2330.csv')) == 210
+    calls.clear()
+    update_candidate_cta(screen, data_dir, fetcher=fetcher)
+    assert calls == ['1mo']
+
+    # Real later observations eventually supply the full weekly window.
+    later = business_history(date(2026, 11, 25))
+    payload = update_candidate_cta(
+        screen, data_dir, fetcher=lambda symbols, period: {s: later for s in symbols},
+        generated_at=datetime(2026, 11, 26, tzinfo=UTC),
+    )
+    assert payload['coverage']['current'] == 2
+    assert 'reason_code' not in payload['results'][0]
+    assert payload['results'][0]['weekly_cross'] is not None
+
+
+def test_provider_failure_is_not_mislabeled_as_history_wait(tmp_path):
+    screen = tmp_path / 'screen.json'
+    write_screen(screen)
+    payload = update_candidate_cta(screen, tmp_path / 'cta', fetcher=lambda s, p: {})
+    assert payload['coverage']['unknown'] == 2
+    assert all('reason_code' not in item for item in payload['results'])
