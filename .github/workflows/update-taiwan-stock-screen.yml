@@ -72,7 +72,7 @@ jobs:
       - name: Refresh official margin and volatility inputs
         id: pressure_inputs
         continue-on-error: true
-        run: python scripts/update_taiwan_market_pressure_inputs.py --attempts 5 --interval-seconds 120
+        run: python scripts/update_taiwan_market_pressure_inputs.py --attempts 3 --interval-seconds 60
       - name: Maintain background CTA for the full 200-stock universe
         id: cta
         continue-on-error: true
