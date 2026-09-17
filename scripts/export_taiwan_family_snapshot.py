@@ -90,6 +90,9 @@ def build_snapshot(root: Path):
         'report_readiness': context.get('report_readiness', {'status': 'Unknown'}),
         'candidate_action_gate': context['candidate_action_gate'],
         'market_pressure': pressure,
+        'market_pressure_input_readiness': context.get(
+            'market_pressure_input_readiness', {'status': 'UPDATE_INCOMPLETE'}),
+        'market_pressure_inputs': context.get('market_pressure_inputs', {}),
         'market_cta': {symbol: project(indices[symbol], CTA_FIELDS)
                        for symbol in ('0050', '2330', '1306', '069500')},
         'top5': top5,
@@ -125,3 +128,4 @@ if __name__ == '__main__':
     result = export_snapshot(args.root, args.check)
     print(json.dumps({'validated': True, 'screen_as_of': result['screen_as_of'],
                       'top5_count': len(result['top5'])}))
+

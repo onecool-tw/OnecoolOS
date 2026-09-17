@@ -27,6 +27,9 @@ on:
       - "tests/test_taiwan_freshness.py"
       - "scripts/check_taiwan_report_readiness.py"
       - "tests/test_taiwan_report_readiness.py"
+      - "onecool_os/market/taiwan_market_inputs.py"
+      - "scripts/update_taiwan_market_pressure_inputs.py"
+      - "tests/test_taiwan_market_inputs.py"
   schedule:
     # 15:17 primary plus 16:17 and 17:17 retries. Successful afternoon
     # Dashboard runs add event-driven opportunities; pre-report health owns
@@ -66,6 +69,10 @@ jobs:
         id: screen
         continue-on-error: true
         run: python scripts/update_taiwan_stock_screen.py
+      - name: Refresh official margin and volatility inputs
+        id: pressure_inputs
+        continue-on-error: true
+        run: python scripts/update_taiwan_market_pressure_inputs.py --attempts 5 --interval-seconds 120
       - name: Maintain background CTA for the full 200-stock universe
         id: cta
         continue-on-error: true

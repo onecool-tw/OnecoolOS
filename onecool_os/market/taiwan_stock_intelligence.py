@@ -8,11 +8,12 @@ from hashlib import sha256
 from pathlib import Path
 from typing import Any, Mapping
 
-MASTER_PROMPT_VERSION = "v1.4 Taiwan Broad Screen with Formal Market Pressure"
+MASTER_PROMPT_VERSION = "v1.5 Taiwan Broad Screen with Verified Pressure Inputs"
 MASTER_PROMPT_PATH = Path("config/taiwan_stock_intelligence_master_prompt.md")
 SCREEN_PATH = Path("data/market/taiwan_stock_intelligence/screen_latest.json")
 STOCK_CTA_PATH = Path("data/market/taiwan_stock_intelligence/cta/cta_latest.json")
 CONTEXT_PATH = Path("data/market/taiwan_stock_intelligence/daily_context_latest.json")
+MARKET_INPUTS_PATH = Path("data/market/taiwan_stock_intelligence/market_pressure_inputs_latest.json")
 
 
 def _read(root: Path, relative: Path | str) -> dict[str, Any] | None:
@@ -108,6 +109,29 @@ def load_master_prompt(root: Path) -> dict[str, str]:
     }
 
 
+
+def market_pressure_input_readiness(inputs, expected_as_of):
+    """Validate official input-cache dates/statuses without evaluating the light."""
+    issues = []
+    if not isinstance(inputs, Mapping):
+        inputs = {}
+    if inputs.get("requested_as_of") != expected_as_of:
+        issues.append("pressure_inputs_wrong_requested_date")
+    sources = inputs.get("sources") if isinstance(inputs.get("sources"), Mapping) else {}
+    for name in ("margin", "volatility"):
+        item = sources.get(name) if isinstance(sources.get(name), Mapping) else {}
+        status = item.get("status")
+        if status != "VERIFIED":
+            issues.append(name + "_" + str(status or "MISSING").lower())
+        if item.get("as_of") != expected_as_of:
+            issues.append(name + "_not_current")
+    return {
+        "status": "READY" if not issues else "UPDATE_INCOMPLETE",
+        "expected_as_of": expected_as_of,
+        "issues": issues,
+        "consumer_rule": "FINAL_EMAIL_REQUIRES_READY; NEVER_RECOMPUTE_PRESSURE_LIGHT",
+    }
+
 def report_readiness(screen, stock_cta, dashboard, expected_as_of):
     """Check dates/availability only. No CTA, pressure or ranking calculation."""
     issues = []
@@ -167,6 +191,7 @@ def build_taiwan_stock_daily_context(
     stock_cta = _read(root, STOCK_CTA_PATH) or {}
     previous_context = _read(root, CONTEXT_PATH) or {}
     market_pressure = _normalize_market_pressure(previous_context.get("market_pressure"))
+    market_pressure_inputs = _read(root, MARKET_INPUTS_PATH) or {}
     stock_cta_items = {
         str(item.get("symbol")): item for item in stock_cta.get("results", [])
     }
@@ -211,10 +236,13 @@ def build_taiwan_stock_daily_context(
 
     timestamp = generated_at or datetime.now(UTC)
     return {
-        "schema_version": "1.3",
+        "schema_version": "1.4",
         "report_readiness": report_readiness(
             screen, stock_cta, _read(root, "data/market/dashboard/dashboard_latest.json"),
             expected_session.isoformat(),
+        ),
+        "market_pressure_input_readiness": market_pressure_input_readiness(
+            market_pressure_inputs, expected_session.isoformat()
         ),
         "module": "Onecool Taiwan Stock Daily Context",
         "generated_at": timestamp.isoformat(),
@@ -226,6 +254,7 @@ def build_taiwan_stock_daily_context(
         "0050_weekly_alignment": weekly_0050,
         "market_pressure_gate": "FORMAL_FROM_DAILY_CONTEXT",
         "market_pressure": market_pressure,
+        "market_pressure_inputs": market_pressure_inputs,
         "candidate_action_gate": eligibility,
         "candidate_cta_cache": {
             "screen_as_of": stock_cta.get("screen_as_of"),
@@ -302,3 +331,4 @@ def _individual_action_eligibility(
     if item.get("update_status") != "CURRENT":
         return "WATCH_ONLY_INDIVIDUAL_CTA_STALE"
     return str(item.get("action", "WATCH_ONLY_INDIVIDUAL_CTA_UNKNOWN"))
+

@@ -1,6 +1,6 @@
 # Onecool Taiwan Stock Intelligence — Screening Contract
 
-版本：v1.4 Taiwan Broad Screen with Formal Market Pressure
+版本：v1.5 Taiwan Broad Screen with Verified Pressure Inputs
 正式篩選檔：`data/market/taiwan_stock_intelligence/screen_latest.json`
 正式個股CTA快取：`data/market/taiwan_stock_intelligence/cta/cta_latest.json`
 正式日報上下文：`data/market/taiwan_stock_intelligence/daily_context_latest.json`
@@ -151,10 +151,25 @@ Macro Confirmation。0050週線空頭時候選股只能觀察；0050週線多頭
 - UPDATE_INCOMPLETE 或缺少此檢核時，顯示「今日資料更新未齊」及缺項、
   各自實際日期，保留最近成功結果但停止新增，不得宣稱今日Top 5無變化。
 - 讀取時必須確認 expected_as_of 對應報告交易日；昨日READY不能當成今日READY。
-- 亞洲CTA、融資融券及季度財報／月營收保留各自日期，不阻塞台股每日價格更新。
+- 亞洲CTA及季度財報／月營收保留各自日期；融資融券與波動率另受正式輸入快取及最終版Email閘門約束。
 - 股價及PE/PB直接取當日TWSE正式報表；季度與月營收使用已公布的共同期間，
   不要求同日公告，不推估補值，維持原有評分版本與產業限制。
 - GitHub排程屬盡力執行，不能保證準點；未齊備時18:00照常回報明確缺項。
+
+## 市場壓力輸入快取與最終版閘門
+
+- 融資融券與臺指選擇權波動率只讀官方來源，統一保存於
+  `data/market/taiwan_stock_intelligence/market_pressure_inputs_latest.json`。
+- 此快取只保存來源日期、數值與驗證狀態，不計算、不推導也不改寫市場壓力燈；
+  正式燈號仍只由每日台股 Work 判定並依 writer contract 寫回。
+- 狀態必須明確區分：`VERIFIED`、`NOT_PUBLISHED`、
+  `PUBLISHED_PARSE_FAILED`、`FETCH_FAILED`；不得把解析失敗誤寫成官方未發布，
+  也不得把昨日值冒充今日值。
+- 18:00前使用TWSE官方JSON與TAIFEX官方統計頁固定端點自動重試。只有
+  `daily_context_latest.json.market_pressure_input_readiness.status=READY`，且融資融券、
+  波動率的 `as_of` 都是最近完成的正式台股交易日，才可建立最終版Email。
+- 未通過時照常回報本對話，明列缺項並停止新增曝險；Email暫停，不得寄送舊版、
+  暫存版或把「未驗證」包裝成正常T+1。
 
 ## 財報品質研究提醒
 
