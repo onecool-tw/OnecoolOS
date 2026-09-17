@@ -34,6 +34,16 @@ Do not ask GitHub to infer the light. Do not create a second set of thresholds i
 
 After the mailbox write, the Work must read back `daily_context_latest.json.market_pressure`. Only when `as_of`, `status`, `light` and `action` agree with the formal result may the Work say the shared SSOT is updated. If the write or read-back verification fails, report `WRITE_FAILED`; do not claim the shared result is current.
 
+## Official input cache
+
+Official margin/short-balance and TAIFEX volatility observations are stored in
+`data/market/taiwan_stock_intelligence/market_pressure_inputs_latest.json`.
+The cache is an input-only adapter: it may fetch, date-check, retry and classify
+provider failures, but it must not calculate or persist GREEN/YELLOW/RED.  The
+formal Work remains the sole evaluator.  Consumers must distinguish
+`NOT_PUBLISHED`, `PUBLISHED_PARSE_FAILED` and `FETCH_FAILED`; none may be
+silently relabelled as a normal one-day lag.
+
 ## Mailbox payload
 
 The Work writes one JSON object to `market_pressure_request_latest.json`. It should preserve the fixed metadata fields and replace the formal result fields.
@@ -109,3 +119,4 @@ This is a presentation contract only. It must not modify CTA values, scores, val
 ## Smoke-test status
 
 The mailbox → GitHub Actions → validator → `daily_context_latest.json.market_pressure` path was smoke-tested successfully on 2026-09-02. Until the first formal Work write arrives, the SSOT remains `UNKNOWN` and `PAUSE_NEW_EXPOSURE` by design.
+
