@@ -38,6 +38,11 @@ After the mailbox write, the Work must read back `daily_context_latest.json.mark
 
 Official margin/short-balance and TAIFEX volatility observations are stored in
 `data/market/taiwan_stock_intelligence/market_pressure_inputs_latest.json`.
+
+18:00成品允許融資融券保留TWSE晚間發布前最近一期正式資料，並以
+`official_lag_accepted=true`及實際`as_of`揭露；不得將其改標當日。臺指選擇權
+波動率則讀取TAIFEX當日官方TXT的`Last 1 min AVG`。兩者都只是輸入證據，
+不得在此adapter內新增或重算市場壓力燈。
 The cache is an input-only adapter: it may fetch, date-check, retry and classify
 provider failures, but it must not calculate or persist GREEN/YELLOW/RED.  The
 formal Work remains the sole evaluator.  Consumers must distinguish
@@ -119,4 +124,3 @@ This is a presentation contract only. It must not modify CTA values, scores, val
 ## Smoke-test status
 
 The mailbox → GitHub Actions → validator → `daily_context_latest.json.market_pressure` path was smoke-tested successfully on 2026-09-02. Until the first formal Work write arrives, the SSOT remains `UNKNOWN` and `PAUSE_NEW_EXPOSURE` by design.
-
