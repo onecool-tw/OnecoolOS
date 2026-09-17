@@ -20,18 +20,18 @@
     },
     "cta": {
       "path": "data/market/taiwan_stock_intelligence/cta/cta_latest.json",
-      "sha256": "d5e5ecad7014da1dd5cc1822d2ea7dac6af50b5a38da9ef01f336e313fb58f10"
+      "sha256": "c4e33216b0d380f18ecd0d082c2703a292a2bcd8f843cee3ee77a5a15bfa4a73"
     },
     "context": {
       "path": "data/market/taiwan_stock_intelligence/daily_context_latest.json",
-      "sha256": "bd55606170294fba733a801b3617eff6a4cb8b42c6101768078b1fab4aac8181"
+      "sha256": "6c2cf0173b8b5b7b6f54962a41d6f804247ad97653436fe337e14bf449f7ab78"
     }
   },
   "source_generated_at": {
     "dashboard": "2026-09-17T06:15:39.025260+00:00",
     "screen": null,
-    "cta": "2026-09-17T11:23:58.214792+00:00",
-    "context": "2026-09-17T11:24:01.276286+00:00"
+    "cta": "2026-09-17T12:36:28.924480+00:00",
+    "context": "2026-09-17T12:36:34.213073+00:00"
   },
   "screen_as_of": "2026-09-17",
   "display_status": "CURRENT",
@@ -97,7 +97,7 @@
   "market_pressure_inputs": {
     "schema_version": "1.0",
     "module": "Onecool Taiwan Official Market Pressure Inputs",
-    "generated_at": "2026-09-17T11:23:43.578509+00:00",
+    "generated_at": "2026-09-17T12:36:17.706383+00:00",
     "requested_as_of": "2026-09-17",
     "status": "READY",
     "attempts_used": 1,
@@ -349,6 +349,92 @@
           "growth_gap_pp": 20
         }
       },
+      "lynch_research": {
+        "version": "onecool_lynch_research_v1",
+        "company_type": {
+          "status": "PROVISIONAL",
+          "primary": "FAST_GROWER",
+          "candidates": [
+            "FAST_GROWER"
+          ],
+          "evidence": [
+            {
+              "field": "revenue_and_eps_snapshot",
+              "value": {
+                "monthly_revenue_yoy": 50.35813251850269,
+                "cumulative_revenue_yoy": 42.79572821857782,
+                "eps": 156.38
+              },
+              "interpretation": "FAST_GROWTH_CANDIDATE_NOT_DURABILITY_PROOF"
+            }
+          ],
+          "unresolved_categories": [
+            "SLOW_GROWER",
+            "STALWART",
+            "CYCLICAL",
+            "TURNAROUND",
+            "ASSET_PLAY"
+          ]
+        },
+        "investment_story": {
+          "status": "EVIDENCE_ONLY",
+          "evidence": [
+            {
+              "field": "monthly_revenue_yoy",
+              "value": 50.35813251850269,
+              "as_of": "2026-08"
+            },
+            {
+              "field": "cumulative_revenue_yoy",
+              "value": 42.79572821857782,
+              "as_of": "2026-08"
+            },
+            {
+              "field": "eps",
+              "value": 156.38,
+              "as_of": "2026Q2"
+            },
+            {
+              "field": "pe",
+              "value": 6.84,
+              "as_of": "2026-09-17"
+            },
+            {
+              "field": "pb",
+              "value": 2.91,
+              "as_of": "2026-09-17"
+            }
+          ],
+          "required_manual_confirmation": [
+            "BUSINESS_DRIVER",
+            "DURABILITY",
+            "MANAGEMENT_EXECUTION"
+          ]
+        },
+        "story_break_conditions": [
+          {
+            "condition": "CUMULATIVE_REVENUE_YOY_NONPOSITIVE",
+            "meaning": "Growth story requires fundamental review"
+          },
+          {
+            "condition": "EPS_NONPOSITIVE",
+            "meaning": "Profitability story requires fundamental review"
+          },
+          {
+            "condition": "FINANCIAL_QUALITY_EVIDENCE_DETERIORATES",
+            "meaning": "Cash flow, leverage, inventory or receivables require review"
+          }
+        ],
+        "policy": {
+          "decision_authority": "NONE",
+          "ranking_effect": "NONE",
+          "score_effect": "NONE",
+          "cta_effect": "NONE",
+          "action_effect": "NONE",
+          "observation_is_research_lead_only": true,
+          "manual_confirmation_required": true
+        }
+      },
       "individual_cta": {
         "symbol": "6669",
         "as_of": "2026-09-17",
@@ -536,6 +622,97 @@
           "equity_multiplier_max": 3,
           "working_capital_growth_min_pct": 20,
           "growth_gap_pp": 20
+        }
+      },
+      "lynch_research": {
+        "version": "onecool_lynch_research_v1",
+        "company_type": {
+          "status": "PROVISIONAL",
+          "primary": "MULTIPLE_CANDIDATES",
+          "candidates": [
+            "FAST_GROWER",
+            "CYCLICAL"
+          ],
+          "evidence": [
+            {
+              "field": "industry",
+              "value": "半導體業",
+              "interpretation": "CYCLE_REVIEW_REQUIRED"
+            },
+            {
+              "field": "revenue_and_eps_snapshot",
+              "value": {
+                "monthly_revenue_yoy": 605.2432014317565,
+                "cumulative_revenue_yoy": 324.37526455062414,
+                "eps": 27.58
+              },
+              "interpretation": "FAST_GROWTH_CANDIDATE_NOT_DURABILITY_PROOF"
+            }
+          ],
+          "unresolved_categories": [
+            "SLOW_GROWER",
+            "STALWART",
+            "TURNAROUND",
+            "ASSET_PLAY"
+          ]
+        },
+        "investment_story": {
+          "status": "EVIDENCE_ONLY",
+          "evidence": [
+            {
+              "field": "monthly_revenue_yoy",
+              "value": 605.2432014317565,
+              "as_of": "2026-08"
+            },
+            {
+              "field": "cumulative_revenue_yoy",
+              "value": 324.37526455062414,
+              "as_of": "2026-08"
+            },
+            {
+              "field": "eps",
+              "value": 27.58,
+              "as_of": "2026Q2"
+            },
+            {
+              "field": "pe",
+              "value": 8.78,
+              "as_of": "2026-09-17"
+            },
+            {
+              "field": "pb",
+              "value": 4.17,
+              "as_of": "2026-09-17"
+            }
+          ],
+          "required_manual_confirmation": [
+            "BUSINESS_DRIVER",
+            "DURABILITY",
+            "MANAGEMENT_EXECUTION"
+          ]
+        },
+        "story_break_conditions": [
+          {
+            "condition": "CUMULATIVE_REVENUE_YOY_NONPOSITIVE",
+            "meaning": "Growth story requires fundamental review"
+          },
+          {
+            "condition": "EPS_NONPOSITIVE",
+            "meaning": "Profitability story requires fundamental review"
+          },
+          {
+            "condition": "FINANCIAL_QUALITY_EVIDENCE_DETERIORATES",
+            "meaning": "Cash flow, leverage, inventory or receivables require review"
+          }
+        ],
+        "policy": {
+          "decision_authority": "NONE",
+          "ranking_effect": "NONE",
+          "score_effect": "NONE",
+          "cta_effect": "NONE",
+          "action_effect": "NONE",
+          "observation_is_research_lead_only": true,
+          "manual_confirmation_required": true
         }
       },
       "individual_cta": {
@@ -730,6 +907,92 @@
           "growth_gap_pp": 20
         }
       },
+      "lynch_research": {
+        "version": "onecool_lynch_research_v1",
+        "company_type": {
+          "status": "PROVISIONAL",
+          "primary": "FAST_GROWER",
+          "candidates": [
+            "FAST_GROWER"
+          ],
+          "evidence": [
+            {
+              "field": "revenue_and_eps_snapshot",
+              "value": {
+                "monthly_revenue_yoy": 98.21291582397657,
+                "cumulative_revenue_yoy": 109.20046830886439,
+                "eps": 13.0
+              },
+              "interpretation": "FAST_GROWTH_CANDIDATE_NOT_DURABILITY_PROOF"
+            }
+          ],
+          "unresolved_categories": [
+            "SLOW_GROWER",
+            "STALWART",
+            "CYCLICAL",
+            "TURNAROUND",
+            "ASSET_PLAY"
+          ]
+        },
+        "investment_story": {
+          "status": "EVIDENCE_ONLY",
+          "evidence": [
+            {
+              "field": "monthly_revenue_yoy",
+              "value": 98.21291582397657,
+              "as_of": "2026-08"
+            },
+            {
+              "field": "cumulative_revenue_yoy",
+              "value": 109.20046830886439,
+              "as_of": "2026-08"
+            },
+            {
+              "field": "eps",
+              "value": 13.0,
+              "as_of": "2026Q2"
+            },
+            {
+              "field": "pe",
+              "value": 10.47,
+              "as_of": "2026-09-17"
+            },
+            {
+              "field": "pb",
+              "value": 2.08,
+              "as_of": "2026-09-17"
+            }
+          ],
+          "required_manual_confirmation": [
+            "BUSINESS_DRIVER",
+            "DURABILITY",
+            "MANAGEMENT_EXECUTION"
+          ]
+        },
+        "story_break_conditions": [
+          {
+            "condition": "CUMULATIVE_REVENUE_YOY_NONPOSITIVE",
+            "meaning": "Growth story requires fundamental review"
+          },
+          {
+            "condition": "EPS_NONPOSITIVE",
+            "meaning": "Profitability story requires fundamental review"
+          },
+          {
+            "condition": "FINANCIAL_QUALITY_EVIDENCE_DETERIORATES",
+            "meaning": "Cash flow, leverage, inventory or receivables require review"
+          }
+        ],
+        "policy": {
+          "decision_authority": "NONE",
+          "ranking_effect": "NONE",
+          "score_effect": "NONE",
+          "cta_effect": "NONE",
+          "action_effect": "NONE",
+          "observation_is_research_lead_only": true,
+          "manual_confirmation_required": true
+        }
+      },
       "individual_cta": {
         "symbol": "3036",
         "as_of": "2026-09-17",
@@ -922,6 +1185,92 @@
           "growth_gap_pp": 20
         }
       },
+      "lynch_research": {
+        "version": "onecool_lynch_research_v1",
+        "company_type": {
+          "status": "PROVISIONAL",
+          "primary": "FAST_GROWER",
+          "candidates": [
+            "FAST_GROWER"
+          ],
+          "evidence": [
+            {
+              "field": "revenue_and_eps_snapshot",
+              "value": {
+                "monthly_revenue_yoy": 51.16688342643828,
+                "cumulative_revenue_yoy": 42.30457002299758,
+                "eps": 38.83
+              },
+              "interpretation": "FAST_GROWTH_CANDIDATE_NOT_DURABILITY_PROOF"
+            }
+          ],
+          "unresolved_categories": [
+            "SLOW_GROWER",
+            "STALWART",
+            "CYCLICAL",
+            "TURNAROUND",
+            "ASSET_PLAY"
+          ]
+        },
+        "investment_story": {
+          "status": "EVIDENCE_ONLY",
+          "evidence": [
+            {
+              "field": "monthly_revenue_yoy",
+              "value": 51.16688342643828,
+              "as_of": "2026-08"
+            },
+            {
+              "field": "cumulative_revenue_yoy",
+              "value": 42.30457002299758,
+              "as_of": "2026-08"
+            },
+            {
+              "field": "eps",
+              "value": 38.83,
+              "as_of": "2026Q2"
+            },
+            {
+              "field": "pe",
+              "value": 13.86,
+              "as_of": "2026-09-17"
+            },
+            {
+              "field": "pb",
+              "value": 2.34,
+              "as_of": "2026-09-17"
+            }
+          ],
+          "required_manual_confirmation": [
+            "BUSINESS_DRIVER",
+            "DURABILITY",
+            "MANAGEMENT_EXECUTION"
+          ]
+        },
+        "story_break_conditions": [
+          {
+            "condition": "CUMULATIVE_REVENUE_YOY_NONPOSITIVE",
+            "meaning": "Growth story requires fundamental review"
+          },
+          {
+            "condition": "EPS_NONPOSITIVE",
+            "meaning": "Profitability story requires fundamental review"
+          },
+          {
+            "condition": "FINANCIAL_QUALITY_EVIDENCE_DETERIORATES",
+            "meaning": "Cash flow, leverage, inventory or receivables require review"
+          }
+        ],
+        "policy": {
+          "decision_authority": "NONE",
+          "ranking_effect": "NONE",
+          "score_effect": "NONE",
+          "cta_effect": "NONE",
+          "action_effect": "NONE",
+          "observation_is_research_lead_only": true,
+          "manual_confirmation_required": true
+        }
+      },
       "individual_cta": {
         "symbol": "2357",
         "as_of": "2026-09-17",
@@ -1109,6 +1458,97 @@
           "equity_multiplier_max": 3,
           "working_capital_growth_min_pct": 20,
           "growth_gap_pp": 20
+        }
+      },
+      "lynch_research": {
+        "version": "onecool_lynch_research_v1",
+        "company_type": {
+          "status": "PROVISIONAL",
+          "primary": "MULTIPLE_CANDIDATES",
+          "candidates": [
+            "FAST_GROWER",
+            "CYCLICAL"
+          ],
+          "evidence": [
+            {
+              "field": "industry",
+              "value": "半導體業",
+              "interpretation": "CYCLE_REVIEW_REQUIRED"
+            },
+            {
+              "field": "revenue_and_eps_snapshot",
+              "value": {
+                "monthly_revenue_yoy": 560.8541425724004,
+                "cumulative_revenue_yoy": 638.1931640340957,
+                "eps": 23.38
+              },
+              "interpretation": "FAST_GROWTH_CANDIDATE_NOT_DURABILITY_PROOF"
+            }
+          ],
+          "unresolved_categories": [
+            "SLOW_GROWER",
+            "STALWART",
+            "TURNAROUND",
+            "ASSET_PLAY"
+          ]
+        },
+        "investment_story": {
+          "status": "EVIDENCE_ONLY",
+          "evidence": [
+            {
+              "field": "monthly_revenue_yoy",
+              "value": 560.8541425724004,
+              "as_of": "2026-08"
+            },
+            {
+              "field": "cumulative_revenue_yoy",
+              "value": 638.1931640340957,
+              "as_of": "2026-08"
+            },
+            {
+              "field": "eps",
+              "value": 23.38,
+              "as_of": "2026Q2"
+            },
+            {
+              "field": "pe",
+              "value": 18.94,
+              "as_of": "2026-09-17"
+            },
+            {
+              "field": "pb",
+              "value": 5.22,
+              "as_of": "2026-09-17"
+            }
+          ],
+          "required_manual_confirmation": [
+            "BUSINESS_DRIVER",
+            "DURABILITY",
+            "MANAGEMENT_EXECUTION"
+          ]
+        },
+        "story_break_conditions": [
+          {
+            "condition": "CUMULATIVE_REVENUE_YOY_NONPOSITIVE",
+            "meaning": "Growth story requires fundamental review"
+          },
+          {
+            "condition": "EPS_NONPOSITIVE",
+            "meaning": "Profitability story requires fundamental review"
+          },
+          {
+            "condition": "FINANCIAL_QUALITY_EVIDENCE_DETERIORATES",
+            "meaning": "Cash flow, leverage, inventory or receivables require review"
+          }
+        ],
+        "policy": {
+          "decision_authority": "NONE",
+          "ranking_effect": "NONE",
+          "score_effect": "NONE",
+          "cta_effect": "NONE",
+          "action_effect": "NONE",
+          "observation_is_research_lead_only": true,
+          "manual_confirmation_required": true
         }
       },
       "individual_cta": {

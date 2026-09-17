@@ -1,5 +1,5 @@
 {
-  "schema_version": "1.4",
+  "schema_version": "1.5",
   "report_readiness": {
     "status": "READY",
     "expected_as_of": "2026-09-17",
@@ -25,7 +25,7 @@
     "consumer_rule": "FINAL_EMAIL_REQUIRES_READY; MARGIN_MAY_USE_VERIFIED_OFFICIAL_LAG_BEFORE_21:30; NEVER_RECOMPUTE_PRESSURE_LIGHT"
   },
   "module": "Onecool Taiwan Stock Daily Context",
-  "generated_at": "2026-09-17T11:24:01.276286+00:00",
+  "generated_at": "2026-09-17T12:36:34.213073+00:00",
   "source_policy": "LATEST_SUCCESSFUL_SCREEN_WITH_EXPLICIT_DATE",
   "screen_as_of": "2026-09-17",
   "screen_business_day_lag": 0,
@@ -70,7 +70,7 @@
   "market_pressure_inputs": {
     "schema_version": "1.0",
     "module": "Onecool Taiwan Official Market Pressure Inputs",
-    "generated_at": "2026-09-17T11:23:43.578509+00:00",
+    "generated_at": "2026-09-17T12:36:17.706383+00:00",
     "requested_as_of": "2026-09-17",
     "status": "READY",
     "attempts_used": 1,
@@ -117,7 +117,7 @@
   "candidate_action_gate": "REQUIRES_INDIVIDUAL_CTA_AND_PRESSURE_GREEN",
   "candidate_cta_cache": {
     "screen_as_of": "2026-09-17",
-    "generated_at": "2026-09-17T11:23:58.214792+00:00",
+    "generated_at": "2026-09-17T12:36:28.924480+00:00",
     "requested_count": 200,
     "coverage": {
       "current": 199,
@@ -131,6 +131,12 @@
     "authority": "NONE",
     "application": "MANUAL_ON_REQUEST_ONLY",
     "policy": "NEVER_BLOCK_OR_PROMOTE_A_TAIWAN_CANDIDATE_AUTOMATICALLY"
+  },
+  "optional_lynch_research": {
+    "framework": "PETER_LYNCH_COMPANY_TYPE_AND_STORY",
+    "authority": "NONE",
+    "application": "TOP5_RESEARCH_ANNOTATION_ONLY",
+    "policy": "NEVER_SCORE_RERANK_OR_CHANGE_CTA_ACTION"
   },
   "top5": [
     {
@@ -328,6 +334,92 @@
       "confidence": "HIGH",
       "selection_status": "FORMAL",
       "candidate_role": "RESEARCH_PRIORITY_ONLY",
+      "lynch_research": {
+        "version": "onecool_lynch_research_v1",
+        "company_type": {
+          "status": "PROVISIONAL",
+          "primary": "FAST_GROWER",
+          "candidates": [
+            "FAST_GROWER"
+          ],
+          "evidence": [
+            {
+              "field": "revenue_and_eps_snapshot",
+              "value": {
+                "monthly_revenue_yoy": 50.35813251850269,
+                "cumulative_revenue_yoy": 42.79572821857782,
+                "eps": 156.38
+              },
+              "interpretation": "FAST_GROWTH_CANDIDATE_NOT_DURABILITY_PROOF"
+            }
+          ],
+          "unresolved_categories": [
+            "SLOW_GROWER",
+            "STALWART",
+            "CYCLICAL",
+            "TURNAROUND",
+            "ASSET_PLAY"
+          ]
+        },
+        "investment_story": {
+          "status": "EVIDENCE_ONLY",
+          "evidence": [
+            {
+              "field": "monthly_revenue_yoy",
+              "value": 50.35813251850269,
+              "as_of": "2026-08"
+            },
+            {
+              "field": "cumulative_revenue_yoy",
+              "value": 42.79572821857782,
+              "as_of": "2026-08"
+            },
+            {
+              "field": "eps",
+              "value": 156.38,
+              "as_of": "2026Q2"
+            },
+            {
+              "field": "pe",
+              "value": 6.84,
+              "as_of": "2026-09-17"
+            },
+            {
+              "field": "pb",
+              "value": 2.91,
+              "as_of": "2026-09-17"
+            }
+          ],
+          "required_manual_confirmation": [
+            "BUSINESS_DRIVER",
+            "DURABILITY",
+            "MANAGEMENT_EXECUTION"
+          ]
+        },
+        "story_break_conditions": [
+          {
+            "condition": "CUMULATIVE_REVENUE_YOY_NONPOSITIVE",
+            "meaning": "Growth story requires fundamental review"
+          },
+          {
+            "condition": "EPS_NONPOSITIVE",
+            "meaning": "Profitability story requires fundamental review"
+          },
+          {
+            "condition": "FINANCIAL_QUALITY_EVIDENCE_DETERIORATES",
+            "meaning": "Cash flow, leverage, inventory or receivables require review"
+          }
+        ],
+        "policy": {
+          "decision_authority": "NONE",
+          "ranking_effect": "NONE",
+          "score_effect": "NONE",
+          "cta_effect": "NONE",
+          "action_effect": "NONE",
+          "observation_is_research_lead_only": true,
+          "manual_confirmation_required": true
+        }
+      },
       "individual_cta_required": true,
       "individual_cta": {
         "update_status": "CURRENT",
@@ -359,7 +451,7 @@
           "spread_pct": 1.635236,
           "phase": "AGING"
         },
-        "last_attempt_at": "2026-09-17T11:23:58.214792+00:00",
+        "last_attempt_at": "2026-09-17T12:36:28.924480+00:00",
         "error": null
       },
       "action_eligibility": "HOLD_EXISTING_PAUSE_RIGHT_SIDE_ADD"
@@ -557,6 +649,97 @@
       "confidence": "HIGH",
       "selection_status": "FORMAL",
       "candidate_role": "RESEARCH_PRIORITY_ONLY",
+      "lynch_research": {
+        "version": "onecool_lynch_research_v1",
+        "company_type": {
+          "status": "PROVISIONAL",
+          "primary": "MULTIPLE_CANDIDATES",
+          "candidates": [
+            "FAST_GROWER",
+            "CYCLICAL"
+          ],
+          "evidence": [
+            {
+              "field": "industry",
+              "value": "半導體業",
+              "interpretation": "CYCLE_REVIEW_REQUIRED"
+            },
+            {
+              "field": "revenue_and_eps_snapshot",
+              "value": {
+                "monthly_revenue_yoy": 605.2432014317565,
+                "cumulative_revenue_yoy": 324.37526455062414,
+                "eps": 27.58
+              },
+              "interpretation": "FAST_GROWTH_CANDIDATE_NOT_DURABILITY_PROOF"
+            }
+          ],
+          "unresolved_categories": [
+            "SLOW_GROWER",
+            "STALWART",
+            "TURNAROUND",
+            "ASSET_PLAY"
+          ]
+        },
+        "investment_story": {
+          "status": "EVIDENCE_ONLY",
+          "evidence": [
+            {
+              "field": "monthly_revenue_yoy",
+              "value": 605.2432014317565,
+              "as_of": "2026-08"
+            },
+            {
+              "field": "cumulative_revenue_yoy",
+              "value": 324.37526455062414,
+              "as_of": "2026-08"
+            },
+            {
+              "field": "eps",
+              "value": 27.58,
+              "as_of": "2026Q2"
+            },
+            {
+              "field": "pe",
+              "value": 8.78,
+              "as_of": "2026-09-17"
+            },
+            {
+              "field": "pb",
+              "value": 4.17,
+              "as_of": "2026-09-17"
+            }
+          ],
+          "required_manual_confirmation": [
+            "BUSINESS_DRIVER",
+            "DURABILITY",
+            "MANAGEMENT_EXECUTION"
+          ]
+        },
+        "story_break_conditions": [
+          {
+            "condition": "CUMULATIVE_REVENUE_YOY_NONPOSITIVE",
+            "meaning": "Growth story requires fundamental review"
+          },
+          {
+            "condition": "EPS_NONPOSITIVE",
+            "meaning": "Profitability story requires fundamental review"
+          },
+          {
+            "condition": "FINANCIAL_QUALITY_EVIDENCE_DETERIORATES",
+            "meaning": "Cash flow, leverage, inventory or receivables require review"
+          }
+        ],
+        "policy": {
+          "decision_authority": "NONE",
+          "ranking_effect": "NONE",
+          "score_effect": "NONE",
+          "cta_effect": "NONE",
+          "action_effect": "NONE",
+          "observation_is_research_lead_only": true,
+          "manual_confirmation_required": true
+        }
+      },
       "individual_cta_required": true,
       "individual_cta": {
         "update_status": "CURRENT",
@@ -588,7 +771,7 @@
           "spread_pct": 24.768223,
           "phase": "ACTIVE"
         },
-        "last_attempt_at": "2026-09-17T11:23:58.214792+00:00",
+        "last_attempt_at": "2026-09-17T12:36:28.924480+00:00",
         "error": null
       },
       "action_eligibility": "ELIGIBLE_IF_0050_BULLISH_AND_PRESSURE_GREEN"
@@ -787,6 +970,92 @@
       "confidence": "HIGH",
       "selection_status": "FORMAL",
       "candidate_role": "RESEARCH_PRIORITY_ONLY",
+      "lynch_research": {
+        "version": "onecool_lynch_research_v1",
+        "company_type": {
+          "status": "PROVISIONAL",
+          "primary": "FAST_GROWER",
+          "candidates": [
+            "FAST_GROWER"
+          ],
+          "evidence": [
+            {
+              "field": "revenue_and_eps_snapshot",
+              "value": {
+                "monthly_revenue_yoy": 98.21291582397657,
+                "cumulative_revenue_yoy": 109.20046830886439,
+                "eps": 13.0
+              },
+              "interpretation": "FAST_GROWTH_CANDIDATE_NOT_DURABILITY_PROOF"
+            }
+          ],
+          "unresolved_categories": [
+            "SLOW_GROWER",
+            "STALWART",
+            "CYCLICAL",
+            "TURNAROUND",
+            "ASSET_PLAY"
+          ]
+        },
+        "investment_story": {
+          "status": "EVIDENCE_ONLY",
+          "evidence": [
+            {
+              "field": "monthly_revenue_yoy",
+              "value": 98.21291582397657,
+              "as_of": "2026-08"
+            },
+            {
+              "field": "cumulative_revenue_yoy",
+              "value": 109.20046830886439,
+              "as_of": "2026-08"
+            },
+            {
+              "field": "eps",
+              "value": 13.0,
+              "as_of": "2026Q2"
+            },
+            {
+              "field": "pe",
+              "value": 10.47,
+              "as_of": "2026-09-17"
+            },
+            {
+              "field": "pb",
+              "value": 2.08,
+              "as_of": "2026-09-17"
+            }
+          ],
+          "required_manual_confirmation": [
+            "BUSINESS_DRIVER",
+            "DURABILITY",
+            "MANAGEMENT_EXECUTION"
+          ]
+        },
+        "story_break_conditions": [
+          {
+            "condition": "CUMULATIVE_REVENUE_YOY_NONPOSITIVE",
+            "meaning": "Growth story requires fundamental review"
+          },
+          {
+            "condition": "EPS_NONPOSITIVE",
+            "meaning": "Profitability story requires fundamental review"
+          },
+          {
+            "condition": "FINANCIAL_QUALITY_EVIDENCE_DETERIORATES",
+            "meaning": "Cash flow, leverage, inventory or receivables require review"
+          }
+        ],
+        "policy": {
+          "decision_authority": "NONE",
+          "ranking_effect": "NONE",
+          "score_effect": "NONE",
+          "cta_effect": "NONE",
+          "action_effect": "NONE",
+          "observation_is_research_lead_only": true,
+          "manual_confirmation_required": true
+        }
+      },
       "individual_cta_required": true,
       "individual_cta": {
         "update_status": "CURRENT",
@@ -818,7 +1087,7 @@
           "spread_pct": 16.743006,
           "phase": "AGING"
         },
-        "last_attempt_at": "2026-09-17T11:23:58.214792+00:00",
+        "last_attempt_at": "2026-09-17T12:36:28.924480+00:00",
         "error": null
       },
       "action_eligibility": "ELIGIBLE_IF_0050_BULLISH_AND_PRESSURE_GREEN"
@@ -1017,6 +1286,92 @@
       "confidence": "HIGH",
       "selection_status": "FORMAL",
       "candidate_role": "RESEARCH_PRIORITY_ONLY",
+      "lynch_research": {
+        "version": "onecool_lynch_research_v1",
+        "company_type": {
+          "status": "PROVISIONAL",
+          "primary": "FAST_GROWER",
+          "candidates": [
+            "FAST_GROWER"
+          ],
+          "evidence": [
+            {
+              "field": "revenue_and_eps_snapshot",
+              "value": {
+                "monthly_revenue_yoy": 51.16688342643828,
+                "cumulative_revenue_yoy": 42.30457002299758,
+                "eps": 38.83
+              },
+              "interpretation": "FAST_GROWTH_CANDIDATE_NOT_DURABILITY_PROOF"
+            }
+          ],
+          "unresolved_categories": [
+            "SLOW_GROWER",
+            "STALWART",
+            "CYCLICAL",
+            "TURNAROUND",
+            "ASSET_PLAY"
+          ]
+        },
+        "investment_story": {
+          "status": "EVIDENCE_ONLY",
+          "evidence": [
+            {
+              "field": "monthly_revenue_yoy",
+              "value": 51.16688342643828,
+              "as_of": "2026-08"
+            },
+            {
+              "field": "cumulative_revenue_yoy",
+              "value": 42.30457002299758,
+              "as_of": "2026-08"
+            },
+            {
+              "field": "eps",
+              "value": 38.83,
+              "as_of": "2026Q2"
+            },
+            {
+              "field": "pe",
+              "value": 13.86,
+              "as_of": "2026-09-17"
+            },
+            {
+              "field": "pb",
+              "value": 2.34,
+              "as_of": "2026-09-17"
+            }
+          ],
+          "required_manual_confirmation": [
+            "BUSINESS_DRIVER",
+            "DURABILITY",
+            "MANAGEMENT_EXECUTION"
+          ]
+        },
+        "story_break_conditions": [
+          {
+            "condition": "CUMULATIVE_REVENUE_YOY_NONPOSITIVE",
+            "meaning": "Growth story requires fundamental review"
+          },
+          {
+            "condition": "EPS_NONPOSITIVE",
+            "meaning": "Profitability story requires fundamental review"
+          },
+          {
+            "condition": "FINANCIAL_QUALITY_EVIDENCE_DETERIORATES",
+            "meaning": "Cash flow, leverage, inventory or receivables require review"
+          }
+        ],
+        "policy": {
+          "decision_authority": "NONE",
+          "ranking_effect": "NONE",
+          "score_effect": "NONE",
+          "cta_effect": "NONE",
+          "action_effect": "NONE",
+          "observation_is_research_lead_only": true,
+          "manual_confirmation_required": true
+        }
+      },
       "individual_cta_required": true,
       "individual_cta": {
         "update_status": "CURRENT",
@@ -1048,7 +1403,7 @@
           "spread_pct": 7.867663,
           "phase": "ACTIVE"
         },
-        "last_attempt_at": "2026-09-17T11:23:58.214792+00:00",
+        "last_attempt_at": "2026-09-17T12:36:28.924480+00:00",
         "error": null
       },
       "action_eligibility": "ELIGIBLE_IF_0050_BULLISH_AND_PRESSURE_GREEN"
@@ -1247,6 +1602,97 @@
       "confidence": "HIGH",
       "selection_status": "FORMAL",
       "candidate_role": "RESEARCH_PRIORITY_ONLY",
+      "lynch_research": {
+        "version": "onecool_lynch_research_v1",
+        "company_type": {
+          "status": "PROVISIONAL",
+          "primary": "MULTIPLE_CANDIDATES",
+          "candidates": [
+            "FAST_GROWER",
+            "CYCLICAL"
+          ],
+          "evidence": [
+            {
+              "field": "industry",
+              "value": "半導體業",
+              "interpretation": "CYCLE_REVIEW_REQUIRED"
+            },
+            {
+              "field": "revenue_and_eps_snapshot",
+              "value": {
+                "monthly_revenue_yoy": 560.8541425724004,
+                "cumulative_revenue_yoy": 638.1931640340957,
+                "eps": 23.38
+              },
+              "interpretation": "FAST_GROWTH_CANDIDATE_NOT_DURABILITY_PROOF"
+            }
+          ],
+          "unresolved_categories": [
+            "SLOW_GROWER",
+            "STALWART",
+            "TURNAROUND",
+            "ASSET_PLAY"
+          ]
+        },
+        "investment_story": {
+          "status": "EVIDENCE_ONLY",
+          "evidence": [
+            {
+              "field": "monthly_revenue_yoy",
+              "value": 560.8541425724004,
+              "as_of": "2026-08"
+            },
+            {
+              "field": "cumulative_revenue_yoy",
+              "value": 638.1931640340957,
+              "as_of": "2026-08"
+            },
+            {
+              "field": "eps",
+              "value": 23.38,
+              "as_of": "2026Q2"
+            },
+            {
+              "field": "pe",
+              "value": 18.94,
+              "as_of": "2026-09-17"
+            },
+            {
+              "field": "pb",
+              "value": 5.22,
+              "as_of": "2026-09-17"
+            }
+          ],
+          "required_manual_confirmation": [
+            "BUSINESS_DRIVER",
+            "DURABILITY",
+            "MANAGEMENT_EXECUTION"
+          ]
+        },
+        "story_break_conditions": [
+          {
+            "condition": "CUMULATIVE_REVENUE_YOY_NONPOSITIVE",
+            "meaning": "Growth story requires fundamental review"
+          },
+          {
+            "condition": "EPS_NONPOSITIVE",
+            "meaning": "Profitability story requires fundamental review"
+          },
+          {
+            "condition": "FINANCIAL_QUALITY_EVIDENCE_DETERIORATES",
+            "meaning": "Cash flow, leverage, inventory or receivables require review"
+          }
+        ],
+        "policy": {
+          "decision_authority": "NONE",
+          "ranking_effect": "NONE",
+          "score_effect": "NONE",
+          "cta_effect": "NONE",
+          "action_effect": "NONE",
+          "observation_is_research_lead_only": true,
+          "manual_confirmation_required": true
+        }
+      },
       "individual_cta_required": true,
       "individual_cta": {
         "update_status": "CURRENT",
@@ -1278,7 +1724,7 @@
           "spread_pct": 25.746135,
           "phase": "AGING"
         },
-        "last_attempt_at": "2026-09-17T11:23:58.214792+00:00",
+        "last_attempt_at": "2026-09-17T12:36:28.924480+00:00",
         "error": null
       },
       "action_eligibility": "ELIGIBLE_IF_0050_BULLISH_AND_PRESSURE_GREEN"
@@ -1294,8 +1740,8 @@
   "decision_authority": "RESEARCH_PRIORITY_ONLY",
   "stale_policy": "DISPLAY_LATEST_WITH_AS_OF; NEVER_TRADE_FROM_STALE_SCREEN",
   "master_prompt": {
-    "version": "v1.5 Taiwan Broad Screen with Verified Pressure Inputs",
-    "sha256": "5da5b32677545dca4df527a95483f4bd4d931dc1919bf7593b837975e2f84b79",
-    "content": "# Onecool Taiwan Stock Intelligence — Screening Contract\n\n版本：v1.5 Taiwan Broad Screen with Verified Pressure Inputs\n正式篩選檔：`data/market/taiwan_stock_intelligence/screen_latest.json`\n正式個股CTA快取：`data/market/taiwan_stock_intelligence/cta/cta_latest.json`\n正式日報上下文：`data/market/taiwan_stock_intelligence/daily_context_latest.json`\n\n## 唯一名單來源\n\n- 日報研究優先名單只能讀取正式篩選檔的 `top5`，不得從對話內容、\n  單一股票查詢、新聞或主觀判斷增補標的。\n- 使用者詢問某檔股票只代表個股研究，不代表該股通過系統篩選。\n- 0050、2330及亞洲CTA仍只讀 Onecool Market Dashboard。個股CTA由獨立背景\n  快取計算；不得回寫、改變或參與基本面分數與排名。\n\n## 發布條件\n\n- 候選池為正式上市、具月營收資料的四位數普通股，按官方成交金額取\n  前200檔。\n- 所有候選股必須使用同一價格／估值截止日、同一月營收期間、同一財報\n  期間及同一版評分規則。\n- 分數80分以上為正式候選；75至79.99分只列觀察，不進正式Top表格。\n- 正式表格最多5檔、同產業最多2檔，不硬湊。\n- 缺漏、重複、異常或非正值EPS／本益比／股價淨值比一律排除，不得用\n  推估值補齊。\n- 日報固定讀取正式日報上下文。最新資料延遲時仍顯示最近一次成功的 `top5`，\n  但必須同時顯示原始截止日與 `STALE`，不得顯示成 Unknown、不得冒充當日結果，\n  也不得由舊名單產生新的買進建議。只有完全沒有成功資料時才顯示 `MISSING`。\n\n## 行動層\n\n篩選分數只決定研究優先順序。實際行動仍依0050 CTA、個股正式CTA、\n估值及市場壓力燈共同決定；市場黃／紅燈時不得因高分而新增主動部位。\n\n權限順序固定為：週線CTA ＞ 日線CTA ＞ 市場壓力燈 ＞ 台股候選池 ＞\nMacro Confirmation。0050週線空頭時候選股只能觀察；0050週線多頭時仍必須\n通過個股CTA與市場壓力綠燈，候選分數本身永遠不是買進訊號。\n\n\n### Top 5 行動文字（所有消費端共用）\n\n正式版、老婆共享Project、未來親友版及其他消費端，Top 5「行動」欄必須依\n相同閘門顯示下列明確文字，不得只寫語意不清的「等待」：\n\n- 個股CTA為 `BUY`，但市場壓力為黃／紅燈，或其他新增閘門尚未通過：\n  顯示「等待市場轉綠」。\n- 個股CTA為 `HOLD`：顯示「續抱／不新增」。\n- 個股CTA為 `SELL`：顯示「停止新增／覆核」。\n- 個股CTA為 `BUY`，且0050為 `BUY`、市場壓力為 `CURRENT + GREEN`、\n  資料與估值檢核均通過：顯示「評估新增」，仍非自動買進指令。\n- 個股CTA為 `UNKNOWN`，或只有不可產生新行動的過期／異常資料：\n  顯示「資料待確認／不新增」。\n\n此映射只改善文字呈現，不得改寫CTA、分數、估值、Top 5排名或市場壓力燈。\n\n## 正式市場壓力燈 SSOT\n\n- `daily_context_latest.json.market_pressure` 是台股日報、共享Project及其他消費端\n  唯一正式市場壓力燈來源。任何消費端不得在已有正式結果時另行計算、覆寫或\n  以新聞／主觀判斷替代正式燈號。\n- 市場壓力燈只控制是否暫停新增主動部位；不得修改0050、2330或個股CTA，\n  不得修改基本面分數、Top 5成員或排名。\n- 正式欄位至少包含：`as_of`、`status`、`light`、`action`、`reason`、\n  `confirmed_inputs`、`input_data_as_of`、`previous_light`、`changed`、\n  `last_change_date`、`data_quality`。\n- `light` 只允許 `GREEN`、`YELLOW`、`RED`、`UNKNOWN`。\n- `status` 只允許 `CURRENT`、`STALE_LAST_KNOWN`、`UNKNOWN`。\n- `CURRENT + GREEN` 才具有重新評估新增曝險的資格；其他任何組合一律\n  `PAUSE_NEW_EXPOSURE`。\n- `STALE_LAST_KNOWN` 必須保留最近可驗證燈號與原始資料日，但不得產生新的\n  加碼資格；`UNKNOWN` 一律停止新增。\n- 當必要輸入不足、來源互相衝突、資料日期無法驗證或公司行動／結算異常尚未\n  排除時，不得把燈號轉為綠燈；應保留最近有效結果或降為 Unknown，採保守處理。\n- 新聞只能提供背景。只有價量、期貨、波動率、匯率或其他正式市場資料同步確認後，\n  才能成為市場壓力判定的證據之一；新聞本身沒有燈號權限。\n\n### 壓力燈必要輸入\n\n日報／壓力引擎應檢查至少：\n\n1. 加權指數收盤、漲跌幅、盤中高低點。\n2. 成交金額與量能變化。\n3. 市場上漲／下跌家數。\n4. 台指期近月。\n5. 期現貨正逆價差。\n6. 外資台指期多方未平倉。\n7. 外資台指期空方未平倉。\n8. 外資台指期淨部位。\n9. 臺指選擇權成交量PCR。\n10. 臺指選擇權未平倉量PCR。\n11. 臺指選擇權波動率指數。\n12. 外資現貨買賣超。\n13. 投信買賣超。\n14. 自營商買賣超。\n15. 三大法人合計。\n16. 融資餘額與日增減。\n17. 融券餘額與日增減。\n18. 借券賣出壓力。\n19. 公司行動、MSCI調整或結算造成的異常量。\n20. 全球流動性、油價、利率或地緣政治壓力。\n\n### 解除規則\n\n- 紅燈不得因隔日反彈直接解除。\n- 紅燈降為黃燈至少須同時符合：\n  1. 連續兩個交易日未再觸發紅燈。\n  2. 指數未再創收盤新低。\n  3. 量能壓力改善。\n  4. 波動率改善。\n  5. 衍生品壓力改善。\n  6. 期現貨價差改善。\n  7. PCR不再惡化。\n- 黃燈回到綠燈必須確認異常因素持續解除。\n- 不得只因單日大漲、單日外資買超、單日期貨轉正價差、單日PCR下降或\n  單日VIX下降，就直接解除黃燈或紅燈。\n\n### 正式寫回規則\n\n- 產生市場壓力判斷的日報／壓力引擎在完成資料驗證後，必須把正式結果寫回\n  `daily_context_latest.json.market_pressure`，再由其他報告或共享Project讀取。\n- 寫回時需保留 `previous_light` 與 `last_change_date`，讓「今日變化」可重現。\n- 每個主要輸入的有效資料日寫入 `input_data_as_of`；已成功驗證的輸入寫入\n  `confirmed_inputs`。不得把不同日期資料假裝成同一時點。\n- 後續篩選／CTA排程重建 `daily_context_latest.json` 時，必須保留最近一次正式\n  `market_pressure`，不得因篩選更新而清空壓力燈。\n\n## 個股CTA背景快取\n\n- 每次以正式篩選檔的完整前200檔流動性股票為母體，背景維護個股CTA；報表\n  仍只顯示正式篩選出的Top 5，不因CTA增刪或重排股票。\n- 週線30／50為主要趨勢，日線50／200只作短期確認與加碼限制。週線空頭時，\n  日線黃金交叉只能視為反彈或早期復甦，不得判定為正式翻多。\n- 所有均線使用含股息及拆分調整後日資料；週線只採已完成交易週最後一筆資料。\n- 每檔保留資料截止日、日／週均線、目前排列、最近黃金／死亡交叉與更新狀態。\n- 單檔資料不足或資料商失敗時標示 `UNKNOWN`；若已有上次有效結果則標示\n  `STALE_LAST_KNOWN`。兩者都只能觀察，不得放寬條件或產生新買進建議。\n- 0050週線、個股週線、個股日線與市場壓力燈全部符合時，才具有研究後採取\n  行動的資格；這仍不是自動下單訊號。\n\n## 選用品質研究\n\n林子揚超級成長股／CAN SLIM對照只可在使用者要求個股深度研究時作為附註，\n不屬於台股每日自動篩選條件，也不得升級、降級或否決候選股。台股正式行動仍只依\n原有量化候選池、0050週線、個股CTA與市場壓力燈；不得因美股式品質證據難以取得，n把候選股自動標成不合格。\n\n## 18:00 報告資料完成檢核\n\n- 報告時間維持18:00。先讀 daily_context_latest.json.report_readiness。\n- READY 只表示台灣當日正式股價／估值、0050／2330與Top 5 CTA已齊備，\n  不代表壓力燈為綠燈或允許新增。所有原有行動閘門仍適用。\n- UPDATE_INCOMPLETE 或缺少此檢核時，顯示「今日資料更新未齊」及缺項、\n  各自實際日期，保留最近成功結果但停止新增，不得宣稱今日Top 5無變化。\n- 讀取時必須確認 expected_as_of 對應報告交易日；昨日READY不能當成今日READY。\n- 亞洲CTA及季度財報／月營收保留各自日期；融資融券與波動率另受正式輸入快取及最終版Email閘門約束。\n- 股價及PE/PB直接取當日TWSE正式報表；季度與月營收使用已公布的共同期間，\n  不要求同日公告，不推估補值，維持原有評分版本與產業限制。\n- GitHub排程屬盡力執行，不能保證準點；未齊備時18:00照常回報明確缺項。\n\n## 市場壓力輸入快取與最終版閘門\n\n- 融資融券與臺指選擇權波動率只讀官方來源，統一保存於\n  `data/market/taiwan_stock_intelligence/market_pressure_inputs_latest.json`。\n- 此快取只保存來源日期、數值與驗證狀態，不計算、不推導也不改寫市場壓力燈；\n  正式燈號仍只由每日台股 Work 判定並依 writer contract 寫回。\n- 狀態必須明確區分：`VERIFIED`、`NOT_PUBLISHED`、\n  `PUBLISHED_PARSE_FAILED`、`FETCH_FAILED`；不得把解析失敗誤寫成官方未發布，\n  也不得把昨日值冒充今日值。\n- 18:00前使用TWSE官方JSON與TAIFEX官方統計頁／當日TXT下載固定端點自動重試。\n  波動率必須取當日TXT的 `Last 1 min AVG`，不得把列表頁的「下載」按鈕當成數值。\n- TWSE融資融券須待各授信機構傳輸完成後於晚間發布；18:00報告時允許使用「當時\n  最近已正式發布」的前一交易日資料，但必須標示真實 `as_of` 與\n  `official_lag_accepted=true`，不得冒充當日資料，也不得標成解析失敗。\n- 只有 `daily_context_latest.json.market_pressure_input_readiness.status=READY`，且波動率\n  為當日正式值、融資融券為當時最近可得正式值，才可建立最終版Email。\n- 未通過時照常回報本對話，明列缺項並停止新增曝險；Email暫停，不得寄送舊版、\n  暫存版或把「未驗證」包裝成正常T+1。\n\n## 財報品質研究提醒\n\n- Top 5 使用官方 MOPS 合併 XBRL 三表與同份報告的比較期間；其他候選股\n  保留損益表初檢。每日列「財報品質：標籤＋主要原因」，保留財報期間。\n- 核對營業現金流／同期淨利、本業與業外、資產負債勾稽、合併權益報酬率、\n  平均資產／權益及存貨、非關係人應收帳款與營收的同期年增率。\n- ROE採合併淨利除以期初期末平均總權益，ROA採相同淨利除以平均總資產；\n  兩者為年初至今累計，沒有年化，不冒充歸屬母公司ROE。\n- 提醒門檻是Onecool初步研究規則，並非怪老子的原創評分：現金流為負或\n  低於正淨利一半、平均資產／權益≥3倍、存貨或應收年增>20%且高於\n  營收年增20個百分點。通路業高槓桿、擴產及季節性須人工解讀。\n- 業外不等於一次性收益；提示不代表造假、公司不合格或賣出訊號。\n- 正常僅表示資料通過本版檢查且未觸發提示，不是全面審計或投資保證。\n- 欄位缺漏、來源失敗、金額無法勾稽、非正比較基期與金融業專屬分析不足，\n  明確顯示資料不足及缺項，不推估填補。\n- 快取按公司及季度最多沿用24小時；季別改變重抓，保留來源URL、內容雜湊、\n  各項原始金額與觀測時間。觀測时间不等於首次公告日，禁止用於時點回測。\n- 財報提示只作研究附註，不改分數、Top 5名單、CTA、市場壓力或行動。\n"
+    "version": "v1.6 Taiwan Lynch Research Layer",
+    "sha256": "437e67210fab5e33de81c13ee09472ae7e3e864d0e6ca9e40c56168ee1838ce4",
+    "content": "# Onecool Taiwan Stock Intelligence — Screening Contract\n\n版本：v1.6 Taiwan Lynch Research Layer\n正式篩選檔：`data/market/taiwan_stock_intelligence/screen_latest.json`\n正式個股CTA快取：`data/market/taiwan_stock_intelligence/cta/cta_latest.json`\n正式日報上下文：`data/market/taiwan_stock_intelligence/daily_context_latest.json`\n\n## 唯一名單來源\n\n- 日報研究優先名單只能讀取正式篩選檔的 `top5`，不得從對話內容、\n  單一股票查詢、新聞或主觀判斷增補標的。\n- 使用者詢問某檔股票只代表個股研究，不代表該股通過系統篩選。\n- 0050、2330及亞洲CTA仍只讀 Onecool Market Dashboard。個股CTA由獨立背景\n  快取計算；不得回寫、改變或參與基本面分數與排名。\n\n## 發布條件\n\n- 候選池為正式上市、具月營收資料的四位數普通股，按官方成交金額取\n  前200檔。\n- 所有候選股必須使用同一價格／估值截止日、同一月營收期間、同一財報\n  期間及同一版評分規則。\n- 分數80分以上為正式候選；75至79.99分只列觀察，不進正式Top表格。\n- 正式表格最多5檔、同產業最多2檔，不硬湊。\n- 缺漏、重複、異常或非正值EPS／本益比／股價淨值比一律排除，不得用\n  推估值補齊。\n- 日報固定讀取正式日報上下文。最新資料延遲時仍顯示最近一次成功的 `top5`，\n  但必須同時顯示原始截止日與 `STALE`，不得顯示成 Unknown、不得冒充當日結果，\n  也不得由舊名單產生新的買進建議。只有完全沒有成功資料時才顯示 `MISSING`。\n\n## 行動層\n\n篩選分數只決定研究優先順序。實際行動仍依0050 CTA、個股正式CTA、\n估值及市場壓力燈共同決定；市場黃／紅燈時不得因高分而新增主動部位。\n\n權限順序固定為：週線CTA ＞ 日線CTA ＞ 市場壓力燈 ＞ 台股候選池 ＞\nMacro Confirmation。0050週線空頭時候選股只能觀察；0050週線多頭時仍必須\n通過個股CTA與市場壓力綠燈，候選分數本身永遠不是買進訊號。\n\n\n### Top 5 行動文字（所有消費端共用）\n\n正式版、老婆共享Project、未來親友版及其他消費端，Top 5「行動」欄必須依\n相同閘門顯示下列明確文字，不得只寫語意不清的「等待」：\n\n- 個股CTA為 `BUY`，但市場壓力為黃／紅燈，或其他新增閘門尚未通過：\n  顯示「等待市場轉綠」。\n- 個股CTA為 `HOLD`：顯示「續抱／不新增」。\n- 個股CTA為 `SELL`：顯示「停止新增／覆核」。\n- 個股CTA為 `BUY`，且0050為 `BUY`、市場壓力為 `CURRENT + GREEN`、\n  資料與估值檢核均通過：顯示「評估新增」，仍非自動買進指令。\n- 個股CTA為 `UNKNOWN`，或只有不可產生新行動的過期／異常資料：\n  顯示「資料待確認／不新增」。\n\n此映射只改善文字呈現，不得改寫CTA、分數、估值、Top 5排名或市場壓力燈。\n\n## 正式市場壓力燈 SSOT\n\n- `daily_context_latest.json.market_pressure` 是台股日報、共享Project及其他消費端\n  唯一正式市場壓力燈來源。任何消費端不得在已有正式結果時另行計算、覆寫或\n  以新聞／主觀判斷替代正式燈號。\n- 市場壓力燈只控制是否暫停新增主動部位；不得修改0050、2330或個股CTA，\n  不得修改基本面分數、Top 5成員或排名。\n- 正式欄位至少包含：`as_of`、`status`、`light`、`action`、`reason`、\n  `confirmed_inputs`、`input_data_as_of`、`previous_light`、`changed`、\n  `last_change_date`、`data_quality`。\n- `light` 只允許 `GREEN`、`YELLOW`、`RED`、`UNKNOWN`。\n- `status` 只允許 `CURRENT`、`STALE_LAST_KNOWN`、`UNKNOWN`。\n- `CURRENT + GREEN` 才具有重新評估新增曝險的資格；其他任何組合一律\n  `PAUSE_NEW_EXPOSURE`。\n- `STALE_LAST_KNOWN` 必須保留最近可驗證燈號與原始資料日，但不得產生新的\n  加碼資格；`UNKNOWN` 一律停止新增。\n- 當必要輸入不足、來源互相衝突、資料日期無法驗證或公司行動／結算異常尚未\n  排除時，不得把燈號轉為綠燈；應保留最近有效結果或降為 Unknown，採保守處理。\n- 新聞只能提供背景。只有價量、期貨、波動率、匯率或其他正式市場資料同步確認後，\n  才能成為市場壓力判定的證據之一；新聞本身沒有燈號權限。\n\n### 壓力燈必要輸入\n\n日報／壓力引擎應檢查至少：\n\n1. 加權指數收盤、漲跌幅、盤中高低點。\n2. 成交金額與量能變化。\n3. 市場上漲／下跌家數。\n4. 台指期近月。\n5. 期現貨正逆價差。\n6. 外資台指期多方未平倉。\n7. 外資台指期空方未平倉。\n8. 外資台指期淨部位。\n9. 臺指選擇權成交量PCR。\n10. 臺指選擇權未平倉量PCR。\n11. 臺指選擇權波動率指數。\n12. 外資現貨買賣超。\n13. 投信買賣超。\n14. 自營商買賣超。\n15. 三大法人合計。\n16. 融資餘額與日增減。\n17. 融券餘額與日增減。\n18. 借券賣出壓力。\n19. 公司行動、MSCI調整或結算造成的異常量。\n20. 全球流動性、油價、利率或地緣政治壓力。\n\n### 解除規則\n\n- 紅燈不得因隔日反彈直接解除。\n- 紅燈降為黃燈至少須同時符合：\n  1. 連續兩個交易日未再觸發紅燈。\n  2. 指數未再創收盤新低。\n  3. 量能壓力改善。\n  4. 波動率改善。\n  5. 衍生品壓力改善。\n  6. 期現貨價差改善。\n  7. PCR不再惡化。\n- 黃燈回到綠燈必須確認異常因素持續解除。\n- 不得只因單日大漲、單日外資買超、單日期貨轉正價差、單日PCR下降或\n  單日VIX下降，就直接解除黃燈或紅燈。\n\n### 正式寫回規則\n\n- 產生市場壓力判斷的日報／壓力引擎在完成資料驗證後，必須把正式結果寫回\n  `daily_context_latest.json.market_pressure`，再由其他報告或共享Project讀取。\n- 寫回時需保留 `previous_light` 與 `last_change_date`，讓「今日變化」可重現。\n- 每個主要輸入的有效資料日寫入 `input_data_as_of`；已成功驗證的輸入寫入\n  `confirmed_inputs`。不得把不同日期資料假裝成同一時點。\n- 後續篩選／CTA排程重建 `daily_context_latest.json` 時，必須保留最近一次正式\n  `market_pressure`，不得因篩選更新而清空壓力燈。\n\n## 個股CTA背景快取\n\n- 每次以正式篩選檔的完整前200檔流動性股票為母體，背景維護個股CTA；報表\n  仍只顯示正式篩選出的Top 5，不因CTA增刪或重排股票。\n- 週線30／50為主要趨勢，日線50／200只作短期確認與加碼限制。週線空頭時，\n  日線黃金交叉只能視為反彈或早期復甦，不得判定為正式翻多。\n- 所有均線使用含股息及拆分調整後日資料；週線只採已完成交易週最後一筆資料。\n- 每檔保留資料截止日、日／週均線、目前排列、最近黃金／死亡交叉與更新狀態。\n- 單檔資料不足或資料商失敗時標示 `UNKNOWN`；若已有上次有效結果則標示\n  `STALE_LAST_KNOWN`。兩者都只能觀察，不得放寬條件或產生新買進建議。\n- 0050週線、個股週線、個股日線與市場壓力燈全部符合時，才具有研究後採取\n  行動的資格；這仍不是自動下單訊號。\n\n## 選用品質研究\n\n林子揚超級成長股／CAN SLIM對照只可在使用者要求個股深度研究時作為附註，\n不屬於台股每日自動篩選條件，也不得升級、降級或否決候選股。台股正式行動仍只依\n原有量化候選池、0050週線、個股CTA與市場壓力燈；不得因美股式品質證據難以取得，\n把候選股自動標成不合格。\n\n## 彼得・林區研究層\n\n- Top 5可讀取`lynch_research`作為公司理解附註，包括六類公司候選分類、\n  可驗證的投資故事證據，以及故事失效覆核條件。\n- 公司類型只允許`SLOW_GROWER`、`STALWART`、`FAST_GROWER`、`CYCLICAL`、\n  `TURNAROUND`、`ASSET_PLAY`；單期資料只能標示`PROVISIONAL`，證據不足必須\n  維持`UNCLASSIFIED`，不得為了填欄位而猜測。\n- 日常生活、產品熱度或消費觀察只能建立研究線索，必須經公司及財報證據確認。\n- 林區研究層不計分、不重排Top 5、不改CTA、市場壓力燈或行動資格。\n- 每日報告不必增加固定欄位；只有個股深度研究或公司類型／投資故事發生\n  實質變化時才顯示。\n\n## 18:00 報告資料完成檢核\n\n- 報告時間維持18:00。先讀 daily_context_latest.json.report_readiness。\n- READY 只表示台灣當日正式股價／估值、0050／2330與Top 5 CTA已齊備，\n  不代表壓力燈為綠燈或允許新增。所有原有行動閘門仍適用。\n- UPDATE_INCOMPLETE 或缺少此檢核時，顯示「今日資料更新未齊」及缺項、\n  各自實際日期，保留最近成功結果但停止新增，不得宣稱今日Top 5無變化。\n- 讀取時必須確認 expected_as_of 對應報告交易日；昨日READY不能當成今日READY。\n- 亞洲CTA及季度財報／月營收保留各自日期；融資融券與波動率另受正式輸入快取及最終版Email閘門約束。\n- 股價及PE/PB直接取當日TWSE正式報表；季度與月營收使用已公布的共同期間，\n  不要求同日公告，不推估補值，維持原有評分版本與產業限制。\n- GitHub排程屬盡力執行，不能保證準點；未齊備時18:00照常回報明確缺項。\n\n## 市場壓力輸入快取與最終版閘門\n\n- 融資融券與臺指選擇權波動率只讀官方來源，統一保存於\n  `data/market/taiwan_stock_intelligence/market_pressure_inputs_latest.json`。\n- 此快取只保存來源日期、數值與驗證狀態，不計算、不推導也不改寫市場壓力燈；\n  正式燈號仍只由每日台股 Work 判定並依 writer contract 寫回。\n- 狀態必須明確區分：`VERIFIED`、`NOT_PUBLISHED`、\n  `PUBLISHED_PARSE_FAILED`、`FETCH_FAILED`；不得把解析失敗誤寫成官方未發布，\n  也不得把昨日值冒充今日值。\n- 18:00前使用TWSE官方JSON與TAIFEX官方統計頁／當日TXT下載固定端點自動重試。\n  波動率必須取當日TXT的 `Last 1 min AVG`，不得把列表頁的「下載」按鈕當成數值。\n- TWSE融資融券須待各授信機構傳輸完成後於晚間發布；18:00報告時允許使用「當時\n  最近已正式發布」的前一交易日資料，但必須標示真實 `as_of` 與\n  `official_lag_accepted=true`，不得冒充當日資料，也不得標成解析失敗。\n- 只有 `daily_context_latest.json.market_pressure_input_readiness.status=READY`，且波動率\n  為當日正式值、融資融券為當時最近可得正式值，才可建立最終版Email。\n- 未通過時照常回報本對話，明列缺項並停止新增曝險；Email暫停，不得寄送舊版、\n  暫存版或把「未驗證」包裝成正常T+1。\n\n## 財報品質研究提醒\n\n- Top 5 使用官方 MOPS 合併 XBRL 三表與同份報告的比較期間；其他候選股\n  保留損益表初檢。每日列「財報品質：標籤＋主要原因」，保留財報期間。\n- 核對營業現金流／同期淨利、本業與業外、資產負債勾稽、合併權益報酬率、\n  平均資產／權益及存貨、非關係人應收帳款與營收的同期年增率。\n- ROE採合併淨利除以期初期末平均總權益，ROA採相同淨利除以平均總資產；\n  兩者為年初至今累計，沒有年化，不冒充歸屬母公司ROE。\n- 提醒門檻是Onecool初步研究規則，並非怪老子的原創評分：現金流為負或\n  低於正淨利一半、平均資產／權益≥3倍、存貨或應收年增>20%且高於\n  營收年增20個百分點。通路業高槓桿、擴產及季節性須人工解讀。\n- 業外不等於一次性收益；提示不代表造假、公司不合格或賣出訊號。\n- 正常僅表示資料通過本版檢查且未觸發提示，不是全面審計或投資保證。\n- 欄位缺漏、來源失敗、金額無法勾稽、非正比較基期與金融業專屬分析不足，\n  明確顯示資料不足及缺項，不推估填補。\n- 快取按公司及季度最多沿用24小時；季別改變重抓，保留來源URL、內容雜湊、\n  各項原始金額與觀測時間。觀測时间不等於首次公告日，禁止用於時點回測。\n- 財報提示只作研究附註，不改分數、Top 5名單、CTA、市場壓力或行動。\n"
   }
 }
