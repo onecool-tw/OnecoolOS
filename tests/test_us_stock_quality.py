@@ -45,6 +45,11 @@ def test_quality_gate_annotates_but_does_not_reorder_or_rewrite_scan():
     assert item["action_eligibility"] == (
         "REQUIRES_MARKET_CTA_INDIVIDUAL_CTA_AND_PRESSURE_GREEN"
     )
+    assert item["lynch_research"]["company_type"]["primary"] == "FAST_GROWER"
+    assert item["lynch_research"]["policy"]["ranking_effect"] == "NONE"
+    assert payload["lynch_research_layer"]["action_policy"] == (
+        "NO_CTA_OR_ACTION_AUTHORITY"
+    )
 
 
 def test_missing_evidence_keeps_new_candidate_in_research_only_bucket_c():
@@ -53,6 +58,9 @@ def test_missing_evidence_keeps_new_candidate_in_research_only_bucket_c():
     assert payload["top5"][0]["super_growth_bucket"] == "C"
     assert payload["top5"][0]["action_eligibility"] == (
         "RESEARCH_ONLY_QUALITY_EVIDENCE_INCOMPLETE"
+    )
+    assert payload["top5"][0]["lynch_research"]["company_type"]["primary"] == (
+        "UNCLASSIFIED"
     )
 
 

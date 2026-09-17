@@ -28,12 +28,18 @@ def change(root, source, mutate):
 
 
 def test_projection_is_lossless_readonly_and_deterministic(root):
+    change(root, 'context', lambda c: [row.update({
+        'lynch_research': {'policy': {'ranking_effect': 'NONE'}}
+    }) for row in c['top5']])
     before = {p: hashlib.sha256((root / p).read_bytes()).hexdigest() for p in SOURCES.values()}
     result = export_snapshot(root)
     ctx = json.loads((root / SOURCES['context']).read_text())
     screen = json.loads((root / SOURCES['screen']).read_text())
     assert result['market_pressure'] == ctx['market_pressure']
     assert [r['symbol'] for r in result['top5']] == [r['symbol'] for r in screen['top5']]
+    assert all('lynch_research' in row for row in result['top5'])
+    assert all(row['lynch_research']['policy']['ranking_effect'] == 'NONE'
+               for row in result['top5'])
     first = (root / OUTPUT).read_bytes()
     export_snapshot(root)
     assert (root / OUTPUT).read_bytes() == first

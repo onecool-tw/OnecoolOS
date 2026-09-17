@@ -8,7 +8,9 @@ from hashlib import sha256
 from pathlib import Path
 from typing import Any, Mapping
 
-MASTER_PROMPT_VERSION = "v1.5 Taiwan Broad Screen with Verified Pressure Inputs"
+from onecool_os.market.lynch_research import build_lynch_research
+
+MASTER_PROMPT_VERSION = "v1.6 Taiwan Lynch Research Layer"
 MASTER_PROMPT_PATH = Path("config/taiwan_stock_intelligence_master_prompt.md")
 SCREEN_PATH = Path("data/market/taiwan_stock_intelligence/screen_latest.json")
 STOCK_CTA_PATH = Path("data/market/taiwan_stock_intelligence/cta/cta_latest.json")
@@ -231,6 +233,7 @@ def build_taiwan_stock_daily_context(
 
     for item in top5:
         item["candidate_role"] = "RESEARCH_PRIORITY_ONLY"
+        item["lynch_research"] = build_lynch_research(item, market="TW")
         item["individual_cta_required"] = True
         individual = stock_cta_items.get(str(item.get("symbol")))
         item["individual_cta"] = _individual_cta_context(individual)
@@ -240,7 +243,7 @@ def build_taiwan_stock_daily_context(
 
     timestamp = generated_at or datetime.now(UTC)
     return {
-        "schema_version": "1.4",
+        "schema_version": "1.5",
         "report_readiness": report_readiness(
             screen, stock_cta, _read(root, "data/market/dashboard/dashboard_latest.json"),
             expected_session.isoformat(),
@@ -274,6 +277,12 @@ def build_taiwan_stock_daily_context(
             "authority": "NONE",
             "application": "MANUAL_ON_REQUEST_ONLY",
             "policy": "NEVER_BLOCK_OR_PROMOTE_A_TAIWAN_CANDIDATE_AUTOMATICALLY",
+        },
+        "optional_lynch_research": {
+            "framework": "PETER_LYNCH_COMPANY_TYPE_AND_STORY",
+            "authority": "NONE",
+            "application": "TOP5_RESEARCH_ANNOTATION_ONLY",
+            "policy": "NEVER_SCORE_RERANK_OR_CHANGE_CTA_ACTION",
         },
         "top5": top5,
         "authority_order": [

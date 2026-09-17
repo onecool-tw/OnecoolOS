@@ -6,6 +6,7 @@ from copy import deepcopy
 from typing import Any, Mapping
 
 from onecool_os.market.super_growth_quality import evaluate_super_growth_candidate
+from onecool_os.market.lynch_research import build_lynch_research
 
 
 INNOVATION_OPTION_EXEMPTIONS = {"TSLA", "SPCX"}
@@ -70,6 +71,7 @@ def apply_us_super_growth_quality_gate(
                 )
             else:
                 item["action_eligibility"] = "REJECTED_BY_QUALITY_GATE"
+        item["lynch_research"] = build_lynch_research(item, market="US")
         enriched.append(item)
     payload["top5"] = enriched
     payload["super_growth_quality_gate"] = {
@@ -81,5 +83,12 @@ def apply_us_super_growth_quality_gate(
         "existing_position_policy": "NO_AUTOMATIC_EXIT_OR_DOWNGRADE",
         "innovation_option_policy": "TSLA_AND_SPCX_EXEMPT",
         "canslim_role": "CONCEPTUAL_CROSSWALK_ONLY_NOT_AN_EXTRA_SCORE",
+    }
+    payload["lynch_research_layer"] = {
+        "framework": "PETER_LYNCH_COMPANY_TYPE_AND_STORY",
+        "scope": "DAILY_TOP5_RESEARCH_ANNOTATION_ONLY",
+        "ranking_policy": "ANNOTATE_ONLY; NEVER_REORDER_OR_RESCORE",
+        "action_policy": "NO_CTA_OR_ACTION_AUTHORITY",
+        "missing_evidence_policy": "UNCLASSIFIED_NEVER_INFERRED",
     }
     return payload

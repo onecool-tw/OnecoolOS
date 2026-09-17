@@ -23,7 +23,7 @@ CTA_FIELDS = ('symbol', 'as_of', 'cta', 'trend', 'state', 'update_status',
 STOCK_FIELDS = ('symbol', 'company_name', 'industry', 'score', 'pe', 'pb',
                 'price_as_of', 'fundamentals_as_of', 'monthly_revenue_as_of',
                 'price_basis', 'selection_status', 'action_eligibility',
-                'financial_quality')
+                'financial_quality', 'lynch_research')
 
 
 def unique(items):
@@ -128,4 +128,3 @@ if __name__ == '__main__':
     result = export_snapshot(args.root, args.check)
     print(json.dumps({'validated': True, 'screen_as_of': result['screen_as_of'],
                       'top5_count': len(result['top5'])}))
-
