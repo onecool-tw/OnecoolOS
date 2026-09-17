@@ -65,14 +65,14 @@ jobs:
           cache: pip
       - name: Install project
         run: pip install -e .
-      - name: Refresh official margin and volatility inputs
-        id: pressure_inputs
-        continue-on-error: true
-        run: python scripts/update_taiwan_market_pressure_inputs.py --attempts 5 --interval-seconds 120
       - name: Attempt official-data Taiwan stock screen refresh
         id: screen
         continue-on-error: true
         run: python scripts/update_taiwan_stock_screen.py
+      - name: Refresh official margin and volatility inputs
+        id: pressure_inputs
+        continue-on-error: true
+        run: python scripts/update_taiwan_market_pressure_inputs.py --attempts 5 --interval-seconds 120
       - name: Maintain background CTA for the full 200-stock universe
         id: cta
         continue-on-error: true
@@ -119,4 +119,3 @@ jobs:
         run: |
           echo "::error::Formal Taiwan refresh incomplete; retained source dates, not a current-day success."
           exit 1
-
