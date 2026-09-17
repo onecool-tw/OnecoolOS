@@ -165,9 +165,13 @@ Macro Confirmation。0050週線空頭時候選股只能觀察；0050週線多頭
 - 狀態必須明確區分：`VERIFIED`、`NOT_PUBLISHED`、
   `PUBLISHED_PARSE_FAILED`、`FETCH_FAILED`；不得把解析失敗誤寫成官方未發布，
   也不得把昨日值冒充今日值。
-- 18:00前使用TWSE官方JSON與TAIFEX官方統計頁固定端點自動重試。只有
-  `daily_context_latest.json.market_pressure_input_readiness.status=READY`，且融資融券、
-  波動率的 `as_of` 都是最近完成的正式台股交易日，才可建立最終版Email。
+- 18:00前使用TWSE官方JSON與TAIFEX官方統計頁／當日TXT下載固定端點自動重試。
+  波動率必須取當日TXT的 `Last 1 min AVG`，不得把列表頁的「下載」按鈕當成數值。
+- TWSE融資融券須待各授信機構傳輸完成後於晚間發布；18:00報告時允許使用「當時
+  最近已正式發布」的前一交易日資料，但必須標示真實 `as_of` 與
+  `official_lag_accepted=true`，不得冒充當日資料，也不得標成解析失敗。
+- 只有 `daily_context_latest.json.market_pressure_input_readiness.status=READY`，且波動率
+  為當日正式值、融資融券為當時最近可得正式值，才可建立最終版Email。
 - 未通過時照常回報本對話，明列缺項並停止新增曝險；Email暫停，不得寄送舊版、
   暫存版或把「未驗證」包裝成正常T+1。
 

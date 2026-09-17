@@ -9,19 +9,26 @@ from __future__ import annotations
 import json
 import re
 import time
-from datetime import UTC, date, datetime
+from datetime import UTC, date, datetime, time as wall_time, timedelta
 from html import unescape
 from pathlib import Path
 from typing import Any, Callable, Mapping
 from urllib.parse import urlencode
 from urllib.request import Request, urlopen
+from zoneinfo import ZoneInfo
 
 OUTPUT_PATH = Path(
     "data/market/taiwan_stock_intelligence/market_pressure_inputs_latest.json"
 )
 TWSE_MARGIN_URL = "https://www.twse.com.tw/rwd/zh/marginTrading/MI_MARGN"
 TAIFEX_VIX_URL = "https://www.taifex.com.tw/cht/7/vixMinNew"
+TAIFEX_VIX_DOWNLOAD_URL = "https://www.taifex.com.tw/cht/7/getVixData?filesname={date}"
 USER_AGENT = "OnecoolOS/1.0 official-market-data-validator"
+TAIPEI = ZoneInfo("Asia/Taipei")
+# TWSE states that the aggregate is published only after every credit institution
+# has finished transmitting its balances.  At the 18:00 report cutoff the latest
+# official value is normally the prior trading day's value.
+MARGIN_SAME_DAY_CUTOFF = wall_time(21, 30)
 
 
 def _number(value: Any) -> float | None:
@@ -122,8 +129,8 @@ def parse_twse_margin(payload: Mapping[str, Any], requested_as_of: str) -> dict[
     }
 
 
-def parse_taifex_vix(html: str, requested_as_of: str) -> dict[str, Any]:
-    """Extract the official VIX value, including values stored in input tags."""
+def parse_taifex_vix_listing(html: str, requested_as_of: str) -> dict[str, Any]:
+    """Verify that the official daily VIX download exists and return its key."""
 
     slash_date = requested_as_of.replace("-", "/")
     row_match = re.search(
@@ -139,32 +146,65 @@ def parse_taifex_vix(html: str, requested_as_of: str) -> dict[str, Any]:
         }
 
     row = row_match.group(0)
-    values = [
-        _number(unescape(value))
-        for value in re.findall(r"\bvalue\s*=\s*[\"']([^\"']+)[\"']", row, re.I)
-    ]
-    values = [value for value in values if value is not None and 0 < value < 200]
-    if not values:
-        text = re.sub(r"<[^>]+>", " ", row)
-        text = text.replace(slash_date, " ").replace(requested_as_of, " ")
-        candidates = [
-            _number(value)
-            for value in re.findall(r"(?<!\d)(\d{1,3}(?:\.\d+)?)", unescape(text))
-        ]
-        values = [value for value in candidates if value is not None and 0 < value < 200]
-    if not values:
+    compact_date = requested_as_of.replace("-", "")
+    file_match = re.search(r"getVixData\?filesname=(\d{8})", unescape(row), re.I)
+    if not file_match or file_match.group(1) != compact_date:
         return {
             "status": "PUBLISHED_PARSE_FAILED",
             "as_of": requested_as_of,
+            "file_date": None,
+            "error": "VIX_DOWNLOAD_KEY_NOT_PARSED",
+        }
+    return {
+        "status": "DOWNLOAD_AVAILABLE",
+        "as_of": requested_as_of,
+        "file_date": file_match.group(1),
+        "error": None,
+    }
+
+
+def parse_taifex_vix_download(raw: bytes | str, requested_as_of: str) -> dict[str, Any]:
+    """Parse TAIFEX's official intraday TXT and use its Last 1 min AVG row."""
+
+    if isinstance(raw, bytes):
+        for encoding in ("cp950", "big5", "utf-8-sig"):
+            try:
+                text = raw.decode(encoding)
+                break
+            except UnicodeDecodeError:
+                continue
+        else:
+            text = raw.decode("utf-8", errors="replace")
+    else:
+        text = raw
+    compact_date = requested_as_of.replace("-", "")
+    rows = [line.strip() for line in text.splitlines() if line.strip()]
+    matching = [line for line in rows if line.startswith(compact_date + "\t")]
+    average = [line for line in matching if "Last 1 min AVG" in line]
+    target = average[-1] if average else (matching[-1] if matching else "")
+    numbers = re.findall(r"(?<!\d)(\d{1,3}(?:\.\d+)?)(?!\d)", target)
+    values = [_number(value) for value in numbers]
+    values = [value for value in values if value is not None and 0 < value < 200]
+    if not values:
+        return {
+            "status": "PUBLISHED_PARSE_FAILED",
+            "as_of": requested_as_of if matching else None,
             "value": None,
-            "error": "VIX_VALUE_NOT_PARSED",
+            "error": "VIX_LAST_1_MIN_AVG_NOT_PARSED",
         }
     return {
         "status": "VERIFIED",
         "as_of": requested_as_of,
         "value": values[-1],
+        "value_basis": "LAST_1_MIN_AVG" if average else "LAST_PUBLISHED_OBSERVATION",
         "error": None,
     }
+
+
+def parse_taifex_vix(html: str, requested_as_of: str) -> dict[str, Any]:
+    """Backward-compatible listing parser; values live in the linked TXT file."""
+
+    return parse_taifex_vix_listing(html, requested_as_of)
 
 
 def _get_json(url: str, *, timeout: int = 30) -> dict[str, Any]:
@@ -179,25 +219,75 @@ def _get_text(url: str, *, timeout: int = 30) -> str:
         return response.read().decode("utf-8", errors="replace")
 
 
+def _get_bytes(url: str, *, timeout: int = 30) -> bytes:
+    request = Request(
+        url,
+        headers={"User-Agent": USER_AGENT, "Referer": TAIFEX_VIX_URL},
+    )
+    with urlopen(request, timeout=timeout) as response:
+        return response.read()
+
+
+def _margin_url(as_of: str) -> str:
+    return TWSE_MARGIN_URL + "?" + urlencode({
+        "date": as_of.replace("-", ""),
+        "selectType": "MS",
+        "response": "json",
+    })
+
+
+def _prior_official_margin(
+    requested_as_of: str,
+    get_json: Callable[[str], Mapping[str, Any]],
+) -> tuple[dict[str, Any], str] | None:
+    requested = date.fromisoformat(requested_as_of)
+    for days_back in range(1, 8):
+        candidate = (requested - timedelta(days=days_back)).isoformat()
+        parsed = parse_twse_margin(get_json(_margin_url(candidate)), candidate)
+        if parsed.get("status") == "VERIFIED":
+            return parsed, _margin_url(candidate)
+    return None
+
+
 def collect_once(
     requested_as_of: str,
     *,
     get_json: Callable[[str], Mapping[str, Any]] = _get_json,
     get_text: Callable[[str], str] = _get_text,
+    get_bytes: Callable[[str], bytes] = _get_bytes,
+    now_taipei: datetime | None = None,
 ) -> dict[str, dict[str, Any]]:
-    margin_url = TWSE_MARGIN_URL + "?" + urlencode({
-        "date": requested_as_of.replace("-", ""),
-        "selectType": "MS",
-        "response": "json",
-    })
+    margin_url = _margin_url(requested_as_of)
     try:
         margin = parse_twse_margin(get_json(margin_url), requested_as_of)
+        current_taipei = now_taipei or datetime.now(TAIPEI)
+        before_same_day_publication = (
+            current_taipei.date().isoformat() == requested_as_of
+            and current_taipei.time() < MARGIN_SAME_DAY_CUTOFF
+        )
+        if margin.get("status") == "NOT_PUBLISHED" and before_same_day_publication:
+            prior = _prior_official_margin(requested_as_of, get_json)
+            if prior:
+                margin, margin_url = prior
+                margin.update({
+                    "official_lag_accepted": True,
+                    "availability_basis": "LATEST_OFFICIAL_BEFORE_SAME_DAY_PUBLICATION",
+                    "requested_as_of": requested_as_of,
+                })
     except Exception as exc:  # network/provider failure is preserved, never guessed
         margin = {"status": "FETCH_FAILED", "as_of": None, "metrics": {}, "error": type(exc).__name__}
     margin["source_url"] = margin_url
 
     try:
-        volatility = parse_taifex_vix(get_text(TAIFEX_VIX_URL), requested_as_of)
+        listing = parse_taifex_vix_listing(get_text(TAIFEX_VIX_URL), requested_as_of)
+        if listing.get("status") == "DOWNLOAD_AVAILABLE":
+            file_date = str(listing["file_date"])
+            download_url = TAIFEX_VIX_DOWNLOAD_URL.format(date=file_date)
+            volatility = parse_taifex_vix_download(get_bytes(download_url), requested_as_of)
+            volatility["download_url"] = download_url
+        else:
+            volatility = listing
+            volatility.setdefault("value", None)
     except Exception as exc:
         volatility = {"status": "FETCH_FAILED", "as_of": None, "value": None, "error": type(exc).__name__}
     volatility["source_url"] = TAIFEX_VIX_URL
@@ -218,12 +308,18 @@ def collect_market_pressure_inputs(
     for attempt in range(1, attempts + 1):
         attempts_used = attempt
         sources = collector(requested_as_of)
-        if all(item.get("status") == "VERIFIED" for item in sources.values()):
+        if _sources_ready(sources, requested_as_of):
             break
         if attempt < attempts and interval_seconds:
             time.sleep(interval_seconds)
-    issues = [name + ":" + str(item.get("status")) for name, item in sources.items()
-              if item.get("status") != "VERIFIED" or item.get("as_of") != requested_as_of]
+    issues = []
+    for name, item in sources.items():
+        if item.get("status") != "VERIFIED":
+            issues.append(name + ":" + str(item.get("status")))
+        elif name == "volatility" and item.get("as_of") != requested_as_of:
+            issues.append(name + ":NOT_CURRENT")
+        elif name == "margin" and item.get("as_of") != requested_as_of and not item.get("official_lag_accepted"):
+            issues.append(name + ":NOT_CURRENT")
     return {
         "schema_version": "1.0",
         "module": "Onecool Taiwan Official Market Pressure Inputs",
@@ -235,6 +331,20 @@ def collect_market_pressure_inputs(
         "sources": sources,
         "authority": "OFFICIAL_INPUT_CACHE_ONLY_NO_PRESSURE_LIGHT_CALCULATION",
     }
+
+
+def _sources_ready(sources: Mapping[str, Mapping[str, Any]], requested_as_of: str) -> bool:
+    margin = sources.get("margin", {})
+    volatility = sources.get("volatility", {})
+    margin_ready = (
+        margin.get("status") == "VERIFIED"
+        and (margin.get("as_of") == requested_as_of or margin.get("official_lag_accepted") is True)
+    )
+    volatility_ready = (
+        volatility.get("status") == "VERIFIED"
+        and volatility.get("as_of") == requested_as_of
+    )
+    return margin_ready and volatility_ready
 
 
 def write_market_pressure_inputs(root: Path, payload: Mapping[str, Any]) -> Path:

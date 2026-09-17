@@ -123,13 +123,17 @@ def market_pressure_input_readiness(inputs, expected_as_of):
         status = item.get("status")
         if status != "VERIFIED":
             issues.append(name + "_" + str(status or "MISSING").lower())
-        if item.get("as_of") != expected_as_of:
+        official_margin_lag = name == "margin" and item.get("official_lag_accepted") is True
+        if item.get("as_of") != expected_as_of and not official_margin_lag:
             issues.append(name + "_not_current")
     return {
         "status": "READY" if not issues else "UPDATE_INCOMPLETE",
         "expected_as_of": expected_as_of,
         "issues": issues,
-        "consumer_rule": "FINAL_EMAIL_REQUIRES_READY; NEVER_RECOMPUTE_PRESSURE_LIGHT",
+        "consumer_rule": (
+            "FINAL_EMAIL_REQUIRES_READY; MARGIN_MAY_USE_VERIFIED_OFFICIAL_LAG_BEFORE_21:30; "
+            "NEVER_RECOMPUTE_PRESSURE_LIGHT"
+        ),
     }
 
 def report_readiness(screen, stock_cta, dashboard, expected_as_of):
@@ -331,4 +335,3 @@ def _individual_action_eligibility(
     if item.get("update_status") != "CURRENT":
         return "WATCH_ONLY_INDIVIDUAL_CTA_STALE"
     return str(item.get("action", "WATCH_ONLY_INDIVIDUAL_CTA_UNKNOWN"))
-
