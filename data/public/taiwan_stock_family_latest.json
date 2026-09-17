@@ -12,32 +12,32 @@
   "sources": {
     "dashboard": {
       "path": "data/market/dashboard/dashboard_latest.json",
-      "sha256": "27a61c50a7fc29e60a3c120cf35e7596a774ea0f5cf46f3b21fd78e229fe9136"
+      "sha256": "abbc401bbda2fd697cc70a35d4b9e28bb12cbbc43b01345a71eed2ca7c2c9f68"
     },
     "screen": {
       "path": "data/market/taiwan_stock_intelligence/screen_latest.json",
-      "sha256": "566875c083847f3fbd5e709c2053ec9d58a64136daa8845ce0b32e74b23a985c"
+      "sha256": "e68b8fb10cfb082ca3c8297c5d9e16d1a2f31f25ced248b304d2ee15c986d320"
     },
     "cta": {
       "path": "data/market/taiwan_stock_intelligence/cta/cta_latest.json",
-      "sha256": "6da3badb6111270a650481a7e2b27666fcee59100005e4414918b81799a2c30e"
+      "sha256": "82bfb8487d3f60149c48b3fbf1a76465d4338bc812dce46f509030469f0926b7"
     },
     "context": {
       "path": "data/market/taiwan_stock_intelligence/daily_context_latest.json",
-      "sha256": "6564781656794b17b70415109858025e72ce1c9b03d7009758c9b33297c7852e"
+      "sha256": "f3320bae0c4f445c16264b67a781ae8c76129fb1c32d017328230da0558757d7"
     }
   },
   "source_generated_at": {
-    "dashboard": "2026-09-16T14:16:26.859172+00:00",
+    "dashboard": "2026-09-17T05:05:31.611171+00:00",
     "screen": null,
-    "cta": "2026-09-16T14:18:36.370477+00:00",
-    "context": "2026-09-16T14:18:41.568492+00:00"
+    "cta": "2026-09-17T05:06:56.334638+00:00",
+    "context": "2026-09-17T05:08:08.895752+00:00"
   },
   "screen_as_of": "2026-09-16",
   "display_status": "CURRENT",
   "report_readiness": {
-    "status": "READY",
-    "expected_as_of": "2026-09-16",
+    "status": "UPDATE_INCOMPLETE",
+    "expected_as_of": "2026-09-17",
     "screen_as_of": "2026-09-16",
     "taiwan_cta_dates": {
       "0050": "2026-09-16",
@@ -48,7 +48,21 @@
       "2382": "2026-09-16",
       "2408": "2026-09-16"
     },
-    "issues": [],
+    "issues": [
+      "screen_not_current",
+      "dashboard_0050_not_current",
+      "dashboard_2330_not_current",
+      "6669_price_not_current",
+      "6669_cta_not_current",
+      "3006_price_not_current",
+      "3006_cta_not_current",
+      "3036_price_not_current",
+      "3036_cta_not_current",
+      "2382_price_not_current",
+      "2382_cta_not_current",
+      "2408_price_not_current",
+      "2408_cta_not_current"
+    ],
     "scope": "TAIWAN_PRICE_VALUATION_AND_CTA_ONLY",
     "consumer_rule": "INCOMPLETE_MEANS_NO_NEW_EXPOSURE_AND_NO_UNCHANGED_RANKING_CLAIM",
     "asia_and_margin_policy": "KEEP_ACTUAL_LOCAL_SOURCE_DATES"
@@ -133,7 +147,7 @@
         "status": "REVIEW",
         "label": "需留意",
         "as_of": "2026Q2",
-        "observed_at": "2026-09-16T05:05:46.777532+00:00",
+        "observed_at": "2026-09-17T05:07:01.279504+00:00",
         "source_url": "https://mopsov.twse.com.tw/server-java/t164sb01?step=1&CO_ID=6669&SYEAR=2026&SSEASON=2&REPORT_ID=C",
         "source_sha256": "46c5a07d7e9e4429f043710768ca5e33e630bfa4e60f2cb95cdb5a6c87599811",
         "scope": "CONSOLIDATED_THREE_STATEMENTS",
@@ -312,7 +326,7 @@
       "symbol": "3006",
       "company_name": "晶豪科",
       "industry": "半導體業",
-      "score": 93.51,
+      "score": 93.43,
       "pe": 8.86,
       "pb": 4.21,
       "price_as_of": "2026-09-16",
@@ -326,7 +340,7 @@
         "status": "NORMAL",
         "label": "正常",
         "as_of": "2026Q2",
-        "observed_at": "2026-09-16T05:05:46.777532+00:00",
+        "observed_at": "2026-09-17T05:07:01.279504+00:00",
         "source_url": "https://mopsov.twse.com.tw/server-java/t164sb01?step=1&CO_ID=3006&SYEAR=2026&SSEASON=2&REPORT_ID=C",
         "source_sha256": "cc403f689c719b486a97f8ea03fc0d5225f45eb1e6fb7010bfb205ca8466d068",
         "scope": "CONSOLIDATED_THREE_STATEMENTS",
@@ -501,7 +515,7 @@
       "symbol": "3036",
       "company_name": "文曄",
       "industry": "電子通路業",
-      "score": 92.68,
+      "score": 92.43,
       "pe": 9.8,
       "pb": 1.95,
       "price_as_of": "2026-09-16",
@@ -515,7 +529,7 @@
         "status": "REVIEW",
         "label": "需留意",
         "as_of": "2026Q2",
-        "observed_at": "2026-09-16T05:05:46.777532+00:00",
+        "observed_at": "2026-09-17T05:07:01.279504+00:00",
         "source_url": "https://mopsov.twse.com.tw/server-java/t164sb01?step=1&CO_ID=3036&SYEAR=2026&SSEASON=2&REPORT_ID=C",
         "source_sha256": "72a6fd9165fc3fa57e1cfebc6addad202335da1fc5fb53e9a4ba404bab336d4d",
         "scope": "CONSOLIDATED_THREE_STATEMENTS",
@@ -899,7 +913,7 @@
         "status": "NORMAL",
         "label": "正常",
         "as_of": "2026Q2",
-        "observed_at": "2026-09-16T05:05:46.777532+00:00",
+        "observed_at": "2026-09-17T05:07:01.279504+00:00",
         "source_url": "https://mopsov.twse.com.tw/server-java/t164sb01?step=1&CO_ID=2408&SYEAR=2026&SSEASON=2&REPORT_ID=C",
         "source_sha256": "bb0ce99f39a30e80e0328d5bd6fbb90cc076e8e45dee924de8be263b81e683c4",
         "scope": "CONSOLIDATED_THREE_STATEMENTS",
