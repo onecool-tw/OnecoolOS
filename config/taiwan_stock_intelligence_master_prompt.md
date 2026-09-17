@@ -165,7 +165,7 @@ Macro Confirmation。0050週線空頭時候選股只能觀察；0050週線多頭
 - 狀態必須明確區分：`VERIFIED`、`NOT_PUBLISHED`、
   `PUBLISHED_PARSE_FAILED`、`FETCH_FAILED`；不得把解析失敗誤寫成官方未發布，
   也不得把昨日值冒充今日值。
-- 18:00前使用正式下載來源自動重試。只有
+- 18:00前使用TWSE官方JSON與TAIFEX官方統計頁固定端點自動重試。只有
   `daily_context_latest.json.market_pressure_input_readiness.status=READY`，且融資融券、
   波動率的 `as_of` 都是最近完成的正式台股交易日，才可建立最終版Email。
 - 未通過時照常回報本對話，明列缺項並停止新增曝險；Email暫停，不得寄送舊版、
@@ -189,4 +189,3 @@ Macro Confirmation。0050週線空頭時候選股只能觀察；0050週線多頭
 - 快取按公司及季度最多沿用24小時；季別改變重抓，保留來源URL、內容雜湊、
   各項原始金額與觀測時間。觀測时间不等於首次公告日，禁止用於時點回測。
 - 財報提示只作研究附註，不改分數、Top 5名單、CTA、市場壓力或行動。
-
