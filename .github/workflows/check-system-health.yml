@@ -12,6 +12,7 @@ on:
       - "data/operations/report_delivery/**"
       - "onecool_os/health/**"
       - "scripts/check_system_health.py"
+      - "scripts/check_health_gate_window.py"
       - "scripts/publish_system_health.sh"
   workflow_dispatch:
     inputs:
@@ -122,8 +123,19 @@ jobs:
         if: steps.mode.outputs.phase == 'verify'
         shell: bash
         run: bash scripts/publish_system_health.sh "${{ steps.mode.outputs.scope }}"
+      - name: Resolve producer audit gate window
+        id: gate_window
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          PRODUCER_NAME: ${{ github.event.workflow_run.name }}
+          PRODUCER_CONCLUSION: ${{ github.event.workflow_run.conclusion }}
+        run: python scripts/check_health_gate_window.py
+      - name: Note pending Taiwan data before recovery window
+        if: steps.gate_window.outputs.enforce == 'false' && steps.publish.outputs.scope_status == 'BLOCKED'
+        run: |
+          echo "::warning::Taiwan data is not ready. This successful producer audit is before 16:30 Taipei; scheduled recovery and final verification remain enabled."
       - name: Fail only after recovery remains blocked
-        if: steps.mode.outputs.phase == 'verify' && github.event_name != 'push' && steps.publish.outputs.scope_status == 'BLOCKED'
+        if: steps.mode.outputs.phase == 'verify' && github.event_name != 'push' && steps.gate_window.outputs.enforce == 'true' && steps.publish.outputs.scope_status == 'BLOCKED'
         run: |
           echo "${{ steps.mode.outputs.scope }} health remains BLOCKED after the recovery window." >&2
           exit 1
