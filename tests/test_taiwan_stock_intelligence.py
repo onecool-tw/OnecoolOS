@@ -63,6 +63,11 @@ def test_current_candidates_require_cta_and_green_pressure(tmp_path):
     assert payload["top5"][0]["action_eligibility"] == (
         "ELIGIBLE_IF_0050_BULLISH_AND_PRESSURE_GREEN"
     )
+    assert payload["top5"][0]["score"] == 90
+    research = payload["top5"][0]["lynch_research"]
+    assert research["company_type"]["primary"] == "UNCLASSIFIED"
+    assert research["policy"]["ranking_effect"] == "NONE"
+    assert payload["optional_lynch_research"]["authority"] == "NONE"
     assert payload["top5"][0]["individual_cta"]["state"] == (
         "WEEKLY_BULLISH_DAILY_BULLISH"
     )

@@ -1,6 +1,6 @@
 # Onecool 美股個股系統｜每日報告規則
 
-版本：v1.3 US Super Growth Quality Gate
+版本：v1.4 US Lynch Research Layer
 資料來源：`data/market/dashboard/dashboard_latest.json`  
 排程：台北時間週二至週六 10:30
 
@@ -75,6 +75,18 @@ Daily Top 5技術排名完成後，所有「新候選」必須再讀取
 既有BABA、XYZ、QRVO、RH、UPBD部位不因品質分級自動賣出；仍依既有CTA與投資邏輯管理。
 CAN SLIM只作概念對照，不另加一層分數：C/A為盈餘與營收成長，N/L為創新與領導地位，
 S/I為供需與法人證據，M由美股大盤CTA負責。
+
+## 彼得・林區研究層
+
+Daily Top 5在品質閘門完成後可附加`lynch_research`，用來記錄六類公司候選分類、
+具來源的投資故事證據及故事失效覆核條件。只有結構成長與財務品質都有具日期、
+理由和來源的證據時，才可標為快速成長候選；循環產業只標示週期覆核需求。
+證據不足必須維持`UNCLASSIFIED`，不得由CAN SLIM、Minervini分數、股價上漲或
+熱門產品推測公司類型。
+
+林區研究層只作公司理解：不計分、不改原始技術排名、不改品質A／B／C、
+不改CTA或行動資格。日常觀察只能產生研究線索；每日報告不必固定顯示，只有
+個股深度研究或公司類型／投資故事實質改變時才顯示。
 
 ## TSLA／SPCX特有CTA規則
 

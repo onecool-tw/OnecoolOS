@@ -1,6 +1,6 @@
 # Onecool Taiwan Stock Intelligence — Screening Contract
 
-版本：v1.5 Taiwan Broad Screen with Verified Pressure Inputs
+版本：v1.6 Taiwan Lynch Research Layer
 正式篩選檔：`data/market/taiwan_stock_intelligence/screen_latest.json`
 正式個股CTA快取：`data/market/taiwan_stock_intelligence/cta/cta_latest.json`
 正式日報上下文：`data/market/taiwan_stock_intelligence/daily_context_latest.json`
@@ -141,7 +141,20 @@ Macro Confirmation。0050週線空頭時候選股只能觀察；0050週線多頭
 
 林子揚超級成長股／CAN SLIM對照只可在使用者要求個股深度研究時作為附註，
 不屬於台股每日自動篩選條件，也不得升級、降級或否決候選股。台股正式行動仍只依
-原有量化候選池、0050週線、個股CTA與市場壓力燈；不得因美股式品質證據難以取得，n把候選股自動標成不合格。
+原有量化候選池、0050週線、個股CTA與市場壓力燈；不得因美股式品質證據難以取得，
+把候選股自動標成不合格。
+
+## 彼得・林區研究層
+
+- Top 5可讀取`lynch_research`作為公司理解附註，包括六類公司候選分類、
+  可驗證的投資故事證據，以及故事失效覆核條件。
+- 公司類型只允許`SLOW_GROWER`、`STALWART`、`FAST_GROWER`、`CYCLICAL`、
+  `TURNAROUND`、`ASSET_PLAY`；單期資料只能標示`PROVISIONAL`，證據不足必須
+  維持`UNCLASSIFIED`，不得為了填欄位而猜測。
+- 日常生活、產品熱度或消費觀察只能建立研究線索，必須經公司及財報證據確認。
+- 林區研究層不計分、不重排Top 5、不改CTA、市場壓力燈或行動資格。
+- 每日報告不必增加固定欄位；只有個股深度研究或公司類型／投資故事發生
+  實質變化時才顯示。
 
 ## 18:00 報告資料完成檢核
 
