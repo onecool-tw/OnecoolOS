@@ -84,8 +84,16 @@ def test_ai_review_is_partial_manual_issue_not_failed_schedule(tmp_path: Path) -
     report = build_health_report(tmp_path, now=NOW)
 
     assert report["status"] == PARTIAL
-    assert report["scope_status"]["weekly"] == PARTIAL
-    assert _module(report, "ai_revolution")["retryable"] is False
+    # A noncritical AI review remains visible without blocking weekly delivery.
+    assert report["scope_status"]["weekly"] == READY
+    ai = _module(report, "ai_revolution")
+    assert ai["status"] == PARTIAL
+    assert ai["critical"] is False
+    assert ai["retryable"] is False
+    assert ai["recovery_workflow"] is None
+    assert ai in report["issues"]
+    assert ai["reason"] == "official evidence requires manual review"
+    assert report["action_readiness"] == "LIMITED"
     assert report["recovery_workflows"] == []
 
 
@@ -204,3 +212,24 @@ def test_history_wait_identifies_symbol_and_keeps_partial_gate(tmp_path):
     assert item["retryable"] is False
     assert item["critical"] is False
     assert build_health_report(tmp_path, now=NOW)["scope_status"]["asia"] == READY
+
+
+def test_critical_weekly_validation_failure_still_blocks_with_ai_review(tmp_path):
+    _seed_ready(tmp_path)
+    _write(tmp_path, "data/market/ai_revolution/ai_revolution_latest.json", {
+        "generated_at": "2026-08-30T02:00:00+00:00",
+        "cache_status": "VALID",
+        "review_required": True,
+    })
+    _write(tmp_path, "data/market/fund_intelligence/validation_latest.json", {
+        "generated_at": "2026-08-30T02:00:00+00:00",
+        "status": "FAIL",
+    })
+
+    report = build_health_report(tmp_path, now=NOW)
+
+    assert report["status"] == BLOCKED
+    assert report["scope_status"]["weekly"] == BLOCKED
+    assert _module(report, "fund_validation")["critical"] is True
+    assert _module(report, "ai_revolution") in report["issues"]
+    assert report["recovery_workflows"] == ["update-fund-weekly-analytics.yml"]
