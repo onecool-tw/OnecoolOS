@@ -1,10 +1,10 @@
 {
   "schema_version": "1.9",
   "module": "Onecool Market Dashboard",
-  "generated_at": "2026-09-18T08:13:25.408609+00:00",
+  "generated_at": "2026-09-18T08:19:02.365036+00:00",
   "expected_as_of": "2026-09-17",
   "data_status": "READY",
-  "last_successful_update_at": "2026-09-18T08:13:25.408609+00:00",
+  "last_successful_update_at": "2026-09-18T08:19:02.365036+00:00",
   "index_cta_basis": {
     "method": "ETF/index proxies; shared CTA engine",
     "mappings": {
@@ -794,9 +794,9 @@
       "market": "CONTEXT",
       "theme": "crypto_risk_appetite",
       "as_of": "2026-09-18",
-      "current_price": 77698.703125,
-      "sma50": 72408.646953,
-      "sma200": 70381.44082,
+      "current_price": 77794.3125,
+      "sma50": 72410.559141,
+      "sma200": 70381.918867,
       "weekly_ma30": 69989.580599,
       "weekly_ma50": 79635.176953,
       "trend": "MIXED",
@@ -809,7 +809,7 @@
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2026-09-08",
         "periods_since_cross": 10,
-        "spread_pct": 2.880313,
+        "spread_pct": 2.882332,
         "phase": "ACTIVE"
       },
       "weekly_cross": {
@@ -1014,32 +1014,41 @@
         "status": "WAIT",
         "trigger": "突破52週高點且成交量至少為50日均量1.5倍",
         "formal_breakout": false,
-        "super_growth_bucket": "C",
-        "super_growth_reason": "CYCLICAL_OR_UNPROVEN_GROWTH",
+        "super_growth_bucket": "B",
+        "super_growth_reason": "QUALITY_BUT_VALUATION_GATED",
         "quality_gate_status": {
           "competitive_advantage": {
-            "status": "UNKNOWN",
-            "as_of": null,
-            "rationale": null,
-            "sources": []
+            "status": "PASS",
+            "as_of": "2026-09-01",
+            "rationale": "AI伺服器訂單達609億美元、期末積壓950億美元，且伺服器、儲存與商用PC均成長，顯示企業通路、供應鏈整合與產品廣度具可驗證優勢。",
+            "sources": [
+              "https://investors.delltechnologies.com/news-releases/news-release-details/dell-technologies-delivers-second-quarter-fiscal-2027-financial"
+            ]
           },
           "structural_growth_runway": {
-            "status": "UNKNOWN",
-            "as_of": null,
-            "rationale": null,
-            "sources": []
+            "status": "PASS",
+            "as_of": "2026-09-01",
+            "rationale": "公司把FY27營收指引上調至1,920億美元，AI伺服器全年收入指引740億美元；目前積壓訂單支持中期續航，但仍須監測AI資本支出循環。",
+            "sources": [
+              "https://investors.delltechnologies.com/news-releases/news-release-details/dell-technologies-delivers-second-quarter-fiscal-2027-financial"
+            ]
           },
           "financial_quality": {
-            "status": "UNKNOWN",
-            "as_of": null,
-            "rationale": null,
-            "sources": []
+            "status": "PASS",
+            "as_of": "2026-09-01",
+            "rationale": "季度營收年增58%、營業利益年增204%、營運現金流22億美元、調整後自由現金流81億美元，獲利與現金流同向改善。",
+            "sources": [
+              "https://investors.delltechnologies.com/news-releases/news-release-details/dell-technologies-delivers-second-quarter-fiscal-2027-financial"
+            ]
           },
           "business_risk_and_governance": {
-            "status": "UNKNOWN",
-            "as_of": null,
-            "rationale": null,
-            "sources": []
+            "status": "PASS",
+            "as_of": "2026-09-01",
+            "rationale": "公司揭露供應商集中、AI需求、競爭、資安與負債等主要風險；最新財報材料未出現足以否決候選資格的治理或持續經營事件，仍須持續監測供應鏈與AI需求集中。",
+            "sources": [
+              "https://investors.delltechnologies.com/news-releases/news-release-details/dell-technologies-delivers-second-quarter-fiscal-2027-financial",
+              "https://www.sec.gov/edgar/browse/?CIK=1571996&owner=exclude"
+            ]
           },
           "circle_of_competence": {
             "status": "UNKNOWN",
@@ -1054,43 +1063,87 @@
             "sources": []
           }
         },
-        "evidence_coverage": "NONE",
+        "evidence_coverage": "PARTIAL",
         "missing_evidence": [
-          "competitive_advantage",
-          "structural_growth_runway",
-          "financial_quality",
-          "business_risk_and_governance",
           "circle_of_competence",
           "valuation"
         ],
         "cyclical_review_required": false,
-        "evidence_as_of": null,
+        "evidence_as_of": "2026-09-17",
         "manual_confirmation_required": [
           "circle_of_competence"
         ],
         "circle_of_competence_policy": "PRE_TRADE_USER_CONFIRMATION_NOT_DAILY_RESEARCH_BLOCKER",
         "decision_authority": "RESEARCH_QUALITY_ONLY",
         "quality_gate_application": "FORMAL_NEW_CANDIDATE_RESEARCH_GATE",
-        "action_eligibility": "RESEARCH_ONLY_QUALITY_EVIDENCE_INCOMPLETE",
+        "action_eligibility": "RESEARCH_ONLY_VALUATION_GATED",
         "lynch_research": {
           "version": "onecool_lynch_research_v1",
           "company_type": {
-            "status": "INSUFFICIENT_EVIDENCE",
-            "primary": "UNCLASSIFIED",
-            "candidates": [],
-            "evidence": [],
+            "status": "PROVISIONAL",
+            "primary": "FAST_GROWER",
+            "candidates": [
+              "FAST_GROWER"
+            ],
+            "evidence": [
+              {
+                "field": "verified_quality_gates",
+                "value": [
+                  "structural_growth_runway",
+                  "financial_quality"
+                ],
+                "interpretation": "FAST_GROWTH_CANDIDATE_NOT_DURABILITY_PROOF"
+              }
+            ],
             "unresolved_categories": [
               "SLOW_GROWER",
               "STALWART",
-              "FAST_GROWER",
               "CYCLICAL",
               "TURNAROUND",
               "ASSET_PLAY"
             ]
           },
           "investment_story": {
-            "status": "INSUFFICIENT_EVIDENCE",
-            "evidence": [],
+            "status": "EVIDENCE_ONLY",
+            "evidence": [
+              {
+                "field": "competitive_advantage",
+                "value": "PASS",
+                "as_of": "2026-09-01",
+                "rationale": "AI伺服器訂單達609億美元、期末積壓950億美元，且伺服器、儲存與商用PC均成長，顯示企業通路、供應鏈整合與產品廣度具可驗證優勢。",
+                "sources": [
+                  "https://investors.delltechnologies.com/news-releases/news-release-details/dell-technologies-delivers-second-quarter-fiscal-2027-financial"
+                ]
+              },
+              {
+                "field": "structural_growth_runway",
+                "value": "PASS",
+                "as_of": "2026-09-01",
+                "rationale": "公司把FY27營收指引上調至1,920億美元，AI伺服器全年收入指引740億美元；目前積壓訂單支持中期續航，但仍須監測AI資本支出循環。",
+                "sources": [
+                  "https://investors.delltechnologies.com/news-releases/news-release-details/dell-technologies-delivers-second-quarter-fiscal-2027-financial"
+                ]
+              },
+              {
+                "field": "financial_quality",
+                "value": "PASS",
+                "as_of": "2026-09-01",
+                "rationale": "季度營收年增58%、營業利益年增204%、營運現金流22億美元、調整後自由現金流81億美元，獲利與現金流同向改善。",
+                "sources": [
+                  "https://investors.delltechnologies.com/news-releases/news-release-details/dell-technologies-delivers-second-quarter-fiscal-2027-financial"
+                ]
+              },
+              {
+                "field": "business_risk_and_governance",
+                "value": "PASS",
+                "as_of": "2026-09-01",
+                "rationale": "公司揭露供應商集中、AI需求、競爭、資安與負債等主要風險；最新財報材料未出現足以否決候選資格的治理或持續經營事件，仍須持續監測供應鏈與AI需求集中。",
+                "sources": [
+                  "https://investors.delltechnologies.com/news-releases/news-release-details/dell-technologies-delivers-second-quarter-fiscal-2027-financial",
+                  "https://www.sec.gov/edgar/browse/?CIK=1571996&owner=exclude"
+                ]
+              }
+            ],
             "required_manual_confirmation": [
               "BUSINESS_DRIVER",
               "DURABILITY",
@@ -1151,32 +1204,41 @@
         "status": "WAIT",
         "trigger": "突破52週高點且成交量至少為50日均量1.5倍",
         "formal_breakout": false,
-        "super_growth_bucket": "C",
-        "super_growth_reason": "CYCLICAL_OR_UNPROVEN_GROWTH",
+        "super_growth_bucket": "B",
+        "super_growth_reason": "QUALITY_BUT_VALUATION_GATED",
         "quality_gate_status": {
           "competitive_advantage": {
-            "status": "UNKNOWN",
-            "as_of": null,
-            "rationale": null,
-            "sources": []
+            "status": "PASS",
+            "as_of": "2026-07-31",
+            "rationale": "Skyrizi與Rinvoq季度收入均約年增24%，神經科學組合年增20.3%，多個治療領域與研發管線降低單一產品依賴。",
+            "sources": [
+              "https://news.abbvie.com/2026-07-31-AbbVie-Reports-Second-Quarter-2026-Financial-Results"
+            ]
           },
           "structural_growth_runway": {
-            "status": "UNKNOWN",
-            "as_of": null,
-            "rationale": null,
-            "sources": []
+            "status": "PASS",
+            "as_of": "2026-07-31",
+            "rationale": "免疫學與神經科學核心產品維持雙位數成長，並透過Apogee交易補強後期免疫學管線，支持Humira專利後的成長接續。",
+            "sources": [
+              "https://news.abbvie.com/2026-07-31-AbbVie-Reports-Second-Quarter-2026-Financial-Results"
+            ]
           },
           "financial_quality": {
-            "status": "UNKNOWN",
-            "as_of": null,
-            "rationale": null,
-            "sources": []
+            "status": "PASS",
+            "as_of": "2026-07-31",
+            "rationale": "季度營收169.9億美元年增10.2%，調整後EPS年增22.9%，調整後營業利益率48.3%；成長與獲利能力均獲官方財報支持。",
+            "sources": [
+              "https://news.abbvie.com/2026-07-31-AbbVie-Reports-Second-Quarter-2026-Financial-Results"
+            ]
           },
           "business_risk_and_governance": {
-            "status": "UNKNOWN",
-            "as_of": null,
-            "rationale": null,
-            "sources": []
+            "status": "PASS",
+            "as_of": "2026-07-31",
+            "rationale": "Humira收入年減35.9%、109億美元Apogee收購與IPR&D支出是明確風險，但目前由Skyrizi、Rinvoq及神經科學成長抵銷；未見足以否決候選資格的治理事件。",
+            "sources": [
+              "https://news.abbvie.com/2026-07-31-AbbVie-Reports-Second-Quarter-2026-Financial-Results",
+              "https://www.sec.gov/edgar/browse/?CIK=1551152&owner=exclude"
+            ]
           },
           "circle_of_competence": {
             "status": "UNKNOWN",
@@ -1191,43 +1253,87 @@
             "sources": []
           }
         },
-        "evidence_coverage": "NONE",
+        "evidence_coverage": "PARTIAL",
         "missing_evidence": [
-          "competitive_advantage",
-          "structural_growth_runway",
-          "financial_quality",
-          "business_risk_and_governance",
           "circle_of_competence",
           "valuation"
         ],
         "cyclical_review_required": false,
-        "evidence_as_of": null,
+        "evidence_as_of": "2026-09-17",
         "manual_confirmation_required": [
           "circle_of_competence"
         ],
         "circle_of_competence_policy": "PRE_TRADE_USER_CONFIRMATION_NOT_DAILY_RESEARCH_BLOCKER",
         "decision_authority": "RESEARCH_QUALITY_ONLY",
         "quality_gate_application": "FORMAL_NEW_CANDIDATE_RESEARCH_GATE",
-        "action_eligibility": "RESEARCH_ONLY_QUALITY_EVIDENCE_INCOMPLETE",
+        "action_eligibility": "RESEARCH_ONLY_VALUATION_GATED",
         "lynch_research": {
           "version": "onecool_lynch_research_v1",
           "company_type": {
-            "status": "INSUFFICIENT_EVIDENCE",
-            "primary": "UNCLASSIFIED",
-            "candidates": [],
-            "evidence": [],
+            "status": "PROVISIONAL",
+            "primary": "FAST_GROWER",
+            "candidates": [
+              "FAST_GROWER"
+            ],
+            "evidence": [
+              {
+                "field": "verified_quality_gates",
+                "value": [
+                  "structural_growth_runway",
+                  "financial_quality"
+                ],
+                "interpretation": "FAST_GROWTH_CANDIDATE_NOT_DURABILITY_PROOF"
+              }
+            ],
             "unresolved_categories": [
               "SLOW_GROWER",
               "STALWART",
-              "FAST_GROWER",
               "CYCLICAL",
               "TURNAROUND",
               "ASSET_PLAY"
             ]
           },
           "investment_story": {
-            "status": "INSUFFICIENT_EVIDENCE",
-            "evidence": [],
+            "status": "EVIDENCE_ONLY",
+            "evidence": [
+              {
+                "field": "competitive_advantage",
+                "value": "PASS",
+                "as_of": "2026-07-31",
+                "rationale": "Skyrizi與Rinvoq季度收入均約年增24%，神經科學組合年增20.3%，多個治療領域與研發管線降低單一產品依賴。",
+                "sources": [
+                  "https://news.abbvie.com/2026-07-31-AbbVie-Reports-Second-Quarter-2026-Financial-Results"
+                ]
+              },
+              {
+                "field": "structural_growth_runway",
+                "value": "PASS",
+                "as_of": "2026-07-31",
+                "rationale": "免疫學與神經科學核心產品維持雙位數成長，並透過Apogee交易補強後期免疫學管線，支持Humira專利後的成長接續。",
+                "sources": [
+                  "https://news.abbvie.com/2026-07-31-AbbVie-Reports-Second-Quarter-2026-Financial-Results"
+                ]
+              },
+              {
+                "field": "financial_quality",
+                "value": "PASS",
+                "as_of": "2026-07-31",
+                "rationale": "季度營收169.9億美元年增10.2%，調整後EPS年增22.9%，調整後營業利益率48.3%；成長與獲利能力均獲官方財報支持。",
+                "sources": [
+                  "https://news.abbvie.com/2026-07-31-AbbVie-Reports-Second-Quarter-2026-Financial-Results"
+                ]
+              },
+              {
+                "field": "business_risk_and_governance",
+                "value": "PASS",
+                "as_of": "2026-07-31",
+                "rationale": "Humira收入年減35.9%、109億美元Apogee收購與IPR&D支出是明確風險，但目前由Skyrizi、Rinvoq及神經科學成長抵銷；未見足以否決候選資格的治理事件。",
+                "sources": [
+                  "https://news.abbvie.com/2026-07-31-AbbVie-Reports-Second-Quarter-2026-Financial-Results",
+                  "https://www.sec.gov/edgar/browse/?CIK=1551152&owner=exclude"
+                ]
+              }
+            ],
             "required_manual_confirmation": [
               "BUSINESS_DRIVER",
               "DURABILITY",
@@ -1288,32 +1394,41 @@
         "status": "WAIT",
         "trigger": "突破52週高點且成交量至少為50日均量1.5倍",
         "formal_breakout": false,
-        "super_growth_bucket": "C",
-        "super_growth_reason": "CYCLICAL_OR_UNPROVEN_GROWTH",
+        "super_growth_bucket": "B",
+        "super_growth_reason": "QUALITY_BUT_VALUATION_GATED",
         "quality_gate_status": {
           "competitive_advantage": {
-            "status": "UNKNOWN",
-            "as_of": null,
-            "rationale": null,
-            "sources": []
+            "status": "PASS",
+            "as_of": "2026-07-30",
+            "rationale": "活躍裝置安裝基礎創新高，iPhone、Mac與Services均創六月季紀錄；硬體、軟體與服務生態系形成可驗證的黏著與交叉銷售優勢。",
+            "sources": [
+              "https://www.apple.com/newsroom/2026/07/apple-reports-third-quarter-results/"
+            ]
           },
           "structural_growth_runway": {
-            "status": "UNKNOWN",
-            "as_of": null,
-            "rationale": null,
-            "sources": []
+            "status": "PASS",
+            "as_of": "2026-07-30",
+            "rationale": "季度營收年增16%，iPhone、Mac與Services均雙位數成長，且各地區皆成長；AI功能與服務擴張提供續航，但仍須觀察競爭與監管。",
+            "sources": [
+              "https://www.apple.com/newsroom/2026/07/apple-reports-third-quarter-results/"
+            ]
           },
           "financial_quality": {
-            "status": "UNKNOWN",
-            "as_of": null,
-            "rationale": null,
-            "sources": []
+            "status": "PASS",
+            "as_of": "2026-07-30",
+            "rationale": "季度營收1,094億美元、EPS年增29%，毛利率50.1%，營運現金流創六月季新高；獲利與現金產生能力強。",
+            "sources": [
+              "https://www.apple.com/newsroom/2026/07/apple-reports-third-quarter-results/"
+            ]
           },
           "business_risk_and_governance": {
-            "status": "UNKNOWN",
-            "as_of": null,
-            "rationale": null,
-            "sources": []
+            "status": "PASS",
+            "as_of": "2026-07-30",
+            "rationale": "公司明列第三方供應鏈、快速技術變化、資料安全、訴訟與監管風險；最新公開材料未出現足以否決候選資格的治理或持續經營事件。",
+            "sources": [
+              "https://www.apple.com/newsroom/2026/07/apple-reports-third-quarter-results/",
+              "https://www.sec.gov/edgar/browse/?CIK=320193&owner=exclude"
+            ]
           },
           "circle_of_competence": {
             "status": "UNKNOWN",
@@ -1328,43 +1443,87 @@
             "sources": []
           }
         },
-        "evidence_coverage": "NONE",
+        "evidence_coverage": "PARTIAL",
         "missing_evidence": [
-          "competitive_advantage",
-          "structural_growth_runway",
-          "financial_quality",
-          "business_risk_and_governance",
           "circle_of_competence",
           "valuation"
         ],
         "cyclical_review_required": false,
-        "evidence_as_of": null,
+        "evidence_as_of": "2026-09-17",
         "manual_confirmation_required": [
           "circle_of_competence"
         ],
         "circle_of_competence_policy": "PRE_TRADE_USER_CONFIRMATION_NOT_DAILY_RESEARCH_BLOCKER",
         "decision_authority": "RESEARCH_QUALITY_ONLY",
         "quality_gate_application": "FORMAL_NEW_CANDIDATE_RESEARCH_GATE",
-        "action_eligibility": "RESEARCH_ONLY_QUALITY_EVIDENCE_INCOMPLETE",
+        "action_eligibility": "RESEARCH_ONLY_VALUATION_GATED",
         "lynch_research": {
           "version": "onecool_lynch_research_v1",
           "company_type": {
-            "status": "INSUFFICIENT_EVIDENCE",
-            "primary": "UNCLASSIFIED",
-            "candidates": [],
-            "evidence": [],
+            "status": "PROVISIONAL",
+            "primary": "FAST_GROWER",
+            "candidates": [
+              "FAST_GROWER"
+            ],
+            "evidence": [
+              {
+                "field": "verified_quality_gates",
+                "value": [
+                  "structural_growth_runway",
+                  "financial_quality"
+                ],
+                "interpretation": "FAST_GROWTH_CANDIDATE_NOT_DURABILITY_PROOF"
+              }
+            ],
             "unresolved_categories": [
               "SLOW_GROWER",
               "STALWART",
-              "FAST_GROWER",
               "CYCLICAL",
               "TURNAROUND",
               "ASSET_PLAY"
             ]
           },
           "investment_story": {
-            "status": "INSUFFICIENT_EVIDENCE",
-            "evidence": [],
+            "status": "EVIDENCE_ONLY",
+            "evidence": [
+              {
+                "field": "competitive_advantage",
+                "value": "PASS",
+                "as_of": "2026-07-30",
+                "rationale": "活躍裝置安裝基礎創新高，iPhone、Mac與Services均創六月季紀錄；硬體、軟體與服務生態系形成可驗證的黏著與交叉銷售優勢。",
+                "sources": [
+                  "https://www.apple.com/newsroom/2026/07/apple-reports-third-quarter-results/"
+                ]
+              },
+              {
+                "field": "structural_growth_runway",
+                "value": "PASS",
+                "as_of": "2026-07-30",
+                "rationale": "季度營收年增16%，iPhone、Mac與Services均雙位數成長，且各地區皆成長；AI功能與服務擴張提供續航，但仍須觀察競爭與監管。",
+                "sources": [
+                  "https://www.apple.com/newsroom/2026/07/apple-reports-third-quarter-results/"
+                ]
+              },
+              {
+                "field": "financial_quality",
+                "value": "PASS",
+                "as_of": "2026-07-30",
+                "rationale": "季度營收1,094億美元、EPS年增29%，毛利率50.1%，營運現金流創六月季新高；獲利與現金產生能力強。",
+                "sources": [
+                  "https://www.apple.com/newsroom/2026/07/apple-reports-third-quarter-results/"
+                ]
+              },
+              {
+                "field": "business_risk_and_governance",
+                "value": "PASS",
+                "as_of": "2026-07-30",
+                "rationale": "公司明列第三方供應鏈、快速技術變化、資料安全、訴訟與監管風險；最新公開材料未出現足以否決候選資格的治理或持續經營事件。",
+                "sources": [
+                  "https://www.apple.com/newsroom/2026/07/apple-reports-third-quarter-results/",
+                  "https://www.sec.gov/edgar/browse/?CIK=320193&owner=exclude"
+                ]
+              }
+            ],
             "required_manual_confirmation": [
               "BUSINESS_DRIVER",
               "DURABILITY",
@@ -1425,32 +1584,41 @@
         "status": "WAIT",
         "trigger": "突破52週高點且成交量至少為50日均量1.5倍",
         "formal_breakout": false,
-        "super_growth_bucket": "C",
-        "super_growth_reason": "CYCLICAL_OR_UNPROVEN_GROWTH",
+        "super_growth_bucket": "B",
+        "super_growth_reason": "QUALITY_BUT_VALUATION_GATED",
         "quality_gate_status": {
           "competitive_advantage": {
-            "status": "UNKNOWN",
-            "as_of": null,
-            "rationale": null,
-            "sources": []
+            "status": "PASS",
+            "as_of": "2026-07-31",
+            "rationale": "整合上游、下游與全球資產規模帶來成本、資本配置與供應韌性；季度創美國產量新高，全球產量年增20%。",
+            "sources": [
+              "https://www.chevron.com/newsroom/2026/q3/chevron-reports-second-quarter-2026-results"
+            ]
           },
           "structural_growth_runway": {
-            "status": "UNKNOWN",
-            "as_of": null,
-            "rationale": null,
-            "sources": []
+            "status": "PASS",
+            "as_of": "2026-07-31",
+            "rationale": "全球產量年增20%且美國產量創高，Hess整合後資產組合支持供給成長；但屬週期產業，續航需以油價與資本紀律持續驗證。",
+            "sources": [
+              "https://www.chevron.com/newsroom/2026/q3/chevron-reports-second-quarter-2026-results"
+            ]
           },
           "financial_quality": {
-            "status": "UNKNOWN",
-            "as_of": null,
-            "rationale": null,
-            "sources": []
+            "status": "PASS",
+            "as_of": "2026-07-31",
+            "rationale": "季度獲利121億美元、投入資本報酬率21%，官方結果支持目前現金獲利與資本效率；仍需區分高油價週期貢獻。",
+            "sources": [
+              "https://www.chevron.com/newsroom/2026/q3/chevron-reports-second-quarter-2026-results"
+            ]
           },
           "business_risk_and_governance": {
-            "status": "UNKNOWN",
-            "as_of": null,
-            "rationale": null,
-            "sources": []
+            "status": "PASS",
+            "as_of": "2026-07-31",
+            "rationale": "主要風險是油價循環、整合執行、地緣與環境監管；官方財報與SEC披露未出現足以否決候選資格的治理事件，但必須保留週期審查。",
+            "sources": [
+              "https://www.chevron.com/newsroom/2026/q3/chevron-reports-second-quarter-2026-results",
+              "https://www.sec.gov/edgar/browse/?CIK=93410&owner=exclude"
+            ]
           },
           "circle_of_competence": {
             "status": "UNKNOWN",
@@ -1465,43 +1633,92 @@
             "sources": []
           }
         },
-        "evidence_coverage": "NONE",
+        "evidence_coverage": "PARTIAL",
         "missing_evidence": [
-          "competitive_advantage",
-          "structural_growth_runway",
-          "financial_quality",
-          "business_risk_and_governance",
           "circle_of_competence",
           "valuation"
         ],
-        "cyclical_review_required": false,
-        "evidence_as_of": null,
+        "cyclical_review_required": true,
+        "evidence_as_of": "2026-09-17",
         "manual_confirmation_required": [
           "circle_of_competence"
         ],
         "circle_of_competence_policy": "PRE_TRADE_USER_CONFIRMATION_NOT_DAILY_RESEARCH_BLOCKER",
         "decision_authority": "RESEARCH_QUALITY_ONLY",
         "quality_gate_application": "FORMAL_NEW_CANDIDATE_RESEARCH_GATE",
-        "action_eligibility": "RESEARCH_ONLY_QUALITY_EVIDENCE_INCOMPLETE",
+        "action_eligibility": "RESEARCH_ONLY_VALUATION_GATED",
         "lynch_research": {
           "version": "onecool_lynch_research_v1",
           "company_type": {
-            "status": "INSUFFICIENT_EVIDENCE",
-            "primary": "UNCLASSIFIED",
-            "candidates": [],
-            "evidence": [],
+            "status": "PROVISIONAL",
+            "primary": "MULTIPLE_CANDIDATES",
+            "candidates": [
+              "FAST_GROWER",
+              "CYCLICAL"
+            ],
+            "evidence": [
+              {
+                "field": "industry",
+                "value": "verified cyclical flag",
+                "interpretation": "CYCLE_REVIEW_REQUIRED"
+              },
+              {
+                "field": "verified_quality_gates",
+                "value": [
+                  "structural_growth_runway",
+                  "financial_quality"
+                ],
+                "interpretation": "FAST_GROWTH_CANDIDATE_NOT_DURABILITY_PROOF"
+              }
+            ],
             "unresolved_categories": [
               "SLOW_GROWER",
               "STALWART",
-              "FAST_GROWER",
-              "CYCLICAL",
               "TURNAROUND",
               "ASSET_PLAY"
             ]
           },
           "investment_story": {
-            "status": "INSUFFICIENT_EVIDENCE",
-            "evidence": [],
+            "status": "EVIDENCE_ONLY",
+            "evidence": [
+              {
+                "field": "competitive_advantage",
+                "value": "PASS",
+                "as_of": "2026-07-31",
+                "rationale": "整合上游、下游與全球資產規模帶來成本、資本配置與供應韌性；季度創美國產量新高，全球產量年增20%。",
+                "sources": [
+                  "https://www.chevron.com/newsroom/2026/q3/chevron-reports-second-quarter-2026-results"
+                ]
+              },
+              {
+                "field": "structural_growth_runway",
+                "value": "PASS",
+                "as_of": "2026-07-31",
+                "rationale": "全球產量年增20%且美國產量創高，Hess整合後資產組合支持供給成長；但屬週期產業，續航需以油價與資本紀律持續驗證。",
+                "sources": [
+                  "https://www.chevron.com/newsroom/2026/q3/chevron-reports-second-quarter-2026-results"
+                ]
+              },
+              {
+                "field": "financial_quality",
+                "value": "PASS",
+                "as_of": "2026-07-31",
+                "rationale": "季度獲利121億美元、投入資本報酬率21%，官方結果支持目前現金獲利與資本效率；仍需區分高油價週期貢獻。",
+                "sources": [
+                  "https://www.chevron.com/newsroom/2026/q3/chevron-reports-second-quarter-2026-results"
+                ]
+              },
+              {
+                "field": "business_risk_and_governance",
+                "value": "PASS",
+                "as_of": "2026-07-31",
+                "rationale": "主要風險是油價循環、整合執行、地緣與環境監管；官方財報與SEC披露未出現足以否決候選資格的治理事件，但必須保留週期審查。",
+                "sources": [
+                  "https://www.chevron.com/newsroom/2026/q3/chevron-reports-second-quarter-2026-results",
+                  "https://www.sec.gov/edgar/browse/?CIK=93410&owner=exclude"
+                ]
+              }
+            ],
             "required_manual_confirmation": [
               "BUSINESS_DRIVER",
               "DURABILITY",
@@ -1568,16 +1785,20 @@
         "super_growth_reason": "CYCLICAL_OR_UNPROVEN_GROWTH",
         "quality_gate_status": {
           "competitive_advantage": {
-            "status": "UNKNOWN",
-            "as_of": null,
-            "rationale": null,
-            "sources": []
+            "status": "PASS",
+            "as_of": "2026-08-04",
+            "rationale": "HIV組合季度收入57億美元、Biktarvy收入38億美元，且PrEP需求擴張；既有抗病毒專業與產品規模構成可驗證優勢。",
+            "sources": [
+              "https://www.gilead.com/news/news-details/2026/gilead-sciences-announces-second-quarter-2026-financial-results"
+            ]
           },
           "structural_growth_runway": {
-            "status": "UNKNOWN",
-            "as_of": null,
-            "rationale": null,
-            "sources": []
+            "status": "PASS",
+            "as_of": "2026-08-04",
+            "rationale": "排除Veklury的產品銷售年增10%，HIV、Trodelvy與Livdelzi帶動成長，並有多項FDA核准與三期資料支持管線續航。",
+            "sources": [
+              "https://www.gilead.com/news/news-details/2026/gilead-sciences-announces-second-quarter-2026-financial-results"
+            ]
           },
           "financial_quality": {
             "status": "UNKNOWN",
@@ -1604,17 +1825,15 @@
             "sources": []
           }
         },
-        "evidence_coverage": "NONE",
+        "evidence_coverage": "PARTIAL",
         "missing_evidence": [
-          "competitive_advantage",
-          "structural_growth_runway",
           "financial_quality",
           "business_risk_and_governance",
           "circle_of_competence",
           "valuation"
         ],
         "cyclical_review_required": false,
-        "evidence_as_of": null,
+        "evidence_as_of": "2026-09-17",
         "manual_confirmation_required": [
           "circle_of_competence"
         ],
@@ -1639,8 +1858,27 @@
             ]
           },
           "investment_story": {
-            "status": "INSUFFICIENT_EVIDENCE",
-            "evidence": [],
+            "status": "EVIDENCE_ONLY",
+            "evidence": [
+              {
+                "field": "competitive_advantage",
+                "value": "PASS",
+                "as_of": "2026-08-04",
+                "rationale": "HIV組合季度收入57億美元、Biktarvy收入38億美元，且PrEP需求擴張；既有抗病毒專業與產品規模構成可驗證優勢。",
+                "sources": [
+                  "https://www.gilead.com/news/news-details/2026/gilead-sciences-announces-second-quarter-2026-financial-results"
+                ]
+              },
+              {
+                "field": "structural_growth_runway",
+                "value": "PASS",
+                "as_of": "2026-08-04",
+                "rationale": "排除Veklury的產品銷售年增10%，HIV、Trodelvy與Livdelzi帶動成長，並有多項FDA核准與三期資料支持管線續航。",
+                "sources": [
+                  "https://www.gilead.com/news/news-details/2026/gilead-sciences-announces-second-quarter-2026-financial-results"
+                ]
+              }
+            ],
             "required_manual_confirmation": [
               "BUSINESS_DRIVER",
               "DURABILITY",
@@ -1881,8 +2119,8 @@
       "scope": "NEW_US_STOCK_CANDIDATES_ONLY",
       "bucket_counts": {
         "A": 0,
-        "B": 0,
-        "C": 5,
+        "B": 4,
+        "C": 1,
         "REJECT": 0,
         "INNOVATION_OPTION": 0,
         "EXISTING_POSITION": 0
