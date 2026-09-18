@@ -50,6 +50,17 @@ def test_hard_quality_failure_is_rejected():
     assert result["super_growth_bucket"] == "REJECT"
 
 
+def test_unknown_circle_of_competence_is_pre_trade_overlay_not_bucket_c():
+    result = evaluate_super_growth_candidate(
+        {"symbol": "2330"}, evidence(omit_source="circle_of_competence")
+    )
+    assert result["super_growth_bucket"] == "A"
+    assert result["manual_confirmation_required"] == ["circle_of_competence"]
+    assert result["circle_of_competence_policy"] == (
+        "PRE_TRADE_USER_CONFIRMATION_NOT_DAILY_RESEARCH_BLOCKER"
+    )
+
+
 def test_unsupported_pass_is_downgraded_to_unknown():
     result = evaluate_super_growth_candidate(
         {"symbol": "2330"}, evidence(omit_source="competitive_advantage")
