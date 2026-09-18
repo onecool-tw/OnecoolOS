@@ -55,14 +55,24 @@
             "https://investors.delltechnologies.com/news-releases/news-release-details/dell-technologies-delivers-second-quarter-fiscal-2027-financial"
           ]
         },
-        "valuation": {
-          "status": "UNKNOWN",
-          "as_of": "2026-09-17",
-          "rationale": "缺少截至2026-09-17、可重現且同口徑的即時企業價值、淨負債與正常化獲利資料，暫不宣稱估值通過。",
-          "sources": [
-            "https://investors.delltechnologies.com/news-releases/news-release-details/dell-technologies-delivers-second-quarter-fiscal-2027-financial"
-          ]
-        }
+      "valuation": {
+        "status": "PASS",
+        "as_of": "2026-09-17",
+        "rationale": "9/17正式收盤563.09美元，相對公司FY27非GAAP EPS指引25.50美元為22.08倍，落在Onecool大型硬體／AI基礎設施18至25倍紀律區間內；估值屬合理但非深度安全邊際。",
+        "method": "FORWARD_NON_GAAP_PE",
+        "price_as_of": "2026-09-17",
+        "valid_through": "2026-09-28",
+        "inputs": {
+          "price": 563.09,
+          "denominator": 25.5,
+          "multiple": 22.08,
+          "fair_range": [18.0, 25.0]
+        },
+        "sources": [
+          "https://investors.delltechnologies.com/news-releases/news-release-details/dell-technologies-delivers-second-quarter-fiscal-2027-financial",
+          "https://finance.yahoo.com/quote/DELL/"
+        ]
+      }
       }
     },
     {
@@ -113,14 +123,24 @@
             "https://news.abbvie.com/2026-07-31-AbbVie-Reports-Second-Quarter-2026-Financial-Results"
           ]
         },
-        "valuation": {
-          "status": "UNKNOWN",
-          "as_of": "2026-09-17",
-          "rationale": "缺少截至2026-09-17的可重現正常化EPS、專利風險調整與交易後淨負債估值模型，暫不宣稱估值通過。",
-          "sources": [
-            "https://news.abbvie.com/2026-07-31-AbbVie-Reports-Second-Quarter-2026-Financial-Results"
-          ]
-        }
+      "valuation": {
+        "status": "PASS",
+        "as_of": "2026-09-17",
+        "rationale": "9/17正式收盤262.52美元，相對2026調整後EPS指引中位數13.97美元為18.79倍，落在Onecool大型製藥15至20倍風險調整區間內；已保留Humira專利與Skyrizi／Rinvoq接棒風險。",
+        "method": "FORWARD_ADJUSTED_PE",
+        "price_as_of": "2026-09-17",
+        "valid_through": "2026-09-28",
+        "inputs": {
+          "price": 262.52,
+          "denominator": 13.97,
+          "multiple": 18.79,
+          "fair_range": [15.0, 20.0]
+        },
+        "sources": [
+          "https://news.abbvie.com/2026-07-31-AbbVie-Reports-Second-Quarter-2026-Financial-Results",
+          "https://finance.yahoo.com/quote/ABBV/"
+        ]
+      }
       }
     },
     {
@@ -171,14 +191,24 @@
             "https://www.apple.com/newsroom/2026/07/apple-reports-third-quarter-results/"
           ]
         },
-        "valuation": {
-          "status": "UNKNOWN",
-          "as_of": "2026-09-17",
-          "rationale": "缺少截至2026-09-17、同口徑的企業價值、正常化自由現金流與成長假設，暫不宣稱估值通過。",
-          "sources": [
-            "https://www.apple.com/newsroom/2026/07/apple-reports-third-quarter-results/"
-          ]
-        }
+      "valuation": {
+        "status": "FAIL",
+        "as_of": "2026-09-17",
+        "rationale": "9/17正式收盤332.38美元，相對可重現近12月EPS 8.71美元為38.16倍，高於Onecool成熟大型科技25至32倍紀律區間；品質通過，但目前缺乏估值安全邊際。",
+        "method": "TRAILING_NORMALIZED_PE",
+        "price_as_of": "2026-09-17",
+        "valid_through": "2026-09-28",
+        "inputs": {
+          "price": 332.38,
+          "denominator": 8.71,
+          "multiple": 38.16,
+          "fair_range": [25.0, 32.0]
+        },
+        "sources": [
+          "https://www.apple.com/newsroom/2026/07/apple-reports-third-quarter-results/",
+          "https://finance.yahoo.com/quote/AAPL/"
+        ]
+      }
       }
     },
     {
@@ -229,14 +259,24 @@
             "https://www.chevron.com/newsroom/2026/q3/chevron-reports-second-quarter-2026-results"
           ]
         },
-        "valuation": {
-          "status": "UNKNOWN",
-          "as_of": "2026-09-17",
-          "rationale": "缺少截至2026-09-17的週期中位油價、正常化自由現金流與Hess整合後淨負債估值，暫不宣稱估值通過。",
-          "sources": [
-            "https://www.chevron.com/newsroom/2026/q3/chevron-reports-second-quarter-2026-results"
-          ]
-        }
+      "valuation": {
+        "status": "FAIL",
+        "as_of": "2026-09-17",
+        "rationale": "9/17正式收盤211.62美元，相對近12月EPS 10.40美元為20.35倍，高於Onecool大型綜合能源中週期10至16倍區間；高油價與Hess整合期不可用高峰獲利追價，估值安全邊際不足。",
+        "method": "MID_CYCLE_PE_WITH_CYCLE_DISCOUNT",
+        "price_as_of": "2026-09-17",
+        "valid_through": "2026-09-28",
+        "inputs": {
+          "price": 211.62,
+          "denominator": 10.4,
+          "multiple": 20.35,
+          "fair_range": [10.0, 16.0]
+        },
+        "sources": [
+          "https://www.chevron.com/newsroom/2026/q3/chevron-reports-second-quarter-2026-results",
+          "https://finance.yahoo.com/quote/CVX/"
+        ]
+      }
       }
     },
     {
@@ -262,18 +302,20 @@
             "https://www.gilead.com/news/news-details/2026/gilead-sciences-announces-second-quarter-2026-financial-results"
           ]
         },
-        "financial_quality": {
+      "financial_quality": {
           "status": "UNKNOWN",
           "as_of": "2026-09-17",
-          "rationale": "基礎業務收入與營運現金流改善，但本季因111億美元收購IPR&D形成GAAP及非GAAP虧損，現金由106億降至32億；需完成交易後資產負債與正常化獲利重整後才能判定。",
+        "rationale": "基礎業務收入與營運現金流改善，但本季因111億美元收購IPR&D形成GAAP及非GAAP虧損，現金由106億降至32億；需完成交易後資產負債與正常化獲利重整後才能判定。",
+        "data_gap": "公司尚未提供可直接調節至收購後正常化EPS與淨負債的完整橋接表；系統將在下一份10-Q或補充財務表發布後自動重算。",
           "sources": [
             "https://www.gilead.com/news/news-details/2026/gilead-sciences-announces-second-quarter-2026-financial-results"
           ]
         },
-        "business_risk_and_governance": {
+      "business_risk_and_governance": {
           "status": "UNKNOWN",
           "as_of": "2026-09-17",
-          "rationale": "Arcellx、Tubulis及Ouro多筆收購帶來整合、臨床與資本配置風險，且部分腫瘤試驗停止；需檢核收購後里程碑、減損與董事會資本配置紀錄後才能通過。",
+        "rationale": "Arcellx、Tubulis及Ouro多筆收購帶來整合、臨床與資本配置風險，且部分腫瘤試驗停止；需檢核收購後里程碑、減損與董事會資本配置紀錄後才能通過。",
+        "data_gap": "收購後里程碑、潛在減損與董事會資本配置成果尚未形成足夠的季度追蹤資料；系統將隨後續10-Q與試驗更新自動覆核。",
           "sources": [
             "https://www.gilead.com/news/news-details/2026/gilead-sciences-announces-second-quarter-2026-financial-results",
             "https://www.sec.gov/edgar/browse/?CIK=882095&owner=exclude"
@@ -287,14 +329,25 @@
             "https://www.gilead.com/news/news-details/2026/gilead-sciences-announces-second-quarter-2026-financial-results"
           ]
         },
-        "valuation": {
-          "status": "UNKNOWN",
-          "as_of": "2026-09-17",
-          "rationale": "重大收購使當期EPS失真，缺少截至2026-09-17的收購後正常化EPS、淨負債與管線風險調整估值，暫不宣稱估值通過。",
-          "sources": [
-            "https://www.gilead.com/news/news-details/2026/gilead-sciences-announces-second-quarter-2026-financial-results"
-          ]
-        }
+      "valuation": {
+        "status": "UNKNOWN",
+        "as_of": "2026-09-17",
+        "rationale": "9/17正式收盤147.70美元，但111億美元IPR&D收購使當期GAAP與非GAAP EPS同時失真；不能用負EPS或未調節舊EPS計算P/E。",
+        "data_gap": "缺少公司可驗證的收購後正常化EPS與淨負債橋接；系統將在下一份10-Q或官方補充表發布後自動補算，不需要使用者人工估值。",
+        "method": "POST_ACQUISITION_NORMALIZED_PE",
+        "price_as_of": "2026-09-17",
+        "valid_through": "2026-09-28",
+        "inputs": {
+          "price": 147.7,
+          "denominator": null,
+          "multiple": null,
+          "fair_range": null
+        },
+        "sources": [
+          "https://www.gilead.com/news/news-details/2026/gilead-sciences-announces-second-quarter-2026-financial-results",
+          "https://finance.yahoo.com/quote/GILD/"
+        ]
+      }
       }
     }
   ]
