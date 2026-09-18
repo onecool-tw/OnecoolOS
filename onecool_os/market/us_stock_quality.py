@@ -69,7 +69,12 @@ def apply_us_super_growth_quality_gate(
             elif bucket == "A":
                 item["action_eligibility"] = "WATCH_FOR_TECHNICAL_TRIGGER"
             elif bucket == "B":
-                item["action_eligibility"] = "RESEARCH_ONLY_VALUATION_GATED"
+                item["action_eligibility"] = (
+                    "RESEARCH_ONLY_VALUATION_TOO_HIGH"
+                    if quality.get("valuation_posture")
+                    == "ABOVE_DISCIPLINED_RANGE"
+                    else "RESEARCH_ONLY_VALUATION_DATA_GAP"
+                )
             elif bucket == "C":
                 item["action_eligibility"] = (
                     "RESEARCH_ONLY_QUALITY_EVIDENCE_INCOMPLETE"
@@ -85,6 +90,10 @@ def apply_us_super_growth_quality_gate(
         "bucket_counts": bucket_counts,
         "ranking_policy": "ANNOTATE_ONLY; NEVER_REORDER_TECHNICAL_SCAN",
         "missing_evidence_policy": "UNKNOWN_NEVER_INFERRED",
+        "valuation_policy": (
+            "DATED_INPUTS_REQUIRED; FAIL_MEANS_TOO_EXPENSIVE; "
+            "UNKNOWN_MUST_NAME_ONE_SPECIFIC_DATA_GAP"
+        ),
         "circle_of_competence_policy": (
             "PRE_TRADE_USER_CONFIRMATION_NOT_DAILY_RESEARCH_BLOCKER"
         ),
