@@ -26,21 +26,25 @@ def evidence(*, valuation="PASS", failed_gate=None, omit_source=None):
         if name == "valuation":
             gates[name].update({
                 "method": "FORWARD_PE",
+                "price_source": "fixture-dated-close",
+                "denominator_source": "fixture-filing",
+                "fair_range_rationale": "Test fixture only",
+                "fair_range_sources": ["fixture-comparables"],
                 "price_as_of": "2026-08-24",
                 "valid_through": "2026-09-02",
                 "inputs": {
-                    "price": 100.0,
+                    "price": 150.0 if valuation == "FAIL" else 100.0,
                     "denominator": 5.0,
-                    "multiple": 20.0,
+                    "multiple": 30.0 if valuation == "FAIL" else 20.0,
                     "fair_range": [15.0, 25.0],
                 },
             })
-    return {"results": [{"symbol": "2330", "as_of": "2026-08-24", "gates": gates}]}
+    return {"results": [{"expected_as_of": "2026-08-24", "symbol": "2330", "as_of": "2026-08-24", "gates": gates}]}
 
 
 def test_complete_quality_and_valuation_is_bucket_a():
     result = evaluate_super_growth_candidate(
-        {"symbol": "2330", "industry": "半導體業"}, evidence()
+        {"expected_as_of": "2026-08-24", "symbol": "2330", "industry": "半導體業"}, evidence()
     )
     assert result["super_growth_bucket"] == "A"
     assert result["evidence_coverage"] == "COMPLETE"
@@ -49,7 +53,7 @@ def test_complete_quality_and_valuation_is_bucket_a():
 
 def test_quality_pass_but_valuation_fail_is_bucket_b_not_reject():
     result = evaluate_super_growth_candidate(
-        {"symbol": "2330"}, evidence(valuation="FAIL")
+        {"expected_as_of": "2026-08-24", "symbol": "2330"}, evidence(valuation="FAIL")
     )
     assert result["super_growth_bucket"] == "B"
     assert result["super_growth_reason"] == "VALUATION_ABOVE_DISCIPLINED_RANGE"
@@ -58,14 +62,14 @@ def test_quality_pass_but_valuation_fail_is_bucket_b_not_reject():
 
 def test_hard_quality_failure_is_rejected():
     result = evaluate_super_growth_candidate(
-        {"symbol": "2330"}, evidence(failed_gate="financial_quality")
+        {"expected_as_of": "2026-08-24", "symbol": "2330"}, evidence(failed_gate="financial_quality")
     )
     assert result["super_growth_bucket"] == "REJECT"
 
 
 def test_unknown_circle_of_competence_is_pre_trade_overlay_not_bucket_c():
     result = evaluate_super_growth_candidate(
-        {"symbol": "2330"}, evidence(omit_source="circle_of_competence")
+        {"expected_as_of": "2026-08-24", "symbol": "2330"}, evidence(omit_source="circle_of_competence")
     )
     assert result["super_growth_bucket"] == "A"
     assert result["manual_confirmation_required"] == ["circle_of_competence"]
@@ -76,7 +80,7 @@ def test_unknown_circle_of_competence_is_pre_trade_overlay_not_bucket_c():
 
 def test_unsupported_pass_is_downgraded_to_unknown():
     result = evaluate_super_growth_candidate(
-        {"symbol": "2330"}, evidence(omit_source="competitive_advantage")
+        {"expected_as_of": "2026-08-24", "symbol": "2330"}, evidence(omit_source="competitive_advantage")
     )
     assert result["super_growth_bucket"] == "C"
     assert "competitive_advantage" in result["missing_evidence"]
@@ -85,7 +89,7 @@ def test_unsupported_pass_is_downgraded_to_unknown():
 
 def test_valuation_with_wrong_price_cutoff_is_unknown_with_specific_posture():
     result = evaluate_super_growth_candidate(
-        {"symbol": "2330", "expected_as_of": "2026-08-25"}, evidence()
+        {"expected_as_of": "2026-08-24", "symbol": "2330", "expected_as_of": "2026-08-25"}, evidence()
     )
     assert result["super_growth_bucket"] == "B"
     assert result["super_growth_reason"] == "VALUATION_INPUTS_UNAVAILABLE_OR_STALE"
