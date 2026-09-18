@@ -23,6 +23,18 @@ def evidence(*, valuation="PASS", failed_gate=None, omit_source=None):
             "rationale": f"Evidence for {name}",
             "sources": [] if name == omit_source else ["official-filing"],
         }
+        if name == "valuation":
+            gates[name].update({
+                "method": "FORWARD_PE",
+                "price_as_of": "2026-08-24",
+                "valid_through": "2026-09-02",
+                "inputs": {
+                    "price": 100.0,
+                    "denominator": 5.0,
+                    "multiple": 20.0,
+                    "fair_range": [15.0, 25.0],
+                },
+            })
     return {"results": [{"symbol": "2330", "as_of": "2026-08-24", "gates": gates}]}
 
 
@@ -40,7 +52,8 @@ def test_quality_pass_but_valuation_fail_is_bucket_b_not_reject():
         {"symbol": "2330"}, evidence(valuation="FAIL")
     )
     assert result["super_growth_bucket"] == "B"
-    assert result["super_growth_reason"] == "QUALITY_BUT_VALUATION_GATED"
+    assert result["super_growth_reason"] == "VALUATION_ABOVE_DISCIPLINED_RANGE"
+    assert result["valuation_posture"] == "ABOVE_DISCIPLINED_RANGE"
 
 
 def test_hard_quality_failure_is_rejected():
@@ -68,3 +81,12 @@ def test_unsupported_pass_is_downgraded_to_unknown():
     assert result["super_growth_bucket"] == "C"
     assert "competitive_advantage" in result["missing_evidence"]
     assert result["quality_gate_status"]["competitive_advantage"]["status"] == "UNKNOWN"
+
+
+def test_valuation_with_wrong_price_cutoff_is_unknown_with_specific_posture():
+    result = evaluate_super_growth_candidate(
+        {"symbol": "2330", "expected_as_of": "2026-08-25"}, evidence()
+    )
+    assert result["super_growth_bucket"] == "B"
+    assert result["super_growth_reason"] == "VALUATION_INPUTS_UNAVAILABLE_OR_STALE"
+    assert result["valuation_posture"] == "UNRESOLVED_WITH_SPECIFIC_GAP"
