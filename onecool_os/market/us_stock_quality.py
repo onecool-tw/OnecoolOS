@@ -31,6 +31,7 @@ def apply_us_super_growth_quality_gate(
         "INNOVATION_OPTION": 0,
         "EXISTING_POSITION": 0,
     }
+    evidence_index = {r.get("symbol"): r for r in (evidence_payload or {}).get("results", [])}
     enriched = []
     for raw in top5:
         item = deepcopy(raw) if isinstance(raw, Mapping) else {}
@@ -85,6 +86,9 @@ def apply_us_super_growth_quality_gate(
                 )
             else:
                 item["action_eligibility"] = "REJECTED_BY_QUALITY_GATE"
+        collection = evidence_index.get(symbol, {}).get("valuation_input_collection")
+        if collection and collection.get("as_of") == payload.get("expected_as_of"):
+            item["valuation_input_collection"] = deepcopy(collection)
         item["lynch_research"] = build_lynch_research(item, market="US")
         enriched.append(item)
     payload["top5"] = enriched
