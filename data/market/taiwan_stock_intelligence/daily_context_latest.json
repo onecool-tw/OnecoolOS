@@ -34,37 +34,38 @@
   "0050_weekly_alignment": "GOLDEN",
   "market_pressure_gate": "FORMAL_FROM_DAILY_CONTEXT",
   "market_pressure": {
-    "as_of": "2026-09-17",
+    "as_of": "2026-09-18",
     "status": "CURRENT",
-    "light": "RED",
+    "light": "YELLOW",
     "action": "PAUSE_NEW_EXPOSURE",
     "reason": [
-      "red_release_conditions_not_fully_met",
-      "second_non_trigger_day_after_2026_09_15_closing_low_but_confirmation_incomplete",
-      "taiex_rose_439_10_to_46288_00_with_intraday_gain_narrowing",
-      "near_month_futures_premium_157_00_but_foreign_net_short_increased_to_78674",
-      "institutional_net_buying_21_477_billion_twd",
-      "pcr_open_interest_improved_to_76_50_but_volatility_value_not_verified"
+      "red_release_conditions_satisfied_downgrade_to_yellow",
+      "at_least_two_trading_days_without_red_retrigger_since_2026_09_15_closing_low",
+      "taiex_rose_892_75_to_47180_75_with_volume_above_one_trillion_twd",
+      "foreign_taiex_futures_net_short_reduced_to_76110",
+      "taifex_vix_verified_at_21_18_last_1_min_avg",
+      "institutional_net_buying_116_586_billion_twd",
+      "margin_verified_with_official_one_day_publication_lag"
     ],
     "confirmed_inputs": {
       "spot": true,
       "futures": true,
       "pcr": true,
-      "volatility": false,
+      "volatility": true,
       "institutional_flow": true,
-      "margin": false
+      "margin": true
     },
     "input_data_as_of": {
-      "spot": "2026-09-17",
-      "futures": "2026-09-17",
-      "pcr": "2026-09-17",
-      "volatility": "2026-09-17",
-      "institutional_flow": "2026-09-17",
-      "margin": "2026-09-16"
+      "spot": "2026-09-18",
+      "futures": "2026-09-18",
+      "pcr": "2026-09-18",
+      "volatility": "2026-09-18",
+      "institutional_flow": "2026-09-18",
+      "margin": "2026-09-17"
     },
     "previous_light": "RED",
-    "changed": false,
-    "last_change_date": "2026-09-02",
+    "changed": true,
+    "last_change_date": "2026-09-18",
     "data_quality": "READY"
   },
   "market_pressure_inputs": {
