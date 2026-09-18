@@ -64,6 +64,35 @@ def test_missing_evidence_keeps_new_candidate_in_research_only_bucket_c():
     )
 
 
+def test_formal_breakout_with_unknown_circle_requires_only_pre_trade_confirmation():
+    payload = apply_us_super_growth_quality_gate(
+        scan(), evidence()
+    )
+    # Remove only the personal ability-circle support; objective research stays complete.
+    payload_with_unknown_circle = apply_us_super_growth_quality_gate(
+        scan(),
+        {
+            "results": [{
+                **evidence()["results"][0],
+                "gates": {
+                    **evidence()["results"][0]["gates"],
+                    "circle_of_competence": {
+                        "status": "UNKNOWN",
+                        "as_of": None,
+                        "rationale": None,
+                        "sources": [],
+                    },
+                },
+            }],
+        },
+    )
+    item = payload_with_unknown_circle["top5"][0]
+    assert item["super_growth_bucket"] == "A"
+    assert item["action_eligibility"] == (
+        "REQUIRES_CIRCLE_OF_COMPETENCE_CONFIRMATION_AND_MARKET_GATES"
+    )
+
+
 def test_quality_pass_without_breakout_remains_watch_only():
     payload = apply_us_super_growth_quality_gate(
         scan(breakout=False), evidence()
