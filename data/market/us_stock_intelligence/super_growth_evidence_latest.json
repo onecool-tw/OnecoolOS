@@ -58,10 +58,23 @@
         "valuation": {
           "status": "UNKNOWN",
           "as_of": "2026-09-17",
-          "rationale": "缺少截至2026-09-17、可重現且同口徑的即時企業價值、淨負債與正常化獲利資料，暫不宣稱估值通過。",
+          "rationale": "撤回先前估值判定：先前價格由即時報價與漲跌額倒推，不能確認為同截止日調整後正式收盤；合理倍數区間亦缺可追溯比較依據。",
+          "method": "FORWARD_NON_GAAP_PE",
+          "price_as_of": null,
+          "valid_through": null,
+          "inputs": {
+            "price": null,
+            "denominator": null,
+            "multiple": null,
+            "fair_range": null
+          },
           "sources": [
-            "https://investors.delltechnologies.com/news-releases/news-release-details/dell-technologies-delivers-second-quarter-fiscal-2027-financial"
-          ]
+            "https://investors.delltechnologies.com/news-releases/news-release-details/dell-technologies-delivers-second-quarter-fiscal-2027-financial",
+            "https://finance.yahoo.com/quote/DELL/"
+          ],
+          "data_gap": "未取得2026-09-17調整後正式收盤的直接證據；須由系統補抓歷史價格，並完成盈餘口徑與估值區間驗證後重算。",
+          "review_status": "REQUIRES_SOURCE_REVALIDATION",
+          "next_step": "系統重取同截止日歷史價格及公司財報，建立具來源的估值模型；不得以UNKNOWN作為使用者人工研究要求。"
         }
       }
     },
@@ -116,10 +129,23 @@
         "valuation": {
           "status": "UNKNOWN",
           "as_of": "2026-09-17",
-          "rationale": "缺少截至2026-09-17的可重現正常化EPS、專利風險調整與交易後淨負債估值模型，暫不宣稱估值通過。",
+          "rationale": "撤回先前估值判定：先前價格由即時報價與漲跌額倒推，不能確認為同截止日調整後正式收盤；合理倍數区間亦缺可追溯比較依據。",
+          "method": "FORWARD_ADJUSTED_PE",
+          "price_as_of": null,
+          "valid_through": null,
+          "inputs": {
+            "price": null,
+            "denominator": null,
+            "multiple": null,
+            "fair_range": null
+          },
           "sources": [
-            "https://news.abbvie.com/2026-07-31-AbbVie-Reports-Second-Quarter-2026-Financial-Results"
-          ]
+            "https://news.abbvie.com/2026-07-31-AbbVie-Reports-Second-Quarter-2026-Financial-Results",
+            "https://finance.yahoo.com/quote/ABBV/"
+          ],
+          "data_gap": "未取得2026-09-17調整後正式收盤的直接證據；須由系統補抓歷史價格，並完成盈餘口徑與估值區間驗證後重算。",
+          "review_status": "REQUIRES_SOURCE_REVALIDATION",
+          "next_step": "系統重取同截止日歷史價格及公司財報，建立具來源的估值模型；不得以UNKNOWN作為使用者人工研究要求。"
         }
       }
     },
@@ -174,10 +200,23 @@
         "valuation": {
           "status": "UNKNOWN",
           "as_of": "2026-09-17",
-          "rationale": "缺少截至2026-09-17、同口徑的企業價值、正常化自由現金流與成長假設，暫不宣稱估值通過。",
+          "rationale": "撤回先前估值判定：先前價格由即時報價與漲跌額倒推，不能確認為同截止日調整後正式收盤；合理倍數区間亦缺可追溯比較依據。",
+          "method": "TRAILING_NORMALIZED_PE",
+          "price_as_of": null,
+          "valid_through": null,
+          "inputs": {
+            "price": null,
+            "denominator": null,
+            "multiple": null,
+            "fair_range": null
+          },
           "sources": [
-            "https://www.apple.com/newsroom/2026/07/apple-reports-third-quarter-results/"
-          ]
+            "https://www.apple.com/newsroom/2026/07/apple-reports-third-quarter-results/",
+            "https://finance.yahoo.com/quote/AAPL/"
+          ],
+          "data_gap": "未取得2026-09-17調整後正式收盤的直接證據；須由系統補抓歷史價格，並完成盈餘口徑與估值區間驗證後重算。",
+          "review_status": "REQUIRES_SOURCE_REVALIDATION",
+          "next_step": "系統重取同截止日歷史價格及公司財報，建立具來源的估值模型；不得以UNKNOWN作為使用者人工研究要求。"
         }
       }
     },
@@ -232,10 +271,23 @@
         "valuation": {
           "status": "UNKNOWN",
           "as_of": "2026-09-17",
-          "rationale": "缺少截至2026-09-17的週期中位油價、正常化自由現金流與Hess整合後淨負債估值，暫不宣稱估值通過。",
+          "rationale": "撤回先前估值判定：先前價格由即時報價與漲跌額倒推，不能確認為同截止日調整後正式收盤；合理倍數区間亦缺可追溯比較依據。",
+          "method": "MID_CYCLE_PE_WITH_CYCLE_DISCOUNT",
+          "price_as_of": null,
+          "valid_through": null,
+          "inputs": {
+            "price": null,
+            "denominator": null,
+            "multiple": null,
+            "fair_range": null
+          },
           "sources": [
-            "https://www.chevron.com/newsroom/2026/q3/chevron-reports-second-quarter-2026-results"
-          ]
+            "https://www.chevron.com/newsroom/2026/q3/chevron-reports-second-quarter-2026-results",
+            "https://finance.yahoo.com/quote/CVX/"
+          ],
+          "data_gap": "未取得2026-09-17調整後正式收盤的直接證據；須由系統補抓歷史價格，並完成盈餘口徑與估值區間驗證後重算。",
+          "review_status": "REQUIRES_SOURCE_REVALIDATION",
+          "next_step": "系統重取同截止日歷史價格及公司財報，建立具來源的估值模型；不得以UNKNOWN作為使用者人工研究要求。"
         }
       }
     },
@@ -266,6 +318,7 @@
           "status": "UNKNOWN",
           "as_of": "2026-09-17",
           "rationale": "基礎業務收入與營運現金流改善，但本季因111億美元收購IPR&D形成GAAP及非GAAP虧損，現金由106億降至32億；需完成交易後資產負債與正常化獲利重整後才能判定。",
+          "data_gap": "本次尚未完成收購後財報調節與風險覆核；不能據此宣稱公司未公布資料。由系統查核現有SEC與IR資料。",
           "sources": [
             "https://www.gilead.com/news/news-details/2026/gilead-sciences-announces-second-quarter-2026-financial-results"
           ]
@@ -274,6 +327,7 @@
           "status": "UNKNOWN",
           "as_of": "2026-09-17",
           "rationale": "Arcellx、Tubulis及Ouro多筆收購帶來整合、臨床與資本配置風險，且部分腫瘤試驗停止；需檢核收購後里程碑、減損與董事會資本配置紀錄後才能通過。",
+          "data_gap": "本次尚未完成收購後財報調節與風險覆核；不能據此宣稱公司未公布資料。由系統查核現有SEC與IR資料。",
           "sources": [
             "https://www.gilead.com/news/news-details/2026/gilead-sciences-announces-second-quarter-2026-financial-results",
             "https://www.sec.gov/edgar/browse/?CIK=882095&owner=exclude"
@@ -290,10 +344,23 @@
         "valuation": {
           "status": "UNKNOWN",
           "as_of": "2026-09-17",
-          "rationale": "重大收購使當期EPS失真，缺少截至2026-09-17的收購後正常化EPS、淨負債與管線風險調整估值，暫不宣稱估值通過。",
+          "rationale": "撤回先前估值判定：先前價格由即時報價與漲跌額倒推，不能確認為同截止日調整後正式收盤；合理倍數区間亦缺可追溯比較依據。",
+          "data_gap": "未取得2026-09-17調整後正式收盤的直接證據；須由系統補抓歷史價格，並完成盈餘口徑與估值區間驗證後重算。",
+          "method": "POST_ACQUISITION_NORMALIZED_PE",
+          "price_as_of": null,
+          "valid_through": null,
+          "inputs": {
+            "price": null,
+            "denominator": null,
+            "multiple": null,
+            "fair_range": null
+          },
           "sources": [
-            "https://www.gilead.com/news/news-details/2026/gilead-sciences-announces-second-quarter-2026-financial-results"
-          ]
+            "https://www.gilead.com/news/news-details/2026/gilead-sciences-announces-second-quarter-2026-financial-results",
+            "https://finance.yahoo.com/quote/GILD/"
+          ],
+          "review_status": "REQUIRES_SOURCE_REVALIDATION",
+          "next_step": "系統重取同截止日歷史價格及公司財報，建立具來源的估值模型；不得以UNKNOWN作為使用者人工研究要求。"
         }
       }
     }

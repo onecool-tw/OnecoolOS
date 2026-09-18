@@ -21,6 +21,21 @@ def evidence(symbol="NVDA", *, valuation="PASS"):
         }
         for name in GATES
     }
+    gates["valuation"].update({
+        "method": "FORWARD_PE",
+                "price_source": "fixture-dated-close",
+                "denominator_source": "fixture-filing",
+                "fair_range_rationale": "Test fixture only",
+                "fair_range_sources": ["fixture-comparables"],
+        "price_as_of": "2026-08-24",
+        "valid_through": "2026-09-02",
+        "inputs": {
+            "price": 150.0 if valuation == "FAIL" else 100.0,
+            "denominator": 5.0,
+            "multiple": 30.0 if valuation == "FAIL" else 20.0,
+            "fair_range": [15.0, 25.0],
+        },
+    })
     return {"results": [{"symbol": symbol, "gates": gates}]}
 
 
@@ -103,6 +118,15 @@ def test_quality_pass_without_breakout_remains_watch_only():
     )
 
 
+def test_quality_pass_but_expensive_valuation_names_the_action():
+    payload = apply_us_super_growth_quality_gate(
+        scan(), evidence(valuation="FAIL")
+    )
+    item = payload["top5"][0]
+    assert item["valuation_posture"] == "ABOVE_DISCIPLINED_RANGE"
+    assert item["action_eligibility"] == "RESEARCH_ONLY_VALUATION_TOO_HIGH"
+
+
 def test_tsla_is_exempt_and_keeps_innovation_option_policy():
     payload = apply_us_super_growth_quality_gate(scan("TSLA"), None)
     item = payload["top5"][0]
@@ -120,3 +144,34 @@ def test_existing_position_overlap_is_not_reclassified_as_a_new_candidate():
 
     assert item["super_growth_bucket"] == "EXISTING_POSITION"
     assert item["action_eligibility"] == "FOLLOW_EXISTING_CTA_AND_THESIS_POLICY"
+
+
+def test_stale_valuation_is_rejected_using_scan_cutoff():
+    data = scan()
+    data['expected_as_of'] = '2026-08-25'
+    result = apply_us_super_growth_quality_gate(data, evidence())['top5'][0]
+    assert result['quality_gate_status']['valuation']['status'] == 'UNKNOWN'
+    assert 'PRICE_CUTOFF_MISMATCH' in result['quality_gate_status']['valuation']['data_gap']
+
+
+def test_invalid_numbers_and_unbacked_ranges_never_pass():
+    cases = [('price', 0), ('denominator', 0), ('multiple', float('nan')),
+             ('fair_range', [25, 15]), ('price', True), ('denominator', '5'),
+             ('multiple', 200)]
+    for key, value in cases:
+        data = evidence()
+        data['results'][0]['gates']['valuation']['inputs'][key] = value
+        gate = apply_us_super_growth_quality_gate(scan(), data)['top5'][0]['quality_gate_status']['valuation']
+        assert gate['status'] == 'UNKNOWN', (key, value)
+        assert gate['data_gap']
+    data = evidence()
+    del data['results'][0]['gates']['valuation']['fair_range_sources']
+    result = apply_us_super_growth_quality_gate(scan(), data)['top5'][0]
+    assert result['quality_gate_status']['valuation']['status'] == 'UNKNOWN'
+
+
+def test_unknown_reason_is_preserved():
+    data = evidence(valuation='UNKNOWN')
+    data['results'][0]['gates']['valuation']['data_gap'] = 'DATED_CLOSE_NOT_VERIFIED'
+    result = apply_us_super_growth_quality_gate(scan(), data)['top5'][0]
+    assert result['quality_gate_status']['valuation']['data_gap'] == 'DATED_CLOSE_NOT_VERIFIED'

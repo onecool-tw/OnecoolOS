@@ -519,6 +519,29 @@ def update(
             if evidence_path.exists()
             else None
         )
+        # Input collection is isolated from CTA publication and scoring.
+        # Never fetch against LAST_VALID scans or mismatched cutoffs.
+        if (refresh_us_scan and breakout_input_loader is None
+                and breakout_scan.get("publication_status") != "LAST_VALID"
+                and breakout_scan.get("data_status") == "READY"
+                and breakout_scan.get("expected_as_of") == payload["expected_as_of"]):
+            try:
+                from onecool_os.market.us_valuation_inputs import collect_valuation_inputs, fetch_sec_json
+                evidence = collect_valuation_inputs(
+                    breakout_scan, scan_histories, evidence,
+                    SecClient(os.environ.get("SEC_USER_AGENT", "OnecoolOS research onecool-tw@users.noreply.github.com"), request=fetch_sec_json, retry_delays=()),
+                    registry=json.loads((root / "config/sec_fundamental_tickers.json").read_text())["tickers"],
+                )
+                serialized_evidence = json.dumps(evidence, ensure_ascii=False, indent=2, allow_nan=False) + "\n"
+                temporary = evidence_path.with_suffix(".tmp")
+                temporary.write_text(serialized_evidence, encoding="utf-8")
+                if json.loads(temporary.read_text(encoding="utf-8")) != evidence:
+                    raise ValueError("VALUATION_INPUT_READBACK_MISMATCH")
+                temporary.replace(evidence_path)
+                breakout_scan["valuation_input_refresh_status"] = "COMPLETED_WITH_PER_SYMBOL_STATUS"
+            except Exception as exc:
+                breakout_scan["valuation_input_refresh_status"] = "FAILED"
+                breakout_scan["valuation_input_refresh_error_type"] = type(exc).__name__
         breakout_scan = apply_us_super_growth_quality_gate(
             breakout_scan, evidence
         )
@@ -594,3 +617,4 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+

@@ -31,6 +31,7 @@ def apply_us_super_growth_quality_gate(
         "INNOVATION_OPTION": 0,
         "EXISTING_POSITION": 0,
     }
+    evidence_index = {r.get("symbol"): r for r in (evidence_payload or {}).get("results", [])}
     enriched = []
     for raw in top5:
         item = deepcopy(raw) if isinstance(raw, Mapping) else {}
@@ -52,7 +53,11 @@ def apply_us_super_growth_quality_gate(
             })
             bucket_counts["EXISTING_POSITION"] += 1
         else:
-            quality = evaluate_super_growth_candidate(item, evidence_payload)
+            quality = evaluate_super_growth_candidate(
+                {**item, "expected_as_of": payload.get("expected_as_of"),
+                 "price_as_of": payload.get("expected_as_of") or item.get("price_as_of")},
+                evidence_payload,
+            )
             item.update(quality)
             item["quality_gate_application"] = "FORMAL_NEW_CANDIDATE_RESEARCH_GATE"
             bucket = quality["super_growth_bucket"]
@@ -69,13 +74,21 @@ def apply_us_super_growth_quality_gate(
             elif bucket == "A":
                 item["action_eligibility"] = "WATCH_FOR_TECHNICAL_TRIGGER"
             elif bucket == "B":
-                item["action_eligibility"] = "RESEARCH_ONLY_VALUATION_GATED"
+                item["action_eligibility"] = (
+                    "RESEARCH_ONLY_VALUATION_TOO_HIGH"
+                    if quality.get("valuation_posture")
+                    == "ABOVE_DISCIPLINED_RANGE"
+                    else "RESEARCH_ONLY_VALUATION_DATA_GAP"
+                )
             elif bucket == "C":
                 item["action_eligibility"] = (
                     "RESEARCH_ONLY_QUALITY_EVIDENCE_INCOMPLETE"
                 )
             else:
                 item["action_eligibility"] = "REJECTED_BY_QUALITY_GATE"
+        collection = evidence_index.get(symbol, {}).get("valuation_input_collection")
+        if collection and collection.get("as_of") == payload.get("expected_as_of"):
+            item["valuation_input_collection"] = deepcopy(collection)
         item["lynch_research"] = build_lynch_research(item, market="US")
         enriched.append(item)
     payload["top5"] = enriched
@@ -85,6 +98,10 @@ def apply_us_super_growth_quality_gate(
         "bucket_counts": bucket_counts,
         "ranking_policy": "ANNOTATE_ONLY; NEVER_REORDER_TECHNICAL_SCAN",
         "missing_evidence_policy": "UNKNOWN_NEVER_INFERRED",
+        "valuation_policy": (
+            "DATED_INPUTS_REQUIRED; FAIL_MEANS_TOO_EXPENSIVE; "
+            "UNKNOWN_MUST_NAME_ONE_SPECIFIC_DATA_GAP"
+        ),
         "circle_of_competence_policy": (
             "PRE_TRADE_USER_CONFIRMATION_NOT_DAILY_RESEARCH_BLOCKER"
         ),

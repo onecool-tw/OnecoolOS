@@ -7,6 +7,8 @@ is backed by dated source evidence.  Missing evidence remains UNKNOWN.
 
 from __future__ import annotations
 
+from datetime import date
+from math import isfinite, isclose
 from typing import Any, Mapping
 
 
@@ -62,7 +64,20 @@ def _evidence_index(payload: Mapping[str, Any] | None) -> dict[str, Mapping[str,
     }
 
 
-def _verified_gate(record: Mapping[str, Any] | None, gate: str) -> dict[str, Any]:
+def _valid_iso_date(value: Any) -> bool:
+    try:
+        date.fromisoformat(str(value))
+        return True
+    except (TypeError, ValueError):
+        return False
+
+
+def _verified_gate(
+    record: Mapping[str, Any] | None,
+    gate: str,
+    *,
+    candidate_as_of: str | None = None,
+) -> dict[str, Any]:
     gate_map = (record or {}).get("gates") or {}
     if not isinstance(gate_map, Mapping):
         gate_map = {}
@@ -73,6 +88,7 @@ def _verified_gate(record: Mapping[str, Any] | None, gate: str) -> dict[str, Any
     sources = raw.get("sources", [])
     rationale = raw.get("rationale")
     as_of = raw.get("as_of")
+    data_gap = raw.get("data_gap")
     # PASS/FAIL without a date, rationale and source is an unsupported opinion.
     verified = (
         status in {"PASS", "FAIL"}
@@ -83,11 +99,62 @@ def _verified_gate(record: Mapping[str, Any] | None, gate: str) -> dict[str, Any
     )
     if status not in VALID_STATUSES or not verified:
         status = "UNKNOWN"
+    validation_errors = []
+    if gate == "valuation" and status in {"PASS", "FAIL"}:
+        inputs = raw.get("inputs")
+        inputs = inputs if isinstance(inputs, Mapping) else {}
+        def positive(value):
+            return (isinstance(value, (int, float)) and not isinstance(value, bool)
+                    and isfinite(value) and value > 0)
+        for key in ("price", "denominator", "multiple"):
+            if not positive(inputs.get(key)):
+                validation_errors.append("INVALID_" + key.upper())
+        fair = inputs.get("fair_range")
+        if not (isinstance(fair, (list, tuple)) and len(fair) == 2
+                and all(positive(v) for v in fair) and fair[0] <= fair[1]):
+            validation_errors.append("INVALID_FAIR_RANGE")
+        if not raw.get("method"):
+            validation_errors.append("MISSING_METHOD")
+        for key in ("price_as_of", "valid_through"):
+            if not _valid_iso_date(raw.get(key)):
+                validation_errors.append("INVALID_" + key.upper())
+        if not _valid_iso_date(candidate_as_of):
+            validation_errors.append("MISSING_CANDIDATE_CUTOFF")
+        elif raw.get("price_as_of") != candidate_as_of:
+            validation_errors.append("PRICE_CUTOFF_MISMATCH")
+        if (_valid_iso_date(candidate_as_of) and _valid_iso_date(raw.get("valid_through"))
+                and str(raw["valid_through"]) < str(candidate_as_of)):
+            validation_errors.append("VALUATION_EXPIRED")
+        if not raw.get("price_source"):
+            validation_errors.append("MISSING_DATED_CLOSE_SOURCE")
+        if not raw.get("denominator_source"):
+            validation_errors.append("MISSING_DENOMINATOR_SOURCE")
+        if not raw.get("fair_range_rationale") or not raw.get("fair_range_sources"):
+            validation_errors.append("UNSUPPORTED_FAIR_RANGE")
+        if not validation_errors:
+            if not isclose(inputs["price"] / inputs["denominator"], inputs["multiple"],
+                           rel_tol=0, abs_tol=0.01):
+                validation_errors.append("MULTIPLE_CALCULATION_MISMATCH")
+            expected_status = "FAIL" if inputs["multiple"] > fair[1] else "PASS"
+            if status != expected_status:
+                validation_errors.append("STATUS_RANGE_MISMATCH")
+        if validation_errors:
+            status = "UNKNOWN"
+            data_gap = "; ".join(validation_errors)
+    if status == "UNKNOWN" and not data_gap:
+        data_gap = ("MISSING_SOURCE_BACKED_" + gate.upper() + "_ASSESSMENT")
     return {
         "status": status,
-        "as_of": as_of if verified else None,
-        "rationale": rationale if verified else None,
-        "sources": list(sources) if verified else [],
+        "as_of": as_of,
+        "rationale": rationale,
+        "sources": list(sources) if isinstance(sources, list) else [],
+        "data_gap": data_gap,
+        "validation_errors": validation_errors,
+        "method": raw.get("method"),
+        "price_as_of": raw.get("price_as_of"),
+        "valid_through": raw.get("valid_through"),
+        "inputs": dict(raw.get("inputs", {}))
+        if isinstance(raw.get("inputs"), Mapping) else {},
     }
 
 
@@ -99,7 +166,15 @@ def evaluate_super_growth_candidate(
 
     symbol = str(candidate.get("symbol", ""))
     record = _evidence_index(evidence_payload).get(symbol)
-    gates = {name: _verified_gate(record, name) for name in GATE_NAMES}
+    candidate_as_of = candidate.get("price_as_of") or candidate.get("expected_as_of")
+    gates = {
+        name: _verified_gate(
+            record,
+            name,
+            candidate_as_of=str(candidate_as_of) if candidate_as_of else None,
+        )
+        for name in GATE_NAMES
+    }
     missing = [name for name, gate in gates.items() if gate["status"] == "UNKNOWN"]
     failed_quality = [
         name for name in QUALITY_GATES if gates[name]["status"] == "FAIL"
@@ -111,13 +186,16 @@ def evaluate_super_growth_candidate(
         reason = "HARD_QUALITY_GATE_FAILED"
     elif not quality_complete:
         bucket = "C"
-        reason = "CYCLICAL_OR_UNPROVEN_GROWTH"
+        reason = "QUALITY_DATA_GAP_NAMED"
     elif gates["valuation"]["status"] == "PASS":
         bucket = "A"
         reason = "SUPER_GROWTH_QUALIFIED"
+    elif gates["valuation"]["status"] == "FAIL":
+        bucket = "B"
+        reason = "VALUATION_ABOVE_DISCIPLINED_RANGE"
     else:
         bucket = "B"
-        reason = "QUALITY_BUT_VALUATION_GATED"
+        reason = "VALUATION_INPUTS_UNAVAILABLE_OR_STALE"
 
     industry = str(
         candidate.get("industry")
@@ -139,6 +217,18 @@ def evaluate_super_growth_candidate(
         "quality_gate_status": gates,
         "evidence_coverage": evidence_coverage,
         "missing_evidence": missing,
+        "quality_data_gaps": {
+            name: gates[name].get("data_gap")
+            for name in QUALITY_GATES
+            if gates[name]["status"] == "UNKNOWN"
+        },
+        "valuation_posture": (
+            "ATTRACTIVE_OR_FAIR"
+            if gates["valuation"]["status"] == "PASS"
+            else "ABOVE_DISCIPLINED_RANGE"
+            if gates["valuation"]["status"] == "FAIL"
+            else "UNRESOLVED_WITH_SPECIFIC_GAP"
+        ),
         "cyclical_review_required": cyclical_review,
         "evidence_as_of": (record or {}).get("as_of"),
         "manual_confirmation_required": (
