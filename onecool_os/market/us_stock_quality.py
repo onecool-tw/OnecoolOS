@@ -52,7 +52,11 @@ def apply_us_super_growth_quality_gate(
             })
             bucket_counts["EXISTING_POSITION"] += 1
         else:
-            quality = evaluate_super_growth_candidate(item, evidence_payload)
+            quality = evaluate_super_growth_candidate(
+                {**item, "expected_as_of": payload.get("expected_as_of"),
+                 "price_as_of": payload.get("expected_as_of") or item.get("price_as_of")},
+                evidence_payload,
+            )
             item.update(quality)
             item["quality_gate_application"] = "FORMAL_NEW_CANDIDATE_RESEARCH_GATE"
             bucket = quality["super_growth_bucket"]
