@@ -20,18 +20,18 @@
     },
     "cta": {
       "path": "data/market/taiwan_stock_intelligence/cta/cta_latest.json",
-      "sha256": "d2be8cf282a7037e01af84a1d3a50a1cfeb5350d739f9610b117ed8418691dd6"
+      "sha256": "fdf6c81ff4a079cbe61e98511433475f206cf04a4cac625f6fff22242e823998"
     },
     "context": {
       "path": "data/market/taiwan_stock_intelligence/daily_context_latest.json",
-      "sha256": "47ca695327a8bb31acd4bdcba3966c0cd1568e872b1c6553da8bab8d4716dec7"
+      "sha256": "8740b6cfb205b0e25809ed13f8c90718aeeea303980f4a19d1718a3c8226d2e7"
     }
   },
   "source_generated_at": {
     "dashboard": "2026-09-18T06:05:42.567950+00:00",
     "screen": null,
-    "cta": "2026-09-18T06:06:43.806289+00:00",
-    "context": "2026-09-18T06:07:47.733486+00:00"
+    "cta": "2026-09-18T08:06:04.834863+00:00",
+    "context": "2026-09-18T08:06:10.156625+00:00"
   },
   "screen_as_of": "2026-09-17",
   "display_status": "STALE",
@@ -101,6 +101,7 @@
     "issues": [
       "pressure_inputs_wrong_requested_date",
       "margin_not_current",
+      "volatility_published_parse_failed",
       "volatility_not_current"
     ],
     "consumer_rule": "FINAL_EMAIL_REQUIRES_READY; MARGIN_MAY_USE_VERIFIED_OFFICIAL_LAG_BEFORE_21:30; NEVER_RECOMPUTE_PRESSURE_LIGHT"
@@ -108,11 +109,13 @@
   "market_pressure_inputs": {
     "schema_version": "1.0",
     "module": "Onecool Taiwan Official Market Pressure Inputs",
-    "generated_at": "2026-09-18T06:06:33.314867+00:00",
+    "generated_at": "2026-09-18T08:05:49.531107+00:00",
     "requested_as_of": "2026-09-17",
-    "status": "READY",
-    "attempts_used": 1,
-    "issues": [],
+    "status": "UPDATE_INCOMPLETE",
+    "attempts_used": 3,
+    "issues": [
+      "volatility:PUBLISHED_PARSE_FAILED"
+    ],
     "sources": {
       "margin": {
         "status": "VERIFIED",
@@ -138,12 +141,11 @@
         "source_url": "https://www.twse.com.tw/rwd/zh/marginTrading/MI_MARGN?date=20260917&selectType=MS&response=json"
       },
       "volatility": {
-        "status": "VERIFIED",
+        "status": "PUBLISHED_PARSE_FAILED",
         "as_of": "2026-09-17",
-        "value": 24.05,
-        "value_basis": "LAST_1_MIN_AVG",
-        "error": null,
-        "download_url": "https://www.taifex.com.tw/cht/7/getVixData?filesname=20260917",
+        "file_date": null,
+        "error": "VIX_DOWNLOAD_KEY_NOT_PARSED",
+        "value": null,
         "source_url": "https://www.taifex.com.tw/cht/7/vixMinNew"
       }
     },

@@ -1,11 +1,13 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Taiwan Official Market Pressure Inputs",
-  "generated_at": "2026-09-18T06:06:33.314867+00:00",
+  "generated_at": "2026-09-18T08:05:49.531107+00:00",
   "requested_as_of": "2026-09-17",
-  "status": "READY",
-  "attempts_used": 1,
-  "issues": [],
+  "status": "UPDATE_INCOMPLETE",
+  "attempts_used": 3,
+  "issues": [
+    "volatility:PUBLISHED_PARSE_FAILED"
+  ],
   "sources": {
     "margin": {
       "status": "VERIFIED",
@@ -31,12 +33,11 @@
       "source_url": "https://www.twse.com.tw/rwd/zh/marginTrading/MI_MARGN?date=20260917&selectType=MS&response=json"
     },
     "volatility": {
-      "status": "VERIFIED",
+      "status": "PUBLISHED_PARSE_FAILED",
       "as_of": "2026-09-17",
-      "value": 24.05,
-      "value_basis": "LAST_1_MIN_AVG",
-      "error": null,
-      "download_url": "https://www.taifex.com.tw/cht/7/getVixData?filesname=20260917",
+      "file_date": null,
+      "error": "VIX_DOWNLOAD_KEY_NOT_PARSED",
+      "value": null,
       "source_url": "https://www.taifex.com.tw/cht/7/vixMinNew"
     }
   },
