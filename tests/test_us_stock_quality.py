@@ -21,6 +21,17 @@ def evidence(symbol="NVDA", *, valuation="PASS"):
         }
         for name in GATES
     }
+    gates["valuation"].update({
+        "method": "FORWARD_PE",
+        "price_as_of": "2026-08-24",
+        "valid_through": "2026-09-02",
+        "inputs": {
+            "price": 100.0,
+            "denominator": 5.0,
+            "multiple": 20.0,
+            "fair_range": [15.0, 25.0],
+        },
+    })
     return {"results": [{"symbol": symbol, "gates": gates}]}
 
 
@@ -101,6 +112,15 @@ def test_quality_pass_without_breakout_remains_watch_only():
     assert payload["top5"][0]["action_eligibility"] == (
         "WATCH_FOR_TECHNICAL_TRIGGER"
     )
+
+
+def test_quality_pass_but_expensive_valuation_names_the_action():
+    payload = apply_us_super_growth_quality_gate(
+        scan(), evidence(valuation="FAIL")
+    )
+    item = payload["top5"][0]
+    assert item["valuation_posture"] == "ABOVE_DISCIPLINED_RANGE"
+    assert item["action_eligibility"] == "RESEARCH_ONLY_VALUATION_TOO_HIGH"
 
 
 def test_tsla_is_exempt_and_keeps_innovation_option_policy():
