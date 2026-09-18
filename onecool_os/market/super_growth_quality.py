@@ -8,6 +8,7 @@ is backed by dated source evidence.  Missing evidence remains UNKNOWN.
 from __future__ import annotations
 
 from datetime import date
+from math import isfinite, isclose
 from typing import Any, Mapping
 
 
@@ -98,34 +99,57 @@ def _verified_gate(
     )
     if status not in VALID_STATUSES or not verified:
         status = "UNKNOWN"
+    validation_errors = []
     if gate == "valuation" and status in {"PASS", "FAIL"}:
         inputs = raw.get("inputs")
-        required_fields = {"price", "denominator", "multiple", "fair_range"}
-        fair_range = inputs.get("fair_range") if isinstance(inputs, Mapping) else None
-        valuation_verified = (
-            bool(raw.get("method"))
-            and isinstance(inputs, Mapping)
-            and required_fields.issubset(inputs)
-            and all(inputs.get(name) is not None for name in required_fields)
-            and isinstance(fair_range, (list, tuple))
-            and len(fair_range) == 2
-            and _valid_iso_date(raw.get("price_as_of"))
-            and _valid_iso_date(raw.get("valid_through"))
-            and (
-                not candidate_as_of
-                or str(raw.get("price_as_of")) == str(candidate_as_of)
-            )
-            and date.fromisoformat(str(raw.get("valid_through")))
-            >= date.fromisoformat(str(raw.get("price_as_of")))
-        )
-        if not valuation_verified:
+        inputs = inputs if isinstance(inputs, Mapping) else {}
+        def positive(value):
+            return (isinstance(value, (int, float)) and not isinstance(value, bool)
+                    and isfinite(value) and value > 0)
+        for key in ("price", "denominator", "multiple"):
+            if not positive(inputs.get(key)):
+                validation_errors.append("INVALID_" + key.upper())
+        fair = inputs.get("fair_range")
+        if not (isinstance(fair, (list, tuple)) and len(fair) == 2
+                and all(positive(v) for v in fair) and fair[0] <= fair[1]):
+            validation_errors.append("INVALID_FAIR_RANGE")
+        if not raw.get("method"):
+            validation_errors.append("MISSING_METHOD")
+        for key in ("price_as_of", "valid_through"):
+            if not _valid_iso_date(raw.get(key)):
+                validation_errors.append("INVALID_" + key.upper())
+        if not _valid_iso_date(candidate_as_of):
+            validation_errors.append("MISSING_CANDIDATE_CUTOFF")
+        elif raw.get("price_as_of") != candidate_as_of:
+            validation_errors.append("PRICE_CUTOFF_MISMATCH")
+        if (_valid_iso_date(candidate_as_of) and _valid_iso_date(raw.get("valid_through"))
+                and str(raw["valid_through"]) < str(candidate_as_of)):
+            validation_errors.append("VALUATION_EXPIRED")
+        if not raw.get("price_source"):
+            validation_errors.append("MISSING_DATED_CLOSE_SOURCE")
+        if not raw.get("denominator_source"):
+            validation_errors.append("MISSING_DENOMINATOR_SOURCE")
+        if not raw.get("fair_range_rationale") or not raw.get("fair_range_sources"):
+            validation_errors.append("UNSUPPORTED_FAIR_RANGE")
+        if not validation_errors:
+            if not isclose(inputs["price"] / inputs["denominator"], inputs["multiple"],
+                           rel_tol=0, abs_tol=0.01):
+                validation_errors.append("MULTIPLE_CALCULATION_MISMATCH")
+            expected_status = "FAIL" if inputs["multiple"] > fair[1] else "PASS"
+            if status != expected_status:
+                validation_errors.append("STATUS_RANGE_MISMATCH")
+        if validation_errors:
             status = "UNKNOWN"
+            data_gap = "; ".join(validation_errors)
+    if status == "UNKNOWN" and not data_gap:
+        data_gap = ("MISSING_SOURCE_BACKED_" + gate.upper() + "_ASSESSMENT")
     return {
         "status": status,
         "as_of": as_of,
         "rationale": rationale,
         "sources": list(sources) if isinstance(sources, list) else [],
         "data_gap": data_gap,
+        "validation_errors": validation_errors,
         "method": raw.get("method"),
         "price_as_of": raw.get("price_as_of"),
         "valid_through": raw.get("valid_through"),
