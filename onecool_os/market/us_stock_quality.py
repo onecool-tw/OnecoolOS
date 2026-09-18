@@ -57,8 +57,13 @@ def apply_us_super_growth_quality_gate(
             item["quality_gate_application"] = "FORMAL_NEW_CANDIDATE_RESEARCH_GATE"
             bucket = quality["super_growth_bucket"]
             bucket_counts[bucket] += 1
+            circle_confirmation = bool(
+                quality.get("manual_confirmation_required")
+            )
             if bucket == "A" and item.get("formal_breakout") is True:
                 item["action_eligibility"] = (
+                    "REQUIRES_CIRCLE_OF_COMPETENCE_CONFIRMATION_AND_MARKET_GATES"
+                    if circle_confirmation else
                     "REQUIRES_MARKET_CTA_INDIVIDUAL_CTA_AND_PRESSURE_GREEN"
                 )
             elif bucket == "A":
@@ -80,6 +85,9 @@ def apply_us_super_growth_quality_gate(
         "bucket_counts": bucket_counts,
         "ranking_policy": "ANNOTATE_ONLY; NEVER_REORDER_TECHNICAL_SCAN",
         "missing_evidence_policy": "UNKNOWN_NEVER_INFERRED",
+        "circle_of_competence_policy": (
+            "PRE_TRADE_USER_CONFIRMATION_NOT_DAILY_RESEARCH_BLOCKER"
+        ),
         "existing_position_policy": "NO_AUTOMATIC_EXIT_OR_DOWNGRADE",
         "innovation_option_policy": "TSLA_AND_SPCX_EXEMPT",
         "canslim_role": "CONCEPTUAL_CROSSWALK_ONLY_NOT_AN_EXTRA_SCORE",
