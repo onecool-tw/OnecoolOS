@@ -1,8 +1,8 @@
 {
   "report_id": "taiwan",
   "report_date": "2026-09-18",
-  "generated_at": "2026-09-18T18:13:59+08:00",
-  "delivery_status": "FAILED",
+  "generated_at": "2026-09-18T18:24:00+08:00",
+  "delivery_status": "PREPARED",
   "writeback_status": "VERIFIED",
   "delivery_evidence_sha256": null,
   "channels": {
@@ -12,10 +12,10 @@
       "evidence_sha256": null
     },
     "email": {
-      "status": "FAILED",
-      "observed_at": "2026-09-18T18:13:59+08:00",
+      "status": "UNKNOWN",
+      "observed_at": null,
       "evidence_sha256": null,
-      "reason": "FINAL_SNAPSHOT_NOT_VERIFIED_MARKET_PRESSURE_WRITE_FAILED"
+      "reason": "FINAL_HEALTH_AND_ARTIFACT_VERIFICATION_PENDING"
     },
     "artifact": {
       "status": "DELIVERED",
@@ -23,5 +23,5 @@
       "evidence_sha256": "017b076eab836682ec8383a99b0df0d7e46409fb60fd0ec645432e96a8b07f29"
     }
   },
-  "reason": "Artifact saved and read back; email withheld because formal market-pressure SSOT write/read-back verification failed; conversation delivery cannot be observed by executor."
+  "reason": "Formal market-pressure SSOT and snapshot are verified; final health refresh, artifact replacement, and email delivery remain pending."
 }
