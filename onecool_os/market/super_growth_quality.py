@@ -18,7 +18,15 @@ GATE_NAMES = (
     "circle_of_competence",
     "valuation",
 )
-QUALITY_GATES = GATE_NAMES[:-1]
+# Objective company-quality gates are system-researchable.  Circle of
+# competence remains a pre-trade user overlay: an unknown personal-fit answer
+# must not turn an otherwise complete company research pack into bucket C.
+QUALITY_GATES = (
+    "competitive_advantage",
+    "structural_growth_runway",
+    "financial_quality",
+    "business_risk_and_governance",
+)
 VALID_STATUSES = {"PASS", "FAIL", "UNKNOWN"}
 
 # This flag prompts an explicit cycle review; it is not an automatic rejection.
@@ -133,6 +141,14 @@ def evaluate_super_growth_candidate(
         "missing_evidence": missing,
         "cyclical_review_required": cyclical_review,
         "evidence_as_of": (record or {}).get("as_of"),
+        "manual_confirmation_required": (
+            ["circle_of_competence"]
+            if gates["circle_of_competence"]["status"] == "UNKNOWN"
+            else []
+        ),
+        "circle_of_competence_policy": (
+            "PRE_TRADE_USER_CONFIRMATION_NOT_DAILY_RESEARCH_BLOCKER"
+        ),
         "decision_authority": "RESEARCH_QUALITY_ONLY",
     }
 
