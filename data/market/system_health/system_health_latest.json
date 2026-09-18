@@ -1,12 +1,12 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-09-18T05:00:15.873325+00:00",
+  "generated_at": "2026-09-18T06:08:21.606142+00:00",
   "taipei_date": "2026-09-18",
-  "status": "PARTIAL",
+  "status": "BLOCKED",
   "scope_status": {
     "morning": "READY",
-    "asia": "READY",
+    "asia": "BLOCKED",
     "weekly": "READY"
   },
   "report_delivery": {
@@ -35,7 +35,7 @@
       },
       {
         "report_id": "fund",
-        "expected_report_date": "2026-09-17",
+        "expected_report_date": "2026-09-18",
         "status": "UNKNOWN",
         "reason": "Invalid or unverifiable receipt"
       },
@@ -59,11 +59,11 @@
     "policy": "Data readiness does not prove report delivery. Never infer email success from a generated draft."
   },
   "end_to_end_status": "NOT_FULLY_VERIFIED",
-  "action_readiness": "LIMITED",
+  "action_readiness": "UNSAFE_FOR_AFFECTED_REPORTS",
   "counts": {
-    "ready": 16,
+    "ready": 15,
     "partial": 1,
-    "blocked": 0
+    "blocked": 1
   },
   "modules": [
     {
@@ -173,7 +173,7 @@
       "scope": "asia",
       "critical": false,
       "status": "PARTIAL",
-      "reason": "current 199, stale 0, unknown 1; insufficient history: 7711 永擎: weekly observations 42/50; waiting for actual market observations, not a provider retry.",
+      "reason": "current 199, stale 0, unknown 1; insufficient history: 7711 永擎: weekly observations 43/50; waiting for actual market observations, not a provider retry.",
       "observed_as_of": "2026-09-17",
       "recovery_workflow": "update-taiwan-stock-screen.yml",
       "retryable": false,
@@ -186,8 +186,8 @@
       "label": "Taiwan Daily Context",
       "scope": "asia",
       "critical": true,
-      "status": "READY",
-      "reason": "current",
+      "status": "BLOCKED",
+      "reason": "display_status is not ready",
       "observed_as_of": "2026-09-17",
       "recovery_workflow": "update-taiwan-stock-screen.yml",
       "retryable": true,
@@ -315,16 +315,32 @@
       "scope": "asia",
       "critical": false,
       "status": "PARTIAL",
-      "reason": "current 199, stale 0, unknown 1; insufficient history: 7711 永擎: weekly observations 42/50; waiting for actual market observations, not a provider retry.",
+      "reason": "current 199, stale 0, unknown 1; insufficient history: 7711 永擎: weekly observations 43/50; waiting for actual market observations, not a provider retry.",
       "observed_as_of": "2026-09-17",
       "recovery_workflow": "update-taiwan-stock-screen.yml",
       "retryable": false,
       "impacted_reports": [
         "台股日報"
       ]
+    },
+    {
+      "module_id": "taiwan_daily_context",
+      "label": "Taiwan Daily Context",
+      "scope": "asia",
+      "critical": true,
+      "status": "BLOCKED",
+      "reason": "display_status is not ready",
+      "observed_as_of": "2026-09-17",
+      "recovery_workflow": "update-taiwan-stock-screen.yml",
+      "retryable": true,
+      "impacted_reports": [
+        "台股日報"
+      ]
     }
   ],
-  "recovery_workflows": [],
-  "issue_fingerprint": "7515b77afacea1bffb55f6628b599d879fde506d40b9961663a7aac9a33804dd",
+  "recovery_workflows": [
+    "update-taiwan-stock-screen.yml"
+  ],
+  "issue_fingerprint": "53cb300930eb38c0b3a8e00bfaa97f07fa7eecbd0c3ead1d72dd5962051abe35",
   "policy": "Health monitoring only; never changes CTA, rankings, or investment decisions."
 }
