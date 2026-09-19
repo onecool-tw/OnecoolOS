@@ -62,7 +62,13 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
+      # A run may wait behind an earlier run in this workflow's concurrency
+      # group. Check out main when the job actually starts so derived caches
+      # are recomputed from the newest published baseline, not the stale event
+      # SHA that originally queued the run.
       - uses: actions/checkout@v4
+        with:
+          ref: main
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
