@@ -25,6 +25,23 @@ MIN_TECHNICAL_CONFIDENCE = 90
 CANSLIM_PASS = 70
 MINERVINI_PASS = 80
 
+# Universe membership is deliberately stable between formal reviews. Daily
+# price/fundamental validation determines ranking eligibility; it never mutates
+# membership. Every membership change must update the version and review dates.
+US_BREAKOUT_UNIVERSE_VERSION = "2026Q3-v1"
+US_BREAKOUT_UNIVERSE_TARGET_SIZE = 70
+US_BREAKOUT_UNIVERSE_MEMBERSHIP_MODE = "VERSIONED_QUARTERLY_GOVERNANCE"
+US_BREAKOUT_UNIVERSE_REVIEW_CADENCE = "QUARTERLY_AFTER_LAST_FULL_US_SESSION"
+US_BREAKOUT_UNIVERSE_LAST_REVIEWED_AS_OF = "2026-08-21"
+US_BREAKOUT_UNIVERSE_NEXT_REVIEW_AS_OF = "2026-09-30"
+US_BREAKOUT_UNIVERSE_MIN_HISTORY_SESSIONS = 252
+US_BREAKOUT_UNIVERSE_MIN_50D_DOLLAR_LIQUIDITY = 20_000_000
+US_BREAKOUT_UNIVERSE_EMERGENCY_TRIGGERS = (
+    "DELISTING_OR_TRADING_TERMINATION",
+    "COMPLETED_MERGER_OR_TICKER_RETIREMENT",
+    "IDENTITY_OR_SECURITY_TYPE_INVALIDATED",
+)
+
 # A stable, liquid US leadership universe.  Membership is versioned in code so
 # a historical result is reproducible and ticker mappings cannot drift silently.
 US_BREAKOUT_UNIVERSE = (
@@ -313,6 +330,21 @@ def build_breakout_scan_payload(
         "data_status": "READY",
         "price_basis": "adjusted_close",
         "universe_size": len(universe),
+        "universe_governance": {
+            "version": US_BREAKOUT_UNIVERSE_VERSION,
+            "target_size": US_BREAKOUT_UNIVERSE_TARGET_SIZE,
+            "membership_mode": US_BREAKOUT_UNIVERSE_MEMBERSHIP_MODE,
+            "review_cadence": US_BREAKOUT_UNIVERSE_REVIEW_CADENCE,
+            "last_reviewed_as_of": US_BREAKOUT_UNIVERSE_LAST_REVIEWED_AS_OF,
+            "next_scheduled_review_as_of": US_BREAKOUT_UNIVERSE_NEXT_REVIEW_AS_OF,
+            "minimum_history_sessions": US_BREAKOUT_UNIVERSE_MIN_HISTORY_SESSIONS,
+            "minimum_50d_dollar_liquidity_usd":
+                US_BREAKOUT_UNIVERSE_MIN_50D_DOLLAR_LIQUIDITY,
+            "emergency_review_triggers":
+                list(US_BREAKOUT_UNIVERSE_EMERGENCY_TRIGGERS),
+            "daily_membership_mutation": False,
+            "change_control": "VERSION_BUMP_AND_AUDIT_RECORD_REQUIRED",
+        },
         "validated_count": len(results),
         "coverage_status": "COMPLETE" if len(results) == len(universe) else "PARTIAL",
         "validated_coverage_pct": round(100 * len(results) / len(universe), 2) if universe else 0,
