@@ -1,11 +1,11 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-09-19T04:04:16.152777+00:00",
+  "generated_at": "2026-09-19T04:51:52.495547+00:00",
   "taipei_date": "2026-09-19",
   "status": "PARTIAL",
   "scope_status": {
-    "morning": "PARTIAL",
+    "morning": "READY",
     "asia": "READY",
     "weekly": "READY"
   },
@@ -61,8 +61,8 @@
   "end_to_end_status": "NOT_FULLY_VERIFIED",
   "action_readiness": "LIMITED",
   "counts": {
-    "ready": 15,
-    "partial": 2,
+    "ready": 16,
+    "partial": 1,
     "blocked": 0
   },
   "modules": [
@@ -86,11 +86,11 @@
       "label": "US Breakout Scan",
       "scope": "morning",
       "critical": true,
-      "status": "PARTIAL",
-      "reason": "validated subset 3/70; see per-symbol fetch/validation status",
+      "status": "READY",
+      "reason": "current",
       "observed_as_of": "2026-09-18",
       "recovery_workflow": "update-market-dashboard.yml",
-      "retryable": false,
+      "retryable": true,
       "impacted_reports": [
         "美股日報"
       ]
@@ -310,20 +310,6 @@
   ],
   "issues": [
     {
-      "module_id": "us_breakout_scan",
-      "label": "US Breakout Scan",
-      "scope": "morning",
-      "critical": true,
-      "status": "PARTIAL",
-      "reason": "validated subset 3/70; see per-symbol fetch/validation status",
-      "observed_as_of": "2026-09-18",
-      "recovery_workflow": "update-market-dashboard.yml",
-      "retryable": false,
-      "impacted_reports": [
-        "美股日報"
-      ]
-    },
-    {
       "module_id": "taiwan_candidate_cta",
       "label": "Taiwan 200-stock CTA",
       "scope": "asia",
@@ -339,6 +325,6 @@
     }
   ],
   "recovery_workflows": [],
-  "issue_fingerprint": "587674ecc65bc027cf7bed4f6675e82d8fb7f4ece35b3d5c128ee9f6772f5260",
+  "issue_fingerprint": "345c9cb860bf71b175dd932289592982a818e9ce3039aea300eaf3397371bfb3",
   "policy": "Health monitoring only; never changes CTA, rankings, or investment decisions."
 }
