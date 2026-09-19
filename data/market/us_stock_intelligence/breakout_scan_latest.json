@@ -11,6 +11,23 @@
   "data_status": "READY",
   "price_basis": "adjusted_close",
   "universe_size": 70,
+  "universe_governance": {
+    "version": "2026Q3-v1",
+    "target_size": 70,
+    "membership_mode": "VERSIONED_QUARTERLY_GOVERNANCE",
+    "review_cadence": "QUARTERLY_AFTER_LAST_FULL_US_SESSION",
+    "last_reviewed_as_of": "2026-08-21",
+    "next_scheduled_review_as_of": "2026-09-30",
+    "minimum_history_sessions": 252,
+    "minimum_50d_dollar_liquidity_usd": 20000000,
+    "emergency_review_triggers": [
+      "DELISTING_OR_TRADING_TERMINATION",
+      "COMPLETED_MERGER_OR_TICKER_RETIREMENT",
+      "IDENTITY_OR_SECURITY_TYPE_INVALIDATED"
+    ],
+    "daily_membership_mutation": false,
+    "change_control": "VERSION_BUMP_AND_AUDIT_RECORD_REQUIRED"
+  },
   "validated_count": 64,
   "coverage_status": "PARTIAL",
   "validated_coverage_pct": 91.43,
