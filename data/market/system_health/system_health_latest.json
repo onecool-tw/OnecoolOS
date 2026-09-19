@@ -1,11 +1,11 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-09-18T23:56:10.093868+00:00",
+  "generated_at": "2026-09-19T01:03:45.452603+00:00",
   "taipei_date": "2026-09-19",
   "status": "PARTIAL",
   "scope_status": {
-    "morning": "READY",
+    "morning": "PARTIAL",
     "asia": "READY",
     "weekly": "READY"
   },
@@ -41,7 +41,7 @@
       },
       {
         "report_id": "cards",
-        "expected_report_date": "2026-09-12",
+        "expected_report_date": "2026-09-19",
         "status": "PARTIAL",
         "channels": {
           "conversation": "UNKNOWN",
@@ -61,8 +61,8 @@
   "end_to_end_status": "NOT_FULLY_VERIFIED",
   "action_readiness": "LIMITED",
   "counts": {
-    "ready": 16,
-    "partial": 1,
+    "ready": 15,
+    "partial": 2,
     "blocked": 0
   },
   "modules": [
@@ -86,11 +86,11 @@
       "label": "US Breakout Scan",
       "scope": "morning",
       "critical": true,
-      "status": "READY",
-      "reason": "current",
+      "status": "PARTIAL",
+      "reason": "validated subset 3/70; see per-symbol fetch/validation status",
       "observed_as_of": "2026-09-18",
       "recovery_workflow": "update-market-dashboard.yml",
-      "retryable": true,
+      "retryable": false,
       "impacted_reports": [
         "美股日報"
       ]
@@ -116,7 +116,7 @@
       "critical": true,
       "status": "READY",
       "reason": "all symbols current",
-      "observed_as_of": "2026-09-17",
+      "observed_as_of": "2026-09-18",
       "recovery_workflow": "update-etf-cta.yml",
       "retryable": true,
       "impacted_reports": [
@@ -131,7 +131,7 @@
       "critical": true,
       "status": "READY",
       "reason": "current",
-      "observed_as_of": "2026-09-17",
+      "observed_as_of": "2026-09-18",
       "recovery_workflow": "update-fund-nav-cta.yml",
       "retryable": false,
       "impacted_reports": [
@@ -310,6 +310,20 @@
   ],
   "issues": [
     {
+      "module_id": "us_breakout_scan",
+      "label": "US Breakout Scan",
+      "scope": "morning",
+      "critical": true,
+      "status": "PARTIAL",
+      "reason": "validated subset 3/70; see per-symbol fetch/validation status",
+      "observed_as_of": "2026-09-18",
+      "recovery_workflow": "update-market-dashboard.yml",
+      "retryable": false,
+      "impacted_reports": [
+        "美股日報"
+      ]
+    },
+    {
       "module_id": "taiwan_candidate_cta",
       "label": "Taiwan 200-stock CTA",
       "scope": "asia",
@@ -325,6 +339,6 @@
     }
   ],
   "recovery_workflows": [],
-  "issue_fingerprint": "345c9cb860bf71b175dd932289592982a818e9ce3039aea300eaf3397371bfb3",
+  "issue_fingerprint": "587674ecc65bc027cf7bed4f6675e82d8fb7f4ece35b3d5c128ee9f6772f5260",
   "policy": "Health monitoring only; never changes CTA, rankings, or investment decisions."
 }
