@@ -150,3 +150,14 @@ SPCX在累積滿200個日線觀察值與50個完成週以前，固定顯示：
 - DXY、VIX、US30Y不得包含晚於SPY完整交易日的資料；日期仍不一致時，排除該背景數值，不改寫CTA。
 - 基本面依收盤時可取得的已驗證版本評分。盤後新財報另列事件，從下一個完整交易日才納入，不能倒填或單因盘後發布使當日舊版失效。
 - 已審核財報的 `effective_from`／`valid_through` 決定可用區間；候選池與持股使用同一版本，不沿用舊分數。
+
+
+## US Breakout Universe Governance
+
+- Daily Top 5 uses the versioned 70-security `US_BREAKOUT_UNIVERSE`; membership does not change during daily runs.
+- Read `universe_governance` from the scan artifact and report the universe version only when a quarterly or emergency membership change occurs.
+- Review membership after the final completed US session of each calendar quarter under `docs/operations/us-breakout-universe-governance.md`.
+- Ordinary score changes, price weakness, temporary provider failures, or a single quarter below liquidity minimum do not mutate membership.
+- Emergency review is limited to delisting/trading termination, completed merger/ticker retirement, or invalidated identity/security type.
+- Every membership change requires an add/remove rationale, evidence, target-size reconciliation, a universe version bump, tests, and an auditable repository change.
+- When `assessment_status=COMPLETE`, write: “候選池70檔已全部檢查；X檔具評分資格，Y檔依規則排除。” Do not describe rule exclusions as incomplete validation or missing coverage.

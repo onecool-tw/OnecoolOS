@@ -8,6 +8,8 @@ from onecool_os.market.etf_cta import DailyBar
 from onecool_os.market.us_breakout_scan import (
     FundamentalMetrics,
     US_BREAKOUT_UNIVERSE,
+    US_BREAKOUT_UNIVERSE_TARGET_SIZE,
+    US_BREAKOUT_UNIVERSE_VERSION,
     US_SECURITY_MASTER,
     build_breakout_scan_payload,
     fetch_yahoo_breakout_inputs,
@@ -213,3 +215,35 @@ def test_validation_gate_excludes_bad_candidate(bad):
     )
     assert [r["symbol"] for r in scan["top5"]] == ["NVDA"]
     assert scan["exclusions"][0]["symbol"] == symbol
+
+
+def test_production_universe_governance_is_explicit_and_stable() -> None:
+    assert len(US_BREAKOUT_UNIVERSE) == US_BREAKOUT_UNIVERSE_TARGET_SIZE == 70
+    assert US_BREAKOUT_UNIVERSE_VERSION == "2026Q3-v1"
+
+    spy = _history(strength=0.1)
+    as_of = spy[-1].trading_date.isoformat()
+    histories = {
+        symbol: _history(strength=0.2)
+        for symbol in US_BREAKOUT_UNIVERSE[:2]
+    }
+    fundamentals = {
+        symbol: _fundamental(as_of)
+        for symbol in histories
+    }
+    payload = build_breakout_scan_payload(
+        histories,
+        fundamentals,
+        spy_history=spy,
+        expected_as_of=as_of,
+        universe=tuple(histories),
+    )
+    governance = payload["universe_governance"]
+    assert governance["version"] == US_BREAKOUT_UNIVERSE_VERSION
+    assert governance["review_cadence"] == (
+        "QUARTERLY_AFTER_LAST_FULL_US_SESSION"
+    )
+    assert governance["daily_membership_mutation"] is False
+    assert governance["change_control"] == (
+        "VERSION_BUMP_AND_AUDIT_RECORD_REQUIRED"
+    )
