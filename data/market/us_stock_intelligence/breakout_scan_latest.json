@@ -315,15 +315,17 @@
       "status": "WAIT",
       "trigger": "突破52週高點且成交量至少為50日均量1.5倍",
       "formal_breakout": false,
-      "super_growth_bucket": "C",
-      "super_growth_reason": "QUALITY_DATA_GAP_NAMED",
+      "super_growth_bucket": "B",
+      "super_growth_reason": "VALUATION_INPUTS_UNAVAILABLE_OR_STALE",
       "quality_gate_status": {
         "competitive_advantage": {
-          "status": "UNKNOWN",
-          "as_of": null,
-          "rationale": null,
-          "sources": [],
-          "data_gap": "MISSING_SOURCE_BACKED_COMPETITIVE_ADVANTAGE_ASSESSMENT",
+          "status": "PASS",
+          "as_of": "2026-08-04",
+          "rationale": "資料中心營收達67億美元、年增107%，EPYC與Instinct需求帶動，並揭露Helios機架級平台與多家雲端及AI客戶部署；產品組合、運算平台與客戶採用提供可追溯的競爭優勢證據。",
+          "sources": [
+            "https://ir.amd.com/news-events/press-releases/detail/1295/amd-reports-second-quarter-2026-financial-results"
+          ],
+          "data_gap": null,
           "validation_errors": [],
           "method": null,
           "price_as_of": null,
@@ -331,11 +333,13 @@
           "inputs": {}
         },
         "structural_growth_runway": {
-          "status": "UNKNOWN",
-          "as_of": null,
-          "rationale": null,
-          "sources": [],
-          "data_gap": "MISSING_SOURCE_BACKED_STRUCTURAL_GROWTH_RUNWAY_ASSESSMENT",
+          "status": "PASS",
+          "as_of": "2026-08-04",
+          "rationale": "Q2營收年增50%至115.36億美元，資料中心占58%；公司預期Q3營收約130億美元（±3億）且資料中心下半年加速，支持AI與高效能運算的成長續航。",
+          "sources": [
+            "https://ir.amd.com/news-events/press-releases/detail/1295/amd-reports-second-quarter-2026-financial-results"
+          ],
+          "data_gap": null,
           "validation_errors": [],
           "method": null,
           "price_as_of": null,
@@ -343,11 +347,13 @@
           "inputs": {}
         },
         "financial_quality": {
-          "status": "UNKNOWN",
-          "as_of": null,
-          "rationale": null,
-          "sources": [],
-          "data_gap": "MISSING_SOURCE_BACKED_FINANCIAL_QUALITY_ASSESSMENT",
+          "status": "PASS",
+          "as_of": "2026-08-04",
+          "rationale": "Q2 GAAP營業利益19.9億美元、淨利22.97億美元、稀釋EPS 1.38美元；非GAAP營業利益30.94億美元、EPS 1.66美元，自由現金流15.58億美元，營收、獲利與現金流均為正。",
+          "sources": [
+            "https://ir.amd.com/news-events/press-releases/detail/1295/amd-reports-second-quarter-2026-financial-results"
+          ],
+          "data_gap": null,
           "validation_errors": [],
           "method": null,
           "price_as_of": null,
@@ -355,11 +361,14 @@
           "inputs": {}
         },
         "business_risk_and_governance": {
-          "status": "UNKNOWN",
-          "as_of": null,
-          "rationale": null,
-          "sources": [],
-          "data_gap": "MISSING_SOURCE_BACKED_BUSINESS_RISK_AND_GOVERNANCE_ASSESSMENT",
+          "status": "PASS",
+          "as_of": "2026-08-04",
+          "rationale": "官方材料揭露出口管制、客戶與AI需求、供應鏈、競爭、收購及非GAAP調整等風險；Q2仍有5.03億美元股權薪酬及5.44億美元收購無形資產攤銷，需持續監控，但未見足以否決研究資格的治理或持續經營事件。",
+          "sources": [
+            "https://ir.amd.com/news-events/press-releases/detail/1295/amd-reports-second-quarter-2026-financial-results",
+            "https://www.sec.gov/edgar/browse/?CIK=2488&owner=exclude"
+          ],
+          "data_gap": null,
           "validation_errors": [],
           "method": null,
           "price_as_of": null,
@@ -368,10 +377,12 @@
         },
         "circle_of_competence": {
           "status": "UNKNOWN",
-          "as_of": null,
-          "rationale": null,
-          "sources": [],
-          "data_gap": "MISSING_SOURCE_BACKED_CIRCLE_OF_COMPETENCE_ASSESSMENT",
+          "as_of": "2026-09-18",
+          "rationale": "AI加速器競爭、軟體生態與出口管制的理解屬正式建倉前個人確認層，不阻擋客觀品質研究。",
+          "sources": [
+            "https://ir.amd.com/news-events/press-releases/detail/1295/amd-reports-second-quarter-2026-financial-results"
+          ],
+          "data_gap": "PRE_TRADE_USER_CONFIRMATION_ONLY",
           "validation_errors": [],
           "method": null,
           "price_as_of": null,
@@ -380,42 +391,41 @@
         },
         "valuation": {
           "status": "UNKNOWN",
-          "as_of": null,
-          "rationale": null,
-          "sources": [],
-          "data_gap": "MISSING_SOURCE_BACKED_VALUATION_ASSESSMENT",
+          "as_of": "2026-09-18",
+          "rationale": "同截止日調整後收盤價已取得為559.82美元；官方Q2僅提供季度非GAAP EPS 1.66美元與Q3營收／毛利率展望，未提供全年正常化EPS。不能以單季EPS年化或外推Q3營收冒充可重現的forward EPS。",
+          "sources": [
+            "https://ir.amd.com/news-events/press-releases/detail/1295/amd-reports-second-quarter-2026-financial-results",
+            "https://finance.yahoo.com/quote/AMD/history/"
+          ],
+          "data_gap": "OFFICIAL_FULL_YEAR_NORMALIZED_EPS_AND_SOURCE_BACKED_FAIR_RANGE_UNAVAILABLE",
           "validation_errors": [],
-          "method": null,
-          "price_as_of": null,
-          "valid_through": null,
-          "inputs": {}
+          "method": "FORWARD_NORMALIZED_PE",
+          "price_as_of": "2026-09-18",
+          "valid_through": "2026-09-29",
+          "inputs": {
+            "price": 559.8200073242188,
+            "denominator": null,
+            "multiple": null,
+            "fair_range": null
+          }
         }
       },
-      "evidence_coverage": "NONE",
+      "evidence_coverage": "PARTIAL",
       "missing_evidence": [
-        "competitive_advantage",
-        "structural_growth_runway",
-        "financial_quality",
-        "business_risk_and_governance",
         "circle_of_competence",
         "valuation"
       ],
-      "quality_data_gaps": {
-        "competitive_advantage": "MISSING_SOURCE_BACKED_COMPETITIVE_ADVANTAGE_ASSESSMENT",
-        "structural_growth_runway": "MISSING_SOURCE_BACKED_STRUCTURAL_GROWTH_RUNWAY_ASSESSMENT",
-        "financial_quality": "MISSING_SOURCE_BACKED_FINANCIAL_QUALITY_ASSESSMENT",
-        "business_risk_and_governance": "MISSING_SOURCE_BACKED_BUSINESS_RISK_AND_GOVERNANCE_ASSESSMENT"
-      },
+      "quality_data_gaps": {},
       "valuation_posture": "UNRESOLVED_WITH_SPECIFIC_GAP",
-      "cyclical_review_required": false,
-      "evidence_as_of": null,
+      "cyclical_review_required": true,
+      "evidence_as_of": "2026-09-18",
       "manual_confirmation_required": [
         "circle_of_competence"
       ],
       "circle_of_competence_policy": "PRE_TRADE_USER_CONFIRMATION_NOT_DAILY_RESEARCH_BLOCKER",
       "decision_authority": "RESEARCH_QUALITY_ONLY",
       "quality_gate_application": "FORMAL_NEW_CANDIDATE_RESEARCH_GATE",
-      "action_eligibility": "RESEARCH_ONLY_QUALITY_EVIDENCE_INCOMPLETE",
+      "action_eligibility": "RESEARCH_ONLY_VALUATION_DATA_GAP",
       "valuation_input_collection": {
         "as_of": "2026-09-18",
         "status": "PARTIAL",
@@ -446,22 +456,75 @@
       "lynch_research": {
         "version": "onecool_lynch_research_v1",
         "company_type": {
-          "status": "INSUFFICIENT_EVIDENCE",
-          "primary": "UNCLASSIFIED",
-          "candidates": [],
-          "evidence": [],
+          "status": "PROVISIONAL",
+          "primary": "MULTIPLE_CANDIDATES",
+          "candidates": [
+            "FAST_GROWER",
+            "CYCLICAL"
+          ],
+          "evidence": [
+            {
+              "field": "industry",
+              "value": "verified cyclical flag",
+              "interpretation": "CYCLE_REVIEW_REQUIRED"
+            },
+            {
+              "field": "verified_quality_gates",
+              "value": [
+                "structural_growth_runway",
+                "financial_quality"
+              ],
+              "interpretation": "FAST_GROWTH_CANDIDATE_NOT_DURABILITY_PROOF"
+            }
+          ],
           "unresolved_categories": [
             "SLOW_GROWER",
             "STALWART",
-            "FAST_GROWER",
-            "CYCLICAL",
             "TURNAROUND",
             "ASSET_PLAY"
           ]
         },
         "investment_story": {
-          "status": "INSUFFICIENT_EVIDENCE",
-          "evidence": [],
+          "status": "EVIDENCE_ONLY",
+          "evidence": [
+            {
+              "field": "competitive_advantage",
+              "value": "PASS",
+              "as_of": "2026-08-04",
+              "rationale": "資料中心營收達67億美元、年增107%，EPYC與Instinct需求帶動，並揭露Helios機架級平台與多家雲端及AI客戶部署；產品組合、運算平台與客戶採用提供可追溯的競爭優勢證據。",
+              "sources": [
+                "https://ir.amd.com/news-events/press-releases/detail/1295/amd-reports-second-quarter-2026-financial-results"
+              ]
+            },
+            {
+              "field": "structural_growth_runway",
+              "value": "PASS",
+              "as_of": "2026-08-04",
+              "rationale": "Q2營收年增50%至115.36億美元，資料中心占58%；公司預期Q3營收約130億美元（±3億）且資料中心下半年加速，支持AI與高效能運算的成長續航。",
+              "sources": [
+                "https://ir.amd.com/news-events/press-releases/detail/1295/amd-reports-second-quarter-2026-financial-results"
+              ]
+            },
+            {
+              "field": "financial_quality",
+              "value": "PASS",
+              "as_of": "2026-08-04",
+              "rationale": "Q2 GAAP營業利益19.9億美元、淨利22.97億美元、稀釋EPS 1.38美元；非GAAP營業利益30.94億美元、EPS 1.66美元，自由現金流15.58億美元，營收、獲利與現金流均為正。",
+              "sources": [
+                "https://ir.amd.com/news-events/press-releases/detail/1295/amd-reports-second-quarter-2026-financial-results"
+              ]
+            },
+            {
+              "field": "business_risk_and_governance",
+              "value": "PASS",
+              "as_of": "2026-08-04",
+              "rationale": "官方材料揭露出口管制、客戶與AI需求、供應鏈、競爭、收購及非GAAP調整等風險；Q2仍有5.03億美元股權薪酬及5.44億美元收購無形資產攤銷，需持續監控，但未見足以否決研究資格的治理或持續經營事件。",
+              "sources": [
+                "https://ir.amd.com/news-events/press-releases/detail/1295/amd-reports-second-quarter-2026-financial-results",
+                "https://www.sec.gov/edgar/browse/?CIK=2488&owner=exclude"
+              ]
+            }
+          ],
           "required_manual_confirmation": [
             "BUSINESS_DRIVER",
             "DURABILITY",
@@ -1512,8 +1575,8 @@
     "scope": "NEW_US_STOCK_CANDIDATES_ONLY",
     "bucket_counts": {
       "A": 0,
-      "B": 4,
-      "C": 1,
+      "B": 5,
+      "C": 0,
       "REJECT": 0,
       "INNOVATION_OPTION": 0,
       "EXISTING_POSITION": 0
