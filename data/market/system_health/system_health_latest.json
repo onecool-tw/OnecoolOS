@@ -1,8 +1,8 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-09-19T12:00:14.888268+00:00",
-  "taipei_date": "2026-09-19",
+  "generated_at": "2026-09-20T12:54:53.938801+00:00",
+  "taipei_date": "2026-09-20",
   "status": "PARTIAL",
   "scope_status": {
     "morning": "READY",
@@ -65,8 +65,8 @@
   "end_to_end_status": "NOT_FULLY_VERIFIED",
   "action_readiness": "LIMITED",
   "counts": {
-    "ready": 16,
-    "partial": 1,
+    "ready": 15,
+    "partial": 2,
     "blocked": 0
   },
   "modules": [
@@ -206,7 +206,7 @@
       "critical": false,
       "status": "READY",
       "reason": "current",
-      "observed_as_of": "2026-09-13",
+      "observed_as_of": "2026-09-20",
       "recovery_workflow": "update-fund-weekly-analytics.yml",
       "retryable": false,
       "impacted_reports": [
@@ -220,7 +220,7 @@
       "critical": false,
       "status": "READY",
       "reason": "current",
-      "observed_as_of": "2026-09-11",
+      "observed_as_of": "2026-09-17",
       "recovery_workflow": "update-fund-weekly-analytics.yml",
       "retryable": false,
       "impacted_reports": [
@@ -234,7 +234,7 @@
       "critical": false,
       "status": "READY",
       "reason": "current",
-      "observed_as_of": "2026-09-13",
+      "observed_as_of": "2026-09-20",
       "recovery_workflow": "update-fund-weekly-analytics.yml",
       "retryable": false,
       "impacted_reports": [
@@ -248,7 +248,7 @@
       "critical": false,
       "status": "READY",
       "reason": "current",
-      "observed_as_of": "2026-09-11",
+      "observed_as_of": "2026-09-18",
       "recovery_workflow": "update-fund-weekly-analytics.yml",
       "retryable": false,
       "impacted_reports": [
@@ -262,7 +262,7 @@
       "critical": false,
       "status": "READY",
       "reason": "current",
-      "observed_as_of": "2026-09-11",
+      "observed_as_of": "2026-09-18",
       "recovery_workflow": "update-fund-weekly-analytics.yml",
       "retryable": false,
       "impacted_reports": [
@@ -288,9 +288,9 @@
       "label": "AI Revolution",
       "scope": "weekly",
       "critical": false,
-      "status": "READY",
-      "reason": "current and reviewed",
-      "observed_as_of": "2026-09-13",
+      "status": "PARTIAL",
+      "reason": "official evidence requires manual review",
+      "observed_as_of": "2026-09-20",
       "recovery_workflow": null,
       "retryable": false,
       "impacted_reports": [
@@ -304,7 +304,7 @@
       "critical": true,
       "status": "READY",
       "reason": "validation PASS",
-      "observed_as_of": "2026-09-13",
+      "observed_as_of": "2026-09-20",
       "recovery_workflow": null,
       "retryable": false,
       "impacted_reports": [
@@ -326,9 +326,23 @@
       "impacted_reports": [
         "台股日報"
       ]
+    },
+    {
+      "module_id": "ai_revolution",
+      "label": "AI Revolution",
+      "scope": "weekly",
+      "critical": false,
+      "status": "PARTIAL",
+      "reason": "official evidence requires manual review",
+      "observed_as_of": "2026-09-20",
+      "recovery_workflow": null,
+      "retryable": false,
+      "impacted_reports": [
+        "基金週報"
+      ]
     }
   ],
   "recovery_workflows": [],
-  "issue_fingerprint": "345c9cb860bf71b175dd932289592982a818e9ce3039aea300eaf3397371bfb3",
+  "issue_fingerprint": "94c1ed94953955b7d173d869319443c9b2dcc124a1bd9f308caa1b000e6da73d",
   "policy": "Health monitoring only; never changes CTA, rankings, or investment decisions."
 }
