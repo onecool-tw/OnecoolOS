@@ -1,11 +1,11 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-09-21T03:39:27.196092+00:00",
+  "generated_at": "2026-09-21T05:15:40.540012+00:00",
   "taipei_date": "2026-09-21",
-  "status": "BLOCKED",
+  "status": "PARTIAL",
   "scope_status": {
-    "morning": "BLOCKED",
+    "morning": "READY",
     "asia": "READY",
     "weekly": "READY"
   },
@@ -63,11 +63,11 @@
     "policy": "Data readiness does not prove report delivery. Never infer email success from a generated draft."
   },
   "end_to_end_status": "NOT_FULLY_VERIFIED",
-  "action_readiness": "UNSAFE_FOR_AFFECTED_REPORTS",
+  "action_readiness": "LIMITED",
   "counts": {
-    "ready": 14,
+    "ready": 15,
     "partial": 2,
-    "blocked": 1
+    "blocked": 0
   },
   "modules": [
     {
@@ -133,11 +133,11 @@
       "label": "Fund NAV CTA",
       "scope": "morning",
       "critical": true,
-      "status": "BLOCKED",
-      "reason": "generation timestamp missing, invalid or older than scheduled date 2026-09-21",
-      "observed_as_of": "2026-09-19",
+      "status": "READY",
+      "reason": "current",
+      "observed_as_of": "2026-09-18",
       "recovery_workflow": "update-fund-nav-cta.yml",
-      "retryable": true,
+      "retryable": false,
       "impacted_reports": [
         "基金日報",
         "基金週報"
@@ -314,21 +314,6 @@
   ],
   "issues": [
     {
-      "module_id": "fund_nav_cta",
-      "label": "Fund NAV CTA",
-      "scope": "morning",
-      "critical": true,
-      "status": "BLOCKED",
-      "reason": "generation timestamp missing, invalid or older than scheduled date 2026-09-21",
-      "observed_as_of": "2026-09-19",
-      "recovery_workflow": "update-fund-nav-cta.yml",
-      "retryable": true,
-      "impacted_reports": [
-        "基金日報",
-        "基金週報"
-      ]
-    },
-    {
       "module_id": "taiwan_candidate_cta",
       "label": "Taiwan 200-stock CTA",
       "scope": "asia",
@@ -357,9 +342,7 @@
       ]
     }
   ],
-  "recovery_workflows": [
-    "update-fund-nav-cta.yml"
-  ],
-  "issue_fingerprint": "456a0a9cd19881a70f41d0afb060e16eb3ec02e71a7cf0dcb99fb271c7caed55",
+  "recovery_workflows": [],
+  "issue_fingerprint": "94c1ed94953955b7d173d869319443c9b2dcc124a1bd9f308caa1b000e6da73d",
   "policy": "Health monitoring only; never changes CTA, rankings, or investment decisions."
 }
