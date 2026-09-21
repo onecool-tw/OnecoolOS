@@ -2,16 +2,16 @@
   "schema_version": "1.5",
   "report_readiness": {
     "status": "READY",
-    "expected_as_of": "2026-09-18",
-    "screen_as_of": "2026-09-18",
+    "expected_as_of": "2026-09-21",
+    "screen_as_of": "2026-09-21",
     "taiwan_cta_dates": {
-      "0050": "2026-09-18",
-      "2330": "2026-09-18",
-      "6669": "2026-09-18",
-      "3006": "2026-09-18",
-      "2357": "2026-09-18",
-      "2408": "2026-09-18",
-      "3036": "2026-09-18"
+      "0050": "2026-09-21",
+      "2330": "2026-09-21",
+      "6669": "2026-09-21",
+      "3006": "2026-09-21",
+      "2376": "2026-09-21",
+      "2408": "2026-09-21",
+      "3036": "2026-09-21"
     },
     "issues": [],
     "scope": "TAIWAN_PRICE_VALUATION_AND_CTA_ONLY",
@@ -20,14 +20,14 @@
   },
   "market_pressure_input_readiness": {
     "status": "READY",
-    "expected_as_of": "2026-09-18",
+    "expected_as_of": "2026-09-21",
     "issues": [],
     "consumer_rule": "FINAL_EMAIL_REQUIRES_READY; MARGIN_MAY_USE_VERIFIED_OFFICIAL_LAG_BEFORE_21:30; NEVER_RECOMPUTE_PRESSURE_LIGHT"
   },
   "module": "Onecool Taiwan Stock Daily Context",
-  "generated_at": "2026-09-19T08:43:02.465531+00:00",
+  "generated_at": "2026-09-21T10:07:15.540395+00:00",
   "source_policy": "LATEST_SUCCESSFUL_SCREEN_WITH_EXPLICIT_DATE",
-  "screen_as_of": "2026-09-18",
+  "screen_as_of": "2026-09-21",
   "screen_business_day_lag": 0,
   "display_status": "CURRENT",
   "screen_data_status": "READY",
@@ -71,8 +71,8 @@
   "market_pressure_inputs": {
     "schema_version": "1.0",
     "module": "Onecool Taiwan Official Market Pressure Inputs",
-    "generated_at": "2026-09-19T08:42:39.019159+00:00",
-    "requested_as_of": "2026-09-18",
+    "generated_at": "2026-09-21T10:06:39.252073+00:00",
+    "requested_as_of": "2026-09-21",
     "status": "READY",
     "attempts_used": 1,
     "issues": [],
@@ -98,15 +98,18 @@
           }
         },
         "error": null,
+        "official_lag_accepted": true,
+        "availability_basis": "LATEST_OFFICIAL_BEFORE_SAME_DAY_PUBLICATION",
+        "requested_as_of": "2026-09-21",
         "source_url": "https://www.twse.com.tw/rwd/zh/marginTrading/MI_MARGN?date=20260918&selectType=MS&response=json"
       },
       "volatility": {
         "status": "VERIFIED",
-        "as_of": "2026-09-18",
-        "value": 21.18,
+        "as_of": "2026-09-21",
+        "value": 21.82,
         "value_basis": "LAST_1_MIN_AVG",
         "error": null,
-        "download_url": "https://www.taifex.com.tw/cht/7/getVixData?filesname=20260918",
+        "download_url": "https://www.taifex.com.tw/cht/7/getVixData?filesname=20260921",
         "source_url": "https://www.taifex.com.tw/cht/7/vixMinNew"
       }
     },
@@ -114,8 +117,8 @@
   },
   "candidate_action_gate": "REQUIRES_INDIVIDUAL_CTA_AND_PRESSURE_GREEN",
   "candidate_cta_cache": {
-    "screen_as_of": "2026-09-18",
-    "generated_at": "2026-09-19T08:42:57.784135+00:00",
+    "screen_as_of": "2026-09-21",
+    "generated_at": "2026-09-21T10:06:59.738761+00:00",
     "requested_count": 200,
     "coverage": {
       "current": 199,
@@ -141,7 +144,7 @@
       "symbol": "6669",
       "company_name": "緯穎",
       "industry": "電腦及週邊設備業",
-      "price_as_of": "2026-09-18",
+      "price_as_of": "2026-09-21",
       "fundamentals_as_of": "2026Q2",
       "monthly_revenue_as_of": "2026-08",
       "price_basis": "official_unadjusted_close",
@@ -149,14 +152,14 @@
       "monthly_revenue_yoy": 50.35813251850269,
       "cumulative_revenue_yoy": 42.79572821857782,
       "eps": 156.38,
-      "pe": 6.86,
-      "pb": 2.91,
+      "pe": 6.89,
+      "pb": 2.93,
       "financial_quality": {
         "version": "onecool_tw_financial_quality_v2",
         "status": "REVIEW",
         "label": "需留意",
         "as_of": "2026Q2",
-        "observed_at": "2026-09-19T08:06:03.787940+00:00",
+        "observed_at": "2026-09-21T10:07:02.654230+00:00",
         "source_url": "https://mopsov.twse.com.tw/server-java/t164sb01?step=1&CO_ID=6669&SYEAR=2026&SSEASON=2&REPORT_ID=C",
         "source_sha256": "46c5a07d7e9e4429f043710768ca5e33e630bfa4e60f2cb95cdb5a6c87599811",
         "scope": "CONSOLIDATED_THREE_STATEMENTS",
@@ -326,9 +329,9 @@
         "eps": 30.0,
         "pe": 10.0,
         "pb": 3.0,
-        "liquidity": 12.6
+        "liquidity": 12.53
       },
-      "score": 95.6,
+      "score": 95.53,
       "confidence": "HIGH",
       "selection_status": "FORMAL",
       "candidate_role": "RESEARCH_PRIORITY_ONLY",
@@ -379,13 +382,13 @@
             },
             {
               "field": "pe",
-              "value": 6.86,
-              "as_of": "2026-09-18"
+              "value": 6.89,
+              "as_of": "2026-09-21"
             },
             {
               "field": "pb",
-              "value": 2.91,
-              "as_of": "2026-09-18"
+              "value": 2.93,
+              "as_of": "2026-09-21"
             }
           ],
           "required_manual_confirmation": [
@@ -421,14 +424,14 @@
       "individual_cta_required": true,
       "individual_cta": {
         "update_status": "CURRENT",
-        "as_of": "2026-09-18",
+        "as_of": "2026-09-21",
         "state": "WEEKLY_BULLISH_DAILY_BEARISH",
         "cta": "WATCH",
         "reason": "Weekly golden trend remains, but daily trend weakened.",
-        "source_data_as_of": "2026-09-18",
+        "source_data_as_of": "2026-09-21",
         "weekly_data_as_of": "2026-09-18",
-        "daily_50ma": 3110.109941,
-        "daily_200ma": 3987.924056,
+        "daily_50ma": 3053.909941,
+        "daily_200ma": 3978.41091,
         "weekly_30ma": 4015.442283,
         "weekly_50ma": 3983.376485,
         "daily_cross": {
@@ -436,8 +439,8 @@
           "cross_status": "NONE",
           "last_cross_status": "DEATH",
           "last_cross_date": "2026-08-20",
-          "periods_since_cross": 21,
-          "spread_pct": -22.011806,
+          "periods_since_cross": 22,
+          "spread_pct": -23.237946,
           "phase": "ACTIVE"
         },
         "weekly_cross": {
@@ -449,7 +452,7 @@
           "spread_pct": 0.80499,
           "phase": "AGING"
         },
-        "last_attempt_at": "2026-09-19T08:42:57.784135+00:00",
+        "last_attempt_at": "2026-09-21T10:06:59.738761+00:00",
         "error": null
       },
       "action_eligibility": "HOLD_EXISTING_PAUSE_RIGHT_SIDE_ADD"
@@ -458,22 +461,22 @@
       "symbol": "3006",
       "company_name": "晶豪科",
       "industry": "半導體業",
-      "price_as_of": "2026-09-18",
+      "price_as_of": "2026-09-21",
       "fundamentals_as_of": "2026Q2",
       "monthly_revenue_as_of": "2026-08",
       "price_basis": "official_unadjusted_close",
-      "liquidity_rank": 61,
+      "liquidity_rank": 52,
       "monthly_revenue_yoy": 605.2432014317565,
       "cumulative_revenue_yoy": 324.37526455062414,
       "eps": 27.58,
-      "pe": 9.18,
-      "pb": 4.36,
+      "pe": 8.99,
+      "pb": 4.27,
       "financial_quality": {
         "version": "onecool_tw_financial_quality_v2",
         "status": "NORMAL",
         "label": "正常",
         "as_of": "2026Q2",
-        "observed_at": "2026-09-19T08:06:03.787940+00:00",
+        "observed_at": "2026-09-21T10:07:02.654230+00:00",
         "source_url": "https://mopsov.twse.com.tw/server-java/t164sb01?step=1&CO_ID=3006&SYEAR=2026&SSEASON=2&REPORT_ID=C",
         "source_sha256": "cc403f689c719b486a97f8ea03fc0d5225f45eb1e6fb7010bfb205ca8466d068",
         "scope": "CONSOLIDATED_THREE_STATEMENTS",
@@ -641,9 +644,9 @@
         "eps": 30.0,
         "pe": 10.0,
         "pb": 2.0,
-        "liquidity": 10.11
+        "liquidity": 10.65
       },
-      "score": 92.11,
+      "score": 92.65,
       "confidence": "HIGH",
       "selection_status": "FORMAL",
       "candidate_role": "RESEARCH_PRIORITY_ONLY",
@@ -699,13 +702,13 @@
             },
             {
               "field": "pe",
-              "value": 9.18,
-              "as_of": "2026-09-18"
+              "value": 8.99,
+              "as_of": "2026-09-21"
             },
             {
               "field": "pb",
-              "value": 4.36,
-              "as_of": "2026-09-18"
+              "value": 4.27,
+              "as_of": "2026-09-21"
             }
           ],
           "required_manual_confirmation": [
@@ -741,14 +744,14 @@
       "individual_cta_required": true,
       "individual_cta": {
         "update_status": "CURRENT",
-        "as_of": "2026-09-18",
+        "as_of": "2026-09-21",
         "state": "WEEKLY_BULLISH_DAILY_BULLISH",
         "cta": "BUY",
         "reason": "Weekly golden cross remains confirmed or active.",
-        "source_data_as_of": "2026-09-18",
+        "source_data_as_of": "2026-09-21",
         "weekly_data_as_of": "2026-09-18",
-        "daily_50ma": 250.45,
-        "daily_200ma": 188.831847,
+        "daily_50ma": 251.59,
+        "daily_200ma": 189.850763,
         "weekly_30ma": 212.942488,
         "weekly_50ma": 171.415596,
         "daily_cross": {
@@ -756,8 +759,8 @@
           "cross_status": "NONE",
           "last_cross_status": "GOLDEN",
           "last_cross_date": "2025-09-24",
-          "periods_since_cross": 239,
-          "spread_pct": 32.631229,
+          "periods_since_cross": 240,
+          "spread_pct": 32.519878,
           "phase": "AGING"
         },
         "weekly_cross": {
@@ -769,33 +772,33 @@
           "spread_pct": 24.225854,
           "phase": "ACTIVE"
         },
-        "last_attempt_at": "2026-09-19T08:42:57.784135+00:00",
+        "last_attempt_at": "2026-09-21T10:06:59.738761+00:00",
         "error": null
       },
       "action_eligibility": "ELIGIBLE_IF_0050_BULLISH_AND_PRESSURE_GREEN"
     },
     {
-      "symbol": "2357",
-      "company_name": "華碩",
+      "symbol": "2376",
+      "company_name": "技嘉",
       "industry": "電腦及週邊設備業",
-      "price_as_of": "2026-09-18",
+      "price_as_of": "2026-09-21",
       "fundamentals_as_of": "2026Q2",
       "monthly_revenue_as_of": "2026-08",
       "price_basis": "official_unadjusted_close",
-      "liquidity_rank": 58,
-      "monthly_revenue_yoy": 51.16688342643828,
-      "cumulative_revenue_yoy": 42.30457002299758,
-      "eps": 38.83,
-      "pe": 14.04,
-      "pb": 2.37,
+      "liquidity_rank": 46,
+      "monthly_revenue_yoy": 98.42707910183296,
+      "cumulative_revenue_yoy": 55.23396713556208,
+      "eps": 17.73,
+      "pe": 13.77,
+      "pb": 3.71,
       "financial_quality": {
         "version": "onecool_tw_financial_quality_v2",
         "status": "REVIEW",
         "label": "需留意",
         "as_of": "2026Q2",
-        "observed_at": "2026-09-18T10:08:21.992501+00:00",
-        "source_url": "https://mopsov.twse.com.tw/server-java/t164sb01?step=1&CO_ID=2357&SYEAR=2026&SSEASON=2&REPORT_ID=C",
-        "source_sha256": "dd9a66ae56ae295b9373214e8dc57a25d7c91c03e9a73af0954adb981b10bab1",
+        "observed_at": "2026-09-21T10:07:02.654230+00:00",
+        "source_url": "https://mopsov.twse.com.tw/server-java/t164sb01?step=1&CO_ID=2376&SYEAR=2026&SSEASON=2&REPORT_ID=C",
+        "source_sha256": "ff41e1bb92c97703bbb9e47d63ff6ada8e1b5cb0484841760eee1b1312b4a7df",
         "scope": "CONSOLIDATED_THREE_STATEMENTS",
         "period_basis": "YEAR_TO_DATE",
         "ranking_effect": "NONE",
@@ -805,7 +808,7 @@
             "concept": "ifrs-full:ProfitLoss",
             "start": "2026-01-01",
             "end": "2026-06-30",
-            "value": 31494261000.0,
+            "value": 13108902000.0,
             "unit": "TWD",
             "context_id": "From20260101To20260630"
           },
@@ -813,7 +816,7 @@
             "concept": "ifrs-full:Revenue",
             "start": "2026-01-01",
             "end": "2026-06-30",
-            "value": 466101713000.0,
+            "value": 249271763000.0,
             "unit": "TWD",
             "context_id": "From20260101To20260630"
           },
@@ -821,7 +824,7 @@
             "concept": "ifrs-full:ProfitLossFromOperatingActivities",
             "start": "2026-01-01",
             "end": "2026-06-30",
-            "value": 32869663000.0,
+            "value": 15533953000.0,
             "unit": "TWD",
             "context_id": "From20260101To20260630"
           },
@@ -829,7 +832,7 @@
             "concept": "tifrs-bsci-ci:NonoperatingIncomeAndExpenses",
             "start": "2026-01-01",
             "end": "2026-06-30",
-            "value": 7247167000.0,
+            "value": 971278000.0,
             "unit": "TWD",
             "context_id": "From20260101To20260630"
           },
@@ -837,7 +840,7 @@
             "concept": "ifrs-full:ProfitLossBeforeTax",
             "start": "2026-01-01",
             "end": "2026-06-30",
-            "value": 40116830000.0,
+            "value": 16505231000.0,
             "unit": "TWD",
             "context_id": "From20260101To20260630"
           },
@@ -845,7 +848,7 @@
             "concept": "ifrs-full:CashFlowsFromUsedInOperatingActivities",
             "start": "2026-01-01",
             "end": "2026-06-30",
-            "value": -77332235000.0,
+            "value": -79384238000.0,
             "unit": "TWD",
             "context_id": "From20260101To20260630"
           },
@@ -853,7 +856,7 @@
             "concept": "ifrs-full:Revenue",
             "start": "2025-01-01",
             "end": "2025-06-30",
-            "value": 335699473000.0,
+            "value": 168005546000.0,
             "unit": "TWD",
             "context_id": "From20250101To20250630"
           },
@@ -861,7 +864,7 @@
             "concept": "ifrs-full:Assets",
             "start": "",
             "end": "2026-06-30",
-            "value": 868541957000.0,
+            "value": 271256869000.0,
             "unit": "TWD",
             "context_id": "AsOf20260630"
           },
@@ -869,7 +872,7 @@
             "concept": "ifrs-full:Assets",
             "start": "",
             "end": "2025-12-31",
-            "value": 631656719000.0,
+            "value": 156125596000.0,
             "unit": "TWD",
             "context_id": "AsOf20251231"
           },
@@ -877,7 +880,7 @@
             "concept": "ifrs-full:Equity",
             "start": "",
             "end": "2026-06-30",
-            "value": 329985687000.0,
+            "value": 69273572000.0,
             "unit": "TWD",
             "context_id": "AsOf20260630"
           },
@@ -885,7 +888,7 @@
             "concept": "ifrs-full:Equity",
             "start": "",
             "end": "2025-12-31",
-            "value": 297563197000.0,
+            "value": 61199203000.0,
             "unit": "TWD",
             "context_id": "AsOf20251231"
           },
@@ -893,7 +896,7 @@
             "concept": "ifrs-full:Liabilities",
             "start": "",
             "end": "2026-06-30",
-            "value": 538556270000.0,
+            "value": 201983297000.0,
             "unit": "TWD",
             "context_id": "AsOf20260630"
           },
@@ -901,7 +904,7 @@
             "concept": "ifrs-full:Inventories",
             "start": "",
             "end": "2026-06-30",
-            "value": 356328604000.0,
+            "value": 168452059000.0,
             "unit": "TWD",
             "context_id": "AsOf20260630"
           },
@@ -909,7 +912,7 @@
             "concept": "ifrs-full:Inventories",
             "start": "",
             "end": "2025-06-30",
-            "value": 150232812000.0,
+            "value": 55322871000.0,
             "unit": "TWD",
             "context_id": "AsOf20250630"
           },
@@ -917,7 +920,7 @@
             "concept": "tifrs-bsci-ci:AccountsReceivableNet",
             "start": "",
             "end": "2026-06-30",
-            "value": 163671053000.0,
+            "value": 37493962000.0,
             "unit": "TWD",
             "context_id": "AsOf20260630"
           },
@@ -925,7 +928,7 @@
             "concept": "tifrs-bsci-ci:AccountsReceivableNet",
             "start": "",
             "end": "2025-06-30",
-            "value": 115055060000.0,
+            "value": 40631195000.0,
             "unit": "TWD",
             "context_id": "AsOf20250630"
           }
@@ -933,21 +936,22 @@
         "missing_checks": [],
         "flags": [
           "NEGATIVE_OPERATING_CASHFLOW",
+          "HIGH_EQUITY_MULTIPLIER",
           "INVENTORY_GROWTH"
         ],
         "metrics": {
-          "operating_cashflow_twd": -77332235000.0,
-          "cashflow_to_profit": -2.455438944892214,
-          "consolidated_roe_ytd_pct": 10.037229545929684,
-          "consolidated_roa_ytd_pct": 4.198678682209422,
-          "average_equity_multiplier": 2.390568630188178,
-          "liabilities_to_assets_pct": 62.0069376798109,
-          "revenue_yoy_pct": 38.844934379745055,
-          "inventory_yoy_pct": 137.18427369914372,
-          "trade_receivables_ex_related_yoy_pct": 42.2545457800813
+          "operating_cashflow_twd": -79384238000.0,
+          "cashflow_to_profit": -6.055750359564821,
+          "consolidated_roe_ytd_pct": 20.094463385177484,
+          "consolidated_roa_ytd_pct": 6.13450624372247,
+          "average_equity_multiplier": 3.275644784898612,
+          "liabilities_to_assets_pct": 74.46200265623504,
+          "revenue_yoy_pct": 48.37115139044279,
+          "inventory_yoy_pct": 204.48900419502812,
+          "trade_receivables_ex_related_yoy_pct": -7.721242262256867
         },
         "policy": "Research warnings only; normal means no configured warning, not an audit opinion.",
-        "reason": "營業現金流為負，需核對資金占用；存貨年增逾20%，且高於營收年增20個百分點",
+        "reason": "營業現金流為負，需核對資金占用；平均資產／權益達3倍，ROE有明顯槓桿效果；存貨年增逾20%，且高於營收年增20個百分點",
         "thresholds": {
           "cashflow_to_profit_min": 0.5,
           "equity_multiplier_max": 3,
@@ -961,10 +965,10 @@
         "cumulative_revenue_yoy": 20.0,
         "eps": 30.0,
         "pe": 8.0,
-        "pb": 3.0,
-        "liquidity": 10.36
+        "pb": 2.0,
+        "liquidity": 11.16
       },
-      "score": 91.36,
+      "score": 91.16,
       "confidence": "HIGH",
       "selection_status": "FORMAL",
       "candidate_role": "RESEARCH_PRIORITY_ONLY",
@@ -980,9 +984,9 @@
             {
               "field": "revenue_and_eps_snapshot",
               "value": {
-                "monthly_revenue_yoy": 51.16688342643828,
-                "cumulative_revenue_yoy": 42.30457002299758,
-                "eps": 38.83
+                "monthly_revenue_yoy": 98.42707910183296,
+                "cumulative_revenue_yoy": 55.23396713556208,
+                "eps": 17.73
               },
               "interpretation": "FAST_GROWTH_CANDIDATE_NOT_DURABILITY_PROOF"
             }
@@ -1000,28 +1004,28 @@
           "evidence": [
             {
               "field": "monthly_revenue_yoy",
-              "value": 51.16688342643828,
+              "value": 98.42707910183296,
               "as_of": "2026-08"
             },
             {
               "field": "cumulative_revenue_yoy",
-              "value": 42.30457002299758,
+              "value": 55.23396713556208,
               "as_of": "2026-08"
             },
             {
               "field": "eps",
-              "value": 38.83,
+              "value": 17.73,
               "as_of": "2026Q2"
             },
             {
               "field": "pe",
-              "value": 14.04,
-              "as_of": "2026-09-18"
+              "value": 13.77,
+              "as_of": "2026-09-21"
             },
             {
               "field": "pb",
-              "value": 2.37,
-              "as_of": "2026-09-18"
+              "value": 3.71,
+              "as_of": "2026-09-21"
             }
           ],
           "required_manual_confirmation": [
@@ -1057,35 +1061,35 @@
       "individual_cta_required": true,
       "individual_cta": {
         "update_status": "CURRENT",
-        "as_of": "2026-09-18",
+        "as_of": "2026-09-21",
         "state": "WEEKLY_BULLISH_DAILY_BULLISH",
         "cta": "BUY",
         "reason": "Weekly golden cross remains confirmed or active.",
-        "source_data_as_of": "2026-09-18",
+        "source_data_as_of": "2026-09-21",
         "weekly_data_as_of": "2026-09-18",
-        "daily_50ma": 870.4,
-        "daily_200ma": 650.14565,
-        "weekly_30ma": 705.505333,
-        "weekly_50ma": 646.0268,
+        "daily_50ma": 345.122155,
+        "daily_200ma": 284.218306,
+        "weekly_30ma": 304.981847,
+        "weekly_50ma": 281.390238,
         "daily_cross": {
           "alignment": "GOLDEN",
           "cross_status": "NONE",
           "last_cross_status": "GOLDEN",
-          "last_cross_date": "2026-05-28",
-          "periods_since_cross": 80,
-          "spread_pct": 33.877693,
+          "last_cross_date": "2026-05-18",
+          "periods_since_cross": 89,
+          "spread_pct": 21.428545,
           "phase": "AGING"
         },
         "weekly_cross": {
           "alignment": "GOLDEN",
           "cross_status": "NONE",
           "last_cross_status": "GOLDEN",
-          "last_cross_date": "2026-08-07",
-          "periods_since_cross": 6,
-          "spread_pct": 9.206821,
+          "last_cross_date": "2026-07-10",
+          "periods_since_cross": 10,
+          "spread_pct": 8.383947,
           "phase": "ACTIVE"
         },
-        "last_attempt_at": "2026-09-19T08:42:57.784135+00:00",
+        "last_attempt_at": "2026-09-21T10:06:59.738761+00:00",
         "error": null
       },
       "action_eligibility": "ELIGIBLE_IF_0050_BULLISH_AND_PRESSURE_GREEN"
@@ -1094,22 +1098,22 @@
       "symbol": "2408",
       "company_name": "南亞科",
       "industry": "半導體業",
-      "price_as_of": "2026-09-18",
+      "price_as_of": "2026-09-21",
       "fundamentals_as_of": "2026Q2",
       "monthly_revenue_as_of": "2026-08",
       "price_basis": "official_unadjusted_close",
-      "liquidity_rank": 4,
+      "liquidity_rank": 9,
       "monthly_revenue_yoy": 560.8541425724004,
       "cumulative_revenue_yoy": 638.1931640340957,
       "eps": 23.38,
-      "pe": 20.37,
-      "pb": 5.62,
+      "pe": 20.02,
+      "pb": 5.52,
       "financial_quality": {
         "version": "onecool_tw_financial_quality_v2",
         "status": "NORMAL",
         "label": "正常",
         "as_of": "2026Q2",
-        "observed_at": "2026-09-19T08:06:03.787940+00:00",
+        "observed_at": "2026-09-21T10:07:02.654230+00:00",
         "source_url": "https://mopsov.twse.com.tw/server-java/t164sb01?step=1&CO_ID=2408&SYEAR=2026&SSEASON=2&REPORT_ID=C",
         "source_sha256": "bb0ce99f39a30e80e0328d5bd6fbb90cc076e8e45dee924de8be263b81e683c4",
         "scope": "CONSOLIDATED_THREE_STATEMENTS",
@@ -1278,9 +1282,9 @@
         "eps": 30.0,
         "pe": 4.0,
         "pb": 1.0,
-        "liquidity": 14.75
+        "liquidity": 14.32
       },
-      "score": 89.75,
+      "score": 89.32,
       "confidence": "HIGH",
       "selection_status": "FORMAL",
       "candidate_role": "RESEARCH_PRIORITY_ONLY",
@@ -1336,13 +1340,13 @@
             },
             {
               "field": "pe",
-              "value": 20.37,
-              "as_of": "2026-09-18"
+              "value": 20.02,
+              "as_of": "2026-09-21"
             },
             {
               "field": "pb",
-              "value": 5.62,
-              "as_of": "2026-09-18"
+              "value": 5.52,
+              "as_of": "2026-09-21"
             }
           ],
           "required_manual_confirmation": [
@@ -1378,14 +1382,14 @@
       "individual_cta_required": true,
       "individual_cta": {
         "update_status": "CURRENT",
-        "as_of": "2026-09-18",
+        "as_of": "2026-09-21",
         "state": "WEEKLY_BULLISH_DAILY_BULLISH",
         "cta": "HOLD",
         "reason": "Weekly golden trend is aging without a fresh daily cross.",
-        "source_data_as_of": "2026-09-18",
+        "source_data_as_of": "2026-09-21",
         "weekly_data_as_of": "2026-09-18",
-        "daily_50ma": 471.16,
-        "daily_200ma": 319.954584,
+        "daily_50ma": 473.02,
+        "daily_200ma": 321.819382,
         "weekly_30ma": 355.923772,
         "weekly_50ma": 285.562829,
         "daily_cross": {
@@ -1393,8 +1397,8 @@
           "cross_status": "NONE",
           "last_cross_status": "GOLDEN",
           "last_cross_date": "2025-06-06",
-          "periods_since_cross": 316,
-          "spread_pct": 47.2584,
+          "periods_since_cross": 317,
+          "spread_pct": 46.983067,
           "phase": "AGING"
         },
         "weekly_cross": {
@@ -1406,7 +1410,7 @@
           "spread_pct": 24.639391,
           "phase": "AGING"
         },
-        "last_attempt_at": "2026-09-19T08:42:57.784135+00:00",
+        "last_attempt_at": "2026-09-21T10:06:59.738761+00:00",
         "error": null
       },
       "action_eligibility": "ELIGIBLE_IF_0050_BULLISH_AND_PRESSURE_GREEN"
@@ -1415,22 +1419,22 @@
       "symbol": "3036",
       "company_name": "文曄",
       "industry": "電子通路業",
-      "price_as_of": "2026-09-18",
+      "price_as_of": "2026-09-21",
       "fundamentals_as_of": "2026Q2",
       "monthly_revenue_as_of": "2026-08",
       "price_basis": "official_unadjusted_close",
-      "liquidity_rank": 80,
+      "liquidity_rank": 91,
       "monthly_revenue_yoy": 98.21291582397657,
       "cumulative_revenue_yoy": 109.20046830886439,
       "eps": 13.0,
-      "pe": 10.55,
-      "pb": 2.1,
+      "pe": 10.6,
+      "pb": 2.11,
       "financial_quality": {
         "version": "onecool_tw_financial_quality_v2",
         "status": "REVIEW",
         "label": "需留意",
         "as_of": "2026Q2",
-        "observed_at": "2026-09-19T08:06:03.787940+00:00",
+        "observed_at": "2026-09-21T10:07:02.654230+00:00",
         "source_url": "https://mopsov.twse.com.tw/server-java/t164sb01?step=1&CO_ID=3036&SYEAR=2026&SSEASON=2&REPORT_ID=C",
         "source_sha256": "72a6fd9165fc3fa57e1cfebc6addad202335da1fc5fb53e9a4ba404bab336d4d",
         "scope": "CONSOLIDATED_THREE_STATEMENTS",
@@ -1599,9 +1603,9 @@
         "eps": 30.0,
         "pe": 8.0,
         "pb": 3.0,
-        "liquidity": 8.62
+        "liquidity": 7.76
       },
-      "score": 89.62,
+      "score": 88.76,
       "confidence": "HIGH",
       "selection_status": "FORMAL",
       "candidate_role": "RESEARCH_PRIORITY_ONLY",
@@ -1652,13 +1656,13 @@
             },
             {
               "field": "pe",
-              "value": 10.55,
-              "as_of": "2026-09-18"
+              "value": 10.6,
+              "as_of": "2026-09-21"
             },
             {
               "field": "pb",
-              "value": 2.1,
-              "as_of": "2026-09-18"
+              "value": 2.11,
+              "as_of": "2026-09-21"
             }
           ],
           "required_manual_confirmation": [
@@ -1694,14 +1698,14 @@
       "individual_cta_required": true,
       "individual_cta": {
         "update_status": "CURRENT",
-        "as_of": "2026-09-18",
+        "as_of": "2026-09-21",
         "state": "WEEKLY_BULLISH_DAILY_BULLISH",
         "cta": "HOLD",
         "reason": "Weekly golden trend is aging without a fresh daily cross.",
-        "source_data_as_of": "2026-09-18",
+        "source_data_as_of": "2026-09-21",
         "weekly_data_as_of": "2026-09-18",
-        "daily_50ma": 200.74,
-        "daily_200ma": 198.452395,
+        "daily_50ma": 200.65,
+        "daily_200ma": 198.833481,
         "weekly_30ma": 219.099365,
         "weekly_50ma": 188.103469,
         "daily_cross": {
@@ -1709,8 +1713,8 @@
           "cross_status": "NONE",
           "last_cross_status": "GOLDEN",
           "last_cross_date": "2025-05-29",
-          "periods_since_cross": 321,
-          "spread_pct": 1.152722,
+          "periods_since_cross": 322,
+          "spread_pct": 0.913588,
           "phase": "AGING"
         },
         "weekly_cross": {
@@ -1722,7 +1726,7 @@
           "spread_pct": 16.47811,
           "phase": "AGING"
         },
-        "last_attempt_at": "2026-09-19T08:42:57.784135+00:00",
+        "last_attempt_at": "2026-09-21T10:06:59.738761+00:00",
         "error": null
       },
       "action_eligibility": "ELIGIBLE_IF_0050_BULLISH_AND_PRESSURE_GREEN"
