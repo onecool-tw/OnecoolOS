@@ -1,8 +1,8 @@
 {
   "schema_version": "1.5",
   "report_readiness": {
-    "status": "READY",
-    "expected_as_of": "2026-09-21",
+    "status": "UPDATE_INCOMPLETE",
+    "expected_as_of": "2026-09-22",
     "screen_as_of": "2026-09-21",
     "taiwan_cta_dates": {
       "0050": "2026-09-21",
@@ -13,22 +13,40 @@
       "2408": "2026-09-21",
       "3036": "2026-09-21"
     },
-    "issues": [],
+    "issues": [
+      "screen_not_current",
+      "dashboard_0050_not_current",
+      "dashboard_2330_not_current",
+      "6669_price_not_current",
+      "6669_cta_not_current",
+      "3006_price_not_current",
+      "3006_cta_not_current",
+      "2376_price_not_current",
+      "2376_cta_not_current",
+      "2408_price_not_current",
+      "2408_cta_not_current",
+      "3036_price_not_current",
+      "3036_cta_not_current"
+    ],
     "scope": "TAIWAN_PRICE_VALUATION_AND_CTA_ONLY",
     "consumer_rule": "INCOMPLETE_MEANS_NO_NEW_EXPOSURE_AND_NO_UNCHANGED_RANKING_CLAIM",
     "asia_and_margin_policy": "KEEP_ACTUAL_LOCAL_SOURCE_DATES"
   },
   "market_pressure_input_readiness": {
-    "status": "READY",
-    "expected_as_of": "2026-09-21",
-    "issues": [],
+    "status": "UPDATE_INCOMPLETE",
+    "expected_as_of": "2026-09-22",
+    "issues": [
+      "pressure_inputs_wrong_requested_date",
+      "margin_not_current",
+      "volatility_not_current"
+    ],
     "consumer_rule": "FINAL_EMAIL_REQUIRES_READY; MARGIN_MAY_USE_VERIFIED_OFFICIAL_LAG_BEFORE_21:30; NEVER_RECOMPUTE_PRESSURE_LIGHT"
   },
   "module": "Onecool Taiwan Stock Daily Context",
-  "generated_at": "2026-09-21T15:59:40.511678+00:00",
+  "generated_at": "2026-09-22T05:16:35.786963+00:00",
   "source_policy": "LATEST_SUCCESSFUL_SCREEN_WITH_EXPLICIT_DATE",
   "screen_as_of": "2026-09-21",
-  "screen_business_day_lag": 0,
+  "screen_business_day_lag": 1,
   "display_status": "CURRENT",
   "screen_data_status": "READY",
   "0050_weekly_alignment": "GOLDEN",
@@ -71,7 +89,7 @@
   "market_pressure_inputs": {
     "schema_version": "1.0",
     "module": "Onecool Taiwan Official Market Pressure Inputs",
-    "generated_at": "2026-09-21T15:59:23.521029+00:00",
+    "generated_at": "2026-09-22T05:16:18.543157+00:00",
     "requested_as_of": "2026-09-21",
     "status": "READY",
     "attempts_used": 1,
@@ -115,7 +133,7 @@
   "candidate_action_gate": "REQUIRES_INDIVIDUAL_CTA_AND_PRESSURE_GREEN",
   "candidate_cta_cache": {
     "screen_as_of": "2026-09-21",
-    "generated_at": "2026-09-21T15:59:36.477986+00:00",
+    "generated_at": "2026-09-22T05:16:30.696467+00:00",
     "requested_count": 200,
     "coverage": {
       "current": 199,
@@ -449,7 +467,7 @@
           "spread_pct": 0.80499,
           "phase": "AGING"
         },
-        "last_attempt_at": "2026-09-21T15:59:36.477986+00:00",
+        "last_attempt_at": "2026-09-22T05:16:30.696467+00:00",
         "error": null
       },
       "action_eligibility": "HOLD_EXISTING_PAUSE_RIGHT_SIDE_ADD"
@@ -769,7 +787,7 @@
           "spread_pct": 24.225854,
           "phase": "ACTIVE"
         },
-        "last_attempt_at": "2026-09-21T15:59:36.477986+00:00",
+        "last_attempt_at": "2026-09-22T05:16:30.696467+00:00",
         "error": null
       },
       "action_eligibility": "ELIGIBLE_IF_0050_BULLISH_AND_PRESSURE_GREEN"
@@ -1086,7 +1104,7 @@
           "spread_pct": 8.383947,
           "phase": "ACTIVE"
         },
-        "last_attempt_at": "2026-09-21T15:59:36.477986+00:00",
+        "last_attempt_at": "2026-09-22T05:16:30.696467+00:00",
         "error": null
       },
       "action_eligibility": "ELIGIBLE_IF_0050_BULLISH_AND_PRESSURE_GREEN"
@@ -1407,7 +1425,7 @@
           "spread_pct": 24.639391,
           "phase": "AGING"
         },
-        "last_attempt_at": "2026-09-21T15:59:36.477986+00:00",
+        "last_attempt_at": "2026-09-22T05:16:30.696467+00:00",
         "error": null
       },
       "action_eligibility": "ELIGIBLE_IF_0050_BULLISH_AND_PRESSURE_GREEN"
@@ -1723,7 +1741,7 @@
           "spread_pct": 16.47811,
           "phase": "AGING"
         },
-        "last_attempt_at": "2026-09-21T15:59:36.477986+00:00",
+        "last_attempt_at": "2026-09-22T05:16:30.696467+00:00",
         "error": null
       },
       "action_eligibility": "ELIGIBLE_IF_0050_BULLISH_AND_PRESSURE_GREEN"
