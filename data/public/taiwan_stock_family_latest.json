@@ -12,7 +12,7 @@
   "sources": {
     "dashboard": {
       "path": "data/market/dashboard/dashboard_latest.json",
-      "sha256": "64d900479514131684d1a1a4a3992e89cb85d958b27da37d426643a293eb68f0"
+      "sha256": "c6ed962f453ccded7c2a373561ec01d2f744ef03d068fc2baaba56e0fc6a6ee8"
     },
     "screen": {
       "path": "data/market/taiwan_stock_intelligence/screen_latest.json",
@@ -20,54 +20,47 @@
     },
     "cta": {
       "path": "data/market/taiwan_stock_intelligence/cta/cta_latest.json",
-      "sha256": "07391ecb20e9b94e4236dedcf11ebbc0664f03c576f39f6493d90949131dc4fa"
+      "sha256": "63428c31117a89ff3974a6510bc9b91ed033d4f14e5ce39bf6c91bfffcc930d8"
     },
     "context": {
       "path": "data/market/taiwan_stock_intelligence/daily_context_latest.json",
-      "sha256": "f0eb8964807997287a691be939e679f5c81f3911ea087336854a48eba00f8294"
+      "sha256": "7c5a477314e7879f708c123e89ee95662293f5280084eb4e09a0c5eb8066751c"
     }
   },
   "source_generated_at": {
-    "dashboard": "2026-09-22T05:14:51.250546+00:00",
+    "dashboard": "2026-09-22T06:25:20.036835+00:00",
     "screen": null,
-    "cta": "2026-09-22T05:16:30.696467+00:00",
-    "context": "2026-09-22T05:16:35.786963+00:00"
+    "cta": "2026-09-22T06:26:18.549436+00:00",
+    "context": "2026-09-22T06:26:23.968084+00:00"
   },
   "screen_as_of": "2026-09-21",
-  "display_status": "CURRENT",
+  "display_status": "STALE",
   "report_readiness": {
     "status": "UPDATE_INCOMPLETE",
     "expected_as_of": "2026-09-22",
     "screen_as_of": "2026-09-21",
     "taiwan_cta_dates": {
-      "0050": "2026-09-21",
-      "2330": "2026-09-21",
-      "6669": "2026-09-21",
-      "3006": "2026-09-21",
-      "2376": "2026-09-21",
-      "2408": "2026-09-21",
-      "3036": "2026-09-21"
+      "0050": "2026-09-22",
+      "2330": "2026-09-22",
+      "6669": "2026-09-22",
+      "3006": "2026-09-22",
+      "2376": "2026-09-22",
+      "2408": "2026-09-22",
+      "3036": "2026-09-22"
     },
     "issues": [
       "screen_not_current",
-      "dashboard_0050_not_current",
-      "dashboard_2330_not_current",
       "6669_price_not_current",
-      "6669_cta_not_current",
       "3006_price_not_current",
-      "3006_cta_not_current",
       "2376_price_not_current",
-      "2376_cta_not_current",
       "2408_price_not_current",
-      "2408_cta_not_current",
-      "3036_price_not_current",
-      "3036_cta_not_current"
+      "3036_price_not_current"
     ],
     "scope": "TAIWAN_PRICE_VALUATION_AND_CTA_ONLY",
     "consumer_rule": "INCOMPLETE_MEANS_NO_NEW_EXPOSURE_AND_NO_UNCHANGED_RANKING_CLAIM",
     "asia_and_margin_policy": "KEEP_ACTUAL_LOCAL_SOURCE_DATES"
   },
-  "candidate_action_gate": "REQUIRES_INDIVIDUAL_CTA_AND_PRESSURE_GREEN",
+  "candidate_action_gate": "WATCH_ONLY_STALE_OR_MISSING_SCREEN",
   "market_pressure": {
     "as_of": "2026-09-18",
     "status": "CURRENT",
@@ -116,7 +109,7 @@
   "market_pressure_inputs": {
     "schema_version": "1.0",
     "module": "Onecool Taiwan Official Market Pressure Inputs",
-    "generated_at": "2026-09-22T05:16:18.543157+00:00",
+    "generated_at": "2026-09-22T06:26:07.704699+00:00",
     "requested_as_of": "2026-09-21",
     "status": "READY",
     "attempts_used": 1,
@@ -160,13 +153,13 @@
   "market_cta": {
     "0050": {
       "symbol": "0050",
-      "as_of": "2026-09-21",
+      "as_of": "2026-09-22",
       "cta": "BUY",
       "trend": "BULLISH"
     },
     "2330": {
       "symbol": "2330",
-      "as_of": "2026-09-21",
+      "as_of": "2026-09-22",
       "cta": "BUY",
       "trend": "BULLISH"
     },
@@ -196,7 +189,7 @@
       "monthly_revenue_as_of": "2026-08",
       "price_basis": "official_unadjusted_close",
       "selection_status": "FORMAL",
-      "action_eligibility": "HOLD_EXISTING_PAUSE_RIGHT_SIDE_ADD",
+      "action_eligibility": "WATCH_ONLY_STALE_OR_MISSING_SCREEN",
       "financial_quality": {
         "version": "onecool_tw_financial_quality_v2",
         "status": "REVIEW",
@@ -453,13 +446,13 @@
       },
       "individual_cta": {
         "symbol": "6669",
-        "as_of": "2026-09-21",
+        "as_of": "2026-09-22",
         "cta": "WATCH",
         "state": "WEEKLY_BULLISH_DAILY_BEARISH",
         "update_status": "CURRENT",
         "price_basis": "locally_adjusted_close",
         "weekly_data_as_of": "2026-09-18",
-        "source_data_as_of": "2026-09-21",
+        "source_data_as_of": "2026-09-22",
         "error": null
       }
     },
@@ -475,7 +468,7 @@
       "monthly_revenue_as_of": "2026-08",
       "price_basis": "official_unadjusted_close",
       "selection_status": "FORMAL",
-      "action_eligibility": "ELIGIBLE_IF_0050_BULLISH_AND_PRESSURE_GREEN",
+      "action_eligibility": "WATCH_ONLY_STALE_OR_MISSING_SCREEN",
       "financial_quality": {
         "version": "onecool_tw_financial_quality_v2",
         "status": "NORMAL",
@@ -733,13 +726,13 @@
       },
       "individual_cta": {
         "symbol": "3006",
-        "as_of": "2026-09-21",
+        "as_of": "2026-09-22",
         "cta": "BUY",
         "state": "WEEKLY_BULLISH_DAILY_BULLISH",
         "update_status": "CURRENT",
         "price_basis": "locally_adjusted_close",
         "weekly_data_as_of": "2026-09-18",
-        "source_data_as_of": "2026-09-21",
+        "source_data_as_of": "2026-09-22",
         "error": null
       }
     },
@@ -755,7 +748,7 @@
       "monthly_revenue_as_of": "2026-08",
       "price_basis": "official_unadjusted_close",
       "selection_status": "FORMAL",
-      "action_eligibility": "ELIGIBLE_IF_0050_BULLISH_AND_PRESSURE_GREEN",
+      "action_eligibility": "WATCH_ONLY_STALE_OR_MISSING_SCREEN",
       "financial_quality": {
         "version": "onecool_tw_financial_quality_v2",
         "status": "REVIEW",
@@ -1012,13 +1005,13 @@
       },
       "individual_cta": {
         "symbol": "2376",
-        "as_of": "2026-09-21",
+        "as_of": "2026-09-22",
         "cta": "BUY",
         "state": "WEEKLY_BULLISH_DAILY_BULLISH",
         "update_status": "CURRENT",
         "price_basis": "locally_adjusted_close",
         "weekly_data_as_of": "2026-09-18",
-        "source_data_as_of": "2026-09-21",
+        "source_data_as_of": "2026-09-22",
         "error": null
       }
     },
@@ -1034,7 +1027,7 @@
       "monthly_revenue_as_of": "2026-08",
       "price_basis": "official_unadjusted_close",
       "selection_status": "FORMAL",
-      "action_eligibility": "ELIGIBLE_IF_0050_BULLISH_AND_PRESSURE_GREEN",
+      "action_eligibility": "WATCH_ONLY_STALE_OR_MISSING_SCREEN",
       "financial_quality": {
         "version": "onecool_tw_financial_quality_v2",
         "status": "NORMAL",
@@ -1292,13 +1285,13 @@
       },
       "individual_cta": {
         "symbol": "2408",
-        "as_of": "2026-09-21",
+        "as_of": "2026-09-22",
         "cta": "HOLD",
         "state": "WEEKLY_BULLISH_DAILY_BULLISH",
         "update_status": "CURRENT",
         "price_basis": "locally_adjusted_close",
         "weekly_data_as_of": "2026-09-18",
-        "source_data_as_of": "2026-09-21",
+        "source_data_as_of": "2026-09-22",
         "error": null
       }
     },
@@ -1314,7 +1307,7 @@
       "monthly_revenue_as_of": "2026-08",
       "price_basis": "official_unadjusted_close",
       "selection_status": "FORMAL",
-      "action_eligibility": "ELIGIBLE_IF_0050_BULLISH_AND_PRESSURE_GREEN",
+      "action_eligibility": "WATCH_ONLY_STALE_OR_MISSING_SCREEN",
       "financial_quality": {
         "version": "onecool_tw_financial_quality_v2",
         "status": "REVIEW",
@@ -1570,13 +1563,13 @@
       },
       "individual_cta": {
         "symbol": "3036",
-        "as_of": "2026-09-21",
+        "as_of": "2026-09-22",
         "cta": "HOLD",
         "state": "WEEKLY_BULLISH_DAILY_BULLISH",
         "update_status": "CURRENT",
         "price_basis": "locally_adjusted_close",
         "weekly_data_as_of": "2026-09-18",
-        "source_data_as_of": "2026-09-21",
+        "source_data_as_of": "2026-09-22",
         "error": null
       }
     }
