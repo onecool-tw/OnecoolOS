@@ -145,10 +145,20 @@ def parse_taifex_vix_listing(html: str, requested_as_of: str) -> dict[str, Any]:
             "error": "REQUESTED_DATE_NOT_PRESENT",
         }
 
-    row = row_match.group(0)
+    row = unescape(row_match.group(0))
     compact_date = requested_as_of.replace("-", "")
-    file_match = re.search(r"getVixData\?filesname=(\d{8})", unescape(row), re.I)
-    if not file_match or file_match.group(1) != compact_date:
+    # TAIFEX has exposed the same official key in more than one attribute over
+    # time.  Prefer the download URL, but also accept the explicit TXT title or
+    # data attribute.  Never infer a key from the row date alone: a dated row
+    # can appear briefly while its download is still being published.
+    candidates = re.findall(r"filesname(?:=|%3[dD])(\d{8})", row, re.I)
+    candidates.extend(
+        re.findall(r"title\s*=\s*['\"]\s*(\d{8})(?:\s*\(txt\))?\s*['\"]", row, re.I)
+    )
+    candidates.extend(
+        re.findall(r"data-(?:file|date)\s*=\s*['\"]\s*(\d{8})\s*['\"]", row, re.I)
+    )
+    if compact_date not in candidates:
         return {
             "status": "PUBLISHED_PARSE_FAILED",
             "as_of": requested_as_of,
@@ -158,7 +168,7 @@ def parse_taifex_vix_listing(html: str, requested_as_of: str) -> dict[str, Any]:
     return {
         "status": "DOWNLOAD_AVAILABLE",
         "as_of": requested_as_of,
-        "file_date": file_match.group(1),
+        "file_date": compact_date,
         "error": None,
     }
 

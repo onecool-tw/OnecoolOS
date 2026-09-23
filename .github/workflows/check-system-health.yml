@@ -73,13 +73,21 @@ jobs:
         env:
           EVENT_NAME: ${{ github.event_name }}
           EVENT_SCHEDULE: ${{ github.event.schedule }}
+          PRODUCER_NAME: ${{ github.event.workflow_run.name }}
           INPUT_SCOPE: ${{ inputs.scope }}
           INPUT_PHASE: ${{ inputs.phase }}
         run: |
           if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
             scope="${INPUT_SCOPE:-all}"
             phase="${INPUT_PHASE:-primary}"
-          elif [ "$EVENT_NAME" = "push" ] || [ "$EVENT_NAME" = "workflow_run" ]; then
+          elif [ "$EVENT_NAME" = "workflow_run" ]; then
+            case "$PRODUCER_NAME" in
+              "Update Fund NAV CTA") scope="morning" ;;
+              "Update Taiwan Stock Screen") scope="asia" ;;
+              *) scope="all" ;;
+            esac
+            phase="verify"
+          elif [ "$EVENT_NAME" = "push" ]; then
             scope="all"; phase="verify"
           else
             case "$EVENT_SCHEDULE" in

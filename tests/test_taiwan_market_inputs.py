@@ -47,6 +47,14 @@ def test_taifex_vix_reads_download_key_from_listing():
     }
 
 
+def test_taifex_vix_accepts_explicit_txt_title_when_onclick_is_absent():
+    html = '''<table><tr><td>2026/09/17</td><td><input
+        title="20260917(txt)" value="下載"></td></tr></table>'''
+    result = parse_taifex_vix(html, "2026-09-17")
+    assert result["status"] == "DOWNLOAD_AVAILABLE"
+    assert result["file_date"] == "20260917"
+
+
 def test_taifex_vix_download_uses_official_last_one_minute_average():
     raw = (
         "交易日期\t時間\t臺指選擇權波動率指數\r\n"

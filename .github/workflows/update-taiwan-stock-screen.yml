@@ -109,13 +109,16 @@ jobs:
       - name: Warn when an opportunistic refresh is incomplete
         if: >-
           steps.readiness.outcome == 'failure' &&
-          (github.event_name == 'workflow_run' || github.event_name == 'push')
+          (github.event_name == 'workflow_run' ||
+           github.event_name == 'push' ||
+           (github.event_name == 'schedule' && github.event.schedule != '17 9 * * 1-5'))
         run: |
-          echo "::warning::Opportunistic Taiwan refresh incomplete; retained and published the last valid dated snapshot."
+          echo "::warning::Taiwan recovery attempt incomplete; retained and published the last valid dated snapshot. The final 17:17 Taipei retry remains authoritative."
       - name: Report unsuccessful formal refresh after preserving the last valid snapshot
         if: >-
           steps.readiness.outcome == 'failure' &&
-          (github.event_name == 'schedule' || github.event_name == 'workflow_dispatch')
+          (github.event_name == 'workflow_dispatch' ||
+           (github.event_name == 'schedule' && github.event.schedule == '17 9 * * 1-5'))
         run: |
           echo "::error::Formal Taiwan refresh incomplete; retained source dates, not a current-day success."
           exit 1
