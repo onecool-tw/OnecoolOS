@@ -74,6 +74,26 @@ def build_snapshot(root: Path):
     for key in ('as_of', 'status', 'light', 'action'):
         if key not in pressure:
             raise ValueError('Missing pressure field: ' + key)
+    readiness = context.get('report_readiness', {'status': 'Unknown'})
+    expected_as_of = readiness.get('expected_as_of') or context['screen_as_of']
+    pressure_same_day_current = (
+        pressure.get('status') == 'CURRENT'
+        and pressure.get('as_of') == expected_as_of
+    )
+    if pressure_same_day_current:
+        pressure_freshness_status = 'CURRENT'
+    elif pressure.get('as_of'):
+        pressure_freshness_status = 'STALE_LAST_KNOWN'
+    else:
+        pressure_freshness_status = 'UNKNOWN'
+    delivery_issues = []
+    if pressure.get('as_of') != expected_as_of:
+        delivery_issues.append('MARKET_PRESSURE_AS_OF_MISMATCH')
+    if pressure.get('status') != 'CURRENT':
+        delivery_issues.append('MARKET_PRESSURE_NOT_CURRENT')
+    if readiness.get('status') != 'READY':
+        delivery_issues.append('REPORT_READINESS_NOT_READY')
+    delivery_ready = not delivery_issues
     return {
         'schema_version': '1.0',
         'module': 'Onecool Taiwan Family Read-only Snapshot',
@@ -81,15 +101,32 @@ def build_snapshot(root: Path):
             'read_only': True, 'recalculate_cta': False,
             'recalculate_market_pressure': False, 'rerank_top5': False,
             'preserve_source_dates_and_status': True,
+            'same_day_pressure_required_for_final_delivery': True,
             'stale_or_missing_data': 'NO_NEW_EXPOSURE',
         },
         'sources': provenance,
         'source_generated_at': {k: v.get('generated_at') for k, v in docs.items()},
         'screen_as_of': context['screen_as_of'],
         'display_status': context['display_status'],
-        'report_readiness': context.get('report_readiness', {'status': 'Unknown'}),
+        'report_readiness': readiness,
         'candidate_action_gate': context['candidate_action_gate'],
         'market_pressure': pressure,
+        'market_pressure_freshness': {
+            'expected_as_of': expected_as_of,
+            'as_of': pressure.get('as_of'),
+            'source_status': pressure.get('status'),
+            'status': pressure_freshness_status,
+            'same_day_current': pressure_same_day_current,
+            'consumer_action': (
+                pressure.get('action') if pressure_same_day_current
+                else 'PAUSE_NEW_EXPOSURE'
+            ),
+        },
+        'final_delivery_readiness': {
+            'status': 'READY' if delivery_ready else 'UPDATE_INCOMPLETE',
+            'issues': delivery_issues,
+            'rule': 'EMAIL_REQUIRES_SAME_DAY_CURRENT_MARKET_PRESSURE',
+        },
         'market_pressure_input_readiness': context.get(
             'market_pressure_input_readiness', {'status': 'UPDATE_INCOMPLETE'}),
         'market_pressure_inputs': context.get('market_pressure_inputs', {}),
