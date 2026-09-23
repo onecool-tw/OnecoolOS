@@ -1,11 +1,11 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-09-23T02:49:51.610024+00:00",
+  "generated_at": "2026-09-23T04:59:34.029337+00:00",
   "taipei_date": "2026-09-23",
-  "status": "BLOCKED",
+  "status": "PARTIAL",
   "scope_status": {
-    "morning": "BLOCKED",
+    "morning": "PARTIAL",
     "asia": "READY",
     "weekly": "READY"
   },
@@ -54,11 +54,11 @@
     "policy": "Data readiness does not prove report delivery. Never infer email success from a generated draft."
   },
   "end_to_end_status": "NOT_FULLY_VERIFIED",
-  "action_readiness": "UNSAFE_FOR_AFFECTED_REPORTS",
+  "action_readiness": "LIMITED",
   "counts": {
-    "ready": 13,
+    "ready": 14,
     "partial": 3,
-    "blocked": 1
+    "blocked": 0
   },
   "modules": [
     {
@@ -124,11 +124,11 @@
       "label": "Fund NAV CTA",
       "scope": "morning",
       "critical": true,
-      "status": "BLOCKED",
-      "reason": "generation timestamp missing, invalid or older than scheduled date 2026-09-23",
+      "status": "READY",
+      "reason": "current",
       "observed_as_of": "2026-09-22",
       "recovery_workflow": "update-fund-nav-cta.yml",
-      "retryable": true,
+      "retryable": false,
       "impacted_reports": [
         "基金日報",
         "基金週報"
@@ -319,21 +319,6 @@
       ]
     },
     {
-      "module_id": "fund_nav_cta",
-      "label": "Fund NAV CTA",
-      "scope": "morning",
-      "critical": true,
-      "status": "BLOCKED",
-      "reason": "generation timestamp missing, invalid or older than scheduled date 2026-09-23",
-      "observed_as_of": "2026-09-22",
-      "recovery_workflow": "update-fund-nav-cta.yml",
-      "retryable": true,
-      "impacted_reports": [
-        "基金日報",
-        "基金週報"
-      ]
-    },
-    {
       "module_id": "taiwan_candidate_cta",
       "label": "Taiwan 200-stock CTA",
       "scope": "asia",
@@ -362,9 +347,7 @@
       ]
     }
   ],
-  "recovery_workflows": [
-    "update-fund-nav-cta.yml"
-  ],
-  "issue_fingerprint": "6be988d6e323e613b8650d089025e88e1385f765e0fa860930ef6674795efdfa",
+  "recovery_workflows": [],
+  "issue_fingerprint": "58ff5c6ff9f7cf6a46e5ff698950d37b24be7fc87c388f101c9324b88bc4783e",
   "policy": "Health monitoring only; never changes CTA, rankings, or investment decisions."
 }
