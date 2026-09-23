@@ -2,9 +2,9 @@
   "schema_version": "2.0",
   "score_version": "onecool_us_dual_v2",
   "classification": "Onecool proxy scores; not IBD official ratings",
-  "expected_as_of": "2026-09-21",
+  "expected_as_of": "2026-09-23",
   "price_basis": "adjusted_close",
-  "data_status": "READY",
+  "data_status": "PARTIAL",
   "thresholds": {
     "canslim": 70,
     "minervini": 80
@@ -13,11 +13,11 @@
   "results": [
     {
       "symbol": "BABA",
-      "price_as_of": "2026-09-21",
+      "price_as_of": "2026-09-23",
       "fundamentals_as_of": "2026-06-30",
       "fundamental_sources": [],
       "fundamentals_published_as_of": null,
-      "liquidity_average_50d_usd": 1287977374.84,
+      "liquidity_average_50d_usd": 1309130297.8,
       "liquidity_minimum_50d_usd": 20000000,
       "liquidity_status": "PASSED",
       "new_entry_eligible": true,
@@ -31,17 +31,17 @@
       "technical_confidence": 100,
       "validation_status": "PASSED",
       "validation_errors": [],
-      "canslim_score": 36,
-      "minervini_score": 8,
+      "canslim_score": 34,
+      "minervini_score": 0,
       "passes_dual_system": false
     },
     {
       "symbol": "XYZ",
-      "price_as_of": "2026-09-21",
+      "price_as_of": "2026-09-23",
       "fundamentals_as_of": "2026-06-30",
       "fundamental_sources": [],
       "fundamentals_published_as_of": null,
-      "liquidity_average_50d_usd": 366029705.73,
+      "liquidity_average_50d_usd": 367566280.88,
       "liquidity_minimum_50d_usd": 20000000,
       "liquidity_status": "PASSED",
       "new_entry_eligible": true,
@@ -53,19 +53,21 @@
         "minervini": 80
       },
       "technical_confidence": 100,
-      "validation_status": "PASSED",
-      "validation_errors": [],
-      "canslim_score": 48,
-      "minervini_score": 75,
-      "passes_dual_system": false
+      "validation_status": "Technical Data Validation Failed",
+      "validation_errors": [
+        "trading calendar differs from SPY"
+      ],
+      "canslim_score": null,
+      "minervini_score": null,
+      "passes_dual_system": null
     },
     {
       "symbol": "QRVO",
-      "price_as_of": "2026-09-21",
+      "price_as_of": "2026-09-23",
       "fundamentals_as_of": "2026-06-27",
       "fundamental_sources": [],
       "fundamentals_published_as_of": null,
-      "liquidity_average_50d_usd": 123570177.18,
+      "liquidity_average_50d_usd": 125003452.7,
       "liquidity_minimum_50d_usd": 20000000,
       "liquidity_status": "PASSED",
       "new_entry_eligible": true,
@@ -77,22 +79,24 @@
         "minervini": 80
       },
       "technical_confidence": 100,
-      "validation_status": "PASSED",
-      "validation_errors": [],
-      "canslim_score": 87,
-      "minervini_score": 100,
-      "passes_dual_system": true
+      "validation_status": "Technical Data Validation Failed",
+      "validation_errors": [
+        "trading calendar differs from SPY"
+      ],
+      "canslim_score": null,
+      "minervini_score": null,
+      "passes_dual_system": null
     },
     {
       "symbol": "RH",
-      "price_as_of": "2026-09-21",
+      "price_as_of": "2026-09-23",
       "fundamentals_as_of": "2026-08-01",
       "fundamental_sources": [
         "https://ir.rh.com/financials-filings/sec-filings/content/0001104659-26-106764/rh-20260801x10q.htm",
         "https://www.sec.gov/Archives/edgar/data/1528849/000110465926037775/rh-20260331xex99d2.htm"
       ],
       "fundamentals_published_as_of": "2026-09-10",
-      "liquidity_average_50d_usd": 122169305.73,
+      "liquidity_average_50d_usd": 122720794.97,
       "liquidity_minimum_50d_usd": 20000000,
       "liquidity_status": "PASSED",
       "new_entry_eligible": true,
@@ -104,19 +108,21 @@
         "minervini": 80
       },
       "technical_confidence": 100,
-      "validation_status": "PASSED",
-      "validation_errors": [],
-      "canslim_score": 51,
-      "minervini_score": 10,
-      "passes_dual_system": false
+      "validation_status": "Technical Data Validation Failed",
+      "validation_errors": [
+        "trading calendar differs from SPY"
+      ],
+      "canslim_score": null,
+      "minervini_score": null,
+      "passes_dual_system": null
     },
     {
       "symbol": "UPBD",
-      "price_as_of": "2026-09-21",
+      "price_as_of": "2026-09-23",
       "fundamentals_as_of": "2026-06-30",
       "fundamental_sources": [],
       "fundamentals_published_as_of": null,
-      "liquidity_average_50d_usd": 18455552.0,
+      "liquidity_average_50d_usd": 18455175.34,
       "liquidity_minimum_50d_usd": 20000000,
       "liquidity_status": "BELOW_NEW_ENTRY_MINIMUM",
       "new_entry_eligible": false,
@@ -130,11 +136,13 @@
         "minervini": 80
       },
       "technical_confidence": 100,
-      "validation_status": "PASSED",
-      "validation_errors": [],
-      "canslim_score": 65,
-      "minervini_score": 27,
-      "passes_dual_system": false
+      "validation_status": "Technical Data Validation Failed",
+      "validation_errors": [
+        "trading calendar differs from SPY"
+      ],
+      "canslim_score": null,
+      "minervini_score": null,
+      "passes_dual_system": null
     }
   ]
 }
