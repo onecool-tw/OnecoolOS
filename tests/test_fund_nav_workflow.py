@@ -15,7 +15,7 @@ def test_fund_nav_publish_rebases_and_retries_concurrent_writers() -> None:
     assert "push failed after 3 synchronized attempts" in workflow
 
 
-def test_completed_fund_refresh_selects_health_verification(tmp_path):
+def test_completed_producer_refresh_selects_its_own_health_scope(tmp_path):
     import os
     import subprocess
     import yaml
@@ -29,10 +29,22 @@ def test_completed_fund_refresh_selects_health_verification(tmp_path):
     ]
     assert triggers["workflow_run"]["types"] == ["completed"]
     step = next(step for step in workflow["jobs"]["health"]["steps"] if step.get("id") == "mode")
-    output = tmp_path / "output"
-    env = {**os.environ, "EVENT_NAME": "workflow_run", "GITHUB_OUTPUT": str(output)}
-    subprocess.run(["bash", "-eu", "-c", step["run"]], env=env, check=True)
-    assert output.read_text().splitlines() == ["scope=all", "phase=verify"]
+    for producer, expected_scope in (
+        ("Update Fund NAV CTA", "morning"),
+        ("Update Taiwan Stock Screen", "asia"),
+    ):
+        output = tmp_path / producer.replace(" ", "-")
+        env = {
+            **os.environ,
+            "EVENT_NAME": "workflow_run",
+            "PRODUCER_NAME": producer,
+            "GITHUB_OUTPUT": str(output),
+        }
+        subprocess.run(["bash", "-eu", "-c", step["run"]], env=env, check=True)
+        assert output.read_text().splitlines() == [
+            f"scope={expected_scope}",
+            "phase=verify",
+        ]
 
 
 def test_push_health_audit_recovers_without_transient_failure() -> None:
