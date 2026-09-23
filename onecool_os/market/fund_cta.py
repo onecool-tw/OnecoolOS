@@ -71,7 +71,11 @@ def calculate_fund_cta(
         for item in navs
     ]
     try:
-        cta = calculate_cta(fund_code, bars)
+        cta = calculate_cta(
+            fund_code,
+            bars,
+            exclude_incomplete_latest_week=True,
+        )
     except ETFCTAError as exc:
         auxiliary = classify_auxiliary_confirmation(
             benchmark_cta, "UNKNOWN", auxiliary_signal
