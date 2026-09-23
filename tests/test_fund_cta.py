@@ -1,7 +1,7 @@
 from datetime import date, timedelta
 
-from onecool_os.market.fund_alpha import FundNav
 from onecool_os.market import fund_cta as fund_cta_module
+from onecool_os.market.fund_alpha import FundNav
 from onecool_os.market.fund_cta import (
     CrossSignal,
     calculate_fund_cta,
@@ -38,7 +38,6 @@ def test_fund_cta_reuses_shared_engine_for_rising_history() -> None:
     assert result.fund_nav_as_of == "2026-02-04"
     assert result.daily_cross is not None
     assert result.weekly_cross is not None
-
 
 
 def test_fund_cta_excludes_incomplete_latest_week(monkeypatch) -> None:
