@@ -1,11 +1,11 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-09-22T14:12:29.244897+00:00",
-  "taipei_date": "2026-09-22",
-  "status": "PARTIAL",
+  "generated_at": "2026-09-23T02:49:51.610024+00:00",
+  "taipei_date": "2026-09-23",
+  "status": "BLOCKED",
   "scope_status": {
-    "morning": "PARTIAL",
+    "morning": "BLOCKED",
     "asia": "READY",
     "weekly": "READY"
   },
@@ -27,8 +27,12 @@
       {
         "report_id": "fund",
         "expected_report_date": "2026-09-22",
-        "status": "UNKNOWN",
-        "reason": "No verifiable receipt for the latest completed reporting window"
+        "status": "PARTIAL",
+        "channels": {
+          "conversation": "UNKNOWN",
+          "artifact": "DELIVERED"
+        },
+        "reason": "Per-channel evidence checked; missing channels remain unverified"
       },
       {
         "report_id": "cards",
@@ -50,11 +54,11 @@
     "policy": "Data readiness does not prove report delivery. Never infer email success from a generated draft."
   },
   "end_to_end_status": "NOT_FULLY_VERIFIED",
-  "action_readiness": "LIMITED",
+  "action_readiness": "UNSAFE_FOR_AFFECTED_REPORTS",
   "counts": {
-    "ready": 14,
+    "ready": 13,
     "partial": 3,
-    "blocked": 0
+    "blocked": 1
   },
   "modules": [
     {
@@ -107,7 +111,7 @@
       "critical": true,
       "status": "READY",
       "reason": "all symbols current",
-      "observed_as_of": "2026-09-21",
+      "observed_as_of": "2026-09-22",
       "recovery_workflow": "update-etf-cta.yml",
       "retryable": true,
       "impacted_reports": [
@@ -120,11 +124,11 @@
       "label": "Fund NAV CTA",
       "scope": "morning",
       "critical": true,
-      "status": "READY",
-      "reason": "current",
-      "observed_as_of": "2026-09-21",
+      "status": "BLOCKED",
+      "reason": "generation timestamp missing, invalid or older than scheduled date 2026-09-23",
+      "observed_as_of": "2026-09-22",
       "recovery_workflow": "update-fund-nav-cta.yml",
-      "retryable": false,
+      "retryable": true,
       "impacted_reports": [
         "基金日報",
         "基金週報"
@@ -315,6 +319,21 @@
       ]
     },
     {
+      "module_id": "fund_nav_cta",
+      "label": "Fund NAV CTA",
+      "scope": "morning",
+      "critical": true,
+      "status": "BLOCKED",
+      "reason": "generation timestamp missing, invalid or older than scheduled date 2026-09-23",
+      "observed_as_of": "2026-09-22",
+      "recovery_workflow": "update-fund-nav-cta.yml",
+      "retryable": true,
+      "impacted_reports": [
+        "基金日報",
+        "基金週報"
+      ]
+    },
+    {
       "module_id": "taiwan_candidate_cta",
       "label": "Taiwan 200-stock CTA",
       "scope": "asia",
@@ -343,7 +362,9 @@
       ]
     }
   ],
-  "recovery_workflows": [],
-  "issue_fingerprint": "58ff5c6ff9f7cf6a46e5ff698950d37b24be7fc87c388f101c9324b88bc4783e",
+  "recovery_workflows": [
+    "update-fund-nav-cta.yml"
+  ],
+  "issue_fingerprint": "6be988d6e323e613b8650d089025e88e1385f765e0fa860930ef6674795efdfa",
   "policy": "Health monitoring only; never changes CTA, rankings, or investment decisions."
 }
