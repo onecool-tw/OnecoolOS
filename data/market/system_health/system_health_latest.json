@@ -1,12 +1,12 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-09-23T05:00:54.154911+00:00",
+  "generated_at": "2026-09-23T06:11:26.075282+00:00",
   "taipei_date": "2026-09-23",
-  "status": "PARTIAL",
+  "status": "BLOCKED",
   "scope_status": {
     "morning": "PARTIAL",
-    "asia": "READY",
+    "asia": "BLOCKED",
     "weekly": "READY"
   },
   "report_delivery": {
@@ -26,13 +26,9 @@
       },
       {
         "report_id": "fund",
-        "expected_report_date": "2026-09-22",
-        "status": "PARTIAL",
-        "channels": {
-          "conversation": "UNKNOWN",
-          "artifact": "DELIVERED"
-        },
-        "reason": "Per-channel evidence checked; missing channels remain unverified"
+        "expected_report_date": "2026-09-23",
+        "status": "UNKNOWN",
+        "reason": "No verifiable receipt for the latest completed reporting window"
       },
       {
         "report_id": "cards",
@@ -54,11 +50,11 @@
     "policy": "Data readiness does not prove report delivery. Never infer email success from a generated draft."
   },
   "end_to_end_status": "NOT_FULLY_VERIFIED",
-  "action_readiness": "LIMITED",
+  "action_readiness": "UNSAFE_FOR_AFFECTED_REPORTS",
   "counts": {
-    "ready": 14,
+    "ready": 13,
     "partial": 3,
-    "blocked": 0
+    "blocked": 1
   },
   "modules": [
     {
@@ -181,8 +177,8 @@
       "label": "Taiwan Daily Context",
       "scope": "asia",
       "critical": true,
-      "status": "READY",
-      "reason": "current",
+      "status": "BLOCKED",
+      "reason": "display_status is not ready",
       "observed_as_of": "2026-09-22",
       "recovery_workflow": "update-taiwan-stock-screen.yml",
       "retryable": true,
@@ -333,6 +329,20 @@
       ]
     },
     {
+      "module_id": "taiwan_daily_context",
+      "label": "Taiwan Daily Context",
+      "scope": "asia",
+      "critical": true,
+      "status": "BLOCKED",
+      "reason": "display_status is not ready",
+      "observed_as_of": "2026-09-22",
+      "recovery_workflow": "update-taiwan-stock-screen.yml",
+      "retryable": true,
+      "impacted_reports": [
+        "台股日報"
+      ]
+    },
+    {
       "module_id": "ai_revolution",
       "label": "AI Revolution",
       "scope": "weekly",
@@ -347,7 +357,9 @@
       ]
     }
   ],
-  "recovery_workflows": [],
-  "issue_fingerprint": "58ff5c6ff9f7cf6a46e5ff698950d37b24be7fc87c388f101c9324b88bc4783e",
+  "recovery_workflows": [
+    "update-taiwan-stock-screen.yml"
+  ],
+  "issue_fingerprint": "83c5f509e1e7a55e65e145ab5587e2bc63deee2a3b0a1879bb29d7af39b07e62",
   "policy": "Health monitoring only; never changes CTA, rankings, or investment decisions."
 }
