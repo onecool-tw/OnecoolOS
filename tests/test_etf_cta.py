@@ -311,7 +311,6 @@ def test_bitcoin_weekly_cta_excludes_an_unfinished_sunday_week() -> None:
     assert result.weekly_30ma > result.weekly_50ma
 
 
-
 def test_calculate_cta_can_exclude_latest_incomplete_business_week() -> None:
     history = []
     day = date(2025, 1, 6)  # Monday
