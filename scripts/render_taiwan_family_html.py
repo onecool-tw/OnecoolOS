@@ -26,6 +26,8 @@ def render(raw):
     if not isinstance(data, dict):
         raise ValueError("Snapshot must be a JSON object")
     pressure = obj(data.get("market_pressure"))
+    pressure_freshness = obj(data.get("market_pressure_freshness"))
+    delivery_readiness = obj(data.get("final_delivery_readiness"))
     markets = obj(data.get("market_cta"))
     rows = data.get("top5")
     rows = rows if isinstance(rows, list) else []
@@ -40,6 +42,16 @@ def render(raw):
     out.append('<p>資料更新檢核：' + text(data.get('report_readiness')) + '</p>')
     for key, label in (("light", "市場壓力燈"), ("status", "狀態"), ("action", "正式行動"), ("as_of", "資料日"), ("reason", "判定原因")):
         out.append(f'<p>{label}：{text(pressure.get(key))}</p>')
+    out.append(
+        '<p>跨檔日期檢核：' + text(pressure_freshness.get('status'))
+        + '；期望資料日：' + text(pressure_freshness.get('expected_as_of'))
+        + '；同日 CURRENT：' + text(pressure_freshness.get('same_day_current'))
+        + '</p>'
+    )
+    out.append(
+        '<p>最終交付閘門：' + text(delivery_readiness.get('status'))
+        + '；問題：' + text(delivery_readiness.get('issues')) + '</p>'
+    )
     out.append(f'<p>資料狀態：{text(data.get("display_status"))}</p><p>候選行動閘門：{text(data.get("candidate_action_gate"))}</p></section>')
     for heading, symbols in (("台灣 CTA", (("0050", "0050 CTA"), ("2330", "2330 CTA"))), ("亞洲 CTA", (("1306", "日本 1306 CTA"), ("069500", "韓國 069500 CTA")))):
         out.append(f'<section><h2>{heading}</h2>')
