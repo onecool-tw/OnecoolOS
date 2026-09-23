@@ -7,12 +7,13 @@
     "recalculate_market_pressure": false,
     "rerank_top5": false,
     "preserve_source_dates_and_status": true,
+    "same_day_pressure_required_for_final_delivery": true,
     "stale_or_missing_data": "NO_NEW_EXPOSURE"
   },
   "sources": {
     "dashboard": {
       "path": "data/market/dashboard/dashboard_latest.json",
-      "sha256": "b8485f4a75c9a622f81592a41352805ff69cf1a9005cab620f37a3cc403c8de6"
+      "sha256": "4a5e57af4139b0d1b3eb5ea5a1153a05b7c0e1c2b53d6d258905e79172e624d1"
     },
     "screen": {
       "path": "data/market/taiwan_stock_intelligence/screen_latest.json",
@@ -28,7 +29,7 @@
     }
   },
   "source_generated_at": {
-    "dashboard": "2026-09-23T14:18:34.679236+00:00",
+    "dashboard": "2026-09-23T22:48:34.228669+00:00",
     "screen": null,
     "cta": "2026-09-23T14:19:52.136185+00:00",
     "context": "2026-09-23T14:19:57.378721+00:00"
@@ -88,6 +89,21 @@
     "changed": false,
     "last_change_date": "2026-09-18",
     "data_quality": "READY"
+  },
+  "market_pressure_freshness": {
+    "expected_as_of": "2026-09-23",
+    "as_of": "2026-09-18",
+    "source_status": "CURRENT",
+    "status": "STALE_LAST_KNOWN",
+    "same_day_current": false,
+    "consumer_action": "PAUSE_NEW_EXPOSURE"
+  },
+  "final_delivery_readiness": {
+    "status": "UPDATE_INCOMPLETE",
+    "issues": [
+      "MARKET_PRESSURE_AS_OF_MISMATCH"
+    ],
+    "rule": "EMAIL_REQUIRES_SAME_DAY_CURRENT_MARKET_PRESSURE"
   },
   "market_pressure_input_readiness": {
     "status": "READY",
