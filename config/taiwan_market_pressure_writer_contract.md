@@ -124,3 +124,29 @@ This is a presentation contract only. It must not modify CTA values, scores, val
 ## Smoke-test status
 
 The mailbox → GitHub Actions → validator → `daily_context_latest.json.market_pressure` path was smoke-tested successfully on 2026-09-02. Until the first formal Work write arrives, the SSOT remains `UNKNOWN` and `PAUSE_NEW_EXPOSURE` by design.
+
+
+## Cross-file freshness guard
+
+The formal `market_pressure` object remains immutable consumer evidence: the
+Snapshot exporter must copy it without changing the light, status, reason or
+dates. The exporter may only derive cross-file freshness metadata.
+
+For final daily delivery, consumers compare
+`market_pressure.as_of` with
+`report_readiness.expected_as_of` (falling back to `screen_as_of`). Only a
+formal `CURRENT` pressure result on that expected date is
+`market_pressure_freshness.status=CURRENT` and permits
+`final_delivery_readiness.status=READY`.
+
+If the dates differ, the existing formal result remains available as historical
+evidence, but the Snapshot must expose `STALE_LAST_KNOWN`, set the derived
+consumer action to `PAUSE_NEW_EXPOSURE`, mark final delivery
+`UPDATE_INCOMPLETE`, and block the final-version Email. No exporter, renderer,
+workflow or consumer may infer a replacement light.
+
+The daily Work uses one automation with an 18:00 primary run and a 19:00
+recovery run. The recovery run resumes the first missing persistence or delivery
+step and remains subject to the same SSOT, Snapshot hash and duplicate-delivery
+guards. GitHub continues to validate and persist only; it never evaluates the
+pressure light.
