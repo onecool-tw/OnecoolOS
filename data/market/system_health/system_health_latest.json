@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-09-23T22:48:05.841877+00:00",
+  "generated_at": "2026-09-23T23:00:38.500575+00:00",
   "taipei_date": "2026-09-24",
   "status": "BLOCKED",
   "scope_status": {
@@ -57,9 +57,9 @@
   "end_to_end_status": "NOT_FULLY_VERIFIED",
   "action_readiness": "UNSAFE_FOR_AFFECTED_REPORTS",
   "counts": {
-    "ready": 12,
-    "partial": 2,
-    "blocked": 3
+    "ready": 13,
+    "partial": 3,
+    "blocked": 1
   },
   "modules": [
     {
@@ -67,9 +67,9 @@
       "label": "Market Dashboard",
       "scope": "morning",
       "critical": true,
-      "status": "BLOCKED",
-      "reason": "data is stale",
-      "observed_as_of": "2026-09-21",
+      "status": "READY",
+      "reason": "current",
+      "observed_as_of": "2026-09-23",
       "recovery_workflow": "update-market-dashboard.yml",
       "retryable": true,
       "impacted_reports": [
@@ -82,11 +82,11 @@
       "label": "US Breakout Scan",
       "scope": "morning",
       "critical": true,
-      "status": "BLOCKED",
-      "reason": "data is stale",
-      "observed_as_of": "2026-09-21",
+      "status": "PARTIAL",
+      "reason": "validated subset 29/70; see per-symbol fetch/validation status",
+      "observed_as_of": "2026-09-23",
       "recovery_workflow": "update-market-dashboard.yml",
-      "retryable": true,
+      "retryable": false,
       "impacted_reports": [
         "美股日報"
       ]
@@ -97,8 +97,8 @@
       "scope": "morning",
       "critical": true,
       "status": "BLOCKED",
-      "reason": "data is stale",
-      "observed_as_of": "2026-09-21",
+      "reason": "data_status is not ready",
+      "observed_as_of": "2026-09-23",
       "recovery_workflow": "update-market-dashboard.yml",
       "retryable": true,
       "impacted_reports": [
@@ -306,30 +306,15 @@
   ],
   "issues": [
     {
-      "module_id": "market_dashboard",
-      "label": "Market Dashboard",
-      "scope": "morning",
-      "critical": true,
-      "status": "BLOCKED",
-      "reason": "data is stale",
-      "observed_as_of": "2026-09-21",
-      "recovery_workflow": "update-market-dashboard.yml",
-      "retryable": true,
-      "impacted_reports": [
-        "Market Dashboard",
-        "美股日報"
-      ]
-    },
-    {
       "module_id": "us_breakout_scan",
       "label": "US Breakout Scan",
       "scope": "morning",
       "critical": true,
-      "status": "BLOCKED",
-      "reason": "data is stale",
-      "observed_as_of": "2026-09-21",
+      "status": "PARTIAL",
+      "reason": "validated subset 29/70; see per-symbol fetch/validation status",
+      "observed_as_of": "2026-09-23",
       "recovery_workflow": "update-market-dashboard.yml",
-      "retryable": true,
+      "retryable": false,
       "impacted_reports": [
         "美股日報"
       ]
@@ -340,8 +325,8 @@
       "scope": "morning",
       "critical": true,
       "status": "BLOCKED",
-      "reason": "data is stale",
-      "observed_as_of": "2026-09-21",
+      "reason": "data_status is not ready",
+      "observed_as_of": "2026-09-23",
       "recovery_workflow": "update-market-dashboard.yml",
       "retryable": true,
       "impacted_reports": [
@@ -380,6 +365,6 @@
   "recovery_workflows": [
     "update-market-dashboard.yml"
   ],
-  "issue_fingerprint": "a551522169f89cae2e3e1b21f9c12e3759db6ec01a83dc426f5b729446f850dd",
+  "issue_fingerprint": "6408b846369308de3aac6d705d1e7551a128c82973d034fddbeef26d9c70caa7",
   "policy": "Health monitoring only; never changes CTA, rankings, or investment decisions."
 }
