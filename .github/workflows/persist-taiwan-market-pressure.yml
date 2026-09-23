@@ -74,6 +74,41 @@ jobs:
         run: |
           python scripts/export_taiwan_family_snapshot.py
           python scripts/export_taiwan_family_snapshot.py --check
+      - name: Verify Snapshot pressure freshness semantics
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          path = Path("data/public/taiwan_stock_family_latest.json")
+          snapshot = json.loads(path.read_text(encoding="utf-8"))
+          pressure = snapshot["market_pressure"]
+          freshness = snapshot["market_pressure_freshness"]
+          delivery = snapshot["final_delivery_readiness"]
+          readiness = snapshot["report_readiness"]
+          expected = readiness.get("expected_as_of") or snapshot["screen_as_of"]
+          same_day = (
+              pressure.get("status") == "CURRENT"
+              and pressure.get("as_of") == expected
+          )
+          assert freshness["expected_as_of"] == expected
+          assert freshness["same_day_current"] is same_day
+          assert freshness["status"] == (
+              "CURRENT" if same_day
+              else "STALE_LAST_KNOWN" if pressure.get("as_of")
+              else "UNKNOWN"
+          )
+          should_be_ready = readiness.get("status") == "READY" and same_day
+          assert (delivery["status"] == "READY") is should_be_ready
+          if not same_day:
+              assert freshness["consumer_action"] == "PAUSE_NEW_EXPOSURE"
+          print(json.dumps({
+              "expected_as_of": expected,
+              "pressure_as_of": pressure.get("as_of"),
+              "same_day_current": same_day,
+              "final_delivery": delivery["status"],
+          }, ensure_ascii=False))
+          PY
       - name: Commit formal pressure only when changed
         run: |
           git add data/market/taiwan_stock_intelligence/daily_context_latest.json data/public/taiwan_stock_family_latest.json
