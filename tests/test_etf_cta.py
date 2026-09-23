@@ -311,6 +311,35 @@ def test_bitcoin_weekly_cta_excludes_an_unfinished_sunday_week() -> None:
     assert result.weekly_30ma > result.weekly_50ma
 
 
+def test_calculate_cta_can_exclude_latest_incomplete_business_week() -> None:
+    history = []
+    day = date(2025, 1, 6)  # Monday
+    while len(history) < 401:
+        if day.weekday() < 5:
+            close = float(len(history) + 1)
+            if len(history) == 400:
+                close = 10000.0
+            history.append(
+                bar(day, close, adjusted_close=close)
+            )
+        day += timedelta(days=1)
+
+    assert history[-2].trading_date.weekday() == 4
+    assert history[-1].trading_date.weekday() == 0
+
+    completed = calculate_cta("FUND", history[:-1])
+    result = calculate_cta(
+        "FUND",
+        history,
+        exclude_incomplete_latest_week=True,
+    )
+
+    assert result.as_of == history[-1].trading_date.isoformat()
+    assert result.weekly_30ma == completed.weekly_30ma
+    assert result.weekly_50ma == completed.weekly_50ma
+    assert result.weekly_cross == completed.weekly_cross
+
+
 def test_calculate_cta_rejects_short_history() -> None:
     with pytest.raises(ETFCTAError, match="200 daily"):
         calculate_cta("QQQ", [bar(date(2026, 1, 1), 100)])

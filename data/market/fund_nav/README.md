@@ -31,3 +31,6 @@ retained in the JSON result for the Onecool three-month decision rule.
 Fund NAV CTA reuses the same crossover-first engine as ETF CTA. Weekly
 MA30/MA50 crossovers lead the decision, while daily SMA50/SMA200 crossovers
 serve as confirmation or warning and cannot reverse a weekly signal alone.
+The latest incomplete ISO week is excluded from every fund weekly calculation;
+weekday NAV updates may refresh daily indicators but cannot create a weekly
+`NEW` or `CONFIRMED` crossover before the week closes.
