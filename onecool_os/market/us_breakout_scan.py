@@ -401,7 +401,7 @@ def fetch_yahoo_breakout_inputs(
             symbol: _bars_from_download(frame, symbol, expected)
             for symbol in group
         })
-    best_observed.update({symbol: histories[symbol] for symbol in group})
+        best_observed.update({symbol: histories[symbol] for symbol in group})
 
     def is_incomplete(history: list[DailyBar]) -> bool:
         return (
