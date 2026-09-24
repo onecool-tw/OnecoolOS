@@ -376,6 +376,63 @@ def test_missing_session_is_recovered_only_from_real_adjusted_day_bar() -> None:
     assert diagnostics["BBB"]["missing_day_retry_status"] == "EMPTY_RESPONSE"
 
 
+def test_raw_yahoo_window_repairs_one_day_only_with_adjustment_and_matching_anchors() -> None:
+    spy = _history(days=320)
+    dates = pd.to_datetime([bar.trading_date for bar in spy])
+    adjusted = pd.DataFrame({
+        "Open": [bar.open for bar in spy],
+        "High": [bar.high for bar in spy],
+        "Low": [bar.low for bar in spy],
+        "Close": [bar.close for bar in spy],
+        "Volume": [bar.volume for bar in spy],
+    }, index=dates)
+    raw_window = adjusted.iloc[-21:].copy()
+    for field in ("Open", "High", "Low", "Close"):
+        raw_window[field] /= 0.9
+    raw_window["Adj Close"] = adjusted.iloc[-21:]["Close"]
+    missing = dates[-10]
+
+    class FakeTicker:
+        info = {}
+
+        def __init__(self, symbol):
+            self.symbol = symbol
+
+        def history(self, **kwargs):
+            if kwargs.get("auto_adjust") is False:
+                frame = raw_window.copy()
+                if self.symbol == "BBB":
+                    frame.loc[dates[-9], "Adj Close"] += 2
+                return frame
+            if "start" in kwargs:
+                return pd.DataFrame()
+            return adjusted.drop(index=missing)
+
+    class FakeYahoo:
+        Ticker = FakeTicker
+
+        @staticmethod
+        def download(requested, **kwargs):
+            return adjusted.drop(index=missing)
+
+    diagnostics = {}
+    histories, _ = fetch_yahoo_breakout_inputs(
+        FakeYahoo, expected_as_of=spy[-1].trading_date.isoformat(),
+        spy_history=spy, universe=("AAA", "BBB"),
+        fundamental_shortlist_size=0, price_diagnostics=diagnostics,
+    )
+
+    assert [bar.trading_date for bar in histories["AAA"][-252:]] == [
+        bar.trading_date for bar in spy[-252:]
+    ]
+    inserted = next(bar for bar in histories["AAA"] if bar.trading_date == missing.date())
+    assert inserted.close == pytest.approx(adjusted.loc[missing, "Close"])
+    assert inserted.open == pytest.approx(adjusted.loc[missing, "Open"])
+    assert inserted.source == "yahoo_finance_adjusted_raw_window"
+    assert missing.date() not in {bar.trading_date for bar in histories["BBB"]}
+    assert diagnostics["BBB"]["raw_window_retry_status"] == "ANCHOR_MISMATCH"
+
+
 def test_scan_refuses_to_publish_an_empty_validated_universe() -> None:
     spy = _history()
     as_of = spy[-1].trading_date.isoformat()
