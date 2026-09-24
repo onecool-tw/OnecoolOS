@@ -324,6 +324,7 @@ def test_ticker_history_fallback_recovers_only_calendar_complete_series() -> Non
     assert diagnostics["BBB"]["status"] == "TECHNICAL_DATA_VALIDATION_FAILED"
     assert diagnostics["BBB"]["observations"] == 319
     assert diagnostics["BBB"]["missing_spy_sessions"] == 1
+    assert diagnostics["BBB"]["missing_spy_dates"] == [spy[-10].trading_date.isoformat()]
 
 
 def test_scan_refuses_to_publish_an_empty_validated_universe() -> None:
