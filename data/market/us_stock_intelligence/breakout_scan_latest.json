@@ -784,32 +784,32 @@
   "exclusions": [
     {
       "symbol": "ABBV",
-      "technical_confidence": 100,
-      "reason": "trading calendar differs from SPY",
+      "technical_confidence": 10,
+      "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated",
       "fundamental_fetch_status": "CACHED_VALID"
     },
     {
       "symbol": "ABNB",
-      "technical_confidence": 100,
-      "reason": "trading calendar differs from SPY",
+      "technical_confidence": 10,
+      "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated",
       "fundamental_fetch_status": "CACHED_VALID"
     },
     {
       "symbol": "ADI",
-      "technical_confidence": 100,
-      "reason": "trading calendar differs from SPY",
+      "technical_confidence": 10,
+      "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated",
       "fundamental_fetch_status": "CACHED_VALID"
     },
     {
       "symbol": "AMGN",
-      "technical_confidence": 100,
-      "reason": "trading calendar differs from SPY",
+      "technical_confidence": 10,
+      "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated",
       "fundamental_fetch_status": "CACHED_VALID"
     },
     {
       "symbol": "ANET",
-      "technical_confidence": 100,
-      "reason": "trading calendar differs from SPY",
+      "technical_confidence": 10,
+      "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated",
       "fundamental_fetch_status": "CACHED_VALID"
     },
     {
@@ -985,9 +985,23 @@
     },
     {
       "symbol": "SNDK",
-      "technical_confidence": 10,
-      "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated; fundamental validation unavailable",
-      "fundamental_fetch_status": "NOT_REQUESTED"
+      "technical_confidence": 100,
+      "reason": "Reviewed nonpositive prior EPS; growth comparison is not meaningful under the existing rule",
+      "assessment_status": "RULE_EXCLUDED",
+      "reviewed_evidence": {
+        "symbol": "SNDK",
+        "status": "NONPOSITIVE_COMPARISON_BASE",
+        "review_status": "VERIFIED",
+        "period_end": "2026-04-03",
+        "prior_period_end": "2025-03-28",
+        "current_eps": 23.03,
+        "prior_eps": -13.33,
+        "published_as_of": "2026-05-01",
+        "valid_through": "2026-09-30",
+        "source_url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0002023554.json"
+      },
+      "fundamental_fetch_status": "UNAVAILABLE",
+      "fundamental_validation_detail": "SEC_FETCH_FAILED"
     },
     {
       "symbol": "SNOW",
@@ -1038,8 +1052,8 @@
       "fundamental_fetch_status": "CACHED_VALID"
     }
   ],
-  "rule_excluded_count": 1,
-  "assessment_count": 31,
+  "rule_excluded_count": 2,
+  "assessment_count": 32,
   "assessment_status": "PARTIAL",
   "fundamental_fetch_status": {
     "AAPL": "CACHED_VALID",
@@ -1112,7 +1126,7 @@
     "CRWD": "NOT_REQUESTED",
     "GILD": "NOT_REQUESTED",
     "PANW": "NOT_REQUESTED",
-    "SNDK": "NOT_REQUESTED",
+    "SNDK": "UNAVAILABLE",
     "SNOW": "NOT_REQUESTED",
     "SPOT": "NOT_REQUESTED",
     "SYM": "NOT_REQUESTED"
