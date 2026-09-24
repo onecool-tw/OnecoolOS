@@ -38,6 +38,7 @@ from onecool_os.market.us_breakout_scan import (
 from onecool_os.market.us_portfolio_scores import build_portfolio_score_payload
 from onecool_os.market.reviewed_us_fundamentals import load_reviewed_fundamentals
 from onecool_os.market.us_stock_quality import apply_us_super_growth_quality_gate
+from onecool_os.market.tiingo_eod import TiingoEODClient
 from onecool_os.market.session_cutoff import completed_daily_bars
 
 
@@ -487,6 +488,8 @@ def update(
                     yfinance,
                     expected_as_of=payload["expected_as_of"],
                     spy_history=histories_by_symbol["SPY"],
+                    tiingo_client=(TiingoEODClient(os.environ["TIINGO_API_KEY"])
+                                   if os.environ.get("TIINGO_API_KEY") else None),
                     required_fundamental_symbols=PORTFOLIO_SYMBOLS,
                     fundamental_cache=provider_cache,
                     fetch_diagnostics=fetch_diagnostics,

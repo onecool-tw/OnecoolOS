@@ -80,6 +80,7 @@ jobs:
       - name: Update Market Dashboard cache
         env:
           ALPHA_VANTAGE_API_KEY: ${{ secrets.ALPHA_VANTAGE_API_KEY }}
+          TIINGO_API_KEY: ${{ secrets.TIINGO_API_KEY }}
         run: |
           args=()
           # Prices refresh every run and the updater merges the latest 10 days,

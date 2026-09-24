@@ -13,6 +13,7 @@ from onecool_os.market.us_breakout_scan import (
     US_SECURITY_MASTER,
     build_breakout_scan_payload,
     fetch_yahoo_breakout_inputs,
+    score_security,
     _bars_from_download,
     technical_confidence,
 )
@@ -44,6 +45,19 @@ def _fundamental(as_of: str) -> FundamentalMetrics:
         annual_eps_growth=0.4,
         institutional_holders_available=True,
     )
+
+
+def test_transient_provider_bar_does_not_publish_reconstructable_liquidity() -> None:
+    spy = _history()
+    candidate = _history()
+    candidate[-10] = replace(candidate[-10], source="tiingo_eod_adjusted_transient")
+    scored = score_security(
+        "AAPL", candidate, _fundamental(spy[-1].trading_date.isoformat()),
+        spy, spy[-1].trading_date.isoformat(),
+    )
+    assert scored["validation_status"] == "PASSED"
+    assert scored["liquidity_average_50d_usd"] is None
+    assert scored["liquidity_status"] == "PASSED"
 
 
 def test_breakout_scan_is_same_cutoff_ranked_and_limited_to_five() -> None:
@@ -431,6 +445,82 @@ def test_raw_yahoo_window_repairs_one_day_only_with_adjustment_and_matching_anch
     assert inserted.source == "yahoo_finance_adjusted_raw_window"
     assert missing.date() not in {bar.trading_date for bar in histories["BBB"]}
     assert diagnostics["BBB"]["raw_window_retry_status"] == "ANCHOR_MISMATCH"
+
+
+@pytest.mark.parametrize("failure", [None, "ANCHOR_MISMATCH", "CORPORATE_ACTION"])
+def test_tiingo_repairs_only_verified_missing_day_without_publishing_price(failure) -> None:
+    spy = _history(days=320)
+    dates = pd.to_datetime([bar.trading_date for bar in spy])
+    adjusted = pd.DataFrame({
+        "Open": [bar.open for bar in spy],
+        "High": [bar.high for bar in spy],
+        "Low": [bar.low for bar in spy],
+        "Close": [bar.close for bar in spy],
+        "Volume": [bar.volume for bar in spy],
+    }, index=dates)
+    missing = dates[-10]
+
+    class FakeTicker:
+        info = {}
+
+        def __init__(self, symbol):
+            self.symbol = symbol
+
+        def history(self, **kwargs):
+            if kwargs.get("auto_adjust") is False or "start" in kwargs:
+                return pd.DataFrame()
+            return adjusted.drop(index=missing)
+
+    class FakeYahoo:
+        Ticker = FakeTicker
+
+        @staticmethod
+        def download(requested, **kwargs):
+            return adjusted.drop(index=missing)
+
+    class FakeTiingo:
+        def __init__(self):
+            self.calls = []
+
+        def fetch_window(self, symbol, before, after):
+            self.calls.append((symbol, before, after))
+            rows = []
+            for day in (before, missing.date(), after):
+                bar = next(b for b in spy if b.trading_date == day)
+                rows.append({
+                    "date": day.isoformat() + "T00:00:00.000Z",
+                    "adjOpen": bar.open, "adjHigh": bar.high, "adjLow": bar.low,
+                    "adjClose": bar.close, "volume": bar.volume,
+                    "splitFactor": 1, "divCash": 0,
+                })
+            if failure == "ANCHOR_MISMATCH":
+                for field in ("adjOpen", "adjHigh", "adjLow", "adjClose"):
+                    rows[0][field] += 10
+            if failure == "CORPORATE_ACTION":
+                rows[1]["splitFactor"] = 2
+            return rows
+
+    provider = FakeTiingo()
+    diagnostics = {}
+    histories, _ = fetch_yahoo_breakout_inputs(
+        FakeYahoo, expected_as_of=spy[-1].trading_date.isoformat(),
+        spy_history=spy, universe=("AAA",), fundamental_shortlist_size=0,
+        price_diagnostics=diagnostics, tiingo_client=provider,
+    )
+    assert len(provider.calls) == 1
+    if failure is None:
+        assert [bar.trading_date for bar in histories["AAA"][-252:]] == [
+            bar.trading_date for bar in spy[-252:]
+        ]
+        assert diagnostics["AAA"] == {
+            "status": "RECOVERED_FROM_TIINGO_ADJUSTED",
+            "recovered_date": missing.date().isoformat(),
+        }
+    else:
+        assert missing.date() not in {bar.trading_date for bar in histories["AAA"]}
+        assert diagnostics["AAA"]["tiingo_retry_status"] == (
+            "CORPORATE_ACTION_REQUIRES_REVIEW" if failure == "CORPORATE_ACTION" else failure
+        )
 
 
 def test_scan_refuses_to_publish_an_empty_validated_universe() -> None:
