@@ -280,14 +280,14 @@
         }
       },
       "valuation_input_collection": {
-        "as_of": "2026-09-23",
+        "as_of": "2026-09-24",
         "status": "PARTIAL",
         "gaps": [
           "SEC_COMPANYFACTS_FETCH_OR_IDENTITY_VALIDATION_FAILED"
         ],
         "price_basis": "adjusted_close",
         "inputs": {
-          "adjusted_close": 337.0199890136719
+          "adjusted_close": 335.9200134277344
         },
         "sources": [
           "https://data.sec.gov/api/xbrl/companyfacts/CIK0000320193.json"
@@ -296,16 +296,16 @@
         "price_source": {
           "provider": "yahoo_finance_adjusted_batch",
           "symbol": "AAPL",
-          "as_of": "2026-09-23",
+          "as_of": "2026-09-24",
           "url": "https://finance.yahoo.com/quote/AAPL/history/"
         },
         "price_observation": {
-          "date": "2026-09-23",
-          "adjusted_close": 337.0199890136719,
-          "raw_close": 337.0199890136719,
+          "date": "2026-09-24",
+          "adjusted_close": 335.9200134277344,
+          "raw_close": 335.9200134277344,
           "provider": "yahoo_finance_adjusted_batch"
         },
-        "price_sha256": "00368b5f487175abcc40c3a7762a08ebe69a5937a6674c726511d6ea4d6bbcb6",
+        "price_sha256": "08660d78bcb9e4c41e62e1a5619459a5b96105d0faea1abd574b81554f0a9b45",
         "fundamental_fetch_status": "FETCH_FAILED",
         "fetch_error_type": "HTTPError"
       }
@@ -561,30 +561,30 @@
         }
       },
       "valuation_input_collection": {
-        "as_of": "2026-09-23",
+        "as_of": "2026-09-24",
         "status": "PARTIAL",
         "gaps": [
           "REGISTRY_UNAVAILABLE"
         ],
         "price_basis": "adjusted_close",
         "inputs": {
-          "adjusted_close": 614.6099853515625
+          "adjusted_close": 629.260009765625
         },
         "sources": [],
         "decision_authority": "REFERENCE_INPUTS_ONLY_NOT_FAIR_VALUE",
         "price_source": {
           "provider": "yahoo_finance_adjusted_batch",
           "symbol": "AMD",
-          "as_of": "2026-09-23",
+          "as_of": "2026-09-24",
           "url": "https://finance.yahoo.com/quote/AMD/history/"
         },
         "price_observation": {
-          "date": "2026-09-23",
-          "adjusted_close": 614.6099853515625,
-          "raw_close": 614.6099853515625,
+          "date": "2026-09-24",
+          "adjusted_close": 629.260009765625,
+          "raw_close": 629.260009765625,
           "provider": "yahoo_finance_adjusted_batch"
         },
-        "price_sha256": "375ca8c56e0bfc9d4c0c7884fe2dd3ed5739aed8a669622de4c66c9e06208b48",
+        "price_sha256": "1fcd883caa389c1a74b097ce68373adbc9dd43c4345e9e386ed1558267c0f3a4",
         "fundamental_fetch_status": "REGISTRY_UNAVAILABLE"
       }
     },
@@ -623,30 +623,61 @@
       "symbol": "NVDA",
       "gates": {},
       "valuation_input_collection": {
-        "as_of": "2026-09-23",
+        "as_of": "2026-09-24",
         "status": "PARTIAL",
         "gaps": [
           "REGISTRY_UNAVAILABLE"
         ],
         "price_basis": "adjusted_close",
         "inputs": {
-          "adjusted_close": 225.50999450683594
+          "adjusted_close": 224.5800018310547
         },
         "sources": [],
         "decision_authority": "REFERENCE_INPUTS_ONLY_NOT_FAIR_VALUE",
         "price_source": {
           "provider": "yahoo_finance_raw",
           "symbol": "NVDA",
-          "as_of": "2026-09-23",
+          "as_of": "2026-09-24",
           "url": "https://finance.yahoo.com/quote/NVDA/history/"
         },
         "price_observation": {
-          "date": "2026-09-23",
-          "adjusted_close": 225.50999450683594,
-          "raw_close": 225.50999450683594,
+          "date": "2026-09-24",
+          "adjusted_close": 224.5800018310547,
+          "raw_close": 224.5800018310547,
           "provider": "yahoo_finance_raw"
         },
-        "price_sha256": "aa17c8952024ef345496a32430c1bcd25bae07bfc818fa196402195088a8b0c9",
+        "price_sha256": "d7287928be068b8f31508a04771b00560f36f3c182982e7bfd2258f5d669ab8b",
+        "fundamental_fetch_status": "REGISTRY_UNAVAILABLE"
+      }
+    },
+    {
+      "symbol": "META",
+      "gates": {},
+      "valuation_input_collection": {
+        "as_of": "2026-09-24",
+        "status": "PARTIAL",
+        "gaps": [
+          "REGISTRY_UNAVAILABLE"
+        ],
+        "price_basis": "adjusted_close",
+        "inputs": {
+          "adjusted_close": 777.5900268554688
+        },
+        "sources": [],
+        "decision_authority": "REFERENCE_INPUTS_ONLY_NOT_FAIR_VALUE",
+        "price_source": {
+          "provider": "yahoo_finance_adjusted_batch",
+          "symbol": "META",
+          "as_of": "2026-09-24",
+          "url": "https://finance.yahoo.com/quote/META/history/"
+        },
+        "price_observation": {
+          "date": "2026-09-24",
+          "adjusted_close": 777.5900268554688,
+          "raw_close": 777.5900268554688,
+          "provider": "yahoo_finance_adjusted_batch"
+        },
+        "price_sha256": "eb34366e48278ceca522cdf683988c5f0b014cf8edf2c0547b1b90a64e464eb2",
         "fundamental_fetch_status": "REGISTRY_UNAVAILABLE"
       }
     }
