@@ -41,7 +41,9 @@ from onecool_os.market.us_stock_quality import apply_us_super_growth_quality_gat
 from onecool_os.market.session_cutoff import completed_daily_bars
 
 
-CORE_ALPHA_FALLBACK_SYMBOLS = {"SPY", "QQQ", "DIA", "SOXX", "NVDA"}
+CORE_ALPHA_FALLBACK_SYMBOLS = {
+    "SPY", "QQQ", "DIA", "SOXX", "NVDA", *PORTFOLIO_SYMBOLS,
+}
 ADJUSTED_HISTORY_SOURCES = {
     "yahoo_finance_adjusted_fallback",
 }
@@ -263,6 +265,16 @@ def _alpha_price_fallback(
     return merge_and_adjust([], combined)
 
 
+def _same_trading_calendar(history: list, reference: list, *, lookback: int = 252) -> bool:
+    """Match the scoring engine's strict recent-session calendar contract."""
+
+    if not history or not reference:
+        return False
+    return [bar.trading_date for bar in history[-lookback:]] == [
+        bar.trading_date for bar in reference[-lookback:]
+    ]
+
+
 def update(
     root: Path,
     api_key: str,
@@ -327,6 +339,36 @@ def update(
             history = _drop_incomplete_us_session(
                 config, history, incomplete_us_session
             )
+
+        # Yahoo can return HTTP success while omitting an isolated completed
+        # session. Portfolio scoring intentionally requires the exact SPY
+        # calendar, so repair only those gaps from the independent price
+        # provider instead of weakening validation or publishing null scores.
+        spy_history = next((h for c, h in staged if c.symbol == "SPY"), [])
+        if (
+            config.symbol in PORTFOLIO_SYMBOLS
+            and spy_history
+            and not _same_trading_calendar(history, spy_history)
+            and client is not None
+        ):
+            try:
+                repaired = _alpha_price_fallback(
+                    config, history, client, refresh_actions=False
+                )
+                repaired = _drop_incomplete_us_session(
+                    config, repaired, incomplete_us_session
+                )
+                if _same_trading_calendar(repaired, spy_history):
+                    history = repaired
+                    providers[config.symbol] = (
+                        "yahoo_finance_raw+alpha_vantage_gap_repair"
+                    )
+                else:
+                    providers[config.symbol] = (
+                        "yahoo_finance_raw_gap_unrepaired"
+                    )
+            except Exception:
+                providers[config.symbol] = "yahoo_finance_raw_gap_unrepaired"
 
         should_validate_actions = (
             config.symbol in (refresh_action_symbols or set())
@@ -617,4 +659,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

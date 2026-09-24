@@ -142,10 +142,10 @@ jobs:
           PRODUCER_NAME: ${{ github.event.workflow_run.name }}
           PRODUCER_CONCLUSION: ${{ github.event.workflow_run.conclusion }}
         run: python scripts/check_health_gate_window.py
-      - name: Note pending Taiwan data before recovery window
+      - name: Note pending data before recovery window
         if: steps.gate_window.outputs.enforce == 'false' && steps.publish.outputs.scope_status == 'BLOCKED'
         run: |
-          echo "::warning::Taiwan data is not ready. This successful producer audit is before 16:30 Taipei; scheduled recovery and final verification remain enabled."
+          echo "::warning::Scoped data is not ready, but this successful producer audit is before its final Taipei recovery deadline. Scheduled recovery and final verification remain enabled."
       - name: Fail only after recovery remains blocked
         if: steps.mode.outputs.phase == 'verify' && github.event_name != 'push' && steps.gate_window.outputs.enforce == 'true' && steps.publish.outputs.scope_status == 'BLOCKED'
         run: |

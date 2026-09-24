@@ -6,14 +6,23 @@ from zoneinfo import ZoneInfo
 
 def enforce_gate(event, producer, conclusion, now):
     local = now.astimezone(ZoneInfo("Asia/Taipei"))
-    early_taiwan_audit = (
+    early_successful_producer_audit = (
         event == "workflow_run"
-        and producer == "Update Taiwan Stock Screen"
         and conclusion == "success"
-        and local.weekday() < 5
-        and (local.hour, local.minute) < (16, 30)
+        and (
+            (
+                producer == "Update Fund NAV CTA"
+                and local.weekday() < 6
+                and (local.hour, local.minute) < (15, 30)
+            )
+            or (
+                producer == "Update Taiwan Stock Screen"
+                and local.weekday() < 5
+                and (local.hour, local.minute) < (16, 30)
+            )
+        )
     )
-    return not early_taiwan_audit
+    return not early_successful_producer_audit
 
 
 if __name__ == "__main__":
