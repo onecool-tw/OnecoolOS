@@ -497,6 +497,83 @@ def fetch_yahoo_breakout_inputs(
             recovered = sorted([*best_observed[symbol], *patch_bars], key=lambda bar: bar.trading_date)
             if not is_incomplete(recovered):
                 histories[symbol] = recovered
+    # The adjusted Yahoo history endpoint can omit a date present in its raw
+    # short-window response. Yahoo also provides Adj Close in that response:
+    # reproduce its documented auto-adjust OHLC ratio, and require the dates
+    # on both sides to match the already-validated adjusted series. A raw bar
+    # without the provider's adjusted close cannot be used for this repair.
+    def retry_raw_window(symbol: str, day: date) -> tuple[list[DailyBar], str]:
+        frame = yfinance_module.Ticker(symbol).history(
+            period="1mo", interval="1d", auto_adjust=False, actions=True,
+        )
+        if frame is None or getattr(frame, "empty", True):
+            return [], "EMPTY_RESPONSE"
+        observed = {bar.trading_date: bar for bar in best_observed[symbol]}
+        rows = {}
+        for timestamp, row in frame.iterrows():
+            row_date = timestamp.date() if callable(getattr(timestamp, "date", None)) else date.fromisoformat(str(timestamp)[:10])
+            if row_date in rows:
+                return [], "DUPLICATE_DATE"
+            rows[row_date] = row
+        if day not in rows:
+            return [], "DATE_ABSENT"
+
+        def adjusted_bar(row_date: date) -> DailyBar | None:
+            row = rows[row_date]
+            raw = [_optional_number(row.get(key)) for key in ("Open", "High", "Low", "Close", "Adj Close", "Volume")]
+            if any(value is None for value in raw) or any(value <= 0 for value in raw[:5]) or raw[5] < 0 or not raw[5].is_integer():
+                return None
+            factor = raw[4] / raw[3]
+            return DailyBar(
+                trading_date=row_date,
+                open=raw[0] * factor, high=raw[1] * factor,
+                low=raw[2] * factor, close=raw[4],
+                volume=int(raw[5]), adjusted_close=raw[4],
+                source="yahoo_finance_adjusted_raw_window",
+            )
+
+        recovered = adjusted_bar(day)
+        if recovered is None or recovered.high < max(recovered.open, recovered.close, recovered.low) or recovered.low > min(recovered.open, recovered.close):
+            return [], "INVALID_ADJUSTED_ROW"
+        neighbors = sorted(observed)
+        before = next((d for d in reversed(neighbors) if d < day), None)
+        after = next((d for d in neighbors if d > day), None)
+        if before is None or after is None or before not in rows or after not in rows:
+            return [], "ANCHOR_UNAVAILABLE"
+        for neighbor in (before, after):
+            anchor = adjusted_bar(neighbor)
+            if anchor is None or any(
+                abs(getattr(anchor, field) - getattr(observed[neighbor], field)) > max(0.01, abs(getattr(observed[neighbor], field)) * 0.0001)
+                for field in ("open", "high", "low", "adjusted_close")
+            ) or anchor.volume != observed[neighbor].volume:
+                return [], "ANCHOR_MISMATCH"
+        return [recovered], "ROW_VALID"
+
+    raw_attempts = {}
+    with ThreadPoolExecutor(max_workers=4) as executor:
+        futures = {
+            executor.submit(retry_raw_window, symbol, day): symbol
+            for symbol in symbols if is_incomplete(histories[symbol])
+            if (day := missing_day(symbol)) is not None
+        }
+        for future in as_completed(futures):
+            symbol = futures[future]
+            try:
+                patch_bars, raw_attempts[symbol] = future.result()
+            except Exception as exc:  # noqa: BLE001 - keep the data gate strict.
+                raw_attempts[symbol] = f"REQUEST_ERROR:{type(exc).__name__}"
+                continue
+            day = missing_day(symbol)
+            if day is None or len(patch_bars) != 1 or patch_bars[0].trading_date != day:
+                continue
+            recovered = sorted([*best_observed[symbol], *patch_bars], key=lambda bar: bar.trading_date)
+            if not is_incomplete(recovered):
+                histories[symbol] = recovered
+                price_details[symbol] = {
+                    "status": "RECOVERED_FROM_ADJUSTED_RAW_WINDOW",
+                    "recovered_date": day.isoformat(),
+                    "source": "yahoo_finance_adjusted_raw_window",
+                }
     for symbol in symbols:
         history = histories[symbol]
         if is_incomplete(history):
@@ -509,6 +586,7 @@ def fetch_yahoo_breakout_inputs(
                 "missing_spy_sessions": sum(day not in observed for day in reference_dates),
                 "missing_spy_dates": [day.isoformat() for day in reference_dates if day not in observed][:5],
                 "missing_day_retry_status": day_attempts.get(symbol, "NOT_ATTEMPTED"),
+                "raw_window_retry_status": raw_attempts.get(symbol, "NOT_ATTEMPTED"),
             }
     leaders = []
     for symbol in ranking_symbols:
