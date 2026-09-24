@@ -366,6 +366,7 @@ def fetch_yahoo_breakout_inputs(
     required_fundamental_symbols: Iterable[str] = (),
     fundamental_cache: dict | None = None,
     fetch_diagnostics: dict | None = None,
+    price_diagnostics: dict | None = None,
 ) -> tuple[dict[str, list[DailyBar]], dict[str, FundamentalMetrics]]:
     """Batch-download prices and cover every eligible missing fundamental.
 
@@ -385,6 +386,8 @@ def fetch_yahoo_breakout_inputs(
     # one isolated retry. Never fill missing daily bars or carry prices forward.
     reference_dates = [bar.trading_date for bar in spy[-252:]]
     histories = {}
+    best_observed = {}
+    price_details = price_diagnostics if price_diagnostics is not None else {}
     for offset in range(0, len(symbols), 15):
         group = symbols[offset:offset + 15]
         try:
@@ -398,9 +401,9 @@ def fetch_yahoo_breakout_inputs(
             symbol: _bars_from_download(frame, symbol, expected)
             for symbol in group
         })
+    best_observed.update({symbol: histories[symbol] for symbol in group})
 
-    def needs_retry(symbol: str) -> bool:
-        history = histories[symbol]
+    def is_incomplete(history: list[DailyBar]) -> bool:
         return (
             len(history) < 252 or history[-1].trading_date != expected
             or [bar.trading_date for bar in history[-252:]] != reference_dates
@@ -414,18 +417,49 @@ def fetch_yahoo_breakout_inputs(
         return _bars_from_download(single, symbol, expected)
 
     with ThreadPoolExecutor(max_workers=4) as executor:
-        futures = {executor.submit(retry_symbol, s): s for s in symbols if needs_retry(s)}
+        futures = {executor.submit(retry_symbol, s): s for s in symbols if is_incomplete(histories[s])}
         for future in as_completed(futures):
             symbol = futures[future]
             try:
                 recovered = future.result()
             except Exception:  # noqa: BLE001 - preserve the original history.
                 continue
-            if recovered and (
-                [bar.trading_date for bar in recovered[-252:]] == reference_dates
-                and recovered[-1].trading_date == expected
-            ):
+            if len(recovered) > len(best_observed[symbol]):
+                best_observed[symbol] = recovered
+            if not is_incomplete(recovered):
                 histories[symbol] = recovered
+    # Ticker.history takes a separate provider path from multi-symbol download.
+    # It can recover genuinely complete historical series omitted by download;
+    # the same cutoff and calendar tests still apply before accepting any bars.
+    def retry_history(symbol: str) -> list[DailyBar]:
+        frame = yfinance_module.Ticker(symbol).history(
+            period="5y", interval="1d", auto_adjust=True, actions=False,
+        )
+        return _bars_from_download(frame, symbol, expected)
+
+    with ThreadPoolExecutor(max_workers=4) as executor:
+        futures = {executor.submit(retry_history, s): s for s in symbols if is_incomplete(histories[s])}
+        for future in as_completed(futures):
+            symbol = futures[future]
+            try:
+                recovered = future.result()
+            except Exception:  # noqa: BLE001 - leave the symbol excluded.
+                continue
+            if len(recovered) > len(best_observed[symbol]):
+                best_observed[symbol] = recovered
+            if not is_incomplete(recovered):
+                histories[symbol] = recovered
+    for symbol in symbols:
+        history = histories[symbol]
+        if is_incomplete(history):
+            observed_history = best_observed[symbol]
+            observed = {bar.trading_date for bar in observed_history}
+            price_details[symbol] = {
+                "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+                "observations": len(observed_history),
+                "last_date": observed_history[-1].trading_date.isoformat() if observed_history else None,
+                "missing_spy_sessions": sum(day not in observed for day in reference_dates),
+            }
     leaders = []
     for symbol in ranking_symbols:
         history = histories.get(symbol, [])
