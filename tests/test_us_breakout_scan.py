@@ -279,6 +279,53 @@ def test_calendar_mismatch_retries_ticker_and_keeps_gate_strict() -> None:
     ]
 
 
+def test_ticker_history_fallback_recovers_only_calendar_complete_series() -> None:
+    spy = _history(days=320)
+    dates = pd.to_datetime([bar.trading_date for bar in spy])
+    frame = pd.DataFrame({
+        "Open": [bar.open for bar in spy],
+        "High": [bar.high for bar in spy],
+        "Low": [bar.low for bar in spy],
+        "Close": [bar.close for bar in spy],
+        "Volume": [bar.volume for bar in spy],
+    }, index=dates)
+
+    class FakeTicker:
+        info = {}
+
+        def __init__(self, symbol):
+            self.symbol = symbol
+
+        def history(self, **kwargs):
+            if self.symbol == "AAA":
+                return frame
+            return frame.drop(index=dates[-10])
+
+    class FakeYahoo:
+        Ticker = FakeTicker
+
+        @staticmethod
+        def download(requested, **kwargs):
+            return pd.DataFrame()
+
+    diagnostics = {}
+    histories, _ = fetch_yahoo_breakout_inputs(
+        FakeYahoo,
+        expected_as_of=spy[-1].trading_date.isoformat(),
+        spy_history=spy,
+        universe=("AAA", "BBB"),
+        fundamental_shortlist_size=0,
+        price_diagnostics=diagnostics,
+    )
+
+    assert len(histories["AAA"]) == 320
+    assert "AAA" not in diagnostics
+    assert histories["BBB"] == []
+    assert diagnostics["BBB"]["status"] == "TECHNICAL_DATA_VALIDATION_FAILED"
+    assert diagnostics["BBB"]["observations"] == 319
+    assert diagnostics["BBB"]["missing_spy_sessions"] == 1
+
+
 def test_scan_refuses_to_publish_an_empty_validated_universe() -> None:
     spy = _history()
     as_of = spy[-1].trading_date.isoformat()
