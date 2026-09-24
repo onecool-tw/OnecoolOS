@@ -460,13 +460,24 @@ def fetch_yahoo_breakout_inputs(
         missing = [day for day in reference_dates if day not in observed]
         return missing[0] if len(missing) == 1 else None
 
-    def retry_day(symbol: str, day: date) -> list[DailyBar]:
+    def retry_day(symbol: str, day: date) -> tuple[list[DailyBar], str]:
         frame = yfinance_module.Ticker(symbol).history(
             start=day.isoformat(), end=(day + timedelta(days=1)).isoformat(),
             interval="1d", auto_adjust=True, actions=False,
         )
-        return _bars_from_download(frame, symbol, expected)
+        if frame is None or getattr(frame, "empty", True):
+            return [], "EMPTY_RESPONSE"
+        dates = {
+            timestamp.date() if callable(getattr(timestamp, "date", None))
+            else date.fromisoformat(str(timestamp)[:10])
+            for timestamp in frame.index
+        }
+        if day not in dates:
+            return [], "DATE_ABSENT"
+        bars = _bars_from_download(frame, symbol, expected)
+        return bars, "ROW_VALID" if len(bars) == 1 and bars[0].trading_date == day else "ROW_INVALID"
 
+    day_attempts = {}
     with ThreadPoolExecutor(max_workers=4) as executor:
         futures = {
             executor.submit(retry_day, symbol, day): symbol
@@ -476,8 +487,9 @@ def fetch_yahoo_breakout_inputs(
         for future in as_completed(futures):
             symbol = futures[future]
             try:
-                patch_bars = future.result()
-            except Exception:  # noqa: BLE001 - preserve strict exclusion.
+                patch_bars, day_attempts[symbol] = future.result()
+            except Exception as exc:  # noqa: BLE001 - preserve strict exclusion.
+                day_attempts[symbol] = f"REQUEST_ERROR:{type(exc).__name__}"
                 continue
             day = missing_day(symbol)
             if day is None or len(patch_bars) != 1 or patch_bars[0].trading_date != day:
@@ -496,6 +508,7 @@ def fetch_yahoo_breakout_inputs(
                 "last_date": observed_history[-1].trading_date.isoformat() if observed_history else None,
                 "missing_spy_sessions": sum(day not in observed for day in reference_dates),
                 "missing_spy_dates": [day.isoformat() for day in reference_dates if day not in observed][:5],
+                "missing_day_retry_status": day_attempts.get(symbol, "NOT_ATTEMPTED"),
             }
     leaders = []
     for symbol in ranking_symbols:
