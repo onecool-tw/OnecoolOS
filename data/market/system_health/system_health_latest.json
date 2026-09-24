@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-09-24T01:26:57.097687+00:00",
+  "generated_at": "2026-09-24T04:25:40.469525+00:00",
   "taipei_date": "2026-09-24",
   "status": "BLOCKED",
   "scope_status": {
@@ -57,9 +57,9 @@
   "end_to_end_status": "NOT_FULLY_VERIFIED",
   "action_readiness": "UNSAFE_FOR_AFFECTED_REPORTS",
   "counts": {
-    "ready": 13,
+    "ready": 12,
     "partial": 3,
-    "blocked": 1
+    "blocked": 2
   },
   "modules": [
     {
@@ -125,11 +125,11 @@
       "label": "Fund NAV CTA",
       "scope": "morning",
       "critical": true,
-      "status": "READY",
-      "reason": "current",
-      "observed_as_of": "2026-09-22",
+      "status": "BLOCKED",
+      "reason": "generation timestamp missing, invalid or older than scheduled date 2026-09-24",
+      "observed_as_of": "2026-09-23",
       "recovery_workflow": "update-fund-nav-cta.yml",
-      "retryable": false,
+      "retryable": true,
       "impacted_reports": [
         "基金日報",
         "基金週報"
@@ -334,6 +334,21 @@
       ]
     },
     {
+      "module_id": "fund_nav_cta",
+      "label": "Fund NAV CTA",
+      "scope": "morning",
+      "critical": true,
+      "status": "BLOCKED",
+      "reason": "generation timestamp missing, invalid or older than scheduled date 2026-09-24",
+      "observed_as_of": "2026-09-23",
+      "recovery_workflow": "update-fund-nav-cta.yml",
+      "retryable": true,
+      "impacted_reports": [
+        "基金日報",
+        "基金週報"
+      ]
+    },
+    {
       "module_id": "taiwan_candidate_cta",
       "label": "Taiwan 200-stock CTA",
       "scope": "asia",
@@ -363,8 +378,9 @@
     }
   ],
   "recovery_workflows": [
+    "update-fund-nav-cta.yml",
     "update-market-dashboard.yml"
   ],
-  "issue_fingerprint": "b9411aa0c4984291916e01da10f68dcb34cd2d0c54e0588c86133145f4f092e5",
+  "issue_fingerprint": "caa088bb77f3ab6a6a739cb3700151050b4fc7a0f809f621b02840c2f62e57d3",
   "policy": "Health monitoring only; never changes CTA, rankings, or investment decisions."
 }
