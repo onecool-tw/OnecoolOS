@@ -9,7 +9,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, asdict
 from concurrent.futures import ThreadPoolExecutor, as_completed
-from datetime import date, datetime, timezone
+from datetime import date, datetime, timedelta, timezone
 from math import isfinite
 from typing import Iterable
 
@@ -447,6 +447,42 @@ def fetch_yahoo_breakout_inputs(
                 continue
             if len(recovered) > len(best_observed[symbol]):
                 best_observed[symbol] = recovered
+            if not is_incomplete(recovered):
+                histories[symbol] = recovered
+    # Some Yahoo long-range responses omit one otherwise ordinary US session.
+    # Ask the same adjusted source for exactly that date, then recheck every
+    # reference session before accepting the combined series. Never synthesize.
+    def missing_day(symbol: str) -> date | None:
+        observed_history = best_observed[symbol]
+        if len(observed_history) < 251 or observed_history[-1].trading_date != expected:
+            return None
+        observed = {bar.trading_date for bar in observed_history}
+        missing = [day for day in reference_dates if day not in observed]
+        return missing[0] if len(missing) == 1 else None
+
+    def retry_day(symbol: str, day: date) -> list[DailyBar]:
+        frame = yfinance_module.Ticker(symbol).history(
+            start=day.isoformat(), end=(day + timedelta(days=1)).isoformat(),
+            interval="1d", auto_adjust=True, actions=False,
+        )
+        return _bars_from_download(frame, symbol, expected)
+
+    with ThreadPoolExecutor(max_workers=4) as executor:
+        futures = {
+            executor.submit(retry_day, symbol, day): symbol
+            for symbol in symbols if is_incomplete(histories[symbol])
+            if (day := missing_day(symbol)) is not None
+        }
+        for future in as_completed(futures):
+            symbol = futures[future]
+            try:
+                patch_bars = future.result()
+            except Exception:  # noqa: BLE001 - preserve strict exclusion.
+                continue
+            day = missing_day(symbol)
+            if day is None or len(patch_bars) != 1 or patch_bars[0].trading_date != day:
+                continue
+            recovered = sorted([*best_observed[symbol], *patch_bars], key=lambda bar: bar.trading_date)
             if not is_incomplete(recovered):
                 histories[symbol] = recovered
     for symbol in symbols:
