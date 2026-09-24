@@ -14,6 +14,7 @@ from math import isfinite
 from typing import Iterable
 
 from onecool_os.market.etf_cta import DailyBar
+from onecool_os.market.tiingo_eod import TiingoEODError, verified_missing_bar
 
 
 SCAN_VERSION = "onecool_us_breakout_v1"
@@ -221,6 +222,11 @@ def score_security(
     below_entry_minimum = (
         liquidity_average is not None and liquidity_average < 20_000_000
     )
+    # A rolling dollar amount with one Tiingo-only observation could disclose
+    # the licensed bar by subtraction. Publish the eligibility outcome only.
+    publish_liquidity = not any(
+        bar.source == "tiingo_eod_adjusted_transient" for bar in history[-50:]
+    )
     warnings = []
     if existing_position and below_entry_minimum:
         warnings.append(
@@ -232,7 +238,7 @@ def score_security(
         "fundamentals_as_of": fundamental.as_of if fundamental else None,
         "fundamental_sources": list(fundamental.source_urls) if fundamental else [],
         "fundamentals_published_as_of": fundamental.published_as_of if fundamental else None,
-        "liquidity_average_50d_usd": liquidity_average,
+        "liquidity_average_50d_usd": liquidity_average if publish_liquidity else None,
         "liquidity_minimum_50d_usd": 20_000_000,
         "liquidity_status": (
             "BELOW_NEW_ENTRY_MINIMUM" if below_entry_minimum else
@@ -367,6 +373,7 @@ def fetch_yahoo_breakout_inputs(
     fundamental_cache: dict | None = None,
     fetch_diagnostics: dict | None = None,
     price_diagnostics: dict | None = None,
+    tiingo_client=None,
 ) -> tuple[dict[str, list[DailyBar]], dict[str, FundamentalMetrics]]:
     """Batch-download prices and cover every eligible missing fundamental.
 
@@ -574,6 +581,51 @@ def fetch_yahoo_breakout_inputs(
                     "recovered_date": day.isoformat(),
                     "source": "yahoo_finance_adjusted_raw_window",
                 }
+    # An independent EOD feed can repair a single Yahoo omission, but only
+    # when its adjacent adjusted bars agree with Yahoo's observed history.
+    # Its raw data must never be cached or included in publication artifacts.
+    tiingo_attempts = {}
+    tiingo_blocked = None
+    for symbol in ranking_symbols:
+        if not is_incomplete(histories[symbol]):
+            continue
+        day = missing_day(symbol)
+        if day is None:
+            continue
+        if tiingo_blocked:
+            tiingo_attempts[symbol] = tiingo_blocked
+            continue
+        if tiingo_client is None:
+            tiingo_attempts[symbol] = "NOT_CONFIGURED"
+            continue
+        observed = {bar.trading_date: bar for bar in best_observed[symbol]}
+        neighbors = sorted(observed)
+        before = next((d for d in reversed(neighbors) if d < day), None)
+        after = next((d for d in neighbors if d > day), None)
+        if before is None or after is None:
+            tiingo_attempts[symbol] = "ANCHOR_UNAVAILABLE"
+            continue
+        try:
+            rows = tiingo_client.fetch_window(symbol, before, after)
+            patch, status = verified_missing_bar(rows, day, observed[before], observed[after])
+        except TiingoEODError as exc:
+            status = str(exc)
+            patch = None
+        except Exception:  # noqa: BLE001 - never expose provider payload or token.
+            status = "REQUEST_FAILED"
+            patch = None
+        tiingo_attempts[symbol] = status
+        if status in ("HTTP_401", "HTTP_403", "HTTP_429"):
+            tiingo_blocked = status
+        if patch is None:
+            continue
+        recovered = sorted([*best_observed[symbol], patch], key=lambda bar: bar.trading_date)
+        if not is_incomplete(recovered):
+            histories[symbol] = recovered
+            price_details[symbol] = {
+                "status": "RECOVERED_FROM_TIINGO_ADJUSTED",
+                "recovered_date": day.isoformat(),
+            }
     for symbol in symbols:
         history = histories[symbol]
         if is_incomplete(history):
@@ -587,6 +639,7 @@ def fetch_yahoo_breakout_inputs(
                 "missing_spy_dates": [day.isoformat() for day in reference_dates if day not in observed][:5],
                 "missing_day_retry_status": day_attempts.get(symbol, "NOT_ATTEMPTED"),
                 "raw_window_retry_status": raw_attempts.get(symbol, "NOT_ATTEMPTED"),
+                "tiingo_retry_status": tiingo_attempts.get(symbol, "NOT_ATTEMPTED"),
             }
     leaders = []
     for symbol in ranking_symbols:
