@@ -459,6 +459,7 @@ def fetch_yahoo_breakout_inputs(
                 "observations": len(observed_history),
                 "last_date": observed_history[-1].trading_date.isoformat() if observed_history else None,
                 "missing_spy_sessions": sum(day not in observed for day in reference_dates),
+                "missing_spy_dates": [day.isoformat() for day in reference_dates if day not in observed][:5],
             }
     leaders = []
     for symbol in ranking_symbols:
