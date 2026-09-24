@@ -67,4 +67,6 @@ def test_push_health_audit_recovers_without_transient_failure() -> None:
     )
 
     assert "github.event_name == 'push'" in dispatch["if"]
+    assert "workflow_id === 'update-taiwan-stock-screen.yml'" in dispatch["with"]["script"]
+    assert "{ run_mode: 'recovery' }" in dispatch["with"]["script"]
     assert "github.event_name != 'push'" in gate["if"]
