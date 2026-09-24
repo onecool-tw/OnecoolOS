@@ -482,6 +482,7 @@ def update(
                 except (OSError, ValueError):
                     provider_cache = {}
                 fetch_diagnostics = {}
+                price_diagnostics = {}
                 scan_histories, scan_fundamentals = fetch_yahoo_breakout_inputs(
                     yfinance,
                     expected_as_of=payload["expected_as_of"],
@@ -489,6 +490,7 @@ def update(
                     required_fundamental_symbols=PORTFOLIO_SYMBOLS,
                     fundamental_cache=provider_cache,
                     fetch_diagnostics=fetch_diagnostics,
+                    price_diagnostics=price_diagnostics,
                 )
                 from onecool_os.market.ai_revolution import SecClient
                 from onecool_os.market.sec_fundamentals import fill_missing_fundamentals
@@ -524,6 +526,7 @@ def update(
             annotate_reviewed_exclusions(breakout_scan, json.loads(exclusions_path.read_text()) if exclusions_path.exists() else {}, payload["expected_as_of"])
             if breakout_input_loader is None:
                 breakout_scan["fundamental_fetch_status"] = fetch_diagnostics
+                breakout_scan["price_fetch_diagnostics"] = price_diagnostics
                 for item in breakout_scan["exclusions"]:
                     item["fundamental_fetch_status"] = fetch_diagnostics.get(item["symbol"], "NOT_REQUESTED")
                     if item["symbol"] in sec_details:
