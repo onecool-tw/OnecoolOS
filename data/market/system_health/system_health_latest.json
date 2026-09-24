@@ -1,11 +1,11 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-09-24T09:34:51.868676+00:00",
+  "generated_at": "2026-09-24T09:39:43.624985+00:00",
   "taipei_date": "2026-09-24",
   "status": "BLOCKED",
   "scope_status": {
-    "morning": "PARTIAL",
+    "morning": "BLOCKED",
     "asia": "BLOCKED",
     "weekly": "READY"
   },
@@ -61,9 +61,9 @@
   "end_to_end_status": "NOT_FULLY_VERIFIED",
   "action_readiness": "UNSAFE_FOR_AFFECTED_REPORTS",
   "counts": {
-    "ready": 14,
+    "ready": 13,
     "partial": 2,
-    "blocked": 1
+    "blocked": 2
   },
   "modules": [
     {
@@ -100,8 +100,8 @@
       "label": "US Portfolio Scores",
       "scope": "morning",
       "critical": true,
-      "status": "READY",
-      "reason": "current",
+      "status": "BLOCKED",
+      "reason": "data_status is not ready",
       "observed_as_of": "2026-09-23",
       "recovery_workflow": "update-market-dashboard.yml",
       "retryable": true,
@@ -324,6 +324,20 @@
       ]
     },
     {
+      "module_id": "us_portfolio_scores",
+      "label": "US Portfolio Scores",
+      "scope": "morning",
+      "critical": true,
+      "status": "BLOCKED",
+      "reason": "data_status is not ready",
+      "observed_as_of": "2026-09-23",
+      "recovery_workflow": "update-market-dashboard.yml",
+      "retryable": true,
+      "impacted_reports": [
+        "美股日報"
+      ]
+    },
+    {
       "module_id": "taiwan_market_cta",
       "label": "Taiwan 0050/2330 CTA",
       "scope": "asia",
@@ -353,8 +367,9 @@
     }
   ],
   "recovery_workflows": [
+    "update-market-dashboard.yml",
     "update-taiwan-cta.yml"
   ],
-  "issue_fingerprint": "045855897c4b590edc0c640705957243157365031590832b247973279c0e96b4",
+  "issue_fingerprint": "52c0655fd678c8b2e01463b72e5950c8ff420166f67d4d8602c645bf000c59b3",
   "policy": "Health monitoring only; never changes CTA, rankings, or investment decisions."
 }
