@@ -1,10 +1,10 @@
 {
   "schema_version": "1.9",
   "module": "Onecool Market Dashboard",
-  "generated_at": "2026-09-24T09:36:42.913369+00:00",
+  "generated_at": "2026-09-24T09:40:35.447357+00:00",
   "expected_as_of": "2026-09-23",
   "data_status": "READY",
-  "last_successful_update_at": "2026-09-24T09:36:42.913369+00:00",
+  "last_successful_update_at": "2026-09-24T09:40:35.447357+00:00",
   "index_cta_basis": {
     "method": "ETF/index proxies; shared CTA engine",
     "mappings": {
@@ -794,9 +794,9 @@
       "market": "CONTEXT",
       "theme": "crypto_risk_appetite",
       "as_of": "2026-09-24",
-      "current_price": 83224.84375,
-      "sma50": 74904.420469,
-      "sma200": 70845.130195,
+      "current_price": 83239.523438,
+      "sma50": 74904.714063,
+      "sma200": 70845.203594,
       "weekly_ma30": 70439.021224,
       "weekly_ma50": 78787.759609,
       "trend": "MIXED",
@@ -809,7 +809,7 @@
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2026-09-08",
         "periods_since_cross": 16,
-        "spread_pct": 5.729808,
+        "spread_pct": 5.730113,
         "phase": "ACTIVE"
       },
       "weekly_cross": {
@@ -831,7 +831,7 @@
     "classification": "Onecool proxy scores; not IBD official ratings",
     "expected_as_of": "2026-09-23",
     "price_basis": "adjusted_close",
-    "data_status": "PARTIAL",
+    "data_status": "READY",
     "thresholds": {
       "canslim": 70,
       "minervini": 80
@@ -841,7 +841,7 @@
       {
         "symbol": "BABA",
         "price_as_of": "2026-09-23",
-        "fundamentals_as_of": null,
+        "fundamentals_as_of": "2026-06-30",
         "fundamental_sources": [],
         "fundamentals_published_as_of": null,
         "liquidity_average_50d_usd": 1309294361.58,
@@ -856,18 +856,16 @@
           "minervini": 80
         },
         "technical_confidence": 100,
-        "validation_status": "Technical Data Validation Failed",
-        "validation_errors": [
-          "fundamental validation unavailable"
-        ],
-        "canslim_score": null,
+        "validation_status": "PASSED",
+        "validation_errors": [],
+        "canslim_score": 34,
         "minervini_score": 0,
-        "passes_dual_system": null
+        "passes_dual_system": false
       },
       {
         "symbol": "XYZ",
         "price_as_of": "2026-09-23",
-        "fundamentals_as_of": null,
+        "fundamentals_as_of": "2026-06-30",
         "fundamental_sources": [],
         "fundamentals_published_as_of": null,
         "liquidity_average_50d_usd": 365630571.74,
@@ -882,18 +880,16 @@
           "minervini": 80
         },
         "technical_confidence": 100,
-        "validation_status": "Technical Data Validation Failed",
-        "validation_errors": [
-          "fundamental validation unavailable"
-        ],
-        "canslim_score": null,
+        "validation_status": "PASSED",
+        "validation_errors": [],
+        "canslim_score": 45,
         "minervini_score": 73,
-        "passes_dual_system": null
+        "passes_dual_system": false
       },
       {
         "symbol": "QRVO",
         "price_as_of": "2026-09-23",
-        "fundamentals_as_of": null,
+        "fundamentals_as_of": "2026-06-27",
         "fundamental_sources": [],
         "fundamentals_published_as_of": null,
         "liquidity_average_50d_usd": 125958344.76,
@@ -908,13 +904,11 @@
           "minervini": 80
         },
         "technical_confidence": 100,
-        "validation_status": "Technical Data Validation Failed",
-        "validation_errors": [
-          "fundamental validation unavailable"
-        ],
-        "canslim_score": null,
+        "validation_status": "PASSED",
+        "validation_errors": [],
+        "canslim_score": 87,
         "minervini_score": 100,
-        "passes_dual_system": null
+        "passes_dual_system": true
       },
       {
         "symbol": "RH",
@@ -946,7 +940,7 @@
       {
         "symbol": "UPBD",
         "price_as_of": "2026-09-23",
-        "fundamentals_as_of": null,
+        "fundamentals_as_of": "2026-06-30",
         "fundamental_sources": [],
         "fundamentals_published_as_of": null,
         "liquidity_average_50d_usd": 18417802.72,
@@ -963,13 +957,11 @@
           "minervini": 80
         },
         "technical_confidence": 100,
-        "validation_status": "Technical Data Validation Failed",
-        "validation_errors": [
-          "fundamental validation unavailable"
-        ],
-        "canslim_score": null,
+        "validation_status": "PASSED",
+        "validation_errors": [],
+        "canslim_score": 60,
         "minervini_score": 24,
-        "passes_dual_system": null
+        "passes_dual_system": false
       }
     ]
   },
@@ -2106,6 +2098,254 @@
       "SPOT": "NOT_REQUESTED",
       "SYM": "NOT_REQUESTED"
     },
+    "price_fetch_diagnostics": {
+      "ABBV": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 1253,
+        "last_date": "2026-09-23",
+        "missing_spy_sessions": 1
+      },
+      "ABNB": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 1253,
+        "last_date": "2026-09-23",
+        "missing_spy_sessions": 1
+      },
+      "ADI": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 1253,
+        "last_date": "2026-09-23",
+        "missing_spy_sessions": 1
+      },
+      "AMGN": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 1253,
+        "last_date": "2026-09-23",
+        "missing_spy_sessions": 1
+      },
+      "ANET": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 1253,
+        "last_date": "2026-09-23",
+        "missing_spy_sessions": 1
+      },
+      "APP": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 1253,
+        "last_date": "2026-09-23",
+        "missing_spy_sessions": 1
+      },
+      "AXP": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 1253,
+        "last_date": "2026-09-23",
+        "missing_spy_sessions": 1
+      },
+      "CAT": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 1253,
+        "last_date": "2026-09-23",
+        "missing_spy_sessions": 1
+      },
+      "CEG": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 1173,
+        "last_date": "2026-09-23",
+        "missing_spy_sessions": 1
+      },
+      "CLS": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 1253,
+        "last_date": "2026-09-23",
+        "missing_spy_sessions": 1
+      },
+      "COST": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 1253,
+        "last_date": "2026-09-23",
+        "missing_spy_sessions": 1
+      },
+      "CRWD": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 1253,
+        "last_date": "2026-09-23",
+        "missing_spy_sessions": 1
+      },
+      "CVX": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 1253,
+        "last_date": "2026-09-23",
+        "missing_spy_sessions": 1
+      },
+      "DDOG": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 1253,
+        "last_date": "2026-09-23",
+        "missing_spy_sessions": 1
+      },
+      "DE": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 1253,
+        "last_date": "2026-09-23",
+        "missing_spy_sessions": 1
+      },
+      "DUOL": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 1253,
+        "last_date": "2026-09-23",
+        "missing_spy_sessions": 1
+      },
+      "ETN": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 1253,
+        "last_date": "2026-09-23",
+        "missing_spy_sessions": 1
+      },
+      "GE": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 1253,
+        "last_date": "2026-09-23",
+        "missing_spy_sessions": 1
+      },
+      "GEV": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 624,
+        "last_date": "2026-09-23",
+        "missing_spy_sessions": 1
+      },
+      "GILD": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 1253,
+        "last_date": "2026-09-23",
+        "missing_spy_sessions": 1
+      },
+      "GS": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 1253,
+        "last_date": "2026-09-23",
+        "missing_spy_sessions": 1
+      },
+      "IBM": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 1253,
+        "last_date": "2026-09-23",
+        "missing_spy_sessions": 1
+      },
+      "KLAC": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 1253,
+        "last_date": "2026-09-23",
+        "missing_spy_sessions": 1
+      },
+      "LLY": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 1253,
+        "last_date": "2026-09-23",
+        "missing_spy_sessions": 1
+      },
+      "MA": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 1253,
+        "last_date": "2026-09-23",
+        "missing_spy_sessions": 1
+      },
+      "MPWR": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 1253,
+        "last_date": "2026-09-23",
+        "missing_spy_sessions": 1
+      },
+      "MS": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 1253,
+        "last_date": "2026-09-23",
+        "missing_spy_sessions": 1
+      },
+      "PANW": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 1253,
+        "last_date": "2026-09-23",
+        "missing_spy_sessions": 1
+      },
+      "RTX": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 1253,
+        "last_date": "2026-09-23",
+        "missing_spy_sessions": 1
+      },
+      "SNOW": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 1253,
+        "last_date": "2026-09-23",
+        "missing_spy_sessions": 1
+      },
+      "SPOT": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 1253,
+        "last_date": "2026-09-23",
+        "missing_spy_sessions": 1
+      },
+      "SYM": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 1253,
+        "last_date": "2026-09-23",
+        "missing_spy_sessions": 1
+      },
+      "THC": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 1253,
+        "last_date": "2026-09-23",
+        "missing_spy_sessions": 1
+      },
+      "V": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 1253,
+        "last_date": "2026-09-23",
+        "missing_spy_sessions": 1
+      },
+      "VRT": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 1253,
+        "last_date": "2026-09-23",
+        "missing_spy_sessions": 1
+      },
+      "WAB": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 1253,
+        "last_date": "2026-09-23",
+        "missing_spy_sessions": 1
+      },
+      "XYZ": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 1253,
+        "last_date": "2026-09-23",
+        "missing_spy_sessions": 1
+      },
+      "GD": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 1253,
+        "last_date": "2026-09-23",
+        "missing_spy_sessions": 1
+      },
+      "QRVO": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 1253,
+        "last_date": "2026-09-23",
+        "missing_spy_sessions": 1
+      },
+      "RH": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 1253,
+        "last_date": "2026-09-23",
+        "missing_spy_sessions": 1
+      },
+      "UPBD": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 1253,
+        "last_date": "2026-09-23",
+        "missing_spy_sessions": 1
+      }
+    },
     "valuation_input_refresh_status": "COMPLETED_WITH_PER_SYMBOL_STATUS",
     "super_growth_quality_gate": {
       "framework": "LIN_TZU_YANG_QUALITY_PLUS_ONECOOL_CTA_TIMING",
@@ -2133,9 +2373,7 @@
       "action_policy": "NO_CTA_OR_ACTION_AUTHORITY",
       "missing_evidence_policy": "UNCLASSIFIED_NEVER_INFERRED"
     },
-    "publication_status": "LAST_VALID",
-    "attempted_as_of": "2026-09-23",
-    "last_attempt_error": "'ABNB'"
+    "publication_status": "CURRENT"
   },
   "corporate_action_validation": [],
   "provider_fallback_policy": "yahoo_finance_raw_primary; alpha_vantage_core_price_fallback; last_successful_cache_on_failure"
