@@ -272,6 +272,56 @@ def test_existing_histories_skip_yahoo_bootstrap(tmp_path: Path, monkeypatch) ->
     assert FakeClient.calls == []
 
 
+def test_portfolio_calendar_gap_is_repaired_from_alpha_vantage(
+    tmp_path: Path, monkeypatch
+) -> None:
+    missing_index = 498
+    missing_date = date(2025, 10, 1) + timedelta(days=missing_index)
+
+    class GapBootstrapper(LiquidFakeBootstrapper):
+        def fetch_raw_daily(self, symbol: str, *, period: str = "10d"):
+            bars = super().fetch_raw_daily(symbol, period=period)
+            if symbol == "XYZ":
+                return [bar for bar in bars if bar.trading_date != missing_date]
+            return bars
+
+    class GapRepairClient(FakeClient):
+        calls: list[tuple[str, str]] = []
+
+        def fetch_daily(self, symbol: str, *, outputsize: str = "compact"):
+            self.calls.append((f"daily:{outputsize}", symbol))
+            assert symbol == "XYZ"
+            value = float(missing_index + 1)
+            return [
+                DailyBar(
+                    trading_date=missing_date,
+                    open=value,
+                    high=value,
+                    low=value,
+                    close=value,
+                    volume=1_000_000,
+                    source="alpha_vantage",
+                )
+            ]
+
+    monkeypatch.setattr(
+        update_market_dashboard, "AlphaVantageClient", GapRepairClient
+    )
+
+    payload = update_market_dashboard.update(
+        tmp_path, "secret", bootstrapper=GapBootstrapper()
+    )
+
+    assert GapRepairClient.calls == [("daily:compact", "XYZ")]
+    assert payload["provider_by_symbol"]["XYZ"] == (
+        "yahoo_finance_raw+alpha_vantage_gap_repair"
+    )
+    scores = payload["us_portfolio_dual_system_scores"]
+    xyz = next(row for row in scores["results"] if row["symbol"] == "XYZ")
+    assert "trading calendar differs from SPY" not in xyz["validation_errors"]
+    assert xyz["minervini_score"] is not None
+
+
 def test_immature_innovation_option_is_displayed_without_fake_cta() -> None:
     start = date(2026, 6, 12)
     history = merge_and_adjust(

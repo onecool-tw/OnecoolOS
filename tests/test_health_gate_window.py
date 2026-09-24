@@ -12,12 +12,19 @@ def test_successful_taiwan_producer_obeys_existing_recovery_boundary(clock, enfo
     assert enforce_gate("workflow_run", "Update Taiwan Stock Screen", "success", now.astimezone(ZoneInfo("UTC"))) is enforce
 
 
+@pytest.mark.parametrize("clock,enforce", [("13:09", False), ("15:29", False), ("15:30", True), ("16:30", True)])
+def test_successful_fund_producer_waits_for_morning_recovery_boundary(clock, enforce):
+    now = datetime.fromisoformat(f"2026-09-17T{clock}:00").replace(tzinfo=ZoneInfo("Asia/Taipei"))
+    assert enforce_gate("workflow_run", "Update Fund NAV CTA", "success", now) is enforce
+    assert enforce_gate("workflow_run", "Update Fund NAV CTA", "success", now.astimezone(ZoneInfo("UTC"))) is enforce
+
+
 @pytest.mark.parametrize("event,producer,result", [
     ("schedule", "", ""),
     ("workflow_dispatch", "", ""),
     ("workflow_run", "Update Taiwan Stock Screen", "failure"),
     ("workflow_run", "Update Taiwan Stock Screen", "cancelled"),
-    ("workflow_run", "Update Fund NAV CTA", "success"),
+    ("workflow_run", "Update Fund NAV CTA", "failure"),
     ("workflow_run", "", ""),
 ])
 def test_other_gates_and_failed_producers_remain_strict(event, producer, result):
@@ -30,6 +37,13 @@ def test_weekend_audit_remains_strict():
     assert enforce_gate("workflow_run", "Update Taiwan Stock Screen", "success", now)
 
 
+def test_saturday_fund_audit_uses_morning_recovery_boundary():
+    early = datetime(2026, 9, 19, 14, 17, tzinfo=ZoneInfo("Asia/Taipei"))
+    final = datetime(2026, 9, 19, 15, 30, tzinfo=ZoneInfo("Asia/Taipei"))
+    assert not enforce_gate("workflow_run", "Update Fund NAV CTA", "success", early)
+    assert enforce_gate("workflow_run", "Update Fund NAV CTA", "success", final)
+
+
 def test_workflow_keeps_health_truth_and_warns_before_deadline():
     from pathlib import Path
     import yaml
@@ -38,6 +52,6 @@ def test_workflow_keeps_health_truth_and_warns_before_deadline():
     gate = next(s for s in steps if s.get("name") == "Fail only after recovery remains blocked")
     assert "steps.gate_window.outputs.enforce == 'true'" in gate["if"]
     assert "steps.publish.outputs.scope_status == 'BLOCKED'" in gate["if"]
-    note = next(s for s in steps if s.get("name") == "Note pending Taiwan data before recovery window")
+    note = next(s for s in steps if s.get("name") == "Note pending data before recovery window")
     assert "::warning::" in note["run"]
     assert "not ready" in note["run"]
