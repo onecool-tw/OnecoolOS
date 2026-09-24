@@ -13,6 +13,7 @@ from onecool_os.market.us_breakout_scan import (
     US_SECURITY_MASTER,
     build_breakout_scan_payload,
     fetch_yahoo_breakout_inputs,
+    _bars_from_download,
     technical_confidence,
 )
 
@@ -172,6 +173,110 @@ def test_yahoo_input_loader_uses_batch_prices_and_shortlists_fundamentals(batch_
         spy_history=spy, universe=("AAA", "BBB"),
     )
     assert set(full) == {"AAA", "BBB"}
+
+
+def test_batch_union_leading_missing_rows_do_not_discard_valid_history() -> None:
+    bars = _history(days=320)
+    dates = pd.to_datetime([
+        bars[0].trading_date - timedelta(days=1),
+        *(bar.trading_date for bar in bars),
+    ])
+    rows = [[float("nan")] * 5] + [
+        [bar.open, bar.high, bar.low, bar.close, bar.volume]
+        for bar in bars
+    ]
+    columns = pd.MultiIndex.from_product([
+        ["AAA"], ["Open", "High", "Low", "Close", "Volume"]
+    ])
+    frame = pd.DataFrame(rows, index=dates, columns=columns)
+
+    recovered = _bars_from_download(frame, "AAA", bars[-1].trading_date)
+
+    assert len(recovered) == len(bars)
+    assert recovered[-1].trading_date == bars[-1].trading_date
+    frame.loc[dates[100], ("AAA", "Close")] = float("nan")
+    assert _bars_from_download(frame, "AAA", bars[-1].trading_date) == []
+
+
+def test_every_missing_batch_symbol_is_retried_without_synthesizing_bars() -> None:
+    spy = _history(days=320)
+    symbols = tuple(f"S{i:02d}" for i in range(12))
+    dates = pd.to_datetime([bar.trading_date for bar in spy])
+    columns = pd.MultiIndex.from_product([
+        symbols, ["Open", "High", "Low", "Close", "Volume"]
+    ])
+    rows = [
+        [item for symbol in symbols for item in (
+            bar.open, bar.high, bar.low, bar.close, bar.volume,
+        )]
+        for bar in spy
+    ]
+    frame = pd.DataFrame(rows, index=dates, columns=columns)
+    calls = []
+
+    class FakeYahoo:
+        @staticmethod
+        def download(requested, **kwargs):
+            calls.append(tuple(requested))
+            if len(requested) > 1:
+                return frame[[symbols[0]]]
+            if requested[0] == symbols[-1]:
+                return pd.DataFrame()
+            return frame[[requested[0]]]
+
+        @staticmethod
+        def Ticker(symbol):
+            raise AssertionError("no fundamentals requested")
+
+    histories, _ = fetch_yahoo_breakout_inputs(
+        FakeYahoo,
+        expected_as_of=spy[-1].trading_date.isoformat(),
+        spy_history=spy,
+        universe=symbols,
+        fundamental_shortlist_size=0,
+    )
+
+    assert len([call for call in calls if len(call) == 1]) == 11
+    assert all(len(histories[s]) == 320 for s in symbols[:-1])
+    assert histories[symbols[-1]] == []
+
+
+def test_calendar_mismatch_retries_ticker_and_keeps_gate_strict() -> None:
+    spy = _history(days=320)
+    dates = pd.to_datetime([bar.trading_date for bar in spy])
+    frame = pd.DataFrame({
+        "Open": [bar.open for bar in spy],
+        "High": [bar.high for bar in spy],
+        "Low": [bar.low for bar in spy],
+        "Close": [bar.close for bar in spy],
+        "Volume": [bar.volume for bar in spy],
+    }, index=dates)
+    calls = []
+
+    class FakeYahoo:
+        @staticmethod
+        def download(requested, **kwargs):
+            calls.append(tuple(requested))
+            if len(calls) == 1:
+                return frame.drop(index=dates[-10])
+            return frame
+
+        @staticmethod
+        def Ticker(symbol):
+            raise AssertionError("no fundamentals requested")
+
+    histories, _ = fetch_yahoo_breakout_inputs(
+        FakeYahoo,
+        expected_as_of=spy[-1].trading_date.isoformat(),
+        spy_history=spy,
+        universe=("AAA",),
+        fundamental_shortlist_size=0,
+    )
+
+    assert len(calls) == 2
+    assert [bar.trading_date for bar in histories["AAA"][-252:]] == [
+        bar.trading_date for bar in spy[-252:]
+    ]
 
 
 def test_scan_refuses_to_publish_an_empty_validated_universe() -> None:
