@@ -378,33 +378,54 @@ def fetch_yahoo_breakout_inputs(
     ranking_symbols = tuple(dict.fromkeys(universe))
     required_fundamental_symbols = tuple(required_fundamental_symbols)
     symbols = tuple(dict.fromkeys((*ranking_symbols, *required_fundamental_symbols)))
-    frame = yfinance_module.download(
-        list(symbols),
-        period="2y",
-        interval="1d",
-        auto_adjust=True,
-        actions=False,
-        group_by="ticker",
-        threads=True,
-        progress=False,
-    )
-    histories = {
-        symbol: _bars_from_download(frame, symbol, expected)
-        for symbol in symbols
-    }
-    # An empty symbol in a successful batch is not evidence of a short listing.
-    # Retry only empty histories once, individually; never synthesize bars.
-    for symbol in [s for s in symbols if not histories[s]][:5]:
-        try:
-            single = yfinance_module.download(
-                [symbol], period="2y", interval="1d", auto_adjust=True,
-                actions=False, group_by="ticker", threads=False, progress=False,
-            )
-            histories[symbol] = _bars_from_download(single, symbol, expected)
-        except Exception:
-            pass
     spy = spy_history
     _validate_spy(spy, expected)
+    # A single large Yahoo batch can omit or sparsely populate many tickers.
+    # Smaller batches bound the blast radius, and every incomplete symbol gets
+    # one isolated retry. Never fill missing daily bars or carry prices forward.
+    reference_dates = [bar.trading_date for bar in spy[-252:]]
+    histories = {}
+    for offset in range(0, len(symbols), 15):
+        group = symbols[offset:offset + 15]
+        try:
+            frame = yfinance_module.download(
+                list(group), period="2y", interval="1d", auto_adjust=True,
+                actions=False, group_by="ticker", threads=True, progress=False,
+            )
+        except Exception:  # noqa: BLE001 - retry each ticker in isolation.
+            frame = None
+        histories.update({
+            symbol: _bars_from_download(frame, symbol, expected)
+            for symbol in group
+        })
+
+    def needs_retry(symbol: str) -> bool:
+        history = histories[symbol]
+        return (
+            len(history) < 252 or history[-1].trading_date != expected
+            or [bar.trading_date for bar in history[-252:]] != reference_dates
+        )
+
+    def retry_symbol(symbol: str) -> list[DailyBar]:
+        single = yfinance_module.download(
+            [symbol], period="2y", interval="1d", auto_adjust=True,
+            actions=False, group_by="ticker", threads=False, progress=False,
+        )
+        return _bars_from_download(single, symbol, expected)
+
+    with ThreadPoolExecutor(max_workers=4) as executor:
+        futures = {executor.submit(retry_symbol, s): s for s in symbols if needs_retry(s)}
+        for future in as_completed(futures):
+            symbol = futures[future]
+            try:
+                recovered = future.result()
+            except Exception:  # noqa: BLE001 - preserve the original history.
+                continue
+            if recovered and (
+                [bar.trading_date for bar in recovered[-252:]] == reference_dates
+                and recovered[-1].trading_date == expected
+            ):
+                histories[symbol] = recovered
     leaders = []
     for symbol in ranking_symbols:
         history = histories.get(symbol, [])
@@ -512,6 +533,16 @@ def _bars_from_download(frame, symbol: str, expected: date) -> list[DailyBar]:
             else date.fromisoformat(str(timestamp)[:10])
         )
         if trading_date > expected:
+            continue
+        # A multi-ticker batch uses a union index: dates before a ticker's
+        # listing can be all-NaN even when its later series is complete. Skip
+        # only this leading padding. An internal missing row still invalidates
+        # the series so the isolated retry or validation gate can handle it.
+        if all(_optional_number(row.get(key)) is None for key in (
+            "Open", "High", "Low", "Close",
+        )) and _optional_number(row.get("Volume")) in (None, 0):
+            if bars:
+                return []
             continue
         try:
             values = [float(row[key]) for key in ("Open", "High", "Low", "Close")]
