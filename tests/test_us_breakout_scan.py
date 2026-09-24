@@ -200,7 +200,7 @@ def test_batch_union_leading_missing_rows_do_not_discard_valid_history() -> None
 
 def test_every_missing_batch_symbol_is_retried_without_synthesizing_bars() -> None:
     spy = _history(days=320)
-    symbols = tuple(f"S{i:02d}" for i in range(12))
+    symbols = tuple(f"S{i:02d}" for i in range(20))
     dates = pd.to_datetime([bar.trading_date for bar in spy])
     columns = pd.MultiIndex.from_product([
         symbols, ["Open", "High", "Low", "Close", "Volume"]
@@ -219,7 +219,7 @@ def test_every_missing_batch_symbol_is_retried_without_synthesizing_bars() -> No
         def download(requested, **kwargs):
             calls.append(tuple(requested))
             if len(requested) > 1:
-                return frame[[symbols[0]]]
+                return frame[[requested[0]]]
             if requested[0] == symbols[-1]:
                 return pd.DataFrame()
             return frame[[requested[0]]]
@@ -236,7 +236,7 @@ def test_every_missing_batch_symbol_is_retried_without_synthesizing_bars() -> No
         fundamental_shortlist_size=0,
     )
 
-    assert len([call for call in calls if len(call) == 1]) == 11
+    assert len([call for call in calls if len(call) == 1]) == 18
     assert all(len(histories[s]) == 320 for s in symbols[:-1])
     assert histories[symbols[-1]] == []
 
