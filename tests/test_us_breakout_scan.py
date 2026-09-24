@@ -327,6 +327,53 @@ def test_ticker_history_fallback_recovers_only_calendar_complete_series() -> Non
     assert diagnostics["BBB"]["missing_spy_dates"] == [spy[-10].trading_date.isoformat()]
 
 
+def test_missing_session_is_recovered_only_from_real_adjusted_day_bar() -> None:
+    spy = _history(days=320)
+    dates = pd.to_datetime([bar.trading_date for bar in spy])
+    frame = pd.DataFrame({
+        "Open": [bar.open for bar in spy],
+        "High": [bar.high for bar in spy],
+        "Low": [bar.low for bar in spy],
+        "Close": [bar.close for bar in spy],
+        "Volume": [bar.volume for bar in spy],
+    }, index=dates)
+    missing_day = dates[-10]
+
+    class FakeTicker:
+        info = {}
+
+        def __init__(self, symbol):
+            self.symbol = symbol
+
+        def history(self, **kwargs):
+            if "start" in kwargs:
+                return frame.loc[[missing_day]] if self.symbol == "AAA" else pd.DataFrame()
+            return frame.drop(index=missing_day)
+
+    class FakeYahoo:
+        Ticker = FakeTicker
+
+        @staticmethod
+        def download(requested, **kwargs):
+            return pd.DataFrame()
+
+    diagnostics = {}
+    histories, _ = fetch_yahoo_breakout_inputs(
+        FakeYahoo,
+        expected_as_of=spy[-1].trading_date.isoformat(),
+        spy_history=spy,
+        universe=("AAA", "BBB"),
+        fundamental_shortlist_size=0,
+        price_diagnostics=diagnostics,
+    )
+
+    assert [bar.trading_date for bar in histories["AAA"][-252:]] == [
+        bar.trading_date for bar in spy[-252:]
+    ]
+    assert histories["BBB"] == []
+    assert diagnostics["BBB"]["missing_spy_dates"] == [missing_day.date().isoformat()]
+
+
 def test_scan_refuses_to_publish_an_empty_validated_universe() -> None:
     spy = _history()
     as_of = spy[-1].trading_date.isoformat()
