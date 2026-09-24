@@ -118,11 +118,15 @@ jobs:
           script: |
             const workflows = JSON.parse(process.env.RECOVERY_WORKFLOWS || '[]');
             for (const workflow_id of workflows) {
+              const inputs = workflow_id === 'update-taiwan-stock-screen.yml'
+                ? { run_mode: 'recovery' }
+                : {};
               await github.rest.actions.createWorkflowDispatch({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 workflow_id,
-                ref: 'main'
+                ref: 'main',
+                inputs
               });
               core.warning(`Dispatched recovery workflow: ${workflow_id}`);
             }

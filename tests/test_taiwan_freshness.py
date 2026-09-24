@@ -57,6 +57,10 @@ def test_recovery_attempts_are_non_blocking_but_final_readiness_stays_strict():
         root / ".github" / "workflows" / "update-taiwan-stock-screen.yml"
     ).read_text(encoding="utf-8")
 
+    assert "run_mode:" in workflow
+    assert "default: formal" in workflow
+    assert "inputs.run_mode == 'recovery'" in workflow
+    assert "inputs.run_mode != 'recovery'" in workflow
     assert "github.event_name == 'workflow_run'" in workflow
     assert "github.event_name == 'push'" in workflow
     assert "github.event.schedule != '17 9 * * 1-5'" in workflow

@@ -2,6 +2,15 @@ name: Update Taiwan Stock Screen
 
 on:
   workflow_dispatch:
+    inputs:
+      run_mode:
+        description: Formal runs fail when same-session data is incomplete; recovery runs wait for the final retry
+        required: true
+        type: choice
+        options:
+          - formal
+          - recovery
+        default: formal
   workflow_run:
     workflows: ["Update Market Dashboard"]
     types: [completed]
@@ -106,18 +115,19 @@ jobs:
           steps.readiness.outcome == 'success'
         run: |
           echo "::warning::A Taiwan source refresh attempt failed, but the final same-day report is READY."
-      - name: Warn when an opportunistic refresh is incomplete
+      - name: Warn when a recovery refresh is incomplete
         if: >-
           steps.readiness.outcome == 'failure' &&
           (github.event_name == 'workflow_run' ||
            github.event_name == 'push' ||
+           (github.event_name == 'workflow_dispatch' && inputs.run_mode == 'recovery') ||
            (github.event_name == 'schedule' && github.event.schedule != '17 9 * * 1-5'))
         run: |
           echo "::warning::Taiwan recovery attempt incomplete; retained and published the last valid dated snapshot. The final 17:17 Taipei retry remains authoritative."
       - name: Report unsuccessful formal refresh after preserving the last valid snapshot
         if: >-
           steps.readiness.outcome == 'failure' &&
-          (github.event_name == 'workflow_dispatch' ||
+          ((github.event_name == 'workflow_dispatch' && inputs.run_mode != 'recovery') ||
            (github.event_name == 'schedule' && github.event.schedule == '17 9 * * 1-5'))
         run: |
           echo "::error::Formal Taiwan refresh incomplete; retained source dates, not a current-day success."
