@@ -540,6 +540,31 @@ def update(
                     item["fundamental_fetch_status"] = fetch_diagnostics.get(item["symbol"], "NOT_REQUESTED")
                     if item["symbol"] in sec_details:
                         item["fundamental_validation_detail"] = sec_details[item["symbol"]]["status"]
+            if scan_path.exists():
+                previous_scan = json.loads(scan_path.read_text(encoding="utf-8"))
+                current_count = int(breakout_scan.get("assessment_count", 0))
+                previous_count = int(previous_scan.get("assessment_count", 0))
+                universe_size = int(breakout_scan.get("universe_size", 0))
+                minimum_count = (universe_size * 9 + 9) // 10
+                same_cutoff_regression = (
+                    breakout_scan.get("expected_as_of")
+                    == previous_scan.get("expected_as_of")
+                    and current_count < previous_count
+                )
+                if (
+                    previous_scan.get("data_status") == "READY"
+                    and previous_count > 0
+                    and (current_count < minimum_count or same_cutoff_regression)
+                ):
+                    attempted_as_of = breakout_scan.get("expected_as_of")
+                    breakout_scan = previous_scan
+                    breakout_scan["publication_status"] = "LAST_VALID"
+                    breakout_scan["attempted_as_of"] = attempted_as_of
+                    breakout_scan["attempted_assessment_count"] = current_count
+                    breakout_scan["last_attempt_error"] = (
+                        "SCAN_ASSESSMENT_COVERAGE_BELOW_PUBLICATION_GATE:"
+                        f"{current_count}/{universe_size}"
+                    )
         except Exception as exc:  # noqa: BLE001 - retain last valid artifact.
             if scan_path.exists():
                 breakout_scan = json.loads(scan_path.read_text(encoding="utf-8"))
