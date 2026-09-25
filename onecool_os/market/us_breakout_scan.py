@@ -656,6 +656,7 @@ def fetch_yahoo_breakout_inputs(
     cache = fundamental_cache if fundamental_cache is not None else {}
     diagnostics = fetch_diagnostics if fetch_diagnostics is not None else {}
     fundamentals = {}
+    refresh_required = set()
     for symbol in symbols:
         entry = cache.get(symbol, {})
         if not isinstance(entry, dict):
@@ -663,15 +664,22 @@ def fetch_yahoo_breakout_inputs(
         try:
             age = (expected - date.fromisoformat(entry["fetched_as_of"])).days
             fundamental = FundamentalMetrics(**entry["metrics"])
-            if 0 <= age <= 7 and fundamental_validation_error(fundamental, expected) is None:
+            if age >= 0 and fundamental_validation_error(fundamental, expected) is None:
                 fundamentals[symbol] = fundamental
-                diagnostics[symbol] = "CACHED_VALID"
+                if age <= 7:
+                    diagnostics[symbol] = "CACHED_VALID"
+                else:
+                    diagnostics[symbol] = "VALID_CACHE_PENDING_REFRESH"
+                    refresh_required.add(symbol)
         except (KeyError, TypeError, ValueError):
             pass
     # Fill uncovered names first; a valid cache prevents repeatedly spending
     # every request on the same ten leaders. Cache dates remain explicit.
     ranked_symbols = [symbol for _, _, symbol in sorted(leaders, reverse=True)]
-    uncovered = [s for s in ranked_symbols if s not in fundamentals]
+    uncovered = [
+        s for s in ranked_symbols
+        if s not in fundamentals or s in refresh_required
+    ]
     # Rotate failed/unavailable names behind those not attempted this week.
     uncovered.sort(key=lambda s: cache.get(s, {}).get("attempted_as_of", ""))
     shortlist = uncovered if fundamental_shortlist_size is None else uncovered[:fundamental_shortlist_size]
@@ -693,14 +701,20 @@ def fetch_yahoo_breakout_inputs(
             try:
                 fundamental = future.result()
             except Exception:  # noqa: BLE001 - exclude only the failed symbol.
-                diagnostics[symbol] = "FETCH_FAILED_USING_CACHE" if symbol in fundamentals else "FETCH_FAILED"
+                diagnostics[symbol] = (
+                    "FETCH_FAILED_USING_VALID_CACHE"
+                    if symbol in fundamentals else "FETCH_FAILED"
+                )
                 continue
             if fundamental is not None:
                 fundamentals[symbol] = fundamental
                 cache[symbol].update(fetched_as_of=expected.isoformat(), metrics=asdict(fundamental))
                 diagnostics[symbol] = "FETCHED"
             else:
-                diagnostics[symbol] = "UNAVAILABLE_USING_CACHE" if symbol in fundamentals else "UNAVAILABLE"
+                diagnostics[symbol] = (
+                    "UNAVAILABLE_USING_VALID_CACHE"
+                    if symbol in fundamentals else "UNAVAILABLE"
+                )
     return histories, fundamentals
 
 

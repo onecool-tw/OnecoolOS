@@ -498,7 +498,13 @@ def update(
                 from onecool_os.market.ai_revolution import SecClient
                 from onecool_os.market.sec_fundamentals import fill_missing_fundamentals
                 sec_details = fill_missing_fundamentals(
-                    SecClient(os.environ.get("SEC_USER_AGENT", "OnecoolOS research onecool-tw@users.noreply.github.com"), retry_delays=()),
+                    SecClient(
+                        os.environ.get(
+                            "SEC_USER_AGENT",
+                            "OnecoolOS research onecool-tw@users.noreply.github.com",
+                        ),
+                        retry_delays=(1.0,),
+                    ),
                     scan_histories, scan_fundamentals, payload["expected_as_of"],
                     provider_cache, fetch_diagnostics,
                     registry_mapping=json.loads((root / "config/sec_fundamental_tickers.json").read_text())["tickers"],
