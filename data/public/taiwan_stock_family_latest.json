@@ -13,7 +13,7 @@
   "sources": {
     "dashboard": {
       "path": "data/market/dashboard/dashboard_latest.json",
-      "sha256": "3cf8f0eb91ec51e1f28d896faba6242a21810fbc5a63c02795fdf9ba51f3dc7e"
+      "sha256": "1db56d5ea22a6c42a68430bfeb7dd7355aedab032daeefbc025060d6c3a91fe3"
     },
     "screen": {
       "path": "data/market/taiwan_stock_intelligence/screen_latest.json",
@@ -21,21 +21,21 @@
     },
     "cta": {
       "path": "data/market/taiwan_stock_intelligence/cta/cta_latest.json",
-      "sha256": "484b4f94d5eb7508195bf622a24f3fe349f0ec18dc800989752316be476ca162"
+      "sha256": "f419183fc11cf497f4bef3033a0c2f8092815ade6bdba199235667fdc1bcc661"
     },
     "context": {
       "path": "data/market/taiwan_stock_intelligence/daily_context_latest.json",
-      "sha256": "a5bf7bced798a35cf0dfcf5ee5ca3294c6d922a657785df1d9c76220738aa1ca"
+      "sha256": "7120017dac94949b731b2263565ec8fd205547e530cd195b506deb42a51352fa"
     }
   },
   "source_generated_at": {
-    "dashboard": "2026-09-25T05:10:27.360521+00:00",
+    "dashboard": "2026-09-25T06:14:30.885377+00:00",
     "screen": null,
-    "cta": "2026-09-25T05:11:58.052047+00:00",
-    "context": "2026-09-25T05:12:03.364444+00:00"
+    "cta": "2026-09-25T06:15:43.781283+00:00",
+    "context": "2026-09-25T06:15:49.116391+00:00"
   },
   "screen_as_of": "2026-09-24",
-  "display_status": "CURRENT",
+  "display_status": "STALE",
   "report_readiness": {
     "status": "UPDATE_INCOMPLETE",
     "expected_as_of": "2026-09-25",
@@ -68,7 +68,7 @@
     "consumer_rule": "INCOMPLETE_MEANS_NO_NEW_EXPOSURE_AND_NO_UNCHANGED_RANKING_CLAIM",
     "asia_and_margin_policy": "KEEP_ACTUAL_LOCAL_SOURCE_DATES"
   },
-  "candidate_action_gate": "REQUIRES_INDIVIDUAL_CTA_AND_PRESSURE_GREEN",
+  "candidate_action_gate": "WATCH_ONLY_STALE_OR_MISSING_SCREEN",
   "market_pressure": {
     "as_of": "2026-09-24",
     "status": "CURRENT",
@@ -134,7 +134,7 @@
   "market_pressure_inputs": {
     "schema_version": "1.0",
     "module": "Onecool Taiwan Official Market Pressure Inputs",
-    "generated_at": "2026-09-25T05:11:48.197756+00:00",
+    "generated_at": "2026-09-25T06:15:34.126532+00:00",
     "requested_as_of": "2026-09-24",
     "status": "READY",
     "attempts_used": 1,
@@ -214,7 +214,7 @@
       "monthly_revenue_as_of": "2026-08",
       "price_basis": "official_unadjusted_close",
       "selection_status": "FORMAL",
-      "action_eligibility": "HOLD_EXISTING_PAUSE_RIGHT_SIDE_ADD",
+      "action_eligibility": "WATCH_ONLY_STALE_OR_MISSING_SCREEN",
       "financial_quality": {
         "version": "onecool_tw_financial_quality_v2",
         "status": "REVIEW",
@@ -493,7 +493,7 @@
       "monthly_revenue_as_of": "2026-08",
       "price_basis": "official_unadjusted_close",
       "selection_status": "FORMAL",
-      "action_eligibility": "ELIGIBLE_IF_0050_BULLISH_AND_PRESSURE_GREEN",
+      "action_eligibility": "WATCH_ONLY_STALE_OR_MISSING_SCREEN",
       "financial_quality": {
         "version": "onecool_tw_financial_quality_v2",
         "status": "NORMAL",
@@ -773,7 +773,7 @@
       "monthly_revenue_as_of": "2026-08",
       "price_basis": "official_unadjusted_close",
       "selection_status": "FORMAL",
-      "action_eligibility": "ELIGIBLE_IF_0050_BULLISH_AND_PRESSURE_GREEN",
+      "action_eligibility": "WATCH_ONLY_STALE_OR_MISSING_SCREEN",
       "financial_quality": {
         "version": "onecool_tw_financial_quality_v2",
         "status": "NORMAL",
@@ -1053,7 +1053,7 @@
       "monthly_revenue_as_of": "2026-08",
       "price_basis": "official_unadjusted_close",
       "selection_status": "FORMAL",
-      "action_eligibility": "ELIGIBLE_IF_0050_BULLISH_AND_PRESSURE_GREEN",
+      "action_eligibility": "WATCH_ONLY_STALE_OR_MISSING_SCREEN",
       "financial_quality": {
         "version": "onecool_tw_financial_quality_v2",
         "status": "REVIEW",
@@ -1331,7 +1331,7 @@
       "monthly_revenue_as_of": "2026-08",
       "price_basis": "official_unadjusted_close",
       "selection_status": "FORMAL",
-      "action_eligibility": "ELIGIBLE_IF_0050_BULLISH_AND_PRESSURE_GREEN",
+      "action_eligibility": "WATCH_ONLY_STALE_OR_MISSING_SCREEN",
       "financial_quality": {
         "version": "onecool_tw_financial_quality_v2",
         "status": "REVIEW",
