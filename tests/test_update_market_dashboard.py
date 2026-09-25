@@ -694,3 +694,51 @@ def test_failed_us_scan_keeps_and_labels_last_valid_artifact(
     assert scan["expected_as_of"] == "2026-08-07"
     assert scan["attempted_as_of"] == payload["expected_as_of"]
     assert json.loads(scan_path.read_text(encoding="utf-8")) == previous
+
+
+def test_partial_us_scan_cannot_overwrite_broader_last_valid_artifact(
+    tmp_path: Path, monkeypatch
+) -> None:
+    monkeypatch.setattr(update_market_dashboard, "AlphaVantageClient", FakeClient)
+    scan_dir = tmp_path / "data" / "market" / "us_stock_intelligence"
+    scan_dir.mkdir(parents=True)
+    scan_path = scan_dir / "breakout_scan_latest.json"
+    previous = {
+        "data_status": "READY",
+        "publication_status": "CURRENT",
+        "expected_as_of": "2026-08-07",
+        "universe_size": 70,
+        "assessment_count": 67,
+        "top5": [],
+    }
+    scan_path.write_text(json.dumps(previous), encoding="utf-8")
+    bootstrapper = LiquidFakeBootstrapper()
+
+    def partial_loader(expected_as_of: str):
+        history = merge_and_adjust([], bootstrapper.fetch_daily("RTX"))
+        return {"RTX": history}, {
+            "RTX": FundamentalMetrics(
+                as_of=expected_as_of,
+                quarterly_eps_growth=0.5,
+                quarterly_revenue_growth=0.3,
+                annual_eps_growth=0.4,
+                institutional_holders_available=True,
+            )
+        }
+
+    payload = update_market_dashboard.update(
+        tmp_path,
+        "secret",
+        bootstrapper=bootstrapper,
+        refresh_us_scan=True,
+        breakout_input_loader=partial_loader,
+    )
+
+    scan = payload["daily_top5_scan"]
+    assert scan["publication_status"] == "LAST_VALID"
+    assert scan["expected_as_of"] == "2026-08-07"
+    assert scan["attempted_assessment_count"] == 1
+    assert scan["last_attempt_error"] == (
+        "SCAN_ASSESSMENT_COVERAGE_BELOW_PUBLICATION_GATE:1/70"
+    )
+    assert json.loads(scan_path.read_text(encoding="utf-8")) == previous
