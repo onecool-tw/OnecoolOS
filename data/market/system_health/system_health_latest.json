@@ -1,8 +1,8 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-09-26T12:20:37.819129+00:00",
-  "taipei_date": "2026-09-26",
+  "generated_at": "2026-09-27T00:35:27.148966+00:00",
+  "taipei_date": "2026-09-27",
   "status": "BLOCKED",
   "scope_status": {
     "morning": "READY",
@@ -15,8 +15,13 @@
       {
         "report_id": "taiwan",
         "expected_report_date": "2026-09-25",
-        "status": "UNKNOWN",
-        "reason": "No verifiable receipt for the latest completed reporting window"
+        "status": "PARTIAL",
+        "channels": {
+          "conversation": "UNKNOWN",
+          "email": "UNKNOWN",
+          "artifact": "DELIVERED"
+        },
+        "reason": "Per-channel evidence checked; missing channels remain unverified"
       },
       {
         "report_id": "us",
@@ -27,8 +32,12 @@
       {
         "report_id": "fund",
         "expected_report_date": "2026-09-26",
-        "status": "UNKNOWN",
-        "reason": "No verifiable receipt for the latest completed reporting window"
+        "status": "PARTIAL",
+        "channels": {
+          "conversation": "UNKNOWN",
+          "artifact": "DELIVERED"
+        },
+        "reason": "Per-channel evidence checked; missing channels remain unverified"
       },
       {
         "report_id": "cards",
