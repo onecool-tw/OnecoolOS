@@ -25,20 +25,20 @@
     },
     "context": {
       "path": "data/market/taiwan_stock_intelligence/daily_context_latest.json",
-      "sha256": "2aa0043e798943b0af7cd2f69bfc6f69b6a697e7c59f1c1af508177415b4edf6"
+      "sha256": "ddadbabe48529d4ab6023227dc923f9a5bc63cf94cdb9b9757f79b6b8ed0094c"
     }
   },
   "source_generated_at": {
     "dashboard": "2026-09-26T06:14:32.170283+00:00",
     "screen": null,
     "cta": "2026-09-27T00:41:38.233184+00:00",
-    "context": "2026-09-27T00:41:41.868470+00:00"
+    "context": "2026-09-27T00:43:45.198006+00:00"
   },
   "screen_as_of": "2026-09-24",
   "display_status": "CURRENT",
   "report_readiness": {
-    "status": "UPDATE_INCOMPLETE",
-    "expected_as_of": "2026-09-25",
+    "status": "READY",
+    "expected_as_of": "2026-09-24",
     "screen_as_of": "2026-09-24",
     "taiwan_cta_dates": {
       "0050": "2026-09-24",
@@ -49,21 +49,7 @@
       "2382": "2026-09-24",
       "3036": "2026-09-24"
     },
-    "issues": [
-      "screen_not_current",
-      "dashboard_0050_not_current",
-      "dashboard_2330_not_current",
-      "6669_price_not_current",
-      "6669_cta_not_current",
-      "2408_price_not_current",
-      "2408_cta_not_current",
-      "3006_price_not_current",
-      "3006_cta_not_current",
-      "2382_price_not_current",
-      "2382_cta_not_current",
-      "3036_price_not_current",
-      "3036_cta_not_current"
-    ],
+    "issues": [],
     "scope": "TAIWAN_PRICE_VALUATION_AND_CTA_ONLY",
     "consumer_rule": "INCOMPLETE_MEANS_NO_NEW_EXPOSURE_AND_NO_UNCHANGED_RANKING_CLAIM",
     "asia_and_margin_policy": "KEEP_ACTUAL_LOCAL_SOURCE_DATES"
@@ -106,29 +92,22 @@
     "data_quality": "READY"
   },
   "market_pressure_freshness": {
-    "expected_as_of": "2026-09-25",
+    "expected_as_of": "2026-09-24",
     "as_of": "2026-09-24",
     "source_status": "CURRENT",
-    "status": "STALE_LAST_KNOWN",
-    "same_day_current": false,
+    "status": "CURRENT",
+    "same_day_current": true,
     "consumer_action": "PAUSE_NEW_EXPOSURE"
   },
   "final_delivery_readiness": {
-    "status": "UPDATE_INCOMPLETE",
-    "issues": [
-      "MARKET_PRESSURE_AS_OF_MISMATCH",
-      "REPORT_READINESS_NOT_READY"
-    ],
+    "status": "READY",
+    "issues": [],
     "rule": "EMAIL_REQUIRES_SAME_DAY_CURRENT_MARKET_PRESSURE"
   },
   "market_pressure_input_readiness": {
-    "status": "UPDATE_INCOMPLETE",
-    "expected_as_of": "2026-09-25",
-    "issues": [
-      "pressure_inputs_wrong_requested_date",
-      "margin_not_current",
-      "volatility_not_current"
-    ],
+    "status": "READY",
+    "expected_as_of": "2026-09-24",
+    "issues": [],
     "consumer_rule": "FINAL_EMAIL_REQUIRES_READY; MARGIN_MAY_USE_VERIFIED_OFFICIAL_LAG_BEFORE_21:30; NEVER_RECOMPUTE_PRESSURE_LIGHT"
   },
   "market_pressure_inputs": {

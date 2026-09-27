@@ -161,6 +161,57 @@ def test_before_recovery_gate_previous_taiwan_session_is_acceptable(tmp_path: Pa
     assert report["scope_status"]["asia"] == READY
 
 
+@pytest.mark.parametrize("now", [
+    "2026-09-25T18:00:00+08:00",
+    "2026-09-26T14:15:00+08:00",
+    "2026-09-28T18:00:00+08:00",
+])
+def test_twse_holiday_keeps_last_actual_session_ready(tmp_path: Path, now: str) -> None:
+    _seed_ready(tmp_path)
+    for relative, payload in (
+        ("data/market/taiwan_cta/cta_latest.json", {"data_cutoff": "2026-09-24"}),
+        ("data/market/taiwan_stock_intelligence/screen_latest.json", {
+            "expected_as_of": "2026-09-24", "data_status": READY,
+        }),
+        ("data/market/taiwan_stock_intelligence/cta/cta_latest.json", {
+            "screen_as_of": "2026-09-24", "requested_count": 200,
+            "coverage": {"current": 200, "stale_last_known": 0, "unknown": 0},
+        }),
+        ("data/market/taiwan_stock_intelligence/daily_context_latest.json", {
+            "screen_as_of": "2026-09-24", "display_status": "CURRENT",
+        }),
+    ):
+        _write(tmp_path, relative, payload)
+
+    report = build_health_report(tmp_path, now=datetime.fromisoformat(now))
+
+    assert report["scope_status"]["asia"] == READY
+
+
+def test_first_open_day_after_holidays_still_requires_same_day_data(tmp_path: Path) -> None:
+    _seed_ready(tmp_path)
+    for relative, payload in (
+        ("data/market/taiwan_cta/cta_latest.json", {"data_cutoff": "2026-09-24"}),
+        ("data/market/taiwan_stock_intelligence/screen_latest.json", {
+            "expected_as_of": "2026-09-24", "data_status": READY,
+        }),
+        ("data/market/taiwan_stock_intelligence/cta/cta_latest.json", {
+            "screen_as_of": "2026-09-24", "requested_count": 200,
+            "coverage": {"current": 200, "stale_last_known": 0, "unknown": 0},
+        }),
+        ("data/market/taiwan_stock_intelligence/daily_context_latest.json", {
+            "screen_as_of": "2026-09-24", "display_status": "CURRENT",
+        }),
+    ):
+        _write(tmp_path, relative, payload)
+
+    report = build_health_report(
+        tmp_path, now=datetime.fromisoformat("2026-09-29T18:00:00+08:00")
+    )
+
+    assert report["scope_status"]["asia"] == BLOCKED
+
+
 @pytest.mark.parametrize("now,generated,expected", [
     ("2026-09-13T07:00:00+08:00", "2026-09-12T04:50:45+00:00", READY),
     ("2026-09-13T16:00:00+08:00", "2026-09-12T04:50:45+00:00", READY),

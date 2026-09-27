@@ -2,6 +2,8 @@
 from datetime import UTC, datetime, time
 from zoneinfo import ZoneInfo
 
+from onecool_os.market.taiwan_calendar import is_twse_session
+
 
 ASIA_READY = {
     "TW": ("Asia/Taipei", time(14, 0)),
@@ -18,7 +20,8 @@ def completed_daily_bars(bars, market, reference_time=None):
         raise ValueError("reference_time must be timezone-aware")
     zone, ready = ASIA_READY[market]
     local = now.astimezone(ZoneInfo(zone))
+    session_today = is_twse_session(local.date()) if market == "TW" else local.weekday() < 5
     return [bar for bar in bars if bar.trading_date < local.date() or (
-        bar.trading_date == local.date() and local.weekday() < 5
+        bar.trading_date == local.date() and session_today
         and local.time() >= ready
     )]

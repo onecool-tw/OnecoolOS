@@ -15,6 +15,7 @@ from datetime import UTC, date, datetime
 from pathlib import Path
 from typing import Any
 from onecool_os.market.session_cutoff import completed_daily_bars
+from onecool_os.market.taiwan_calendar import twse_session_lag
 
 from onecool_os.market.etf_cta import (
     CTAResult,
@@ -302,12 +303,7 @@ def _weekly_data_as_of(history: Iterable[DailyBar]) -> str | None:
 
 
 def _business_day_lag(start: date, end: date) -> int:
-    if start >= end:
-        return 0
-    return sum(
-        date.fromordinal(start.toordinal() + offset).weekday() < 5
-        for offset in range(1, (end - start).days + 1)
-    )
+    return twse_session_lag(start, end)
 
 
 def _stale_or_unknown(

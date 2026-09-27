@@ -14,6 +14,8 @@ from pathlib import Path
 from typing import Any, Iterable
 from zoneinfo import ZoneInfo
 
+from onecool_os.market.taiwan_calendar import latest_twse_session
+
 
 READY = "READY"
 PARTIAL = "PARTIAL"
@@ -98,17 +100,15 @@ def _expected_fund_generation_date(taipei_now: datetime) -> date:
 def _expected_asia_session(taipei_now: datetime) -> date:
     """Return the Taiwan session that must be complete for the evening report.
 
-    Before the 16:30 recovery gate, the previous completed weekday remains
-    acceptable.  From 16:30 onward, a weekday must be represented by same-day
-    Taiwan screen and CTA caches.  This deliberately fails closed on an
-    unverified exchange holiday instead of silently calling a stale cache READY.
+    Before the 16:30 recovery gate, the previous completed session remains
+    acceptable.  From 16:30 onward, an open day must be represented by same-day
+    Taiwan screen and CTA caches.  Official TWSE holidays resolve to the latest
+    actual session rather than being mistaken for missing market data.
     """
     expected = taipei_now.date()
-    if expected.weekday() < 5 and (taipei_now.hour, taipei_now.minute) < (16, 30):
+    if latest_twse_session(expected) == expected and (taipei_now.hour, taipei_now.minute) < (16, 30):
         expected -= timedelta(days=1)
-    while expected.weekday() >= 5:
-        expected -= timedelta(days=1)
-    return expected
+    return latest_twse_session(expected)
 
 
 def _max_date(values: Iterable[Any]) -> date | None:

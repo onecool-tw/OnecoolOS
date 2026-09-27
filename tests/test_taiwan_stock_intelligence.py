@@ -165,3 +165,29 @@ def test_weekend_readiness_uses_friday_cutoff(tmp_path):
     assert result['report_readiness']['expected_as_of'] == '2026-09-11'
     # Missing caches must still fail; a weekend is not permission to fake READY.
     assert result['report_readiness']['status'] != 'READY'
+
+
+def test_holiday_readiness_uses_latest_actual_twse_session(tmp_path):
+    setup_prompt(tmp_path)
+    write(tmp_path, "data/market/taiwan_stock_intelligence/screen_latest.json", {
+        "expected_as_of": "2026-09-24", "data_status": "READY", "top5": [],
+    })
+    write(tmp_path, "data/market/taiwan_stock_intelligence/cta/cta_latest.json", {
+        "results": [],
+    })
+    write(tmp_path, "data/market/dashboard/dashboard_latest.json", {
+        "results": [
+            {"symbol": "0050", "as_of": "2026-09-24", "cta": "BUY"},
+            {"symbol": "2330", "as_of": "2026-09-24", "cta": "HOLD"},
+        ],
+    })
+
+    result = build_taiwan_stock_daily_context(
+        tmp_path, today=date(2026, 9, 28),
+        generated_at=datetime.fromisoformat("2026-09-28T18:00:00+08:00"),
+    )
+
+    assert result["report_readiness"]["expected_as_of"] == "2026-09-24"
+    assert result["report_readiness"]["status"] == "READY"
+    assert result["screen_business_day_lag"] == 0
+    assert result["display_status"] == "CURRENT"

@@ -5,7 +5,7 @@ from types import SimpleNamespace
 import pytest
 
 from onecool_os.market.session_cutoff import completed_daily_bars
-from scripts.update_taiwan_stock_screen import normalize_dated_report, update
+from scripts.update_taiwan_stock_screen import expected_market_date, normalize_dated_report, update
 
 
 def test_previous_day_screen_not_current_after_close(tmp_path):
@@ -26,6 +26,24 @@ def test_asia_drops_unfinished_and_future_bars(market, hour):
     bars = [SimpleNamespace(trading_date=date(2026, 9, d)) for d in (4, 7, 8)]
     assert completed_daily_bars(bars, market, datetime(2026, 9, 7, 3, tzinfo=UTC)) == bars[:1]
     assert completed_daily_bars(bars, market, datetime(2026, 9, 7, hour, tzinfo=UTC)) == bars[:2]
+
+
+def test_twse_holiday_does_not_admit_a_same_day_provider_bar():
+    bars = [SimpleNamespace(trading_date=date(2026, 9, d)) for d in (24, 25)]
+    assert completed_daily_bars(
+        bars, "TW", datetime.fromisoformat("2026-09-25T18:00:00+08:00")
+    ) == bars[:1]
+
+
+@pytest.mark.parametrize("now,expected", [
+    ("2026-09-25T13:59:00+08:00", date(2026, 9, 24)),
+    ("2026-09-25T18:00:00+08:00", date(2026, 9, 24)),
+    ("2026-09-28T18:00:00+08:00", date(2026, 9, 24)),
+    ("2026-09-29T13:59:00+08:00", date(2026, 9, 24)),
+    ("2026-09-29T14:00:00+08:00", date(2026, 9, 29)),
+])
+def test_screen_targets_latest_completed_twse_session(now, expected):
+    assert expected_market_date(datetime.fromisoformat(now)) == expected
 
 
 def test_dated_report_maps_named_columns_not_positions():

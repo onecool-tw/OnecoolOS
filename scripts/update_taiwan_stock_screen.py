@@ -5,12 +5,13 @@ from __future__ import annotations
 import argparse
 import json
 import time
-from datetime import datetime, timedelta
+from datetime import date, datetime, timedelta
 from zoneinfo import ZoneInfo
 from pathlib import Path
 from urllib.request import Request, urlopen
 
 from onecool_os.market.taiwan_stock_screen import build_taiwan_stock_screen_payload
+from onecool_os.market.taiwan_calendar import latest_twse_session
 
 
 TWSE = "https://openapi.twse.com.tw/v1"
@@ -106,6 +107,15 @@ def update(data_dir: Path, *, fetcher=fetch_json, market_date=None) -> dict:
     return payload
 
 
+def expected_market_date(now: datetime) -> date:
+    """Return the latest TWSE session whose official close should be ready."""
+
+    day = now.date()
+    if now.hour < 14:
+        day -= timedelta(days=1)
+    return latest_twse_session(day)
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument(
@@ -115,11 +125,7 @@ def main() -> int:
     )
     args = parser.parse_args()
     now = datetime.now(ZoneInfo("Asia/Taipei"))
-    day = now.date()
-    if now.hour < 14:
-        day -= timedelta(days=1)
-    while day.weekday() >= 5:
-        day -= timedelta(days=1)
+    day = expected_market_date(now)
     # If a holiday or delayed publication returns no data, fail without
     # overwriting the last successful snapshot or fabricating a new date.
     print(json.dumps(update(args.data_dir, market_date=day), ensure_ascii=False))
