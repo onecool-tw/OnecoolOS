@@ -1,0 +1,27 @@
+{
+  "report_id": "taiwan",
+  "report_date": "2026-09-25",
+  "generated_at": "2026-09-27T08:32:39+08:00",
+  "delivery_status": "FAILED",
+  "writeback_status": "VERIFIED",
+  "delivery_evidence_sha256": null,
+  "source_snapshot_sha256": "168ab687f0c4f92acde4dfef833208cfd99ad26f76cfde35949146e5c72d03e2",
+  "channels": {
+    "conversation": {
+      "status": "UNKNOWN",
+      "observed_at": null,
+      "evidence_sha256": null
+    },
+    "email": {
+      "status": "FAILED",
+      "observed_at": null,
+      "evidence_sha256": null
+    },
+    "artifact": {
+      "status": "DELIVERED",
+      "observed_at": "2026-09-27T08:32:39+08:00",
+      "evidence_sha256": "e5c30f0699df68f1b670f4aa3b45e7932dc638690e42ad9d719c9f2e7e035777"
+    }
+  },
+  "reason": "Recovered the 2026-09-25 holiday report using the most recent formal Taiwan trading-day SSOT (2026-09-24). September 25 was the Mid-Autumn Festival market holiday. Artifact readback verified. Email was withheld because the current calendar logic incorrectly marked 2026-09-25 as expected_as_of, leaving the final Snapshot gate UPDATE_INCOMPLETE; no stale or misdated email was sent."
+}
