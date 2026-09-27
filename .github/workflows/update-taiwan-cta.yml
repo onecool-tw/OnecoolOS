@@ -14,6 +14,8 @@ on:
     branches: [main]
     paths:
       - ".github/workflows/update-taiwan-cta.yml"
+      - "onecool_os/market/taiwan_calendar.py"
+      - "onecool_os/market/session_cutoff.py"
   schedule:
     # 15:00 primary plus 16:00 and 17:00 retries. Pre-report health dispatches
     # recovery only when the current-day CTA remains blocked.

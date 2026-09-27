@@ -3,12 +3,13 @@
 from __future__ import annotations
 
 import json
-from datetime import UTC, date, datetime, timedelta
+from datetime import UTC, date, datetime
 from hashlib import sha256
 from pathlib import Path
 from typing import Any, Mapping
 
 from onecool_os.market.lynch_research import build_lynch_research
+from onecool_os.market.taiwan_calendar import latest_twse_session, twse_session_lag
 
 MASTER_PROMPT_VERSION = "v1.6 Taiwan Lynch Research Layer"
 MASTER_PROMPT_PATH = Path("config/taiwan_stock_intelligence_master_prompt.md")
@@ -24,13 +25,7 @@ def _read(root: Path, relative: Path | str) -> dict[str, Any] | None:
 
 
 def _business_day_lag(start: date, end: date) -> int:
-    if start >= end:
-        return 0
-    return sum(
-        1
-        for offset in range(1, (end - start).days + 1)
-        if date.fromordinal(start.toordinal() + offset).weekday() < 5
-    )
+    return twse_session_lag(start, end)
 
 
 def _weekly_alignment(item: Mapping[str, Any] | None) -> str:
@@ -190,9 +185,7 @@ def build_taiwan_stock_daily_context(
     timestamp = generated_at or datetime.now(UTC)
     local_now = timestamp.astimezone(ZoneInfo("Asia/Taipei"))
     current_date = today or local_now.date()
-    expected_session = current_date
-    while expected_session.weekday() >= 5:
-        expected_session -= timedelta(days=1)
+    expected_session = latest_twse_session(current_date)
     screen = _read(root, SCREEN_PATH)
     stock_cta = _read(root, STOCK_CTA_PATH) or {}
     previous_context = _read(root, CONTEXT_PATH) or {}
