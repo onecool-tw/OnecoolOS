@@ -1,12 +1,12 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-09-28T11:21:30.721361+00:00",
+  "generated_at": "2026-09-28T11:22:35.764819+00:00",
   "taipei_date": "2026-09-28",
-  "status": "BLOCKED",
+  "status": "PARTIAL",
   "scope_status": {
     "morning": "READY",
-    "asia": "BLOCKED",
+    "asia": "READY",
     "weekly": "READY"
   },
   "report_delivery": {
@@ -59,11 +59,11 @@
     "policy": "Data readiness does not prove report delivery. Never infer email success from a generated draft."
   },
   "end_to_end_status": "NOT_FULLY_VERIFIED",
-  "action_readiness": "UNSAFE_FOR_AFFECTED_REPORTS",
+  "action_readiness": "LIMITED",
   "counts": {
-    "ready": 16,
+    "ready": 17,
     "partial": 1,
-    "blocked": 1
+    "blocked": 0
   },
   "modules": [
     {
@@ -200,9 +200,9 @@
       "label": "Japan/Korea CTA freshness",
       "scope": "asia",
       "critical": true,
-      "status": "BLOCKED",
-      "reason": "1306 UNKNOWN as_of 2026-09-25 expected 2026-09-28; 069500 UNKNOWN as_of 2026-09-23 expected 2026-09-28",
-      "observed_as_of": "2026-09-23",
+      "status": "READY",
+      "reason": "both local-market CTAs current",
+      "observed_as_of": "2026-09-28",
       "recovery_workflow": "update-market-dashboard.yml",
       "retryable": true,
       "impacted_reports": [
@@ -325,21 +325,6 @@
   ],
   "issues": [
     {
-      "module_id": "asia_country_cta",
-      "label": "Japan/Korea CTA freshness",
-      "scope": "asia",
-      "critical": true,
-      "status": "BLOCKED",
-      "reason": "1306 UNKNOWN as_of 2026-09-25 expected 2026-09-28; 069500 UNKNOWN as_of 2026-09-23 expected 2026-09-28",
-      "observed_as_of": "2026-09-23",
-      "recovery_workflow": "update-market-dashboard.yml",
-      "retryable": true,
-      "impacted_reports": [
-        "台股日報",
-        "基金週報"
-      ]
-    },
-    {
       "module_id": "ai_revolution",
       "label": "AI Revolution",
       "scope": "weekly",
@@ -354,9 +339,7 @@
       ]
     }
   ],
-  "recovery_workflows": [
-    "update-market-dashboard.yml"
-  ],
-  "issue_fingerprint": "f07cb8f1786f0b85e526f25da45c04787e07b25a630570fe1fc6ab96ab2e00fb",
+  "recovery_workflows": [],
+  "issue_fingerprint": "7aee8da8003de9665b409508f4aca154b17088fcf5eee4a935c065706b561a3a",
   "policy": "Health monitoring only; never changes CTA, rankings, or investment decisions."
 }
