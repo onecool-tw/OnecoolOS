@@ -1,12 +1,12 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-09-28T11:00:09.290876+00:00",
+  "generated_at": "2026-09-28T11:21:30.721361+00:00",
   "taipei_date": "2026-09-28",
-  "status": "PARTIAL",
+  "status": "BLOCKED",
   "scope_status": {
     "morning": "READY",
-    "asia": "READY",
+    "asia": "BLOCKED",
     "weekly": "READY"
   },
   "report_delivery": {
@@ -59,11 +59,11 @@
     "policy": "Data readiness does not prove report delivery. Never infer email success from a generated draft."
   },
   "end_to_end_status": "NOT_FULLY_VERIFIED",
-  "action_readiness": "LIMITED",
+  "action_readiness": "UNSAFE_FOR_AFFECTED_REPORTS",
   "counts": {
     "ready": 16,
     "partial": 1,
-    "blocked": 0
+    "blocked": 1
   },
   "modules": [
     {
@@ -196,6 +196,21 @@
       ]
     },
     {
+      "module_id": "asia_country_cta",
+      "label": "Japan/Korea CTA freshness",
+      "scope": "asia",
+      "critical": true,
+      "status": "BLOCKED",
+      "reason": "1306 UNKNOWN as_of 2026-09-25 expected 2026-09-28; 069500 UNKNOWN as_of 2026-09-23 expected 2026-09-28",
+      "observed_as_of": "2026-09-23",
+      "recovery_workflow": "update-market-dashboard.yml",
+      "retryable": true,
+      "impacted_reports": [
+        "台股日報",
+        "基金週報"
+      ]
+    },
+    {
       "module_id": "macro_regime",
       "label": "Macro Regime",
       "scope": "weekly",
@@ -310,6 +325,21 @@
   ],
   "issues": [
     {
+      "module_id": "asia_country_cta",
+      "label": "Japan/Korea CTA freshness",
+      "scope": "asia",
+      "critical": true,
+      "status": "BLOCKED",
+      "reason": "1306 UNKNOWN as_of 2026-09-25 expected 2026-09-28; 069500 UNKNOWN as_of 2026-09-23 expected 2026-09-28",
+      "observed_as_of": "2026-09-23",
+      "recovery_workflow": "update-market-dashboard.yml",
+      "retryable": true,
+      "impacted_reports": [
+        "台股日報",
+        "基金週報"
+      ]
+    },
+    {
       "module_id": "ai_revolution",
       "label": "AI Revolution",
       "scope": "weekly",
@@ -324,7 +354,9 @@
       ]
     }
   ],
-  "recovery_workflows": [],
-  "issue_fingerprint": "7aee8da8003de9665b409508f4aca154b17088fcf5eee4a935c065706b561a3a",
+  "recovery_workflows": [
+    "update-market-dashboard.yml"
+  ],
+  "issue_fingerprint": "f07cb8f1786f0b85e526f25da45c04787e07b25a630570fe1fc6ab96ab2e00fb",
   "policy": "Health monitoring only; never changes CTA, rankings, or investment decisions."
 }
