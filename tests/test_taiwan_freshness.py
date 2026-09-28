@@ -4,7 +4,10 @@ from types import SimpleNamespace
 
 import pytest
 
-from onecool_os.market.session_cutoff import completed_daily_bars
+from onecool_os.market.session_cutoff import (
+    completed_daily_bars,
+    latest_completed_market_session,
+)
 from scripts.update_taiwan_stock_screen import expected_market_date, normalize_dated_report, update
 
 
@@ -33,6 +36,21 @@ def test_twse_holiday_does_not_admit_a_same_day_provider_bar():
     assert completed_daily_bars(
         bars, "TW", datetime.fromisoformat("2026-09-25T18:00:00+08:00")
     ) == bars[:1]
+
+
+def test_japan_and_korea_are_open_on_2026_09_28():
+    now = datetime.fromisoformat("2026-09-28T18:00:00+08:00")
+    assert latest_completed_market_session("JP", now) == date(2026, 9, 28)
+    assert latest_completed_market_session("KR", now) == date(2026, 9, 28)
+
+
+def test_local_holidays_keep_prior_completed_session():
+    assert latest_completed_market_session(
+        "JP", datetime.fromisoformat("2026-09-23T18:00:00+09:00")
+    ) == date(2026, 9, 18)
+    assert latest_completed_market_session(
+        "KR", datetime.fromisoformat("2026-09-25T18:00:00+09:00")
+    ) == date(2026, 9, 23)
 
 
 @pytest.mark.parametrize("now,expected", [

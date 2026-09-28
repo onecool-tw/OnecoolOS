@@ -57,7 +57,7 @@ def render(raw):
         out.append(f'<section><h2>{heading}</h2>')
         for symbol, label in symbols:
             cta = obj(markets.get(symbol))
-            out.append(f'<p>{label}：{text(cta.get("cta"))}；趨勢：{text(cta.get("trend"))}；資料日：{text(cta.get("as_of"))}</p>')
+            out.append(f'<p>{label}：{text(cta.get("cta"))}；趨勢：{text(cta.get("trend"))}；資料日：{text(cta.get("as_of"))}；新鮮度：{text(cta.get("update_status"))}</p>')
         out.append('</section>')
     out.append('<section><h2>Top 5 研究名單</h2><p>排名為 Snapshot 陣列原有順序；不重新評分或排序。個股技術訊號不取代上方正式行動。</p><div class="table"><table><thead><tr>')
     for label in ("排名", "標的", "分數", "估值 PE", "估值 PB", "個股 CTA", "CTA 資料日", "來源行動資格", "股價／估值日", "財報品質（研究提醒）"):

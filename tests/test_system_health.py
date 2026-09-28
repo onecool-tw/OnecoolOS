@@ -22,7 +22,16 @@ def _seed_ready(root: Path) -> None:
     daily = "2026-08-28"
     taiwan = "2026-08-28"
     generated = "2026-08-30T02:00:00+00:00"
-    _write(root, "data/market/dashboard/dashboard_latest.json", {"expected_as_of": daily, "data_status": READY})
+    _write(root, "data/market/dashboard/dashboard_latest.json", {
+        "expected_as_of": daily,
+        "data_status": READY,
+        "results": [
+            {"symbol": "1306", "as_of": "2026-08-28", "cta": "HOLD",
+             "update_status": "CURRENT"},
+            {"symbol": "069500", "as_of": "2026-08-28", "cta": "HOLD",
+             "update_status": "CURRENT"},
+        ],
+    })
     _write(root, "data/market/us_stock_intelligence/breakout_scan_latest.json", {"expected_as_of": daily, "data_status": READY})
     _write(root, "data/market/us_stock_intelligence/portfolio_scores_latest.json", {"expected_as_of": daily, "data_status": READY})
     _write(root, "data/market/etf_cta/cta_latest.json", {"data_status": [{"symbol": "AIQ", "status": "CURRENT", "as_of": daily}]})
@@ -153,6 +162,15 @@ def test_before_recovery_gate_previous_taiwan_session_is_acceptable(tmp_path: Pa
     _write(tmp_path, "data/market/taiwan_stock_intelligence/daily_context_latest.json", {
         "screen_as_of": "2026-09-11", "display_status": "CURRENT",
     })
+    _write(tmp_path, "data/market/dashboard/dashboard_latest.json", {
+        "expected_as_of": "2026-09-11", "data_status": READY,
+        "results": [
+            {"symbol": "1306", "as_of": "2026-09-14", "cta": "HOLD",
+             "update_status": "CURRENT"},
+            {"symbol": "069500", "as_of": "2026-09-14", "cta": "HOLD",
+             "update_status": "CURRENT"},
+        ],
+    })
 
     report = build_health_report(
         tmp_path, now=datetime.fromisoformat("2026-09-14T16:29:59+08:00")
@@ -161,12 +179,14 @@ def test_before_recovery_gate_previous_taiwan_session_is_acceptable(tmp_path: Pa
     assert report["scope_status"]["asia"] == READY
 
 
-@pytest.mark.parametrize("now", [
-    "2026-09-25T18:00:00+08:00",
-    "2026-09-26T14:15:00+08:00",
-    "2026-09-28T18:00:00+08:00",
+@pytest.mark.parametrize("now,japan_date,korea_date", [
+    ("2026-09-25T18:00:00+08:00", "2026-09-25", "2026-09-23"),
+    ("2026-09-26T14:15:00+08:00", "2026-09-25", "2026-09-23"),
+    ("2026-09-28T18:00:00+08:00", "2026-09-28", "2026-09-28"),
 ])
-def test_twse_holiday_keeps_last_actual_session_ready(tmp_path: Path, now: str) -> None:
+def test_twse_holiday_keeps_last_actual_session_ready(
+    tmp_path: Path, now: str, japan_date: str, korea_date: str
+) -> None:
     _seed_ready(tmp_path)
     for relative, payload in (
         ("data/market/taiwan_cta/cta_latest.json", {"data_cutoff": "2026-09-24"}),
@@ -182,10 +202,55 @@ def test_twse_holiday_keeps_last_actual_session_ready(tmp_path: Path, now: str) 
         }),
     ):
         _write(tmp_path, relative, payload)
+    _write(tmp_path, "data/market/dashboard/dashboard_latest.json", {
+        "expected_as_of": "2026-09-25", "data_status": READY,
+        "results": [
+            {"symbol": "1306", "as_of": japan_date, "cta": "HOLD",
+             "update_status": "CURRENT"},
+            {"symbol": "069500", "as_of": korea_date, "cta": "HOLD",
+             "update_status": "CURRENT"},
+        ],
+    })
 
     report = build_health_report(tmp_path, now=datetime.fromisoformat(now))
 
     assert report["scope_status"]["asia"] == READY
+
+
+def test_stale_japan_korea_cta_blocks_asia_scope_on_2026_09_28(tmp_path: Path) -> None:
+    _seed_ready(tmp_path)
+    for relative, payload in (
+        ("data/market/taiwan_cta/cta_latest.json", {"data_cutoff": "2026-09-24"}),
+        ("data/market/taiwan_stock_intelligence/screen_latest.json", {
+            "expected_as_of": "2026-09-24", "data_status": READY,
+        }),
+        ("data/market/taiwan_stock_intelligence/cta/cta_latest.json", {
+            "screen_as_of": "2026-09-24", "requested_count": 200,
+            "coverage": {"current": 200, "stale_last_known": 0, "unknown": 0},
+        }),
+        ("data/market/taiwan_stock_intelligence/daily_context_latest.json", {
+            "screen_as_of": "2026-09-24", "display_status": "CURRENT",
+        }),
+    ):
+        _write(tmp_path, relative, payload)
+    _write(tmp_path, "data/market/dashboard/dashboard_latest.json", {
+        "expected_as_of": "2026-09-25", "data_status": READY,
+        "results": [
+            {"symbol": "1306", "as_of": "2026-09-25", "cta": "HOLD",
+             "update_status": "STALE_LAST_KNOWN"},
+            {"symbol": "069500", "as_of": "2026-09-23", "cta": "HOLD",
+             "update_status": "STALE_LAST_KNOWN"},
+        ],
+    })
+
+    report = build_health_report(
+        tmp_path, now=datetime.fromisoformat("2026-09-28T18:00:00+08:00")
+    )
+
+    assert report["scope_status"]["asia"] == BLOCKED
+    assert _module(report, "asia_country_cta")["status"] == BLOCKED
+    assert "1306 STALE_LAST_KNOWN" in _module(report, "asia_country_cta")["reason"]
+    assert "update-market-dashboard.yml" in report["recovery_workflows"]
 
 
 def test_first_open_day_after_holidays_still_requires_same_day_data(tmp_path: Path) -> None:

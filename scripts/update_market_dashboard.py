@@ -288,6 +288,7 @@ def update(
 ) -> dict:
     """Use raw Yahoo prices, AV action validation, and core AV fallback."""
 
+    effective_reference_time = reference_time or datetime.now(UTC)
     data_dir = root / "data" / "market" / "dashboard"
     history_dir = data_dir / "history"
     client = AlphaVantageClient(api_key) if api_key else None
@@ -451,7 +452,9 @@ def update(
         for symbol in INNOVATION_OPTION_SYMBOLS
     ]
     payload = build_dashboard_payload(
-        records, innovation_option_watch=innovation_watch
+        records,
+        innovation_option_watch=innovation_watch,
+        reference_time=effective_reference_time,
     )
     payload["us_session_cutoff_policy"] = (
         "exclude_current_New_York_daily_bar_until_16:15_America/New_York"

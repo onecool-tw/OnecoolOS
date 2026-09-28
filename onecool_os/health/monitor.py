@@ -15,6 +15,7 @@ from typing import Any, Iterable
 from zoneinfo import ZoneInfo
 
 from onecool_os.market.taiwan_calendar import latest_twse_session
+from onecool_os.market.session_cutoff import latest_completed_market_session
 
 
 READY = "READY"
@@ -301,6 +302,46 @@ def build_health_report(root: str | Path, *, now: datetime | None = None) -> dic
         status_field="display_status", good_statuses={"CURRENT"}, recovery="update-taiwan-stock-screen.yml", reports=["台股日報"],
         max_business_lag=0,
     ))
+
+    dashboard_payload = _load(root, "data/market/dashboard/dashboard_latest.json") or {}
+    dashboard_rows = dashboard_payload.get("results", [])
+    country_rows = {
+        symbol: [
+            item for item in dashboard_rows
+            if isinstance(item, dict) and item.get("symbol") == symbol
+        ]
+        for symbol in ("1306", "069500")
+    }
+    country_issues = []
+    country_dates = []
+    for symbol, market in (("1306", "JP"), ("069500", "KR")):
+        matches = country_rows[symbol]
+        expected = latest_completed_market_session(market, now)
+        item = matches[0] if len(matches) == 1 else {}
+        observed = _date(item.get("as_of"))
+        if observed:
+            country_dates.append(observed)
+        status = str(item.get("update_status", "UNKNOWN")).upper()
+        if len(matches) != 1:
+            country_issues.append(f"{symbol} row count {len(matches)}")
+        elif observed != expected or status != "CURRENT":
+            country_issues.append(
+                f"{symbol} {status} as_of {observed.isoformat() if observed else 'UNKNOWN'} "
+                f"expected {expected.isoformat()}"
+            )
+    if country_issues:
+        observed = min(country_dates) if country_dates else None
+        modules.append(_module(
+            "asia_country_cta", "Japan/Korea CTA freshness", "asia", True,
+            BLOCKED, "; ".join(country_issues), observed,
+            "update-market-dashboard.yml", ["台股日報", "基金週報"],
+        ))
+    else:
+        modules.append(_module(
+            "asia_country_cta", "Japan/Korea CTA freshness", "asia", True,
+            READY, "both local-market CTAs current", min(country_dates),
+            "update-market-dashboard.yml", ["台股日報", "基金週報"],
+        ))
 
     # Weekly context modules are advisory unless the final validation explicitly fails.
     weekly_specs = [
