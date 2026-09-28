@@ -100,9 +100,26 @@
     "consumer_action": "PAUSE_NEW_EXPOSURE"
   },
   "final_delivery_readiness": {
-    "status": "READY",
-    "issues": [],
-    "rule": "EMAIL_REQUIRES_SAME_DAY_CURRENT_MARKET_PRESSURE"
+    "status": "UPDATE_INCOMPLETE",
+    "issues": [
+      "ASIA_CTA_1306_NOT_CURRENT",
+      "ASIA_CTA_069500_NOT_CURRENT"
+    ],
+    "rule": "EMAIL_REQUIRES_CURRENT_MARKET_PRESSURE_AND_CURRENT_LOCAL_MARKET_ASIA_CTA"
+  },
+  "asia_cta_readiness": {
+    "status": "UPDATE_INCOMPLETE",
+    "symbols": {
+      "1306": {
+        "as_of": "2026-09-25",
+        "update_status": "UNKNOWN"
+      },
+      "069500": {
+        "as_of": "2026-09-23",
+        "update_status": "UNKNOWN"
+      }
+    },
+    "consumer_rule": "STALE_OR_UNKNOWN_ASIA_CTA_BLOCKS_FINAL_EMAIL"
   },
   "market_pressure_input_readiness": {
     "status": "READY",
