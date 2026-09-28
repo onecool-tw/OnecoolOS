@@ -15,6 +15,7 @@ from onecool_os.market.etf_cta import (
     DailyBar,
     read_history,
 )
+from onecool_os.market.session_cutoff import latest_completed_market_session
 
 
 @dataclass(frozen=True)
@@ -202,6 +203,7 @@ def build_dashboard_payload(
     records: Iterable[MarketCTA],
     *,
     innovation_option_watch: Iterable[dict[str, Any]] = (),
+    reference_time: datetime | None = None,
 ) -> dict[str, Any]:
     """Build the GitHub-cached SSOT payload after passing the US date gate."""
 
@@ -213,7 +215,32 @@ def build_dashboard_payload(
     _validate_innovation_option_dates(
         innovation_values, expected_as_of
     )
-    generated_at = datetime.now(UTC).isoformat()
+    generated = reference_time or datetime.now(UTC)
+    if generated.tzinfo is None:
+        raise ValueError("reference_time must be timezone-aware")
+    generated_at = generated.astimezone(UTC).isoformat()
+    result_rows = [asdict(item) for item in values]
+    result_by_symbol = {item["symbol"]: item for item in result_rows}
+    country_freshness = {}
+    for country, symbol in COUNTRY_INDEX_CTA_PROXIES.items():
+        market = "JP" if symbol == "1306" else "KR"
+        expected = latest_completed_market_session(market, generated)
+        observed = datetime.fromisoformat(result_by_symbol[symbol]["as_of"]).date()
+        if observed == expected:
+            status, reason = "CURRENT", "matches latest completed local session"
+        elif observed < expected:
+            status, reason = "STALE_LAST_KNOWN", "latest completed local session is missing"
+        else:
+            status, reason = "UNKNOWN", "CTA date is after latest completed local session"
+        result_by_symbol[symbol]["update_status"] = status
+        result_by_symbol[symbol]["source_data_as_of"] = observed.isoformat()
+        country_freshness[country] = {
+            "symbol": symbol,
+            "as_of": observed.isoformat(),
+            "expected_as_of": expected.isoformat(),
+            "update_status": status,
+            "reason": reason,
+        }
     return {
         "schema_version": "1.9",
         "module": "Onecool Market Dashboard",
@@ -229,6 +256,7 @@ def build_dashboard_payload(
             "method": "Local-listed country ETFs; shared CTA engine",
             "mappings": COUNTRY_INDEX_CTA_PROXIES,
             "as_of": country_as_of,
+            "freshness": country_freshness,
             "currency_policy": "local-market closing prices in JPY and KRW",
         },
         "portfolio_cta_basis": {
@@ -253,7 +281,7 @@ def build_dashboard_payload(
         "cta_engine": "onecool_os.market.etf_cta.calculate_cta",
         "summary_method": "deterministic CTA aggregation; no forecast",
         "summary": market_summary(values),
-        "results": [asdict(item) for item in values],
+        "results": result_rows,
     }
 
 

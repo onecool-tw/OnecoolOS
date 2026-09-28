@@ -81,3 +81,34 @@ def test_pressure_persistence_to_public_snapshot_end_to_end(root):
     assert result['market_pressure']['reason'] == ['test_formal_result']
     assert result['market_pressure']['action'] == 'PAUSE_NEW_EXPOSURE'
     export_snapshot(root, check=True)
+
+
+def test_final_delivery_blocks_noncurrent_asia_cta(root):
+    def mark_country_rows(dashboard):
+        for row in dashboard['results']:
+            if row.get('symbol') in {'1306', '069500'}:
+                row['update_status'] = (
+                    'STALE_LAST_KNOWN'
+                    if row['symbol'] == '1306' else 'CURRENT'
+                )
+
+    change(root, 'dashboard', mark_country_rows)
+    result = export_snapshot(root)
+
+    assert result['asia_cta_readiness']['status'] == 'UPDATE_INCOMPLETE'
+    assert result['final_delivery_readiness']['status'] == 'UPDATE_INCOMPLETE'
+    assert 'ASIA_CTA_1306_NOT_CURRENT' in result['final_delivery_readiness']['issues']
+
+
+def test_final_delivery_accepts_current_asia_cta(root):
+    def mark_country_rows(dashboard):
+        for row in dashboard['results']:
+            if row.get('symbol') in {'1306', '069500'}:
+                row['update_status'] = 'CURRENT'
+
+    change(root, 'dashboard', mark_country_rows)
+    result = export_snapshot(root)
+
+    assert result['asia_cta_readiness']['status'] == 'READY'
+    assert not any(issue.startswith('ASIA_CTA_')
+                   for issue in result['final_delivery_readiness']['issues'])

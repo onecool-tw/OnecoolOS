@@ -1,6 +1,6 @@
 import json
 import math
-from datetime import date, timedelta
+from datetime import date, datetime, timedelta
 from pathlib import Path
 
 from onecool_os.market.dashboard import (
@@ -134,6 +134,9 @@ def test_market_summary_is_deterministic_and_not_a_forecast() -> None:
         "Japan": "2026-07-17",
         "South Korea": "2026-07-16",
     }
+    assert payload["country_index_cta_basis"]["freshness"]["Japan"][
+        "update_status"
+    ] in {"CURRENT", "STALE_LAST_KNOWN"}
     assert payload["portfolio_cta_basis"]["symbols"] == list(
         US_PORTFOLIO_CTA_SYMBOLS
     )
@@ -161,6 +164,34 @@ def test_market_summary_is_deterministic_and_not_a_forecast() -> None:
     assert payload["history_bootstrap_provider"].startswith(
         "yahoo_finance_raw"
     )
+
+
+def test_country_cta_freshness_uses_each_local_market_session() -> None:
+    records = [
+        record("SPY", "US", "BULLISH", "BUY", "2026-09-25"),
+        record("QQQ", "US", "BULLISH", "BUY", "2026-09-25"),
+        record("DIA", "US", "BULLISH", "BUY", "2026-09-25"),
+        record("RUSSELL_2000", "US", "BULLISH", "BUY", "2026-09-25"),
+        record("SOXX", "US", "BULLISH", "BUY", "2026-09-25"),
+        record("NVDA", "US", "BULLISH", "BUY", "2026-09-25"),
+        record("1306", "JP", "MIXED", "HOLD", "2026-09-25"),
+        record("069500", "KR", "MIXED", "HOLD", "2026-09-23"),
+        *[record(symbol, "US", "MIXED", "HOLD", "2026-09-25")
+          for symbol in US_PORTFOLIO_CTA_SYMBOLS],
+        record("0050", "TW", "BULLISH", "BUY", "2026-09-24"),
+        record("2330", "TW", "BULLISH", "BUY", "2026-09-24"),
+    ]
+    payload = build_dashboard_payload(
+        records,
+        innovation_option_watch=innovation_rows("2026-09-25"),
+        reference_time=datetime.fromisoformat("2026-09-28T18:00:00+08:00"),
+    )
+    rows = {item["symbol"]: item for item in payload["results"]}
+    assert rows["1306"]["update_status"] == "STALE_LAST_KNOWN"
+    assert rows["069500"]["update_status"] == "STALE_LAST_KNOWN"
+    assert payload["country_index_cta_basis"]["freshness"]["Japan"][
+        "expected_as_of"
+    ] == "2026-09-28"
 
 
 def test_dashboard_record_rejects_non_finite_values() -> None:

@@ -93,6 +93,16 @@ def build_snapshot(root: Path):
         delivery_issues.append('MARKET_PRESSURE_NOT_CURRENT')
     if readiness.get('status') != 'READY':
         delivery_issues.append('REPORT_READINESS_NOT_READY')
+    asia_cta_status = {}
+    for symbol in ('1306', '069500'):
+        item = indices.get(symbol, {})
+        status = item.get('update_status', 'UNKNOWN')
+        asia_cta_status[symbol] = {
+            'as_of': item.get('as_of'),
+            'update_status': status,
+        }
+        if status != 'CURRENT':
+            delivery_issues.append(f'ASIA_CTA_{symbol}_NOT_CURRENT')
     delivery_ready = not delivery_issues
     return {
         'schema_version': '1.0',
@@ -125,7 +135,20 @@ def build_snapshot(root: Path):
         'final_delivery_readiness': {
             'status': 'READY' if delivery_ready else 'UPDATE_INCOMPLETE',
             'issues': delivery_issues,
-            'rule': 'EMAIL_REQUIRES_SAME_DAY_CURRENT_MARKET_PRESSURE',
+            'rule': (
+                'EMAIL_REQUIRES_CURRENT_MARKET_PRESSURE_AND_'
+                'CURRENT_LOCAL_MARKET_ASIA_CTA'
+            ),
+        },
+        'asia_cta_readiness': {
+            'status': (
+                'READY'
+                if all(item['update_status'] == 'CURRENT'
+                       for item in asia_cta_status.values())
+                else 'UPDATE_INCOMPLETE'
+            ),
+            'symbols': asia_cta_status,
+            'consumer_rule': 'STALE_OR_UNKNOWN_ASIA_CTA_BLOCKS_FINAL_EMAIL',
         },
         'market_pressure_input_readiness': context.get(
             'market_pressure_input_readiness', {'status': 'UPDATE_INCOMPLETE'}),
