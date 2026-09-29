@@ -1,11 +1,11 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-09-29T03:33:51.016673+00:00",
+  "generated_at": "2026-09-29T05:59:18.368647+00:00",
   "taipei_date": "2026-09-29",
-  "status": "BLOCKED",
+  "status": "PARTIAL",
   "scope_status": {
-    "morning": "BLOCKED",
+    "morning": "READY",
     "asia": "READY",
     "weekly": "READY"
   },
@@ -35,7 +35,7 @@
       },
       {
         "report_id": "fund",
-        "expected_report_date": "2026-09-28",
+        "expected_report_date": "2026-09-29",
         "status": "PARTIAL",
         "channels": {
           "conversation": "UNKNOWN",
@@ -59,11 +59,11 @@
     "policy": "Data readiness does not prove report delivery. Never infer email success from a generated draft."
   },
   "end_to_end_status": "NOT_FULLY_VERIFIED",
-  "action_readiness": "UNSAFE_FOR_AFFECTED_REPORTS",
+  "action_readiness": "LIMITED",
   "counts": {
-    "ready": 16,
+    "ready": 17,
     "partial": 1,
-    "blocked": 1
+    "blocked": 0
   },
   "modules": [
     {
@@ -129,11 +129,11 @@
       "label": "Fund NAV CTA",
       "scope": "morning",
       "critical": true,
-      "status": "BLOCKED",
-      "reason": "generation timestamp missing, invalid or older than scheduled date 2026-09-29",
+      "status": "READY",
+      "reason": "current",
       "observed_as_of": "2026-09-28",
       "recovery_workflow": "update-fund-nav-cta.yml",
-      "retryable": true,
+      "retryable": false,
       "impacted_reports": [
         "基金日報",
         "基金週報"
@@ -325,21 +325,6 @@
   ],
   "issues": [
     {
-      "module_id": "fund_nav_cta",
-      "label": "Fund NAV CTA",
-      "scope": "morning",
-      "critical": true,
-      "status": "BLOCKED",
-      "reason": "generation timestamp missing, invalid or older than scheduled date 2026-09-29",
-      "observed_as_of": "2026-09-28",
-      "recovery_workflow": "update-fund-nav-cta.yml",
-      "retryable": true,
-      "impacted_reports": [
-        "基金日報",
-        "基金週報"
-      ]
-    },
-    {
       "module_id": "ai_revolution",
       "label": "AI Revolution",
       "scope": "weekly",
@@ -354,9 +339,7 @@
       ]
     }
   ],
-  "recovery_workflows": [
-    "update-fund-nav-cta.yml"
-  ],
-  "issue_fingerprint": "beda1b8765bcf6ed8f9c66a4049bdd84d59050d4814485d2751602820aa7212d",
+  "recovery_workflows": [],
+  "issue_fingerprint": "7aee8da8003de9665b409508f4aca154b17088fcf5eee4a935c065706b561a3a",
   "policy": "Health monitoring only; never changes CTA, rankings, or investment decisions."
 }
