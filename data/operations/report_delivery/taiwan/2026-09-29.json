@@ -1,19 +1,13 @@
 {
   "report_id": "taiwan",
   "report_date": "2026-09-29",
-  "generated_at": "2026-09-29T18:32:01+08:00",
-  "delivery_status": "FAILED",
-  "writeback_status": "VERIFIED",
+  "generated_at": "2026-09-29T19:08:00+08:00",
+  "delivery_status": "PREPARED",
+  "writeback_status": "UNKNOWN",
   "delivery_evidence_sha256": null,
-  "source_snapshot_sha256": "10ae704c70b0e2f91c836c2e9345e157f4ee5a99f5346d184d3b0fbbed2fb0da",
-  "data_quality_status": "FAILED",
-  "issues": [
-    "SCREEN_STALE_2026-09-24_FOR_EXPECTED_2026-09-29",
-    "MARKET_PRESSURE_INPUTS_STALE_2026-09-24_FOR_EXPECTED_2026-09-29",
-    "MARKET_PRESSURE_WRITE_FAILED_NO_CURRENT_2026-09-29_RESULT",
-    "FINAL_SNAPSHOT_NOT_READY",
-    "EMAIL_SUSPENDED_FINAL_VERSION_NOT_VERIFIED"
-  ],
+  "source_snapshot_sha256": "56ce3d0df4dc8065c7b73a3e067e408596879aa7974ca976949086fb3ebfaebc",
+  "data_quality_status": "READY",
+  "issues": [],
   "channels": {
     "conversation": {
       "status": "UNKNOWN",
@@ -21,15 +15,15 @@
       "evidence_sha256": null
     },
     "email": {
-      "status": "FAILED",
-      "observed_at": "2026-09-29T18:32:01+08:00",
+      "status": "UNKNOWN",
+      "observed_at": null,
       "evidence_sha256": null
     },
     "artifact": {
-      "status": "DELIVERED",
-      "observed_at": "2026-09-29T18:31:27+08:00",
-      "evidence_sha256": "596ee611b817deb00dd9eb0db4e898d4b46ce987ff60e3ed364b24289119d202"
+      "status": "PREPARED",
+      "observed_at": null,
+      "evidence_sha256": null
     }
   },
-  "reason": "The 2026-09-29 Taiwan screen and formal market-pressure inputs were not current after the final workflow execution window. The report was saved and read back as a fail-closed artifact. No 2026-09-29 pressure light was persisted, the 2026-09-24 CURRENT/YELLOW object remains historical evidence only, and final-version email delivery was suspended. Japan and Korea CTAs were both verified for 2026-09-29. Conversation delivery remains unobservable to the executor."
+  "reason": "Recovery completed the 2026-09-29 screen, formal market-pressure persistence, CURRENT Taiwan and Asia CTAs, and final Snapshot validation. Artifact readback and final email delivery remain pending; conversation delivery is not observable to the executor."
 }
