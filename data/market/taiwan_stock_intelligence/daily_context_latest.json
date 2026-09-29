@@ -34,19 +34,19 @@
   "0050_weekly_alignment": "GOLDEN",
   "market_pressure_gate": "FORMAL_FROM_DAILY_CONTEXT",
   "market_pressure": {
-    "as_of": "2026-09-24",
+    "as_of": "2026-09-29",
     "status": "CURRENT",
-    "light": "YELLOW",
+    "light": "RED",
     "action": "PAUSE_NEW_EXPOSURE",
     "reason": [
-      "yellow_maintained_no_red_retrigger_and_green_release_not_confirmed",
-      "taiex_closed_48024_60_down_132_69_or_0_28_pct_without_new_closing_low",
-      "front_month_taiex_futures_closed_48123_premium_98_40_points",
-      "foreign_taiex_futures_net_short_77031_contracts",
-      "taiex_options_volume_pcr_121_11_and_open_interest_pcr_85_33",
-      "taifex_vix_verified_at_23_12_last_1_min_avg",
-      "institutional_net_selling_43_873_billion_twd",
-      "margin_balance_increased_1_506_billion_twd_with_official_one_day_publication_lag"
+      "red_retriggered_by_derivatives_volatility_and_institutional_selling_pressure",
+      "taiex_closed_47631_96_down_392_64_or_0_82_pct_with_turnover_836_145_billion_twd",
+      "front_month_taiex_futures_closed_47767_premium_135_04_points",
+      "foreign_taiex_futures_net_short_79029_contracts",
+      "taiex_options_volume_pcr_90_39_and_open_interest_pcr_75_30",
+      "taifex_vix_verified_at_24_58_last_1_min_avg",
+      "institutional_net_selling_78_187_billion_twd",
+      "margin_balance_increased_8_736_billion_twd_with_official_publication_lag"
     ],
     "confirmed_inputs": {
       "spot": true,
@@ -57,16 +57,16 @@
       "margin": true
     },
     "input_data_as_of": {
-      "spot": "2026-09-24",
-      "futures": "2026-09-24",
-      "pcr": "2026-09-24",
-      "volatility": "2026-09-24",
-      "institutional_flow": "2026-09-24",
-      "margin": "2026-09-23"
+      "spot": "2026-09-29",
+      "futures": "2026-09-29",
+      "pcr": "2026-09-29",
+      "volatility": "2026-09-29",
+      "institutional_flow": "2026-09-29",
+      "margin": "2026-09-24"
     },
     "previous_light": "YELLOW",
-    "changed": false,
-    "last_change_date": "2026-09-18",
+    "changed": true,
+    "last_change_date": "2026-09-29",
     "data_quality": "READY"
   },
   "market_pressure_inputs": {
