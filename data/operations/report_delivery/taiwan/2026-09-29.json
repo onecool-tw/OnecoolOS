@@ -1,13 +1,15 @@
 {
   "report_id": "taiwan",
   "report_date": "2026-09-29",
-  "generated_at": "2026-09-29T21:10:00+08:00",
+  "generated_at": "2026-09-29T21:14:13+08:00",
   "delivery_status": "UNKNOWN",
-  "writeback_status": "VERIFIED",
+  "writeback_status": "UNKNOWN",
   "delivery_evidence_sha256": null,
   "source_snapshot_sha256": "56ce3d0df4dc8065c7b73a3e067e408596879aa7974ca976949086fb3ebfaebc",
-  "data_quality_status": "READY",
-  "issues": [],
+  "data_quality_status": "CONFLICT",
+  "issues": [
+    "TURNOVER_BASIS_CONFLICT_SSOT_8361_45_VS_INDEX_7850_39"
+  ],
   "channels": {
     "conversation": {
       "status": "UNKNOWN",
@@ -17,13 +19,13 @@
     "email": {
       "status": "DELIVERED",
       "observed_at": "2026-09-29T21:09:35+08:00",
-      "evidence_sha256": "6a07b46c852b6826757a6783074e0d9f9a399722c6600c98db326f4a9a5a2791"
+      "evidence_sha256": "03e8ad7c1e6c689e088b102b4b493240c9d41e8d9933ef474c1acf3d61bfb405"
     },
     "artifact": {
       "status": "DELIVERED",
-      "observed_at": "2026-09-29T21:06:00+08:00",
-      "evidence_sha256": "4a1c68ca388c9718fc87e0516b94e5d4c46121cbebd2e2ee9c0d52225b17a0df"
+      "observed_at": "2026-09-29T21:14:13+08:00",
+      "evidence_sha256": "d0b8b86c2e8855473342ac6e947e2ee85c39fdaa975409861106c7f8507ac5d2"
     }
   },
-  "reason": "The final 2026-09-29 Snapshot and report artifact were verified. Three individually addressed email sends returned success and were read back in Sent. Conversation delivery remains unobservable to this executor."
+  "reason": "Three emails were sent and read back against the same final Snapshot. After sending, a turnover-basis conflict was found between pressure SSOT (8,361.45 億) and the index turnover reported by CNA (7,850.39 億); the private report artifact was corrected and read back as version 2. The formal RED/Pause action was not recalculated. Conversation delivery remains unobservable."
 }
