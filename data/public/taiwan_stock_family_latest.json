@@ -25,7 +25,7 @@
     },
     "context": {
       "path": "data/market/taiwan_stock_intelligence/daily_context_latest.json",
-      "sha256": "fb351b46502bf00f940a0846802dee7f3d08baa20b7bad416c0c5cfa314c38fc"
+      "sha256": "e26a3f5703ab63802a8e6b47446842f1c251045abc536362ca35e474aaa37802"
     }
   },
   "source_generated_at": {
@@ -56,19 +56,19 @@
   },
   "candidate_action_gate": "REQUIRES_INDIVIDUAL_CTA_AND_PRESSURE_GREEN",
   "market_pressure": {
-    "as_of": "2026-09-29",
+    "as_of": "2026-09-30",
     "status": "CURRENT",
     "light": "RED",
     "action": "PAUSE_NEW_EXPOSURE",
     "reason": [
-      "red_retriggered_by_derivatives_volatility_and_institutional_selling_pressure",
-      "taiex_closed_47631_96_down_392_64_or_0_82_pct_with_turnover_836_145_billion_twd",
-      "front_month_taiex_futures_closed_47767_premium_135_04_points",
-      "foreign_taiex_futures_net_short_79029_contracts",
-      "taiex_options_volume_pcr_90_39_and_open_interest_pcr_75_30",
-      "taifex_vix_verified_at_24_58_last_1_min_avg",
-      "institutional_net_selling_78_187_billion_twd",
-      "margin_balance_increased_8_736_billion_twd_with_official_publication_lag"
+      "prior_red_on_2026_09_29;deescalation_requires_at_least_two_consecutive_non_trigger_sessions;2026_09_30_is_only_first_session",
+      "taiex_close_47940_13_up_308_17_turnover_921_493_billion_twd_vs_836_145_billion_on_2026_09_29",
+      "front_month_taiex_futures_close_48330_premium_389_87_points",
+      "foreign_taiex_futures_long_12351_short_90502_net_short_78151_contracts_vs_79029_previous",
+      "taiex_options_volume_pcr_99_20_open_interest_pcr_80_57",
+      "taifex_vix_23_04_last_1_min_avg_vs_24_58_previous",
+      "institutional_net_buying_38_657_billion_twd",
+      "margin_2026_09_29_balance_618_653_billion_twd_up_3_550_billion_official_lag_accepted"
     ],
     "confirmed_inputs": {
       "spot": true,
@@ -79,31 +79,29 @@
       "margin": true
     },
     "input_data_as_of": {
-      "spot": "2026-09-29",
-      "futures": "2026-09-29",
-      "pcr": "2026-09-29",
-      "volatility": "2026-09-29",
-      "institutional_flow": "2026-09-29",
-      "margin": "2026-09-24"
+      "spot": "2026-09-30",
+      "futures": "2026-09-30",
+      "pcr": "2026-09-30",
+      "volatility": "2026-09-30",
+      "institutional_flow": "2026-09-30",
+      "margin": "2026-09-29"
     },
-    "previous_light": "YELLOW",
-    "changed": true,
+    "previous_light": "RED",
+    "changed": false,
     "last_change_date": "2026-09-29",
     "data_quality": "READY"
   },
   "market_pressure_freshness": {
     "expected_as_of": "2026-09-30",
-    "as_of": "2026-09-29",
+    "as_of": "2026-09-30",
     "source_status": "CURRENT",
-    "status": "STALE_LAST_KNOWN",
-    "same_day_current": false,
+    "status": "CURRENT",
+    "same_day_current": true,
     "consumer_action": "PAUSE_NEW_EXPOSURE"
   },
   "final_delivery_readiness": {
-    "status": "UPDATE_INCOMPLETE",
-    "issues": [
-      "MARKET_PRESSURE_AS_OF_MISMATCH"
-    ],
+    "status": "READY",
+    "issues": [],
     "rule": "EMAIL_REQUIRES_CURRENT_MARKET_PRESSURE_AND_CURRENT_LOCAL_MARKET_ASIA_CTA"
   },
   "asia_cta_readiness": {
