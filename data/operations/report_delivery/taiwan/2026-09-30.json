@@ -1,7 +1,7 @@
 {
   "report_id": "taiwan",
   "report_date": "2026-09-30",
-  "generated_at": "2026-09-30T18:37:56.541+08:00",
+  "generated_at": "2026-09-30T18:41:24+08:00",
   "delivery_status": "UNKNOWN",
   "writeback_status": "VERIFIED",
   "delivery_evidence_sha256": null,
@@ -12,9 +12,9 @@
       "evidence_sha256": null
     },
     "email": {
-      "status": "UNKNOWN",
-      "observed_at": null,
-      "evidence_sha256": null
+      "status": "DELIVERED",
+      "observed_at": "2026-09-30T18:41:24+08:00",
+      "evidence_sha256": "e02d8de7b23aea8fd83c39b8c763efde9d68528c3e216481202e31c66268a1c0"
     },
     "artifact": {
       "status": "DELIVERED",
@@ -36,8 +36,13 @@
     "same_day_pressure_writeback",
     "pressure_ssot_readback",
     "final_snapshot_verification",
-    "artifact_readback"
+    "artifact_readback",
+    "recipient_deduplication",
+    "final_snapshot_hash_recheck",
+    "email_send_three",
+    "email_readback_three"
   ],
   "failed_steps": [],
-  "next_step": "Verify final Snapshot hash and recipient-specific duplicate evidence, then send email."
+  "next_step": "Conversation delivery cannot be observed from the reporting executor; an independent authorized audit may verify that channel.",
+  "email_snapshot_sha256": "fa489c7f0c7e891fe9f3ce6914f23c7709d4ccdcb52f48ecbc856b730a30ee14"
 }
