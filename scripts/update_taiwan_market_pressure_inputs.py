@@ -4,26 +4,30 @@
 from __future__ import annotations
 
 import argparse
-import json
-from datetime import datetime
+from datetime import datetime, timedelta
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
+from onecool_os.market.taiwan_calendar import latest_twse_session
 from onecool_os.market.taiwan_market_inputs import (
     collect_market_pressure_inputs,
     write_market_pressure_inputs,
 )
 
 
-def expected_as_of(root: Path, explicit: str | None) -> str:
+def expected_as_of(root: Path, explicit: str | None, *, now: datetime | None = None) -> str:
+    """Use the completed TWSE session, independent of the last valid Screen.
+
+    A failed Screen refresh must not make the pressure-input adapter request
+    yesterday's VIX and margin data indefinitely.
+    """
     if explicit:
         return explicit
-    screen = root / "data/market/taiwan_stock_intelligence/screen_latest.json"
-    if screen.exists():
-        value = json.loads(screen.read_text(encoding="utf-8")).get("expected_as_of")
-        if value:
-            return str(value)
-    return datetime.now(ZoneInfo("Asia/Taipei")).date().isoformat()
+    now = now or datetime.now(ZoneInfo("Asia/Taipei"))
+    day = now.date()
+    if now.hour < 14:
+        day -= timedelta(days=1)
+    return latest_twse_session(day).isoformat()
 
 
 def main() -> int:
