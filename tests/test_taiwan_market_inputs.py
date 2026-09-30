@@ -8,6 +8,16 @@ from onecool_os.market.taiwan_market_inputs import (
 from datetime import datetime
 from zoneinfo import ZoneInfo
 from onecool_os.market.taiwan_stock_intelligence import market_pressure_input_readiness
+from scripts.update_taiwan_market_pressure_inputs import expected_as_of
+
+
+def test_pressure_inputs_date_does_not_follow_stale_screen(tmp_path):
+    screen = tmp_path / "data/market/taiwan_stock_intelligence/screen_latest.json"
+    screen.parent.mkdir(parents=True)
+    screen.write_text('{"expected_as_of": "2026-09-29"}', encoding="utf-8")
+    now = datetime(2026, 9, 30, 18, 0, tzinfo=ZoneInfo("Asia/Taipei"))
+    assert expected_as_of(tmp_path, None, now=now) == "2026-09-30"
+    assert expected_as_of(tmp_path, "2026-09-29", now=now) == "2026-09-29"
 
 
 def test_twse_margin_parses_current_date_and_both_balance_sides():
