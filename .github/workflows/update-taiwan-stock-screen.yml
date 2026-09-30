@@ -41,12 +41,13 @@ on:
       - "scripts/update_taiwan_market_pressure_inputs.py"
       - "tests/test_taiwan_market_inputs.py"
   schedule:
-    # 15:17 primary plus 16:17 and 17:17 retries. Successful afternoon
+    # 15:17 primary plus 16:17, 17:17 and 18:32 retries. Successful afternoon
     # Dashboard runs add event-driven opportunities; pre-report health owns
     # recovery when a current-session cache remains blocked.
     - cron: "17 7 * * 1-5"
     - cron: "17 8 * * 1-5"
     - cron: "17 9 * * 1-5"
+    - cron: "32 10 * * 1-5"
 
 permissions:
   contents: write
@@ -122,14 +123,14 @@ jobs:
           (github.event_name == 'workflow_run' ||
            github.event_name == 'push' ||
            (github.event_name == 'workflow_dispatch' && inputs.run_mode == 'recovery') ||
-           (github.event_name == 'schedule' && github.event.schedule != '17 9 * * 1-5'))
+           (github.event_name == 'schedule' && github.event.schedule != '32 10 * * 1-5'))
         run: |
-          echo "::warning::Taiwan recovery attempt incomplete; retained and published the last valid dated snapshot. The final 17:17 Taipei retry remains authoritative."
+          echo "::warning::Taiwan recovery attempt incomplete; retained and published the last valid dated snapshot. The final 18:32 Taipei retry remains authoritative."
       - name: Report unsuccessful formal refresh after preserving the last valid snapshot
         if: >-
           steps.readiness.outcome == 'failure' &&
           ((github.event_name == 'workflow_dispatch' && inputs.run_mode != 'recovery') ||
-           (github.event_name == 'schedule' && github.event.schedule == '17 9 * * 1-5'))
+           (github.event_name == 'schedule' && github.event.schedule == '32 10 * * 1-5'))
         run: |
           echo "::error::Formal Taiwan refresh incomplete; retained source dates, not a current-day success."
           exit 1
