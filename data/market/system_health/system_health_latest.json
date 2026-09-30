@@ -1,11 +1,11 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-09-29T16:09:10.679433+00:00",
+  "generated_at": "2026-09-30T03:29:52.761291+00:00",
   "taipei_date": "2026-09-30",
-  "status": "PARTIAL",
+  "status": "BLOCKED",
   "scope_status": {
-    "morning": "READY",
+    "morning": "BLOCKED",
     "asia": "READY",
     "weekly": "READY"
   },
@@ -59,11 +59,11 @@
     "policy": "Data readiness does not prove report delivery. Never infer email success from a generated draft."
   },
   "end_to_end_status": "NOT_FULLY_VERIFIED",
-  "action_readiness": "LIMITED",
+  "action_readiness": "UNSAFE_FOR_AFFECTED_REPORTS",
   "counts": {
-    "ready": 17,
+    "ready": 16,
     "partial": 1,
-    "blocked": 0
+    "blocked": 1
   },
   "modules": [
     {
@@ -116,7 +116,7 @@
       "critical": true,
       "status": "READY",
       "reason": "all symbols current",
-      "observed_as_of": "2026-09-28",
+      "observed_as_of": "2026-09-29",
       "recovery_workflow": "update-etf-cta.yml",
       "retryable": true,
       "impacted_reports": [
@@ -129,11 +129,11 @@
       "label": "Fund NAV CTA",
       "scope": "morning",
       "critical": true,
-      "status": "READY",
-      "reason": "current",
-      "observed_as_of": "2026-09-28",
+      "status": "BLOCKED",
+      "reason": "generation timestamp missing, invalid or older than scheduled date 2026-09-30",
+      "observed_as_of": "2026-09-29",
       "recovery_workflow": "update-fund-nav-cta.yml",
-      "retryable": false,
+      "retryable": true,
       "impacted_reports": [
         "基金日報",
         "基金週報"
@@ -325,6 +325,21 @@
   ],
   "issues": [
     {
+      "module_id": "fund_nav_cta",
+      "label": "Fund NAV CTA",
+      "scope": "morning",
+      "critical": true,
+      "status": "BLOCKED",
+      "reason": "generation timestamp missing, invalid or older than scheduled date 2026-09-30",
+      "observed_as_of": "2026-09-29",
+      "recovery_workflow": "update-fund-nav-cta.yml",
+      "retryable": true,
+      "impacted_reports": [
+        "基金日報",
+        "基金週報"
+      ]
+    },
+    {
       "module_id": "ai_revolution",
       "label": "AI Revolution",
       "scope": "weekly",
@@ -339,7 +354,9 @@
       ]
     }
   ],
-  "recovery_workflows": [],
-  "issue_fingerprint": "7aee8da8003de9665b409508f4aca154b17088fcf5eee4a935c065706b561a3a",
+  "recovery_workflows": [
+    "update-fund-nav-cta.yml"
+  ],
+  "issue_fingerprint": "c70e690a92a0be2c8fe817aaf4771ea8d917af6ab44866fa793b9343e8c32cf9",
   "policy": "Health monitoring only; never changes CTA, rankings, or investment decisions."
 }
