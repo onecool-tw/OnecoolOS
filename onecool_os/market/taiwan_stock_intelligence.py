@@ -9,6 +9,7 @@ from pathlib import Path
 from typing import Any, Mapping
 
 from onecool_os.market.lynch_research import build_lynch_research
+from onecool_os.market.session_cutoff import latest_completed_market_session
 from onecool_os.market.taiwan_calendar import latest_twse_session, twse_session_lag
 
 MASTER_PROMPT_VERSION = "v1.6 Taiwan Lynch Research Layer"
@@ -181,11 +182,14 @@ def build_taiwan_stock_daily_context(
 ) -> dict[str, Any]:
     """Expose the latest successful screen with explicit CTA/action gates."""
 
-    from zoneinfo import ZoneInfo
     timestamp = generated_at or datetime.now(UTC)
-    local_now = timestamp.astimezone(ZoneInfo("Asia/Taipei"))
-    current_date = today or local_now.date()
-    expected_session = latest_twse_session(current_date)
+    # Scheduled jobs can be delayed across local midnight. Readiness must follow
+    # the latest completed cash session, not the new calendar date before close.
+    expected_session = (
+        latest_twse_session(today)
+        if today is not None and generated_at is None
+        else latest_completed_market_session("TW", timestamp)
+    )
     screen = _read(root, SCREEN_PATH)
     stock_cta = _read(root, STOCK_CTA_PATH) or {}
     previous_context = _read(root, CONTEXT_PATH) or {}
@@ -208,11 +212,10 @@ def build_taiwan_stock_daily_context(
     else:
         screen_as_of = screen.get("expected_as_of")
         try:
-            lag = _business_day_lag(date.fromisoformat(screen_as_of), current_date)
+            lag = _business_day_lag(date.fromisoformat(screen_as_of), expected_session)
         except (TypeError, ValueError):
             lag = None
-        allowed_lag = 1 if local_now.hour < 14 else 0
-        display_status = "CURRENT" if lag is not None and 0 <= lag <= allowed_lag else "STALE"
+        display_status = "CURRENT" if lag == 0 else "STALE"
         top5 = [dict(item) for item in screen.get("top5", [])]
 
     if display_status != "CURRENT":
