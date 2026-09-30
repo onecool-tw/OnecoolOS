@@ -1,7 +1,7 @@
 {
   "report_id": "taiwan",
   "report_date": "2026-09-30",
-  "generated_at": "2026-09-30T18:14:33.000+08:00",
+  "generated_at": "2026-09-30T18:37:56.541+08:00",
   "delivery_status": "UNKNOWN",
   "writeback_status": "VERIFIED",
   "delivery_evidence_sha256": null,
@@ -18,29 +18,26 @@
     },
     "artifact": {
       "status": "DELIVERED",
-      "observed_at": "2026-09-30T18:14:33.000+08:00",
-      "evidence_sha256": "d76bfe8e18d67437055b98b1ff23e19d9dd75bca423c74c4b0a0a64ff3c88de2"
+      "observed_at": "2026-09-30T18:37:56.541+08:00",
+      "evidence_sha256": "b5c911cb34e615444449451bde6700bb50f80bd4ce0bb987b2bcd4eeaf3dc199"
     }
   },
   "run_status": "PARTIAL",
   "actual_data_as_of": {
     "market_cta": "2026-09-30",
-    "screen": "2026-09-29",
-    "market_pressure": "2026-09-29"
+    "screen": "2026-09-30",
+    "market_pressure": "2026-09-30"
   },
   "completed_steps": [
     "dashboard_cta_read",
     "candidate_cta_read",
-    "stale_screen_validation",
-    "fail_closed_report",
+    "screen_readiness",
+    "official_pressure_input_validation",
+    "same_day_pressure_writeback",
+    "pressure_ssot_readback",
+    "final_snapshot_verification",
     "artifact_readback"
   ],
-  "failed_steps": [
-    "current_screen_readiness",
-    "current_market_pressure_input_readiness",
-    "same_day_pressure_writeback",
-    "final_snapshot_verification",
-    "email_final_gate"
-  ],
-  "next_step": "Resume from current Screen and official pressure inputs when same-session data becomes READY; then verify SSOT, final Snapshot and artifact before deduplicated email."
+  "failed_steps": [],
+  "next_step": "Verify final Snapshot hash and recipient-specific duplicate evidence, then send email."
 }
