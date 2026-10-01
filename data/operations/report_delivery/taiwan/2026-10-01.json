@@ -1,8 +1,8 @@
 {
   "report_id": "taiwan",
   "report_date": "2026-10-01",
-  "generated_at": "2026-10-01T10:57:42.441Z",
-  "delivery_status": "PREPARED",
+  "generated_at": "2026-10-01T11:01:46.297Z",
+  "delivery_status": "UNKNOWN",
   "writeback_status": "VERIFIED",
   "delivery_evidence_sha256": null,
   "channels": {
@@ -12,14 +12,14 @@
       "evidence_sha256": null
     },
     "email": {
-      "status": "UNKNOWN",
-      "observed_at": null,
-      "evidence_sha256": null
+      "status": "DELIVERED",
+      "observed_at": "2026-10-01T11:01:46.297Z",
+      "evidence_sha256": "900244edfae29da204f986aa488d10d8ef32dc987902ffae459853645abff73f"
     },
     "artifact": {
       "status": "DELIVERED",
-      "observed_at": "2026-10-01T10:57:42.441Z",
-      "evidence_sha256": "d97eefae172cb199b1b0fd1b9a70ee2764c9ac5eb2b1c48f0177a94743b6c226"
+      "observed_at": "2026-10-01T11:01:46.297Z",
+      "evidence_sha256": "d99b6c66d4076d9d53332c71d580819d5a8cd41add90f0c83c4c2da6a53e361b"
     }
   },
   "run_status": "PARTIAL",
@@ -31,9 +31,12 @@
   "completed_steps": [
     "market_pressure_persisted_and_read_back",
     "same_day_screen_and_cta_ready",
-    "final_snapshot_ready",
-    "final_report_saved_and_read_back"
+    "asia_health_ready",
+    "final_snapshot_verified",
+    "final_report_saved_and_read_back",
+    "three_recipient_email_sent_and_read_back"
   ],
   "failed_steps": [],
-  "next_step": "Refresh post-Screen Asia health, verify the final Snapshot and report, then check duplicate sends before email."
+  "next_step": "Conversation delivery cannot be observed by this executor; retain UNKNOWN until independent observation.",
+  "email_snapshot_sha256": "1b2965e4de09d134b60f01b672f61812173d13ca9ddde1d09b35ab673c9de0a0"
 }
