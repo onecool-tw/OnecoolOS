@@ -1,0 +1,43 @@
+{
+  "report_id": "fund",
+  "report_date": "2026-10-02",
+  "generated_at": "2026-10-02T11:33:03.000+08:00",
+  "delivery_status": "UNKNOWN",
+  "writeback_status": "VERIFIED",
+  "delivery_evidence_sha256": null,
+  "channels": {
+    "conversation": {
+      "status": "UNKNOWN",
+      "observed_at": null,
+      "evidence_sha256": null
+    },
+    "artifact": {
+      "status": "DELIVERED",
+      "observed_at": "2026-10-02T11:33:03.000+08:00",
+      "evidence_sha256": "858cf7956d2e1a1726d65d2f84465544dad091237b942021be870be619435b8d"
+    }
+  },
+  "heartbeat": {
+    "status": "PARTIAL",
+    "data_as_of": {
+      "fund_nav": "2026-09-29–2026-09-30",
+      "fund_completed_week": "2026-09-25",
+      "bitcoin": "2026-10-01"
+    },
+    "completed_steps": [
+      "main_committed_snapshot_read",
+      "prior_report_continuity_check",
+      "eight_period_nav_quality_check",
+      "cta_action_validation",
+      "bitcoin_completed_week_validation",
+      "artifact_writeback_readback"
+    ],
+    "failed_steps": [
+      "conversation_delivery_unverified"
+    ],
+    "next_step": "send_full_report_in_bound_conversation",
+    "data_quality_notes": [
+      "REGRESSION_BASELINE_PENDING"
+    ]
+  }
+}
