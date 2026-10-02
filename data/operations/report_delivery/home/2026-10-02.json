@@ -1,0 +1,34 @@
+{
+  "report_id": "home",
+  "report_date": "2026-10-02",
+  "generated_at": "2026-10-02T08:16:09+08:00",
+  "delivery_status": "UNKNOWN",
+  "writeback_status": "VERIFIED",
+  "delivery_evidence_sha256": null,
+  "channels": {
+    "conversation": {
+      "status": "UNKNOWN",
+      "observed_at": null,
+      "evidence_sha256": null
+    },
+    "artifact": {
+      "status": "DELIVERED",
+      "observed_at": "2026-10-02T08:15:43+08:00",
+      "evidence_sha256": "353cd79e46cb83a19761a8579eab919cb61f025e1ae2baf6799e6223daf66789"
+    }
+  },
+  "run_heartbeat": {
+    "status": "SUCCESS",
+    "data_date": "2026-10-01",
+    "completed_steps": [
+      "source_validation",
+      "cross_period_reconciliation",
+      "artifact_writeback_readback"
+    ],
+    "failed_steps": [],
+    "next_step": "next_scheduled_refresh"
+  },
+  "validation_flags": [
+    "REGRESSION_BASELINE_PENDING"
+  ]
+}
