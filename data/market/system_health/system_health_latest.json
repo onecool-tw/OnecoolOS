@@ -1,12 +1,12 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-10-02T08:05:13.157284+00:00",
+  "generated_at": "2026-10-02T13:53:27.895938+00:00",
   "taipei_date": "2026-10-02",
-  "status": "BLOCKED",
+  "status": "PARTIAL",
   "scope_status": {
     "morning": "PARTIAL",
-    "asia": "BLOCKED",
+    "asia": "READY",
     "weekly": "READY"
   },
   "report_delivery": {
@@ -14,18 +14,13 @@
     "reports": [
       {
         "report_id": "taiwan",
-        "expected_report_date": "2026-10-01",
-        "status": "PARTIAL",
-        "channels": {
-          "conversation": "UNKNOWN",
-          "email": "DELIVERED",
-          "artifact": "DELIVERED"
-        },
-        "reason": "Per-channel evidence checked; missing channels remain unverified"
+        "expected_report_date": "2026-10-02",
+        "status": "UNKNOWN",
+        "reason": "No verifiable receipt for the latest completed reporting window"
       },
       {
         "report_id": "us",
-        "expected_report_date": "2026-10-01",
+        "expected_report_date": "2026-10-02",
         "status": "PARTIAL",
         "channels": {
           "conversation": "UNKNOWN",
@@ -63,11 +58,11 @@
     "policy": "Data readiness does not prove report delivery. Never infer email success from a generated draft."
   },
   "end_to_end_status": "NOT_FULLY_VERIFIED",
-  "action_readiness": "UNSAFE_FOR_AFFECTED_REPORTS",
+  "action_readiness": "LIMITED",
   "counts": {
-    "ready": 14,
+    "ready": 15,
     "partial": 3,
-    "blocked": 1
+    "blocked": 0
   },
   "modules": [
     {
@@ -150,7 +145,7 @@
       "critical": true,
       "status": "READY",
       "reason": "current",
-      "observed_as_of": "2026-10-01",
+      "observed_as_of": "2026-10-02",
       "recovery_workflow": "update-taiwan-cta.yml",
       "retryable": true,
       "impacted_reports": [
@@ -164,7 +159,7 @@
       "critical": true,
       "status": "READY",
       "reason": "current",
-      "observed_as_of": "2026-10-01",
+      "observed_as_of": "2026-10-02",
       "recovery_workflow": "update-taiwan-stock-screen.yml",
       "retryable": true,
       "impacted_reports": [
@@ -178,7 +173,7 @@
       "critical": false,
       "status": "PARTIAL",
       "reason": "current 199, stale 0, unknown 1; insufficient history: 7711 永擎: weekly observations 45/50; waiting for actual market observations, not a provider retry.",
-      "observed_as_of": "2026-10-01",
+      "observed_as_of": "2026-10-02",
       "recovery_workflow": "update-taiwan-stock-screen.yml",
       "retryable": false,
       "impacted_reports": [
@@ -190,9 +185,9 @@
       "label": "Taiwan Daily Context",
       "scope": "asia",
       "critical": true,
-      "status": "BLOCKED",
-      "reason": "display_status is not ready",
-      "observed_as_of": "2026-10-01",
+      "status": "READY",
+      "reason": "current",
+      "observed_as_of": "2026-10-02",
       "recovery_workflow": "update-taiwan-stock-screen.yml",
       "retryable": true,
       "impacted_reports": [
@@ -349,23 +344,9 @@
       "critical": false,
       "status": "PARTIAL",
       "reason": "current 199, stale 0, unknown 1; insufficient history: 7711 永擎: weekly observations 45/50; waiting for actual market observations, not a provider retry.",
-      "observed_as_of": "2026-10-01",
+      "observed_as_of": "2026-10-02",
       "recovery_workflow": "update-taiwan-stock-screen.yml",
       "retryable": false,
-      "impacted_reports": [
-        "台股日報"
-      ]
-    },
-    {
-      "module_id": "taiwan_daily_context",
-      "label": "Taiwan Daily Context",
-      "scope": "asia",
-      "critical": true,
-      "status": "BLOCKED",
-      "reason": "display_status is not ready",
-      "observed_as_of": "2026-10-01",
-      "recovery_workflow": "update-taiwan-stock-screen.yml",
-      "retryable": true,
       "impacted_reports": [
         "台股日報"
       ]
@@ -385,9 +366,7 @@
       ]
     }
   ],
-  "recovery_workflows": [
-    "update-taiwan-stock-screen.yml"
-  ],
-  "issue_fingerprint": "2d08a1ecf230e5c7143853e61089ff0ec9c37d638fb035642b001b777fb49582",
+  "recovery_workflows": [],
+  "issue_fingerprint": "f481f4f833324bae3b0f4b3b6b00b50aa4050b31dcd7f93b0091c903383cb234",
   "policy": "Health monitoring only; never changes CTA, rankings, or investment decisions."
 }
