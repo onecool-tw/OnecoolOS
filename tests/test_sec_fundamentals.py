@@ -56,3 +56,40 @@ def test_verified_rule_exclusions_complete_assessment_without_inflating_validate
     scan={'validated_count':1,'universe_size':2,'exclusions':[{'symbol':'BA','technical_confidence':100,'reason':'fundamental validation unavailable'}]}
     annotate_reviewed_exclusions(scan,{'results':[row]},'2026-10-01')
     assert scan['assessment_status']=='PARTIAL'
+
+
+def test_static_cik_fallback_skips_unavailable_registry_and_validates_identity():
+    from onecool_os.market.sec_fundamentals import fill_missing_fundamentals
+    class Client:
+        def _fetch(self, url):
+            raise AssertionError("static mapping should avoid the live registry")
+        def fetch_companyfacts(self, cik):
+            assert cik == "0000000001"
+            return fixture()
+    # The caller's price series must pass technical validation before SEC is used.
+    # Isolate the SEC path with a lightweight patch to avoid fabricating 252 bars.
+    from unittest.mock import patch
+    with patch("onecool_os.market.us_breakout_scan.technical_confidence", return_value=(100, [])):
+        fundamentals, cache, diagnostics = {}, {}, {}
+        details = fill_missing_fundamentals(Client(), {"BA": [object()]}, fundamentals,
+                                             "2026-09-11", cache, diagnostics,
+                                             registry_mapping={"BA": "0000000001"})
+    assert details["BA"]["status"] == "SEC_VERIFIED"
+    assert fundamentals["BA"].quarterly_eps_growth == 0.5
+
+
+def test_sec_fetch_failure_remains_unscored_with_named_provider_error():
+    from onecool_os.market.sec_fundamentals import fill_missing_fundamentals
+    from onecool_os.market.ai_revolution import AIRevolutionError
+    from unittest.mock import patch
+    class Client:
+        def fetch_companyfacts(self, cik):
+            raise AIRevolutionError("HTTP 403: Forbidden")
+    with patch("onecool_os.market.us_breakout_scan.technical_confidence", return_value=(100, [])):
+        fundamentals, cache, diagnostics = {}, {}, {}
+        details = fill_missing_fundamentals(Client(), {"BA": [object()]}, fundamentals,
+                                             "2026-09-11", cache, diagnostics,
+                                             registry_mapping={"BA": "0000000001"})
+    assert details["BA"]["status"] == "SEC_FETCH_FAILED"
+    assert details["BA"]["provider_error"] == "HTTP 403: Forbidden"
+    assert "BA" not in fundamentals
