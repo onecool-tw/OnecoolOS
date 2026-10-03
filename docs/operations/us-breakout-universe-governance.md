@@ -83,4 +83,4 @@ Report true data-validation failures separately with exact symbols and causes.
 |---|---:|---:|---|
 | 2026Q3-v1 | 2026-08-21 | 70 | Initial versioned liquid US leadership universe |
 
-Next scheduled review: 2026-09-30 after the completed US session.
+Q3 2026 review completed on 2026-10-03 using the 2026-09-30 US close and the 2026-10-02 validation session: 70 assessed, 64 scoring-eligible, six rule-excluded, no membership change. See [Q3 audit](../../data/market/us_stock_intelligence/universe_review_2026Q3.json). Next scheduled review: 2026-12-31 after the completed US session.
