@@ -53,9 +53,12 @@ def test_verified_rule_exclusions_complete_assessment_without_inflating_validate
     assert scan['assessment_status']=='COMPLETE'
     assert scan['validated_count']==1
     assert scan['rule_excluded_count']==1
+    assert scan['coverage_status']=='COMPLETE'
+    assert scan['validated_count']==1
     scan={'validated_count':1,'universe_size':2,'exclusions':[{'symbol':'BA','technical_confidence':100,'reason':'fundamental validation unavailable'}]}
     annotate_reviewed_exclusions(scan,{'results':[row]},'2026-10-01')
     assert scan['assessment_status']=='PARTIAL'
+    assert scan['coverage_status']=='PARTIAL'
 
 
 def test_static_cik_fallback_skips_unavailable_registry_and_validates_identity():
