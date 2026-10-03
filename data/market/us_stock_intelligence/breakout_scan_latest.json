@@ -140,19 +140,19 @@
         },
         "valuation": {
           "status": "UNKNOWN",
-          "as_of": "2026-09-18",
-          "rationale": "同截止日調整後收盤價已取得為559.82美元；官方Q2僅提供季度非GAAP EPS 1.66美元與Q3營收／毛利率展望，未提供全年正常化EPS。不能以單季EPS年化或外推Q3營收冒充可重現的forward EPS。",
+          "as_of": "2026-10-02",
+          "rationale": "採同資料日正式調整後收盤；目前缺可重現之全年正常化獲利分母及具來源的合理倍數區間，不能判定估值通過或失敗。",
           "sources": [
-            "https://ir.amd.com/news-events/press-releases/detail/1295/amd-reports-second-quarter-2026-financial-results",
-            "https://finance.yahoo.com/quote/AMD/history/"
+            "https://finance.yahoo.com/quote/AMD/history/",
+            "https://ir.amd.com/news-events/press-releases/detail/1295/amd-reports-second-quarter-2026-financial-results"
           ],
-          "data_gap": "OFFICIAL_FULL_YEAR_NORMALIZED_EPS_AND_SOURCE_BACKED_FAIR_RANGE_UNAVAILABLE",
+          "data_gap": "SOURCED_NORMALIZED_DENOMINATOR_AND_DISCIPLINED_FAIR_RANGE_NOT_YET_VERIFIED",
           "validation_errors": [],
           "method": "FORWARD_NORMALIZED_PE",
-          "price_as_of": "2026-09-18",
-          "valid_through": "2026-09-29",
+          "price_as_of": "2026-10-02",
+          "valid_through": null,
           "inputs": {
-            "price": 559.8200073242188,
+            "price": 633.9099731445312,
             "denominator": null,
             "multiple": null,
             "fair_range": null
@@ -167,7 +167,7 @@
       "quality_data_gaps": {},
       "valuation_posture": "UNRESOLVED_WITH_SPECIFIC_GAP",
       "cyclical_review_required": true,
-      "evidence_as_of": "2026-09-18",
+      "evidence_as_of": "2026-10-02",
       "manual_confirmation_required": [
         "circle_of_competence"
       ],
@@ -413,19 +413,19 @@
         },
         "valuation": {
           "status": "UNKNOWN",
-          "as_of": "2026-09-17",
-          "rationale": "撤回先前估值判定：先前價格由即時報價與漲跌額倒推，不能確認為同截止日調整後正式收盤；合理倍數区間亦缺可追溯比較依據。",
+          "as_of": "2026-10-02",
+          "rationale": "採同資料日正式調整後收盤；目前缺可重現之全年正常化獲利分母及具來源的合理倍數區間，不能判定估值通過或失敗。",
           "sources": [
-            "https://investors.delltechnologies.com/news-releases/news-release-details/dell-technologies-delivers-second-quarter-fiscal-2027-financial",
-            "https://finance.yahoo.com/quote/DELL/"
+            "https://finance.yahoo.com/quote/DELL/history/",
+            "https://investors.delltechnologies.com/news-releases/news-release-details/dell-technologies-delivers-second-quarter-fiscal-2027-financial"
           ],
-          "data_gap": "未取得2026-09-17調整後正式收盤的直接證據；須由系統補抓歷史價格，並完成盈餘口徑與估值區間驗證後重算。",
+          "data_gap": "SOURCED_NORMALIZED_DENOMINATOR_AND_DISCIPLINED_FAIR_RANGE_NOT_YET_VERIFIED",
           "validation_errors": [],
-          "method": "FORWARD_NON_GAAP_PE",
-          "price_as_of": null,
+          "method": "FORWARD_NORMALIZED_PE_AND_FCF_CROSSCHECK",
+          "price_as_of": "2026-10-02",
           "valid_through": null,
           "inputs": {
-            "price": null,
+            "price": 562.52001953125,
             "denominator": null,
             "multiple": null,
             "fair_range": null
@@ -440,7 +440,7 @@
       "quality_data_gaps": {},
       "valuation_posture": "UNRESOLVED_WITH_SPECIFIC_GAP",
       "cyclical_review_required": false,
-      "evidence_as_of": "2026-09-17",
+      "evidence_as_of": "2026-10-02",
       "manual_confirmation_required": [
         "circle_of_competence"
       ],
@@ -605,15 +605,18 @@
       "status": "WAIT",
       "trigger": "突破52週高點且成交量至少為50日均量1.5倍",
       "formal_breakout": false,
-      "super_growth_bucket": "C",
-      "super_growth_reason": "QUALITY_DATA_GAP_NAMED",
+      "super_growth_bucket": "B",
+      "super_growth_reason": "VALUATION_INPUTS_UNAVAILABLE_OR_STALE",
       "quality_gate_status": {
         "competitive_advantage": {
-          "status": "UNKNOWN",
-          "as_of": null,
-          "rationale": null,
-          "sources": [],
-          "data_gap": "MISSING_SOURCE_BACKED_COMPETITIVE_ADVANTAGE_ASSESSMENT",
+          "status": "PASS",
+          "as_of": "2026-07-16",
+          "rationale": "2奈米製程已占Q2晶圓營收3%，先進製程量產與晶圓代工規模形成可驗證的技術及執行優勢；仍須追蹤良率與競爭。",
+          "sources": [
+            "https://investor.tsmc.com/english/encrypt/files/encrypt_file/reports/2026-07/a80d7933be643644081584087731f73b22ea5a2c/2Q26%20EarningsRelease.pdf",
+            "https://www.sec.gov/Archives/edgar/data/1046179/000162828026025362/tsm-20251231.htm"
+          ],
+          "data_gap": null,
           "validation_errors": [],
           "method": null,
           "price_as_of": null,
@@ -621,11 +624,14 @@
           "inputs": {}
         },
         "structural_growth_runway": {
-          "status": "UNKNOWN",
-          "as_of": null,
-          "rationale": null,
-          "sources": [],
-          "data_gap": "MISSING_SOURCE_BACKED_STRUCTURAL_GROWTH_RUNWAY_ASSESSMENT",
+          "status": "PASS",
+          "as_of": "2026-07-16",
+          "rationale": "Q2美元營收402億美元、年增33.7%，公司Q3營收指引446至458億美元；成長仍依賴AI與客戶資本支出週期。",
+          "sources": [
+            "https://investor.tsmc.com/english/encrypt/files/encrypt_file/reports/2026-07/a80d7933be643644081584087731f73b22ea5a2c/2Q26%20EarningsRelease.pdf",
+            "https://www.sec.gov/Archives/edgar/data/1046179/000162828026025362/tsm-20251231.htm"
+          ],
+          "data_gap": null,
           "validation_errors": [],
           "method": null,
           "price_as_of": null,
@@ -633,11 +639,14 @@
           "inputs": {}
         },
         "financial_quality": {
-          "status": "UNKNOWN",
-          "as_of": null,
-          "rationale": null,
-          "sources": [],
-          "data_gap": "MISSING_SOURCE_BACKED_FINANCIAL_QUALITY_ASSESSMENT",
+          "status": "PASS",
+          "as_of": "2026-07-16",
+          "rationale": "Q2淨利新台幣7,065.6億元、毛利率67.7%、營業利益率60.3%；資本密集擴產必須與現金流及折舊壓力一併核對。",
+          "sources": [
+            "https://investor.tsmc.com/english/encrypt/files/encrypt_file/reports/2026-07/a80d7933be643644081584087731f73b22ea5a2c/2Q26%20EarningsRelease.pdf",
+            "https://www.sec.gov/Archives/edgar/data/1046179/000162828026025362/tsm-20251231.htm"
+          ],
+          "data_gap": null,
           "validation_errors": [],
           "method": null,
           "price_as_of": null,
@@ -645,11 +654,14 @@
           "inputs": {}
         },
         "business_risk_and_governance": {
-          "status": "UNKNOWN",
-          "as_of": null,
-          "rationale": null,
-          "sources": [],
-          "data_gap": "MISSING_SOURCE_BACKED_BUSINESS_RISK_AND_GOVERNANCE_ASSESSMENT",
+          "status": "PASS",
+          "as_of": "2026-07-16",
+          "rationale": "2025年20-F披露台灣地緣、電力／水資源、海外擴產及客戶集中等風險，並說明董事會委員會的風險監督；風險未解除。",
+          "sources": [
+            "https://investor.tsmc.com/english/encrypt/files/encrypt_file/reports/2026-07/a80d7933be643644081584087731f73b22ea5a2c/2Q26%20EarningsRelease.pdf",
+            "https://www.sec.gov/Archives/edgar/data/1046179/000162828026025362/tsm-20251231.htm"
+          ],
+          "data_gap": null,
           "validation_errors": [],
           "method": null,
           "price_as_of": null,
@@ -658,10 +670,12 @@
         },
         "circle_of_competence": {
           "status": "UNKNOWN",
-          "as_of": null,
-          "rationale": null,
-          "sources": [],
-          "data_gap": "MISSING_SOURCE_BACKED_CIRCLE_OF_COMPETENCE_ASSESSMENT",
+          "as_of": "2026-10-02",
+          "rationale": "商業模式與主要風險已整理；正式新建倉前由使用者確認能力圈。",
+          "sources": [
+            "https://investor.tsmc.com/english/encrypt/files/encrypt_file/reports/2026-07/a80d7933be643644081584087731f73b22ea5a2c/2Q26%20EarningsRelease.pdf"
+          ],
+          "data_gap": "PRE_TRADE_USER_CONFIRMATION_ONLY",
           "validation_errors": [],
           "method": null,
           "price_as_of": null,
@@ -670,42 +684,42 @@
         },
         "valuation": {
           "status": "UNKNOWN",
-          "as_of": null,
-          "rationale": null,
-          "sources": [],
-          "data_gap": "MISSING_SOURCE_BACKED_VALUATION_ASSESSMENT",
+          "as_of": "2026-10-02",
+          "rationale": "採同資料日正式調整後收盤；目前缺可重現之全年正常化獲利分母及具來源的合理倍數區間，不能判定估值通過或失敗。",
+          "sources": [
+            "https://finance.yahoo.com/quote/TSM/history/",
+            "https://investor.tsmc.com/english/encrypt/files/encrypt_file/reports/2026-07/a80d7933be643644081584087731f73b22ea5a2c/2Q26%20EarningsRelease.pdf",
+            "https://www.sec.gov/Archives/edgar/data/1046179/000162828026025362/tsm-20251231.htm"
+          ],
+          "data_gap": "SOURCED_NORMALIZED_DENOMINATOR_AND_DISCIPLINED_FAIR_RANGE_NOT_YET_VERIFIED",
           "validation_errors": [],
-          "method": null,
-          "price_as_of": null,
+          "method": "CYCLE_ADJUSTED_PE_AND_CAPEX_FCF_CROSSCHECK",
+          "price_as_of": "2026-10-02",
           "valid_through": null,
-          "inputs": {}
+          "inputs": {
+            "price": 472.7799987792969,
+            "denominator": null,
+            "multiple": null,
+            "fair_range": null
+          }
         }
       },
-      "evidence_coverage": "NONE",
+      "evidence_coverage": "PARTIAL",
       "missing_evidence": [
-        "competitive_advantage",
-        "structural_growth_runway",
-        "financial_quality",
-        "business_risk_and_governance",
         "circle_of_competence",
         "valuation"
       ],
-      "quality_data_gaps": {
-        "competitive_advantage": "MISSING_SOURCE_BACKED_COMPETITIVE_ADVANTAGE_ASSESSMENT",
-        "structural_growth_runway": "MISSING_SOURCE_BACKED_STRUCTURAL_GROWTH_RUNWAY_ASSESSMENT",
-        "financial_quality": "MISSING_SOURCE_BACKED_FINANCIAL_QUALITY_ASSESSMENT",
-        "business_risk_and_governance": "MISSING_SOURCE_BACKED_BUSINESS_RISK_AND_GOVERNANCE_ASSESSMENT"
-      },
+      "quality_data_gaps": {},
       "valuation_posture": "UNRESOLVED_WITH_SPECIFIC_GAP",
-      "cyclical_review_required": false,
-      "evidence_as_of": null,
+      "cyclical_review_required": true,
+      "evidence_as_of": "2026-10-02",
       "manual_confirmation_required": [
         "circle_of_competence"
       ],
       "circle_of_competence_policy": "PRE_TRADE_USER_CONFIRMATION_NOT_DAILY_RESEARCH_BLOCKER",
       "decision_authority": "RESEARCH_QUALITY_ONLY",
       "quality_gate_application": "FORMAL_NEW_CANDIDATE_RESEARCH_GATE",
-      "action_eligibility": "RESEARCH_ONLY_QUALITY_EVIDENCE_INCOMPLETE",
+      "action_eligibility": "RESEARCH_ONLY_VALUATION_DATA_GAP",
       "valuation_input_collection": {
         "as_of": "2026-10-02",
         "status": "PARTIAL",
@@ -739,22 +753,78 @@
       "lynch_research": {
         "version": "onecool_lynch_research_v1",
         "company_type": {
-          "status": "INSUFFICIENT_EVIDENCE",
-          "primary": "UNCLASSIFIED",
-          "candidates": [],
-          "evidence": [],
+          "status": "PROVISIONAL",
+          "primary": "MULTIPLE_CANDIDATES",
+          "candidates": [
+            "FAST_GROWER",
+            "CYCLICAL"
+          ],
+          "evidence": [
+            {
+              "field": "industry",
+              "value": "verified cyclical flag",
+              "interpretation": "CYCLE_REVIEW_REQUIRED"
+            },
+            {
+              "field": "verified_quality_gates",
+              "value": [
+                "structural_growth_runway",
+                "financial_quality"
+              ],
+              "interpretation": "FAST_GROWTH_CANDIDATE_NOT_DURABILITY_PROOF"
+            }
+          ],
           "unresolved_categories": [
             "SLOW_GROWER",
             "STALWART",
-            "FAST_GROWER",
-            "CYCLICAL",
             "TURNAROUND",
             "ASSET_PLAY"
           ]
         },
         "investment_story": {
-          "status": "INSUFFICIENT_EVIDENCE",
-          "evidence": [],
+          "status": "EVIDENCE_ONLY",
+          "evidence": [
+            {
+              "field": "competitive_advantage",
+              "value": "PASS",
+              "as_of": "2026-07-16",
+              "rationale": "2奈米製程已占Q2晶圓營收3%，先進製程量產與晶圓代工規模形成可驗證的技術及執行優勢；仍須追蹤良率與競爭。",
+              "sources": [
+                "https://investor.tsmc.com/english/encrypt/files/encrypt_file/reports/2026-07/a80d7933be643644081584087731f73b22ea5a2c/2Q26%20EarningsRelease.pdf",
+                "https://www.sec.gov/Archives/edgar/data/1046179/000162828026025362/tsm-20251231.htm"
+              ]
+            },
+            {
+              "field": "structural_growth_runway",
+              "value": "PASS",
+              "as_of": "2026-07-16",
+              "rationale": "Q2美元營收402億美元、年增33.7%，公司Q3營收指引446至458億美元；成長仍依賴AI與客戶資本支出週期。",
+              "sources": [
+                "https://investor.tsmc.com/english/encrypt/files/encrypt_file/reports/2026-07/a80d7933be643644081584087731f73b22ea5a2c/2Q26%20EarningsRelease.pdf",
+                "https://www.sec.gov/Archives/edgar/data/1046179/000162828026025362/tsm-20251231.htm"
+              ]
+            },
+            {
+              "field": "financial_quality",
+              "value": "PASS",
+              "as_of": "2026-07-16",
+              "rationale": "Q2淨利新台幣7,065.6億元、毛利率67.7%、營業利益率60.3%；資本密集擴產必須與現金流及折舊壓力一併核對。",
+              "sources": [
+                "https://investor.tsmc.com/english/encrypt/files/encrypt_file/reports/2026-07/a80d7933be643644081584087731f73b22ea5a2c/2Q26%20EarningsRelease.pdf",
+                "https://www.sec.gov/Archives/edgar/data/1046179/000162828026025362/tsm-20251231.htm"
+              ]
+            },
+            {
+              "field": "business_risk_and_governance",
+              "value": "PASS",
+              "as_of": "2026-07-16",
+              "rationale": "2025年20-F披露台灣地緣、電力／水資源、海外擴產及客戶集中等風險，並說明董事會委員會的風險監督；風險未解除。",
+              "sources": [
+                "https://investor.tsmc.com/english/encrypt/files/encrypt_file/reports/2026-07/a80d7933be643644081584087731f73b22ea5a2c/2Q26%20EarningsRelease.pdf",
+                "https://www.sec.gov/Archives/edgar/data/1046179/000162828026025362/tsm-20251231.htm"
+              ]
+            }
+          ],
           "required_manual_confirmation": [
             "BUSINESS_DRIVER",
             "DURABILITY",
@@ -815,15 +885,18 @@
       "status": "WAIT",
       "trigger": "突破52週高點且成交量至少為50日均量1.5倍",
       "formal_breakout": false,
-      "super_growth_bucket": "C",
-      "super_growth_reason": "QUALITY_DATA_GAP_NAMED",
+      "super_growth_bucket": "B",
+      "super_growth_reason": "VALUATION_INPUTS_UNAVAILABLE_OR_STALE",
       "quality_gate_status": {
         "competitive_advantage": {
-          "status": "UNKNOWN",
-          "as_of": null,
-          "rationale": null,
-          "sources": [],
-          "data_gap": "MISSING_SOURCE_BACKED_COMPETITIVE_ADVANTAGE_ASSESSMENT",
+          "status": "PASS",
+          "as_of": "2026-08-06",
+          "rationale": "逾10萬美元ARR客戶約4,720家，年增23%；觀測與安全平台跨產品採用提供規模證據，但市場競爭仍激烈。",
+          "sources": [
+            "https://investors.datadoghq.com/news-releases/news-release-details/datadog-announces-second-quarter-2026-financial-results/",
+            "https://www.sec.gov/Archives/edgar/data/1561550/000162828026054458/ddog-20260630.htm"
+          ],
+          "data_gap": null,
           "validation_errors": [],
           "method": null,
           "price_as_of": null,
@@ -831,11 +904,14 @@
           "inputs": {}
         },
         "structural_growth_runway": {
-          "status": "UNKNOWN",
-          "as_of": null,
-          "rationale": null,
-          "sources": [],
-          "data_gap": "MISSING_SOURCE_BACKED_STRUCTURAL_GROWTH_RUNWAY_ASSESSMENT",
+          "status": "PASS",
+          "as_of": "2026-08-06",
+          "rationale": "Q2營收11.2億美元、年增36%，大客戶持續增加；AI工作負載需求提供機會，但未把管理層展望當作保證。",
+          "sources": [
+            "https://investors.datadoghq.com/news-releases/news-release-details/datadog-announces-second-quarter-2026-financial-results/",
+            "https://www.sec.gov/Archives/edgar/data/1561550/000162828026054458/ddog-20260630.htm"
+          ],
+          "data_gap": null,
           "validation_errors": [],
           "method": null,
           "price_as_of": null,
@@ -843,11 +919,14 @@
           "inputs": {}
         },
         "financial_quality": {
-          "status": "UNKNOWN",
-          "as_of": null,
-          "rationale": null,
-          "sources": [],
-          "data_gap": "MISSING_SOURCE_BACKED_FINANCIAL_QUALITY_ASSESSMENT",
+          "status": "PASS",
+          "as_of": "2026-08-06",
+          "rationale": "Q2營運現金流3.16億美元、自由現金流2.79億美元，GAAP營業利益僅500萬美元；10-Q顯示半年股權薪酬4.33億美元，稀釋與現金流品質須並看。",
+          "sources": [
+            "https://investors.datadoghq.com/news-releases/news-release-details/datadog-announces-second-quarter-2026-financial-results/",
+            "https://www.sec.gov/Archives/edgar/data/1561550/000162828026054458/ddog-20260630.htm"
+          ],
+          "data_gap": null,
           "validation_errors": [],
           "method": null,
           "price_as_of": null,
@@ -855,11 +934,14 @@
           "inputs": {}
         },
         "business_risk_and_governance": {
-          "status": "UNKNOWN",
-          "as_of": null,
-          "rationale": null,
-          "sources": [],
-          "data_gap": "MISSING_SOURCE_BACKED_BUSINESS_RISK_AND_GOVERNANCE_ASSESSMENT",
+          "status": "PASS",
+          "as_of": "2026-08-06",
+          "rationale": "10-Q揭露股權薪酬、可轉債、資訊安全及雲端競爭等風險；正現金流不足以消除稀釋與估值風險，持續以申報文件追蹤。",
+          "sources": [
+            "https://investors.datadoghq.com/news-releases/news-release-details/datadog-announces-second-quarter-2026-financial-results/",
+            "https://www.sec.gov/Archives/edgar/data/1561550/000162828026054458/ddog-20260630.htm"
+          ],
+          "data_gap": null,
           "validation_errors": [],
           "method": null,
           "price_as_of": null,
@@ -868,10 +950,12 @@
         },
         "circle_of_competence": {
           "status": "UNKNOWN",
-          "as_of": null,
-          "rationale": null,
-          "sources": [],
-          "data_gap": "MISSING_SOURCE_BACKED_CIRCLE_OF_COMPETENCE_ASSESSMENT",
+          "as_of": "2026-10-02",
+          "rationale": "商業模式與主要風險已整理；正式新建倉前由使用者確認能力圈。",
+          "sources": [
+            "https://investors.datadoghq.com/news-releases/news-release-details/datadog-announces-second-quarter-2026-financial-results/"
+          ],
+          "data_gap": "PRE_TRADE_USER_CONFIRMATION_ONLY",
           "validation_errors": [],
           "method": null,
           "price_as_of": null,
@@ -880,42 +964,42 @@
         },
         "valuation": {
           "status": "UNKNOWN",
-          "as_of": null,
-          "rationale": null,
-          "sources": [],
-          "data_gap": "MISSING_SOURCE_BACKED_VALUATION_ASSESSMENT",
+          "as_of": "2026-10-02",
+          "rationale": "採同資料日正式調整後收盤；目前缺可重現之全年正常化獲利分母及具來源的合理倍數區間，不能判定估值通過或失敗。",
+          "sources": [
+            "https://finance.yahoo.com/quote/DDOG/history/",
+            "https://investors.datadoghq.com/news-releases/news-release-details/datadog-announces-second-quarter-2026-financial-results/",
+            "https://www.sec.gov/Archives/edgar/data/1561550/000162828026054458/ddog-20260630.htm"
+          ],
+          "data_gap": "SOURCED_NORMALIZED_DENOMINATOR_AND_DISCIPLINED_FAIR_RANGE_NOT_YET_VERIFIED",
           "validation_errors": [],
-          "method": null,
-          "price_as_of": null,
+          "method": "FORWARD_NORMALIZED_PE",
+          "price_as_of": "2026-10-02",
           "valid_through": null,
-          "inputs": {}
+          "inputs": {
+            "price": 277.2200012207031,
+            "denominator": null,
+            "multiple": null,
+            "fair_range": null
+          }
         }
       },
-      "evidence_coverage": "NONE",
+      "evidence_coverage": "PARTIAL",
       "missing_evidence": [
-        "competitive_advantage",
-        "structural_growth_runway",
-        "financial_quality",
-        "business_risk_and_governance",
         "circle_of_competence",
         "valuation"
       ],
-      "quality_data_gaps": {
-        "competitive_advantage": "MISSING_SOURCE_BACKED_COMPETITIVE_ADVANTAGE_ASSESSMENT",
-        "structural_growth_runway": "MISSING_SOURCE_BACKED_STRUCTURAL_GROWTH_RUNWAY_ASSESSMENT",
-        "financial_quality": "MISSING_SOURCE_BACKED_FINANCIAL_QUALITY_ASSESSMENT",
-        "business_risk_and_governance": "MISSING_SOURCE_BACKED_BUSINESS_RISK_AND_GOVERNANCE_ASSESSMENT"
-      },
+      "quality_data_gaps": {},
       "valuation_posture": "UNRESOLVED_WITH_SPECIFIC_GAP",
       "cyclical_review_required": false,
-      "evidence_as_of": null,
+      "evidence_as_of": "2026-10-02",
       "manual_confirmation_required": [
         "circle_of_competence"
       ],
       "circle_of_competence_policy": "PRE_TRADE_USER_CONFIRMATION_NOT_DAILY_RESEARCH_BLOCKER",
       "decision_authority": "RESEARCH_QUALITY_ONLY",
       "quality_gate_application": "FORMAL_NEW_CANDIDATE_RESEARCH_GATE",
-      "action_eligibility": "RESEARCH_ONLY_QUALITY_EVIDENCE_INCOMPLETE",
+      "action_eligibility": "RESEARCH_ONLY_VALUATION_DATA_GAP",
       "valuation_input_collection": {
         "as_of": "2026-10-02",
         "status": "PARTIAL",
@@ -949,22 +1033,73 @@
       "lynch_research": {
         "version": "onecool_lynch_research_v1",
         "company_type": {
-          "status": "INSUFFICIENT_EVIDENCE",
-          "primary": "UNCLASSIFIED",
-          "candidates": [],
-          "evidence": [],
+          "status": "PROVISIONAL",
+          "primary": "FAST_GROWER",
+          "candidates": [
+            "FAST_GROWER"
+          ],
+          "evidence": [
+            {
+              "field": "verified_quality_gates",
+              "value": [
+                "structural_growth_runway",
+                "financial_quality"
+              ],
+              "interpretation": "FAST_GROWTH_CANDIDATE_NOT_DURABILITY_PROOF"
+            }
+          ],
           "unresolved_categories": [
             "SLOW_GROWER",
             "STALWART",
-            "FAST_GROWER",
             "CYCLICAL",
             "TURNAROUND",
             "ASSET_PLAY"
           ]
         },
         "investment_story": {
-          "status": "INSUFFICIENT_EVIDENCE",
-          "evidence": [],
+          "status": "EVIDENCE_ONLY",
+          "evidence": [
+            {
+              "field": "competitive_advantage",
+              "value": "PASS",
+              "as_of": "2026-08-06",
+              "rationale": "逾10萬美元ARR客戶約4,720家，年增23%；觀測與安全平台跨產品採用提供規模證據，但市場競爭仍激烈。",
+              "sources": [
+                "https://investors.datadoghq.com/news-releases/news-release-details/datadog-announces-second-quarter-2026-financial-results/",
+                "https://www.sec.gov/Archives/edgar/data/1561550/000162828026054458/ddog-20260630.htm"
+              ]
+            },
+            {
+              "field": "structural_growth_runway",
+              "value": "PASS",
+              "as_of": "2026-08-06",
+              "rationale": "Q2營收11.2億美元、年增36%，大客戶持續增加；AI工作負載需求提供機會，但未把管理層展望當作保證。",
+              "sources": [
+                "https://investors.datadoghq.com/news-releases/news-release-details/datadog-announces-second-quarter-2026-financial-results/",
+                "https://www.sec.gov/Archives/edgar/data/1561550/000162828026054458/ddog-20260630.htm"
+              ]
+            },
+            {
+              "field": "financial_quality",
+              "value": "PASS",
+              "as_of": "2026-08-06",
+              "rationale": "Q2營運現金流3.16億美元、自由現金流2.79億美元，GAAP營業利益僅500萬美元；10-Q顯示半年股權薪酬4.33億美元，稀釋與現金流品質須並看。",
+              "sources": [
+                "https://investors.datadoghq.com/news-releases/news-release-details/datadog-announces-second-quarter-2026-financial-results/",
+                "https://www.sec.gov/Archives/edgar/data/1561550/000162828026054458/ddog-20260630.htm"
+              ]
+            },
+            {
+              "field": "business_risk_and_governance",
+              "value": "PASS",
+              "as_of": "2026-08-06",
+              "rationale": "10-Q揭露股權薪酬、可轉債、資訊安全及雲端競爭等風險；正現金流不足以消除稀釋與估值風險，持續以申報文件追蹤。",
+              "sources": [
+                "https://investors.datadoghq.com/news-releases/news-release-details/datadog-announces-second-quarter-2026-financial-results/",
+                "https://www.sec.gov/Archives/edgar/data/1561550/000162828026054458/ddog-20260630.htm"
+              ]
+            }
+          ],
           "required_manual_confirmation": [
             "BUSINESS_DRIVER",
             "DURABILITY",
@@ -1025,15 +1160,18 @@
       "status": "WAIT",
       "trigger": "突破52週高點且成交量至少為50日均量1.5倍",
       "formal_breakout": false,
-      "super_growth_bucket": "C",
-      "super_growth_reason": "QUALITY_DATA_GAP_NAMED",
+      "super_growth_bucket": "B",
+      "super_growth_reason": "VALUATION_INPUTS_UNAVAILABLE_OR_STALE",
       "quality_gate_status": {
         "competitive_advantage": {
-          "status": "UNKNOWN",
-          "as_of": null,
-          "rationale": null,
-          "sources": [],
-          "data_gap": "MISSING_SOURCE_BACKED_COMPETITIVE_ADVANTAGE_ASSESSMENT",
+          "status": "PASS",
+          "as_of": "2026-08-26",
+          "rationale": "Q2資料中心營收890億美元，完整GPU、網路與軟體平台的供應能力支撐領導地位；仍受大型客戶集中與競爭約束。",
+          "sources": [
+            "https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Announces-Financial-Results-for-Second-Quarter-Fiscal-2027/",
+            "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm"
+          ],
+          "data_gap": null,
           "validation_errors": [],
           "method": null,
           "price_as_of": null,
@@ -1041,11 +1179,14 @@
           "inputs": {}
         },
         "structural_growth_runway": {
-          "status": "UNKNOWN",
-          "as_of": null,
-          "rationale": null,
-          "sources": [],
-          "data_gap": "MISSING_SOURCE_BACKED_STRUCTURAL_GROWTH_RUNWAY_ASSESSMENT",
+          "status": "PASS",
+          "as_of": "2026-08-26",
+          "rationale": "Q2總營收962億美元，年增106%；資料中心年增117%，AI基礎設施需求有量化支持，不能將單季增速直接外推。",
+          "sources": [
+            "https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Announces-Financial-Results-for-Second-Quarter-Fiscal-2027/",
+            "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm"
+          ],
+          "data_gap": null,
           "validation_errors": [],
           "method": null,
           "price_as_of": null,
@@ -1053,11 +1194,14 @@
           "inputs": {}
         },
         "financial_quality": {
-          "status": "UNKNOWN",
-          "as_of": null,
-          "rationale": null,
-          "sources": [],
-          "data_gap": "MISSING_SOURCE_BACKED_FINANCIAL_QUALITY_ASSESSMENT",
+          "status": "PASS",
+          "as_of": "2026-08-26",
+          "rationale": "Q2營收與獲利有正式揭露，10-Q可核對現金流、存貨與客戶承諾；平台成長伴隨供應鏈及應收風險，需持續監控。",
+          "sources": [
+            "https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Announces-Financial-Results-for-Second-Quarter-Fiscal-2027/",
+            "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm"
+          ],
+          "data_gap": null,
           "validation_errors": [],
           "method": null,
           "price_as_of": null,
@@ -1065,11 +1209,14 @@
           "inputs": {}
         },
         "business_risk_and_governance": {
-          "status": "UNKNOWN",
-          "as_of": null,
-          "rationale": null,
-          "sources": [],
-          "data_gap": "MISSING_SOURCE_BACKED_BUSINESS_RISK_AND_GOVERNANCE_ASSESSMENT",
+          "status": "PASS",
+          "as_of": "2026-08-26",
+          "rationale": "10-Q揭露出口管制及中國市場限制可能影響需求、供應鏈與存貨；截至7/26管理層認定揭露控制有效，風險仍是實質監控條件。",
+          "sources": [
+            "https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Announces-Financial-Results-for-Second-Quarter-Fiscal-2027/",
+            "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm"
+          ],
+          "data_gap": null,
           "validation_errors": [],
           "method": null,
           "price_as_of": null,
@@ -1078,10 +1225,12 @@
         },
         "circle_of_competence": {
           "status": "UNKNOWN",
-          "as_of": null,
-          "rationale": null,
-          "sources": [],
-          "data_gap": "MISSING_SOURCE_BACKED_CIRCLE_OF_COMPETENCE_ASSESSMENT",
+          "as_of": "2026-10-02",
+          "rationale": "商業模式與主要風險已整理；正式新建倉前由使用者確認能力圈。",
+          "sources": [
+            "https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Announces-Financial-Results-for-Second-Quarter-Fiscal-2027/"
+          ],
+          "data_gap": "PRE_TRADE_USER_CONFIRMATION_ONLY",
           "validation_errors": [],
           "method": null,
           "price_as_of": null,
@@ -1090,42 +1239,42 @@
         },
         "valuation": {
           "status": "UNKNOWN",
-          "as_of": null,
-          "rationale": null,
-          "sources": [],
-          "data_gap": "MISSING_SOURCE_BACKED_VALUATION_ASSESSMENT",
+          "as_of": "2026-10-02",
+          "rationale": "採同資料日正式調整後收盤；目前缺可重現之全年正常化獲利分母及具來源的合理倍數區間，不能判定估值通過或失敗。",
+          "sources": [
+            "https://finance.yahoo.com/quote/NVDA/history/",
+            "https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Announces-Financial-Results-for-Second-Quarter-Fiscal-2027/",
+            "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm"
+          ],
+          "data_gap": "SOURCED_NORMALIZED_DENOMINATOR_AND_DISCIPLINED_FAIR_RANGE_NOT_YET_VERIFIED",
           "validation_errors": [],
-          "method": null,
-          "price_as_of": null,
+          "method": "FORWARD_NORMALIZED_PE",
+          "price_as_of": "2026-10-02",
           "valid_through": null,
-          "inputs": {}
+          "inputs": {
+            "price": 233.9499969482422,
+            "denominator": null,
+            "multiple": null,
+            "fair_range": null
+          }
         }
       },
-      "evidence_coverage": "NONE",
+      "evidence_coverage": "PARTIAL",
       "missing_evidence": [
-        "competitive_advantage",
-        "structural_growth_runway",
-        "financial_quality",
-        "business_risk_and_governance",
         "circle_of_competence",
         "valuation"
       ],
-      "quality_data_gaps": {
-        "competitive_advantage": "MISSING_SOURCE_BACKED_COMPETITIVE_ADVANTAGE_ASSESSMENT",
-        "structural_growth_runway": "MISSING_SOURCE_BACKED_STRUCTURAL_GROWTH_RUNWAY_ASSESSMENT",
-        "financial_quality": "MISSING_SOURCE_BACKED_FINANCIAL_QUALITY_ASSESSMENT",
-        "business_risk_and_governance": "MISSING_SOURCE_BACKED_BUSINESS_RISK_AND_GOVERNANCE_ASSESSMENT"
-      },
+      "quality_data_gaps": {},
       "valuation_posture": "UNRESOLVED_WITH_SPECIFIC_GAP",
-      "cyclical_review_required": false,
-      "evidence_as_of": null,
+      "cyclical_review_required": true,
+      "evidence_as_of": "2026-10-02",
       "manual_confirmation_required": [
         "circle_of_competence"
       ],
       "circle_of_competence_policy": "PRE_TRADE_USER_CONFIRMATION_NOT_DAILY_RESEARCH_BLOCKER",
       "decision_authority": "RESEARCH_QUALITY_ONLY",
       "quality_gate_application": "FORMAL_NEW_CANDIDATE_RESEARCH_GATE",
-      "action_eligibility": "RESEARCH_ONLY_QUALITY_EVIDENCE_INCOMPLETE",
+      "action_eligibility": "RESEARCH_ONLY_VALUATION_DATA_GAP",
       "valuation_input_collection": {
         "as_of": "2026-10-02",
         "status": "PARTIAL",
@@ -1159,22 +1308,78 @@
       "lynch_research": {
         "version": "onecool_lynch_research_v1",
         "company_type": {
-          "status": "INSUFFICIENT_EVIDENCE",
-          "primary": "UNCLASSIFIED",
-          "candidates": [],
-          "evidence": [],
+          "status": "PROVISIONAL",
+          "primary": "MULTIPLE_CANDIDATES",
+          "candidates": [
+            "FAST_GROWER",
+            "CYCLICAL"
+          ],
+          "evidence": [
+            {
+              "field": "industry",
+              "value": "verified cyclical flag",
+              "interpretation": "CYCLE_REVIEW_REQUIRED"
+            },
+            {
+              "field": "verified_quality_gates",
+              "value": [
+                "structural_growth_runway",
+                "financial_quality"
+              ],
+              "interpretation": "FAST_GROWTH_CANDIDATE_NOT_DURABILITY_PROOF"
+            }
+          ],
           "unresolved_categories": [
             "SLOW_GROWER",
             "STALWART",
-            "FAST_GROWER",
-            "CYCLICAL",
             "TURNAROUND",
             "ASSET_PLAY"
           ]
         },
         "investment_story": {
-          "status": "INSUFFICIENT_EVIDENCE",
-          "evidence": [],
+          "status": "EVIDENCE_ONLY",
+          "evidence": [
+            {
+              "field": "competitive_advantage",
+              "value": "PASS",
+              "as_of": "2026-08-26",
+              "rationale": "Q2資料中心營收890億美元，完整GPU、網路與軟體平台的供應能力支撐領導地位；仍受大型客戶集中與競爭約束。",
+              "sources": [
+                "https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Announces-Financial-Results-for-Second-Quarter-Fiscal-2027/",
+                "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm"
+              ]
+            },
+            {
+              "field": "structural_growth_runway",
+              "value": "PASS",
+              "as_of": "2026-08-26",
+              "rationale": "Q2總營收962億美元，年增106%；資料中心年增117%，AI基礎設施需求有量化支持，不能將單季增速直接外推。",
+              "sources": [
+                "https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Announces-Financial-Results-for-Second-Quarter-Fiscal-2027/",
+                "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm"
+              ]
+            },
+            {
+              "field": "financial_quality",
+              "value": "PASS",
+              "as_of": "2026-08-26",
+              "rationale": "Q2營收與獲利有正式揭露，10-Q可核對現金流、存貨與客戶承諾；平台成長伴隨供應鏈及應收風險，需持續監控。",
+              "sources": [
+                "https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Announces-Financial-Results-for-Second-Quarter-Fiscal-2027/",
+                "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm"
+              ]
+            },
+            {
+              "field": "business_risk_and_governance",
+              "value": "PASS",
+              "as_of": "2026-08-26",
+              "rationale": "10-Q揭露出口管制及中國市場限制可能影響需求、供應鏈與存貨；截至7/26管理層認定揭露控制有效，風險仍是實質監控條件。",
+              "sources": [
+                "https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Announces-Financial-Results-for-Second-Quarter-Fiscal-2027/",
+                "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm"
+              ]
+            }
+          ],
           "required_manual_confirmation": [
             "BUSINESS_DRIVER",
             "DURABILITY",
@@ -1337,8 +1542,8 @@
     "scope": "NEW_US_STOCK_CANDIDATES_ONLY",
     "bucket_counts": {
       "A": 0,
-      "B": 2,
-      "C": 3,
+      "B": 5,
+      "C": 0,
       "REJECT": 0,
       "INNOVATION_OPTION": 0,
       "EXISTING_POSITION": 0
