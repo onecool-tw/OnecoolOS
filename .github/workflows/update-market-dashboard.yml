@@ -82,6 +82,7 @@ jobs:
         env:
           ALPHA_VANTAGE_API_KEY: ${{ secrets.ALPHA_VANTAGE_API_KEY }}
           TIINGO_API_KEY: ${{ secrets.TIINGO_API_KEY }}
+          SEC_USER_AGENT: ${{ secrets.SEC_USER_AGENT }}
         run: |
           args=()
           # Prices refresh every run and the updater merges the latest 10 days,
