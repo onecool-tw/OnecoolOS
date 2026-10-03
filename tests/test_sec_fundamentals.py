@@ -96,3 +96,22 @@ def test_sec_fetch_failure_remains_unscored_with_named_provider_error():
     assert details["BA"]["status"] == "SEC_FETCH_FAILED"
     assert details["BA"]["provider_error"] == "HTTP 403: Forbidden"
     assert "BA" not in fundamentals
+
+
+def test_october_issuer_review_classifies_six_without_scoring_them():
+    import json
+    from pathlib import Path
+    from onecool_os.market.sec_fundamentals import annotate_reviewed_exclusions
+
+    reviewed = json.loads(Path("data/market/us_stock_intelligence/reviewed_exclusions.json").read_text())
+    symbols = {row["symbol"] for row in reviewed["results"]}
+    assert symbols == {"BA", "CRWD", "SNDK", "SNOW", "SPOT", "SYM"}
+    scan = {"validated_count": 64, "universe_size": 70,
+            "exclusions": [{"symbol": s, "technical_confidence": 100,
+                            "reason": "fundamental validation unavailable"} for s in symbols]}
+    annotate_reviewed_exclusions(scan, reviewed, "2026-10-02")
+    assert (scan["assessment_count"], scan["validated_count"],
+            scan["rule_excluded_count"]) == (70, 64, 6)
+    assert scan["coverage_status"] == "COMPLETE"
+    assert all(row["assessment_status"] == "RULE_EXCLUDED" for row in scan["exclusions"])
+    assert next(row for row in reviewed["results"] if row["symbol"] == "SNDK")["period_end"] == "2026-07-03"
