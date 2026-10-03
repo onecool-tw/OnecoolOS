@@ -3,14 +3,23 @@
   "review_period": "2026Q3",
   "review_cutoff": "2026-09-30",
   "evidence_session": "2026-10-02",
-  "status": "PARTIAL_SOURCE_VALIDATION",
+  "status": "COMPLETE_NO_CHANGE",
   "universe_version": "2026Q3-v1",
   "membership_action": "NO_CHANGE",
   "universe_size": 70,
   "technical_identity_and_price_assessed": 70,
   "technical_confidence_at_least_90": 70,
   "scoring_eligible": 64,
-  "source_review_blocked_symbols": [
+  "two_consecutive_quarter_hard_failures": "NO_REMOVAL_PROPOSED; prior-quarter evidence is not used to infer removals",
+  "sources": [
+    "https://github.com/onecool-tw/OnecoolOS/blob/main/data/market/us_stock_intelligence/breakout_scan_latest.json",
+    "https://github.com/onecool-tw/OnecoolOS/blob/main/data/market/us_stock_intelligence/sec_fallback_latest.json",
+    "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-breakout-universe-governance.md",
+    "https://github.com/onecool-tw/OnecoolOS/blob/main/data/market/us_stock_intelligence/reviewed_exclusions.json"
+  ],
+  "reviewed_at": "2026-10-03",
+  "rule_excluded_count": 6,
+  "rule_exclusions": [
     "BA",
     "CRWD",
     "SNDK",
@@ -18,12 +27,6 @@
     "SPOT",
     "SYM"
   ],
-  "blocker": "SEC companyfacts HTTP 403; reviewed nonpositive-EPS exclusions expired 2026-09-30 and require fresh filing verification. No unsupported extension or substitute scoring.",
-  "two_consecutive_quarter_hard_failures": "NOT_ESTABLISHED",
-  "next_action": "Recheck six official issuer/SEC filings and confirm 252 aligned bars, 50-day adjusted dollar liquidity, identity and corporate actions before completing the quarterly audit. Paired replacements require separate evidence and version change.",
-  "sources": [
-    "https://github.com/onecool-tw/OnecoolOS/blob/main/data/market/us_stock_intelligence/breakout_scan_latest.json",
-    "https://github.com/onecool-tw/OnecoolOS/blob/main/data/market/us_stock_intelligence/sec_fallback_latest.json",
-    "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-breakout-universe-governance.md"
-  ]
+  "rule_exclusion_evidence": "Six latest nonpositive prior EPS comparisons reverified from issuer releases or SEC filings as of 2026-10-02; all 70 assessed at technical confidence >=90. Exclusions affect scoring eligibility, not universe membership.",
+  "next_scheduled_review_as_of": "2026-12-31"
 }
