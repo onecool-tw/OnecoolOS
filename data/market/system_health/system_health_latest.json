@@ -1,11 +1,11 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-10-03T00:03:56.659408+00:00",
+  "generated_at": "2026-10-03T03:37:39.739014+00:00",
   "taipei_date": "2026-10-03",
-  "status": "PARTIAL",
+  "status": "BLOCKED",
   "scope_status": {
-    "morning": "PARTIAL",
+    "morning": "BLOCKED",
     "asia": "READY",
     "weekly": "READY"
   },
@@ -45,7 +45,7 @@
       },
       {
         "report_id": "cards",
-        "expected_report_date": "2026-09-26",
+        "expected_report_date": "2026-10-03",
         "status": "UNKNOWN",
         "reason": "No verifiable receipt for the latest completed reporting window"
       },
@@ -63,11 +63,11 @@
     "policy": "Data readiness does not prove report delivery. Never infer email success from a generated draft."
   },
   "end_to_end_status": "NOT_FULLY_VERIFIED",
-  "action_readiness": "LIMITED",
+  "action_readiness": "UNSAFE_FOR_AFFECTED_REPORTS",
   "counts": {
-    "ready": 15,
+    "ready": 14,
     "partial": 3,
-    "blocked": 0
+    "blocked": 1
   },
   "modules": [
     {
@@ -120,7 +120,7 @@
       "critical": true,
       "status": "READY",
       "reason": "all symbols current",
-      "observed_as_of": "2026-10-01",
+      "observed_as_of": "2026-10-02",
       "recovery_workflow": "update-etf-cta.yml",
       "retryable": true,
       "impacted_reports": [
@@ -133,11 +133,11 @@
       "label": "Fund NAV CTA",
       "scope": "morning",
       "critical": true,
-      "status": "READY",
-      "reason": "current",
-      "observed_as_of": "2026-10-01",
+      "status": "BLOCKED",
+      "reason": "generation timestamp missing, invalid or older than scheduled date 2026-10-03",
+      "observed_as_of": "2026-10-02",
       "recovery_workflow": "update-fund-nav-cta.yml",
-      "retryable": false,
+      "retryable": true,
       "impacted_reports": [
         "基金日報",
         "基金週報"
@@ -343,6 +343,21 @@
       ]
     },
     {
+      "module_id": "fund_nav_cta",
+      "label": "Fund NAV CTA",
+      "scope": "morning",
+      "critical": true,
+      "status": "BLOCKED",
+      "reason": "generation timestamp missing, invalid or older than scheduled date 2026-10-03",
+      "observed_as_of": "2026-10-02",
+      "recovery_workflow": "update-fund-nav-cta.yml",
+      "retryable": true,
+      "impacted_reports": [
+        "基金日報",
+        "基金週報"
+      ]
+    },
+    {
       "module_id": "taiwan_candidate_cta",
       "label": "Taiwan 200-stock CTA",
       "scope": "asia",
@@ -371,7 +386,9 @@
       ]
     }
   ],
-  "recovery_workflows": [],
-  "issue_fingerprint": "f481f4f833324bae3b0f4b3b6b00b50aa4050b31dcd7f93b0091c903383cb234",
+  "recovery_workflows": [
+    "update-fund-nav-cta.yml"
+  ],
+  "issue_fingerprint": "dec3a432cbed6560c344b77c6a9bc7bc145914ba23b168b11e176ef8abc90fd6",
   "policy": "Health monitoring only; never changes CTA, rankings, or investment decisions."
 }
