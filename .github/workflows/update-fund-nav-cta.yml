@@ -8,6 +8,9 @@ on:
       - "scripts/update_fund_nav_cta.py"
       - "onecool_os/market/fund_cta.py"
       - "onecool_os/market/etf_cta.py"
+      - "onecool_os/market/fund_cta_events.py"
+      - "tests/test_fund_cta_regression.py"
+      - "tests/fixtures/fund_cta_regression_v1.json"
   workflow_dispatch:
   schedule:
     # 08:30 Asia/Taipei, Monday-Saturday (00:30 UTC).
@@ -34,7 +37,9 @@ jobs:
           python-version: "3.12"
           cache: pip
       - name: Install project
-        run: pip install -e .
+        run: pip install -e '.[dev]'
+      - name: Verify frozen seven-fund period regression
+        run: python -m pytest -q tests/test_fund_cta_regression.py
       - name: Refresh seven fund NAV histories and CTA
         shell: bash
         run: |
