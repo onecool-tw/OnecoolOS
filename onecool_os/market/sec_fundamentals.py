@@ -176,3 +176,8 @@ def annotate_reviewed_exclusions(scan, reviewed, expected_as_of):
     scan['rule_excluded_count'] = ruled
     scan['assessment_count'] = scan.get('validated_count', 0) + ruled
     scan['assessment_status'] = 'COMPLETE' if scan['assessment_count'] == scan.get('universe_size', 0) else 'PARTIAL'
+    # Coverage describes completed per-symbol assessment, not ranking eligibility.
+    scan['coverage_status'] = scan['assessment_status']
+    scan['research_scope'] = ('FULL_UNIVERSE_ASSESSED_VALIDATED_SUBSET_RANKED'
+                              if scan['assessment_status'] == 'COMPLETE'
+                              else 'VALIDATED_SUBSET_ONLY')
