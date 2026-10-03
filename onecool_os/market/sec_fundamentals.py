@@ -99,15 +99,25 @@ def fill_missing_fundamentals(client, histories, fundamentals, expected_as_of, c
     missing = [s for s, bars in histories.items() if s not in fundamentals and technical_confidence(bars, expected)[0] >= 90]
     if not missing:
         return {}
-    try:
-        registry = client._fetch('https://www.sec.gov/files/company_tickers.json')
-        mapping = {r['ticker']: str(r['cik_str']).zfill(10) for r in registry.values()}
-    except Exception:
-        mapping = registry_mapping or {}
-        if not mapping:
-            return {s: {'status': 'SEC_REGISTRY_UNAVAILABLE'} for s in missing}
+    # The checked-in CIK registry is a stable fallback when SEC's live ticker
+    # list is temporarily unavailable. Still validate the companyfacts CIK.
+    mapping = dict(registry_mapping or {})
+    conflicts = set()
+    if any(symbol not in mapping for symbol in missing):
+        try:
+            registry = client._fetch('https://www.sec.gov/files/company_tickers.json')
+            live = {r['ticker']: str(r['cik_str']).zfill(10) for r in registry.values()}
+            conflicts = {symbol for symbol in missing if symbol in mapping and
+                         symbol in live and str(mapping[symbol]).zfill(10) != live[symbol]}
+            mapping.update(live)
+        except Exception:
+            if not mapping:
+                return {s: {'status': 'SEC_REGISTRY_UNAVAILABLE'} for s in missing}
     details = {}
     for symbol in missing:
+        if symbol in conflicts:
+            details[symbol] = {'status': 'SEC_TICKER_MAPPING_CONFLICT'}
+            continue
         cik = mapping.get(symbol)
         if not cik:
             details[symbol] = {'status': 'SEC_TICKER_UNMAPPED'}
@@ -135,7 +145,8 @@ def fill_missing_fundamentals(client, histories, fundamentals, expected_as_of, c
             cache.setdefault(symbol, {}).update(metrics=asdict(fundamental), fetched_as_of=expected_as_of, provider='SEC', sec_evidence=evidence)
             diagnostics[symbol] = 'SEC_VERIFIED'
         except Exception as exc:
-            details[symbol] = {'status': 'SEC_FETCH_FAILED', 'error_type': type(exc).__name__}
+            details[symbol] = {'status': 'SEC_FETCH_FAILED', 'error_type': type(exc).__name__,
+                               'provider_error': str(exc)[:200] if type(exc).__name__ == 'AIRevolutionError' else None}
     return details
 
 
