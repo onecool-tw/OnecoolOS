@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-10-02T16:22:24.180856+00:00",
+  "generated_at": "2026-10-03T00:03:56.659408+00:00",
   "taipei_date": "2026-10-03",
   "status": "PARTIAL",
   "scope_status": {
@@ -15,8 +15,13 @@
       {
         "report_id": "taiwan",
         "expected_report_date": "2026-10-02",
-        "status": "UNKNOWN",
-        "reason": "No verifiable receipt for the latest completed reporting window"
+        "status": "PARTIAL",
+        "channels": {
+          "conversation": "UNKNOWN",
+          "email": "DELIVERED",
+          "artifact": "DELIVERED"
+        },
+        "reason": "Per-channel evidence checked; missing channels remain unverified"
       },
       {
         "report_id": "us",
