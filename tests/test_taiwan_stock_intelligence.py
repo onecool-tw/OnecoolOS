@@ -191,3 +191,44 @@ def test_holiday_readiness_uses_latest_actual_twse_session(tmp_path):
     assert result["report_readiness"]["status"] == "READY"
     assert result["screen_business_day_lag"] == 0
     assert result["display_status"] == "CURRENT"
+
+
+def test_delayed_formal_run_after_midnight_uses_last_completed_session(tmp_path):
+    setup_prompt(tmp_path)
+    write(tmp_path, "data/market/taiwan_stock_intelligence/screen_latest.json", {
+        "expected_as_of": "2026-09-30", "data_status": "READY", "top5": [],
+    })
+    write(tmp_path, "data/market/taiwan_stock_intelligence/cta/cta_latest.json", {
+        "results": [],
+    })
+    write(tmp_path, "data/market/dashboard/dashboard_latest.json", {
+        "results": [
+            {"symbol": "0050", "as_of": "2026-09-30", "cta": "BUY"},
+            {"symbol": "2330", "as_of": "2026-09-30", "cta": "HOLD"},
+        ],
+    })
+    write(tmp_path, "data/market/taiwan_stock_intelligence/market_pressure_inputs_latest.json", {
+        "requested_as_of": "2026-09-30",
+        "sources": {
+            "margin": {"status": "VERIFIED", "as_of": "2026-09-30"},
+            "volatility": {"status": "VERIFIED", "as_of": "2026-09-30"},
+        },
+    })
+
+    delayed = build_taiwan_stock_daily_context(
+        tmp_path,
+        generated_at=datetime.fromisoformat("2026-10-01T00:31:00+08:00"),
+    )
+    after_close = build_taiwan_stock_daily_context(
+        tmp_path,
+        generated_at=datetime.fromisoformat("2026-10-01T14:00:00+08:00"),
+    )
+
+    assert delayed["report_readiness"]["expected_as_of"] == "2026-09-30"
+    assert delayed["report_readiness"]["status"] == "READY"
+    assert delayed["market_pressure_input_readiness"]["status"] == "READY"
+    assert delayed["screen_business_day_lag"] == 0
+    assert delayed["display_status"] == "CURRENT"
+    assert after_close["report_readiness"]["expected_as_of"] == "2026-10-01"
+    assert after_close["report_readiness"]["status"] == "UPDATE_INCOMPLETE"
+
