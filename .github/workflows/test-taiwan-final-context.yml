@@ -1,0 +1,29 @@
+name: Test Taiwan Final Context
+on:
+  pull_request:
+    paths:
+      - 'scripts/*taiwan*'
+      - 'onecool_os/market/taiwan_stock_intelligence.py'
+      - 'tests/*taiwan*'
+      - 'tests/fixtures/taiwan_final_regression_v1.json.gz'
+      - '.github/workflows/*taiwan*'
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/*taiwan*'
+      - 'onecool_os/market/taiwan_stock_intelligence.py'
+      - 'tests/*taiwan*'
+      - 'tests/fixtures/taiwan_final_regression_v1.json.gz'
+      - '.github/workflows/*taiwan*'
+permissions:
+  contents: read
+jobs:
+  regression:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - run: pip install -e '.[dev]' PyYAML
+      - run: python -m pytest -q tests/test_taiwan_final_regression.py tests/test_taiwan_final_publication.py tests/test_taiwan_family_snapshot.py tests/test_taiwan_report_readiness.py tests/test_taiwan_stock_intelligence.py tests/test_health_publication.py

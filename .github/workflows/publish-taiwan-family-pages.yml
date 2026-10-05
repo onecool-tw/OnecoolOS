@@ -10,7 +10,7 @@ on:
       - scripts/verify_taiwan_family_pages.py
       - scripts/render_taiwan_family_html.py
   workflow_run:
-    workflows: [Update Taiwan Stock Screen, Update Taiwan CTA, Persist Taiwan Market Pressure]
+    workflows: [Update Taiwan Stock Screen, Update Taiwan CTA, Persist Taiwan Market Pressure, Refresh Taiwan Final Context]
     types: [completed]
     branches: [main]
 

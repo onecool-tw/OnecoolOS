@@ -79,6 +79,7 @@ def build_snapshot(root: Path):
     pressure_same_day_current = (
         pressure.get('status') == 'CURRENT'
         and pressure.get('as_of') == expected_as_of
+        and pressure.get('as_of') == context['screen_as_of']
     )
     if pressure_same_day_current:
         pressure_freshness_status = 'CURRENT'
@@ -87,12 +88,16 @@ def build_snapshot(root: Path):
     else:
         pressure_freshness_status = 'UNKNOWN'
     delivery_issues = []
+    if context['screen_as_of'] != expected_as_of:
+        delivery_issues.append('SCREEN_EXPECTED_AS_OF_MISMATCH')
     if pressure.get('as_of') != expected_as_of:
         delivery_issues.append('MARKET_PRESSURE_AS_OF_MISMATCH')
     if pressure.get('status') != 'CURRENT':
         delivery_issues.append('MARKET_PRESSURE_NOT_CURRENT')
     if readiness.get('status') != 'READY':
         delivery_issues.append('REPORT_READINESS_NOT_READY')
+    if context.get('market_pressure_input_readiness', {}).get('status') != 'READY':
+        delivery_issues.append('MARKET_PRESSURE_INPUTS_NOT_READY')
     asia_cta_status = {}
     for symbol in ('1306', '069500'):
         item = indices.get(symbol, {})

@@ -1,0 +1,46 @@
+name: Refresh Taiwan Final Context
+
+on:
+  workflow_dispatch:
+  workflow_run:
+    workflows: [Update Market Dashboard, Update Taiwan Stock Screen, Update Taiwan CTA, Persist Taiwan Market Pressure]
+    types: [completed]
+    branches: [main]
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/refresh-taiwan-final-context.yml
+      - scripts/publish_taiwan_final_context.sh
+      - scripts/refresh_taiwan_final_context.py
+      - scripts/check_taiwan_regression.py
+      - scripts/export_taiwan_family_snapshot.py
+      - onecool_os/market/taiwan_stock_intelligence.py
+      - config/taiwan_stock_intelligence_master_prompt.md
+      - tests/fixtures/taiwan_final_regression_v1.json.gz
+
+permissions:
+  contents: write
+
+# Same lock as Screen and pressure persistence: preserve the formal pressure.
+concurrency:
+  group: update-taiwan-stock-screen
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+          cache: pip
+      - name: Install project
+        run: pip install -e .
+      - name: Refresh context, Snapshot and health from latest formal inputs
+        run: bash scripts/publish_taiwan_final_context.sh
