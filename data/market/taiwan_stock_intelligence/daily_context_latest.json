@@ -25,7 +25,7 @@
     "consumer_rule": "FINAL_EMAIL_REQUIRES_READY; MARGIN_MAY_USE_VERIFIED_OFFICIAL_LAG_BEFORE_21:30; NEVER_RECOMPUTE_PRESSURE_LIGHT"
   },
   "module": "Onecool Taiwan Stock Daily Context",
-  "generated_at": "2026-10-05T11:32:02.652456+00:00",
+  "generated_at": "2026-10-05T15:59:39.584476+00:00",
   "source_policy": "LATEST_SUCCESSFUL_SCREEN_WITH_EXPLICIT_DATE",
   "screen_as_of": "2026-10-05",
   "screen_business_day_lag": 0,
@@ -72,7 +72,7 @@
   "market_pressure_inputs": {
     "schema_version": "1.0",
     "module": "Onecool Taiwan Official Market Pressure Inputs",
-    "generated_at": "2026-10-05T11:31:46.789994+00:00",
+    "generated_at": "2026-10-05T15:59:18.254429+00:00",
     "requested_as_of": "2026-10-05",
     "status": "READY",
     "attempts_used": 1,
@@ -80,29 +80,26 @@
     "sources": {
       "margin": {
         "status": "VERIFIED",
-        "as_of": "2026-10-02",
+        "as_of": "2026-10-05",
         "metrics": {
           "融資(交易單位)": {
-            "previous": 9352810.0,
-            "current": 9398006.0,
-            "change": 45196.0
+            "previous": 9397965.0,
+            "current": 9409460.0,
+            "change": 11495.0
           },
           "融券(交易單位)": {
-            "previous": 233322.0,
-            "current": 231986.0,
-            "change": -1336.0
+            "previous": 231986.0,
+            "current": 218458.0,
+            "change": -13528.0
           },
           "融資金額(仟元)": {
-            "previous": 629867193.0,
-            "current": 635104422.0,
-            "change": 5237229.0
+            "previous": 635104422.0,
+            "current": 633351721.0,
+            "change": -1752701.0
           }
         },
         "error": null,
-        "official_lag_accepted": true,
-        "availability_basis": "LATEST_OFFICIAL_BEFORE_SAME_DAY_PUBLICATION",
-        "requested_as_of": "2026-10-05",
-        "source_url": "https://www.twse.com.tw/rwd/zh/marginTrading/MI_MARGN?date=20261002&selectType=MS&response=json"
+        "source_url": "https://www.twse.com.tw/rwd/zh/marginTrading/MI_MARGN?date=20261005&selectType=MS&response=json"
       },
       "volatility": {
         "status": "VERIFIED",
@@ -119,7 +116,7 @@
   "candidate_action_gate": "REQUIRES_INDIVIDUAL_CTA_AND_PRESSURE_GREEN",
   "candidate_cta_cache": {
     "screen_as_of": "2026-10-05",
-    "generated_at": "2026-10-05T11:31:57.314634+00:00",
+    "generated_at": "2026-10-05T15:59:35.269320+00:00",
     "requested_count": 200,
     "coverage": {
       "current": 199,
@@ -453,7 +450,7 @@
           "spread_pct": -1.149001,
           "phase": "CONFIRMED"
         },
-        "last_attempt_at": "2026-10-05T11:31:57.314634+00:00",
+        "last_attempt_at": "2026-10-05T15:59:35.269320+00:00",
         "error": null
       },
       "action_eligibility": "WATCH_ONLY_FULL_WEAKNESS"
@@ -773,7 +770,7 @@
           "spread_pct": 23.571825,
           "phase": "ACTIVE"
         },
-        "last_attempt_at": "2026-10-05T11:31:57.314634+00:00",
+        "last_attempt_at": "2026-10-05T15:59:35.269320+00:00",
         "error": null
       },
       "action_eligibility": "ELIGIBLE_IF_0050_BULLISH_AND_PRESSURE_GREEN"
@@ -1089,7 +1086,7 @@
           "spread_pct": 11.755423,
           "phase": "ACTIVE"
         },
-        "last_attempt_at": "2026-10-05T11:31:57.314634+00:00",
+        "last_attempt_at": "2026-10-05T15:59:35.269320+00:00",
         "error": null
       },
       "action_eligibility": "ELIGIBLE_IF_0050_BULLISH_AND_PRESSURE_GREEN"
@@ -1410,7 +1407,7 @@
           "spread_pct": 23.294431,
           "phase": "AGING"
         },
-        "last_attempt_at": "2026-10-05T11:31:57.314634+00:00",
+        "last_attempt_at": "2026-10-05T15:59:35.269320+00:00",
         "error": null
       },
       "action_eligibility": "ELIGIBLE_IF_0050_BULLISH_AND_PRESSURE_GREEN"
@@ -1726,7 +1723,7 @@
           "spread_pct": 15.136354,
           "phase": "AGING"
         },
-        "last_attempt_at": "2026-10-05T11:31:57.314634+00:00",
+        "last_attempt_at": "2026-10-05T15:59:35.269320+00:00",
         "error": null
       },
       "action_eligibility": "ELIGIBLE_IF_0050_BULLISH_AND_PRESSURE_GREEN"
