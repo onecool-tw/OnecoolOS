@@ -17,11 +17,12 @@ def final_publication(publication):
     fake.write_text('''#!/usr/bin/env bash
 set -euo pipefail
 mkdir -p data/market/taiwan_stock_intelligence data/public
+if [[ "$1" == "-m" ]]; then shift; fi
 case "$1" in
-  scripts/check_taiwan_regression.py)
+  scripts.check_taiwan_regression)
     if [[ "${FAIL_REGRESSION:-}" == "1" ]]; then exit 9; fi
     echo PASS > data/market/taiwan_stock_intelligence/regression_latest.json ;;
-  scripts/refresh_taiwan_final_context.py)
+  scripts.refresh_taiwan_final_context)
     cat revision > data/market/taiwan_stock_intelligence/daily_context_latest.json
     cp data/market/taiwan_stock_intelligence/daily_context_latest.json data/public/taiwan_stock_family_latest.json
     if [[ "${RACE:-}" == "1" && ! -e "$RACE_MARKER" ]]; then

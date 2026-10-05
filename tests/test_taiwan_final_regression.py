@@ -2,6 +2,9 @@ import gzip
 import json
 from datetime import datetime
 from pathlib import Path
+import os
+import subprocess
+import sys
 
 import pytest
 
@@ -25,6 +28,17 @@ def frozen(tmp_path):
 
 def test_delivered_formal_day_replays_without_signal_or_ranking_changes():
     assert verify(ROOT)['status'] == 'PASS'
+
+
+def test_production_module_entrypoint_without_pythonpath(tmp_path):
+    env = dict(os.environ)
+    env.pop('PYTHONPATH', None)
+    output = tmp_path / 'regression.json'
+    result = subprocess.run([sys.executable, '-m', 'scripts.check_taiwan_regression',
+                             '--output', str(output)], cwd=ROOT, env=env,
+                            text=True, capture_output=True)
+    assert result.returncode == 0, result.stderr
+    assert json.loads(output.read_text())['status'] == 'PASS'
 
 
 def test_tampered_baseline_is_rejected(tmp_path):
