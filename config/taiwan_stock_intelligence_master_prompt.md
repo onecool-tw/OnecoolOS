@@ -1,5 +1,16 @@
 # Onecool Taiwan Stock Intelligence — Screening Contract
 
+## 已驗證成品回歸基準
+
+- 正式消費端回歸基準為2026/10/05已驗證SSOT、Snapshot與成品雜湊。
+- `scripts/check_taiwan_regression.py`固定回放現有合併與投影，不抓行情、
+  不重算CTA、壓力燈或排名。規則變動的非預期差異會使流程失敗。
+- 讀取`data/market/taiwan_stock_intelligence/regression_latest.json`；只有
+  `status=PASS`且`code_sha256`與目前程式及本提示詞一致，才可取消
+  `REGRESSION_BASELINE_PENDING`。這不替代當日資料、Email或成品驗證。
+- 每個正式來源完成後由`Refresh Taiwan Final Context`合併最新main並刷新
+  Snapshot與health，沿用既有正式壓力燈。來源未變時保留同一Snapshot版本。
+
 版本：v1.6 Taiwan Lynch Research Layer
 正式篩選檔：`data/market/taiwan_stock_intelligence/screen_latest.json`
 正式個股CTA快取：`data/market/taiwan_stock_intelligence/cta/cta_latest.json`
