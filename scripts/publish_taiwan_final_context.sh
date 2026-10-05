@@ -19,8 +19,8 @@ for attempt in 1 2 3; do
   git reset --hard origin/main
   : > "$scratch/outputs"
   : > "$scratch/summary"
-  python scripts/check_taiwan_regression.py --output data/market/taiwan_stock_intelligence/regression_latest.json
-  python scripts/refresh_taiwan_final_context.py
+  python -m scripts.check_taiwan_regression --output data/market/taiwan_stock_intelligence/regression_latest.json
+  python -m scripts.refresh_taiwan_final_context
   python scripts/export_taiwan_family_snapshot.py --check
   GITHUB_OUTPUT="$scratch/outputs" GITHUB_STEP_SUMMARY="$scratch/summary" \
     python scripts/check_system_health.py --scope asia

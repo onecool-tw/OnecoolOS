@@ -5,7 +5,7 @@ Snapshot. Original source bytes are pinned by the Snapshot provenance hashes.
 The private complete report and Gmail responses are not published here; only
 the verified artifact and Snapshot SHA-256 are retained in the fixture.
 
-Run `python scripts/check_taiwan_regression.py` after installing the project.
+Run `python -m scripts.check_taiwan_regression` after installing the project.
 It verifies the frozen inputs, replays the existing context merger and Snapshot
 projection at a fixed completed-session timestamp, and compares every decision
 field to the verified golden output. It never fetches feeds, recalculates CTA,
