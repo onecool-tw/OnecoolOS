@@ -42,6 +42,7 @@ TWD_SERIES = {
     "S&P500": ("^GSPC", "USDTWD=X"),
     "道瓊工業": ("^DJI", "USDTWD=X"),
     "那斯達克": ("^IXIC", "USDTWD=X"),
+    "NASDAQ": ("^IXIC", "USDTWD=X"),
     "費城半導體": ("^SOX", "USDTWD=X"),
     "羅素2000": ("^RUT", "USDTWD=X"),
     "NBI生技": ("^NBI", "USDTWD=X"),
@@ -212,7 +213,18 @@ def _twd_returns_for_pass_markets(
         else datetime.now(timezone.utc).date()
     )
     for market in screen_markets(market_html):
-        if market.stage1 != "PASS" or market.market not in TWD_SERIES:
+        if market.stage1 != "PASS":
+            continue
+        if market.market not in TWD_SERIES:
+            results[market.market] = {
+                period: {
+                    "start_date": None, "end_date": None,
+                    "local_return_pct": None, "fx_return_pct": None,
+                    "twd_return_pct": None, "status": "UNKNOWN",
+                    "reason": "Exact local-market/currency history mapping unavailable; no proxy substitution.",
+                }
+                for period in ("1w", "1m")
+            }
             continue
         market_symbol, fx_symbol = TWD_SERIES[market.market]
         try:

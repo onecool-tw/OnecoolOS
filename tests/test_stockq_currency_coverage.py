@@ -19,6 +19,7 @@ def test_current_stockq_names_and_currency_groups_are_mapped() -> None:
     expected = {
         "波蘭股市": ("^WIG", "PLNTWD=X"),
         "S&P 500": ("^GSPC", "USDTWD=X"),
+        "NASDAQ": ("^IXIC", "USDTWD=X"),
         "費城半導體": ("^SOX", "USDTWD=X"),
         "NBI生技": ("^NBI", "USDTWD=X"),
         "德國DAX": ("^GDAXI", "EURTWD=X"),
