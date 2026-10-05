@@ -1,11 +1,11 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-10-05T03:38:00.147522+00:00",
+  "generated_at": "2026-10-05T04:06:31.935633+00:00",
   "taipei_date": "2026-10-05",
-  "status": "BLOCKED",
+  "status": "PARTIAL",
   "scope_status": {
-    "morning": "BLOCKED",
+    "morning": "READY",
     "asia": "READY",
     "weekly": "READY"
   },
@@ -63,11 +63,11 @@
     "policy": "Data readiness does not prove report delivery. Never infer email success from a generated draft."
   },
   "end_to_end_status": "NOT_FULLY_VERIFIED",
-  "action_readiness": "UNSAFE_FOR_AFFECTED_REPORTS",
+  "action_readiness": "LIMITED",
   "counts": {
-    "ready": 14,
-    "partial": 3,
-    "blocked": 1
+    "ready": 17,
+    "partial": 1,
+    "blocked": 0
   },
   "modules": [
     {
@@ -133,11 +133,11 @@
       "label": "Fund NAV CTA",
       "scope": "morning",
       "critical": true,
-      "status": "BLOCKED",
-      "reason": "generation timestamp missing, invalid or older than scheduled date 2026-10-05",
-      "observed_as_of": "2026-10-03",
+      "status": "READY",
+      "reason": "current",
+      "observed_as_of": "2026-10-02",
       "recovery_workflow": "update-fund-nav-cta.yml",
-      "retryable": true,
+      "retryable": false,
       "impacted_reports": [
         "基金日報",
         "基金週報"
@@ -289,11 +289,11 @@
       "label": "Fundamental Cycle",
       "scope": "weekly",
       "critical": false,
-      "status": "PARTIAL",
-      "reason": "data is stale",
-      "observed_as_of": "2026-08-25",
+      "status": "READY",
+      "reason": "current",
+      "observed_as_of": "2026-10-05",
       "recovery_workflow": "update-fund-weekly-analytics.yml",
-      "retryable": true,
+      "retryable": false,
       "impacted_reports": [
         "基金週報"
       ]
@@ -303,9 +303,9 @@
       "label": "AI Revolution",
       "scope": "weekly",
       "critical": false,
-      "status": "PARTIAL",
-      "reason": "official evidence requires manual review",
-      "observed_as_of": "2026-10-04",
+      "status": "READY",
+      "reason": "current and reviewed",
+      "observed_as_of": "2026-10-05",
       "recovery_workflow": null,
       "retryable": false,
       "impacted_reports": [
@@ -319,7 +319,7 @@
       "critical": true,
       "status": "READY",
       "reason": "validation PASS",
-      "observed_as_of": "2026-10-04",
+      "observed_as_of": "2026-10-05",
       "recovery_workflow": null,
       "retryable": false,
       "impacted_reports": [
@@ -328,21 +328,6 @@
     }
   ],
   "issues": [
-    {
-      "module_id": "fund_nav_cta",
-      "label": "Fund NAV CTA",
-      "scope": "morning",
-      "critical": true,
-      "status": "BLOCKED",
-      "reason": "generation timestamp missing, invalid or older than scheduled date 2026-10-05",
-      "observed_as_of": "2026-10-03",
-      "recovery_workflow": "update-fund-nav-cta.yml",
-      "retryable": true,
-      "impacted_reports": [
-        "基金日報",
-        "基金週報"
-      ]
-    },
     {
       "module_id": "taiwan_candidate_cta",
       "label": "Taiwan 200-stock CTA",
@@ -356,39 +341,9 @@
       "impacted_reports": [
         "台股日報"
       ]
-    },
-    {
-      "module_id": "fundamental_cycle",
-      "label": "Fundamental Cycle",
-      "scope": "weekly",
-      "critical": false,
-      "status": "PARTIAL",
-      "reason": "data is stale",
-      "observed_as_of": "2026-08-25",
-      "recovery_workflow": "update-fund-weekly-analytics.yml",
-      "retryable": true,
-      "impacted_reports": [
-        "基金週報"
-      ]
-    },
-    {
-      "module_id": "ai_revolution",
-      "label": "AI Revolution",
-      "scope": "weekly",
-      "critical": false,
-      "status": "PARTIAL",
-      "reason": "official evidence requires manual review",
-      "observed_as_of": "2026-10-04",
-      "recovery_workflow": null,
-      "retryable": false,
-      "impacted_reports": [
-        "基金週報"
-      ]
     }
   ],
-  "recovery_workflows": [
-    "update-fund-nav-cta.yml"
-  ],
-  "issue_fingerprint": "b50422042520b1fff681d61607229331176827109ba740bf70a7a789d54e8271",
+  "recovery_workflows": [],
+  "issue_fingerprint": "cc30e14b04c9166b28ec0e16f95613abb6d833af2d9ea7e6b95c7442d67eb752",
   "policy": "Health monitoring only; never changes CTA, rankings, or investment decisions."
 }
