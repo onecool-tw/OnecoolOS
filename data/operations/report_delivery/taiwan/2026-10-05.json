@@ -1,7 +1,7 @@
 {
   "report_id": "taiwan",
   "report_date": "2026-10-05",
-  "generated_at": "2026-10-05T18:14:08+08:00",
+  "generated_at": "2026-10-05T11:09:09.167Z",
   "delivery_status": "UNKNOWN",
   "writeback_status": "VERIFIED",
   "delivery_evidence_sha256": null,
@@ -12,23 +12,33 @@
       "evidence_sha256": null
     },
     "email": {
-      "status": "UNKNOWN",
-      "observed_at": null,
-      "evidence_sha256": null
+      "status": "DELIVERED",
+      "observed_at": "2026-10-05T11:09:09.167Z",
+      "evidence_sha256": "076b2df90c6a3d48f722a14a3df3271b4c7b296835aee60df9c084a0cd49022e",
+      "snapshot_sha256": "596db206cd0e34f7fd78b3cfd1a10795df05264906a6c1cfd995c045c69c8d86",
+      "recipient_count": 3,
+      "verified_recipient_count": 3
     },
     "artifact": {
       "status": "DELIVERED",
-      "observed_at": "2026-10-05T18:14:08+08:00",
-      "evidence_sha256": "055fc7029c01418c31c0a5d27934bff91287298c3e2ba2c4581745ed2faaf6d3"
+      "observed_at": "2026-10-05T11:09:09.167Z",
+      "evidence_sha256": "1d39472abd7be075a97627de67df4316777d96291e0b19ceb78fadf023f3e50b"
     }
   },
   "execution_status": "PARTIAL",
-  "actual_data_as_of": "2026-10-02",
+  "actual_data_as_of": "2026-10-05",
   "expected_as_of": "2026-10-05",
   "incomplete_steps": [
-    "2026-10-05 market pressure formal input verification and SSOT writeback",
-    "2026-10-05 Screen and CTA readiness",
-    "Final Snapshot verification",
-    "Email final delivery"
+    "REGRESSION_BASELINE_PENDING",
+    "Conversation delivery cannot be observed by executor"
+  ],
+  "snapshot_sha256": "596db206cd0e34f7fd78b3cfd1a10795df05264906a6c1cfd995c045c69c8d86",
+  "completed_steps": [
+    "Formal market pressure persisted and read-back CURRENT",
+    "Screen and CTA workflows completed",
+    "Asia health READY",
+    "SSOT and Snapshot hashes verified",
+    "Artifact full readback verified",
+    "All three email send acknowledgements received"
   ]
 }
