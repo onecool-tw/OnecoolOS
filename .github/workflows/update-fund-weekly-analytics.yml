@@ -37,15 +37,8 @@ jobs:
       - name: Refresh US Sector Rotation
         run: python scripts/update_sector_rotation.py
       - name: Refresh monthly Fundamental Cycle context
-        if: github.event_name == 'workflow_dispatch' || github.event.schedule == '0 6 * * 0'
         continue-on-error: true
-        run: |
-          day="$(date -u +%d)"
-          if [ "${{ github.event_name }}" = "workflow_dispatch" ] || [ "$day" -le 7 ] || [ ! -f data/market/fundamental_cycle/fundamental_cycle_latest.json ]; then
-            python scripts/update_fundamental_cycle.py
-          else
-            echo "Fundamental Cycle refresh is limited to the first weekly run of each month."
-          fi
+        run: python scripts/update_fundamental_cycle.py
       - name: Refresh deterministic Market Regime and macro confirmation
         run: python scripts/update_macro_regime.py
       - name: Refresh weekly fund analytics

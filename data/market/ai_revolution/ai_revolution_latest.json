@@ -10,13 +10,8 @@
   "companies_official_evidence_valid": 6,
   "official_evidence_coverage_pct": 100.0,
   "cache_status": "VALID",
-  "review_required": true,
-  "unreviewed_companies": [
-    "Microsoft",
-    "Amazon",
-    "Nvidia",
-    "Apple"
-  ],
+  "review_required": false,
+  "unreviewed_companies": [],
   "new_periodic_filings": [
     "Microsoft",
     "Amazon",
@@ -28,37 +23,37 @@
       "status": "GREEN",
       "reason": "Six-company official evidence supports continued AI infrastructure expansion.",
       "reviewed_at": "2026-09-09",
-      "usable_for_report": false
+      "usable_for_report": true
     },
     "ai_capex": {
       "status": "GREEN",
       "reason": "Six-company official evidence supports continued AI capital-spending expansion.",
       "reviewed_at": "2026-09-09",
-      "usable_for_report": false
+      "usable_for_report": true
     },
     "ai_adoption": {
       "status": "GREEN",
       "reason": "Six-company official evidence supports continued enterprise and consumer AI adoption.",
       "reviewed_at": "2026-09-09",
-      "usable_for_report": false
+      "usable_for_report": true
     },
     "independent_demand_quality": {
       "status": "YELLOW",
       "reason": "Supplier-supported purchases and circular-financing exposure are down-weighted rather than counted as independent demand.",
       "reviewed_at": "2026-09-09",
-      "usable_for_report": false
+      "usable_for_report": true
     },
     "capital_efficiency": {
       "status": "YELLOW",
       "reason": "Cash-flow conversion and AI monetization have not yet fully caught up with gross capital-spending growth.",
       "reviewed_at": "2026-09-09",
-      "usable_for_report": false
+      "usable_for_report": true
     },
     "overall": {
       "status": "YELLOW",
       "reason": "AI expansion remains intact, but demand quality and capital efficiency require monitoring.",
       "reviewed_at": "2026-09-09",
-      "usable_for_report": false
+      "usable_for_report": true
     }
   },
   "signal_methodology": {
@@ -204,5 +199,7 @@
   "last_known_valid_policy": {
     "maximum_age_days": 45,
     "rule": "A transient provider failure retains the last reviewed official revision until it exceeds the maximum age."
-  }
+  },
+  "revision_reviewed_at": "2026-10-05",
+  "revision_review_basis": "config/ai_revolution_review.json; exact retained official IR revisions; financial signal dates unchanged"
 }
