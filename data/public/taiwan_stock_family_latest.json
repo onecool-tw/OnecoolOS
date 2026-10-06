@@ -13,7 +13,7 @@
   "sources": {
     "dashboard": {
       "path": "data/market/dashboard/dashboard_latest.json",
-      "sha256": "b05226a125628feb0e98da73added63004eab6fb81796fd9df4426cbbc5a4b11"
+      "sha256": "b64da4c681c51792019a4b7e4d08dcc2e26d78a342c6d25e112e2801720ef44a"
     },
     "screen": {
       "path": "data/market/taiwan_stock_intelligence/screen_latest.json",
@@ -25,36 +25,48 @@
     },
     "context": {
       "path": "data/market/taiwan_stock_intelligence/daily_context_latest.json",
-      "sha256": "c9e70dc9eeab2aab5f8c5ac6182775aae5f546ba8ae9967a3cd99c56385ec03e"
+      "sha256": "d622d66a435ecedb76bbba18390a9b23012f710ee0a3acb9afa625a4a1069c16"
     }
   },
   "source_generated_at": {
-    "dashboard": "2026-10-05T18:40:59.006187+00:00",
+    "dashboard": "2026-10-06T06:39:21.943211+00:00",
     "screen": null,
     "cta": "2026-10-06T02:59:33.246955+00:00",
-    "context": "2026-10-06T02:59:36.411124+00:00"
+    "context": "2026-10-06T06:41:24.341520+00:00"
   },
   "screen_as_of": "2026-10-05",
-  "display_status": "CURRENT",
+  "display_status": "STALE",
   "report_readiness": {
-    "status": "READY",
-    "expected_as_of": "2026-10-05",
+    "status": "UPDATE_INCOMPLETE",
+    "expected_as_of": "2026-10-06",
     "screen_as_of": "2026-10-05",
     "taiwan_cta_dates": {
-      "0050": "2026-10-05",
-      "2330": "2026-10-05",
+      "0050": "2026-10-06",
+      "2330": "2026-10-06",
       "6669": "2026-10-05",
       "3006": "2026-10-05",
       "2357": "2026-10-05",
       "2408": "2026-10-05",
       "3036": "2026-10-05"
     },
-    "issues": [],
+    "issues": [
+      "screen_not_current",
+      "6669_price_not_current",
+      "6669_cta_not_current",
+      "3006_price_not_current",
+      "3006_cta_not_current",
+      "2357_price_not_current",
+      "2357_cta_not_current",
+      "2408_price_not_current",
+      "2408_cta_not_current",
+      "3036_price_not_current",
+      "3036_cta_not_current"
+    ],
     "scope": "TAIWAN_PRICE_VALUATION_AND_CTA_ONLY",
     "consumer_rule": "INCOMPLETE_MEANS_NO_NEW_EXPOSURE_AND_NO_UNCHANGED_RANKING_CLAIM",
     "asia_and_margin_policy": "KEEP_ACTUAL_LOCAL_SOURCE_DATES"
   },
-  "candidate_action_gate": "REQUIRES_INDIVIDUAL_CTA_AND_PRESSURE_GREEN",
+  "candidate_action_gate": "WATCH_ONLY_STALE_OR_MISSING_SCREEN",
   "market_pressure": {
     "as_of": "2026-10-05",
     "status": "CURRENT",
@@ -92,16 +104,21 @@
     "data_quality": "READY"
   },
   "market_pressure_freshness": {
-    "expected_as_of": "2026-10-05",
+    "expected_as_of": "2026-10-06",
     "as_of": "2026-10-05",
     "source_status": "CURRENT",
-    "status": "CURRENT",
-    "same_day_current": true,
+    "status": "STALE_LAST_KNOWN",
+    "same_day_current": false,
     "consumer_action": "PAUSE_NEW_EXPOSURE"
   },
   "final_delivery_readiness": {
-    "status": "READY",
-    "issues": [],
+    "status": "UPDATE_INCOMPLETE",
+    "issues": [
+      "SCREEN_EXPECTED_AS_OF_MISMATCH",
+      "MARKET_PRESSURE_AS_OF_MISMATCH",
+      "REPORT_READINESS_NOT_READY",
+      "MARKET_PRESSURE_INPUTS_NOT_READY"
+    ],
     "rule": "EMAIL_REQUIRES_CURRENT_MARKET_PRESSURE_AND_CURRENT_LOCAL_MARKET_ASIA_CTA"
   },
   "asia_cta_readiness": {
@@ -119,9 +136,13 @@
     "consumer_rule": "STALE_OR_UNKNOWN_ASIA_CTA_BLOCKS_FINAL_EMAIL"
   },
   "market_pressure_input_readiness": {
-    "status": "READY",
-    "expected_as_of": "2026-10-05",
-    "issues": [],
+    "status": "UPDATE_INCOMPLETE",
+    "expected_as_of": "2026-10-06",
+    "issues": [
+      "pressure_inputs_wrong_requested_date",
+      "margin_not_current",
+      "volatility_not_current"
+    ],
     "consumer_rule": "FINAL_EMAIL_REQUIRES_READY; MARGIN_MAY_USE_VERIFIED_OFFICIAL_LAG_BEFORE_21:30; NEVER_RECOMPUTE_PRESSURE_LIGHT"
   },
   "market_pressure_inputs": {
@@ -171,13 +192,13 @@
   "market_cta": {
     "0050": {
       "symbol": "0050",
-      "as_of": "2026-10-05",
+      "as_of": "2026-10-06",
       "cta": "BUY",
       "trend": "BULLISH"
     },
     "2330": {
       "symbol": "2330",
-      "as_of": "2026-10-05",
+      "as_of": "2026-10-06",
       "cta": "BUY",
       "trend": "BULLISH"
     },
@@ -211,7 +232,7 @@
       "monthly_revenue_as_of": "2026-08",
       "price_basis": "official_unadjusted_close",
       "selection_status": "FORMAL",
-      "action_eligibility": "WATCH_ONLY_FULL_WEAKNESS",
+      "action_eligibility": "WATCH_ONLY_STALE_OR_MISSING_SCREEN",
       "financial_quality": {
         "version": "onecool_tw_financial_quality_v2",
         "status": "REVIEW",
@@ -490,7 +511,7 @@
       "monthly_revenue_as_of": "2026-08",
       "price_basis": "official_unadjusted_close",
       "selection_status": "FORMAL",
-      "action_eligibility": "ELIGIBLE_IF_0050_BULLISH_AND_PRESSURE_GREEN",
+      "action_eligibility": "WATCH_ONLY_STALE_OR_MISSING_SCREEN",
       "financial_quality": {
         "version": "onecool_tw_financial_quality_v2",
         "status": "NORMAL",
@@ -770,7 +791,7 @@
       "monthly_revenue_as_of": "2026-08",
       "price_basis": "official_unadjusted_close",
       "selection_status": "FORMAL",
-      "action_eligibility": "ELIGIBLE_IF_0050_BULLISH_AND_PRESSURE_GREEN",
+      "action_eligibility": "WATCH_ONLY_STALE_OR_MISSING_SCREEN",
       "financial_quality": {
         "version": "onecool_tw_financial_quality_v2",
         "status": "REVIEW",
@@ -1048,7 +1069,7 @@
       "monthly_revenue_as_of": "2026-08",
       "price_basis": "official_unadjusted_close",
       "selection_status": "FORMAL",
-      "action_eligibility": "ELIGIBLE_IF_0050_BULLISH_AND_PRESSURE_GREEN",
+      "action_eligibility": "WATCH_ONLY_STALE_OR_MISSING_SCREEN",
       "financial_quality": {
         "version": "onecool_tw_financial_quality_v2",
         "status": "NORMAL",
@@ -1328,7 +1349,7 @@
       "monthly_revenue_as_of": "2026-08",
       "price_basis": "official_unadjusted_close",
       "selection_status": "FORMAL",
-      "action_eligibility": "ELIGIBLE_IF_0050_BULLISH_AND_PRESSURE_GREEN",
+      "action_eligibility": "WATCH_ONLY_STALE_OR_MISSING_SCREEN",
       "financial_quality": {
         "version": "onecool_tw_financial_quality_v2",
         "status": "REVIEW",

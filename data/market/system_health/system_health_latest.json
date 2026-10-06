@@ -1,12 +1,12 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-10-06T06:40:34.438950+00:00",
+  "generated_at": "2026-10-06T06:41:24.546457+00:00",
   "taipei_date": "2026-10-06",
-  "status": "PARTIAL",
+  "status": "BLOCKED",
   "scope_status": {
     "morning": "READY",
-    "asia": "READY",
+    "asia": "BLOCKED",
     "weekly": "READY"
   },
   "report_delivery": {
@@ -63,11 +63,11 @@
     "policy": "Data readiness does not prove report delivery. Never infer email success from a generated draft."
   },
   "end_to_end_status": "NOT_FULLY_VERIFIED",
-  "action_readiness": "LIMITED",
+  "action_readiness": "UNSAFE_FOR_AFFECTED_REPORTS",
   "counts": {
-    "ready": 17,
+    "ready": 16,
     "partial": 1,
-    "blocked": 0
+    "blocked": 1
   },
   "modules": [
     {
@@ -77,7 +77,7 @@
       "critical": true,
       "status": "READY",
       "reason": "current",
-      "observed_as_of": "2026-10-02",
+      "observed_as_of": "2026-10-05",
       "recovery_workflow": "update-market-dashboard.yml",
       "retryable": true,
       "impacted_reports": [
@@ -92,7 +92,7 @@
       "critical": true,
       "status": "READY",
       "reason": "current",
-      "observed_as_of": "2026-10-02",
+      "observed_as_of": "2026-10-05",
       "recovery_workflow": "update-market-dashboard.yml",
       "retryable": true,
       "impacted_reports": [
@@ -106,7 +106,7 @@
       "critical": true,
       "status": "READY",
       "reason": "current",
-      "observed_as_of": "2026-10-02",
+      "observed_as_of": "2026-10-05",
       "recovery_workflow": "update-market-dashboard.yml",
       "retryable": true,
       "impacted_reports": [
@@ -190,8 +190,8 @@
       "label": "Taiwan Daily Context",
       "scope": "asia",
       "critical": true,
-      "status": "READY",
-      "reason": "current",
+      "status": "BLOCKED",
+      "reason": "display_status is not ready",
       "observed_as_of": "2026-10-05",
       "recovery_workflow": "update-taiwan-stock-screen.yml",
       "retryable": true,
@@ -341,9 +341,25 @@
       "impacted_reports": [
         "台股日報"
       ]
+    },
+    {
+      "module_id": "taiwan_daily_context",
+      "label": "Taiwan Daily Context",
+      "scope": "asia",
+      "critical": true,
+      "status": "BLOCKED",
+      "reason": "display_status is not ready",
+      "observed_as_of": "2026-10-05",
+      "recovery_workflow": "update-taiwan-stock-screen.yml",
+      "retryable": true,
+      "impacted_reports": [
+        "台股日報"
+      ]
     }
   ],
-  "recovery_workflows": [],
-  "issue_fingerprint": "cc30e14b04c9166b28ec0e16f95613abb6d833af2d9ea7e6b95c7442d67eb752",
+  "recovery_workflows": [
+    "update-taiwan-stock-screen.yml"
+  ],
+  "issue_fingerprint": "3c6e5251e7158fb3d74fe5addbbe85dbe71bd9fadf294404f913695a662d3624",
   "policy": "Health monitoring only; never changes CTA, rankings, or investment decisions."
 }
