@@ -140,22 +140,18 @@
         },
         "valuation": {
           "status": "UNKNOWN",
-          "as_of": "2026-09-17",
-          "rationale": "撤回先前估值判定：先前價格由即時報價與漲跌額倒推，不能確認為同截止日調整後正式收盤；合理倍數区間亦缺可追溯比較依據。",
+          "as_of": "2026-10-05",
+          "rationale": "POST_APOGEE_NORMALIZED_EARNINGS_AND_NET_DEBT_BRIDGE_REQUIRED; SOURCE_BACKED_FAIR_VALUE_RANGE_REQUIRED",
           "sources": [
-            "https://news.abbvie.com/2026-07-31-AbbVie-Reports-Second-Quarter-2026-Financial-Results",
-            "https://finance.yahoo.com/quote/ABBV/"
+            "https://news.abbvie.com/2026-09-03-AbbVie-Completes-Acquisition-of-Apogee-Therapeutics"
           ],
-          "data_gap": "未取得2026-09-17調整後正式收盤的直接證據；須由系統補抓歷史價格，並完成盈餘口徑與估值區間驗證後重算。",
+          "data_gap": "POST_APOGEE_NORMALIZED_EARNINGS_AND_NET_DEBT_BRIDGE_REQUIRED; SOURCE_BACKED_FAIR_VALUE_RANGE_REQUIRED",
           "validation_errors": [],
-          "method": "FORWARD_ADJUSTED_PE",
-          "price_as_of": null,
+          "method": null,
+          "price_as_of": "2026-10-05",
           "valid_through": null,
           "inputs": {
-            "price": null,
-            "denominator": null,
-            "multiple": null,
-            "fair_range": null
+            "price": 265.760009765625
           }
         }
       },
@@ -179,14 +175,15 @@
         "as_of": "2026-10-05",
         "status": "PARTIAL",
         "gaps": [
-          "SEC_COMPANYFACTS_FETCH_OR_IDENTITY_VALIDATION_FAILED"
+          "POST_APOGEE_NORMALIZED_EARNINGS_AND_NET_DEBT_BRIDGE_REQUIRED",
+          "SOURCE_BACKED_FAIR_VALUE_RANGE_REQUIRED"
         ],
         "price_basis": "adjusted_close",
         "inputs": {
           "adjusted_close": 265.760009765625
         },
         "sources": [
-          "https://data.sec.gov/api/xbrl/companyfacts/CIK0001551152.json"
+          "https://news.abbvie.com/2026-09-03-AbbVie-Completes-Acquisition-of-Apogee-Therapeutics"
         ],
         "decision_authority": "REFERENCE_INPUTS_ONLY_NOT_FAIR_VALUE",
         "price_source": {
@@ -202,8 +199,40 @@
           "provider": "yahoo_finance_adjusted_batch"
         },
         "price_sha256": "7799732a2bc74eecd3b60ae81331a69bc87cdde9f1aa02e8df3df7eec420b064",
-        "fundamental_fetch_status": "FETCH_FAILED",
-        "fetch_error_type": "HTTPError"
+        "official_reference_status": "VERIFIED",
+        "fundamental_fetch_status": "REVIEWED_OFFICIAL_REFERENCE",
+        "company_name": "AbbVie Inc.",
+        "official_reference": {
+          "symbol": "ABBV",
+          "company_name": "AbbVie Inc.",
+          "published_at": "2026-09-03",
+          "valid_through": "2026-10-14",
+          "sources": [
+            "https://news.abbvie.com/2026-09-03-AbbVie-Completes-Acquisition-of-Apogee-Therapeutics"
+          ],
+          "reported_facts": {
+            "period": "FY2026",
+            "currency": "USD",
+            "share_basis": "common_diluted",
+            "adjusted_eps_guidance": [
+              13.87,
+              14.07
+            ],
+            "included_ytd_iprd_per_share": 0.58,
+            "apogee_partial_year_dilution": 0.14,
+            "apogee_2027_dilution": 0.46,
+            "apogee_equity_consideration_usd_billion": 10.9
+          },
+          "model_gaps": [
+            "POST_APOGEE_NORMALIZED_EARNINGS_AND_NET_DEBT_BRIDGE_REQUIRED",
+            "SOURCE_BACKED_FAIR_VALUE_RANGE_REQUIRED"
+          ],
+          "refresh_on": [
+            "NEW_EARNINGS_OR_GUIDANCE",
+            "MATERIAL_CORPORATE_EVENT",
+            "REFERENCE_EXPIRY"
+          ]
+        }
       },
       "lynch_research": {
         "version": "onecool_lynch_research_v1",
@@ -411,23 +440,18 @@
         },
         "valuation": {
           "status": "UNKNOWN",
-          "as_of": "2026-10-02",
-          "rationale": "採同資料日正式調整後收盤；目前缺可重現之全年正常化獲利分母及具來源的合理倍數區間，不能判定估值通過或失敗。",
+          "as_of": "2026-10-05",
+          "rationale": "FORWARD_SBC_AND_TAX_NORMALIZATION_BRIDGE_REQUIRED; SOURCE_BACKED_FAIR_VALUE_RANGE_REQUIRED",
           "sources": [
-            "https://finance.yahoo.com/quote/DDOG/history/",
-            "https://investors.datadoghq.com/news-releases/news-release-details/datadog-announces-second-quarter-2026-financial-results/",
-            "https://www.sec.gov/Archives/edgar/data/1561550/000162828026054458/ddog-20260630.htm"
+            "https://investors.datadoghq.com/news-releases/news-release-details/datadog-announces-second-quarter-2026-financial-results/"
           ],
-          "data_gap": "SOURCED_NORMALIZED_DENOMINATOR_AND_DISCIPLINED_FAIR_RANGE_NOT_YET_VERIFIED",
+          "data_gap": "FORWARD_SBC_AND_TAX_NORMALIZATION_BRIDGE_REQUIRED; SOURCE_BACKED_FAIR_VALUE_RANGE_REQUIRED",
           "validation_errors": [],
-          "method": "FORWARD_NORMALIZED_PE",
-          "price_as_of": "2026-10-02",
+          "method": null,
+          "price_as_of": "2026-10-05",
           "valid_through": null,
           "inputs": {
-            "price": 277.2200012207031,
-            "denominator": null,
-            "multiple": null,
-            "fair_range": null
+            "price": 276.4150085449219
           }
         }
       },
@@ -451,14 +475,15 @@
         "as_of": "2026-10-05",
         "status": "PARTIAL",
         "gaps": [
-          "SEC_COMPANYFACTS_FETCH_OR_IDENTITY_VALIDATION_FAILED"
+          "FORWARD_SBC_AND_TAX_NORMALIZATION_BRIDGE_REQUIRED",
+          "SOURCE_BACKED_FAIR_VALUE_RANGE_REQUIRED"
         ],
         "price_basis": "adjusted_close",
         "inputs": {
           "adjusted_close": 276.4150085449219
         },
         "sources": [
-          "https://data.sec.gov/api/xbrl/companyfacts/CIK0001561550.json"
+          "https://investors.datadoghq.com/news-releases/news-release-details/datadog-announces-second-quarter-2026-financial-results/"
         ],
         "decision_authority": "REFERENCE_INPUTS_ONLY_NOT_FAIR_VALUE",
         "price_source": {
@@ -474,8 +499,38 @@
           "provider": "yahoo_finance_adjusted_batch"
         },
         "price_sha256": "8bff7451f837cd844604bb29ebec8d50ee06c99879d2b8906186b0c2f20bdb61",
-        "fundamental_fetch_status": "FETCH_FAILED",
-        "fetch_error_type": "HTTPError"
+        "official_reference_status": "VERIFIED",
+        "fundamental_fetch_status": "REVIEWED_OFFICIAL_REFERENCE",
+        "company_name": "Datadog, Inc.",
+        "official_reference": {
+          "symbol": "DDOG",
+          "company_name": "Datadog, Inc.",
+          "published_at": "2026-08-06",
+          "valid_through": "2026-10-14",
+          "sources": [
+            "https://investors.datadoghq.com/news-releases/news-release-details/datadog-announces-second-quarter-2026-financial-results/"
+          ],
+          "reported_facts": {
+            "period": "FY2026",
+            "currency": "USD",
+            "share_basis": "common_diluted",
+            "non_gaap_eps_guidance": [
+              2.5,
+              2.54
+            ],
+            "guidance_diluted_shares_million": 376,
+            "sbc_excluded": true
+          },
+          "model_gaps": [
+            "FORWARD_SBC_AND_TAX_NORMALIZATION_BRIDGE_REQUIRED",
+            "SOURCE_BACKED_FAIR_VALUE_RANGE_REQUIRED"
+          ],
+          "refresh_on": [
+            "NEW_EARNINGS_OR_GUIDANCE",
+            "MATERIAL_CORPORATE_EVENT",
+            "REFERENCE_EXPIRY"
+          ]
+        }
       },
       "lynch_research": {
         "version": "onecool_lynch_research_v1",
@@ -683,22 +738,18 @@
         },
         "valuation": {
           "status": "UNKNOWN",
-          "as_of": "2026-10-02",
-          "rationale": "採同資料日正式調整後收盤；目前缺可重現之全年正常化獲利分母及具來源的合理倍數區間，不能判定估值通過或失敗。",
+          "as_of": "2026-10-05",
+          "rationale": "MID_CYCLE_NORMALIZED_EARNINGS_AND_FCF_CROSSCHECK_REQUIRED; SOURCE_BACKED_FAIR_VALUE_RANGE_REQUIRED",
           "sources": [
-            "https://finance.yahoo.com/quote/AMD/history/",
             "https://ir.amd.com/news-events/press-releases/detail/1295/amd-reports-second-quarter-2026-financial-results"
           ],
-          "data_gap": "SOURCED_NORMALIZED_DENOMINATOR_AND_DISCIPLINED_FAIR_RANGE_NOT_YET_VERIFIED",
+          "data_gap": "MID_CYCLE_NORMALIZED_EARNINGS_AND_FCF_CROSSCHECK_REQUIRED; SOURCE_BACKED_FAIR_VALUE_RANGE_REQUIRED",
           "validation_errors": [],
-          "method": "FORWARD_NORMALIZED_PE",
-          "price_as_of": "2026-10-02",
+          "method": null,
+          "price_as_of": "2026-10-05",
           "valid_through": null,
           "inputs": {
-            "price": 633.9099731445312,
-            "denominator": null,
-            "multiple": null,
-            "fair_range": null
+            "price": 631.75
           }
         }
       },
@@ -722,14 +773,15 @@
         "as_of": "2026-10-05",
         "status": "PARTIAL",
         "gaps": [
-          "SEC_COMPANYFACTS_FETCH_OR_IDENTITY_VALIDATION_FAILED"
+          "MID_CYCLE_NORMALIZED_EARNINGS_AND_FCF_CROSSCHECK_REQUIRED",
+          "SOURCE_BACKED_FAIR_VALUE_RANGE_REQUIRED"
         ],
         "price_basis": "adjusted_close",
         "inputs": {
           "adjusted_close": 631.75
         },
         "sources": [
-          "https://data.sec.gov/api/xbrl/companyfacts/CIK0000002488.json"
+          "https://ir.amd.com/news-events/press-releases/detail/1295/amd-reports-second-quarter-2026-financial-results"
         ],
         "decision_authority": "REFERENCE_INPUTS_ONLY_NOT_FAIR_VALUE",
         "price_source": {
@@ -745,8 +797,36 @@
           "provider": "yahoo_finance_adjusted_batch"
         },
         "price_sha256": "3519cef2c663263cf9b19558b5ee8c7a205ea468a5213842444516e99ce76c46",
-        "fundamental_fetch_status": "FETCH_FAILED",
-        "fetch_error_type": "HTTPError"
+        "official_reference_status": "VERIFIED",
+        "fundamental_fetch_status": "REVIEWED_OFFICIAL_REFERENCE",
+        "company_name": "Advanced Micro Devices, Inc.",
+        "official_reference": {
+          "symbol": "AMD",
+          "company_name": "Advanced Micro Devices, Inc.",
+          "published_at": "2026-08-04",
+          "valid_through": "2026-10-14",
+          "sources": [
+            "https://ir.amd.com/news-events/press-releases/detail/1295/amd-reports-second-quarter-2026-financial-results"
+          ],
+          "reported_facts": {
+            "period": "Q2FY2026",
+            "currency": "USD",
+            "share_basis": "common_diluted",
+            "gaap_eps": 1.38,
+            "non_gaap_eps": 1.66,
+            "sbc_adjustment_per_share": 0.3,
+            "investment_gain_adjustment_per_share": -0.29
+          },
+          "model_gaps": [
+            "MID_CYCLE_NORMALIZED_EARNINGS_AND_FCF_CROSSCHECK_REQUIRED",
+            "SOURCE_BACKED_FAIR_VALUE_RANGE_REQUIRED"
+          ],
+          "refresh_on": [
+            "NEW_EARNINGS_OR_GUIDANCE",
+            "MATERIAL_CORPORATE_EVENT",
+            "REFERENCE_EXPIRY"
+          ]
+        }
       },
       "lynch_research": {
         "version": "onecool_lynch_research_v1",
@@ -959,23 +1039,18 @@
         },
         "valuation": {
           "status": "UNKNOWN",
-          "as_of": "2026-10-02",
-          "rationale": "採同資料日正式調整後收盤；目前缺可重現之全年正常化獲利分母及具來源的合理倍數區間，不能判定估值通過或失敗。",
+          "as_of": "2026-10-05",
+          "rationale": "NORMALIZED_TTM_ADR_EPS_EXCLUDING_INVESTMENT_GAINS_AND_FCF_CROSSCHECK_REQUIRED; SOURCE_BACKED_FAIR_VALUE_RANGE_REQUIRED",
           "sources": [
-            "https://finance.yahoo.com/quote/TSM/history/",
-            "https://investor.tsmc.com/english/encrypt/files/encrypt_file/reports/2026-07/a80d7933be643644081584087731f73b22ea5a2c/2Q26%20EarningsRelease.pdf",
-            "https://www.sec.gov/Archives/edgar/data/1046179/000162828026025362/tsm-20251231.htm"
+            "https://investor.tsmc.com/english/quarterly-results/2026/q2"
           ],
-          "data_gap": "SOURCED_NORMALIZED_DENOMINATOR_AND_DISCIPLINED_FAIR_RANGE_NOT_YET_VERIFIED",
+          "data_gap": "NORMALIZED_TTM_ADR_EPS_EXCLUDING_INVESTMENT_GAINS_AND_FCF_CROSSCHECK_REQUIRED; SOURCE_BACKED_FAIR_VALUE_RANGE_REQUIRED",
           "validation_errors": [],
-          "method": "CYCLE_ADJUSTED_PE_AND_CAPEX_FCF_CROSSCHECK",
-          "price_as_of": "2026-10-02",
+          "method": null,
+          "price_as_of": "2026-10-05",
           "valid_through": null,
           "inputs": {
-            "price": 472.7799987792969,
-            "denominator": null,
-            "multiple": null,
-            "fair_range": null
+            "price": 485.79998779296875
           }
         }
       },
@@ -999,14 +1074,15 @@
         "as_of": "2026-10-05",
         "status": "PARTIAL",
         "gaps": [
-          "SEC_COMPANYFACTS_FETCH_OR_IDENTITY_VALIDATION_FAILED"
+          "NORMALIZED_TTM_ADR_EPS_EXCLUDING_INVESTMENT_GAINS_AND_FCF_CROSSCHECK_REQUIRED",
+          "SOURCE_BACKED_FAIR_VALUE_RANGE_REQUIRED"
         ],
         "price_basis": "adjusted_close",
         "inputs": {
           "adjusted_close": 485.79998779296875
         },
         "sources": [
-          "https://data.sec.gov/api/xbrl/companyfacts/CIK0001046179.json"
+          "https://investor.tsmc.com/english/quarterly-results/2026/q2"
         ],
         "decision_authority": "REFERENCE_INPUTS_ONLY_NOT_FAIR_VALUE",
         "price_source": {
@@ -1022,8 +1098,34 @@
           "provider": "yahoo_finance_adjusted_batch"
         },
         "price_sha256": "b41d9b2fe661f682a45db5e998bca69624738952f9298b72b53e928418f84abe",
-        "fundamental_fetch_status": "FETCH_FAILED",
-        "fetch_error_type": "HTTPError"
+        "official_reference_status": "VERIFIED",
+        "fundamental_fetch_status": "REVIEWED_OFFICIAL_REFERENCE",
+        "company_name": "Taiwan Semiconductor Manufacturing Company Limited ADR",
+        "official_reference": {
+          "symbol": "TSM",
+          "company_name": "Taiwan Semiconductor Manufacturing Company Limited ADR",
+          "published_at": "2026-07-16",
+          "valid_through": "2026-10-14",
+          "sources": [
+            "https://investor.tsmc.com/english/quarterly-results/2026/q2"
+          ],
+          "reported_facts": {
+            "period": "Q2FY2026",
+            "ordinary_eps_twd": 27.25,
+            "adr_eps_usd": 4.31,
+            "share_basis": "ADR",
+            "quarterly_only": true
+          },
+          "model_gaps": [
+            "NORMALIZED_TTM_ADR_EPS_EXCLUDING_INVESTMENT_GAINS_AND_FCF_CROSSCHECK_REQUIRED",
+            "SOURCE_BACKED_FAIR_VALUE_RANGE_REQUIRED"
+          ],
+          "refresh_on": [
+            "NEW_EARNINGS_OR_GUIDANCE",
+            "MATERIAL_CORPORATE_EVENT",
+            "REFERENCE_EXPIRY"
+          ]
+        }
       },
       "lynch_research": {
         "version": "onecool_lynch_research_v1",
@@ -1239,23 +1341,18 @@
         },
         "valuation": {
           "status": "UNKNOWN",
-          "as_of": "2026-10-02",
-          "rationale": "採同資料日正式調整後收盤；目前缺可重現之全年正常化獲利分母及具來源的合理倍數區間，不能判定估值通過或失敗。",
+          "as_of": "2026-10-05",
+          "rationale": "COMPARABLE_TTM_NORMALIZED_EPS_WITH_FY2027_SBC_RECAST_REQUIRED; SOURCE_BACKED_FAIR_VALUE_RANGE_REQUIRED",
           "sources": [
-            "https://finance.yahoo.com/quote/NVDA/history/",
-            "https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Announces-Financial-Results-for-Second-Quarter-Fiscal-2027/",
-            "https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm"
+            "https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Announces-Financial-Results-for-Second-Quarter-Fiscal-2027/"
           ],
-          "data_gap": "SOURCED_NORMALIZED_DENOMINATOR_AND_DISCIPLINED_FAIR_RANGE_NOT_YET_VERIFIED",
+          "data_gap": "COMPARABLE_TTM_NORMALIZED_EPS_WITH_FY2027_SBC_RECAST_REQUIRED; SOURCE_BACKED_FAIR_VALUE_RANGE_REQUIRED",
           "validation_errors": [],
-          "method": "FORWARD_NORMALIZED_PE",
-          "price_as_of": "2026-10-02",
+          "method": null,
+          "price_as_of": "2026-10-05",
           "valid_through": null,
           "inputs": {
-            "price": 233.9499969482422,
-            "denominator": null,
-            "multiple": null,
-            "fair_range": null
+            "price": 238.89999389648438
           }
         }
       },
@@ -1279,14 +1376,15 @@
         "as_of": "2026-10-05",
         "status": "PARTIAL",
         "gaps": [
-          "SEC_COMPANYFACTS_FETCH_OR_IDENTITY_VALIDATION_FAILED"
+          "COMPARABLE_TTM_NORMALIZED_EPS_WITH_FY2027_SBC_RECAST_REQUIRED",
+          "SOURCE_BACKED_FAIR_VALUE_RANGE_REQUIRED"
         ],
         "price_basis": "adjusted_close",
         "inputs": {
           "adjusted_close": 238.89999389648438
         },
         "sources": [
-          "https://data.sec.gov/api/xbrl/companyfacts/CIK0001045810.json"
+          "https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Announces-Financial-Results-for-Second-Quarter-Fiscal-2027/"
         ],
         "decision_authority": "REFERENCE_INPUTS_ONLY_NOT_FAIR_VALUE",
         "price_source": {
@@ -1302,8 +1400,35 @@
           "provider": "yahoo_finance_raw"
         },
         "price_sha256": "44d9e83d66995b3c8675b2158601d445b9b47b507d1f352cacad4080f98b47d4",
-        "fundamental_fetch_status": "FETCH_FAILED",
-        "fetch_error_type": "HTTPError"
+        "official_reference_status": "VERIFIED",
+        "fundamental_fetch_status": "REVIEWED_OFFICIAL_REFERENCE",
+        "company_name": "NVIDIA Corporation",
+        "official_reference": {
+          "symbol": "NVDA",
+          "company_name": "NVIDIA Corporation",
+          "published_at": "2026-08-26",
+          "valid_through": "2026-10-14",
+          "sources": [
+            "https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Announces-Financial-Results-for-Second-Quarter-Fiscal-2027/"
+          ],
+          "reported_facts": {
+            "period": "Q2FY2027",
+            "currency": "USD",
+            "share_basis": "common_diluted",
+            "gaap_eps": 2.46,
+            "non_gaap_eps": 2.22,
+            "non_gaap_includes_sbc": true
+          },
+          "model_gaps": [
+            "COMPARABLE_TTM_NORMALIZED_EPS_WITH_FY2027_SBC_RECAST_REQUIRED",
+            "SOURCE_BACKED_FAIR_VALUE_RANGE_REQUIRED"
+          ],
+          "refresh_on": [
+            "NEW_EARNINGS_OR_GUIDANCE",
+            "MATERIAL_CORPORATE_EVENT",
+            "REFERENCE_EXPIRY"
+          ]
+        }
       },
       "lynch_research": {
         "version": "onecool_lynch_research_v1",
