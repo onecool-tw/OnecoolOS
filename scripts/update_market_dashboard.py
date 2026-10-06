@@ -613,6 +613,8 @@ def update(
                     breakout_scan, scan_histories, evidence,
                     SecClient(os.environ.get("SEC_USER_AGENT", "OnecoolOS research onecool-tw@users.noreply.github.com"), request=fetch_sec_json, retry_delays=()),
                     registry=json.loads((root / "config/sec_fundamental_tickers.json").read_text())["tickers"],
+                    reviewed=(json.loads((intelligence_dir / "reviewed_valuation_inputs.json").read_text())
+                              if (intelligence_dir / "reviewed_valuation_inputs.json").exists() else {}),
                 )
                 serialized_evidence = json.dumps(evidence, ensure_ascii=False, indent=2, allow_nan=False) + "\n"
                 temporary = evidence_path.with_suffix(".tmp")
@@ -699,3 +701,4 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+

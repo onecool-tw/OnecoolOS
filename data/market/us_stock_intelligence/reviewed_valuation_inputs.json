@@ -1,0 +1,145 @@
+{
+  "schema_version": "1.0",
+  "reviewed_at": "2026-10-06",
+  "purpose": "Official issuer reference fallback; facts alone do not authorize fair-value PASS.",
+  "results": {
+    "ABBV": {
+      "symbol": "ABBV",
+      "company_name": "AbbVie Inc.",
+      "published_at": "2026-09-03",
+      "valid_through": "2026-10-14",
+      "sources": [
+        "https://news.abbvie.com/2026-09-03-AbbVie-Completes-Acquisition-of-Apogee-Therapeutics"
+      ],
+      "reported_facts": {
+        "period": "FY2026",
+        "currency": "USD",
+        "share_basis": "common_diluted",
+        "adjusted_eps_guidance": [
+          13.87,
+          14.07
+        ],
+        "included_ytd_iprd_per_share": 0.58,
+        "apogee_partial_year_dilution": 0.14,
+        "apogee_2027_dilution": 0.46,
+        "apogee_equity_consideration_usd_billion": 10.9
+      },
+      "model_gaps": [
+        "POST_APOGEE_NORMALIZED_EARNINGS_AND_NET_DEBT_BRIDGE_REQUIRED",
+        "SOURCE_BACKED_FAIR_VALUE_RANGE_REQUIRED"
+      ],
+      "refresh_on": [
+        "NEW_EARNINGS_OR_GUIDANCE",
+        "MATERIAL_CORPORATE_EVENT",
+        "REFERENCE_EXPIRY"
+      ]
+    },
+    "DDOG": {
+      "symbol": "DDOG",
+      "company_name": "Datadog, Inc.",
+      "published_at": "2026-08-06",
+      "valid_through": "2026-10-14",
+      "sources": [
+        "https://investors.datadoghq.com/news-releases/news-release-details/datadog-announces-second-quarter-2026-financial-results/"
+      ],
+      "reported_facts": {
+        "period": "FY2026",
+        "currency": "USD",
+        "share_basis": "common_diluted",
+        "non_gaap_eps_guidance": [
+          2.5,
+          2.54
+        ],
+        "guidance_diluted_shares_million": 376,
+        "sbc_excluded": true
+      },
+      "model_gaps": [
+        "FORWARD_SBC_AND_TAX_NORMALIZATION_BRIDGE_REQUIRED",
+        "SOURCE_BACKED_FAIR_VALUE_RANGE_REQUIRED"
+      ],
+      "refresh_on": [
+        "NEW_EARNINGS_OR_GUIDANCE",
+        "MATERIAL_CORPORATE_EVENT",
+        "REFERENCE_EXPIRY"
+      ]
+    },
+    "AMD": {
+      "symbol": "AMD",
+      "company_name": "Advanced Micro Devices, Inc.",
+      "published_at": "2026-08-04",
+      "valid_through": "2026-10-14",
+      "sources": [
+        "https://ir.amd.com/news-events/press-releases/detail/1295/amd-reports-second-quarter-2026-financial-results"
+      ],
+      "reported_facts": {
+        "period": "Q2FY2026",
+        "currency": "USD",
+        "share_basis": "common_diluted",
+        "gaap_eps": 1.38,
+        "non_gaap_eps": 1.66,
+        "sbc_adjustment_per_share": 0.3,
+        "investment_gain_adjustment_per_share": -0.29
+      },
+      "model_gaps": [
+        "MID_CYCLE_NORMALIZED_EARNINGS_AND_FCF_CROSSCHECK_REQUIRED",
+        "SOURCE_BACKED_FAIR_VALUE_RANGE_REQUIRED"
+      ],
+      "refresh_on": [
+        "NEW_EARNINGS_OR_GUIDANCE",
+        "MATERIAL_CORPORATE_EVENT",
+        "REFERENCE_EXPIRY"
+      ]
+    },
+    "TSM": {
+      "symbol": "TSM",
+      "company_name": "Taiwan Semiconductor Manufacturing Company Limited ADR",
+      "published_at": "2026-07-16",
+      "valid_through": "2026-10-14",
+      "sources": [
+        "https://investor.tsmc.com/english/quarterly-results/2026/q2"
+      ],
+      "reported_facts": {
+        "period": "Q2FY2026",
+        "ordinary_eps_twd": 27.25,
+        "adr_eps_usd": 4.31,
+        "share_basis": "ADR",
+        "quarterly_only": true
+      },
+      "model_gaps": [
+        "NORMALIZED_TTM_ADR_EPS_EXCLUDING_INVESTMENT_GAINS_AND_FCF_CROSSCHECK_REQUIRED",
+        "SOURCE_BACKED_FAIR_VALUE_RANGE_REQUIRED"
+      ],
+      "refresh_on": [
+        "NEW_EARNINGS_OR_GUIDANCE",
+        "MATERIAL_CORPORATE_EVENT",
+        "REFERENCE_EXPIRY"
+      ]
+    },
+    "NVDA": {
+      "symbol": "NVDA",
+      "company_name": "NVIDIA Corporation",
+      "published_at": "2026-08-26",
+      "valid_through": "2026-10-14",
+      "sources": [
+        "https://investor.nvidia.com/news/press-release-details/2026/NVIDIA-Announces-Financial-Results-for-Second-Quarter-Fiscal-2027/"
+      ],
+      "reported_facts": {
+        "period": "Q2FY2027",
+        "currency": "USD",
+        "share_basis": "common_diluted",
+        "gaap_eps": 2.46,
+        "non_gaap_eps": 2.22,
+        "non_gaap_includes_sbc": true
+      },
+      "model_gaps": [
+        "COMPARABLE_TTM_NORMALIZED_EPS_WITH_FY2027_SBC_RECAST_REQUIRED",
+        "SOURCE_BACKED_FAIR_VALUE_RANGE_REQUIRED"
+      ],
+      "refresh_on": [
+        "NEW_EARNINGS_OR_GUIDANCE",
+        "MATERIAL_CORPORATE_EVENT",
+        "REFERENCE_EXPIRY"
+      ]
+    }
+  }
+}
