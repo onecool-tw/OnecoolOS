@@ -27,6 +27,31 @@ def _positive(value):
             and isfinite(value) and value > 0)
 
 
+def scenario_multiple(scenario):
+    """Two-stage equity cash-flow multiple; inputs are analyst assumptions.
+
+    Cash conversion is FCFE/earnings for EPS, or 1 for owner cash flow.
+    No market price is used to select the assumptions.
+    """
+    g, r, terminal = (scenario[k] for k in
+                      ("growth", "required_return", "terminal_growth"))
+    cash, terminal_cash = (scenario[k] for k in
+                           ("cash_conversion", "terminal_cash_conversion"))
+    years = scenario["years"]
+    values = (g, r, terminal, cash, terminal_cash)
+    if (any(isinstance(v, bool) or not isinstance(v, (int, float))
+            or not isfinite(v) for v in values)
+            or isinstance(years, bool) or not isinstance(years, int)
+            or not 1 <= years <= 10 or not 0 <= g <= .5
+            or not 0 <= terminal < r <= .3
+            or not 0 < cash <= 1 or not 0 < terminal_cash <= 1):
+        raise ValueError("VALUATION_SCENARIO_INVALID")
+    interim = sum(cash * (1 + g)**t / (1 + r)**t
+                  for t in range(1, years + 1))
+    return interim + terminal_cash * (1 + g)**years * (1 + terminal) / (
+        (r - terminal) * (1 + r)**years)
+
+
 def collect_valuation_inputs(scan, histories, evidence, client, registry=None, reviewed=None):
     """Attempt every validated Top 5 independently, retaining named failures.
 
@@ -166,6 +191,12 @@ def _collect_reviewed(official, candidate, pack, record, cutoff):
                 or not _positive(model.get("denominator"))):
             raise ValueError("REVIEWED_VALUATION_MODEL_UNIT_OR_DENOMINATOR_INVALID")
         limits = model.get("fair_range")
+        if model.get("scenarios"):
+            if model.get("assumption_authority") != "ONECOOL_ANALYST_NOT_ISSUER_GUIDANCE":
+                raise ValueError("VALUATION_ASSUMPTION_AUTHORITY_MISSING")
+            recomputed = [scenario_multiple(s) for s in model["scenarios"]]
+            if len(recomputed) != 2 or any(abs(a-b) > 1e-8 for a,b in zip(recomputed, limits or [])) or len(limits or []) != 2:
+                raise ValueError("VALUATION_SCENARIO_RANGE_MISMATCH")
         if (not isinstance(limits, list) or len(limits) != 2
                 or not all(_positive(v) for v in limits) or limits[0] > limits[1]):
             raise ValueError("REVIEWED_VALUATION_MODEL_RANGE_INVALID")
@@ -187,6 +218,9 @@ def _collect_reviewed(official, candidate, pack, record, cutoff):
                 "fair_range_sources": model["fair_range_sources"],
                 "normalization_bridge": model["normalization_bridge"],
                 "policy_version": model["policy_version"],
+                "assumption_authority": model.get("assumption_authority"),
+                "scenarios": deepcopy(model.get("scenarios", [])),
+                "research_grade": model.get("research_grade", "REVIEWED_MODEL"),
                 "inputs": {"price": price, "denominator": model["denominator"],
                            "multiple": multiple, "fair_range": limits}}
         # Reuse the existing quality engine's validation; do not create a

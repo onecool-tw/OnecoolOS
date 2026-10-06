@@ -1,6 +1,38 @@
 from datetime import date
 from types import SimpleNamespace
 from onecool_os.market.us_valuation_inputs import collect_valuation_inputs
+from onecool_os.market.us_valuation_inputs import scenario_multiple
+
+def test_two_stage_cashflow_matches_constant_growth_perpetuity():
+    s={'years':5,'growth':.02,'required_return':.10,'terminal_growth':.02,
+       'cash_conversion':.5,'terminal_cash_conversion':.5}
+    assert abs(scenario_multiple(s)-.5*1.02/(.10-.02)) < 1e-10
+
+def test_invalid_or_price_fitted_scenario_range_rejected():
+    s={'years':5,'growth':.02,'required_return':.10,'terminal_growth':.10,
+       'cash_conversion':.5,'terminal_cash_conversion':.5}
+    try: scenario_multiple(s)
+    except ValueError: pass
+    else: raise AssertionError('non-convergent terminal accepted')
+    s['terminal_growth']=.02
+    reviewed=complete_model()
+    reviewed['results']['TEST']['valuation_model'].update(
+        scenarios=[s,s],assumption_authority='ONECOOL_ANALYST_NOT_ISSUER_GUIDANCE')
+    scan,bars,client=fixture()
+    got=collect_valuation_inputs(scan,bars,None,client,{'TEST':'1'},reviewed)
+    assert got['results'][0]['gates']['valuation']['status']=='UNKNOWN'
+
+def test_reviewed_denominators_and_scenarios_are_reproducible():
+    import json
+    from pathlib import Path
+    r=json.loads(Path('data/market/us_stock_intelligence/reviewed_valuation_inputs.json').read_text())['results']
+    assert abs(r['DDOG']['valuation_model']['denominator'] - 249732/371023)<1e-10
+    assert abs(r['ABBV']['valuation_model']['denominator'] - 13.55)<1e-10
+    assert abs(r['TSM']['valuation_model']['denominator'] - 8.845)<1e-10
+    for row in r.values():
+        m=row['valuation_model']
+        assert m['fair_range']==[scenario_multiple(s) for s in m['scenarios']]
+        assert m['research_grade']=='SCREENING_SCENARIO_NOT_FULL_DCF'
 
 def fixture():
     scan = {"expected_as_of": "2026-09-17", "data_status": "READY", "price_basis": "adjusted_close",
