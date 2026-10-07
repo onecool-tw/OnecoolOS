@@ -20,6 +20,7 @@ from onecool_os.market.dashboard import (
     build_dashboard_payload,
     dashboard_record,
     retired_security_record,
+    apply_portfolio_security_lifecycle,
 )
 from onecool_os.market.etf_cta import (
     AlphaVantageClient,
@@ -601,6 +602,7 @@ def update(
         histories_by_symbol, expected_as_of=payload["expected_as_of"],
         fundamentals=scan_fundamentals,
     )
+    portfolio_scores = apply_portfolio_security_lifecycle(portfolio_scores)
     payload["us_portfolio_dual_system_scores"] = portfolio_scores
     # Four-condition AI confirmation retired by user; retain individual CTAs.
     if breakout_scan is not None:

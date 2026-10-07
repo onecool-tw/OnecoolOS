@@ -69,6 +69,22 @@ def retired_security_record(config: MarketSymbol, expected_as_of: str) -> Market
         reason=event["reason"],
     )
 
+
+def apply_portfolio_security_lifecycle(payload: dict[str, Any]) -> dict[str, Any]:
+    """Do not label a retired symbol's assessment date as a price date."""
+    expected = payload["expected_as_of"]
+    for row in payload.get("results", []):
+        event = RETIRED_US_SECURITIES.get(row["symbol"])
+        if event is None or expected < event["effective_as_of"]:
+            continue
+        row.update(price_as_of=None, assessment_as_of=expected,
+                   technical_confidence=0, validation_status="Technical Data Validation Failed",
+                   validation_errors=[event["reason"]], canslim_score=None,
+                   minervini_score=None, passes_dual_system=None,
+                   new_entry_eligible=False, security_lifecycle=event)
+        payload["data_status"] = "PARTIAL"
+    return payload
+
 INNOVATION_OPTION_SYMBOLS = ("TSLA", "SPCX")
 
 INNOVATION_OPTION_POLICY = {

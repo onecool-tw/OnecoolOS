@@ -2,6 +2,7 @@ from datetime import UTC, datetime
 from onecool_os.market.dashboard import (
     MARKET_SYMBOLS, INNOVATION_OPTION_SYMBOLS, MarketCTA,
     build_dashboard_payload, retired_security_record,
+    apply_portfolio_security_lifecycle,
 )
 
 
@@ -63,3 +64,15 @@ def test_retirement_does_not_bypass_index_date_gate():
         assert "US CTA proxy dates are inconsistent" in str(exc)
     else:
         raise AssertionError("Index date gate must remain strict")
+
+
+def test_retired_scores_do_not_claim_current_price_date_or_reuse_scores():
+    result = apply_portfolio_security_lifecycle({"expected_as_of": "2026-10-06",
+        "data_status": "READY", "results": [{"symbol": "QRVO", "price_as_of": "2026-10-06",
+        "canslim_score": 85, "minervini_score": 96}]})
+    row = result["results"][0]
+    assert result["data_status"] == "PARTIAL"
+    assert row["price_as_of"] is None
+    assert row["canslim_score"] is None and row["minervini_score"] is None
+    assert row["new_entry_eligible"] is False
+    assert row["validation_errors"] == ["MERGER_COMPLETED_SECURITY_RETIRED"]
