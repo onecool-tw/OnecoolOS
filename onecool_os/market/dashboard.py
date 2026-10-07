@@ -40,7 +40,7 @@ COUNTRY_INDEX_CTA_PROXIES = {
     "South Korea": "069500",
 }
 
-US_PORTFOLIO_CTA_SYMBOLS = ("BABA", "XYZ", "QRVO", "RH", "UPBD")
+US_PORTFOLIO_CTA_SYMBOLS = ("BABA", "XYZ", "SWKS", "RH", "UPBD")
 
 # Confirmed security lifecycle events, not missing-price imputation.
 RETIRED_US_SECURITIES = {
@@ -113,7 +113,7 @@ MARKET_SYMBOLS = (
     MarketSymbol("069500", "069500.KS", "KR", "broad_market"),
     MarketSymbol("BABA", "BABA", "US", "portfolio"),
     MarketSymbol("XYZ", "XYZ", "US", "portfolio"),
-    MarketSymbol("QRVO", "QRVO", "US", "portfolio"),
+    MarketSymbol("SWKS", "SWKS", "US", "portfolio"),
     MarketSymbol("RH", "RH", "US", "portfolio"),
     MarketSymbol("UPBD", "UPBD", "US", "portfolio"),
     MarketSymbol("TSLA", "TSLA", "US", "innovation_option"),
@@ -255,6 +255,8 @@ def build_dashboard_payload(
     # Retired securities have no current closing price or meaningful CTA.
     # Preserve the portfolio row without allowing old BUY signals to survive.
     configs = {item.symbol: item for item in MARKET_SYMBOLS}
+    configs.update({symbol: MarketSymbol(symbol, symbol, "US", "retired_portfolio")
+                    for symbol in RETIRED_US_SECURITIES})
     values = [retired_security_record(configs[item.symbol], expected_as_of) or item
               if item.symbol in configs else item for item in values]
     country_as_of = _validate_country_index_cta_dates(values)
@@ -467,3 +469,4 @@ def _aggregate_trend(records: Iterable[MarketCTA]) -> str:
     if bearish >= threshold:
         return "BEARISH"
     return "MIXED"
+

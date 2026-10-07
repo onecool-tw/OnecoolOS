@@ -54,7 +54,7 @@ def record(
 def test_dashboard_symbols_are_fixed_and_provider_mapped() -> None:
     assert [item.symbol for item in MARKET_SYMBOLS] == [
         "SPY", "QQQ", "RUSSELL_2000", "DIA", "SOXX", "NVDA", "1306",
-        "069500", "BABA", "XYZ", "QRVO", "RH", "UPBD", "TSLA", "0050",
+        "069500", "BABA", "XYZ", "SWKS", "RH", "UPBD", "TSLA", "0050",
         "2330", "VIX", "DXY", "US30Y", "BTC",
     ]
     assert {item.symbol: item.provider_symbol for item in MARKET_SYMBOLS}[
@@ -104,7 +104,7 @@ def test_market_summary_is_deterministic_and_not_a_forecast() -> None:
         record("069500", "KR", "BULLISH", "BUY", "2026-07-16"),
         record("BABA", "US", "MIXED", "HOLD"),
         record("XYZ", "US", "BEARISH", "SELL"),
-        record("QRVO", "US", "MIXED", "WATCH"),
+        record("SWKS", "US", "MIXED", "WATCH"),
         record("RH", "US", "MIXED", "HOLD"),
         record("UPBD", "US", "BULLISH", "BUY"),
         record("0050", "TW", "BULLISH", "BUY"),
@@ -317,3 +317,4 @@ def test_dashboard_rejects_missing_country_proxy() -> None:
         assert "missing country CTA proxies: 069500" in str(exc)
     else:
         raise AssertionError("A missing local-market CTA must not be published")
+

@@ -1,6 +1,6 @@
 from datetime import UTC, datetime
 from onecool_os.market.dashboard import (
-    MARKET_SYMBOLS, INNOVATION_OPTION_SYMBOLS, MarketCTA,
+    MARKET_SYMBOLS, INNOVATION_OPTION_SYMBOLS, MarketCTA, MarketSymbol,
     build_dashboard_payload, retired_security_record,
     apply_portfolio_security_lifecycle,
 )
@@ -9,7 +9,7 @@ from onecool_os.market.dashboard import (
 def records(day):
     return [MarketCTA(c.symbol, c.provider_symbol, c.market, c.theme, day,
                       100, 90, 80, 85, 75, "BULLISH", "BUY", 100, "test")
-            for c in MARKET_SYMBOLS]
+            for c in (*MARKET_SYMBOLS, MarketSymbol("QRVO", "QRVO", "US", "retired_portfolio"))]
 
 
 def payload(rows, day):
@@ -20,7 +20,7 @@ def payload(rows, day):
 
 def test_retired_qrvo_does_not_block_current_market_or_reuse_buy():
     rows = records("2026-10-06")
-    rows = [r if r.symbol != "QRVO" else records("2026-10-02")[10]
+    rows = [r if r.symbol != "QRVO" else next(r for r in records("2026-10-02") if r.symbol == "QRVO")
             for r in rows]
     result = payload(rows, "2026-10-06")
     qrvo = next(r for r in result["results"] if r["symbol"] == "QRVO")
@@ -38,7 +38,7 @@ def test_retired_qrvo_does_not_block_current_market_or_reuse_buy():
 def test_pre_merger_qrvo_keeps_existing_engine_signal():
     result = payload(records("2026-10-02"), "2026-10-02")
     assert next(r for r in result["results"] if r["symbol"] == "QRVO")["cta"] == "BUY"
-    config = next(c for c in MARKET_SYMBOLS if c.symbol == "QRVO")
+    config = MarketSymbol("QRVO", "QRVO", "US", "retired_portfolio")
     assert retired_security_record(config, "2026-10-02") is None
 
 

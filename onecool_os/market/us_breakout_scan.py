@@ -21,7 +21,7 @@ SCAN_VERSION = "onecool_us_breakout_v1"
 SCORE_VERSION = "onecool_us_dual_v2"
 PRICE_BASIS = "adjusted_close"
 MAX_FUNDAMENTAL_AGE_DAYS = 180
-PORTFOLIO_SYMBOLS = ("BABA", "XYZ", "QRVO", "RH", "UPBD")
+PORTFOLIO_SYMBOLS = ("BABA", "XYZ", "SWKS", "RH", "UPBD")
 MIN_TECHNICAL_CONFIDENCE = 90
 CANSLIM_PASS = 70
 MINERVINI_PASS = 80
@@ -151,6 +151,7 @@ US_SECURITY_MASTER = {
     "GD": SecurityIdentity("General Dynamics Corporation"),
     "BABA": SecurityIdentity("Alibaba Group Holding Limited", "ADR"),
     "QRVO": SecurityIdentity("Qorvo, Inc."),
+    "SWKS": SecurityIdentity("Skyworks Solutions, Inc."),
     "RH": SecurityIdentity("RH"),
     "UPBD": SecurityIdentity("Upbound Group, Inc."),
 }
@@ -954,3 +955,4 @@ def _mean(values: Iterable[float]) -> float:
 
 def _bounded(value: int) -> int:
     return max(0, min(100, value))
+

@@ -10,7 +10,7 @@ from onecool_os.market.lynch_research import build_lynch_research
 
 
 INNOVATION_OPTION_EXEMPTIONS = {"TSLA", "SPCX"}
-EXISTING_PORTFOLIO_EXEMPTIONS = {"BABA", "XYZ", "QRVO", "RH", "UPBD"}
+EXISTING_PORTFOLIO_EXEMPTIONS = {"BABA", "XYZ", "SWKS", "RH", "UPBD"}
 
 
 def apply_us_super_growth_quality_gate(
@@ -117,3 +117,4 @@ def apply_us_super_growth_quality_gate(
         "missing_evidence_policy": "UNCLASSIFIED_NEVER_INFERRED",
     }
     return payload
+
