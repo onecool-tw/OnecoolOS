@@ -1,10 +1,10 @@
 {
   "schema_version": "1.9",
   "module": "Onecool Market Dashboard",
-  "generated_at": "2026-10-07T08:11:28.474973+00:00",
+  "generated_at": "2026-10-07T08:14:13.841169+00:00",
   "expected_as_of": "2026-10-06",
   "data_status": "READY",
-  "last_successful_update_at": "2026-10-07T08:11:28.474973+00:00",
+  "last_successful_update_at": "2026-10-07T08:14:13.841169+00:00",
   "index_cta_basis": {
     "method": "ETF/index proxies; shared CTA engine",
     "mappings": {
@@ -813,9 +813,9 @@
       "market": "CONTEXT",
       "theme": "crypto_risk_appetite",
       "as_of": "2026-10-07",
-      "current_price": 84030.523438,
-      "sma50": 80295.159844,
-      "sma200": 71732.754961,
+      "current_price": 83990.9375,
+      "sma50": 80294.368125,
+      "sma200": 71732.557031,
       "weekly_ma30": 71746.704818,
       "weekly_ma50": 77729.797891,
       "trend": "MIXED",
@@ -828,7 +828,7 @@
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2026-09-08",
         "periods_since_cross": 29,
-        "spread_pct": 11.936534,
+        "spread_pct": 11.935739,
         "phase": "ACTIVE"
       },
       "weekly_cross": {
@@ -907,14 +907,14 @@
       },
       {
         "symbol": "QRVO",
-        "price_as_of": "2026-10-06",
+        "price_as_of": null,
         "fundamentals_as_of": "2026-06-27",
         "fundamental_sources": [],
         "fundamentals_published_as_of": null,
         "liquidity_average_50d_usd": null,
         "liquidity_minimum_50d_usd": 20000000,
         "liquidity_status": "UNKNOWN",
-        "new_entry_eligible": null,
+        "new_entry_eligible": false,
         "validation_warnings": [],
         "price_basis": "adjusted_close",
         "score_version": "onecool_us_dual_v2",
@@ -922,18 +922,25 @@
           "canslim": 70,
           "minervini": 80
         },
-        "technical_confidence": 10,
+        "technical_confidence": 0,
         "validation_status": "Technical Data Validation Failed",
         "validation_errors": [
-          "fewer than 252 observations",
-          "price cutoff mismatch",
-          "duplicate or unsorted dates",
-          "invalid OHLCV or adjusted close",
-          "liquidity cannot be calculated"
+          "MERGER_COMPLETED_SECURITY_RETIRED"
         ],
         "canslim_score": null,
         "minervini_score": null,
-        "passes_dual_system": null
+        "passes_dual_system": null,
+        "assessment_as_of": "2026-10-06",
+        "security_lifecycle": {
+          "effective_as_of": "2026-10-05",
+          "last_trading_date": "2026-10-02",
+          "successor_symbol": "SWKS",
+          "reason": "MERGER_COMPLETED_SECURITY_RETIRED",
+          "sources": [
+            "https://www.nasdaqtrader.com/TraderNews.aspx?id=ECA2026-702",
+            "https://ir.qorvo.com/static-files/97184275-c23b-40b6-8c00-fab7ad1c2258"
+          ]
+        }
       },
       {
         "symbol": "RH",
