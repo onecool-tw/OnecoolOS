@@ -57,39 +57,20 @@
         },
         "valuation": {
           "status": "UNKNOWN",
-          "as_of": "2026-10-02",
-          "rationale": "採同資料日正式調整後收盤；目前缺可重現之全年正常化獲利分母及具來源的合理倍數區間，不能判定估值通過或失敗。",
-          "method": "FORWARD_NORMALIZED_PE_AND_FCF_CROSSCHECK",
-          "price_as_of": "2026-10-02",
-          "valid_through": null,
-          "inputs": {
-            "price": 562.52001953125,
-            "denominator": null,
-            "multiple": null,
-            "fair_range": null
-          },
-          "price_source": {
-            "provider": "yahoo_finance_adjusted_batch",
-            "as_of": "2026-10-02",
-            "url": "https://finance.yahoo.com/quote/DELL/history/"
-          },
-          "sources": [
-            "https://finance.yahoo.com/quote/DELL/history/",
-            "https://investors.delltechnologies.com/news-releases/news-release-details/dell-technologies-delivers-second-quarter-fiscal-2027-financial"
-          ],
-          "data_gap": "SOURCED_NORMALIZED_DENOMINATOR_AND_DISCIPLINED_FAIR_RANGE_NOT_YET_VERIFIED",
-          "review_status": "AUTO_REFRESH_ON_NEXT_OFFICIAL_GUIDANCE_OR_FILING"
+          "as_of": "2026-10-06",
+          "rationale": "Current-session valuation model not yet validated.",
+          "sources": []
         }
       },
       "valuation_input_collection": {
-        "as_of": "2026-10-02",
+        "as_of": "2026-10-06",
         "status": "PARTIAL",
         "gaps": [
           "SEC_COMPANYFACTS_FETCH_OR_IDENTITY_VALIDATION_FAILED"
         ],
         "price_basis": "adjusted_close",
         "inputs": {
-          "adjusted_close": 562.52001953125
+          "adjusted_close": 574.0
         },
         "sources": [
           "https://data.sec.gov/api/xbrl/companyfacts/CIK0001571996.json"
@@ -98,16 +79,16 @@
         "price_source": {
           "provider": "yahoo_finance_adjusted_batch",
           "symbol": "DELL",
-          "as_of": "2026-10-02",
+          "as_of": "2026-10-06",
           "url": "https://finance.yahoo.com/quote/DELL/history/"
         },
         "price_observation": {
-          "date": "2026-10-02",
-          "adjusted_close": 562.52001953125,
-          "raw_close": 562.52001953125,
+          "date": "2026-10-06",
+          "adjusted_close": 574.0,
+          "raw_close": 574.0,
           "provider": "yahoo_finance_adjusted_batch"
         },
-        "price_sha256": "1210044e46f80bd805e6f3cfc480b3e8f08517cc43591d8e277c117dc6f4be78",
+        "price_sha256": "84cd3790dfbc191c2cf52ad89cb20b4e5a49a4cb8edab5fa0a0e4dabbfd179b7",
         "fundamental_fetch_status": "FETCH_FAILED",
         "fetch_error_type": "HTTPError"
       }
@@ -692,9 +673,9 @@
         },
         "valuation": {
           "status": "FAIL",
-          "as_of": "2026-10-05",
-          "price_as_of": "2026-10-05",
-          "valid_through": "2026-10-05",
+          "as_of": "2026-10-06",
+          "price_as_of": "2026-10-06",
+          "valid_through": "2026-10-06",
           "method": "MID_CYCLE_HISTORICAL_ANCHOR_PE",
           "rationale": "Official historical inputs with an explicit Onecool conservative/base equity cash-flow scenario; an opinion under this discipline, not issuer fair value. Two completed fiscal-year average is a conservative cycle anchor, NOT a forecast or proof of mid-cycle profitability. Retains SBC net of assumed issuer normalized 13% tax rate; inventory reserve adjustment not repeated. Cash flow crosscheck adds SBC back and is not owner earnings.",
           "sources": [
@@ -707,7 +688,7 @@
           "price_source": {
             "provider": "yahoo_finance_adjusted_batch",
             "symbol": "AMD",
-            "as_of": "2026-10-05",
+            "as_of": "2026-10-06",
             "url": "https://finance.yahoo.com/quote/AMD/history/"
           },
           "denominator_source": [
@@ -761,9 +742,9 @@
           ],
           "research_grade": "SCREENING_SCENARIO_NOT_FULL_DCF",
           "inputs": {
-            "price": 631.75,
+            "price": 649.4199829101562,
             "denominator": 3.0507600334860268,
-            "multiple": 207.0795451185045,
+            "multiple": 212.87153882374693,
             "fair_range": [
               9.047848635194786,
               19.341076512364747
@@ -772,12 +753,12 @@
         }
       },
       "valuation_input_collection": {
-        "as_of": "2026-10-05",
+        "as_of": "2026-10-06",
         "status": "COMPLETE",
         "gaps": [],
         "price_basis": "adjusted_close",
         "inputs": {
-          "adjusted_close": 631.75
+          "adjusted_close": 649.4199829101562
         },
         "sources": [
           "https://ir.amd.com/news-events/press-releases/detail/1236/amd-reports-fourth-quarter-and-full-year-2024-financial",
@@ -790,16 +771,16 @@
         "price_source": {
           "provider": "yahoo_finance_adjusted_batch",
           "symbol": "AMD",
-          "as_of": "2026-10-05",
+          "as_of": "2026-10-06",
           "url": "https://finance.yahoo.com/quote/AMD/history/"
         },
         "price_observation": {
-          "date": "2026-10-05",
-          "adjusted_close": 631.75,
-          "raw_close": 631.75,
+          "date": "2026-10-06",
+          "adjusted_close": 649.4199829101562,
+          "raw_close": 649.4199829101562,
           "provider": "yahoo_finance_adjusted_batch"
         },
-        "price_sha256": "3519cef2c663263cf9b19558b5ee8c7a205ea468a5213842444516e99ce76c46",
+        "price_sha256": "f317a4a79f0d397792fbb69a60e0f96c081edeeaf7def8299edb1c4271e93e8c",
         "official_reference_status": "VERIFIED",
         "fundamental_fetch_status": "REVIEWED_OFFICIAL_REFERENCE",
         "company_name": "Advanced Micro Devices, Inc.",
@@ -975,9 +956,9 @@
         },
         "valuation": {
           "status": "FAIL",
-          "as_of": "2026-10-05",
-          "price_as_of": "2026-10-05",
-          "valid_through": "2026-10-05",
+          "as_of": "2026-10-06",
+          "price_as_of": "2026-10-06",
+          "valid_through": "2026-10-06",
           "method": "TTM_SBC_INCLUSIVE_NORMALIZED_PE",
           "rationale": "Official historical inputs with an explicit Onecool conservative/base equity cash-flow scenario; an opinion under this discipline, not issuer fair value. Issuer recast SBC-inclusive series; removes investment gains/identified acquisition items without excluding SBC. Quarterly share-weighted EPS summed consistently. FCF adds SBC back; cash conversion assumptions are below the reported cash ratio and are not issuer forecasts.",
           "sources": [
@@ -988,7 +969,7 @@
           "price_source": {
             "provider": "yahoo_finance_raw",
             "symbol": "NVDA",
-            "as_of": "2026-10-05",
+            "as_of": "2026-10-06",
             "url": "https://finance.yahoo.com/quote/NVDA/history/"
           },
           "denominator_source": [
@@ -1057,9 +1038,9 @@
           ],
           "research_grade": "SCREENING_SCENARIO_NOT_FULL_DCF",
           "inputs": {
-            "price": 238.89999389648438,
+            "price": 239.24000549316406,
             "denominator": 6.949436072908696,
-            "multiple": 34.37688920224752,
+            "multiple": 34.42581570406904,
             "fair_range": [
               13.144910340236223,
               30.3141685874572
@@ -1068,12 +1049,12 @@
         }
       },
       "valuation_input_collection": {
-        "as_of": "2026-10-05",
+        "as_of": "2026-10-06",
         "status": "COMPLETE",
         "gaps": [],
         "price_basis": "adjusted_close",
         "inputs": {
-          "adjusted_close": 238.89999389648438
+          "adjusted_close": 239.24000549316406
         },
         "sources": [
           "https://s201.q4cdn.com/141608511/files/doc_financials/2026/Q426/Historical-Non-GAAP-Financial-Measures-Including-SBC-full.pdf",
@@ -1084,16 +1065,16 @@
         "price_source": {
           "provider": "yahoo_finance_raw",
           "symbol": "NVDA",
-          "as_of": "2026-10-05",
+          "as_of": "2026-10-06",
           "url": "https://finance.yahoo.com/quote/NVDA/history/"
         },
         "price_observation": {
-          "date": "2026-10-05",
-          "adjusted_close": 238.89999389648438,
-          "raw_close": 238.89999389648438,
+          "date": "2026-10-06",
+          "adjusted_close": 239.24000549316406,
+          "raw_close": 239.24000549316406,
           "provider": "yahoo_finance_raw"
         },
-        "price_sha256": "44d9e83d66995b3c8675b2158601d445b9b47b507d1f352cacad4080f98b47d4",
+        "price_sha256": "4667d2131ab3113d5a12ac634a2c595f7b863574f2f033e9ad526f52f6c85d7c",
         "official_reference_status": "VERIFIED",
         "fundamental_fetch_status": "REVIEWED_OFFICIAL_REFERENCE",
         "company_name": "NVIDIA Corporation",
@@ -1285,9 +1266,9 @@
         },
         "valuation": {
           "status": "FAIL",
-          "as_of": "2026-10-05",
-          "price_as_of": "2026-10-05",
-          "valid_through": "2026-10-05",
+          "as_of": "2026-10-06",
+          "price_as_of": "2026-10-06",
+          "valid_through": "2026-10-06",
           "method": "ADR_MID_CYCLE_HISTORICAL_ANCHOR_PE",
           "rationale": "Official historical inputs with an explicit Onecool conservative/base equity cash-flow scenario; an opinion under this discipline, not issuer fair value. Two completed fiscal-year average is a conservative cycle anchor, not forecast. USD ADR quarterly figures are rounded; never multiply ordinary EPS by a current FX rate. Net cash remains NTD and is not added to USD equity valuation. TTM investment gain removed using AFTER-tax EPS, not pretax gain.",
           "sources": [
@@ -1305,7 +1286,7 @@
           "price_source": {
             "provider": "yahoo_finance_adjusted_batch",
             "symbol": "TSM",
-            "as_of": "2026-10-05",
+            "as_of": "2026-10-06",
             "url": "https://finance.yahoo.com/quote/TSM/history/"
           },
           "denominator_source": [
@@ -1381,9 +1362,9 @@
           ],
           "research_grade": "SCREENING_SCENARIO_NOT_FULL_DCF",
           "inputs": {
-            "price": 485.79998779296875,
+            "price": 482.29998779296875,
             "denominator": 8.845,
-            "multiple": 54.92368431802925,
+            "multiple": 54.52798053057871,
             "fair_range": [
               8.598936403916523,
               18.482390259640454
@@ -1392,12 +1373,12 @@
         }
       },
       "valuation_input_collection": {
-        "as_of": "2026-10-05",
+        "as_of": "2026-10-06",
         "status": "COMPLETE",
         "gaps": [],
         "price_basis": "adjusted_close",
         "inputs": {
-          "adjusted_close": 485.79998779296875
+          "adjusted_close": 482.29998779296875
         },
         "sources": [
           "https://pr.tsmc.com/japanese/news/3131",
@@ -1415,16 +1396,16 @@
         "price_source": {
           "provider": "yahoo_finance_adjusted_batch",
           "symbol": "TSM",
-          "as_of": "2026-10-05",
+          "as_of": "2026-10-06",
           "url": "https://finance.yahoo.com/quote/TSM/history/"
         },
         "price_observation": {
-          "date": "2026-10-05",
-          "adjusted_close": 485.79998779296875,
-          "raw_close": 485.79998779296875,
+          "date": "2026-10-06",
+          "adjusted_close": 482.29998779296875,
+          "raw_close": 482.29998779296875,
           "provider": "yahoo_finance_adjusted_batch"
         },
-        "price_sha256": "b41d9b2fe661f682a45db5e998bca69624738952f9298b72b53e928418f84abe",
+        "price_sha256": "96d0557e2bdb31751b9978c7e732ec73f23008038f89a9154acf481afa804512",
         "official_reference_status": "VERIFIED",
         "fundamental_fetch_status": "REVIEWED_OFFICIAL_REFERENCE",
         "company_name": "Taiwan Semiconductor Manufacturing Company Limited ADR",
@@ -1598,9 +1579,9 @@
         },
         "valuation": {
           "status": "FAIL",
-          "as_of": "2026-10-05",
-          "price_as_of": "2026-10-05",
-          "valid_through": "2026-10-05",
+          "as_of": "2026-10-06",
+          "price_as_of": "2026-10-06",
+          "valid_through": "2026-10-06",
           "method": "TTM_PRICE_TO_SBC_COSTED_OWNER_FCF_PROXY",
           "rationale": "Official historical inputs with an explicit Onecool conservative/base equity cash-flow scenario; an opinion under this discipline, not issuer fair value. Onecool economic SBC charge proxy, not GAAP EPS or issuer FCFE. No estimated future SBC or tax benefit. FCF already deducts capital expenditures and capitalized software. Latest diluted share count is a conservative current-share denominator.",
           "sources": [
@@ -1610,7 +1591,7 @@
           "price_source": {
             "provider": "yahoo_finance_adjusted_batch",
             "symbol": "DDOG",
-            "as_of": "2026-10-05",
+            "as_of": "2026-10-06",
             "url": "https://finance.yahoo.com/quote/DDOG/history/"
           },
           "denominator_source": [
@@ -1664,9 +1645,9 @@
           ],
           "research_grade": "SCREENING_SCENARIO_NOT_FULL_DCF",
           "inputs": {
-            "price": 276.4150085449219,
+            "price": 278.239990234375,
             "denominator": 0.6730903474986726,
-            "multiple": 410.66553631638135,
+            "multiple": 413.37688360613987,
             "fair_range": [
               17.05766704071565,
               35.33963453901469
@@ -1675,12 +1656,12 @@
         }
       },
       "valuation_input_collection": {
-        "as_of": "2026-10-05",
+        "as_of": "2026-10-06",
         "status": "COMPLETE",
         "gaps": [],
         "price_basis": "adjusted_close",
         "inputs": {
-          "adjusted_close": 276.4150085449219
+          "adjusted_close": 278.239990234375
         },
         "sources": [
           "https://investors.datadoghq.com/news-releases/news-release-details/datadog-announces-fourth-quarter-and-fiscal-year-2025-financial",
@@ -1690,16 +1671,16 @@
         "price_source": {
           "provider": "yahoo_finance_adjusted_batch",
           "symbol": "DDOG",
-          "as_of": "2026-10-05",
+          "as_of": "2026-10-06",
           "url": "https://finance.yahoo.com/quote/DDOG/history/"
         },
         "price_observation": {
-          "date": "2026-10-05",
-          "adjusted_close": 276.4150085449219,
-          "raw_close": 276.4150085449219,
+          "date": "2026-10-06",
+          "adjusted_close": 278.239990234375,
+          "raw_close": 278.239990234375,
           "provider": "yahoo_finance_adjusted_batch"
         },
-        "price_sha256": "8bff7451f837cd844604bb29ebec8d50ee06c99879d2b8906186b0c2f20bdb61",
+        "price_sha256": "5c50a6648664b12eab8c0406806b8ce63d171d3be7bce0011d382b43a88b1c69",
         "official_reference_status": "VERIFIED",
         "fundamental_fetch_status": "REVIEWED_OFFICIAL_REFERENCE",
         "company_name": "Datadog, Inc.",
