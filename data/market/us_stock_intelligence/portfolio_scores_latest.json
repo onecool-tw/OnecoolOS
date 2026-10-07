@@ -4,7 +4,7 @@
   "classification": "Onecool proxy scores; not IBD official ratings",
   "expected_as_of": "2026-10-06",
   "price_basis": "adjusted_close",
-  "data_status": "PARTIAL",
+  "data_status": "READY",
   "thresholds": {
     "canslim": 70,
     "minervini": 80
@@ -60,15 +60,15 @@
       "passes_dual_system": false
     },
     {
-      "symbol": "QRVO",
-      "price_as_of": null,
-      "fundamentals_as_of": "2026-06-27",
+      "symbol": "SWKS",
+      "price_as_of": "2026-10-06",
+      "fundamentals_as_of": "2026-07-03",
       "fundamental_sources": [],
       "fundamentals_published_as_of": null,
-      "liquidity_average_50d_usd": null,
+      "liquidity_average_50d_usd": 551269505.25,
       "liquidity_minimum_50d_usd": 20000000,
-      "liquidity_status": "UNKNOWN",
-      "new_entry_eligible": false,
+      "liquidity_status": "PASSED",
+      "new_entry_eligible": true,
       "validation_warnings": [],
       "price_basis": "adjusted_close",
       "score_version": "onecool_us_dual_v2",
@@ -76,25 +76,12 @@
         "canslim": 70,
         "minervini": 80
       },
-      "technical_confidence": 0,
-      "validation_status": "Technical Data Validation Failed",
-      "validation_errors": [
-        "MERGER_COMPLETED_SECURITY_RETIRED"
-      ],
-      "canslim_score": null,
-      "minervini_score": null,
-      "passes_dual_system": null,
-      "assessment_as_of": "2026-10-06",
-      "security_lifecycle": {
-        "effective_as_of": "2026-10-05",
-        "last_trading_date": "2026-10-02",
-        "successor_symbol": "SWKS",
-        "reason": "MERGER_COMPLETED_SECURITY_RETIRED",
-        "sources": [
-          "https://www.nasdaqtrader.com/TraderNews.aspx?id=ECA2026-702",
-          "https://ir.qorvo.com/static-files/97184275-c23b-40b6-8c00-fab7ad1c2258"
-        ]
-      }
+      "technical_confidence": 100,
+      "validation_status": "PASSED",
+      "validation_errors": [],
+      "canslim_score": 49,
+      "minervini_score": 92,
+      "passes_dual_system": false
     },
     {
       "symbol": "RH",

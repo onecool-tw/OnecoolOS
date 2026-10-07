@@ -1,10 +1,10 @@
 {
   "schema_version": "1.9",
   "module": "Onecool Market Dashboard",
-  "generated_at": "2026-10-07T08:14:13.841169+00:00",
+  "generated_at": "2026-10-07T08:23:00.543835+00:00",
   "expected_as_of": "2026-10-06",
   "data_status": "READY",
-  "last_successful_update_at": "2026-10-07T08:14:13.841169+00:00",
+  "last_successful_update_at": "2026-10-07T08:23:00.543835+00:00",
   "index_cta_basis": {
     "method": "ETF/index proxies; shared CTA engine",
     "mappings": {
@@ -47,12 +47,12 @@
     "symbols": [
       "BABA",
       "XYZ",
-      "QRVO",
+      "SWKS",
       "RH",
       "UPBD"
     ],
     "as_of": "2026-10-06",
-    "data_status": "PARTIAL"
+    "data_status": "READY"
   },
   "innovation_option_cta_basis": {
     "symbols": [
@@ -135,7 +135,7 @@
     "069500": "yahoo_finance_raw",
     "BABA": "yahoo_finance_raw",
     "XYZ": "yahoo_finance_raw",
-    "QRVO": "confirmed_security_lifecycle; no_price_fetch",
+    "SWKS": "yahoo_finance_raw",
     "RH": "yahoo_finance_raw",
     "UPBD": "yahoo_finance_raw",
     "TSLA": "yahoo_finance_raw",
@@ -504,35 +504,37 @@
       }
     },
     {
-      "symbol": "QRVO",
-      "provider_symbol": "QRVO",
+      "symbol": "SWKS",
+      "provider_symbol": "SWKS",
       "market": "US",
       "theme": "portfolio",
-      "as_of": null,
-      "current_price": null,
-      "sma50": null,
-      "sma200": null,
-      "weekly_ma30": null,
-      "weekly_ma50": null,
-      "trend": "UNKNOWN",
-      "cta": "Unknown",
-      "confidence": 0,
-      "reason": "MERGER_COMPLETED_SECURITY_RETIRED",
-      "daily_cross": null,
-      "weekly_cross": null,
-      "data_status": "UNKNOWN",
-      "update_status": "SECURITY_RETIRED",
-      "assessment_as_of": "2026-10-06",
-      "source_data_as_of": null,
-      "security_lifecycle": {
-        "effective_as_of": "2026-10-05",
-        "last_trading_date": "2026-10-02",
-        "successor_symbol": "SWKS",
-        "reason": "MERGER_COMPLETED_SECURITY_RETIRED",
-        "sources": [
-          "https://www.nasdaqtrader.com/TraderNews.aspx?id=ECA2026-702",
-          "https://ir.qorvo.com/static-files/97184275-c23b-40b6-8c00-fab7ad1c2258"
-        ]
+      "as_of": "2026-10-06",
+      "current_price": 82.790001,
+      "sma50": 75.0906,
+      "sma200": 65.528331,
+      "weekly_ma30": 69.202267,
+      "weekly_ma50": 66.162659,
+      "trend": "BULLISH",
+      "cta": "BUY",
+      "confidence": 100,
+      "reason": "Weekly golden cross remains confirmed or active.",
+      "daily_cross": {
+        "alignment": "GOLDEN",
+        "cross_status": "NONE",
+        "last_cross_status": "GOLDEN",
+        "last_cross_date": "2026-06-05",
+        "periods_since_cross": 84,
+        "spread_pct": 14.592572,
+        "phase": "AGING"
+      },
+      "weekly_cross": {
+        "alignment": "GOLDEN",
+        "cross_status": "NONE",
+        "last_cross_status": "GOLDEN",
+        "last_cross_date": "2026-09-11",
+        "periods_since_cross": 4,
+        "spread_pct": 4.594143,
+        "phase": "CONFIRMED"
       }
     },
     {
@@ -813,9 +815,9 @@
       "market": "CONTEXT",
       "theme": "crypto_risk_appetite",
       "as_of": "2026-10-07",
-      "current_price": 83990.9375,
-      "sma50": 80294.368125,
-      "sma200": 71732.557031,
+      "current_price": 84019.6875,
+      "sma50": 80294.943125,
+      "sma200": 71732.700781,
       "weekly_ma30": 71746.704818,
       "weekly_ma50": 77729.797891,
       "trend": "MIXED",
@@ -828,7 +830,7 @@
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2026-09-08",
         "periods_since_cross": 29,
-        "spread_pct": 11.935739,
+        "spread_pct": 11.936317,
         "phase": "ACTIVE"
       },
       "weekly_cross": {
@@ -850,7 +852,7 @@
     "classification": "Onecool proxy scores; not IBD official ratings",
     "expected_as_of": "2026-10-06",
     "price_basis": "adjusted_close",
-    "data_status": "PARTIAL",
+    "data_status": "READY",
     "thresholds": {
       "canslim": 70,
       "minervini": 80
@@ -906,15 +908,15 @@
         "passes_dual_system": false
       },
       {
-        "symbol": "QRVO",
-        "price_as_of": null,
-        "fundamentals_as_of": "2026-06-27",
+        "symbol": "SWKS",
+        "price_as_of": "2026-10-06",
+        "fundamentals_as_of": "2026-07-03",
         "fundamental_sources": [],
         "fundamentals_published_as_of": null,
-        "liquidity_average_50d_usd": null,
+        "liquidity_average_50d_usd": 551269505.25,
         "liquidity_minimum_50d_usd": 20000000,
-        "liquidity_status": "UNKNOWN",
-        "new_entry_eligible": false,
+        "liquidity_status": "PASSED",
+        "new_entry_eligible": true,
         "validation_warnings": [],
         "price_basis": "adjusted_close",
         "score_version": "onecool_us_dual_v2",
@@ -922,25 +924,12 @@
           "canslim": 70,
           "minervini": 80
         },
-        "technical_confidence": 0,
-        "validation_status": "Technical Data Validation Failed",
-        "validation_errors": [
-          "MERGER_COMPLETED_SECURITY_RETIRED"
-        ],
-        "canslim_score": null,
-        "minervini_score": null,
-        "passes_dual_system": null,
-        "assessment_as_of": "2026-10-06",
-        "security_lifecycle": {
-          "effective_as_of": "2026-10-05",
-          "last_trading_date": "2026-10-02",
-          "successor_symbol": "SWKS",
-          "reason": "MERGER_COMPLETED_SECURITY_RETIRED",
-          "sources": [
-            "https://www.nasdaqtrader.com/TraderNews.aspx?id=ECA2026-702",
-            "https://ir.qorvo.com/static-files/97184275-c23b-40b6-8c00-fab7ad1c2258"
-          ]
-        }
+        "technical_confidence": 100,
+        "validation_status": "PASSED",
+        "validation_errors": [],
+        "canslim_score": 49,
+        "minervini_score": 92,
+        "passes_dual_system": false
       },
       {
         "symbol": "RH",
@@ -3081,7 +3070,6 @@
       "XYZ": "FETCHED",
       "GD": "CACHED_VALID",
       "BABA": "FETCHED",
-      "QRVO": "FETCHED",
       "RH": "FETCHED",
       "UPBD": "FETCHED",
       "BA": "UNAVAILABLE",
@@ -3089,26 +3077,10 @@
       "SNDK": "UNAVAILABLE",
       "SNOW": "UNAVAILABLE",
       "SPOT": "UNAVAILABLE",
-      "SYM": "UNAVAILABLE"
+      "SYM": "UNAVAILABLE",
+      "SWKS": "FETCHED"
     },
-    "price_fetch_diagnostics": {
-      "QRVO": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 5,
-        "last_date": "2026-09-14",
-        "missing_spy_sessions": 247,
-        "missing_spy_dates": [
-          "2025-10-06",
-          "2025-10-07",
-          "2025-10-08",
-          "2025-10-09",
-          "2025-10-10"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_ATTEMPTED"
-      }
-    },
+    "price_fetch_diagnostics": {},
     "valuation_input_refresh_status": "COMPLETED_WITH_PER_SYMBOL_STATUS",
     "super_growth_quality_gate": {
       "framework": "LIN_TZU_YANG_QUALITY_PLUS_ONECOOL_CTA_TIMING",
