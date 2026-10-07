@@ -822,7 +822,7 @@
       "trigger": "突破52週高點且成交量至少為50日均量1.5倍",
       "formal_breakout": false,
       "super_growth_bucket": "B",
-      "super_growth_reason": "VALUATION_INPUTS_UNAVAILABLE_OR_STALE",
+      "super_growth_reason": "VALUATION_ABOVE_DISCIPLINED_RANGE",
       "quality_gate_status": {
         "competitive_advantage": {
           "status": "PASS",
@@ -855,7 +855,7 @@
         "financial_quality": {
           "status": "PASS",
           "as_of": "2026-09-01",
-          "rationale": "季度營收年增58%、營業利益年增204%、營運現金流22億美元、調整後自由現金流81億美元，獲利與現金流同向改善。",
+          "rationale": "Q2 CFO $2.225bn fell 13%; unadjusted FCF $0.986bn fell 47%. H1 FCF $4.104bn was nearly flat despite earnings growth. Adjusted FCF $8.149bn includes financing-receivables and leased-equipment addbacks, so it is not owner cash flow. Positive cash flow supports research qualification; working-capital conversion and financing risk remain material.",
           "sources": [
             "https://investors.delltechnologies.com/news-releases/news-release-details/dell-technologies-delivers-second-quarter-fiscal-2027-financial"
           ],
@@ -888,7 +888,7 @@
           "sources": [
             "https://investors.delltechnologies.com/news-releases/news-release-details/dell-technologies-delivers-second-quarter-fiscal-2027-financial"
           ],
-          "data_gap": "MISSING_SOURCE_BACKED_CIRCLE_OF_COMPETENCE_ASSESSMENT",
+          "data_gap": "PRE_TRADE_USER_CONFIRMATION_ONLY",
           "validation_errors": [],
           "method": null,
           "price_as_of": null,
@@ -896,25 +896,34 @@
           "inputs": {}
         },
         "valuation": {
-          "status": "UNKNOWN",
+          "status": "FAIL",
           "as_of": "2026-10-06",
-          "rationale": "Current-session valuation model not yet validated.",
-          "sources": [],
-          "data_gap": "MISSING_SOURCE_BACKED_VALUATION_ASSESSMENT",
+          "rationale": "Issuer EPS guidance with full investment-gain stress removal; retains recurring costs. Conservative/base cash-flow scenarios discount hardware cyclicality, financing receivables, working capital, leverage and AI concentration. This is a discipline opinion, not issuer fair value.",
+          "sources": [
+            "https://investors.delltechnologies.com/news-releases/news-release-details/dell-technologies-delivers-second-quarter-fiscal-2027-financial"
+          ],
+          "data_gap": null,
           "validation_errors": [],
-          "method": null,
-          "price_as_of": null,
-          "valid_through": null,
-          "inputs": {}
+          "method": "FORWARD_GAAP_PE_INVESTMENT_GAIN_STRESS_WITH_FCF_CROSSCHECK",
+          "price_as_of": "2026-10-06",
+          "valid_through": "2026-10-06",
+          "inputs": {
+            "price": 574.0,
+            "denominator": 23.29,
+            "multiple": 24.645770717045945,
+            "fair_range": [
+              5.880050897598267,
+              12.799999999999999
+            ]
+          }
         }
       },
       "evidence_coverage": "PARTIAL",
       "missing_evidence": [
-        "circle_of_competence",
-        "valuation"
+        "circle_of_competence"
       ],
       "quality_data_gaps": {},
-      "valuation_posture": "UNRESOLVED_WITH_SPECIFIC_GAP",
+      "valuation_posture": "ABOVE_DISCIPLINED_RANGE",
       "cyclical_review_required": false,
       "evidence_as_of": "2026-10-02",
       "manual_confirmation_required": [
@@ -923,21 +932,19 @@
       "circle_of_competence_policy": "PRE_TRADE_USER_CONFIRMATION_NOT_DAILY_RESEARCH_BLOCKER",
       "decision_authority": "RESEARCH_QUALITY_ONLY",
       "quality_gate_application": "FORMAL_NEW_CANDIDATE_RESEARCH_GATE",
-      "action_eligibility": "RESEARCH_ONLY_VALUATION_DATA_GAP",
+      "action_eligibility": "RESEARCH_ONLY_VALUATION_TOO_HIGH",
       "valuation_input_collection": {
         "as_of": "2026-10-06",
-        "status": "PARTIAL",
-        "gaps": [
-          "SEC_COMPANYFACTS_FETCH_OR_IDENTITY_VALIDATION_FAILED"
-        ],
+        "status": "COMPLETE",
+        "gaps": [],
         "price_basis": "adjusted_close",
         "inputs": {
           "adjusted_close": 574.0
         },
         "sources": [
-          "https://data.sec.gov/api/xbrl/companyfacts/CIK0001571996.json"
+          "https://investors.delltechnologies.com/news-releases/news-release-details/dell-technologies-delivers-second-quarter-fiscal-2027-financial"
         ],
-        "decision_authority": "REFERENCE_INPUTS_ONLY_NOT_FAIR_VALUE",
+        "decision_authority": "REVIEWED_SOURCE_BACKED_VALUATION_MODEL",
         "price_source": {
           "provider": "yahoo_finance_adjusted_batch",
           "symbol": "DELL",
@@ -951,8 +958,117 @@
           "provider": "yahoo_finance_adjusted_batch"
         },
         "price_sha256": "84cd3790dfbc191c2cf52ad89cb20b4e5a49a4cb8edab5fa0a0e4dabbfd179b7",
-        "fundamental_fetch_status": "FETCH_FAILED",
-        "fetch_error_type": "HTTPError"
+        "official_reference_status": "VERIFIED",
+        "fundamental_fetch_status": "REVIEWED_OFFICIAL_REFERENCE",
+        "company_name": "Dell Technologies Inc.",
+        "official_reference": {
+          "symbol": "DELL",
+          "company_name": "Dell Technologies Inc.",
+          "published_at": "2026-09-01",
+          "valid_through": "2026-10-14",
+          "sources": [
+            "https://investors.delltechnologies.com/news-releases/news-release-details/dell-technologies-delivers-second-quarter-fiscal-2027-financial"
+          ],
+          "reported_facts": {
+            "formula": "FY27 GAAP EPS guidance 24.37 minus disclosed investment gain EPS 1.08",
+            "GAAP_guidance": 24.37,
+            "investment_gain_EPS": 1.08,
+            "normalization_limit": "Full pretax gain removal is conservative: no unsupported item-specific tax benefit is added back. Retains SBC, intangible amortization and corporate expenses. This is a Onecool stress denominator, not revised issuer guidance or proven mid-cycle EPS.",
+            "cash_flow_crosscheck_usd_million": {
+              "H1_CFO": 6306,
+              "H1_capex_and_software": 2202,
+              "H1_FCF": 4104,
+              "H1_net_income": 7571,
+              "Q2_FCF": 986,
+              "Q2_adjusted_FCF": 8149,
+              "adjusted_FCF_financing_receivables_addback": 6667,
+              "adjusted_FCF_equipment_addback": 496
+            },
+            "net_debt_bridge_usd_million": {
+              "short_term_debt": 8481,
+              "long_term_debt": 25985,
+              "cash": 11569,
+              "net_debt": 22897,
+              "financial_position_as_of": "2026-07-31"
+            },
+            "crosscheck_limit": "Observed six-month FCF/earnings=4104/7571; scenarios use 35%/50% conversion below that observed ratio. Adjusted FCF is not owner cash flow. Debt includes financing activity; do not deduct net debt a second time from equity EPS. No six-month FCF is labelled annual or TTM; no annualization.",
+            "EV_sensitivity_inputs": {
+              "Q2_weighted_diluted_shares_million": 652,
+              "share_count_limit": "Weighted shares only: EV sensitivity, not exact closing market capitalization."
+            }
+          },
+          "model_gaps": [],
+          "valuation_model": {
+            "method": "FORWARD_GAAP_PE_INVESTMENT_GAIN_STRESS_WITH_FCF_CROSSCHECK",
+            "currency": "USD",
+            "share_basis": "listed_security",
+            "denominator": 23.29,
+            "normalization_bridge": {
+              "formula": "FY27 GAAP EPS guidance 24.37 minus disclosed investment gain EPS 1.08",
+              "GAAP_guidance": 24.37,
+              "investment_gain_EPS": 1.08,
+              "normalization_limit": "Full pretax gain removal is conservative: no unsupported item-specific tax benefit is added back. Retains SBC, intangible amortization and corporate expenses. This is a Onecool stress denominator, not revised issuer guidance or proven mid-cycle EPS.",
+              "cash_flow_crosscheck_usd_million": {
+                "H1_CFO": 6306,
+                "H1_capex_and_software": 2202,
+                "H1_FCF": 4104,
+                "H1_net_income": 7571,
+                "Q2_FCF": 986,
+                "Q2_adjusted_FCF": 8149,
+                "adjusted_FCF_financing_receivables_addback": 6667,
+                "adjusted_FCF_equipment_addback": 496
+              },
+              "net_debt_bridge_usd_million": {
+                "short_term_debt": 8481,
+                "long_term_debt": 25985,
+                "cash": 11569,
+                "net_debt": 22897,
+                "financial_position_as_of": "2026-07-31"
+              },
+              "crosscheck_limit": "Observed six-month FCF/earnings=4104/7571; scenarios use 35%/50% conversion below that observed ratio. Adjusted FCF is not owner cash flow. Debt includes financing activity; do not deduct net debt a second time from equity EPS. No six-month FCF is labelled annual or TTM; no annualization.",
+              "EV_sensitivity_inputs": {
+                "Q2_weighted_diluted_shares_million": 652,
+                "share_count_limit": "Weighted shares only: EV sensitivity, not exact closing market capitalization."
+              }
+            },
+            "denominator_source": [
+              "https://investors.delltechnologies.com/news-releases/news-release-details/dell-technologies-delivers-second-quarter-fiscal-2027-financial"
+            ],
+            "scenarios": [
+              {
+                "name": "conservative",
+                "years": 5,
+                "growth": 0.05,
+                "required_return": 0.12,
+                "terminal_growth": 0.02,
+                "cash_conversion": 0.35,
+                "terminal_cash_conversion": 0.6
+              },
+              {
+                "name": "base",
+                "years": 5,
+                "growth": 0.1,
+                "required_return": 0.1,
+                "terminal_growth": 0.03,
+                "cash_conversion": 0.5,
+                "terminal_cash_conversion": 0.7
+              }
+            ],
+            "fair_range": [
+              5.880050897598267,
+              12.799999999999999
+            ],
+            "assumption_authority": "ONECOOL_ANALYST_NOT_ISSUER_GUIDANCE",
+            "research_grade": "SCREENING_SCENARIO_NOT_FULL_DCF",
+            "policy_version": "onecool_equity_two_stage_screen_v1",
+            "rationale": "Issuer EPS guidance with full investment-gain stress removal; retains recurring costs. Conservative/base cash-flow scenarios discount hardware cyclicality, financing receivables, working capital, leverage and AI concentration. This is a discipline opinion, not issuer fair value.",
+            "fair_range_rationale": "Onecool five-year 5%/10% growth, 12%/10% return, 2%/3% terminal growth, 35%/50% interim and 60%/70% terminal cash conversion assumptions. Interim cash conversion is below observed H1 FCF/earnings. Terminal recovery is an explicit scenario, not company guidance. No stock-price-fitted assumptions.",
+            "fair_range_sources": [
+              "https://investors.delltechnologies.com/news-releases/news-release-details/dell-technologies-delivers-second-quarter-fiscal-2027-financial",
+              "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+            ]
+          }
+        }
       },
       "lynch_research": {
         "version": "onecool_lynch_research_v1",
@@ -1005,7 +1121,7 @@
               "field": "financial_quality",
               "value": "PASS",
               "as_of": "2026-09-01",
-              "rationale": "季度營收年增58%、營業利益年增204%、營運現金流22億美元、調整後自由現金流81億美元，獲利與現金流同向改善。",
+              "rationale": "Q2 CFO $2.225bn fell 13%; unadjusted FCF $0.986bn fell 47%. H1 FCF $4.104bn was nearly flat despite earnings growth. Adjusted FCF $8.149bn includes financing-receivables and leased-equipment addbacks, so it is not owner cash flow. Positive cash flow supports research qualification; working-capital conversion and financing risk remain material.",
               "sources": [
                 "https://investors.delltechnologies.com/news-releases/news-release-details/dell-technologies-delivers-second-quarter-fiscal-2027-financial"
               ]
@@ -1018,6 +1134,15 @@
               "sources": [
                 "https://investors.delltechnologies.com/news-releases/news-release-details/dell-technologies-delivers-second-quarter-fiscal-2027-financial",
                 "https://www.sec.gov/edgar/browse/?CIK=1571996&owner=exclude"
+              ]
+            },
+            {
+              "field": "valuation",
+              "value": "FAIL",
+              "as_of": "2026-10-06",
+              "rationale": "Issuer EPS guidance with full investment-gain stress removal; retains recurring costs. Conservative/base cash-flow scenarios discount hardware cyclicality, financing receivables, working capital, leverage and AI concentration. This is a discipline opinion, not issuer fair value.",
+              "sources": [
+                "https://investors.delltechnologies.com/news-releases/news-release-details/dell-technologies-delivers-second-quarter-fiscal-2027-financial"
               ]
             }
           ],
@@ -2082,6 +2207,7 @@
     "XYZ": "FETCHED",
     "GD": "CACHED_VALID",
     "BABA": "FETCHED",
+    "SWKS": "FETCHED",
     "RH": "FETCHED",
     "UPBD": "FETCHED",
     "BA": "UNAVAILABLE",
@@ -2089,8 +2215,7 @@
     "SNDK": "UNAVAILABLE",
     "SNOW": "UNAVAILABLE",
     "SPOT": "UNAVAILABLE",
-    "SYM": "UNAVAILABLE",
-    "SWKS": "FETCHED"
+    "SYM": "UNAVAILABLE"
   },
   "price_fetch_diagnostics": {},
   "valuation_input_refresh_status": "COMPLETED_WITH_PER_SYMBOL_STATUS",
