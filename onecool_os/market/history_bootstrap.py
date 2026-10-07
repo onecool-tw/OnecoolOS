@@ -46,6 +46,7 @@ class YahooHistoryBootstrapper:
                 interval="1d",
                 auto_adjust=False,
                 actions=True,
+                timeout=12,
             )
         except Exception as exc:  # noqa: BLE001 - provider boundary.
             raise ETFCTAError(

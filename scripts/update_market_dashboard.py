@@ -475,8 +475,23 @@ def update(
     histories_by_symbol = {
         config.symbol: history for config, history in staged
     }
+    from onecool_os.market.us_risk_context import collect_us_risk_context
+    payload["us_short_term_risk_context"] = collect_us_risk_context(
+        payload["expected_as_of"], histories_by_symbol, history_bootstrapper
+    )
     scan_fundamentals = {}
     intelligence_dir = root / "data" / "market" / "us_stock_intelligence"
+    reviews = [json.loads(p.read_text(encoding="utf-8"))
+               for p in sorted(intelligence_dir.glob("universe_review_*.json"), reverse=True)]
+    review = next((r for r in reviews if r.get("review_cutoff", "9999") <= payload["expected_as_of"]), None)
+    if review is not None:
+        payload["us_universe_quarterly_review"] = {
+            key: review.get(key) for key in (
+                "review_period", "review_cutoff", "evidence_session", "status",
+                "universe_version", "membership_action", "universe_size",
+                "reviewed_at", "next_scheduled_review_as_of"
+            )
+        }
     reviewed_path = intelligence_dir / "reviewed_fundamentals.json"
     reviewed_fundamentals = load_reviewed_fundamentals(
         json.loads(reviewed_path.read_text(encoding="utf-8")) if reviewed_path.exists() else {},
