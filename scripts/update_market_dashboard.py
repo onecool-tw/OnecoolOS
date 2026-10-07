@@ -19,6 +19,7 @@ from onecool_os.market.dashboard import (
     MarketSymbol,
     build_dashboard_payload,
     dashboard_record,
+    retired_security_record,
 )
 from onecool_os.market.etf_cta import (
     AlphaVantageClient,
@@ -302,6 +303,14 @@ def update(
     action_validation = []
     # Fetch and calculate every symbol before replacing any successful cache.
     for config in MARKET_SYMBOLS:
+        retired = retired_security_record(
+            config, next((history[-1].trading_date.isoformat()
+                          for item, history in staged if item.symbol == "SPY"), "")
+        )
+        if retired is not None:
+            records.append(retired)
+            providers[config.symbol] = "confirmed_security_lifecycle; no_price_fetch"
+            continue
         existing = completed_daily_bars(
             read_history(history_dir / f"{config.symbol}.csv"), config.market, reference_time
         )
@@ -663,7 +672,7 @@ def update(
             breakout_scan, indent=2, ensure_ascii=False, allow_nan=False
         ) + "\n"
         scan_path.write_text(scan_serialized, encoding="utf-8")
-    snapshot_date = max(date.fromisoformat(item.as_of) for item in records)
+    snapshot_date = max(date.fromisoformat(item.as_of) for item in records if item.as_of)
     snapshots = data_dir / "snapshots"
     snapshots.mkdir(parents=True, exist_ok=True)
     (snapshots / f"{snapshot_date.isoformat()}.json").write_text(
@@ -701,4 +710,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

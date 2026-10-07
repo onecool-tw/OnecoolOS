@@ -42,6 +42,33 @@ COUNTRY_INDEX_CTA_PROXIES = {
 
 US_PORTFOLIO_CTA_SYMBOLS = ("BABA", "XYZ", "QRVO", "RH", "UPBD")
 
+# Confirmed security lifecycle events, not missing-price imputation.
+RETIRED_US_SECURITIES = {
+    "QRVO": {
+        "effective_as_of": "2026-10-05",
+        "last_trading_date": "2026-10-02",
+        "successor_symbol": "SWKS",
+        "reason": "MERGER_COMPLETED_SECURITY_RETIRED",
+        "sources": [
+            "https://www.nasdaqtrader.com/TraderNews.aspx?id=ECA2026-702",
+            "https://ir.qorvo.com/static-files/97184275-c23b-40b6-8c00-fab7ad1c2258",
+        ],
+    },
+}
+
+
+def retired_security_record(config: MarketSymbol, expected_as_of: str) -> MarketCTA | None:
+    event = RETIRED_US_SECURITIES.get(config.symbol)
+    if event is None or expected_as_of < event["effective_as_of"]:
+        return None
+    return MarketCTA(
+        symbol=config.symbol, provider_symbol=config.provider_symbol,
+        market=config.market, theme=config.theme, as_of=None,
+        current_price=None, sma50=None, sma200=None, weekly_ma30=None,
+        weekly_ma50=None, trend="UNKNOWN", cta="Unknown", confidence=0,
+        reason=event["reason"],
+    )
+
 INNOVATION_OPTION_SYMBOLS = ("TSLA", "SPCX")
 
 INNOVATION_OPTION_POLICY = {
@@ -209,6 +236,11 @@ def build_dashboard_payload(
 
     values = list(records)
     expected_as_of = _validate_us_index_cta_dates(values)
+    # Retired securities have no current closing price or meaningful CTA.
+    # Preserve the portfolio row without allowing old BUY signals to survive.
+    configs = {item.symbol: item for item in MARKET_SYMBOLS}
+    values = [retired_security_record(configs[item.symbol], expected_as_of) or item
+              if item.symbol in configs else item for item in values]
     country_as_of = _validate_country_index_cta_dates(values)
     portfolio_as_of = _validate_us_portfolio_cta_dates(values, expected_as_of)
     innovation_values = list(innovation_option_watch)
@@ -221,6 +253,13 @@ def build_dashboard_payload(
     generated_at = generated.astimezone(UTC).isoformat()
     result_rows = [asdict(item) for item in values]
     result_by_symbol = {item["symbol"]: item for item in result_rows}
+    for symbol, event in RETIRED_US_SECURITIES.items():
+        if symbol in result_by_symbol and expected_as_of >= event["effective_as_of"]:
+            result_by_symbol[symbol].update(
+                data_status="UNKNOWN", update_status="SECURITY_RETIRED",
+                assessment_as_of=expected_as_of, source_data_as_of=None,
+                security_lifecycle=event,
+            )
     country_freshness = {}
     for country, symbol in COUNTRY_INDEX_CTA_PROXIES.items():
         market = "JP" if symbol == "1306" else "KR"
@@ -263,6 +302,8 @@ def build_dashboard_payload(
             "method": "Adjusted-close histories; shared CTA engine",
             "symbols": list(US_PORTFOLIO_CTA_SYMBOLS),
             "as_of": portfolio_as_of,
+            "data_status": "PARTIAL" if any(item.cta == "Unknown" for item in values
+                                              if item.symbol in US_PORTFOLIO_CTA_SYMBOLS) else "READY",
         },
         "innovation_option_cta_basis": {
             "symbols": list(INNOVATION_OPTION_SYMBOLS),
@@ -341,7 +382,10 @@ def _validate_us_portfolio_cta_dates(
             "Market Dashboard is missing US portfolio CTA symbols: "
             + ", ".join(missing)
         )
-    dates = {items[symbol].as_of for symbol in US_PORTFOLIO_CTA_SYMBOLS}
+    active = [symbol for symbol in US_PORTFOLIO_CTA_SYMBOLS
+              if symbol not in RETIRED_US_SECURITIES
+              or expected_as_of < RETIRED_US_SECURITIES[symbol]["effective_as_of"]]
+    dates = {items[symbol].as_of for symbol in active}
     if dates != {expected_as_of}:
         details = ", ".join(
             f"{symbol}={items[symbol].as_of}"
