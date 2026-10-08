@@ -2,14 +2,14 @@
   "schema_version": "2.0",
   "report_id": "taiwan",
   "report_date": "2026-10-08",
-  "generated_at": "2026-10-08T18:12:00+08:00",
-  "execution_status": "PARTIAL",
-  "delivery_status": "FAILED",
+  "generated_at": "2026-10-08T18:23:17+08:00",
+  "execution_status": "SUCCESS",
+  "delivery_status": "UNKNOWN",
   "writeback_status": "VERIFIED",
   "data_as_of": "2026-10-08",
-  "screen_as_of": "2026-10-07",
-  "snapshot_sha256": null,
-  "artifact_sha256": "1ef37503d7d58af34ff0564a147dfaba2fd5ebb2d4247ff11762f1cefc38c7e6",
+  "screen_as_of": "2026-10-08",
+  "snapshot_sha256": "efd912e3324165833b20f6bf94766a2f49c62061103640c6f6f1b917cf556db4",
+  "artifact_sha256": "69e0e3104c886634e5143f757b9fc7be276800c05b7003c23f7f1ce7ebab4a83",
   "channels": {
     "conversation": {
       "status": "UNKNOWN",
@@ -17,23 +17,20 @@
       "evidence_sha256": null
     },
     "email": {
-      "status": "FAILED",
-      "observed_at": "2026-10-08T18:12:00+08:00",
-      "evidence_sha256": null,
-      "reason": "FINAL_VERSION_GATE_FAILED"
+      "status": "DELIVERED",
+      "observed_at": "2026-10-08T18:23:17+08:00",
+      "evidence_sha256": "192050b18b6b684a303261027ea3f6dd4339567aa364aca3623e54258118c934",
+      "snapshot_sha256": "efd912e3324165833b20f6bf94766a2f49c62061103640c6f6f1b917cf556db4",
+      "recipient_count": 3
     },
     "artifact": {
       "status": "DELIVERED",
-      "observed_at": "2026-10-08T18:12:00+08:00",
-      "evidence_sha256": "1ef37503d7d58af34ff0564a147dfaba2fd5ebb2d4247ff11762f1cefc38c7e6"
+      "observed_at": "2026-10-08T18:23:17+08:00",
+      "evidence_sha256": "69e0e3104c886634e5143f757b9fc7be276800c05b7003c23f7f1ce7ebab4a83",
+      "snapshot_sha256": "efd912e3324165833b20f6bf94766a2f49c62061103640c6f6f1b917cf556db4"
     }
   },
-  "failed_steps": [
-    "SCREEN_NOT_CURRENT",
-    "MARKET_PRESSURE_READBACK_FAILED",
-    "SNAPSHOT_NOT_FINAL",
-    "EMAIL_SUSPENDED"
-  ],
-  "next_step": "Recovery run resumes from current screen and market-pressure readback.",
+  "failed_steps": [],
+  "next_step": "No remaining pipeline repair. Conversation delivery remains unobservable by runner.",
   "policy": "Per-channel evidence only; no private recipients or message IDs."
 }
