@@ -1,10 +1,10 @@
 {
   "schema_version": "1.9",
   "module": "Onecool Market Dashboard",
-  "generated_at": "2026-10-08T08:07:51.166244+00:00",
+  "generated_at": "2026-10-08T08:30:03.658806+00:00",
   "expected_as_of": "2026-10-07",
   "data_status": "READY",
-  "last_successful_update_at": "2026-10-08T08:07:51.166244+00:00",
+  "last_successful_update_at": "2026-10-08T08:30:03.658806+00:00",
   "index_cta_basis": {
     "method": "ETF/index proxies; shared CTA engine",
     "mappings": {
@@ -815,9 +815,9 @@
       "market": "CONTEXT",
       "theme": "crypto_risk_appetite",
       "as_of": "2026-10-08",
-      "current_price": 82987.351562,
-      "sma50": 80554.49125,
-      "sma200": 71804.692695,
+      "current_price": 82929.117188,
+      "sma50": 80553.326563,
+      "sma200": 71804.401523,
       "weekly_ma30": 71746.704818,
       "weekly_ma50": 77729.797891,
       "trend": "MIXED",
@@ -830,7 +830,7 @@
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2026-09-08",
         "periods_since_cross": 30,
-        "spread_pct": 12.185553,
+        "spread_pct": 12.184385,
         "phase": "ACTIVE"
       },
       "weekly_cross": {
@@ -2735,7 +2735,7 @@
         "trigger": "突破52週高點且成交量至少為50日均量1.5倍",
         "formal_breakout": false,
         "super_growth_bucket": "B",
-        "super_growth_reason": "VALUATION_INPUTS_UNAVAILABLE_OR_STALE",
+        "super_growth_reason": "VALUATION_ABOVE_DISCIPLINED_RANGE",
         "quality_gate_status": {
           "competitive_advantage": {
             "status": "PASS",
@@ -2810,25 +2810,35 @@
             "inputs": {}
           },
           "valuation": {
-            "status": "UNKNOWN",
+            "status": "FAIL",
             "as_of": "2026-10-07",
-            "rationale": "Current-session valuation model not yet validated.",
-            "sources": [],
-            "data_gap": "MISSING_SOURCE_BACKED_VALUATION_ASSESSMENT",
+            "rationale": "Historical SBC-inclusive normalized earnings proxy with full investment-gain and SBC-tax-benefit removal. Onecool screening scenarios, not issuer target: 10%/20% growth, 12%/10% hurdle, 2%/3% terminal growth, 70%/80% interim and 90%/95% terminal distribution; customer concentration, hardware demand cyclicality and growth fade constrain distributions.",
+            "sources": [
+              "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000010/ex991q425-earningsrelease.htm",
+              "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000174/ex991q226-earningsrelease.htm"
+            ],
+            "data_gap": null,
             "validation_errors": [],
-            "method": null,
-            "price_as_of": null,
-            "valid_through": null,
-            "inputs": {}
+            "method": "TTM_SBC_INCLUSIVE_NORMALIZED_EARNINGS_CURRENT_SHARE_PROXY",
+            "price_as_of": "2026-10-07",
+            "valid_through": "2026-10-07",
+            "inputs": {
+              "price": 215.8300018310547,
+              "denominator": 3.057366771159875,
+              "multiple": 70.59342826218234,
+              "fair_range": [
+                11.706016943173442,
+                26.830094105061644
+              ]
+            }
           }
         },
         "evidence_coverage": "PARTIAL",
         "missing_evidence": [
-          "circle_of_competence",
-          "valuation"
+          "circle_of_competence"
         ],
         "quality_data_gaps": {},
-        "valuation_posture": "UNRESOLVED_WITH_SPECIFIC_GAP",
+        "valuation_posture": "ABOVE_DISCIPLINED_RANGE",
         "cyclical_review_required": false,
         "evidence_as_of": "2026-10-07",
         "manual_confirmation_required": [
@@ -2837,19 +2847,20 @@
         "circle_of_competence_policy": "PRE_TRADE_USER_CONFIRMATION_NOT_DAILY_RESEARCH_BLOCKER",
         "decision_authority": "RESEARCH_QUALITY_ONLY",
         "quality_gate_application": "FORMAL_NEW_CANDIDATE_RESEARCH_GATE",
-        "action_eligibility": "RESEARCH_ONLY_VALUATION_DATA_GAP",
+        "action_eligibility": "RESEARCH_ONLY_VALUATION_TOO_HIGH",
         "valuation_input_collection": {
           "as_of": "2026-10-07",
-          "status": "PARTIAL",
-          "gaps": [
-            "REGISTRY_UNAVAILABLE"
-          ],
+          "status": "COMPLETE",
+          "gaps": [],
           "price_basis": "adjusted_close",
           "inputs": {
             "adjusted_close": 215.8300018310547
           },
-          "sources": [],
-          "decision_authority": "REFERENCE_INPUTS_ONLY_NOT_FAIR_VALUE",
+          "sources": [
+            "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000010/ex991q425-earningsrelease.htm",
+            "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000174/ex991q226-earningsrelease.htm"
+          ],
+          "decision_authority": "REVIEWED_SOURCE_BACKED_VALUATION_MODEL",
           "price_source": {
             "provider": "yahoo_finance_adjusted_batch",
             "symbol": "ANET",
@@ -2863,7 +2874,89 @@
             "provider": "yahoo_finance_adjusted_batch"
           },
           "price_sha256": "5a12bcb184b1648a5559ea00e56aa1f37280a12b15611fd62a372ef3ba88a844",
-          "fundamental_fetch_status": "REGISTRY_UNAVAILABLE"
+          "official_reference_status": "VERIFIED",
+          "fundamental_fetch_status": "REVIEWED_OFFICIAL_REFERENCE",
+          "company_name": "Arista Networks, Inc.",
+          "official_reference": {
+            "symbol": "ANET",
+            "company_name": "Arista Networks, Inc.",
+            "published_at": "2026-08-04",
+            "valid_through": "2026-10-14",
+            "sources": [
+              "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000010/ex991q425-earningsrelease.htm",
+              "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000174/ex991q226-earningsrelease.htm"
+            ],
+            "reported_facts": {
+              "formula": "(FY25 NI + H126 NI - H125 NI - full pretax TTM investment gains - TTM SBC tax benefits) / latest quarterly diluted weighted shares",
+              "net_income_TTM_usd_million": 4044.6,
+              "investment_gains_TTM_usd_million": 11.3,
+              "SBC_tax_benefits_TTM_usd_million": 132.1,
+              "diluted_share_proxy_million": 1276,
+              "limitations": "Latest quarterly weighted shares proxy, not exact TTM EPS. Full pretax gain deduction adds no assumed tax benefit; recurring SBC/amortization retained. OBBB tax charge retained conservatively; no quarterly EPS annualization. H1 FCF not annualized; deferred revenue can inflate conversion.",
+              "H1_FCF_usd_million": 2692.3,
+              "cash_and_securities_usd_million": 13343.3
+            },
+            "model_gaps": [],
+            "refresh_on": [
+              "NEW_EARNINGS_OR_GUIDANCE",
+              "MATERIAL_CORPORATE_EVENT",
+              "REFERENCE_EXPIRY"
+            ],
+            "valuation_model": {
+              "method": "TTM_SBC_INCLUSIVE_NORMALIZED_EARNINGS_CURRENT_SHARE_PROXY",
+              "denominator": 3.057366771159875,
+              "currency": "USD",
+              "share_basis": "listed_security",
+              "normalization_bridge": {
+                "formula": "(FY25 NI + H126 NI - H125 NI - full pretax TTM investment gains - TTM SBC tax benefits) / latest quarterly diluted weighted shares",
+                "net_income_TTM_usd_million": 4044.6,
+                "investment_gains_TTM_usd_million": 11.3,
+                "SBC_tax_benefits_TTM_usd_million": 132.1,
+                "diluted_share_proxy_million": 1276,
+                "limitations": "Latest quarterly weighted shares proxy, not exact TTM EPS. Full pretax gain deduction adds no assumed tax benefit; recurring SBC/amortization retained. OBBB tax charge retained conservatively; no quarterly EPS annualization. H1 FCF not annualized; deferred revenue can inflate conversion.",
+                "H1_FCF_usd_million": 2692.3,
+                "cash_and_securities_usd_million": 13343.3
+              },
+              "denominator_source": [
+                "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000010/ex991q425-earningsrelease.htm",
+                "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000174/ex991q226-earningsrelease.htm"
+              ],
+              "fair_range": [
+                11.706016943173442,
+                26.830094105061644
+              ],
+              "scenarios": [
+                {
+                  "name": "conservative",
+                  "years": 5,
+                  "growth": 0.1,
+                  "required_return": 0.12,
+                  "terminal_growth": 0.02,
+                  "cash_conversion": 0.7,
+                  "terminal_cash_conversion": 0.9
+                },
+                {
+                  "name": "base",
+                  "years": 5,
+                  "growth": 0.2,
+                  "required_return": 0.1,
+                  "terminal_growth": 0.03,
+                  "cash_conversion": 0.8,
+                  "terminal_cash_conversion": 0.95
+                }
+              ],
+              "assumption_authority": "ONECOOL_ANALYST_NOT_ISSUER_GUIDANCE",
+              "research_grade": "SCREENING_SCENARIO_NOT_FULL_DCF",
+              "policy_version": "onecool_equity_two_stage_screen_v1",
+              "rationale": "Historical SBC-inclusive normalized earnings proxy with full investment-gain and SBC-tax-benefit removal. Onecool screening scenarios, not issuer target: 10%/20% growth, 12%/10% hurdle, 2%/3% terminal growth, 70%/80% interim and 90%/95% terminal distribution; customer concentration, hardware demand cyclicality and growth fade constrain distributions.",
+              "fair_range_rationale": "Historical SBC-inclusive normalized earnings proxy with full investment-gain and SBC-tax-benefit removal. Onecool screening scenarios, not issuer target: 10%/20% growth, 12%/10% hurdle, 2%/3% terminal growth, 70%/80% interim and 90%/95% terminal distribution; customer concentration, hardware demand cyclicality and growth fade constrain distributions.",
+              "fair_range_sources": [
+                "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000010/ex991q425-earningsrelease.htm",
+                "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000174/ex991q226-earningsrelease.htm",
+                "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+              ]
+            }
+          }
         },
         "lynch_research": {
           "version": "onecool_lynch_research_v1",
@@ -2929,6 +3022,16 @@
                 "value": "PASS",
                 "as_of": "2026-08-04",
                 "rationale": "Issuer explicitly identifies concentrated large customers, dominant merchant-silicon supply, export/tariff and competition risks. No hard quality exclusion identified in reviewed releases; not a comprehensive governance audit. Monitor concentration, margin and supply availability.",
+                "sources": [
+                  "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000010/ex991q425-earningsrelease.htm",
+                  "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000174/ex991q226-earningsrelease.htm"
+                ]
+              },
+              {
+                "field": "valuation",
+                "value": "FAIL",
+                "as_of": "2026-10-07",
+                "rationale": "Historical SBC-inclusive normalized earnings proxy with full investment-gain and SBC-tax-benefit removal. Onecool screening scenarios, not issuer target: 10%/20% growth, 12%/10% hurdle, 2%/3% terminal growth, 70%/80% interim and 90%/95% terminal distribution; customer concentration, hardware demand cyclicality and growth fade constrain distributions.",
                 "sources": [
                   "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000010/ex991q425-earningsrelease.htm",
                   "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000174/ex991q226-earningsrelease.htm"

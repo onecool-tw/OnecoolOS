@@ -1066,10 +1066,32 @@
       "symbol": "ANET",
       "gates": {
         "valuation": {
+          "status": "FAIL",
+          "as_of": "2026-10-07",
+          "price_as_of": "2026-10-07",
+          "valid_through": "2026-10-07",
           "method": "TTM_SBC_INCLUSIVE_NORMALIZED_EARNINGS_CURRENT_SHARE_PROXY",
-          "denominator": 3.057366771159875,
-          "currency": "USD",
-          "share_basis": "listed_security",
+          "rationale": "Historical SBC-inclusive normalized earnings proxy with full investment-gain and SBC-tax-benefit removal. Onecool screening scenarios, not issuer target: 10%/20% growth, 12%/10% hurdle, 2%/3% terminal growth, 70%/80% interim and 90%/95% terminal distribution; customer concentration, hardware demand cyclicality and growth fade constrain distributions.",
+          "sources": [
+            "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000010/ex991q425-earningsrelease.htm",
+            "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000174/ex991q226-earningsrelease.htm"
+          ],
+          "price_source": {
+            "provider": "yahoo_finance_adjusted_batch",
+            "symbol": "ANET",
+            "as_of": "2026-10-07",
+            "url": "https://finance.yahoo.com/quote/ANET/history/"
+          },
+          "denominator_source": [
+            "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000010/ex991q425-earningsrelease.htm",
+            "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000174/ex991q226-earningsrelease.htm"
+          ],
+          "fair_range_rationale": "Historical SBC-inclusive normalized earnings proxy with full investment-gain and SBC-tax-benefit removal. Onecool screening scenarios, not issuer target: 10%/20% growth, 12%/10% hurdle, 2%/3% terminal growth, 70%/80% interim and 90%/95% terminal distribution; customer concentration, hardware demand cyclicality and growth fade constrain distributions.",
+          "fair_range_sources": [
+            "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000010/ex991q425-earningsrelease.htm",
+            "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000174/ex991q226-earningsrelease.htm",
+            "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+          ],
           "normalization_bridge": {
             "formula": "(FY25 NI + H126 NI - H125 NI - full pretax TTM investment gains - TTM SBC tax benefits) / latest quarterly diluted weighted shares",
             "net_income_TTM_usd_million": 4044.6,
@@ -1080,14 +1102,8 @@
             "H1_FCF_usd_million": 2692.3,
             "cash_and_securities_usd_million": 13343.3
           },
-          "denominator_source": [
-            "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000010/ex991q425-earningsrelease.htm",
-            "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000174/ex991q226-earningsrelease.htm"
-          ],
-          "fair_range": [
-            11.706016943173442,
-            26.830094105061644
-          ],
+          "policy_version": "onecool_equity_two_stage_screen_v1",
+          "assumption_authority": "ONECOOL_ANALYST_NOT_ISSUER_GUIDANCE",
           "scenarios": [
             {
               "name": "conservative",
@@ -1108,30 +1124,7 @@
               "terminal_cash_conversion": 0.95
             }
           ],
-          "assumption_authority": "ONECOOL_ANALYST_NOT_ISSUER_GUIDANCE",
           "research_grade": "SCREENING_SCENARIO_NOT_FULL_DCF",
-          "policy_version": "onecool_equity_two_stage_screen_v1",
-          "rationale": "Historical SBC-inclusive normalized earnings proxy with full investment-gain and SBC-tax-benefit removal. Onecool screening scenarios, not issuer target: 10%/20% growth, 12%/10% hurdle, 2%/3% terminal growth, 70%/80% interim and 90%/95% terminal distribution; customer concentration, hardware demand cyclicality and growth fade constrain distributions.",
-          "fair_range_rationale": "Historical SBC-inclusive normalized earnings proxy with full investment-gain and SBC-tax-benefit removal. Onecool screening scenarios, not issuer target: 10%/20% growth, 12%/10% hurdle, 2%/3% terminal growth, 70%/80% interim and 90%/95% terminal distribution; customer concentration, hardware demand cyclicality and growth fade constrain distributions.",
-          "fair_range_sources": [
-            "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000010/ex991q425-earningsrelease.htm",
-            "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000174/ex991q226-earningsrelease.htm",
-            "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
-          ],
-          "status": "FAIL",
-          "as_of": "2026-10-07",
-          "price_as_of": "2026-10-07",
-          "valid_through": "2026-10-07",
-          "sources": [
-            "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000010/ex991q425-earningsrelease.htm",
-            "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000174/ex991q226-earningsrelease.htm"
-          ],
-          "price_source": {
-            "provider": "yahoo_finance_adjusted_batch",
-            "symbol": "ANET",
-            "as_of": "2026-10-07",
-            "url": "https://finance.yahoo.com/quote/ANET/history/"
-          },
           "inputs": {
             "price": 215.8300018310547,
             "denominator": 3.057366771159875,
@@ -1181,16 +1174,17 @@
       },
       "valuation_input_collection": {
         "as_of": "2026-10-07",
-        "status": "PARTIAL",
-        "gaps": [
-          "REGISTRY_UNAVAILABLE"
-        ],
+        "status": "COMPLETE",
+        "gaps": [],
         "price_basis": "adjusted_close",
         "inputs": {
           "adjusted_close": 215.8300018310547
         },
-        "sources": [],
-        "decision_authority": "REFERENCE_INPUTS_ONLY_NOT_FAIR_VALUE",
+        "sources": [
+          "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000010/ex991q425-earningsrelease.htm",
+          "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000174/ex991q226-earningsrelease.htm"
+        ],
+        "decision_authority": "REVIEWED_SOURCE_BACKED_VALUATION_MODEL",
         "price_source": {
           "provider": "yahoo_finance_adjusted_batch",
           "symbol": "ANET",
@@ -1204,7 +1198,89 @@
           "provider": "yahoo_finance_adjusted_batch"
         },
         "price_sha256": "5a12bcb184b1648a5559ea00e56aa1f37280a12b15611fd62a372ef3ba88a844",
-        "fundamental_fetch_status": "REGISTRY_UNAVAILABLE"
+        "official_reference_status": "VERIFIED",
+        "fundamental_fetch_status": "REVIEWED_OFFICIAL_REFERENCE",
+        "company_name": "Arista Networks, Inc.",
+        "official_reference": {
+          "symbol": "ANET",
+          "company_name": "Arista Networks, Inc.",
+          "published_at": "2026-08-04",
+          "valid_through": "2026-10-14",
+          "sources": [
+            "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000010/ex991q425-earningsrelease.htm",
+            "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000174/ex991q226-earningsrelease.htm"
+          ],
+          "reported_facts": {
+            "formula": "(FY25 NI + H126 NI - H125 NI - full pretax TTM investment gains - TTM SBC tax benefits) / latest quarterly diluted weighted shares",
+            "net_income_TTM_usd_million": 4044.6,
+            "investment_gains_TTM_usd_million": 11.3,
+            "SBC_tax_benefits_TTM_usd_million": 132.1,
+            "diluted_share_proxy_million": 1276,
+            "limitations": "Latest quarterly weighted shares proxy, not exact TTM EPS. Full pretax gain deduction adds no assumed tax benefit; recurring SBC/amortization retained. OBBB tax charge retained conservatively; no quarterly EPS annualization. H1 FCF not annualized; deferred revenue can inflate conversion.",
+            "H1_FCF_usd_million": 2692.3,
+            "cash_and_securities_usd_million": 13343.3
+          },
+          "model_gaps": [],
+          "refresh_on": [
+            "NEW_EARNINGS_OR_GUIDANCE",
+            "MATERIAL_CORPORATE_EVENT",
+            "REFERENCE_EXPIRY"
+          ],
+          "valuation_model": {
+            "method": "TTM_SBC_INCLUSIVE_NORMALIZED_EARNINGS_CURRENT_SHARE_PROXY",
+            "denominator": 3.057366771159875,
+            "currency": "USD",
+            "share_basis": "listed_security",
+            "normalization_bridge": {
+              "formula": "(FY25 NI + H126 NI - H125 NI - full pretax TTM investment gains - TTM SBC tax benefits) / latest quarterly diluted weighted shares",
+              "net_income_TTM_usd_million": 4044.6,
+              "investment_gains_TTM_usd_million": 11.3,
+              "SBC_tax_benefits_TTM_usd_million": 132.1,
+              "diluted_share_proxy_million": 1276,
+              "limitations": "Latest quarterly weighted shares proxy, not exact TTM EPS. Full pretax gain deduction adds no assumed tax benefit; recurring SBC/amortization retained. OBBB tax charge retained conservatively; no quarterly EPS annualization. H1 FCF not annualized; deferred revenue can inflate conversion.",
+              "H1_FCF_usd_million": 2692.3,
+              "cash_and_securities_usd_million": 13343.3
+            },
+            "denominator_source": [
+              "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000010/ex991q425-earningsrelease.htm",
+              "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000174/ex991q226-earningsrelease.htm"
+            ],
+            "fair_range": [
+              11.706016943173442,
+              26.830094105061644
+            ],
+            "scenarios": [
+              {
+                "name": "conservative",
+                "years": 5,
+                "growth": 0.1,
+                "required_return": 0.12,
+                "terminal_growth": 0.02,
+                "cash_conversion": 0.7,
+                "terminal_cash_conversion": 0.9
+              },
+              {
+                "name": "base",
+                "years": 5,
+                "growth": 0.2,
+                "required_return": 0.1,
+                "terminal_growth": 0.03,
+                "cash_conversion": 0.8,
+                "terminal_cash_conversion": 0.95
+              }
+            ],
+            "assumption_authority": "ONECOOL_ANALYST_NOT_ISSUER_GUIDANCE",
+            "research_grade": "SCREENING_SCENARIO_NOT_FULL_DCF",
+            "policy_version": "onecool_equity_two_stage_screen_v1",
+            "rationale": "Historical SBC-inclusive normalized earnings proxy with full investment-gain and SBC-tax-benefit removal. Onecool screening scenarios, not issuer target: 10%/20% growth, 12%/10% hurdle, 2%/3% terminal growth, 70%/80% interim and 90%/95% terminal distribution; customer concentration, hardware demand cyclicality and growth fade constrain distributions.",
+            "fair_range_rationale": "Historical SBC-inclusive normalized earnings proxy with full investment-gain and SBC-tax-benefit removal. Onecool screening scenarios, not issuer target: 10%/20% growth, 12%/10% hurdle, 2%/3% terminal growth, 70%/80% interim and 90%/95% terminal distribution; customer concentration, hardware demand cyclicality and growth fade constrain distributions.",
+            "fair_range_sources": [
+              "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000010/ex991q425-earningsrelease.htm",
+              "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000174/ex991q226-earningsrelease.htm",
+              "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+            ]
+          }
+        }
       },
       "company_name": "Arista Networks, Inc.",
       "as_of": "2026-10-07",
