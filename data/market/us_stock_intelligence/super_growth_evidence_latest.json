@@ -1066,74 +1066,10 @@
       "symbol": "ANET",
       "gates": {
         "valuation": {
-          "status": "FAIL",
+          "status": "UNKNOWN",
           "as_of": "2026-10-07",
-          "price_as_of": "2026-10-07",
-          "valid_through": "2026-10-07",
-          "method": "TTM_SBC_INCLUSIVE_NORMALIZED_EARNINGS_CURRENT_SHARE_PROXY",
-          "rationale": "Historical SBC-inclusive normalized earnings proxy with full investment-gain and SBC-tax-benefit removal. Onecool screening scenarios, not issuer target: 10%/20% growth, 12%/10% hurdle, 2%/3% terminal growth, 70%/80% interim and 90%/95% terminal distribution; customer concentration, hardware demand cyclicality and growth fade constrain distributions.",
-          "sources": [
-            "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000010/ex991q425-earningsrelease.htm",
-            "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000174/ex991q226-earningsrelease.htm"
-          ],
-          "price_source": {
-            "provider": "yahoo_finance_adjusted_batch",
-            "symbol": "ANET",
-            "as_of": "2026-10-07",
-            "url": "https://finance.yahoo.com/quote/ANET/history/"
-          },
-          "denominator_source": [
-            "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000010/ex991q425-earningsrelease.htm",
-            "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000174/ex991q226-earningsrelease.htm"
-          ],
-          "fair_range_rationale": "Historical SBC-inclusive normalized earnings proxy with full investment-gain and SBC-tax-benefit removal. Onecool screening scenarios, not issuer target: 10%/20% growth, 12%/10% hurdle, 2%/3% terminal growth, 70%/80% interim and 90%/95% terminal distribution; customer concentration, hardware demand cyclicality and growth fade constrain distributions.",
-          "fair_range_sources": [
-            "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000010/ex991q425-earningsrelease.htm",
-            "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000174/ex991q226-earningsrelease.htm",
-            "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
-          ],
-          "normalization_bridge": {
-            "formula": "(FY25 NI + H126 NI - H125 NI - full pretax TTM investment gains - TTM SBC tax benefits) / latest quarterly diluted weighted shares",
-            "net_income_TTM_usd_million": 4044.600000000001,
-            "investment_gains_TTM_usd_million": 11.300000000000002,
-            "SBC_tax_benefits_TTM_usd_million": 132.1,
-            "diluted_share_proxy_million": 1276,
-            "limitations": "Latest quarterly weighted shares proxy, not exact TTM EPS. Full pretax gain deduction adds no assumed tax benefit; recurring SBC/amortization retained. OBBB tax charge retained conservatively; no quarterly EPS annualization. H1 FCF not annualized; deferred revenue can inflate conversion.",
-            "H1_FCF_usd_million": 2692.3,
-            "cash_and_securities_usd_million": 13343.3
-          },
-          "policy_version": "onecool_equity_two_stage_screen_v1",
-          "assumption_authority": "ONECOOL_ANALYST_NOT_ISSUER_GUIDANCE",
-          "scenarios": [
-            {
-              "name": "conservative",
-              "years": 5,
-              "growth": 0.1,
-              "required_return": 0.12,
-              "terminal_growth": 0.02,
-              "cash_conversion": 0.7,
-              "terminal_cash_conversion": 0.9
-            },
-            {
-              "name": "base",
-              "years": 5,
-              "growth": 0.2,
-              "required_return": 0.1,
-              "terminal_growth": 0.03,
-              "cash_conversion": 0.8,
-              "terminal_cash_conversion": 0.95
-            }
-          ],
-          "research_grade": "SCREENING_SCENARIO_NOT_FULL_DCF",
-          "inputs": {
-            "price": 215.8300018310547,
-            "denominator": 3.057366771159875,
-            "multiple": 70.59342826218234,
-            "fair_range": [
-              11.706016943173442,
-              26.830094105061644
-            ]
-          }
+          "rationale": "Current-session valuation model not yet validated.",
+          "sources": []
         },
         "competitive_advantage": {
           "status": "PASS",

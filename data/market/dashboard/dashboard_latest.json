@@ -1,10 +1,10 @@
 {
   "schema_version": "1.9",
   "module": "Onecool Market Dashboard",
-  "generated_at": "2026-10-08T07:37:13.513056+00:00",
+  "generated_at": "2026-10-08T08:07:51.166244+00:00",
   "expected_as_of": "2026-10-07",
   "data_status": "READY",
-  "last_successful_update_at": "2026-10-08T07:37:13.513056+00:00",
+  "last_successful_update_at": "2026-10-08T08:07:51.166244+00:00",
   "index_cta_basis": {
     "method": "ETF/index proxies; shared CTA engine",
     "mappings": {
@@ -815,9 +815,9 @@
       "market": "CONTEXT",
       "theme": "crypto_risk_appetite",
       "as_of": "2026-10-08",
-      "current_price": 83138.53125,
-      "sma50": 80557.514844,
-      "sma200": 71805.448594,
+      "current_price": 82987.351562,
+      "sma50": 80554.49125,
+      "sma200": 71804.692695,
       "weekly_ma30": 71746.704818,
       "weekly_ma50": 77729.797891,
       "trend": "MIXED",
@@ -830,7 +830,7 @@
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2026-09-08",
         "periods_since_cross": 30,
-        "spread_pct": 12.188582,
+        "spread_pct": 12.185553,
         "phase": "ACTIVE"
       },
       "weekly_cross": {
@@ -2734,15 +2734,18 @@
         "status": "WAIT",
         "trigger": "突破52週高點且成交量至少為50日均量1.5倍",
         "formal_breakout": false,
-        "super_growth_bucket": "C",
-        "super_growth_reason": "QUALITY_DATA_GAP_NAMED",
+        "super_growth_bucket": "B",
+        "super_growth_reason": "VALUATION_INPUTS_UNAVAILABLE_OR_STALE",
         "quality_gate_status": {
           "competitive_advantage": {
-            "status": "UNKNOWN",
-            "as_of": null,
-            "rationale": null,
-            "sources": [],
-            "data_gap": "MISSING_SOURCE_BACKED_COMPETITIVE_ADVANTAGE_ASSESSMENT",
+            "status": "PASS",
+            "as_of": "2026-08-04",
+            "rationale": "EOS unified software architecture, CloudVision and 1.6Tb Ethernet AI fabrics support switching differentiation; issuer reports campus leadership. This supports a researched advantage, not an independent market-share audit.",
+            "sources": [
+              "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000010/ex991q425-earningsrelease.htm",
+              "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000174/ex991q226-earningsrelease.htm"
+            ],
+            "data_gap": null,
             "validation_errors": [],
             "method": null,
             "price_as_of": null,
@@ -2750,11 +2753,14 @@
             "inputs": {}
           },
           "structural_growth_runway": {
-            "status": "UNKNOWN",
-            "as_of": null,
-            "rationale": null,
-            "sources": [],
-            "data_gap": "MISSING_SOURCE_BACKED_STRUCTURAL_GROWTH_RUNWAY_ASSESSMENT",
+            "status": "PASS",
+            "as_of": "2026-08-04",
+            "rationale": "Q2 2026 revenue $3.0357bn rose 37.7%; Q3 revenue guidance $3.3bn supports near-term demand. AI fabrics and campus broaden drivers; customer capex remains cyclical.",
+            "sources": [
+              "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000010/ex991q425-earningsrelease.htm",
+              "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000174/ex991q226-earningsrelease.htm"
+            ],
+            "data_gap": null,
             "validation_errors": [],
             "method": null,
             "price_as_of": null,
@@ -2762,11 +2768,14 @@
             "inputs": {}
           },
           "financial_quality": {
-            "status": "UNKNOWN",
-            "as_of": null,
-            "rationale": null,
-            "sources": [],
-            "data_gap": "MISSING_SOURCE_BACKED_FINANCIAL_QUALITY_ASSESSMENT",
+            "status": "PASS",
+            "as_of": "2026-08-04",
+            "rationale": "H1 GAAP operating margin 44.1%, net income $2.2358bn; CFO $2.7765bn less capex $84.2m = FCF $2.6923bn. Cash plus marketable securities $13.3433bn. Deferred revenue boosted cash flow; SBC is retained in valuation.",
+            "sources": [
+              "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000010/ex991q425-earningsrelease.htm",
+              "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000174/ex991q226-earningsrelease.htm"
+            ],
+            "data_gap": null,
             "validation_errors": [],
             "method": null,
             "price_as_of": null,
@@ -2774,11 +2783,14 @@
             "inputs": {}
           },
           "business_risk_and_governance": {
-            "status": "UNKNOWN",
-            "as_of": null,
-            "rationale": null,
-            "sources": [],
-            "data_gap": "MISSING_SOURCE_BACKED_BUSINESS_RISK_AND_GOVERNANCE_ASSESSMENT",
+            "status": "PASS",
+            "as_of": "2026-08-04",
+            "rationale": "Issuer explicitly identifies concentrated large customers, dominant merchant-silicon supply, export/tariff and competition risks. No hard quality exclusion identified in reviewed releases; not a comprehensive governance audit. Monitor concentration, margin and supply availability.",
+            "sources": [
+              "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000010/ex991q425-earningsrelease.htm",
+              "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000174/ex991q226-earningsrelease.htm"
+            ],
+            "data_gap": null,
             "validation_errors": [],
             "method": null,
             "price_as_of": null,
@@ -2810,31 +2822,22 @@
             "inputs": {}
           }
         },
-        "evidence_coverage": "NONE",
+        "evidence_coverage": "PARTIAL",
         "missing_evidence": [
-          "competitive_advantage",
-          "structural_growth_runway",
-          "financial_quality",
-          "business_risk_and_governance",
           "circle_of_competence",
           "valuation"
         ],
-        "quality_data_gaps": {
-          "competitive_advantage": "MISSING_SOURCE_BACKED_COMPETITIVE_ADVANTAGE_ASSESSMENT",
-          "structural_growth_runway": "MISSING_SOURCE_BACKED_STRUCTURAL_GROWTH_RUNWAY_ASSESSMENT",
-          "financial_quality": "MISSING_SOURCE_BACKED_FINANCIAL_QUALITY_ASSESSMENT",
-          "business_risk_and_governance": "MISSING_SOURCE_BACKED_BUSINESS_RISK_AND_GOVERNANCE_ASSESSMENT"
-        },
+        "quality_data_gaps": {},
         "valuation_posture": "UNRESOLVED_WITH_SPECIFIC_GAP",
         "cyclical_review_required": false,
-        "evidence_as_of": null,
+        "evidence_as_of": "2026-10-07",
         "manual_confirmation_required": [
           "circle_of_competence"
         ],
         "circle_of_competence_policy": "PRE_TRADE_USER_CONFIRMATION_NOT_DAILY_RESEARCH_BLOCKER",
         "decision_authority": "RESEARCH_QUALITY_ONLY",
         "quality_gate_application": "FORMAL_NEW_CANDIDATE_RESEARCH_GATE",
-        "action_eligibility": "RESEARCH_ONLY_QUALITY_EVIDENCE_INCOMPLETE",
+        "action_eligibility": "RESEARCH_ONLY_VALUATION_DATA_GAP",
         "valuation_input_collection": {
           "as_of": "2026-10-07",
           "status": "PARTIAL",
@@ -2865,22 +2868,73 @@
         "lynch_research": {
           "version": "onecool_lynch_research_v1",
           "company_type": {
-            "status": "INSUFFICIENT_EVIDENCE",
-            "primary": "UNCLASSIFIED",
-            "candidates": [],
-            "evidence": [],
+            "status": "PROVISIONAL",
+            "primary": "FAST_GROWER",
+            "candidates": [
+              "FAST_GROWER"
+            ],
+            "evidence": [
+              {
+                "field": "verified_quality_gates",
+                "value": [
+                  "structural_growth_runway",
+                  "financial_quality"
+                ],
+                "interpretation": "FAST_GROWTH_CANDIDATE_NOT_DURABILITY_PROOF"
+              }
+            ],
             "unresolved_categories": [
               "SLOW_GROWER",
               "STALWART",
-              "FAST_GROWER",
               "CYCLICAL",
               "TURNAROUND",
               "ASSET_PLAY"
             ]
           },
           "investment_story": {
-            "status": "INSUFFICIENT_EVIDENCE",
-            "evidence": [],
+            "status": "EVIDENCE_ONLY",
+            "evidence": [
+              {
+                "field": "competitive_advantage",
+                "value": "PASS",
+                "as_of": "2026-08-04",
+                "rationale": "EOS unified software architecture, CloudVision and 1.6Tb Ethernet AI fabrics support switching differentiation; issuer reports campus leadership. This supports a researched advantage, not an independent market-share audit.",
+                "sources": [
+                  "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000010/ex991q425-earningsrelease.htm",
+                  "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000174/ex991q226-earningsrelease.htm"
+                ]
+              },
+              {
+                "field": "structural_growth_runway",
+                "value": "PASS",
+                "as_of": "2026-08-04",
+                "rationale": "Q2 2026 revenue $3.0357bn rose 37.7%; Q3 revenue guidance $3.3bn supports near-term demand. AI fabrics and campus broaden drivers; customer capex remains cyclical.",
+                "sources": [
+                  "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000010/ex991q425-earningsrelease.htm",
+                  "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000174/ex991q226-earningsrelease.htm"
+                ]
+              },
+              {
+                "field": "financial_quality",
+                "value": "PASS",
+                "as_of": "2026-08-04",
+                "rationale": "H1 GAAP operating margin 44.1%, net income $2.2358bn; CFO $2.7765bn less capex $84.2m = FCF $2.6923bn. Cash plus marketable securities $13.3433bn. Deferred revenue boosted cash flow; SBC is retained in valuation.",
+                "sources": [
+                  "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000010/ex991q425-earningsrelease.htm",
+                  "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000174/ex991q226-earningsrelease.htm"
+                ]
+              },
+              {
+                "field": "business_risk_and_governance",
+                "value": "PASS",
+                "as_of": "2026-08-04",
+                "rationale": "Issuer explicitly identifies concentrated large customers, dominant merchant-silicon supply, export/tariff and competition risks. No hard quality exclusion identified in reviewed releases; not a comprehensive governance audit. Monitor concentration, margin and supply availability.",
+                "sources": [
+                  "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000010/ex991q425-earningsrelease.htm",
+                  "https://www.sec.gov/Archives/edgar/data/1596532/000159653226000174/ex991q226-earningsrelease.htm"
+                ]
+              }
+            ],
             "required_manual_confirmation": [
               "BUSINESS_DRIVER",
               "DURABILITY",
@@ -3135,8 +3189,8 @@
       "scope": "NEW_US_STOCK_CANDIDATES_ONLY",
       "bucket_counts": {
         "A": 0,
-        "B": 4,
-        "C": 1,
+        "B": 5,
+        "C": 0,
         "REJECT": 0,
         "INNOVATION_OPTION": 0,
         "EXISTING_POSITION": 0
