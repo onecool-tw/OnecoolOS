@@ -34,35 +34,35 @@
   "0050_weekly_alignment": "GOLDEN",
   "market_pressure_gate": "FORMAL_FROM_DAILY_CONTEXT",
   "market_pressure": {
-    "as_of": "2026-10-07",
+    "as_of": "2026-10-08",
     "status": "CURRENT",
     "light": "RED",
     "action": "PAUSE_NEW_EXPOSURE",
     "reason": [
-      "prior_red_2026_10_06;deescalation_requires_two_consecutive_non_trigger_sessions_no_new_closing_low_and_improving_volume_volatility_derivatives;only_first_possible_improvement_session_and_institutional_selling_worsened",
-      "taiex_close_49806_37_down_16_18_trade_value_925_992_billion_twd_vs_975_935_previous;no_new_closing_low",
-      "front_month_taiex_futures_close_49979_premium_172_63_points",
-      "foreign_taiex_futures_long_13545_short_92646_net_short_79101_vs_79517_previous",
-      "taiex_options_volume_pcr_94_57_open_interest_pcr_82_25_vs_107_91_and_95_47_previous",
-      "taifex_vix_23_29_last_1_min_avg_vs_23_53_previous",
-      "institutional_net_selling_21_257_billion_twd_vs_20_786_previous",
-      "margin_2026_10_06_balance_637_657044_billion_twd_change_plus_4_305323_billion_twd_official_lag_accepted_before_same_day_publication"
+      "prior_red_2026_10_07;deescalation_not_met_due_to_new_stress_trigger_and_worsening_volatility_and_foreign_futures_position",
+      "taiex_close_49281_44_down_524_93_pct_minus_1_05_trade_value_920_172_billion_twd;new_downside_stress_session",
+      "front_month_taiex_futures_close_49349_premium_67_56_points_down_619",
+      "foreign_taiex_futures_long_11389_short_94583_net_short_83194_vs_79101_previous",
+      "taiex_options_volume_pcr_87_14_open_interest_pcr_80_18_vs_94_57_and_82_25_previous",
+      "taifex_vix_24_55_last_1_min_avg_vs_23_29_previous",
+      "institutional_flow_not_independently_read_back_at_evaluation_time;not_used_to_deescalate",
+      "margin_2026_10_07_balance_640_000774_billion_twd_change_plus_2_343730_billion_twd_official_lag_accepted_before_same_day_publication"
     ],
     "confirmed_inputs": {
       "spot": true,
       "futures": true,
       "pcr": true,
       "volatility": true,
-      "institutional_flow": true,
+      "institutional_flow": false,
       "margin": true
     },
     "input_data_as_of": {
-      "spot": "2026-10-07",
-      "futures": "2026-10-07",
-      "pcr": "2026-10-07",
-      "volatility": "2026-10-07",
+      "spot": "2026-10-08",
+      "futures": "2026-10-08",
+      "pcr": "2026-10-08",
+      "volatility": "2026-10-08",
       "institutional_flow": "2026-10-07",
-      "margin": "2026-10-06"
+      "margin": "2026-10-07"
     },
     "previous_light": "RED",
     "changed": false,
