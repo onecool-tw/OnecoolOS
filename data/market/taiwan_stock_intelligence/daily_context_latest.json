@@ -26,16 +26,13 @@
     "asia_and_margin_policy": "KEEP_ACTUAL_LOCAL_SOURCE_DATES"
   },
   "market_pressure_input_readiness": {
-    "status": "UPDATE_INCOMPLETE",
+    "status": "READY",
     "expected_as_of": "2026-10-08",
-    "issues": [
-      "volatility_not_published",
-      "volatility_not_current"
-    ],
+    "issues": [],
     "consumer_rule": "FINAL_EMAIL_REQUIRES_READY; MARGIN_MAY_USE_VERIFIED_OFFICIAL_LAG_BEFORE_21:30; NEVER_RECOMPUTE_PRESSURE_LIGHT"
   },
   "module": "Onecool Taiwan Stock Daily Context",
-  "generated_at": "2026-10-08T06:29:42.006704+00:00",
+  "generated_at": "2026-10-08T07:38:56.479203+00:00",
   "source_policy": "LATEST_SUCCESSFUL_SCREEN_WITH_EXPLICIT_DATE",
   "screen_as_of": "2026-10-07",
   "screen_business_day_lag": 1,
@@ -82,13 +79,11 @@
   "market_pressure_inputs": {
     "schema_version": "1.0",
     "module": "Onecool Taiwan Official Market Pressure Inputs",
-    "generated_at": "2026-10-08T06:29:26.738408+00:00",
+    "generated_at": "2026-10-08T07:38:41.193917+00:00",
     "requested_as_of": "2026-10-08",
-    "status": "UPDATE_INCOMPLETE",
-    "attempts_used": 3,
-    "issues": [
-      "volatility:NOT_PUBLISHED"
-    ],
+    "status": "READY",
+    "attempts_used": 1,
+    "issues": [],
     "sources": {
       "margin": {
         "status": "VERIFIED",
@@ -117,10 +112,12 @@
         "source_url": "https://www.twse.com.tw/rwd/zh/marginTrading/MI_MARGN?date=20261007&selectType=MS&response=json"
       },
       "volatility": {
-        "status": "NOT_PUBLISHED",
-        "as_of": "2026-10-07",
-        "value": null,
-        "error": "REQUESTED_DATE_NOT_PRESENT",
+        "status": "VERIFIED",
+        "as_of": "2026-10-08",
+        "value": 24.55,
+        "value_basis": "LAST_1_MIN_AVG",
+        "error": null,
+        "download_url": "https://www.taifex.com.tw/cht/7/getVixData?filesname=20261008",
         "source_url": "https://www.taifex.com.tw/cht/7/vixMinNew"
       }
     },
@@ -129,7 +126,7 @@
   "candidate_action_gate": "WATCH_ONLY_STALE_OR_MISSING_SCREEN",
   "candidate_cta_cache": {
     "screen_as_of": "2026-10-07",
-    "generated_at": "2026-10-08T06:29:36.529304+00:00",
+    "generated_at": "2026-10-08T07:38:53.476482+00:00",
     "requested_count": 200,
     "coverage": {
       "current": 199,
@@ -463,7 +460,7 @@
           "spread_pct": -1.149001,
           "phase": "CONFIRMED"
         },
-        "last_attempt_at": "2026-10-08T06:29:36.529304+00:00",
+        "last_attempt_at": "2026-10-08T07:38:53.476482+00:00",
         "error": null
       },
       "action_eligibility": "WATCH_ONLY_STALE_OR_MISSING_SCREEN"
@@ -784,7 +781,7 @@
           "spread_pct": 23.294431,
           "phase": "AGING"
         },
-        "last_attempt_at": "2026-10-08T06:29:36.529304+00:00",
+        "last_attempt_at": "2026-10-08T07:38:53.476482+00:00",
         "error": null
       },
       "action_eligibility": "WATCH_ONLY_STALE_OR_MISSING_SCREEN"
@@ -1101,7 +1098,7 @@
           "spread_pct": 10.702145,
           "phase": "ACTIVE"
         },
-        "last_attempt_at": "2026-10-08T06:29:36.529304+00:00",
+        "last_attempt_at": "2026-10-08T07:38:53.476482+00:00",
         "error": null
       },
       "action_eligibility": "WATCH_ONLY_STALE_OR_MISSING_SCREEN"
@@ -1421,7 +1418,7 @@
           "spread_pct": 23.571825,
           "phase": "ACTIVE"
         },
-        "last_attempt_at": "2026-10-08T06:29:36.529304+00:00",
+        "last_attempt_at": "2026-10-08T07:38:53.476482+00:00",
         "error": null
       },
       "action_eligibility": "WATCH_ONLY_STALE_OR_MISSING_SCREEN"
@@ -1737,7 +1734,7 @@
           "spread_pct": 15.136354,
           "phase": "AGING"
         },
-        "last_attempt_at": "2026-10-08T06:29:36.529304+00:00",
+        "last_attempt_at": "2026-10-08T07:38:53.476482+00:00",
         "error": null
       },
       "action_eligibility": "WATCH_ONLY_STALE_OR_MISSING_SCREEN"
