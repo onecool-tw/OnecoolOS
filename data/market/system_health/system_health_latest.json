@@ -1,12 +1,12 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-10-08T03:28:15.249133+00:00",
+  "generated_at": "2026-10-08T06:26:49.346828+00:00",
   "taipei_date": "2026-10-08",
   "status": "BLOCKED",
   "scope_status": {
-    "morning": "BLOCKED",
-    "asia": "READY",
+    "morning": "READY",
+    "asia": "BLOCKED",
     "weekly": "READY"
   },
   "report_delivery": {
@@ -35,13 +35,9 @@
       },
       {
         "report_id": "fund",
-        "expected_report_date": "2026-10-07",
-        "status": "PARTIAL",
-        "channels": {
-          "conversation": "UNKNOWN",
-          "artifact": "DELIVERED"
-        },
-        "reason": "Per-channel evidence checked; missing channels remain unverified"
+        "expected_report_date": "2026-10-08",
+        "status": "UNKNOWN",
+        "reason": "Invalid or unverifiable receipt"
       },
       {
         "report_id": "cards",
@@ -77,7 +73,7 @@
       "critical": true,
       "status": "READY",
       "reason": "current",
-      "observed_as_of": "2026-10-06",
+      "observed_as_of": "2026-10-07",
       "recovery_workflow": "update-market-dashboard.yml",
       "retryable": true,
       "impacted_reports": [
@@ -92,7 +88,7 @@
       "critical": true,
       "status": "READY",
       "reason": "current",
-      "observed_as_of": "2026-10-06",
+      "observed_as_of": "2026-10-07",
       "recovery_workflow": "update-market-dashboard.yml",
       "retryable": true,
       "impacted_reports": [
@@ -106,7 +102,7 @@
       "critical": true,
       "status": "READY",
       "reason": "current",
-      "observed_as_of": "2026-10-06",
+      "observed_as_of": "2026-10-07",
       "recovery_workflow": "update-market-dashboard.yml",
       "retryable": true,
       "impacted_reports": [
@@ -133,11 +129,11 @@
       "label": "Fund NAV CTA",
       "scope": "morning",
       "critical": true,
-      "status": "BLOCKED",
-      "reason": "generation timestamp missing, invalid or older than scheduled date 2026-10-08",
+      "status": "READY",
+      "reason": "current",
       "observed_as_of": "2026-10-07",
       "recovery_workflow": "update-fund-nav-cta.yml",
-      "retryable": true,
+      "retryable": false,
       "impacted_reports": [
         "基金日報",
         "基金週報"
@@ -190,8 +186,8 @@
       "label": "Taiwan Daily Context",
       "scope": "asia",
       "critical": true,
-      "status": "READY",
-      "reason": "current",
+      "status": "BLOCKED",
+      "reason": "display_status is not ready",
       "observed_as_of": "2026-10-07",
       "recovery_workflow": "update-taiwan-stock-screen.yml",
       "retryable": true,
@@ -329,21 +325,6 @@
   ],
   "issues": [
     {
-      "module_id": "fund_nav_cta",
-      "label": "Fund NAV CTA",
-      "scope": "morning",
-      "critical": true,
-      "status": "BLOCKED",
-      "reason": "generation timestamp missing, invalid or older than scheduled date 2026-10-08",
-      "observed_as_of": "2026-10-07",
-      "recovery_workflow": "update-fund-nav-cta.yml",
-      "retryable": true,
-      "impacted_reports": [
-        "基金日報",
-        "基金週報"
-      ]
-    },
-    {
       "module_id": "taiwan_candidate_cta",
       "label": "Taiwan 200-stock CTA",
       "scope": "asia",
@@ -356,11 +337,25 @@
       "impacted_reports": [
         "台股日報"
       ]
+    },
+    {
+      "module_id": "taiwan_daily_context",
+      "label": "Taiwan Daily Context",
+      "scope": "asia",
+      "critical": true,
+      "status": "BLOCKED",
+      "reason": "display_status is not ready",
+      "observed_as_of": "2026-10-07",
+      "recovery_workflow": "update-taiwan-stock-screen.yml",
+      "retryable": true,
+      "impacted_reports": [
+        "台股日報"
+      ]
     }
   ],
   "recovery_workflows": [
-    "update-fund-nav-cta.yml"
+    "update-taiwan-stock-screen.yml"
   ],
-  "issue_fingerprint": "683a49cbc94a47dcc57713da2d42f76a3fb06d95431405c77c5134bedc8920db",
+  "issue_fingerprint": "3c6e5251e7158fb3d74fe5addbbe85dbe71bd9fadf294404f913695a662d3624",
   "policy": "Health monitoring only; never changes CTA, rankings, or investment decisions."
 }
