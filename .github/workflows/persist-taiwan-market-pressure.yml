@@ -90,6 +90,7 @@ jobs:
           same_day = (
               pressure.get("status") == "CURRENT"
               and pressure.get("as_of") == expected
+              and pressure.get("as_of") == snapshot["screen_as_of"]
           )
           assert freshness["expected_as_of"] == expected
           assert freshness["same_day_current"] is same_day
@@ -98,7 +99,12 @@ jobs:
               else "STALE_LAST_KNOWN" if pressure.get("as_of")
               else "UNKNOWN"
           )
-          should_be_ready = readiness.get("status") == "READY" and same_day
+          should_be_ready = (
+              readiness.get("status") == "READY"
+              and same_day
+              and snapshot.get("market_pressure_input_readiness", {}).get("status") == "READY"
+              and snapshot.get("asia_cta_readiness", {}).get("status") == "READY"
+          )
           assert (delivery["status"] == "READY") is should_be_ready
           if not same_day:
               assert freshness["consumer_action"] == "PAUSE_NEW_EXPOSURE"
