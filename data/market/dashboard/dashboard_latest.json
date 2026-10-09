@@ -1,10 +1,10 @@
 {
   "schema_version": "1.9",
   "module": "Onecool Market Dashboard",
-  "generated_at": "2026-10-09T07:33:23.158107+00:00",
+  "generated_at": "2026-10-09T08:06:37.831651+00:00",
   "expected_as_of": "2026-10-08",
   "data_status": "READY",
-  "last_successful_update_at": "2026-10-09T07:33:23.158107+00:00",
+  "last_successful_update_at": "2026-10-09T08:06:37.831651+00:00",
   "index_cta_basis": {
     "method": "ETF/index proxies; shared CTA engine",
     "mappings": {
@@ -815,9 +815,9 @@
       "market": "CONTEXT",
       "theme": "crypto_risk_appetite",
       "as_of": "2026-10-09",
-      "current_price": 82515.09375,
-      "sma50": 80717.917656,
-      "sma200": 71856.138789,
+      "current_price": 82570.210938,
+      "sma50": 80719.02,
+      "sma200": 71856.414375,
       "weekly_ma30": 71746.704818,
       "weekly_ma50": 77729.797891,
       "trend": "MIXED",
@@ -830,7 +830,7 @@
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2026-09-08",
         "periods_since_cross": 31,
-        "spread_pct": 12.332668,
+        "spread_pct": 12.333771,
         "phase": "ACTIVE"
       },
       "weekly_cross": {
@@ -2284,15 +2284,17 @@
         "status": "WAIT",
         "trigger": "突破52週高點且成交量至少為50日均量1.5倍",
         "formal_breakout": false,
-        "super_growth_bucket": "C",
-        "super_growth_reason": "QUALITY_DATA_GAP_NAMED",
+        "super_growth_bucket": "B",
+        "super_growth_reason": "VALUATION_ABOVE_DISCIPLINED_RANGE",
         "quality_gate_status": {
           "competitive_advantage": {
-            "status": "UNKNOWN",
-            "as_of": null,
-            "rationale": null,
-            "sources": [],
-            "data_gap": "MISSING_SOURCE_BACKED_COMPETITIVE_ADVANTAGE_ASSESSMENT",
+            "status": "PASS",
+            "as_of": "2026-10-08",
+            "rationale": "Ontology, integrated operational workflows and fine-grained security controls support switching costs; supported by issuer platform descriptions, not an independent market-share audit.",
+            "sources": [
+              "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000011/pltr-20251231.htm"
+            ],
+            "data_gap": null,
             "validation_errors": [],
             "method": null,
             "price_as_of": null,
@@ -2300,11 +2302,14 @@
             "inputs": {}
           },
           "structural_growth_runway": {
-            "status": "UNKNOWN",
-            "as_of": null,
-            "rationale": null,
-            "sources": [],
-            "data_gap": "MISSING_SOURCE_BACKED_STRUCTURAL_GROWTH_RUNWAY_ASSESSMENT",
+            "status": "PASS",
+            "as_of": "2026-10-08",
+            "rationale": "Q2 revenue $1.935bn versus $1.004bn; FY26 revenue guidance $8.150–8.158bn supports enterprise/government demand. Guidance remains conditional and procurement cycles are uneven.",
+            "sources": [
+              "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000004/a2025q4ex991earningsrelease.htm",
+              "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000039/a2026q2ex991pressrelease.htm"
+            ],
+            "data_gap": null,
             "validation_errors": [],
             "method": null,
             "price_as_of": null,
@@ -2312,11 +2317,14 @@
             "inputs": {}
           },
           "financial_quality": {
-            "status": "UNKNOWN",
-            "as_of": null,
-            "rationale": null,
-            "sources": [],
-            "data_gap": "MISSING_SOURCE_BACKED_FINANCIAL_QUALITY_ASSESSMENT",
+            "status": "PASS",
+            "as_of": "2026-10-08",
+            "rationale": "H1 GAAP operating income $1.666bn; CFO $2.115bn less capex $21.955m = $2.093bn FCF. Cash/securities $9.409bn; H1 SBC $466.801m retained in normalization; contract liabilities helped cash generation.",
+            "sources": [
+              "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000004/a2025q4ex991earningsrelease.htm",
+              "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000039/a2026q2ex991pressrelease.htm"
+            ],
+            "data_gap": null,
             "validation_errors": [],
             "method": null,
             "price_as_of": null,
@@ -2324,11 +2332,15 @@
             "inputs": {}
           },
           "business_risk_and_governance": {
-            "status": "UNKNOWN",
-            "as_of": null,
-            "rationale": null,
-            "sources": [],
-            "data_gap": "MISSING_SOURCE_BACKED_BUSINESS_RISK_AND_GOVERNANCE_ASSESSMENT",
+            "status": "PASS",
+            "as_of": "2026-10-08",
+            "rationale": "Reviewed founder Class F voting concentration and minority control limits, government procurement, competition and AI deployment risks; no automatic hard exclusion established. PASS means researched risk gate, not risk-free or governance endorsement.",
+            "sources": [
+              "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000011/pltr-20251231.htm",
+              "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000004/a2025q4ex991earningsrelease.htm",
+              "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000039/a2026q2ex991pressrelease.htm"
+            ],
+            "data_gap": null,
             "validation_errors": [],
             "method": null,
             "price_as_of": null,
@@ -2348,55 +2360,57 @@
             "inputs": {}
           },
           "valuation": {
-            "status": "UNKNOWN",
+            "status": "FAIL",
             "as_of": "2026-10-08",
-            "rationale": "Current-session valuation model not yet validated.",
-            "sources": [],
-            "data_gap": "MISSING_SOURCE_BACKED_VALUATION_ASSESSMENT",
+            "rationale": "SBC-inclusive TTM operating earnings, excluding treasury/investment income and normalized at analyst 21% tax. Onecool screening scenarios use 20%/30% five-year growth fading to 2%/3%, 12%/10% required return and limited distributions; high current growth is not extrapolated indefinitely. Government procurement, AI competition, founder voting control and dilution remain material risks. This is a conservative scenario screen, not a full DCF or issuer target.",
+            "sources": [
+              "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000004/a2025q4ex991earningsrelease.htm",
+              "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000039/a2026q2ex991pressrelease.htm"
+            ],
+            "data_gap": null,
             "validation_errors": [],
-            "method": null,
-            "price_as_of": null,
-            "valid_through": null,
-            "inputs": {}
+            "method": "TTM_SBC_INCLUSIVE_OPERATING_EARNINGS_NORMALIZED_TAX_CURRENT_SHARE_PROXY",
+            "price_as_of": "2026-10-08",
+            "valid_through": "2026-10-08",
+            "inputs": {
+              "price": 198.77999877929688,
+              "denominator": 0.8102853356608456,
+              "multiple": 245.32098759652064,
+              "fair_range": [
+                17.28697120247515,
+                39.01499600392776
+              ]
+            }
           }
         },
-        "evidence_coverage": "NONE",
+        "evidence_coverage": "PARTIAL",
         "missing_evidence": [
-          "competitive_advantage",
-          "structural_growth_runway",
-          "financial_quality",
-          "business_risk_and_governance",
-          "circle_of_competence",
-          "valuation"
+          "circle_of_competence"
         ],
-        "quality_data_gaps": {
-          "competitive_advantage": "MISSING_SOURCE_BACKED_COMPETITIVE_ADVANTAGE_ASSESSMENT",
-          "structural_growth_runway": "MISSING_SOURCE_BACKED_STRUCTURAL_GROWTH_RUNWAY_ASSESSMENT",
-          "financial_quality": "MISSING_SOURCE_BACKED_FINANCIAL_QUALITY_ASSESSMENT",
-          "business_risk_and_governance": "MISSING_SOURCE_BACKED_BUSINESS_RISK_AND_GOVERNANCE_ASSESSMENT"
-        },
-        "valuation_posture": "UNRESOLVED_WITH_SPECIFIC_GAP",
+        "quality_data_gaps": {},
+        "valuation_posture": "ABOVE_DISCIPLINED_RANGE",
         "cyclical_review_required": false,
-        "evidence_as_of": null,
+        "evidence_as_of": "2026-10-08",
         "manual_confirmation_required": [
           "circle_of_competence"
         ],
         "circle_of_competence_policy": "PRE_TRADE_USER_CONFIRMATION_NOT_DAILY_RESEARCH_BLOCKER",
         "decision_authority": "RESEARCH_QUALITY_ONLY",
         "quality_gate_application": "FORMAL_NEW_CANDIDATE_RESEARCH_GATE",
-        "action_eligibility": "RESEARCH_ONLY_QUALITY_EVIDENCE_INCOMPLETE",
+        "action_eligibility": "RESEARCH_ONLY_VALUATION_TOO_HIGH",
         "valuation_input_collection": {
           "as_of": "2026-10-08",
-          "status": "PARTIAL",
-          "gaps": [
-            "REGISTRY_UNAVAILABLE"
-          ],
+          "status": "COMPLETE",
+          "gaps": [],
           "price_basis": "adjusted_close",
           "inputs": {
             "adjusted_close": 198.77999877929688
           },
-          "sources": [],
-          "decision_authority": "REFERENCE_INPUTS_ONLY_NOT_FAIR_VALUE",
+          "sources": [
+            "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000004/a2025q4ex991earningsrelease.htm",
+            "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000039/a2026q2ex991pressrelease.htm"
+          ],
+          "decision_authority": "REVIEWED_SOURCE_BACKED_VALUATION_MODEL",
           "price_source": {
             "provider": "yahoo_finance_adjusted_batch",
             "symbol": "PLTR",
@@ -2410,27 +2424,170 @@
             "provider": "yahoo_finance_adjusted_batch"
           },
           "price_sha256": "176c9515baf4f893e2c1be596ab905fe2a07bfe28ac4d30e0584bd623a20ca56",
-          "fundamental_fetch_status": "REGISTRY_UNAVAILABLE"
+          "official_reference_status": "VERIFIED",
+          "fundamental_fetch_status": "REVIEWED_OFFICIAL_REFERENCE",
+          "company_name": "Palantir Technologies Inc.",
+          "official_reference": {
+            "symbol": "PLTR",
+            "company_name": "Palantir Technologies Inc.",
+            "published_at": "2026-08-03",
+            "valid_through": "2026-10-14",
+            "sources": [
+              "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000004/a2025q4ex991earningsrelease.htm",
+              "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000039/a2026q2ex991pressrelease.htm"
+            ],
+            "reported_facts": {
+              "formula": "(FY25 GAAP operating income + H126 GAAP operating income - H125 GAAP operating income) * (1 - analyst normalized tax rate) / Q226 diluted weighted shares",
+              "units": "USD thousand, shares thousand",
+              "FY25_operating_income": 1414015,
+              "H126_operating_income": 1666002,
+              "H125_operating_income": 445365,
+              "normalized_tax_rate": 0.21,
+              "diluted_share_proxy": 2568694,
+              "limitations": "SBC and related payroll costs retained. Excludes interest and all other investment income; tax rate is analyst normalization, not issuer guidance. Latest quarter shares proxy; no quarterly EPS annualization. Cash balance not added to this conservative operating-earnings screening model."
+            },
+            "model_gaps": [],
+            "refresh_on": [
+              "NEW_EARNINGS_OR_GUIDANCE",
+              "MATERIAL_CORPORATE_EVENT",
+              "REFERENCE_EXPIRY"
+            ],
+            "valuation_model": {
+              "method": "TTM_SBC_INCLUSIVE_OPERATING_EARNINGS_NORMALIZED_TAX_CURRENT_SHARE_PROXY",
+              "denominator": 0.8102853356608456,
+              "currency": "USD",
+              "share_basis": "listed_security",
+              "normalization_bridge": {
+                "formula": "(FY25 GAAP operating income + H126 GAAP operating income - H125 GAAP operating income) * (1 - analyst normalized tax rate) / Q226 diluted weighted shares",
+                "units": "USD thousand, shares thousand",
+                "FY25_operating_income": 1414015,
+                "H126_operating_income": 1666002,
+                "H125_operating_income": 445365,
+                "normalized_tax_rate": 0.21,
+                "diluted_share_proxy": 2568694,
+                "limitations": "SBC and related payroll costs retained. Excludes interest and all other investment income; tax rate is analyst normalization, not issuer guidance. Latest quarter shares proxy; no quarterly EPS annualization. Cash balance not added to this conservative operating-earnings screening model."
+              },
+              "denominator_source": [
+                "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000004/a2025q4ex991earningsrelease.htm",
+                "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000039/a2026q2ex991pressrelease.htm"
+              ],
+              "fair_range": [
+                17.28697120247515,
+                39.01499600392776
+              ],
+              "scenarios": [
+                {
+                  "name": "conservative",
+                  "years": 5,
+                  "growth": 0.2,
+                  "required_return": 0.12,
+                  "terminal_growth": 0.02,
+                  "cash_conversion": 0.7,
+                  "terminal_cash_conversion": 0.9
+                },
+                {
+                  "name": "base",
+                  "years": 5,
+                  "growth": 0.3,
+                  "required_return": 0.1,
+                  "terminal_growth": 0.03,
+                  "cash_conversion": 0.8,
+                  "terminal_cash_conversion": 0.95
+                }
+              ],
+              "assumption_authority": "ONECOOL_ANALYST_NOT_ISSUER_GUIDANCE",
+              "research_grade": "SCREENING_SCENARIO_NOT_FULL_DCF",
+              "policy_version": "onecool_equity_two_stage_screen_v1",
+              "rationale": "SBC-inclusive TTM operating earnings, excluding treasury/investment income and normalized at analyst 21% tax. Onecool screening scenarios use 20%/30% five-year growth fading to 2%/3%, 12%/10% required return and limited distributions; high current growth is not extrapolated indefinitely. Government procurement, AI competition, founder voting control and dilution remain material risks. This is a conservative scenario screen, not a full DCF or issuer target.",
+              "fair_range_rationale": "SBC-inclusive TTM operating earnings, excluding treasury/investment income and normalized at analyst 21% tax. Onecool screening scenarios use 20%/30% five-year growth fading to 2%/3%, 12%/10% required return and limited distributions; high current growth is not extrapolated indefinitely. Government procurement, AI competition, founder voting control and dilution remain material risks. This is a conservative scenario screen, not a full DCF or issuer target.",
+              "fair_range_sources": [
+                "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000004/a2025q4ex991earningsrelease.htm",
+                "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000039/a2026q2ex991pressrelease.htm",
+                "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+              ]
+            }
+          }
         },
         "lynch_research": {
           "version": "onecool_lynch_research_v1",
           "company_type": {
-            "status": "INSUFFICIENT_EVIDENCE",
-            "primary": "UNCLASSIFIED",
-            "candidates": [],
-            "evidence": [],
+            "status": "PROVISIONAL",
+            "primary": "FAST_GROWER",
+            "candidates": [
+              "FAST_GROWER"
+            ],
+            "evidence": [
+              {
+                "field": "verified_quality_gates",
+                "value": [
+                  "structural_growth_runway",
+                  "financial_quality"
+                ],
+                "interpretation": "FAST_GROWTH_CANDIDATE_NOT_DURABILITY_PROOF"
+              }
+            ],
             "unresolved_categories": [
               "SLOW_GROWER",
               "STALWART",
-              "FAST_GROWER",
               "CYCLICAL",
               "TURNAROUND",
               "ASSET_PLAY"
             ]
           },
           "investment_story": {
-            "status": "INSUFFICIENT_EVIDENCE",
-            "evidence": [],
+            "status": "EVIDENCE_ONLY",
+            "evidence": [
+              {
+                "field": "competitive_advantage",
+                "value": "PASS",
+                "as_of": "2026-10-08",
+                "rationale": "Ontology, integrated operational workflows and fine-grained security controls support switching costs; supported by issuer platform descriptions, not an independent market-share audit.",
+                "sources": [
+                  "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000011/pltr-20251231.htm"
+                ]
+              },
+              {
+                "field": "structural_growth_runway",
+                "value": "PASS",
+                "as_of": "2026-10-08",
+                "rationale": "Q2 revenue $1.935bn versus $1.004bn; FY26 revenue guidance $8.150–8.158bn supports enterprise/government demand. Guidance remains conditional and procurement cycles are uneven.",
+                "sources": [
+                  "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000004/a2025q4ex991earningsrelease.htm",
+                  "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000039/a2026q2ex991pressrelease.htm"
+                ]
+              },
+              {
+                "field": "financial_quality",
+                "value": "PASS",
+                "as_of": "2026-10-08",
+                "rationale": "H1 GAAP operating income $1.666bn; CFO $2.115bn less capex $21.955m = $2.093bn FCF. Cash/securities $9.409bn; H1 SBC $466.801m retained in normalization; contract liabilities helped cash generation.",
+                "sources": [
+                  "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000004/a2025q4ex991earningsrelease.htm",
+                  "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000039/a2026q2ex991pressrelease.htm"
+                ]
+              },
+              {
+                "field": "business_risk_and_governance",
+                "value": "PASS",
+                "as_of": "2026-10-08",
+                "rationale": "Reviewed founder Class F voting concentration and minority control limits, government procurement, competition and AI deployment risks; no automatic hard exclusion established. PASS means researched risk gate, not risk-free or governance endorsement.",
+                "sources": [
+                  "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000011/pltr-20251231.htm",
+                  "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000004/a2025q4ex991earningsrelease.htm",
+                  "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000039/a2026q2ex991pressrelease.htm"
+                ]
+              },
+              {
+                "field": "valuation",
+                "value": "FAIL",
+                "as_of": "2026-10-08",
+                "rationale": "SBC-inclusive TTM operating earnings, excluding treasury/investment income and normalized at analyst 21% tax. Onecool screening scenarios use 20%/30% five-year growth fading to 2%/3%, 12%/10% required return and limited distributions; high current growth is not extrapolated indefinitely. Government procurement, AI competition, founder voting control and dilution remain material risks. This is a conservative scenario screen, not a full DCF or issuer target.",
+                "sources": [
+                  "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000004/a2025q4ex991earningsrelease.htm",
+                  "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000039/a2026q2ex991pressrelease.htm"
+                ]
+              }
+            ],
             "required_manual_confirmation": [
               "BUSINESS_DRIVER",
               "DURABILITY",
@@ -3049,8 +3206,8 @@
       "scope": "NEW_US_STOCK_CANDIDATES_ONLY",
       "bucket_counts": {
         "A": 0,
-        "B": 4,
-        "C": 1,
+        "B": 5,
+        "C": 0,
         "REJECT": 0,
         "INNOVATION_OPTION": 0,
         "EXISTING_POSITION": 0
