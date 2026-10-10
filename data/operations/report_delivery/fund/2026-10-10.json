@@ -1,0 +1,46 @@
+{
+  "report_id": "fund",
+  "report_date": "2026-10-10",
+  "generated_at": "2026-10-10T11:34:34+08:00",
+  "delivery_status": "UNKNOWN",
+  "writeback_status": "VERIFIED",
+  "delivery_evidence_sha256": null,
+  "channels": {
+    "conversation": {
+      "status": "UNKNOWN",
+      "observed_at": null,
+      "evidence_sha256": null
+    },
+    "artifact": {
+      "status": "DELIVERED",
+      "observed_at": "2026-10-10T11:34:34+08:00",
+      "evidence_sha256": "7b45568589fd63693a8e42b7cbef7801f58b1ab1194dcbdc8a9f3f7459c8708b"
+    }
+  },
+  "execution_status": "PARTIAL",
+  "data_as_of": {
+    "fund_nav_min": "2026-10-07",
+    "fund_nav_max": "2026-10-08",
+    "bitcoin": "2026-10-09",
+    "bitcoin_completed_week": "2026-10-04"
+  },
+  "completed_steps": [
+    "main_cache_read",
+    "seven_fund_history_validation",
+    "eight_period_frozen_regression_pass",
+    "bitcoin_completed_week_validation",
+    "previous_report_delta_comparison",
+    "artifact_saved_and_read_back"
+  ],
+  "pending_steps": [
+    "conversation_delivery_observation"
+  ],
+  "next_step": "Deliver the complete report in the existing conversation; retain conversation UNKNOWN until independently observed.",
+  "versions": {
+    "data_snapshot": "adeb16f706332f69afe17ea205c864ab219174aa",
+    "fund_schema": "1.6",
+    "cta_engine": "shared_onecool_cta_engine",
+    "action_rule": "v1.3 weekly-led transition",
+    "validation_rule": "DATA-7 v1.1"
+  }
+}
