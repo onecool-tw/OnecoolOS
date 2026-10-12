@@ -24,12 +24,15 @@
       "prior_period_readback",
       "source_validation",
       "cross_period_reconciliation",
-      "artifact_writeback_readback"
+      "artifact_writeback_readback",
+      "regression_baseline_replay"
     ],
     "failed_steps": [],
     "next_step": "next_scheduled_refresh"
   },
-  "validation_flags": [
-    "REGRESSION_BASELINE_PENDING"
-  ]
+  "regression": {
+    "status": "PASS",
+    "baseline_sha256": "65ad2c7f0b432e53e5eda1eccd27fa5359c6e4c35efc2813be966de0dd4a469e"
+  },
+  "validation_flags": []
 }
