@@ -113,8 +113,9 @@ jobs:
           python scripts/update_market_dashboard.py "${args[@]}"
       - name: Commit only a complete dashboard update
         run: |
-          python scripts/validate_fund_intelligence.py
-          git add data/market/dashboard data/market/us_stock_intelligence data/market/fund_intelligence/validation_latest.json
+          # Fund validation is published by the serialized fund/StockQ writers;
+          # overlapping timestamp-only validation writes cause rebase conflicts.
+          git add data/market/dashboard data/market/us_stock_intelligence
           if git diff --cached --quiet; then
             echo "No new Market Dashboard data."
             exit 0
