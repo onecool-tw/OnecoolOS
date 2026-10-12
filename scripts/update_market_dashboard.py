@@ -715,6 +715,12 @@ def update(
         "alpha_vantage_core_price_fallback; "
         "last_successful_cache_on_failure"
     )
+    for day, evidence in getattr(history_bootstrapper, "btc_day_repairs", {}).items():
+        repair_dir = data_dir / "btc_day_repairs"
+        repair_dir.mkdir(parents=True, exist_ok=True)
+        (repair_dir / f"{day}.json").write_text(
+            json.dumps(evidence, indent=2, allow_nan=False) + "\n", encoding="utf-8"
+        )
     for config, history in staged:
         write_history(history_dir / f"{config.symbol}.csv", history)
     data_dir.mkdir(parents=True, exist_ok=True)
