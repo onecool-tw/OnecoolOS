@@ -6,7 +6,8 @@ import json
 import re
 import csv
 import io
-from datetime import datetime, timezone
+from math import isfinite
+from datetime import date, datetime, timezone
 from pathlib import Path
 from urllib.request import Request, urlopen
 
@@ -123,9 +124,43 @@ def _fetch_local_market(symbol: str, bootstrapper: YahooHistoryBootstrapper):
     try:
         return bootstrapper.fetch_adjusted_daily(symbol), "YAHOO"
     except Exception as yahoo_error:
+        if symbol == "000003.SS":
+            return _fetch_tencent_shanghai_b(), "TENCENT_EXACT_INDEX_FALLBACK"
         if symbol not in STOOQ_MARKET_FALLBACKS:
             raise yahoo_error
         return _fetch_stooq_daily(symbol), "STOOQ_FALLBACK"
+
+
+def _parse_tencent_shanghai_b(payload: dict) -> list[DailyBar]:
+    if payload.get("code") != 0:
+        raise ETFCTAError("Tencent Shanghai B response failed.")
+    item = payload.get("data", {}).get("sh000003", {})
+    quote = item.get("qt", {}).get("sh000003", [])
+    if len(quote) < 3 or quote[2] != "000003" or "B" not in str(quote[1]).replace("Ｂ", "B"):
+        raise ETFCTAError("Tencent Shanghai B identity mismatch.")
+    bars = []
+    seen = set()
+    for row in item.get("day", []):
+        day = date.fromisoformat(row[0])
+        o, c, h, lo, v = map(float, row[1:6])
+        if (day in seen or not all(isfinite(x) for x in (o, c, h, lo, v))
+                or min(o, c, h, lo) <= 0 or v < 0
+                or lo > min(o, c) or h < max(o, c)):
+            raise ETFCTAError("Invalid or duplicate Shanghai B observation.")
+        seen.add(day)
+        bars.append(DailyBar(trading_date=day, open=o, close=c, high=h,
+                             low=lo, volume=int(v), adjusted_close=c,
+                             source="tencent_exact_sh000003_index"))
+    if len(bars) < 260 or [b.trading_date for b in bars] != sorted(seen):
+        raise ETFCTAError("Shanghai B history insufficient or out of order.")
+    return bars
+
+
+def _fetch_tencent_shanghai_b() -> list[DailyBar]:
+    url = "https://web.ifzq.gtimg.cn/appstock/app/fqkline/get?param=sh000003,day,,,320,qfq"
+    request = Request(url, headers={"User-Agent": "OnecoolOS/1.0 exact index history"})
+    with urlopen(request, timeout=20) as response:
+        return _parse_tencent_shanghai_b(json.loads(response.read().decode("utf-8")))
 
 # Yahoo does not consistently publish every direct TWD cross.  These pairs
 # produce TWD per unit of local currency through a same-date USD bridge.

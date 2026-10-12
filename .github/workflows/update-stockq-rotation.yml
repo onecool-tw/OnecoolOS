@@ -34,9 +34,11 @@ jobs:
         run: pip install -e .
       - name: Refresh StockQ market and fund screening
         run: python scripts/update_stockq_rotation.py
+      - name: Refresh Fund Intelligence validation after rotation update
+        run: python scripts/validate_fund_intelligence.py
       - name: Commit only when radar changed
         run: |
-          git add data/market/stockq_rotation
+          git add data/market/stockq_rotation data/market/fund_intelligence/validation_latest.json
           if git diff --cached --quiet; then
             echo "No StockQ rotation change."
             exit 0
