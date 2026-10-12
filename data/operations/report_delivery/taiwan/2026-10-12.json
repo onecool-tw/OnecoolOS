@@ -1,0 +1,44 @@
+{
+  "report_id": "taiwan",
+  "report_date": "2026-10-12",
+  "data_as_of": "2026-10-12",
+  "generated_at": "2026-10-12T18:06:12+08:00",
+  "execution_status": "PARTIAL",
+  "delivery_status": "FAILED",
+  "writeback_status": "VERIFIED",
+  "delivery_evidence_sha256": null,
+  "snapshot_sha256": "e0a630ea2f9e8f9bb96b61bbf324952edc14197f1d4ba8d7d8b6e98da9cd855c",
+  "channels": {
+    "conversation": {
+      "status": "UNKNOWN",
+      "observed_at": null,
+      "evidence_sha256": null
+    },
+    "artifact": {
+      "status": "DELIVERED",
+      "observed_at": "2026-10-12T18:06:12+08:00",
+      "evidence_sha256": "962fe3fa77ef13c4faa959ed8d1355251bccc8237c155bcb9e90efbc392ee4ac",
+      "snapshot_sha256": "e0a630ea2f9e8f9bb96b61bbf324952edc14197f1d4ba8d7d8b6e98da9cd855c"
+    },
+    "email": {
+      "status": "FAILED",
+      "observed_at": null,
+      "evidence_sha256": null,
+      "snapshot_sha256": "e0a630ea2f9e8f9bb96b61bbf324952edc14197f1d4ba8d7d8b6e98da9cd855c",
+      "recipient_count": 0
+    }
+  },
+  "completed_steps": [
+    "SSOT_AND_HEALTH_READ",
+    "DASHBOARD_CTA_READ",
+    "TOP5_DATA_QUALITY_CHECK",
+    "INCOMPLETE_REPORT_SAVED_AND_FULL_READBACK"
+  ],
+  "failed_steps": [
+    "SCREEN_NOT_CURRENT_2026_10_12",
+    "MARKET_PRESSURE_WRITE_REJECTED_INCOMPLETE_CRITICAL_INPUTS",
+    "FINAL_SNAPSHOT_UPDATE_INCOMPLETE",
+    "EMAIL_PAUSED_FINAL_VERSION_NOT_VERIFIED"
+  ],
+  "next_step": "RECOVERY_RUN_RESUMES_FROM_CURRENT_SCREEN_AND_FORMAL_PRESSURE_PERSISTENCE"
+}
