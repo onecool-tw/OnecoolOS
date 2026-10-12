@@ -1,10 +1,10 @@
 {
   "schema_version": "1.9",
   "module": "Onecool Market Dashboard",
-  "generated_at": "2026-10-12T04:46:38.794345+00:00",
+  "generated_at": "2026-10-12T06:38:05.527196+00:00",
   "expected_as_of": "2026-10-09",
   "data_status": "READY",
-  "last_successful_update_at": "2026-10-12T04:46:38.794345+00:00",
+  "last_successful_update_at": "2026-10-12T06:38:05.527196+00:00",
   "index_cta_basis": {
     "method": "ETF/index proxies; shared CTA engine",
     "mappings": {
@@ -156,7 +156,7 @@
     "ai_market_line": "CONFIRMED",
     "taiwan_market_trend": "BULLISH",
     "us_taiwan_synchronization": "SYNCHRONIZED",
-    "market_cta_summary": "BUY=6, HOLD=6, WATCH=0, SELL=1"
+    "market_cta_summary": "BUY=4, HOLD=8, WATCH=0, SELL=1"
   },
   "results": [
     {
@@ -644,23 +644,23 @@
       "provider_symbol": "0050.TW",
       "market": "TW",
       "theme": "broad_market",
-      "as_of": "2026-10-08",
-      "current_price": 114.949997,
-      "sma50": 107.199,
-      "sma200": 90.763431,
-      "weekly_ma30": 99.228044,
-      "weekly_ma50": 86.407758,
+      "as_of": "2026-10-12",
+      "current_price": 114.800003,
+      "sma50": 107.621,
+      "sma200": 91.026978,
+      "weekly_ma30": 100.540013,
+      "weekly_ma50": 87.481551,
       "trend": "BULLISH",
-      "cta": "BUY",
+      "cta": "HOLD",
       "confidence": 100,
-      "reason": "Weekly golden cross remains confirmed or active.",
+      "reason": "Weekly golden trend is aging without a fresh daily cross.",
       "daily_cross": {
         "alignment": "GOLDEN",
         "cross_status": "NONE",
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2025-07-16",
-        "periods_since_cross": 301,
-        "spread_pct": 18.108141,
+        "periods_since_cross": 302,
+        "spread_pct": 18.229785,
         "phase": "AGING"
       },
       "weekly_cross": {
@@ -668,9 +668,9 @@
         "cross_status": "NONE",
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2025-10-03",
-        "periods_since_cross": 52,
-        "spread_pct": 14.836963,
-        "phase": "ACTIVE"
+        "periods_since_cross": 53,
+        "spread_pct": 14.927105,
+        "phase": "AGING"
       }
     },
     {
@@ -678,23 +678,23 @@
       "provider_symbol": "2330.TW",
       "market": "TW",
       "theme": "semiconductor_ai",
-      "as_of": "2026-10-08",
-      "current_price": 2550.0,
-      "sma50": 2417.188846,
-      "sma200": 2116.901269,
-      "weekly_ma30": 2283.177185,
-      "weekly_ma50": 2014.298227,
+      "as_of": "2026-10-12",
+      "current_price": 2540.0,
+      "sma50": 2424.117987,
+      "sma200": 2122.31611,
+      "weekly_ma30": 2306.853248,
+      "weekly_ma50": 2036.449556,
       "trend": "BULLISH",
-      "cta": "BUY",
+      "cta": "HOLD",
       "confidence": 100,
-      "reason": "Weekly golden cross remains confirmed or active.",
+      "reason": "Weekly golden trend is aging without a fresh daily cross.",
       "daily_cross": {
         "alignment": "GOLDEN",
         "cross_status": "NONE",
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2025-07-10",
-        "periods_since_cross": 304,
-        "spread_pct": 14.185242,
+        "periods_since_cross": 305,
+        "spread_pct": 14.220402,
         "phase": "AGING"
       },
       "weekly_cross": {
@@ -702,9 +702,9 @@
         "cross_status": "NONE",
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2025-10-03",
-        "periods_since_cross": 52,
-        "spread_pct": 13.348518,
-        "phase": "ACTIVE"
+        "periods_since_cross": 53,
+        "spread_pct": 13.278192,
+        "phase": "AGING"
       }
     },
     {
@@ -814,10 +814,10 @@
       "provider_symbol": "BTC-USD",
       "market": "CONTEXT",
       "theme": "crypto_risk_appetite",
-      "as_of": "2026-10-12",
-      "current_price": 84008.367188,
-      "sma50": 80948.582031,
-      "sma200": 71981.75918,
+      "as_of": "2026-10-10",
+      "current_price": 82912.226562,
+      "sma50": 80810.082969,
+      "sma200": 71918.266758,
       "weekly_ma30": 71746.704818,
       "weekly_ma50": 77729.797891,
       "trend": "MIXED",
@@ -829,8 +829,8 @@
         "cross_status": "NONE",
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2026-09-08",
-        "periods_since_cross": 33,
-        "spread_pct": 12.457077,
+        "periods_since_cross": 32,
+        "spread_pct": 12.36378,
         "phase": "ACTIVE"
       },
       "weekly_cross": {
@@ -841,7 +841,10 @@
         "periods_since_cross": 32,
         "spread_pct": -7.697297,
         "phase": "ACTIVE"
-      }
+      },
+      "weekly_data_as_of": "2026-10-04",
+      "weekly_expected_as_of": "2026-10-11",
+      "weekly_data_status": "LAGGED"
     }
   ],
   "us_session_cutoff_policy": "exclude_current_New_York_daily_bar_until_16:15_America/New_York",
