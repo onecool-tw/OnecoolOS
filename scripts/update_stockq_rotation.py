@@ -24,6 +24,7 @@ from onecool_os.market.etf_cta import DailyBar, ETFCTAError
 
 TWD_SERIES = {
     # Asia-Pacific
+    "台灣加權": ("^TWII", "TWDTWD=X"),
     "泰國": ("^SET.BK", "THBTWD=X"),
     "新加坡": ("^STI", "SGDTWD=X"),
     "日本": ("^N225", "JPYTWD=X"),
@@ -48,6 +49,7 @@ TWD_SERIES = {
     "NBI生技": ("^NBI", "USDTWD=X"),
     "加拿大": ("^GSPTSE", "CADTWD=X"),
     # Europe
+    "荷蘭股市": ("^AEX", "EURTWD=X"),
     "波蘭股市": ("^WIG", "PLNTWD=X"),
     "波蘭": ("^WIG", "PLNTWD=X"),
     "英國": ("^FTSE", "GBPTWD=X"),
@@ -249,7 +251,13 @@ def _twd_returns_for_pass_markets(
             }
             continue
         try:
-            fx, fx_method = _fetch_twd_fx(fx_symbol, bootstrapper)
+            if fx_symbol == "TWDTWD=X":
+                # The exact Taiwan index is already denominated in TWD.
+                # Identity FX uses its actual dates, never a fabricated pair.
+                fx = [DatedValue(item.trading_date, 1.0) for item in local]
+                fx_method = "IDENTITY_TWD"
+            else:
+                fx, fx_method = _fetch_twd_fx(fx_symbol, bootstrapper)
         except Exception as exc:  # Provider failure must not erase the radar.
             results[market.market] = {
                 period: {

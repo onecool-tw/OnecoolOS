@@ -21,7 +21,9 @@ def test_market_dashboard_uses_health_driven_recovery_instead_of_constant_retrie
         root / ".github" / "workflows" / "update-market-dashboard.yml"
     ).read_text(encoding="utf-8")
 
-    assert workflow.count("- cron:") == 5
+    assert workflow.count("- cron:") == 7
+    assert 'cron: "30 0 * * 1"' in workflow
+    assert 'cron: "30 1 * * 1"' in workflow
     assert 'cron: "30 0 * * 2-6"' in workflow
     assert 'cron: "30 1 * * 2-6"' in workflow
     assert 'cron: "17 8 * * 1-5"' in workflow

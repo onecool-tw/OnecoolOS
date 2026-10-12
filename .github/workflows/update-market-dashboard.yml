@@ -42,6 +42,9 @@ on:
         type: boolean
         default: true
   schedule:
+    # Monday refresh includes the completed Sunday BTC bar before fund report.
+    # Equities retain their latest completed trading session.
+    - cron: "30 0 * * 1"
     # US close primary run: 08:30 Asia/Taipei, Tuesday-Saturday.
     # During both US daylight-saving and standard time this leaves enough time
     # for Yahoo Finance to publish completed regular-session daily bars.
@@ -49,6 +52,7 @@ on:
     # US close retry: 09:30 Asia/Taipei, Tuesday-Saturday. The 10:15 health
     # monitor dispatches an additional recovery only when inputs stay blocked.
     - cron: "30 1 * * 2-6"
+    - cron: "30 1 * * 1"
     # Asia close primary, mid-window retry, and final retry. The Taiwan screen
     # follows each successful Dashboard run; pre-report health owns recovery.
     - cron: "17 8 * * 1-5"
