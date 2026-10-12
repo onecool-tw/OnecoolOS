@@ -25,7 +25,7 @@
     },
     "context": {
       "path": "data/market/taiwan_stock_intelligence/daily_context_latest.json",
-      "sha256": "f31ec2d84b3e7feacd008d78e97245cc26bb2a6677c747dddeac83ca3849dcf4"
+      "sha256": "7d1866f93c6d5e569cae4074769ca2b15e23b314a5df18f3cd066f71224aa809"
     }
   },
   "source_generated_at": {
@@ -56,35 +56,37 @@
   },
   "candidate_action_gate": "REQUIRES_INDIVIDUAL_CTA_AND_PRESSURE_GREEN",
   "market_pressure": {
-    "as_of": "2026-10-08",
+    "as_of": "2026-10-12",
     "status": "CURRENT",
     "light": "RED",
     "action": "PAUSE_NEW_EXPOSURE",
     "reason": [
-      "prior_red_2026_10_07;deescalation_not_met_due_to_new_stress_trigger_and_worsening_volatility_and_foreign_futures_position",
-      "taiex_close_49281_44_down_524_93_pct_minus_1_05_trade_value_920_172_billion_twd;new_downside_stress_session",
-      "front_month_taiex_futures_close_49349_premium_67_56_points_down_619",
-      "foreign_taiex_futures_long_11389_short_94583_net_short_83194_vs_79101_previous",
-      "taiex_options_volume_pcr_87_14_open_interest_pcr_80_18_vs_94_57_and_82_25_previous",
-      "taifex_vix_24_55_last_1_min_avg_vs_23_29_previous",
-      "institutional_flow_not_independently_read_back_at_evaluation_time;not_used_to_deescalate",
-      "margin_2026_10_07_balance_640_000774_billion_twd_change_plus_2_343730_billion_twd_official_lag_accepted_before_same_day_publication"
+      "formal_evaluation_after_same_day_screen_ready_and_official_spot_futures_pcr_institutional_inputs_verified;no_signal_recalculation_in_github",
+      "prior_red_2026_10_08;only_first_subsequent_trading_session;minimum_two_nontrigger_sessions_not_met",
+      "taifex_vix_25_16_last_1_min_avg_vs_24_55_previous;volatility_improvement_required_for_deescalation_not_met",
+      "official_taiex_close_49301_96_down_11_48_pct_minus_0_02;official_2026_10_08_close_49313_44;lower_close",
+      "prior_report_2026_10_08_spot_49281_44_conflicts_with_official_49313_44;official_prior_value_disclosed_not_silently_overwritten",
+      "front_month_TX_202610_close_49309;spot_premium_7_04_points",
+      "foreign_TX_open_interest_long_11899_short_94705_net_short_82806;versus_prior_83194_net_short",
+      "TXO_volume_PCR_102_35_open_interest_PCR_84_78;official_2026_10_12_verified",
+      "official_institutional_net_TWD_foreign_minus_52198146456_trust_plus_7123562783_dealers_minus_14294418717_total_minus_59369002390",
+      "margin_latest_official_2026_10_08_amount_646405767_thousand_TWD;change_plus_6404993_thousand_TWD;official_lag_accepted"
     ],
     "confirmed_inputs": {
       "spot": true,
       "futures": true,
       "pcr": true,
       "volatility": true,
-      "institutional_flow": false,
+      "institutional_flow": true,
       "margin": true
     },
     "input_data_as_of": {
-      "spot": "2026-10-08",
-      "futures": "2026-10-08",
-      "pcr": "2026-10-08",
-      "volatility": "2026-10-08",
-      "institutional_flow": "2026-10-07",
-      "margin": "2026-10-07"
+      "spot": "2026-10-12",
+      "futures": "2026-10-12",
+      "pcr": "2026-10-12",
+      "volatility": "2026-10-12",
+      "institutional_flow": "2026-10-12",
+      "margin": "2026-10-08"
     },
     "previous_light": "RED",
     "changed": false,
@@ -93,17 +95,15 @@
   },
   "market_pressure_freshness": {
     "expected_as_of": "2026-10-12",
-    "as_of": "2026-10-08",
+    "as_of": "2026-10-12",
     "source_status": "CURRENT",
-    "status": "STALE_LAST_KNOWN",
-    "same_day_current": false,
+    "status": "CURRENT",
+    "same_day_current": true,
     "consumer_action": "PAUSE_NEW_EXPOSURE"
   },
   "final_delivery_readiness": {
-    "status": "UPDATE_INCOMPLETE",
-    "issues": [
-      "MARKET_PRESSURE_AS_OF_MISMATCH"
-    ],
+    "status": "READY",
+    "issues": [],
     "rule": "EMAIL_REQUIRES_CURRENT_MARKET_PRESSURE_AND_CURRENT_LOCAL_MARKET_ASIA_CTA"
   },
   "asia_cta_readiness": {
