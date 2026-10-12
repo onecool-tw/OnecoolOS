@@ -86,9 +86,18 @@ def _repair_btc_week_close(config, history, bootstrapper, reference_time=None):
     # a wider window, preserving actual observations and never synthesizing.
     try:
         incoming = bootstrapper.fetch_raw_daily(config.provider_symbol, period="1mo")
-        return merge_and_adjust(history, _completed_symbol_bars(config, incoming, now))
+        history = merge_and_adjust(history, _completed_symbol_bars(config, incoming, now))
     except Exception:
-        return history
+        pass
+    if not any(bar.trading_date == sunday for bar in history):
+        fetch_exact = getattr(bootstrapper, "fetch_btc_completed_day", None)
+        if fetch_exact is not None:
+            try:
+                incoming = fetch_exact(sunday)
+                history = merge_and_adjust(history, _completed_symbol_bars(config, incoming, now))
+            except Exception:
+                pass
+    return history
 
 
 def _incomplete_us_session_date(
