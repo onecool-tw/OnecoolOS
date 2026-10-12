@@ -20,6 +20,7 @@ REQUIRED_FINITE_FIELDS = {
 # actions. Preserve their gaps for the weekly report without degrading the
 # unified operating status of otherwise complete decision inputs.
 NON_BLOCKING_CONTEXT_GAPS = {
+    ("WEEKLY_CLOSE_UNAVAILABLE", "Bitcoin"),
     ("REVIEW_REQUIRED", "AI Revolution"),
     ("TWD_CONVERSION_UNAVAILABLE", "Global Rotation"),
     ("PEER_RANKING_UNAVAILABLE", "Peer Ranking"),
@@ -75,6 +76,12 @@ def validate_fund_intelligence(root: Path, *, today: date | None = None) -> dict
                         f"{symbol}: {', '.join(sorted(invalid))}",
                     )
                 )
+            if symbol == "BTC" and item.get("weekly_data_status") == "LAGGED":
+                issues.append(_issue(
+                    "WEEKLY_CLOSE_UNAVAILABLE", "Bitcoin",
+                    f"completed week {item.get('weekly_data_as_of')} trails "
+                    f"expected {item.get('weekly_expected_as_of')}; retain last verified CTA",
+                ))
 
     for relative, module in (
         ("data/market/fund_nav/fund_cta_latest.json", "Fund CTA"),
