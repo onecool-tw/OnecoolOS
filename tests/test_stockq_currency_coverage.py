@@ -18,6 +18,7 @@ def test_required_twd_currency_pairs_are_covered() -> None:
 def test_current_stockq_names_and_currency_groups_are_mapped() -> None:
     expected = {
         "台灣加權": ("^TWII", "TWDTWD=X"),
+        "上海B股": ("000003.SS", "USDTWD=X"),
         "荷蘭股市": ("^AEX", "EURTWD=X"),
         "波蘭股市": ("^WIG", "PLNTWD=X"),
         "S&P 500": ("^GSPC", "USDTWD=X"),
@@ -82,7 +83,8 @@ def test_taiwan_returns_use_identity_fx_without_network_pair(monkeypatch) -> Non
 
 
 def test_shanghai_b_is_not_substituted_with_shanghai_composite() -> None:
-    assert "上海B股" not in TWD_SERIES
+    assert TWD_SERIES["上海B股"] == ("000003.SS", "USDTWD=X")
+    assert TWD_SERIES["上海B股"][0] != "000001.SS"
 
 
 def test_pln_and_huf_have_same_date_usd_bridge() -> None:

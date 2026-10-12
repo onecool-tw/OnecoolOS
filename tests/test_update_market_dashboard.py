@@ -132,7 +132,8 @@ def test_delayed_asia_run_excludes_incomplete_us_session(
     rows = {r["symbol"]: r for r in payload["results"]}
     for symbol in ("DXY", "VIX", "US30Y"):
         assert rows[symbol]["as_of"] == completed.isoformat()
-    assert rows["BTC"]["as_of"] == provisional.isoformat()
+    # BTC closes at midnight UTC, so the current UTC day is still provisional.
+    assert rows["BTC"]["as_of"] == completed.isoformat()
 
 
 def test_completed_us_session_is_retained_after_close() -> None:
@@ -175,7 +176,7 @@ def test_update_uses_raw_yahoo_primary_for_all_dashboard_symbols(
     assert FakeClient.calls == []
     assert FakeBootstrapper.calls == [
         config.provider_symbol for config in update_market_dashboard.MARKET_SYMBOLS
-    ] + ["SPCX"]
+    ] + ["SPCX", "^TNX", "^SOX"]
     assert FakeBootstrapper.adjusted_calls == []
     assert len(payload["results"]) == len(update_market_dashboard.MARKET_SYMBOLS)
     assert payload["provider_by_symbol"]["SPY"] == "yahoo_finance_raw"
@@ -210,7 +211,7 @@ def test_missing_api_key_uses_yahoo_for_all_symbols(
     assert len(payload["results"]) == len(update_market_dashboard.MARKET_SYMBOLS)
     assert FakeBootstrapper.calls == [
         config.provider_symbol for config in update_market_dashboard.MARKET_SYMBOLS
-    ] + ["SPCX"]
+    ] + ["SPCX", "^TNX", "^SOX"]
     assert FakeBootstrapper.adjusted_calls == []
     assert set(payload["provider_by_symbol"].values()) == {"yahoo_finance_raw"}
 
@@ -267,7 +268,7 @@ def test_existing_histories_skip_yahoo_bootstrap(tmp_path: Path, monkeypatch) ->
 
     assert FakeBootstrapper.calls == [
         config.provider_symbol for config in update_market_dashboard.MARKET_SYMBOLS
-    ] + ["SPCX"]
+    ] + ["SPCX", "^TNX", "^SOX"]
     assert FakeBootstrapper.adjusted_calls == []
     assert FakeClient.calls == []
 

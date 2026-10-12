@@ -25,6 +25,8 @@ from onecool_os.market.etf_cta import DailyBar, ETFCTAError
 TWD_SERIES = {
     # Asia-Pacific
     "台灣加權": ("^TWII", "TWDTWD=X"),
+    # SSE's 000003 B-share index is USD-denominated, not CNY.
+    "上海B股": ("000003.SS", "USDTWD=X"),
     "泰國": ("^SET.BK", "THBTWD=X"),
     "新加坡": ("^STI", "SGDTWD=X"),
     "日本": ("^N225", "JPYTWD=X"),

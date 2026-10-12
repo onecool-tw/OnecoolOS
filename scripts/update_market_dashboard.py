@@ -5,7 +5,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
-from datetime import UTC, date, datetime, time
+from datetime import UTC, date, datetime, time, timedelta
 from math import isclose
 from pathlib import Path
 from zoneinfo import ZoneInfo
@@ -59,6 +59,36 @@ INNOVATION_OPTION_CONFIGS = {
 }
 US_MARKET_TIME_ZONE = ZoneInfo("America/New_York")
 US_DAILY_BAR_READY_TIME = time(16, 15)
+
+
+def _completed_symbol_bars(config, bars, reference_time=None):
+    if config.symbol == "BTC":
+        now = reference_time or datetime.now(UTC)
+        if now.tzinfo is None:
+            raise ValueError("reference_time must be timezone-aware")
+        # Yahoo crypto daily bars are UTC days. Today's bar is provisional.
+        cutoff = now.astimezone(UTC).date()
+        return [bar for bar in bars if bar.trading_date < cutoff]
+    return completed_daily_bars(bars, config.market, reference_time)
+
+
+def _repair_btc_week_close(config, history, bootstrapper, reference_time=None):
+    if config.symbol != "BTC":
+        return history
+    now = reference_time or datetime.now(UTC)
+    yesterday = now.astimezone(UTC).date() - timedelta(days=1)
+    sunday = yesterday - timedelta(days=(yesterday.weekday() - 6) % 7)
+    if not history or history[0].trading_date > sunday:
+        return history
+    if any(bar.trading_date == sunday for bar in history):
+        return history
+    # A short-range provider response can omit a completed Sunday. Retry with
+    # a wider window, preserving actual observations and never synthesizing.
+    try:
+        incoming = bootstrapper.fetch_raw_daily(config.provider_symbol, period="1mo")
+        return merge_and_adjust(history, _completed_symbol_bars(config, incoming, now))
+    except Exception:
+        return history
 
 
 def _incomplete_us_session_date(
@@ -312,8 +342,8 @@ def update(
             records.append(retired)
             providers[config.symbol] = "confirmed_security_lifecycle; no_price_fetch"
             continue
-        existing = completed_daily_bars(
-            read_history(history_dir / f"{config.symbol}.csv"), config.market, reference_time
+        existing = _completed_symbol_bars(
+            config, read_history(history_dir / f"{config.symbol}.csv"), reference_time
         )
         needs_raw_rebuild = (
             not existing
@@ -330,7 +360,7 @@ def update(
             incoming = _drop_incomplete_us_session(
                 config, incoming, incomplete_us_session
             )
-            incoming = completed_daily_bars(incoming, config.market, reference_time)
+            incoming = _completed_symbol_bars(config, incoming, reference_time)
             base = [] if needs_raw_rebuild else _drop_incomplete_us_session(
                 config, existing, incomplete_us_session
             )
@@ -351,6 +381,8 @@ def update(
             history = _drop_incomplete_us_session(
                 config, history, incomplete_us_session
             )
+
+        history = _repair_btc_week_close(config, history, history_bootstrapper, reference_time)
 
         # Yahoo can return HTTP success while omitting an isolated completed
         # session. Portfolio scoring intentionally requires the exact SPY
@@ -475,6 +507,16 @@ def update(
     histories_by_symbol = {
         config.symbol: history for config, history in staged
     }
+    yesterday = effective_reference_time.astimezone(UTC).date() - timedelta(days=1)
+    expected = yesterday - timedelta(days=(yesterday.weekday() - 6) % 7)
+    sundays = [b.trading_date for b in histories_by_symbol.get("BTC", [])
+               if b.trading_date.weekday() == 6]
+    actual = max(sundays) if sundays else None
+    for record in payload["results"]:
+        if record["symbol"] == "BTC":
+            record["weekly_data_as_of"] = actual.isoformat() if actual else None
+            record["weekly_expected_as_of"] = expected.isoformat()
+            record["weekly_data_status"] = "CURRENT" if actual == expected else "LAGGED"
     from onecool_os.market.us_risk_context import collect_us_risk_context
     payload["us_short_term_risk_context"] = collect_us_risk_context(
         payload["expected_as_of"], histories_by_symbol, history_bootstrapper
