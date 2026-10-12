@@ -2,6 +2,12 @@ name: Update StockQ Rotation Radar
 
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/update_stockq_rotation.py"
+      - "onecool_os/market/stockq_rotation.py"
+      - ".github/workflows/update-stockq-rotation.yml"
   # The scheduled refresh is orchestrated by update-fund-weekly-analytics.yml
   # so all report caches are committed atomically. Keep manual dispatch here.
 

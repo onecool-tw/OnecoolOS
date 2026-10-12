@@ -17,6 +17,8 @@ def test_required_twd_currency_pairs_are_covered() -> None:
 
 def test_current_stockq_names_and_currency_groups_are_mapped() -> None:
     expected = {
+        "台灣加權": ("^TWII", "TWDTWD=X"),
+        "荷蘭股市": ("^AEX", "EURTWD=X"),
         "波蘭股市": ("^WIG", "PLNTWD=X"),
         "S&P 500": ("^GSPC", "USDTWD=X"),
         "NASDAQ": ("^IXIC", "USDTWD=X"),
@@ -49,6 +51,38 @@ def test_current_stockq_names_and_currency_groups_are_mapped() -> None:
 
 def test_every_mapping_uses_a_direct_twd_pair() -> None:
     assert all(fx_symbol.endswith("TWD=X") for _, fx_symbol in TWD_SERIES.values())
+
+
+def test_taiwan_returns_use_identity_fx_without_network_pair(monkeypatch) -> None:
+    from types import SimpleNamespace
+    from scripts import update_stockq_rotation as updater
+
+    monkeypatch.setattr(updater, "screen_markets", lambda _: [
+        SimpleNamespace(market="台灣加權", stage1="PASS")
+    ])
+    start = date(2026, 9, 1)
+
+    class Bootstrapper:
+        def fetch_adjusted_daily(self, symbol):
+            assert symbol == "^TWII", "Identity TWD must not fetch any FX pair"
+            return [DailyBar(
+                trading_date=start + timedelta(days=i),
+                open=100+i, high=100+i, low=100+i, close=100+i,
+                volume=0, adjusted_close=100+i,
+            ) for i in range(39)]
+
+    result = updater._twd_returns_for_pass_markets(
+        "", "2026-10-09", Bootstrapper()
+    )["台灣加權"]
+    for period in result.values():
+        assert period["status"] == "VALID"
+        assert period["fx_method"] == "IDENTITY_TWD"
+        assert period["fx_return_pct"] == 0
+        assert period["twd_return_pct"] == period["local_return_pct"]
+
+
+def test_shanghai_b_is_not_substituted_with_shanghai_composite() -> None:
+    assert "上海B股" not in TWD_SERIES
 
 
 def test_pln_and_huf_have_same_date_usd_bridge() -> None:
