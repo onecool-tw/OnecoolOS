@@ -1,10 +1,10 @@
 {
   "schema_version": "1.9",
   "module": "Onecool Market Dashboard",
-  "generated_at": "2026-10-13T06:57:21.406179+00:00",
+  "generated_at": "2026-10-13T07:52:48.626834+00:00",
   "expected_as_of": "2026-10-12",
   "data_status": "READY",
-  "last_successful_update_at": "2026-10-13T06:57:21.406179+00:00",
+  "last_successful_update_at": "2026-10-13T07:52:48.626834+00:00",
   "index_cta_basis": {
     "method": "ETF/index proxies; shared CTA engine",
     "mappings": {
@@ -814,10 +814,10 @@
       "provider_symbol": "BTC-USD",
       "market": "CONTEXT",
       "theme": "crypto_risk_appetite",
-      "as_of": "2026-10-11",
-      "current_price": 83679.46875,
-      "sma50": 80942.004062,
-      "sma200": 71980.114687,
+      "as_of": "2026-10-12",
+      "current_price": 81762.5625,
+      "sma50": 81022.15,
+      "sma200": 72044.969375,
       "weekly_ma30": 72109.689974,
       "weekly_ma50": 77113.938359,
       "trend": "MIXED",
@@ -829,8 +829,8 @@
         "cross_status": "NONE",
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2026-09-08",
-        "periods_since_cross": 33,
-        "spread_pct": 12.450507,
+        "periods_since_cross": 34,
+        "spread_pct": 12.460524,
         "phase": "ACTIVE"
       },
       "weekly_cross": {
@@ -3225,32 +3225,6 @@
     },
     "publication_status": "CURRENT"
   },
-  "corporate_action_validation": [
-    {
-      "symbol": "SPY",
-      "status": "MATCHED_WITH_MINOR_PROVIDER_DIFFERENCE",
-      "source_a": "yahoo_finance_raw",
-      "source_b": "alpha_vantage",
-      "as_of": "2026-10-12",
-      "minor_differences": [
-        "2021-12-17: dividend yahoo=1.633 alpha=1.636431 difference=0.003431"
-      ],
-      "minor_difference_policy": "non_blocking_only_when_absolute_difference_lte_0.005_and_relative_difference_lte_1pct"
-    },
-    {
-      "symbol": "QQQ",
-      "status": "MATCHED",
-      "source_a": "yahoo_finance_raw",
-      "source_b": "alpha_vantage",
-      "as_of": "2026-10-12"
-    },
-    {
-      "symbol": "DIA",
-      "status": "MATCHED",
-      "source_a": "yahoo_finance_raw",
-      "source_b": "alpha_vantage",
-      "as_of": "2026-10-12"
-    }
-  ],
+  "corporate_action_validation": [],
   "provider_fallback_policy": "yahoo_finance_raw_primary; alpha_vantage_core_price_fallback; last_successful_cache_on_failure"
 }
