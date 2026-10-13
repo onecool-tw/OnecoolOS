@@ -1,12 +1,12 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-10-13T03:35:07.027086+00:00",
+  "generated_at": "2026-10-13T06:58:31.657453+00:00",
   "taipei_date": "2026-10-13",
   "status": "BLOCKED",
   "scope_status": {
-    "morning": "BLOCKED",
-    "asia": "READY",
+    "morning": "READY",
+    "asia": "BLOCKED",
     "weekly": "READY"
   },
   "report_delivery": {
@@ -35,7 +35,7 @@
       },
       {
         "report_id": "fund",
-        "expected_report_date": "2026-10-12",
+        "expected_report_date": "2026-10-13",
         "status": "PARTIAL",
         "channels": {
           "conversation": "UNKNOWN",
@@ -133,11 +133,11 @@
       "label": "Fund NAV CTA",
       "scope": "morning",
       "critical": true,
-      "status": "BLOCKED",
-      "reason": "generation timestamp missing, invalid or older than scheduled date 2026-10-13",
+      "status": "READY",
+      "reason": "current",
       "observed_as_of": "2026-10-12",
       "recovery_workflow": "update-fund-nav-cta.yml",
-      "retryable": true,
+      "retryable": false,
       "impacted_reports": [
         "基金日報",
         "基金週報"
@@ -204,8 +204,8 @@
       "label": "Japan/Korea CTA freshness",
       "scope": "asia",
       "critical": true,
-      "status": "READY",
-      "reason": "both local-market CTAs current",
+      "status": "BLOCKED",
+      "reason": "1306 CURRENT as_of 2026-10-09 expected 2026-10-13; 069500 CURRENT as_of 2026-10-12 expected 2026-10-13",
       "observed_as_of": "2026-10-09",
       "recovery_workflow": "update-market-dashboard.yml",
       "retryable": true,
@@ -329,21 +329,6 @@
   ],
   "issues": [
     {
-      "module_id": "fund_nav_cta",
-      "label": "Fund NAV CTA",
-      "scope": "morning",
-      "critical": true,
-      "status": "BLOCKED",
-      "reason": "generation timestamp missing, invalid or older than scheduled date 2026-10-13",
-      "observed_as_of": "2026-10-12",
-      "recovery_workflow": "update-fund-nav-cta.yml",
-      "retryable": true,
-      "impacted_reports": [
-        "基金日報",
-        "基金週報"
-      ]
-    },
-    {
       "module_id": "taiwan_candidate_cta",
       "label": "Taiwan 200-stock CTA",
       "scope": "asia",
@@ -356,11 +341,26 @@
       "impacted_reports": [
         "台股日報"
       ]
+    },
+    {
+      "module_id": "asia_country_cta",
+      "label": "Japan/Korea CTA freshness",
+      "scope": "asia",
+      "critical": true,
+      "status": "BLOCKED",
+      "reason": "1306 CURRENT as_of 2026-10-09 expected 2026-10-13; 069500 CURRENT as_of 2026-10-12 expected 2026-10-13",
+      "observed_as_of": "2026-10-09",
+      "recovery_workflow": "update-market-dashboard.yml",
+      "retryable": true,
+      "impacted_reports": [
+        "台股日報",
+        "基金週報"
+      ]
     }
   ],
   "recovery_workflows": [
-    "update-fund-nav-cta.yml"
+    "update-market-dashboard.yml"
   ],
-  "issue_fingerprint": "304a2c0fd04de99dc124edb5c98164f1d869880cc960bc9f12fc3a9be34e6c93",
+  "issue_fingerprint": "7c9b026064f634a896a95a0abcf79ed004999a92f68169975f3cf6d0b180b672",
   "policy": "Health monitoring only; never changes CTA, rankings, or investment decisions."
 }
