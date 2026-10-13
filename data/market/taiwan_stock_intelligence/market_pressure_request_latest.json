@@ -1,20 +1,19 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Taiwan Market Pressure Request",
-  "as_of": "2026-10-12",
+  "as_of": "2026-10-13",
   "status": "CURRENT",
   "light": "RED",
   "reason": [
-    "formal_evaluation_after_same_day_screen_ready_and_official_spot_futures_pcr_institutional_inputs_verified;no_signal_recalculation_in_github",
-    "prior_red_2026_10_08;only_first_subsequent_trading_session;minimum_two_nontrigger_sessions_not_met",
-    "taifex_vix_25_16_last_1_min_avg_vs_24_55_previous;volatility_improvement_required_for_deescalation_not_met",
-    "official_taiex_close_49301_96_down_11_48_pct_minus_0_02;official_2026_10_08_close_49313_44;lower_close",
-    "prior_report_2026_10_08_spot_49281_44_conflicts_with_official_49313_44;official_prior_value_disclosed_not_silently_overwritten",
-    "front_month_TX_202610_close_49309;spot_premium_7_04_points",
-    "foreign_TX_open_interest_long_11899_short_94705_net_short_82806;versus_prior_83194_net_short",
-    "TXO_volume_PCR_102_35_open_interest_PCR_84_78;official_2026_10_12_verified",
-    "official_institutional_net_TWD_foreign_minus_52198146456_trust_plus_7123562783_dealers_minus_14294418717_total_minus_59369002390",
-    "margin_latest_official_2026_10_08_amount_646405767_thousand_TWD;change_plus_6404993_thousand_TWD;official_lag_accepted"
+    "prior_formal_RED_2026_10_12;new_lower_close_and_worsening_volatility_and_foreign_futures_stress;deescalation_conditions_not_met",
+    "official_TAIEX_48341_31_down_960_65_pct_minus_1_95_vs_prior_49301_96",
+    "front_month_TX_202610_close_48400_premium_58_69_points",
+    "foreign_TX_long_10640_short_97879_net_short_87239_vs_prior_82806",
+    "official_TXO_volume_PCR_88_76_open_interest_PCR_68_95_vs_prior_102_35_and_84_78",
+    "official_TAIFEX_VIX_26_72_Last_1_min_AVG_vs_prior_25_16",
+    "official_institutional_net_TWD_foreign_minus_165342076935_trust_plus_23872040814_dealers_minus_56976252324_total_minus_198446288445",
+    "margin_latest_official_2026_10_12_amount_653329500_thousand_TWD_change_plus_6923733_thousand_TWD;official_lag_accepted;not_dated_as_today",
+    "same_day_official_spot_futures_PCR_institutional_sources_directly_verified;screen_stale_disclosed_independently;no_recalculation_in_GitHub"
   ],
   "confirmed_inputs": {
     "spot": true,
@@ -25,12 +24,12 @@
     "margin": true
   },
   "input_data_as_of": {
-    "spot": "2026-10-12",
-    "futures": "2026-10-12",
-    "pcr": "2026-10-12",
-    "volatility": "2026-10-12",
-    "institutional_flow": "2026-10-12",
-    "margin": "2026-10-08"
+    "spot": "2026-10-13",
+    "futures": "2026-10-13",
+    "pcr": "2026-10-13",
+    "volatility": "2026-10-13",
+    "institutional_flow": "2026-10-13",
+    "margin": "2026-10-12"
   },
   "writer": "FORMAL_TAIWAN_WORK_ONLY"
 }
