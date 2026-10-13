@@ -2,12 +2,12 @@
   "report_id": "taiwan",
   "report_date": "2026-10-13",
   "data_as_of": "2026-10-13",
-  "generated_at": "2026-10-13T18:03:01+08:00",
-  "execution_status": "PARTIAL",
-  "delivery_status": "FAILED",
+  "generated_at": "2026-10-13T18:16:12+08:00",
+  "execution_status": "SUCCESS",
+  "delivery_status": "UNKNOWN",
   "writeback_status": "VERIFIED",
-  "delivery_evidence_sha256": null,
-  "snapshot_sha256": "1989cf0b9d2b796c9171daa80f5f7665c49dffea707466120080cb755ea6e3b5",
+  "delivery_evidence_sha256": "87c3d758f9c85afd7e0060e66979bc52a8418246a7161dae85b021d0a53216f6",
+  "snapshot_sha256": "c54856818ba0399f3d57cc6f2d3ea49e007b668dd06016f52f781c95abf4505c",
   "channels": {
     "conversation": {
       "status": "UNKNOWN",
@@ -16,30 +16,35 @@
     },
     "artifact": {
       "status": "DELIVERED",
-      "observed_at": "2026-10-13T18:03:01+08:00",
-      "evidence_sha256": "47699ae175e98e5ae40ac04b0958859a361227e1490b063ec0f4b6b0ad51e461",
-      "snapshot_sha256": "1989cf0b9d2b796c9171daa80f5f7665c49dffea707466120080cb755ea6e3b5"
+      "observed_at": "2026-10-13T18:16:12+08:00",
+      "evidence_sha256": "889d8ab10f36f64382022e19cfc79c7f5eed1648a9a7ec94317c933a5f21ab13",
+      "snapshot_sha256": "c54856818ba0399f3d57cc6f2d3ea49e007b668dd06016f52f781c95abf4505c"
     },
     "email": {
-      "status": "FAILED",
-      "observed_at": null,
-      "evidence_sha256": null,
-      "snapshot_sha256": "1989cf0b9d2b796c9171daa80f5f7665c49dffea707466120080cb755ea6e3b5",
-      "recipient_count": 0
+      "status": "DELIVERED",
+      "observed_at": "2026-10-13T18:16:12+08:00",
+      "evidence_sha256": "87c3d758f9c85afd7e0060e66979bc52a8418246a7161dae85b021d0a53216f6",
+      "snapshot_sha256": "c54856818ba0399f3d57cc6f2d3ea49e007b668dd06016f52f781c95abf4505c",
+      "recipient_count": 3
     }
   },
   "completed_steps": [
-    "DASHBOARD_AND_INDIVIDUAL_CTA_READ",
-    "OFFICIAL_SPOT_FUTURES_PCR_FLOW_INPUTS_VERIFIED",
-    "FORMAL_PRESSURE_PERSISTENCE_SUCCESS_AND_READBACK",
-    "STALE_SCREEN_JOIN_VALIDATED_WITH_ORIGINAL_DATE",
-    "PRIVATE_REPORT_SAVED_AND_FULL_READBACK"
+    "CURRENT_SCREEN_CTA_VERIFIED",
+    "OFFICIAL_PRESSURE_SSOT_READBACK",
+    "ASIA_HEALTH_READY",
+    "FINAL_SNAPSHOT_JOIN_AND_DATES_VERIFIED",
+    "ARTIFACT_SAVED_FULL_READBACK",
+    "THREE_EMAIL_ACKNOWLEDGEMENTS",
+    "PRIVATE_EVIDENCE_SAVED",
+    "JSON_IMPORT_FIX_WORKFLOW_AND_REGRESSION_PASSED"
   ],
-  "failed_steps": [
-    "SCREEN_NOT_CURRENT_2026_10_13",
+  "failed_steps": [],
+  "resolved_steps": [
+    "SCREEN_NOT_CURRENT",
     "ASIA_SCOPE_BLOCKED",
     "FINAL_SNAPSHOT_UPDATE_INCOMPLETE",
-    "EMAIL_PAUSED"
+    "EMAIL_PAUSED",
+    "PRESSURE_INPUT_ADAPTER_NAMEERROR"
   ],
-  "next_step": "RECOVERY_RESUMES_CURRENT_SCREEN_THEN_FINAL_SNAPSHOT_ARTIFACT_AND_EMAIL"
+  "next_step": "CONTINUE_EXISTING_SCHEDULE_AND_HASH_BASED_RECOVERY"
 }
