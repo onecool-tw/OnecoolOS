@@ -78,9 +78,13 @@ def _repair_btc_week_close(config, history, bootstrapper, reference_time=None):
     now = reference_time or datetime.now(UTC)
     yesterday = now.astimezone(UTC).date() - timedelta(days=1)
     sunday = yesterday - timedelta(days=(yesterday.weekday() - 6) % 7)
-    if not history or history[0].trading_date > sunday:
+    if not history:
         return history
-    if any(bar.trading_date == sunday for bar in history):
+    # Both the last completed week and the latest completed UTC day matter.
+    # A present Sunday must not hide a later null/missing Yahoo daily row.
+    targets = sorted({day for day in (sunday, yesterday)
+                      if day >= min(bar.trading_date for bar in history)})
+    if all(any(bar.trading_date == day for bar in history) for day in targets):
         return history
     # A short-range provider response can omit a completed Sunday. Retry with
     # a wider window, preserving actual observations and never synthesizing.
@@ -89,12 +93,16 @@ def _repair_btc_week_close(config, history, bootstrapper, reference_time=None):
         history = merge_and_adjust(history, _completed_symbol_bars(config, incoming, now))
     except Exception:
         pass
-    if not any(bar.trading_date == sunday for bar in history):
+    for day in targets:
+        if any(bar.trading_date == day for bar in history):
+            continue
         fetch_exact = getattr(bootstrapper, "fetch_btc_completed_day", None)
         if fetch_exact is not None:
             try:
-                incoming = fetch_exact(sunday)
-                history = merge_and_adjust(history, _completed_symbol_bars(config, incoming, now))
+                incoming = [bar for bar in fetch_exact(day)
+                            if bar.trading_date == day]
+                if incoming:
+                    history = merge_and_adjust(history, _completed_symbol_bars(config, incoming, now))
             except Exception:
                 pass
     return history
