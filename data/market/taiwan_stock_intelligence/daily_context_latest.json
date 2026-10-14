@@ -41,20 +41,21 @@
   "0050_weekly_alignment": "GOLDEN",
   "market_pressure_gate": "FORMAL_FROM_DAILY_CONTEXT",
   "market_pressure": {
-    "as_of": "2026-10-13",
+    "as_of": "2026-10-14",
     "status": "CURRENT",
     "light": "RED",
     "action": "PAUSE_NEW_EXPOSURE",
     "reason": [
-      "prior_formal_RED_2026_10_12;new_lower_close_and_worsening_volatility_and_foreign_futures_stress;deescalation_conditions_not_met",
-      "official_TAIEX_48341_31_down_960_65_pct_minus_1_95_vs_prior_49301_96",
-      "front_month_TX_202610_close_48400_premium_58_69_points",
-      "foreign_TX_long_10640_short_97879_net_short_87239_vs_prior_82806",
-      "official_TXO_volume_PCR_88_76_open_interest_PCR_68_95_vs_prior_102_35_and_84_78",
-      "official_TAIFEX_VIX_26_72_Last_1_min_AVG_vs_prior_25_16",
-      "official_institutional_net_TWD_foreign_minus_165342076935_trust_plus_23872040814_dealers_minus_56976252324_total_minus_198446288445",
-      "margin_latest_official_2026_10_12_amount_653329500_thousand_TWD_change_plus_6923733_thousand_TWD;official_lag_accepted;not_dated_as_today",
-      "same_day_official_spot_futures_PCR_institutional_sources_directly_verified;screen_stale_disclosed_independently;no_recalculation_in_GitHub"
+      "prior_formal_RED_2026_10_13;first_rebound_session_only;minimum_two_consecutive_sessions_deescalation_gate_not_met;retain_RED",
+      "VERIFIED_TWSE_2026_10_14_TAIEX_close_48625_83_change_plus_284_52_pct_plus_0_59_vs_48341_31;no_new_closing_low",
+      "VERIFIED_TWSE_total_turnover_TWD_978137416296_vs_prior_1198630000000;volume_pressure_improved",
+      "VERIFIED_TAIFEX_TX_202610_regular_session_last_trade_48792_settlement_48798;last_trade_spot_basis_plus_166_17;settlement_basis_plus_172_17;do_not_mix_price_bases",
+      "VERIFIED_TAIFEX_foreign_TX_OI_long_11352_short_98166_net_minus_86814_vs_prior_minus_87239;short_pressure_remains_high",
+      "VERIFIED_TAIFEX_TXO_volume_PCR_103_47_OI_PCR_74_44_vs_prior_88_76_and_68_95",
+      "VERIFIED_official_VIX_26_08_Last_1_min_AVG_vs_prior_26_72;improved_single_session_not_release",
+      "VERIFIED_TWSE_institutional_TWD_foreign_minus_20037340628_trust_plus_16111466319_dealer_minus_11470716964_total_minus_15396591273",
+      "VERIFIED_margin_latest_official_2026_10_13_amount_644978625_thousand_TWD_change_minus_8350875;short_units_225459_change_plus_9270;official_lag_accepted",
+      "formal_Work_only_judgment;screen_2026_10_13_stale_disclosed_separately;no_signal_recalculation_in_GitHub"
     ],
     "confirmed_inputs": {
       "spot": true,
@@ -65,12 +66,12 @@
       "margin": true
     },
     "input_data_as_of": {
-      "spot": "2026-10-13",
-      "futures": "2026-10-13",
-      "pcr": "2026-10-13",
-      "volatility": "2026-10-13",
-      "institutional_flow": "2026-10-13",
-      "margin": "2026-10-12"
+      "spot": "2026-10-14",
+      "futures": "2026-10-14",
+      "pcr": "2026-10-14",
+      "volatility": "2026-10-14",
+      "institutional_flow": "2026-10-14",
+      "margin": "2026-10-13"
     },
     "previous_light": "RED",
     "changed": false,
