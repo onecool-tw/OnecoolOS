@@ -1,0 +1,52 @@
+{
+  "report_id": "taiwan",
+  "report_date": "2026-10-14",
+  "generated_at": "2026-10-14T18:15:24.000+08:00",
+  "execution_status": "SUCCESS",
+  "expected_as_of": "2026-10-14",
+  "actual_data_as_of": "2026-10-14",
+  "delivery_status": "UNKNOWN",
+  "writeback_status": "VERIFIED",
+  "snapshot_sha256": "a67df08e24cb0ad71c07184d4ffd6f183a0464ace41a5752b9cfc0a6525e0b62",
+  "delivery_evidence_sha256": null,
+  "channels": {
+    "conversation": {
+      "status": "UNKNOWN",
+      "observed_at": null,
+      "evidence_sha256": null
+    },
+    "artifact": {
+      "status": "DELIVERED",
+      "observed_at": "2026-10-14T18:15:24.000+08:00",
+      "evidence_sha256": "11ad9a304896bb795061aa0144e9f8f863eaa014b9ecf4814142605f8bc7b2a0",
+      "snapshot_sha256": "a67df08e24cb0ad71c07184d4ffd6f183a0464ace41a5752b9cfc0a6525e0b62"
+    },
+    "email": {
+      "status": "DELIVERED",
+      "observed_at": "2026-10-14T18:15:24.000+08:00",
+      "evidence_sha256": "a5ad616c47bdb8cd29a4bc96e9cc0c4beaf47819b6a1ad28af600daff3e930fc",
+      "snapshot_sha256": "a67df08e24cb0ad71c07184d4ffd6f183a0464ace41a5752b9cfc0a6525e0b62",
+      "recipient_count": 1
+    }
+  },
+  "completed_steps": [
+    "formal_sources_read",
+    "official_pressure_inputs_verified",
+    "market_pressure_persisted_and_readback_verified",
+    "screen_recovery_completed",
+    "market_cta_recovery_completed",
+    "asia_health_ready",
+    "ssot_snapshot_join_verified",
+    "artifact_full_readback_verified",
+    "final_snapshot_hash_verified",
+    "email_success_acknowledged",
+    "private_evidence_saved"
+  ],
+  "failed_steps": [],
+  "resolved_steps": [
+    "screen_snapshot_publish_conflict_recovered",
+    "taiwan_cta_health_stale_recovered"
+  ],
+  "data_quality_status": "CONDITIONAL_PASS_NON_ACTION_CRITICAL",
+  "next_step": "Continue next trading day from formal SSOT; do not resend same snapshot"
+}
