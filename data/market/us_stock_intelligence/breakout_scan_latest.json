@@ -1563,15 +1563,17 @@
       "status": "WAIT",
       "trigger": "突破52週高點且成交量至少為50日均量1.5倍",
       "formal_breakout": false,
-      "super_growth_bucket": "C",
-      "super_growth_reason": "QUALITY_DATA_GAP_NAMED",
+      "super_growth_bucket": "B",
+      "super_growth_reason": "VALUATION_INPUTS_UNAVAILABLE_OR_STALE",
       "quality_gate_status": {
         "competitive_advantage": {
-          "status": "UNKNOWN",
-          "as_of": null,
-          "rationale": null,
-          "sources": [],
-          "data_gap": "MISSING_SOURCE_BACKED_COMPETITIVE_ADVANTAGE_ASSESSMENT",
+          "status": "PASS",
+          "as_of": "2026-07-23",
+          "rationale": "USPI為美國最大門診手術平台；地方設施、醫師合作與醫院網絡構成規模優勢，並非不可取代壟斷。",
+          "sources": [
+            "https://investor.tenethealth.com/press-releases/press-release-details/2026/Tenet-Reports-Strong-Second-Quarter-2026-Results-Raises-2026-Financial-Outlook/default.aspx"
+          ],
+          "data_gap": null,
           "validation_errors": [],
           "method": null,
           "price_as_of": null,
@@ -1579,11 +1581,13 @@
           "inputs": {}
         },
         "structural_growth_runway": {
-          "status": "UNKNOWN",
-          "as_of": null,
-          "rationale": null,
-          "sources": [],
-          "data_gap": "MISSING_SOURCE_BACKED_STRUCTURAL_GROWTH_RUNWAY_ASSESSMENT",
+          "status": "PASS",
+          "as_of": "2026-07-23",
+          "rationale": "門診同設施收入年增5%，服務組合與高複雜度提升；病例下降1.2%限制純量成長，不能把收購與價格成長視為持續高增長保證。",
+          "sources": [
+            "https://investor.tenethealth.com/press-releases/press-release-details/2026/Tenet-Reports-Strong-Second-Quarter-2026-Results-Raises-2026-Financial-Outlook/default.aspx"
+          ],
+          "data_gap": null,
           "validation_errors": [],
           "method": null,
           "price_as_of": null,
@@ -1591,11 +1595,13 @@
           "inputs": {}
         },
         "financial_quality": {
-          "status": "UNKNOWN",
-          "as_of": null,
-          "rationale": null,
-          "sources": [],
-          "data_gap": "MISSING_SOURCE_BACKED_FINANCIAL_QUALITY_ASSESSMENT",
+          "status": "PASS",
+          "as_of": "2026-07-23",
+          "rationale": "H1 CFO 22.26億、capex 3.48億；NCI分配3.98億。正現金流支持品質，但19億美元合約終止與Medicaid前期補收入須排除，不能用GAAP EPS直接估值。",
+          "sources": [
+            "https://investor.tenethealth.com/press-releases/press-release-details/2026/Tenet-Reports-Strong-Second-Quarter-2026-Results-Raises-2026-Financial-Outlook/default.aspx"
+          ],
+          "data_gap": null,
           "validation_errors": [],
           "method": null,
           "price_as_of": null,
@@ -1603,11 +1609,13 @@
           "inputs": {}
         },
         "business_risk_and_governance": {
-          "status": "UNKNOWN",
-          "as_of": null,
-          "rationale": null,
-          "sources": [],
-          "data_gap": "MISSING_SOURCE_BACKED_BUSINESS_RISK_AND_GOVERNANCE_ASSESSMENT",
+          "status": "PASS",
+          "as_of": "2026-07-23",
+          "rationale": "監管給付、Medicaid、payer mix、勞動成本、槓桿與少數股權為主要風險；材料未見否決研究資格的治理事件。PASS不是無風險。",
+          "sources": [
+            "https://investor.tenethealth.com/press-releases/press-release-details/2026/Tenet-Reports-Strong-Second-Quarter-2026-Results-Raises-2026-Financial-Outlook/default.aspx"
+          ],
+          "data_gap": null,
           "validation_errors": [],
           "method": null,
           "price_as_of": null,
@@ -1616,10 +1624,12 @@
         },
         "circle_of_competence": {
           "status": "UNKNOWN",
-          "as_of": null,
-          "rationale": null,
-          "sources": [],
-          "data_gap": "MISSING_SOURCE_BACKED_CIRCLE_OF_COMPETENCE_ASSESSMENT",
+          "as_of": "2026-10-13",
+          "rationale": "正式建倉前確認醫療給付、NCI與營運驅動，不阻擋研究排名。",
+          "sources": [
+            "https://investor.tenethealth.com/press-releases/press-release-details/2026/Tenet-Reports-Strong-Second-Quarter-2026-Results-Raises-2026-Financial-Outlook/default.aspx"
+          ],
+          "data_gap": "PRE_TRADE_USER_CONFIRMATION_ONLY",
           "validation_errors": [],
           "method": null,
           "price_as_of": null,
@@ -1639,31 +1649,22 @@
           "inputs": {}
         }
       },
-      "evidence_coverage": "NONE",
+      "evidence_coverage": "PARTIAL",
       "missing_evidence": [
-        "competitive_advantage",
-        "structural_growth_runway",
-        "financial_quality",
-        "business_risk_and_governance",
         "circle_of_competence",
         "valuation"
       ],
-      "quality_data_gaps": {
-        "competitive_advantage": "MISSING_SOURCE_BACKED_COMPETITIVE_ADVANTAGE_ASSESSMENT",
-        "structural_growth_runway": "MISSING_SOURCE_BACKED_STRUCTURAL_GROWTH_RUNWAY_ASSESSMENT",
-        "financial_quality": "MISSING_SOURCE_BACKED_FINANCIAL_QUALITY_ASSESSMENT",
-        "business_risk_and_governance": "MISSING_SOURCE_BACKED_BUSINESS_RISK_AND_GOVERNANCE_ASSESSMENT"
-      },
+      "quality_data_gaps": {},
       "valuation_posture": "UNRESOLVED_WITH_SPECIFIC_GAP",
       "cyclical_review_required": false,
-      "evidence_as_of": null,
+      "evidence_as_of": "2026-10-13",
       "manual_confirmation_required": [
         "circle_of_competence"
       ],
       "circle_of_competence_policy": "PRE_TRADE_USER_CONFIRMATION_NOT_DAILY_RESEARCH_BLOCKER",
       "decision_authority": "RESEARCH_QUALITY_ONLY",
       "quality_gate_application": "FORMAL_NEW_CANDIDATE_RESEARCH_GATE",
-      "action_eligibility": "RESEARCH_ONLY_QUALITY_EVIDENCE_INCOMPLETE",
+      "action_eligibility": "RESEARCH_ONLY_VALUATION_DATA_GAP",
       "valuation_input_collection": {
         "as_of": "2026-10-13",
         "status": "PARTIAL",
@@ -1694,22 +1695,69 @@
       "lynch_research": {
         "version": "onecool_lynch_research_v1",
         "company_type": {
-          "status": "INSUFFICIENT_EVIDENCE",
-          "primary": "UNCLASSIFIED",
-          "candidates": [],
-          "evidence": [],
+          "status": "PROVISIONAL",
+          "primary": "FAST_GROWER",
+          "candidates": [
+            "FAST_GROWER"
+          ],
+          "evidence": [
+            {
+              "field": "verified_quality_gates",
+              "value": [
+                "structural_growth_runway",
+                "financial_quality"
+              ],
+              "interpretation": "FAST_GROWTH_CANDIDATE_NOT_DURABILITY_PROOF"
+            }
+          ],
           "unresolved_categories": [
             "SLOW_GROWER",
             "STALWART",
-            "FAST_GROWER",
             "CYCLICAL",
             "TURNAROUND",
             "ASSET_PLAY"
           ]
         },
         "investment_story": {
-          "status": "INSUFFICIENT_EVIDENCE",
-          "evidence": [],
+          "status": "EVIDENCE_ONLY",
+          "evidence": [
+            {
+              "field": "competitive_advantage",
+              "value": "PASS",
+              "as_of": "2026-07-23",
+              "rationale": "USPI為美國最大門診手術平台；地方設施、醫師合作與醫院網絡構成規模優勢，並非不可取代壟斷。",
+              "sources": [
+                "https://investor.tenethealth.com/press-releases/press-release-details/2026/Tenet-Reports-Strong-Second-Quarter-2026-Results-Raises-2026-Financial-Outlook/default.aspx"
+              ]
+            },
+            {
+              "field": "structural_growth_runway",
+              "value": "PASS",
+              "as_of": "2026-07-23",
+              "rationale": "門診同設施收入年增5%，服務組合與高複雜度提升；病例下降1.2%限制純量成長，不能把收購與價格成長視為持續高增長保證。",
+              "sources": [
+                "https://investor.tenethealth.com/press-releases/press-release-details/2026/Tenet-Reports-Strong-Second-Quarter-2026-Results-Raises-2026-Financial-Outlook/default.aspx"
+              ]
+            },
+            {
+              "field": "financial_quality",
+              "value": "PASS",
+              "as_of": "2026-07-23",
+              "rationale": "H1 CFO 22.26億、capex 3.48億；NCI分配3.98億。正現金流支持品質，但19億美元合約終止與Medicaid前期補收入須排除，不能用GAAP EPS直接估值。",
+              "sources": [
+                "https://investor.tenethealth.com/press-releases/press-release-details/2026/Tenet-Reports-Strong-Second-Quarter-2026-Results-Raises-2026-Financial-Outlook/default.aspx"
+              ]
+            },
+            {
+              "field": "business_risk_and_governance",
+              "value": "PASS",
+              "as_of": "2026-07-23",
+              "rationale": "監管給付、Medicaid、payer mix、勞動成本、槓桿與少數股權為主要風險；材料未見否決研究資格的治理事件。PASS不是無風險。",
+              "sources": [
+                "https://investor.tenethealth.com/press-releases/press-release-details/2026/Tenet-Reports-Strong-Second-Quarter-2026-Results-Raises-2026-Financial-Outlook/default.aspx"
+              ]
+            }
+          ],
           "required_manual_confirmation": [
             "BUSINESS_DRIVER",
             "DURABILITY",
@@ -1964,8 +2012,8 @@
     "scope": "NEW_US_STOCK_CANDIDATES_ONLY",
     "bucket_counts": {
       "A": 0,
-      "B": 4,
-      "C": 1,
+      "B": 5,
+      "C": 0,
       "REJECT": 0,
       "INNOVATION_OPTION": 0,
       "EXISTING_POSITION": 0
