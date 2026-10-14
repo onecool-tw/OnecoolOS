@@ -49,3 +49,46 @@ def test_sunday_not_complete_until_monday_utc():
     rows = [bar(date(2026, 10, 11))]
     sunday = datetime(2026, 10, 11, 23, 59, tzinfo=UTC)
     assert _completed_symbol_bars(BTC, rows, sunday) == []
+
+
+def test_present_sunday_does_not_hide_missing_latest_completed_day():
+    calls = []
+
+    class Provider:
+        def fetch_raw_daily(self, symbol, *, period):
+            return [bar(date(2026, 10, 11)), bar(date(2026, 10, 12))]
+
+        def fetch_btc_completed_day(self, day):
+            calls.append(day)
+            return [bar(day)]
+
+    rows = [bar(date(2026, 10, d)) for d in (11, 12)]
+    now = datetime(2026, 10, 14, 3, 0, tzinfo=UTC)
+    result = _repair_btc_week_close(BTC, rows, Provider(), now)
+    assert calls == [date(2026, 10, 13)]
+    assert result[-1].trading_date == date(2026, 10, 13)
+
+
+def test_current_btc_history_needs_no_repair_request():
+    class Provider:
+        def fetch_raw_daily(self, *args, **kwargs):
+            raise AssertionError("Unnecessary provider request")
+
+    rows = [bar(date(2026, 10, d)) for d in (11, 12, 13)]
+    assert _repair_btc_week_close(
+        BTC, rows, Provider(), datetime(2026, 10, 14, tzinfo=UTC)
+    ) == rows
+
+
+def test_exact_latest_day_repair_rejects_wrong_date_and_keeps_cache_on_failure():
+    class Provider:
+        def fetch_raw_daily(self, *args, **kwargs):
+            raise RuntimeError("Unavailable")
+
+        def fetch_btc_completed_day(self, day):
+            return [bar(date(2026, 10, 14))]
+
+    rows = [bar(date(2026, 10, d)) for d in (11, 12)]
+    assert _repair_btc_week_close(
+        BTC, rows, Provider(), datetime(2026, 10, 14, tzinfo=UTC)
+    ) == rows
