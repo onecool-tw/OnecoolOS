@@ -686,8 +686,25 @@
         "valuation": {
           "status": "UNKNOWN",
           "as_of": "2026-10-14",
-          "rationale": "Current-session valuation model not yet validated.",
-          "sources": []
+          "rationale": "Historical Hess comparables are available but are not proven mid-cycle earnings. October6 announced asset/contract restructuring requires reconciliation of continuing earnings, NCI, deconsolidated debt, contract fees and closing status; signing is not closing. Valuation/new-position eligibility remains unresolved; CTA and technical ranking unchanged.",
+          "sources": [
+            "https://www.sec.gov/Archives/edgar/data/93410/000009341026000078/cvx-20251231.htm",
+            "https://www.chevron.com/newsroom/2026/q4/chevron-to-divest-its-ownership-interests-in-hess-midstream-and-dj-basin-crude-midstream-assets"
+          ],
+          "price_as_of": "2026-10-14",
+          "valid_through": "2026-10-14",
+          "method": "MID_CYCLE_NORMALIZED_EARNINGS_AND_FCF_REQUIRED",
+          "inputs": {
+            "price": 222.0399932861328,
+            "denominator": null,
+            "multiple": null,
+            "fair_range": null
+          },
+          "data_gap": "OCT6_MIDSTREAM_TRANSACTION_PROFORMA_EARNINGS_AND_NET_DEBT_EFFECT_NOT_VERIFIED",
+          "refresh_on": [
+            "OFFICIAL_TRANSACTION_CLOSING_OR_8K_WITH_PROFORMA_EFFECTS",
+            "Q3_2026_10Q_AND_EARNINGS"
+          ]
         }
       },
       "valuation_input_collection": {
@@ -719,6 +736,22 @@
         "price_sha256": "6b5674d9f02236a0b3a366435c0fa29afe8a4ee9f38c246cf0331640d46446ba",
         "fundamental_fetch_status": "FETCH_FAILED",
         "fetch_error_type": "HTTPError"
+      },
+      "research_correction": {
+        "as_of": "2026-10-15",
+        "scope": "2026-10-14 report cutoff",
+        "finding": "FY2025 10-K provides Hess-comparable unaudited FY2024/FY2025 pro forma net income; historical comparable data is not missing.",
+        "reported_facts": {
+          "proforma_net_income_USD_million": {
+            "FY2025": 12464,
+            "FY2024": 19003
+          },
+          "synergies_included": false
+        },
+        "sources": [
+          "https://www.sec.gov/Archives/edgar/data/93410/000009341026000078/cvx-20251231.htm",
+          "https://www.chevron.com/newsroom/2026/q4/chevron-to-divest-its-ownership-interests-in-hess-midstream-and-dj-basin-crude-midstream-assets"
+        ]
       }
     },
     {
