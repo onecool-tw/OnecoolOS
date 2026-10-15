@@ -1,11 +1,11 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-10-15T09:21:56.100141+00:00",
+  "generated_at": "2026-10-15T09:25:41.295190+00:00",
   "taipei_date": "2026-10-15",
   "status": "PARTIAL",
   "scope_status": {
-    "morning": "PARTIAL",
+    "morning": "READY",
     "asia": "READY",
     "weekly": "READY"
   },
@@ -65,8 +65,8 @@
   "end_to_end_status": "NOT_FULLY_VERIFIED",
   "action_readiness": "LIMITED",
   "counts": {
-    "ready": 17,
-    "partial": 2,
+    "ready": 18,
+    "partial": 1,
     "blocked": 0
   },
   "modules": [
@@ -148,8 +148,8 @@
       "label": "Fund NAV CTA",
       "scope": "morning",
       "critical": true,
-      "status": "PARTIAL",
-      "reason": "NAV refresh PARTIAL",
+      "status": "READY",
+      "reason": "current",
       "observed_as_of": "2026-10-14",
       "recovery_workflow": "update-fund-nav-cta.yml",
       "retryable": false,
@@ -344,21 +344,6 @@
   ],
   "issues": [
     {
-      "module_id": "fund_nav_cta",
-      "label": "Fund NAV CTA",
-      "scope": "morning",
-      "critical": true,
-      "status": "PARTIAL",
-      "reason": "NAV refresh PARTIAL",
-      "observed_as_of": "2026-10-14",
-      "recovery_workflow": "update-fund-nav-cta.yml",
-      "retryable": false,
-      "impacted_reports": [
-        "基金日報",
-        "基金週報"
-      ]
-    },
-    {
       "module_id": "taiwan_candidate_cta",
       "label": "Taiwan 200-stock CTA",
       "scope": "asia",
@@ -374,6 +359,6 @@
     }
   ],
   "recovery_workflows": [],
-  "issue_fingerprint": "5e7e01e7ad63c9c5d351e77bae33524081849b672958848f6934c459a2d37d46",
+  "issue_fingerprint": "0f5f40f46a6eaabc49ce57b0d2dc931108c9f42eeb5dc1d76e19006f2f041c62",
   "policy": "Health monitoring only; never changes CTA, rankings, or investment decisions."
 }
