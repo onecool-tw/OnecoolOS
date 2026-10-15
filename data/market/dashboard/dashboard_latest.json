@@ -1,10 +1,10 @@
 {
   "schema_version": "1.9",
   "module": "Onecool Market Dashboard",
-  "generated_at": "2026-10-15T04:01:31.878900+00:00",
+  "generated_at": "2026-10-15T04:58:41.093423+00:00",
   "expected_as_of": "2026-10-14",
   "data_status": "READY",
-  "last_successful_update_at": "2026-10-15T04:01:31.878900+00:00",
+  "last_successful_update_at": "2026-10-15T04:58:41.093423+00:00",
   "index_cta_basis": {
     "method": "ETF/index proxies; shared CTA engine",
     "mappings": {
@@ -853,22 +853,21 @@
     "schema_version": "1.0",
     "expected_as_of": "2026-10-14",
     "price_basis": "adjusted_close",
-    "data_status": "READY",
+    "data_status": "PARTIAL",
     "decision_authority": "SHORT_TERM_CONTEXT_ONLY_NO_CTA_OVERRIDE",
     "results": [
       {
         "symbol": "VIX",
         "provider_symbol": "^VIX",
         "expected_as_of": "2026-10-14",
-        "as_of": "2026-10-14",
-        "data_status": "READY",
-        "value": 16.8700008392334,
+        "as_of": null,
+        "data_status": "UNKNOWN",
+        "value": null,
         "unit": "index_points",
         "price_basis": "adjusted_close",
         "decision_authority": "SHORT_TERM_CONTEXT_ONLY",
-        "source": "yahoo_finance_raw",
-        "source_url": "https://finance.yahoo.com/quote/^VIX/history/",
-        "observation_sha256": "4f98472f8b4abd3d2077a0e2c70ec047cad47e6108ed86565fbb8971ed702d7b"
+        "error_type": "ValueError",
+        "data_gap": "RISK_OHLC_OR_SOURCE_INVALID"
       },
       {
         "symbol": "DXY",
