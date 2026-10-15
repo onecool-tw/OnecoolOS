@@ -1,6 +1,25 @@
 from pathlib import Path
 
 
+def test_pre_fund_recovery_and_verification_schedules_resolve(tmp_path):
+    import os
+    import subprocess
+    import yaml
+
+    root = Path(__file__).resolve().parents[1]
+    workflow = yaml.safe_load((root / ".github/workflows/check-system-health.yml").read_text())
+    triggers = workflow.get("on", workflow.get(True))
+    schedules = {entry["cron"] for entry in triggers["schedule"]}
+    step = next(s for s in workflow["jobs"]["health"]["steps"] if s.get("id") == "mode")
+    for index, (cron, phase) in enumerate((("5 3 * * 1-6", "primary"), ("20 3 * * 1-6", "verify"))):
+        assert cron in schedules
+        output = tmp_path / str(index)
+        env = {**os.environ, "EVENT_NAME": "schedule", "EVENT_SCHEDULE": cron,
+               "GITHUB_OUTPUT": str(output)}
+        subprocess.run(["bash", "-eu", "-c", step["run"]], env=env, check=True)
+        assert output.read_text().splitlines() == ["scope=morning", f"phase={phase}"]
+
+
 def test_fund_nav_publish_rebases_and_retries_concurrent_writers() -> None:
     root = Path(__file__).resolve().parents[1]
     workflow = (

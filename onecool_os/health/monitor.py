@@ -214,6 +214,26 @@ def build_health_report(root: str | Path, *, now: datetime | None = None) -> dic
         reports=["Market Dashboard", "美股日報"],
     )
     modules.append(dashboard)
+    # Crypto trades every UTC day; the equity session date can be current
+    # while BTC still lacks yesterday. Never infer crypto readiness from it.
+    btc_payload = _load(root, "data/market/dashboard/dashboard_latest.json") or {}
+    btc_rows = [row for row in btc_payload.get("results", [])
+                if isinstance(row, dict) and row.get("symbol") == "BTC"]
+    btc = btc_rows[0] if len(btc_rows) == 1 else {}
+    utc_now = now.astimezone(timezone.utc)
+    btc_expected = utc_now.date() - timedelta(days=1)
+    # Let the UTC daily bar close/publish before requiring it.
+    if utc_now.hour == 0 and utc_now.minute < 30:
+        btc_expected -= timedelta(days=1)
+    btc_observed = _date(btc.get("as_of"))
+    btc_ready = (len(btc_rows) == 1 and btc_observed == btc_expected
+                 and btc.get("cta") in {"BUY", "HOLD", "WATCH", "SELL"})
+    modules.append(_module(
+        "bitcoin_daily", "Bitcoin completed UTC day", "morning", True,
+        READY if btc_ready else BLOCKED,
+        "current" if btc_ready else f"BTC date/CTA missing or invalid; expected {btc_expected}",
+        btc_observed, "update-market-dashboard.yml", ["基金日報", "基金週報"],
+    ))
     dashboard_as_of = dashboard.observed_as_of
     for module_id, label, filename in (
         ("us_breakout_scan", "US Breakout Scan", "breakout_scan_latest.json"),
