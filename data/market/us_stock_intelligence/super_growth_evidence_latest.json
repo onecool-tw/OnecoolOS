@@ -686,8 +686,24 @@
         "valuation": {
           "status": "UNKNOWN",
           "as_of": "2026-10-14",
-          "rationale": "Current-session valuation model not yet validated.",
-          "sources": []
+          "price_as_of": "2026-10-14",
+          "valid_through": "2026-10-14",
+          "method": "MID_CYCLE_NORMALIZED_EARNINGS_AND_FCF_REQUIRED",
+          "inputs": {
+            "price": 222.0399932861328,
+            "denominator": null,
+            "multiple": null,
+            "fair_range": null
+          },
+          "sources": [
+            "https://www.sec.gov/Archives/edgar/data/93410/000009341026000167/cvx-20260630.htm"
+          ],
+          "data_gap": "HESS_COMPARABLE_MID_CYCLE_EARNINGS_BRIDGE_NOT_VERIFIED",
+          "rationale": "Q2 EPS6.11、H1 EPS7.21與H1 CFO25100m/capex8600m已查核，但受高油價、煉油利差與Hess合併影響；不能年化峰值季度代替中週期獲利。尚缺Hess同口徑中週期獲利橋接，影響合理估值判定、不影響技術排名。",
+          "refresh_on": [
+            "OFFICIAL_HESS_COMPARABLE_NORMALIZED_CASHFLOW_DISCLOSURE",
+            "NEXT_10Q_OR_EARNINGS"
+          ]
         }
       },
       "valuation_input_collection": {
@@ -2526,10 +2542,72 @@
           "data_gap": "PRE_TRADE_USER_CONFIRMATION_ONLY"
         },
         "valuation": {
-          "status": "UNKNOWN",
+          "status": "FAIL",
           "as_of": "2026-10-14",
-          "rationale": "Current-session valuation model not yet validated.",
-          "sources": []
+          "price_as_of": "2026-10-14",
+          "valid_through": "2026-10-14",
+          "method": "FORWARD_NORMALIZED_PE_WITH_OWNER_FCF_CROSSCHECK",
+          "inputs": {
+            "price": 271.6000061035156,
+            "denominator": 17.59132530120482,
+            "multiple": 15.439428323510901,
+            "fair_range": [
+              8.18482232093811,
+              14.487697477735976
+            ]
+          },
+          "sources": [
+            "https://investor.tenethealth.com/press-releases/press-release-details/2026/Tenet-Reports-Strong-Second-Quarter-2026-Results-Raises-2026-Financial-Outlook/default.aspx",
+            "https://investor.tenethealth.com/press-releases/press-release-details/2026/Tenet-Reports-Strong-First-Quarter-2026-Results/default.aspx"
+          ],
+          "scenarios": [
+            {
+              "name": "conservative",
+              "years": 5,
+              "growth": 0.05,
+              "required_return": 0.12,
+              "terminal_growth": 0.02,
+              "cash_conversion": 0.55,
+              "terminal_cash_conversion": 0.8
+            },
+            {
+              "name": "base",
+              "years": 5,
+              "growth": 0.08,
+              "required_return": 0.1,
+              "terminal_growth": 0.03,
+              "cash_conversion": 0.65,
+              "terminal_cash_conversion": 0.85
+            }
+          ],
+          "policy_version": "onecool_equity_two_stage_screen_v1",
+          "assumption_authority": "ONECOOL_ANALYST_NOT_ISSUER_GUIDANCE",
+          "rationale": "Onecool conservative/base screen, not issuer fair value: 5%/8% five-year growth, 12%/10% required return, 2%/3% terminal growth, 55%/65% cash conversion and 80%/85% terminal conversion. Discounts reimbursement policy, payer mix, labor, leverage and minority interests. Above the 8.18–14.49x range.",
+          "normalization_bridge": {
+            "formula": "20.30 - 1.50 - (92+40)*(1-0.24)/83",
+            "guidance_low": 20.3,
+            "retained_cost_EPS": 1.5,
+            "prior_year_Medicaid_pretax_million": 92,
+            "nonrecurring_deferred_revenue_million": 40,
+            "tax_rate_assumption": 0.24,
+            "forecast_shares_million": 83,
+            "limitations": "Issuer adjusted EPS already excludes CommonSpirit contract termination and gains; retain full forecast cost addback without an unsupported tax benefit. Separately stress disclosed nonrecurring revenue using issuer stated 24% tax assumption; not revised issuer guidance.",
+            "owner_FCF_crosscheck": {
+              "adjusted_FCF_low_million": 2725,
+              "retained_cost_cash_outflow_high_million": 125,
+              "NCI_distributions_high_million": 970,
+              "stress_owner_cash_million": 1630,
+              "formula": "2725-125-970; no quarterly annualization; acquisition outlays/debt repayment not included."
+            },
+            "historical_net_debt_million": {
+              "as_of": "2026-06-30",
+              "debt": 13248,
+              "cash": 2170,
+              "net_debt": 11078,
+              "limitation": "Historical only; September refinancing means this is not an October closing balance. Not deducted a second time from equity earnings."
+            }
+          },
+          "research_grade": "SCREENING_SCENARIO_NOT_FULL_DCF"
         }
       },
       "business_model": "醫院及USPI門診手術設施服務收入，Conifer收入週期管理；收入由病例、acuity、給付者組合及收購驅動。",
@@ -2570,10 +2648,95 @@
       "symbol": "MSFT",
       "gates": {
         "valuation": {
+          "status": "FAIL",
+          "as_of": "2026-10-14",
+          "price_as_of": "2026-10-14",
+          "valid_through": "2026-10-14",
+          "method": "NORMALIZED_FY26_PE_FULL_INVESTMENT_GAIN_STRESS_FCF_CROSSCHECK",
+          "inputs": {
+            "price": 533.6900024414062,
+            "denominator": 16.85039581376627,
+            "multiple": 31.67225318264616,
+            "fair_range": [
+              8.598936403916523,
+              16.325975203184083
+            ]
+          },
+          "sources": [
+            "https://www.microsoft.com/en-us/investor/earnings/fy-2026-q4/press-release-webcast"
+          ],
+          "normalization_bridge": {
+            "formula": "(128786 - 3200) / 7453",
+            "units": "USD million / million diluted shares",
+            "basis": "Issuer OpenAI-adjusted FY26 net income less full pretax Anthropic gain, no unsupported gain-tax addback; retained SBC, severance, retirement and impairment costs.",
+            "FCF_crosscheck": {
+              "CFO": 182935,
+              "cash_capex": 115948,
+              "FCF": 66987,
+              "conversion": 0.5333954421671205,
+              "limits": "Cash FCF excludes finance-lease principal and is not full owner earnings; cash conversion assumptions 40%/50% discount capital intensity and are not issuer guidance."
+            }
+          },
+          "scenarios": [
+            {
+              "growth": 0.08,
+              "required_return": 0.12,
+              "terminal_growth": 0.02,
+              "cash_conversion": 0.4,
+              "terminal_cash_conversion": 0.8
+            },
+            {
+              "growth": 0.12,
+              "required_return": 0.1,
+              "terminal_growth": 0.03,
+              "cash_conversion": 0.5,
+              "terminal_cash_conversion": 0.85
+            }
+          ],
+          "policy_version": "onecool_equity_two_stage_screen_v1",
+          "assumption_authority": "ONECOOL_ANALYST_NOT_ISSUER_GUIDANCE",
+          "rationale": "Five-year equity cash-flow screen with 8%/12% growth, 12%/10% required returns, 2%/3% terminal growth and terminal conversion80%/85%. Analyst assumptions not price fitted, not full DCF or market fair value."
+        },
+        "competitive_advantage": {
+          "status": "PASS",
+          "as_of": "2026-07-29",
+          "rationale": "Microsoft365與Azure企業分銷、整合與轉換成本構成優勢；Azure年度收入超過1000億美元，Copilot付費席位逾3000萬。",
+          "sources": [
+            "https://www.microsoft.com/en-us/investor/earnings/fy-2026-q4/press-release-webcast"
+          ]
+        },
+        "structural_growth_runway": {
+          "status": "PASS",
+          "as_of": "2026-07-29",
+          "rationale": "季度Azure增43%、Cloud增27%；RPO增84%。大型合約、供給限制與AI投資回報仍須監測，未把RPO當保證營收。",
+          "sources": [
+            "https://www.microsoft.com/en-us/investor/earnings/fy-2026-q4/press-release-webcast"
+          ]
+        },
+        "financial_quality": {
+          "status": "PASS",
+          "as_of": "2026-07-29",
+          "rationale": "FY26 CFO182935m、現金capex115948m，FCF66987m；保留SBC及營運成本，AI資本強度侵蝕現金轉換。",
+          "sources": [
+            "https://www.microsoft.com/en-us/investor/earnings/fy-2026-q4/press-release-webcast"
+          ]
+        },
+        "business_risk_and_governance": {
+          "status": "PASS",
+          "as_of": "2026-07-29",
+          "rationale": "AI基建回收、模型競爭、資安與反壟斷風險需監測；目前未見官方材料足以否決研究資格的事件。",
+          "sources": [
+            "https://www.microsoft.com/en-us/investor/earnings/fy-2026-q4/press-release-webcast"
+          ]
+        },
+        "circle_of_competence": {
           "status": "UNKNOWN",
           "as_of": "2026-10-14",
-          "rationale": "Current-session valuation model not yet validated.",
-          "sources": []
+          "rationale": "建倉前確認雲端使用量、AI資本支出與投資回收理解；不阻擋排名。",
+          "sources": [
+            "https://www.microsoft.com/en-us/investor/earnings/fy-2026-q4/press-release-webcast"
+          ],
+          "data_gap": "PRE_TRADE_USER_CONFIRMATION_ONLY"
         }
       },
       "valuation_input_collection": {
@@ -2602,7 +2765,10 @@
         },
         "price_sha256": "9a3542bb5ee968d91bb5ad985e36d84c55d2071f42d2c7b1ff70c55df69560b4",
         "fundamental_fetch_status": "REGISTRY_UNAVAILABLE"
-      }
+      },
+      "company_name": "Microsoft Corporation",
+      "as_of": "2026-10-14",
+      "business_model": "Azure雲端與企業軟體訂閱、Microsoft365及安全服務；收入由席位、使用量與產品組合驅動。"
     }
   ],
   "valuation_models_reviewed_at": "2026-10-06"
