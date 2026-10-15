@@ -1136,14 +1136,20 @@
         "valuation": {
           "status": "UNKNOWN",
           "as_of": "2026-10-14",
-          "rationale": "Current-session valuation model not yet validated.",
-          "sources": [],
-          "data_gap": "MISSING_SOURCE_BACKED_VALUATION_ASSESSMENT",
+          "rationale": "OCT6_TRANSACTION_ANNUAL_CONTINUING_EARNINGS_BRIDGE_NOT_DISCLOSED",
+          "sources": [
+            "https://www.sec.gov/Archives/edgar/data/93410/000009341026000192/cvxoct2026ex991.htm",
+            "https://www.sec.gov/Archives/edgar/data/1789832/000119312526418053/d401552d8k.htm",
+            "https://www.sec.gov/Archives/edgar/data/93410/000009341026000078/cvx-20251231.htm"
+          ],
+          "data_gap": "OCT6_TRANSACTION_ANNUAL_CONTINUING_EARNINGS_BRIDGE_NOT_DISCLOSED",
           "validation_errors": [],
           "method": null,
-          "price_as_of": null,
+          "price_as_of": "2026-10-14",
           "valid_through": null,
-          "inputs": {}
+          "inputs": {
+            "price": 222.0399932861328
+          }
         }
       },
       "evidence_coverage": "PARTIAL",
@@ -1166,14 +1172,16 @@
         "as_of": "2026-10-14",
         "status": "PARTIAL",
         "gaps": [
-          "SEC_COMPANYFACTS_FETCH_OR_IDENTITY_VALIDATION_FAILED"
+          "OCT6_TRANSACTION_ANNUAL_CONTINUING_EARNINGS_BRIDGE_NOT_DISCLOSED"
         ],
         "price_basis": "adjusted_close",
         "inputs": {
           "adjusted_close": 222.0399932861328
         },
         "sources": [
-          "https://data.sec.gov/api/xbrl/companyfacts/CIK0000093410.json"
+          "https://www.sec.gov/Archives/edgar/data/93410/000009341026000192/cvxoct2026ex991.htm",
+          "https://www.sec.gov/Archives/edgar/data/1789832/000119312526418053/d401552d8k.htm",
+          "https://www.sec.gov/Archives/edgar/data/93410/000009341026000078/cvx-20251231.htm"
         ],
         "decision_authority": "REFERENCE_INPUTS_ONLY_NOT_FAIR_VALUE",
         "price_source": {
@@ -1189,8 +1197,51 @@
           "provider": "yahoo_finance_adjusted_batch"
         },
         "price_sha256": "6b5674d9f02236a0b3a366435c0fa29afe8a4ee9f38c246cf0331640d46446ba",
-        "fundamental_fetch_status": "FETCH_FAILED",
-        "fetch_error_type": "HTTPError"
+        "official_reference_status": "VERIFIED",
+        "fundamental_fetch_status": "REVIEWED_OFFICIAL_REFERENCE",
+        "company_name": "Chevron Corporation",
+        "official_reference": {
+          "symbol": "CVX",
+          "company_name": "Chevron Corporation",
+          "published_at": "2026-10-06",
+          "valid_through": "2026-10-22",
+          "reviewed_as_of": "2026-10-15",
+          "sources": [
+            "https://www.sec.gov/Archives/edgar/data/93410/000009341026000192/cvxoct2026ex991.htm",
+            "https://www.sec.gov/Archives/edgar/data/1789832/000119312526418053/d401552d8k.htm",
+            "https://www.sec.gov/Archives/edgar/data/93410/000009341026000078/cvx-20251231.htm"
+          ],
+          "reported_facts": {
+            "currency": "USD",
+            "proforma_net_income_million": {
+              "FY2025": 12464,
+              "FY2024": 19003
+            },
+            "transaction": {
+              "announced": "2026-10-06",
+              "expected_closing": "BY_YEAR_END_2026_SUBJECT_TO_CONDITIONS",
+              "cash_consideration_million": 200,
+              "closing_working_capital_adjustment": true,
+              "expected_deconsolidated_HESM_debt_million": 3700,
+              "expected_one_time_after_tax_loss_million": [
+                3000,
+                4000
+              ],
+              "expected_Bakken_unit_midstream_cost_reduction_pct": 50,
+              "expected_absolute_ROCE_accretion_percentage_points": 0.5,
+              "closing_verified": false
+            },
+            "limitations": "Debt deconsolidation and cash are expected closing effects, not observed Oct14 cash/debt. ROCE improvement and unit-cost percentage do not determine annual CVX EPS; cannot substitute HESM consolidated EBITDA for CVX common earnings."
+          },
+          "model_gaps": [
+            "OCT6_TRANSACTION_ANNUAL_CONTINUING_EARNINGS_BRIDGE_NOT_DISCLOSED"
+          ],
+          "refresh_on": [
+            "OFFICIAL_TRANSACTION_CLOSING_OR_PROFORMA_CONTINUING_EARNINGS_DISCLOSURE",
+            "NEXT_CVX_10Q_OR_EARNINGS",
+            "REFERENCE_EXPIRY"
+          ]
+        }
       },
       "lynch_research": {
         "version": "onecool_lynch_research_v1",

@@ -686,23 +686,23 @@
         "valuation": {
           "status": "UNKNOWN",
           "as_of": "2026-10-14",
-          "price_as_of": "2026-10-14",
-          "valid_through": "2026-10-14",
-          "rationale": "官方已確認預期交割時約37億美元債務退出合併報表、2億美元現金對價及30–40億美元一次性稅後損失；仍未揭露交易後歸屬CVX的年度持續獲利橋接，無法由50%單位成本節省或0.5百分點ROCE改善反推EPS。缺口限制估值與新增部位，非CTA或技術資料失敗。",
+          "rationale": "OCT6_TRANSACTION_ANNUAL_CONTINUING_EARNINGS_BRIDGE_NOT_DISCLOSED",
           "sources": [
             "https://www.sec.gov/Archives/edgar/data/93410/000009341026000192/cvxoct2026ex991.htm",
             "https://www.sec.gov/Archives/edgar/data/1789832/000119312526418053/d401552d8k.htm",
             "https://www.sec.gov/Archives/edgar/data/93410/000009341026000078/cvx-20251231.htm"
           ],
           "data_gap": "OCT6_TRANSACTION_ANNUAL_CONTINUING_EARNINGS_BRIDGE_NOT_DISCLOSED",
+          "price_as_of": "2026-10-14",
           "inputs": {
             "price": 222.0399932861328
           },
-          "refresh_on": [
-            "OFFICIAL_TRANSACTION_CLOSING_OR_PROFORMA_CONTINUING_EARNINGS_DISCLOSURE",
-            "NEXT_CVX_10Q_OR_EARNINGS",
-            "REFERENCE_EXPIRY"
-          ]
+          "price_source": {
+            "provider": "yahoo_finance_adjusted_batch",
+            "symbol": "CVX",
+            "as_of": "2026-10-14",
+            "url": "https://finance.yahoo.com/quote/CVX/history/"
+          }
         }
       },
       "valuation_input_collection": {
@@ -734,9 +734,9 @@
           "provider": "yahoo_finance_adjusted_batch"
         },
         "price_sha256": "6b5674d9f02236a0b3a366435c0fa29afe8a4ee9f38c246cf0331640d46446ba",
-        "fundamental_fetch_status": "REVIEWED_OFFICIAL_REFERENCE",
-        "fetch_error_type": "HTTPError",
         "official_reference_status": "VERIFIED",
+        "fundamental_fetch_status": "REVIEWED_OFFICIAL_REFERENCE",
+        "company_name": "Chevron Corporation",
         "official_reference": {
           "symbol": "CVX",
           "company_name": "Chevron Corporation",
