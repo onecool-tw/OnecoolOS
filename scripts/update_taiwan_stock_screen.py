@@ -69,7 +69,12 @@ def fetch_dated_market(day, fetcher=fetch_json):
     query = day.strftime("%Y%m%d")
     root = "https://www.twse.com.tw/exchangeReport"
     prices = fetcher(f"{root}/MI_INDEX?response=json&date={query}&type=ALLBUT0999", expected_type=dict)
-    valuations = fetcher(f"{root}/BWIBBU_d?response=json&date={query}&selectType=ALL", expected_type=dict)
+    # The legacy exchangeReport route can return no data even after the
+    # current official afterTrading route has published this session.
+    valuations = fetcher(
+        f"https://www.twse.com.tw/rwd/zh/afterTrading/BWIBBU_d?response=json&date={query}&selectType=ALL",
+        expected_type=dict,
+    )
     return (
         normalize_dated_report(prices, day, {
             "證券代號": "Code", "證券名稱": "Name", "收盤價": "ClosingPrice", "成交金額": "TradeValue",
