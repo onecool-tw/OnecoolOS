@@ -1,0 +1,2834 @@
+{
+  "schema_version": "1.9",
+  "module": "Onecool Market Dashboard",
+  "generated_at": "2026-10-15T06:00:11.794254+00:00",
+  "expected_as_of": "2026-10-14",
+  "data_status": "READY",
+  "last_successful_update_at": "2026-10-15T06:00:11.794254+00:00",
+  "index_cta_basis": {
+    "method": "ETF/index proxies; shared CTA engine",
+    "mappings": {
+      "S&P 500": "SPY",
+      "Nasdaq": "QQQ",
+      "Dow": "DIA",
+      "Russell 2000": "RUSSELL_2000"
+    }
+  },
+  "country_index_cta_basis": {
+    "method": "Local-listed country ETFs; shared CTA engine",
+    "mappings": {
+      "Japan": "1306",
+      "South Korea": "069500"
+    },
+    "as_of": {
+      "Japan": "2026-10-14",
+      "South Korea": "2026-10-14"
+    },
+    "freshness": {
+      "Japan": {
+        "symbol": "1306",
+        "as_of": "2026-10-14",
+        "expected_as_of": "2026-10-14",
+        "update_status": "CURRENT",
+        "reason": "matches latest completed local session"
+      },
+      "South Korea": {
+        "symbol": "069500",
+        "as_of": "2026-10-14",
+        "expected_as_of": "2026-10-14",
+        "update_status": "CURRENT",
+        "reason": "matches latest completed local session"
+      }
+    },
+    "currency_policy": "local-market closing prices in JPY and KRW"
+  },
+  "portfolio_cta_basis": {
+    "method": "Adjusted-close histories; shared CTA engine",
+    "symbols": [
+      "BABA",
+      "XYZ",
+      "SWKS",
+      "RH",
+      "UPBD"
+    ],
+    "as_of": "2026-10-14",
+    "data_status": "READY"
+  },
+  "innovation_option_cta_basis": {
+    "symbols": [
+      "TSLA",
+      "SPCX"
+    ],
+    "policy": {
+      "classification": "small_long_term_innovation_option",
+      "entry_rule": "completed_week_sma30_crosses_above_sma50",
+      "holding_rule": "buy_and_hold_after_entry",
+      "daily_rule": "daily_sma50_200_is_risk_context_only",
+      "death_cross_rule": "stop_adding_and_review_thesis; no_automatic_exit",
+      "exit_rule": "thesis_break_or_position_limit_breach_only"
+    },
+    "display_policy": "always_show_in_us_stock_daily_report"
+  },
+  "innovation_option_watch": [
+    {
+      "symbol": "TSLA",
+      "as_of": "2026-10-14",
+      "current_price": 367.160004,
+      "daily_observations": 1297,
+      "weekly_observations": 270,
+      "classification": "small_long_term_innovation_option",
+      "holding_rule": "buy_and_hold_after_entry",
+      "exit_rule": "thesis_break_or_position_limit_breach_only",
+      "data_status": "READY",
+      "weekly_entry_status": "NO_NEW_ENTRY",
+      "daily_risk_status": "BEARISH",
+      "display_action": "週線空頭：停止新增；既有小部位不自動賣出，檢核投資邏輯",
+      "weekly_ma30": 376.474331,
+      "weekly_ma50": 396.370599,
+      "daily_sma50": 357.940598,
+      "daily_sma200": 388.975899,
+      "weekly_cross": {
+        "alignment": "DEATH",
+        "cross_status": "NONE",
+        "last_cross_status": "DEATH",
+        "last_cross_date": "2026-07-17",
+        "periods_since_cross": 13,
+        "spread_pct": -5.019613,
+        "phase": "ACTIVE"
+      },
+      "daily_cross": {
+        "alignment": "DEATH",
+        "cross_status": "NONE",
+        "last_cross_status": "DEATH",
+        "last_cross_date": "2026-04-09",
+        "periods_since_cross": 130,
+        "spread_pct": -7.978721,
+        "phase": "AGING"
+      }
+    },
+    {
+      "symbol": "SPCX",
+      "as_of": "2026-10-14",
+      "current_price": 152.160004,
+      "daily_observations": 86,
+      "weekly_observations": 19,
+      "classification": "small_long_term_innovation_option",
+      "holding_rule": "buy_and_hold_after_entry",
+      "exit_rule": "thesis_break_or_position_limit_breach_only",
+      "data_status": "ACCUMULATING",
+      "weekly_entry_status": "UNKNOWN",
+      "daily_risk_status": "UNKNOWN",
+      "display_action": "資料累積中；不得建立CTA訊號",
+      "required_daily_observations": 200,
+      "required_weekly_observations": 50
+    }
+  ],
+  "provider": "yahoo_finance_raw_primary",
+  "provider_by_symbol": {
+    "SPY": "yahoo_finance_raw",
+    "QQQ": "yahoo_finance_raw",
+    "RUSSELL_2000": "yahoo_finance_raw",
+    "DIA": "yahoo_finance_raw",
+    "SOXX": "yahoo_finance_raw",
+    "NVDA": "yahoo_finance_raw",
+    "1306": "yahoo_finance_raw",
+    "069500": "yahoo_finance_raw",
+    "BABA": "yahoo_finance_raw",
+    "XYZ": "yahoo_finance_raw",
+    "SWKS": "yahoo_finance_raw",
+    "RH": "yahoo_finance_raw",
+    "UPBD": "yahoo_finance_raw",
+    "TSLA": "yahoo_finance_raw",
+    "0050": "yahoo_finance_raw",
+    "2330": "yahoo_finance_raw",
+    "VIX": "yahoo_finance_raw",
+    "DXY": "yahoo_finance_raw",
+    "US30Y": "yahoo_finance_raw",
+    "BTC": "yahoo_finance_raw",
+    "SPCX": "yahoo_finance_raw"
+  },
+  "history_bootstrap_provider": "yahoo_finance_raw_with_actions_once_when_missing_or_migrating",
+  "cache_policy": "scheduled_writer_only; consumers_read_github_cache",
+  "cta_engine": "onecool_os.market.etf_cta.calculate_cta",
+  "summary_method": "deterministic CTA aggregation; no forecast",
+  "summary": {
+    "us_market_trend": "BULLISH",
+    "ai_market_line": "CONFIRMED",
+    "taiwan_market_trend": "BULLISH",
+    "us_taiwan_synchronization": "SYNCHRONIZED",
+    "market_cta_summary": "BUY=3, HOLD=9, WATCH=0, SELL=1"
+  },
+  "results": [
+    {
+      "symbol": "SPY",
+      "provider_symbol": "SPY",
+      "market": "US",
+      "theme": "broad_market",
+      "as_of": "2026-10-14",
+      "current_price": 769.599976,
+      "sma50": 767.390006,
+      "sma200": 721.023283,
+      "weekly_ma30": 739.316284,
+      "weekly_ma50": 713.375181,
+      "trend": "BULLISH",
+      "cta": "HOLD",
+      "confidence": 100,
+      "reason": "Weekly golden trend is aging without a fresh daily cross.",
+      "daily_cross": {
+        "alignment": "GOLDEN",
+        "cross_status": "NONE",
+        "last_cross_status": "GOLDEN",
+        "last_cross_date": "2025-06-27",
+        "periods_since_cross": 326,
+        "spread_pct": 6.430683,
+        "phase": "AGING"
+      },
+      "weekly_cross": {
+        "alignment": "GOLDEN",
+        "cross_status": "NONE",
+        "last_cross_status": "GOLDEN",
+        "last_cross_date": "2023-04-28",
+        "periods_since_cross": 181,
+        "spread_pct": 3.63639,
+        "phase": "AGING"
+      }
+    },
+    {
+      "symbol": "QQQ",
+      "provider_symbol": "QQQ",
+      "market": "US",
+      "theme": "growth_ai",
+      "as_of": "2026-10-14",
+      "current_price": 728.950012,
+      "sma50": 726.179221,
+      "sma200": 672.6513,
+      "weekly_ma30": 699.528794,
+      "weekly_ma50": 663.113679,
+      "trend": "BULLISH",
+      "cta": "HOLD",
+      "confidence": 100,
+      "reason": "Weekly golden trend is aging without a fresh daily cross.",
+      "daily_cross": {
+        "alignment": "GOLDEN",
+        "cross_status": "NONE",
+        "last_cross_status": "GOLDEN",
+        "last_cross_date": "2025-06-23",
+        "periods_since_cross": 330,
+        "spread_pct": 7.957752,
+        "phase": "AGING"
+      },
+      "weekly_cross": {
+        "alignment": "GOLDEN",
+        "cross_status": "NONE",
+        "last_cross_status": "GOLDEN",
+        "last_cross_date": "2023-05-12",
+        "periods_since_cross": 179,
+        "spread_pct": 5.491534,
+        "phase": "AGING"
+      }
+    },
+    {
+      "symbol": "RUSSELL_2000",
+      "provider_symbol": "^RUT",
+      "market": "US",
+      "theme": "small_cap",
+      "as_of": "2026-10-14",
+      "current_price": 2729.530029,
+      "sma50": 2918.153184,
+      "sma200": 2792.293798,
+      "weekly_ma30": 2867.83501,
+      "weekly_ma50": 2740.258008,
+      "trend": "BULLISH",
+      "cta": "BUY",
+      "confidence": 50,
+      "reason": "Weekly golden cross remains confirmed or active.",
+      "daily_cross": {
+        "alignment": "GOLDEN",
+        "cross_status": "NONE",
+        "last_cross_status": "GOLDEN",
+        "last_cross_date": "2025-08-06",
+        "periods_since_cross": 299,
+        "spread_pct": 4.507383,
+        "phase": "AGING"
+      },
+      "weekly_cross": {
+        "alignment": "GOLDEN",
+        "cross_status": "NONE",
+        "last_cross_status": "GOLDEN",
+        "last_cross_date": "2025-10-31",
+        "periods_since_cross": 50,
+        "spread_pct": 4.655657,
+        "phase": "ACTIVE"
+      }
+    },
+    {
+      "symbol": "DIA",
+      "provider_symbol": "DIA",
+      "market": "US",
+      "theme": "blue_chip",
+      "as_of": "2026-10-14",
+      "current_price": 515.630005,
+      "sma50": 524.148133,
+      "sma200": 501.087261,
+      "weekly_ma30": 509.334948,
+      "weekly_ma50": 496.413608,
+      "trend": "BULLISH",
+      "cta": "HOLD",
+      "confidence": 75,
+      "reason": "Weekly golden trend is aging without a fresh daily cross.",
+      "daily_cross": {
+        "alignment": "GOLDEN",
+        "cross_status": "NONE",
+        "last_cross_status": "GOLDEN",
+        "last_cross_date": "2025-07-10",
+        "periods_since_cross": 318,
+        "spread_pct": 4.602167,
+        "phase": "AGING"
+      },
+      "weekly_cross": {
+        "alignment": "GOLDEN",
+        "cross_status": "NONE",
+        "last_cross_status": "GOLDEN",
+        "last_cross_date": "2025-10-10",
+        "periods_since_cross": 53,
+        "spread_pct": 2.602938,
+        "phase": "AGING"
+      }
+    },
+    {
+      "symbol": "SOXX",
+      "provider_symbol": "SOXX",
+      "market": "US",
+      "theme": "semiconductor",
+      "as_of": "2026-10-14",
+      "current_price": 519.419983,
+      "sma50": 538.241601,
+      "sma200": 465.215694,
+      "weekly_ma30": 517.549785,
+      "weekly_ma50": 439.12559,
+      "trend": "BULLISH",
+      "cta": "HOLD",
+      "confidence": 75,
+      "reason": "Weekly golden trend is aging without a fresh daily cross.",
+      "daily_cross": {
+        "alignment": "GOLDEN",
+        "cross_status": "NONE",
+        "last_cross_status": "GOLDEN",
+        "last_cross_date": "2025-07-08",
+        "periods_since_cross": 320,
+        "spread_pct": 15.697215,
+        "phase": "AGING"
+      },
+      "weekly_cross": {
+        "alignment": "GOLDEN",
+        "cross_status": "NONE",
+        "last_cross_status": "GOLDEN",
+        "last_cross_date": "2025-09-26",
+        "periods_since_cross": 55,
+        "spread_pct": 17.859172,
+        "phase": "AGING"
+      }
+    },
+    {
+      "symbol": "NVDA",
+      "provider_symbol": "NVDA",
+      "market": "US",
+      "theme": "ai",
+      "as_of": "2026-10-14",
+      "current_price": 221.300003,
+      "sma50": 223.090356,
+      "sma200": 202.374478,
+      "weekly_ma30": 209.755695,
+      "weekly_ma50": 199.039525,
+      "trend": "BULLISH",
+      "cta": "HOLD",
+      "confidence": 75,
+      "reason": "Weekly golden trend is aging without a fresh daily cross.",
+      "daily_cross": {
+        "alignment": "GOLDEN",
+        "cross_status": "NONE",
+        "last_cross_status": "GOLDEN",
+        "last_cross_date": "2025-06-27",
+        "periods_since_cross": 326,
+        "spread_pct": 10.236409,
+        "phase": "AGING"
+      },
+      "weekly_cross": {
+        "alignment": "GOLDEN",
+        "cross_status": "NONE",
+        "last_cross_status": "GOLDEN",
+        "last_cross_date": "2023-03-31",
+        "periods_since_cross": 185,
+        "spread_pct": 5.383941,
+        "phase": "AGING"
+      }
+    },
+    {
+      "symbol": "1306",
+      "provider_symbol": "1306.T",
+      "market": "JP",
+      "theme": "broad_market",
+      "as_of": "2026-10-14",
+      "current_price": 431.299988,
+      "sma50": 427.202,
+      "sma200": 396.477133,
+      "weekly_ma30": 412.606375,
+      "weekly_ma50": 393.633525,
+      "trend": "BULLISH",
+      "cta": "HOLD",
+      "confidence": 100,
+      "reason": "Weekly golden trend is aging without a fresh daily cross.",
+      "daily_cross": {
+        "alignment": "GOLDEN",
+        "cross_status": "NONE",
+        "last_cross_status": "GOLDEN",
+        "last_cross_date": "2025-06-18",
+        "periods_since_cross": 321,
+        "spread_pct": 7.749467,
+        "phase": "AGING"
+      },
+      "weekly_cross": {
+        "alignment": "GOLDEN",
+        "cross_status": "NONE",
+        "last_cross_status": "GOLDEN",
+        "last_cross_date": "2025-03-14",
+        "periods_since_cross": 83,
+        "spread_pct": 4.819927,
+        "phase": "AGING"
+      },
+      "update_status": "CURRENT",
+      "source_data_as_of": "2026-10-14"
+    },
+    {
+      "symbol": "069500",
+      "provider_symbol": "069500.KS",
+      "market": "KR",
+      "theme": "broad_market",
+      "as_of": "2026-10-14",
+      "current_price": 94805.0,
+      "sma50": 106021.9,
+      "sma200": 98876.290749,
+      "weekly_ma30": 110777.244529,
+      "weekly_ma50": 94189.804737,
+      "trend": "BULLISH",
+      "cta": "HOLD",
+      "confidence": 50,
+      "reason": "Weekly golden trend is aging without a fresh daily cross.",
+      "daily_cross": {
+        "alignment": "GOLDEN",
+        "cross_status": "NONE",
+        "last_cross_status": "GOLDEN",
+        "last_cross_date": "2025-05-22",
+        "periods_since_cross": 339,
+        "spread_pct": 7.226818,
+        "phase": "AGING"
+      },
+      "weekly_cross": {
+        "alignment": "GOLDEN",
+        "cross_status": "NONE",
+        "last_cross_status": "GOLDEN",
+        "last_cross_date": "2025-07-04",
+        "periods_since_cross": 67,
+        "spread_pct": 17.610653,
+        "phase": "AGING"
+      },
+      "update_status": "CURRENT",
+      "source_data_as_of": "2026-10-14"
+    },
+    {
+      "symbol": "BABA",
+      "provider_symbol": "BABA",
+      "market": "US",
+      "theme": "portfolio",
+      "as_of": "2026-10-14",
+      "current_price": 111.169998,
+      "sma50": 115.3692,
+      "sma200": 128.600214,
+      "weekly_ma30": 118.408722,
+      "weekly_ma50": 131.817108,
+      "trend": "BEARISH",
+      "cta": "SELL",
+      "confidence": 100,
+      "reason": "Weekly death cross remains confirmed or active.",
+      "daily_cross": {
+        "alignment": "DEATH",
+        "cross_status": "NONE",
+        "last_cross_status": "DEATH",
+        "last_cross_date": "2026-04-06",
+        "periods_since_cross": 133,
+        "spread_pct": -10.288486,
+        "phase": "AGING"
+      },
+      "weekly_cross": {
+        "alignment": "DEATH",
+        "cross_status": "NONE",
+        "last_cross_status": "DEATH",
+        "last_cross_date": "2026-06-12",
+        "periods_since_cross": 18,
+        "spread_pct": -10.171961,
+        "phase": "ACTIVE"
+      }
+    },
+    {
+      "symbol": "XYZ",
+      "provider_symbol": "XYZ",
+      "market": "US",
+      "theme": "portfolio",
+      "as_of": "2026-10-14",
+      "current_price": 75.849998,
+      "sma50": 78.7954,
+      "sma200": 70.5871,
+      "weekly_ma30": 74.536666,
+      "weekly_ma50": 69.6866,
+      "trend": "BULLISH",
+      "cta": "BUY",
+      "confidence": 75,
+      "reason": "Weekly golden cross remains confirmed or active.",
+      "daily_cross": {
+        "alignment": "GOLDEN",
+        "cross_status": "NONE",
+        "last_cross_status": "GOLDEN",
+        "last_cross_date": "2026-06-02",
+        "periods_since_cross": 93,
+        "spread_pct": 11.628612,
+        "phase": "AGING"
+      },
+      "weekly_cross": {
+        "alignment": "GOLDEN",
+        "cross_status": "NONE",
+        "last_cross_status": "GOLDEN",
+        "last_cross_date": "2026-08-21",
+        "periods_since_cross": 8,
+        "spread_pct": 6.959826,
+        "phase": "ACTIVE"
+      }
+    },
+    {
+      "symbol": "SWKS",
+      "provider_symbol": "SWKS",
+      "market": "US",
+      "theme": "portfolio",
+      "as_of": "2026-10-14",
+      "current_price": 76.889999,
+      "sma50": 76.89,
+      "sma200": 65.973196,
+      "weekly_ma30": 69.751565,
+      "weekly_ma50": 66.066069,
+      "trend": "BULLISH",
+      "cta": "BUY",
+      "confidence": 75,
+      "reason": "Weekly golden cross remains confirmed or active.",
+      "daily_cross": {
+        "alignment": "GOLDEN",
+        "cross_status": "NONE",
+        "last_cross_status": "GOLDEN",
+        "last_cross_date": "2026-06-05",
+        "periods_since_cross": 90,
+        "spread_pct": 16.547333,
+        "phase": "AGING"
+      },
+      "weekly_cross": {
+        "alignment": "GOLDEN",
+        "cross_status": "NONE",
+        "last_cross_status": "GOLDEN",
+        "last_cross_date": "2026-09-11",
+        "periods_since_cross": 5,
+        "spread_pct": 5.578501,
+        "phase": "ACTIVE"
+      }
+    },
+    {
+      "symbol": "RH",
+      "provider_symbol": "RH",
+      "market": "US",
+      "theme": "portfolio",
+      "as_of": "2026-10-14",
+      "current_price": 110.989998,
+      "sma50": 142.5008,
+      "sma200": 157.51625,
+      "weekly_ma30": 145.044667,
+      "weekly_ma50": 158.273399,
+      "trend": "BEARISH",
+      "cta": "SELL",
+      "confidence": 100,
+      "reason": "Weekly death cross remains confirmed or active.",
+      "daily_cross": {
+        "alignment": "DEATH",
+        "cross_status": "NONE",
+        "last_cross_status": "DEATH",
+        "last_cross_date": "2026-09-23",
+        "periods_since_cross": 15,
+        "spread_pct": -9.532636,
+        "phase": "ACTIVE"
+      },
+      "weekly_cross": {
+        "alignment": "DEATH",
+        "cross_status": "NONE",
+        "last_cross_status": "DEATH",
+        "last_cross_date": "2026-03-13",
+        "periods_since_cross": 31,
+        "spread_pct": -8.358153,
+        "phase": "ACTIVE"
+      }
+    },
+    {
+      "symbol": "UPBD",
+      "provider_symbol": "UPBD",
+      "market": "US",
+      "theme": "portfolio",
+      "as_of": "2026-10-14",
+      "current_price": 15.44,
+      "sma50": 17.357435,
+      "sma200": 18.135959,
+      "weekly_ma30": 18.04012,
+      "weekly_ma50": 17.842757,
+      "trend": "MIXED",
+      "cta": "WATCH",
+      "confidence": 75,
+      "reason": "Weekly golden trend remains, but daily trend weakened.",
+      "daily_cross": {
+        "alignment": "DEATH",
+        "cross_status": "NONE",
+        "last_cross_status": "DEATH",
+        "last_cross_date": "2026-10-02",
+        "periods_since_cross": 8,
+        "spread_pct": -4.292706,
+        "phase": "ACTIVE"
+      },
+      "weekly_cross": {
+        "alignment": "GOLDEN",
+        "cross_status": "NONE",
+        "last_cross_status": "GOLDEN",
+        "last_cross_date": "2026-08-21",
+        "periods_since_cross": 8,
+        "spread_pct": 1.106121,
+        "phase": "ACTIVE"
+      }
+    },
+    {
+      "symbol": "TSLA",
+      "provider_symbol": "TSLA",
+      "market": "US",
+      "theme": "innovation_option",
+      "as_of": "2026-10-14",
+      "current_price": 367.160004,
+      "sma50": 357.940598,
+      "sma200": 388.975899,
+      "weekly_ma30": 376.474331,
+      "weekly_ma50": 396.370599,
+      "trend": "BEARISH",
+      "cta": "SELL",
+      "confidence": 75,
+      "reason": "Weekly death cross remains confirmed or active.",
+      "daily_cross": {
+        "alignment": "DEATH",
+        "cross_status": "NONE",
+        "last_cross_status": "DEATH",
+        "last_cross_date": "2026-04-09",
+        "periods_since_cross": 130,
+        "spread_pct": -7.978721,
+        "phase": "AGING"
+      },
+      "weekly_cross": {
+        "alignment": "DEATH",
+        "cross_status": "NONE",
+        "last_cross_status": "DEATH",
+        "last_cross_date": "2026-07-17",
+        "periods_since_cross": 13,
+        "spread_pct": -5.019613,
+        "phase": "ACTIVE"
+      }
+    },
+    {
+      "symbol": "0050",
+      "provider_symbol": "0050.TW",
+      "market": "TW",
+      "theme": "broad_market",
+      "as_of": "2026-10-15",
+      "current_price": 108.900002,
+      "sma50": 108.34,
+      "sma200": 91.774717,
+      "weekly_ma30": 100.343347,
+      "weekly_ma50": 87.363551,
+      "trend": "BULLISH",
+      "cta": "HOLD",
+      "confidence": 100,
+      "reason": "Weekly golden trend is aging without a fresh daily cross.",
+      "daily_cross": {
+        "alignment": "GOLDEN",
+        "cross_status": "NONE",
+        "last_cross_status": "GOLDEN",
+        "last_cross_date": "2025-07-16",
+        "periods_since_cross": 305,
+        "spread_pct": 18.049942,
+        "phase": "AGING"
+      },
+      "weekly_cross": {
+        "alignment": "GOLDEN",
+        "cross_status": "NONE",
+        "last_cross_status": "GOLDEN",
+        "last_cross_date": "2025-10-03",
+        "periods_since_cross": 53,
+        "spread_pct": 14.857221,
+        "phase": "AGING"
+      }
+    },
+    {
+      "symbol": "2330",
+      "provider_symbol": "2330.TW",
+      "market": "TW",
+      "theme": "semiconductor_ai",
+      "as_of": "2026-10-15",
+      "current_price": 2440.0,
+      "sma50": 2432.928888,
+      "sma200": 2137.783646,
+      "weekly_ma30": 2303.519914,
+      "weekly_ma50": 2034.449556,
+      "trend": "BULLISH",
+      "cta": "HOLD",
+      "confidence": 100,
+      "reason": "Weekly golden trend is aging without a fresh daily cross.",
+      "daily_cross": {
+        "alignment": "GOLDEN",
+        "cross_status": "NONE",
+        "last_cross_status": "GOLDEN",
+        "last_cross_date": "2025-07-10",
+        "periods_since_cross": 308,
+        "spread_pct": 13.806132,
+        "phase": "AGING"
+      },
+      "weekly_cross": {
+        "alignment": "GOLDEN",
+        "cross_status": "NONE",
+        "last_cross_status": "GOLDEN",
+        "last_cross_date": "2025-10-03",
+        "periods_since_cross": 53,
+        "spread_pct": 13.225708,
+        "phase": "AGING"
+      }
+    },
+    {
+      "symbol": "VIX",
+      "provider_symbol": "^VIX",
+      "market": "CONTEXT",
+      "theme": "volatility",
+      "as_of": "2026-10-14",
+      "current_price": 16.870001,
+      "sma50": 15.4724,
+      "sma200": 18.0941,
+      "weekly_ma30": 17.309,
+      "weekly_ma50": 17.9878,
+      "trend": "BEARISH",
+      "cta": "SELL",
+      "confidence": 75,
+      "reason": "Weekly death cross remains confirmed or active.",
+      "daily_cross": {
+        "alignment": "DEATH",
+        "cross_status": "NONE",
+        "last_cross_status": "DEATH",
+        "last_cross_date": "2026-06-10",
+        "periods_since_cross": 88,
+        "spread_pct": -14.489253,
+        "phase": "AGING"
+      },
+      "weekly_cross": {
+        "alignment": "DEATH",
+        "cross_status": "NONE",
+        "last_cross_status": "DEATH",
+        "last_cross_date": "2026-10-09",
+        "periods_since_cross": 1,
+        "spread_pct": -3.773669,
+        "phase": "CONFIRMED"
+      }
+    },
+    {
+      "symbol": "DXY",
+      "provider_symbol": "DX-Y.NYB",
+      "market": "CONTEXT",
+      "theme": "us_dollar",
+      "as_of": "2026-10-14",
+      "current_price": 102.550003,
+      "sma50": 100.2378,
+      "sma200": 99.4515,
+      "weekly_ma30": 99.959134,
+      "weekly_ma50": 99.43488,
+      "trend": "BULLISH",
+      "cta": "BUY",
+      "confidence": 100,
+      "reason": "Weekly golden cross remains confirmed or active.",
+      "daily_cross": {
+        "alignment": "GOLDEN",
+        "cross_status": "NONE",
+        "last_cross_status": "GOLDEN",
+        "last_cross_date": "2026-04-08",
+        "periods_since_cross": 134,
+        "spread_pct": 0.790636,
+        "phase": "AGING"
+      },
+      "weekly_cross": {
+        "alignment": "GOLDEN",
+        "cross_status": "NONE",
+        "last_cross_status": "GOLDEN",
+        "last_cross_date": "2026-04-02",
+        "periods_since_cross": 28,
+        "spread_pct": 0.527233,
+        "phase": "ACTIVE"
+      }
+    },
+    {
+      "symbol": "US30Y",
+      "provider_symbol": "^TYX",
+      "market": "CONTEXT",
+      "theme": "us_30y_yield",
+      "as_of": "2026-10-14",
+      "current_price": 5.525,
+      "sma50": 5.36296,
+      "sma200": 5.034685,
+      "weekly_ma30": 5.137633,
+      "weekly_ma50": 5.00032,
+      "trend": "BULLISH",
+      "cta": "BUY",
+      "confidence": 100,
+      "reason": "Weekly golden cross remains confirmed or active.",
+      "daily_cross": {
+        "alignment": "GOLDEN",
+        "cross_status": "NONE",
+        "last_cross_status": "GOLDEN",
+        "last_cross_date": "2026-03-13",
+        "periods_since_cross": 148,
+        "spread_pct": 6.520268,
+        "phase": "AGING"
+      },
+      "weekly_cross": {
+        "alignment": "GOLDEN",
+        "cross_status": "NONE",
+        "last_cross_status": "GOLDEN",
+        "last_cross_date": "2026-05-22",
+        "periods_since_cross": 21,
+        "spread_pct": 2.746091,
+        "phase": "ACTIVE"
+      }
+    },
+    {
+      "symbol": "BTC",
+      "provider_symbol": "BTC-USD",
+      "market": "CONTEXT",
+      "theme": "crypto_risk_appetite",
+      "as_of": "2026-10-14",
+      "current_price": 81566.28125,
+      "sma50": 81164.788906,
+      "sma200": 72204.986055,
+      "weekly_ma30": 72109.689974,
+      "weekly_ma50": 77113.938359,
+      "trend": "MIXED",
+      "cta": "SELL",
+      "confidence": 75,
+      "reason": "Weekly death cross remains confirmed or active.",
+      "daily_cross": {
+        "alignment": "GOLDEN",
+        "cross_status": "NONE",
+        "last_cross_status": "GOLDEN",
+        "last_cross_date": "2026-09-08",
+        "periods_since_cross": 36,
+        "spread_pct": 12.408842,
+        "phase": "ACTIVE"
+      },
+      "weekly_cross": {
+        "alignment": "DEATH",
+        "cross_status": "NONE",
+        "last_cross_status": "DEATH",
+        "last_cross_date": "2026-02-22",
+        "periods_since_cross": 33,
+        "spread_pct": -6.489421,
+        "phase": "ACTIVE"
+      },
+      "weekly_data_as_of": "2026-10-11",
+      "weekly_expected_as_of": "2026-10-11",
+      "weekly_data_status": "CURRENT"
+    }
+  ],
+  "us_session_cutoff_policy": "exclude_current_New_York_daily_bar_until_16:15_America/New_York",
+  "excluded_incomplete_us_session": "2026-10-15",
+  "us_short_term_risk_context": {
+    "schema_version": "1.0",
+    "expected_as_of": "2026-10-14",
+    "price_basis": "adjusted_close",
+    "data_status": "READY",
+    "decision_authority": "SHORT_TERM_CONTEXT_ONLY_NO_CTA_OVERRIDE",
+    "results": [
+      {
+        "symbol": "VIX",
+        "provider_symbol": "^VIX",
+        "expected_as_of": "2026-10-14",
+        "as_of": "2026-10-14",
+        "data_status": "READY",
+        "value": 16.8700008392334,
+        "unit": "index_points",
+        "price_basis": "adjusted_close",
+        "decision_authority": "SHORT_TERM_CONTEXT_ONLY",
+        "source": "yahoo_finance_raw",
+        "source_url": "https://finance.yahoo.com/quote/^VIX/history/",
+        "observation_sha256": "4f98472f8b4abd3d2077a0e2c70ec047cad47e6108ed86565fbb8971ed702d7b"
+      },
+      {
+        "symbol": "DXY",
+        "provider_symbol": "DX-Y.NYB",
+        "expected_as_of": "2026-10-14",
+        "as_of": "2026-10-14",
+        "data_status": "READY",
+        "value": 102.55000305175781,
+        "unit": "index_points",
+        "price_basis": "adjusted_close",
+        "decision_authority": "SHORT_TERM_CONTEXT_ONLY",
+        "source": "yahoo_finance_raw",
+        "source_url": "https://finance.yahoo.com/quote/DX-Y.NYB/history/",
+        "observation_sha256": "f83168c9bb1dd46017bc17892d93990dd7cc8fcc020bcb990de4bd4dae53cdfc"
+      },
+      {
+        "symbol": "US10Y",
+        "provider_symbol": "^TNX",
+        "expected_as_of": "2026-10-14",
+        "as_of": "2026-10-14",
+        "data_status": "READY",
+        "value": 5.190000057220459,
+        "unit": "percent",
+        "price_basis": "adjusted_close",
+        "decision_authority": "SHORT_TERM_CONTEXT_ONLY",
+        "source": "yahoo_finance_raw",
+        "source_url": "https://finance.yahoo.com/quote/^TNX/history/",
+        "observation_sha256": "3b7281da19de112104cc205dfc43661383ec4fe42e56a6fec93e5257eb73c1dc"
+      },
+      {
+        "symbol": "US30Y",
+        "provider_symbol": "^TYX",
+        "expected_as_of": "2026-10-14",
+        "as_of": "2026-10-14",
+        "data_status": "READY",
+        "value": 5.525000095367432,
+        "unit": "percent",
+        "price_basis": "adjusted_close",
+        "decision_authority": "SHORT_TERM_CONTEXT_ONLY",
+        "source": "yahoo_finance_raw",
+        "source_url": "https://finance.yahoo.com/quote/^TYX/history/",
+        "observation_sha256": "1f1155a7d1e632042849ffda52ed28be55bd76837a32f43fa001fa6df872562c"
+      },
+      {
+        "symbol": "SOX",
+        "provider_symbol": "^SOX",
+        "expected_as_of": "2026-10-14",
+        "as_of": "2026-10-14",
+        "data_status": "READY",
+        "value": 11684.3798828125,
+        "unit": "index_points",
+        "price_basis": "adjusted_close",
+        "decision_authority": "SHORT_TERM_CONTEXT_ONLY",
+        "source": "yahoo_finance_raw",
+        "source_url": "https://finance.yahoo.com/quote/^SOX/history/",
+        "observation_sha256": "9f5cb3f37171c9c2a775aea226d9ea796f43dee2172f5bc8ce6cf3eedc7f925f"
+      }
+    ]
+  },
+  "us_universe_quarterly_review": {
+    "review_period": "2026Q3",
+    "review_cutoff": "2026-09-30",
+    "evidence_session": "2026-10-02",
+    "status": "COMPLETE_NO_CHANGE",
+    "universe_version": "2026Q3-v1",
+    "membership_action": "NO_CHANGE",
+    "universe_size": 70,
+    "reviewed_at": "2026-10-03",
+    "next_scheduled_review_as_of": "2026-12-31"
+  },
+  "us_portfolio_dual_system_scores": {
+    "schema_version": "2.0",
+    "score_version": "onecool_us_dual_v2",
+    "classification": "Onecool proxy scores; not IBD official ratings",
+    "expected_as_of": "2026-10-14",
+    "price_basis": "adjusted_close",
+    "data_status": "READY",
+    "thresholds": {
+      "canslim": 70,
+      "minervini": 80
+    },
+    "fundamentals_policy": "same-run shared inputs; missing or stale inputs are Unknown",
+    "results": [
+      {
+        "symbol": "BABA",
+        "price_as_of": "2026-10-14",
+        "fundamentals_as_of": "2026-06-30",
+        "fundamental_sources": [],
+        "fundamentals_published_as_of": null,
+        "liquidity_average_50d_usd": 1180034928.07,
+        "liquidity_minimum_50d_usd": 20000000,
+        "liquidity_status": "PASSED",
+        "new_entry_eligible": true,
+        "validation_warnings": [],
+        "price_basis": "adjusted_close",
+        "score_version": "onecool_us_dual_v2",
+        "thresholds": {
+          "canslim": 70,
+          "minervini": 80
+        },
+        "technical_confidence": 100,
+        "validation_status": "PASSED",
+        "validation_errors": [],
+        "canslim_score": 33,
+        "minervini_score": 4,
+        "passes_dual_system": false
+      },
+      {
+        "symbol": "XYZ",
+        "price_as_of": "2026-10-14",
+        "fundamentals_as_of": "2026-06-30",
+        "fundamental_sources": [],
+        "fundamentals_published_as_of": null,
+        "liquidity_average_50d_usd": 352520731.74,
+        "liquidity_minimum_50d_usd": 20000000,
+        "liquidity_status": "PASSED",
+        "new_entry_eligible": true,
+        "validation_warnings": [],
+        "price_basis": "adjusted_close",
+        "score_version": "onecool_us_dual_v2",
+        "thresholds": {
+          "canslim": 70,
+          "minervini": 80
+        },
+        "technical_confidence": 100,
+        "validation_status": "PASSED",
+        "validation_errors": [],
+        "canslim_score": 43,
+        "minervini_score": 74,
+        "passes_dual_system": false
+      },
+      {
+        "symbol": "SWKS",
+        "price_as_of": "2026-10-14",
+        "fundamentals_as_of": "2026-07-03",
+        "fundamental_sources": [],
+        "fundamentals_published_as_of": null,
+        "liquidity_average_50d_usd": 548776649.5,
+        "liquidity_minimum_50d_usd": 20000000,
+        "liquidity_status": "PASSED",
+        "new_entry_eligible": true,
+        "validation_warnings": [],
+        "price_basis": "adjusted_close",
+        "score_version": "onecool_us_dual_v2",
+        "thresholds": {
+          "canslim": 70,
+          "minervini": 80
+        },
+        "technical_confidence": 100,
+        "validation_status": "PASSED",
+        "validation_errors": [],
+        "canslim_score": 47,
+        "minervini_score": 80,
+        "passes_dual_system": false
+      },
+      {
+        "symbol": "RH",
+        "price_as_of": "2026-10-14",
+        "fundamentals_as_of": "2026-08-01",
+        "fundamental_sources": [
+          "https://ir.rh.com/financials-filings/sec-filings/content/0001104659-26-106764/rh-20260801x10q.htm",
+          "https://www.sec.gov/Archives/edgar/data/1528849/000110465926037775/rh-20260331xex99d2.htm"
+        ],
+        "fundamentals_published_as_of": "2026-09-10",
+        "liquidity_average_50d_usd": 107265945.68,
+        "liquidity_minimum_50d_usd": 20000000,
+        "liquidity_status": "PASSED",
+        "new_entry_eligible": true,
+        "validation_warnings": [],
+        "price_basis": "adjusted_close",
+        "score_version": "onecool_us_dual_v2",
+        "thresholds": {
+          "canslim": 70,
+          "minervini": 80
+        },
+        "technical_confidence": 100,
+        "validation_status": "PASSED",
+        "validation_errors": [],
+        "canslim_score": 46,
+        "minervini_score": 0,
+        "passes_dual_system": false
+      },
+      {
+        "symbol": "UPBD",
+        "price_as_of": "2026-10-14",
+        "fundamentals_as_of": "2026-06-30",
+        "fundamental_sources": [],
+        "fundamentals_published_as_of": null,
+        "liquidity_average_50d_usd": 16054358.01,
+        "liquidity_minimum_50d_usd": 20000000,
+        "liquidity_status": "BELOW_NEW_ENTRY_MINIMUM",
+        "new_entry_eligible": false,
+        "validation_warnings": [
+          "50-day dollar liquidity below $20m; existing-position monitoring retained, new entry ineligible"
+        ],
+        "price_basis": "adjusted_close",
+        "score_version": "onecool_us_dual_v2",
+        "thresholds": {
+          "canslim": 70,
+          "minervini": 80
+        },
+        "technical_confidence": 100,
+        "validation_status": "PASSED",
+        "validation_errors": [],
+        "canslim_score": 61,
+        "minervini_score": 0,
+        "passes_dual_system": false
+      }
+    ]
+  },
+  "daily_top5_scan": {
+    "schema_version": "1.0",
+    "scan_version": "onecool_us_breakout_v1",
+    "score_version": "onecool_us_dual_v2",
+    "thresholds": {
+      "canslim": 70,
+      "minervini": 80
+    },
+    "classification": "Onecool proxy scores; not IBD official ratings",
+    "expected_as_of": "2026-10-14",
+    "data_status": "READY",
+    "price_basis": "adjusted_close",
+    "universe_size": 70,
+    "universe_governance": {
+      "version": "2026Q3-v1",
+      "target_size": 70,
+      "membership_mode": "VERSIONED_QUARTERLY_GOVERNANCE",
+      "review_cadence": "QUARTERLY_AFTER_LAST_FULL_US_SESSION",
+      "last_reviewed_as_of": "2026-10-02",
+      "next_scheduled_review_as_of": "2026-12-31",
+      "minimum_history_sessions": 252,
+      "minimum_50d_dollar_liquidity_usd": 20000000,
+      "emergency_review_triggers": [
+        "DELISTING_OR_TRADING_TERMINATION",
+        "COMPLETED_MERGER_OR_TICKER_RETIREMENT",
+        "IDENTITY_OR_SECURITY_TYPE_INVALIDATED"
+      ],
+      "daily_membership_mutation": false,
+      "change_control": "VERSION_BUMP_AND_AUDIT_RECORD_REQUIRED"
+    },
+    "validated_count": 64,
+    "coverage_status": "COMPLETE",
+    "validated_coverage_pct": 91.43,
+    "research_scope": "FULL_UNIVERSE_ASSESSED_VALIDATED_SUBSET_RANKED",
+    "minimum_technical_confidence": 90,
+    "formal_breakout_count": 0,
+    "top5": [
+      {
+        "symbol": "PLTR",
+        "price_as_of": "2026-10-14",
+        "fundamentals_as_of": "2026-06-30",
+        "fundamental_sources": [],
+        "fundamentals_published_as_of": null,
+        "liquidity_average_50d_usd": 5298981216.96,
+        "liquidity_minimum_50d_usd": 20000000,
+        "liquidity_status": "PASSED",
+        "new_entry_eligible": true,
+        "validation_warnings": [],
+        "price_basis": "adjusted_close",
+        "score_version": "onecool_us_dual_v2",
+        "thresholds": {
+          "canslim": 70,
+          "minervini": 80
+        },
+        "technical_confidence": 100,
+        "validation_status": "PASSED",
+        "validation_errors": [],
+        "canslim_score": 97,
+        "minervini_score": 92,
+        "passes_dual_system": true,
+        "company_name": "Palantir Technologies Inc.",
+        "security_type": "COMMON_STOCK",
+        "rank_score": 90.05,
+        "status": "WAIT",
+        "trigger": "突破52週高點且成交量至少為50日均量1.5倍",
+        "formal_breakout": false,
+        "super_growth_bucket": "B",
+        "super_growth_reason": "VALUATION_ABOVE_DISCIPLINED_RANGE",
+        "quality_gate_status": {
+          "competitive_advantage": {
+            "status": "PASS",
+            "as_of": "2026-10-08",
+            "rationale": "Ontology, integrated operational workflows and fine-grained security controls support switching costs; supported by issuer platform descriptions, not an independent market-share audit.",
+            "sources": [
+              "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000011/pltr-20251231.htm"
+            ],
+            "data_gap": null,
+            "validation_errors": [],
+            "method": null,
+            "price_as_of": null,
+            "valid_through": null,
+            "inputs": {}
+          },
+          "structural_growth_runway": {
+            "status": "PASS",
+            "as_of": "2026-10-08",
+            "rationale": "Q2 revenue $1.935bn versus $1.004bn; FY26 revenue guidance $8.150–8.158bn supports enterprise/government demand. Guidance remains conditional and procurement cycles are uneven.",
+            "sources": [
+              "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000004/a2025q4ex991earningsrelease.htm",
+              "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000039/a2026q2ex991pressrelease.htm"
+            ],
+            "data_gap": null,
+            "validation_errors": [],
+            "method": null,
+            "price_as_of": null,
+            "valid_through": null,
+            "inputs": {}
+          },
+          "financial_quality": {
+            "status": "PASS",
+            "as_of": "2026-10-08",
+            "rationale": "H1 GAAP operating income $1.666bn; CFO $2.115bn less capex $21.955m = $2.093bn FCF. Cash/securities $9.409bn; H1 SBC $466.801m retained in normalization; contract liabilities helped cash generation.",
+            "sources": [
+              "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000004/a2025q4ex991earningsrelease.htm",
+              "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000039/a2026q2ex991pressrelease.htm"
+            ],
+            "data_gap": null,
+            "validation_errors": [],
+            "method": null,
+            "price_as_of": null,
+            "valid_through": null,
+            "inputs": {}
+          },
+          "business_risk_and_governance": {
+            "status": "PASS",
+            "as_of": "2026-10-08",
+            "rationale": "Reviewed founder Class F voting concentration and minority control limits, government procurement, competition and AI deployment risks; no automatic hard exclusion established. PASS means researched risk gate, not risk-free or governance endorsement.",
+            "sources": [
+              "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000011/pltr-20251231.htm",
+              "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000004/a2025q4ex991earningsrelease.htm",
+              "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000039/a2026q2ex991pressrelease.htm"
+            ],
+            "data_gap": null,
+            "validation_errors": [],
+            "method": null,
+            "price_as_of": null,
+            "valid_through": null,
+            "inputs": {}
+          },
+          "circle_of_competence": {
+            "status": "UNKNOWN",
+            "as_of": null,
+            "rationale": null,
+            "sources": [],
+            "data_gap": "MISSING_SOURCE_BACKED_CIRCLE_OF_COMPETENCE_ASSESSMENT",
+            "validation_errors": [],
+            "method": null,
+            "price_as_of": null,
+            "valid_through": null,
+            "inputs": {}
+          },
+          "valuation": {
+            "status": "FAIL",
+            "as_of": "2026-10-14",
+            "rationale": "SBC-inclusive TTM operating earnings, excluding treasury/investment income and normalized at analyst 21% tax. Onecool screening scenarios use 20%/30% five-year growth fading to 2%/3%, 12%/10% required return and limited distributions; high current growth is not extrapolated indefinitely. Government procurement, AI competition, founder voting control and dilution remain material risks. This is a conservative scenario screen, not a full DCF or issuer target.",
+            "sources": [
+              "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000004/a2025q4ex991earningsrelease.htm",
+              "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000039/a2026q2ex991pressrelease.htm"
+            ],
+            "data_gap": null,
+            "validation_errors": [],
+            "method": "TTM_SBC_INCLUSIVE_OPERATING_EARNINGS_NORMALIZED_TAX_CURRENT_SHARE_PROXY",
+            "price_as_of": "2026-10-14",
+            "valid_through": "2026-10-14",
+            "inputs": {
+              "price": 200.97000122070312,
+              "denominator": 0.8102853356608456,
+              "multiple": 248.023742225074,
+              "fair_range": [
+                17.28697120247515,
+                39.01499600392776
+              ]
+            }
+          }
+        },
+        "evidence_coverage": "PARTIAL",
+        "missing_evidence": [
+          "circle_of_competence"
+        ],
+        "quality_data_gaps": {},
+        "valuation_posture": "ABOVE_DISCIPLINED_RANGE",
+        "cyclical_review_required": false,
+        "evidence_as_of": "2026-10-08",
+        "manual_confirmation_required": [
+          "circle_of_competence"
+        ],
+        "circle_of_competence_policy": "PRE_TRADE_USER_CONFIRMATION_NOT_DAILY_RESEARCH_BLOCKER",
+        "decision_authority": "RESEARCH_QUALITY_ONLY",
+        "quality_gate_application": "FORMAL_NEW_CANDIDATE_RESEARCH_GATE",
+        "action_eligibility": "RESEARCH_ONLY_VALUATION_TOO_HIGH",
+        "valuation_input_collection": {
+          "as_of": "2026-10-14",
+          "status": "COMPLETE",
+          "gaps": [],
+          "price_basis": "adjusted_close",
+          "inputs": {
+            "adjusted_close": 200.97000122070312
+          },
+          "sources": [
+            "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000004/a2025q4ex991earningsrelease.htm",
+            "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000039/a2026q2ex991pressrelease.htm"
+          ],
+          "decision_authority": "REVIEWED_SOURCE_BACKED_VALUATION_MODEL",
+          "price_source": {
+            "provider": "yahoo_finance_adjusted_batch",
+            "symbol": "PLTR",
+            "as_of": "2026-10-14",
+            "url": "https://finance.yahoo.com/quote/PLTR/history/"
+          },
+          "price_observation": {
+            "date": "2026-10-14",
+            "adjusted_close": 200.97000122070312,
+            "raw_close": 200.97000122070312,
+            "provider": "yahoo_finance_adjusted_batch"
+          },
+          "price_sha256": "92fc5326f55ceedf9ccc808a418469adac0566bdb2b375c51b85a5685a632c84",
+          "official_reference_status": "VERIFIED",
+          "fundamental_fetch_status": "REVIEWED_OFFICIAL_REFERENCE",
+          "company_name": "Palantir Technologies Inc.",
+          "official_reference": {
+            "symbol": "PLTR",
+            "company_name": "Palantir Technologies Inc.",
+            "published_at": "2026-08-03",
+            "valid_through": "2026-10-14",
+            "sources": [
+              "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000004/a2025q4ex991earningsrelease.htm",
+              "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000039/a2026q2ex991pressrelease.htm"
+            ],
+            "reported_facts": {
+              "formula": "(FY25 GAAP operating income + H126 GAAP operating income - H125 GAAP operating income) * (1 - analyst normalized tax rate) / Q226 diluted weighted shares",
+              "units": "USD thousand, shares thousand",
+              "FY25_operating_income": 1414015,
+              "H126_operating_income": 1666002,
+              "H125_operating_income": 445365,
+              "normalized_tax_rate": 0.21,
+              "diluted_share_proxy": 2568694,
+              "limitations": "SBC and related payroll costs retained. Excludes interest and all other investment income; tax rate is analyst normalization, not issuer guidance. Latest quarter shares proxy; no quarterly EPS annualization. Cash balance not added to this conservative operating-earnings screening model."
+            },
+            "model_gaps": [],
+            "refresh_on": [
+              "NEW_EARNINGS_OR_GUIDANCE",
+              "MATERIAL_CORPORATE_EVENT",
+              "REFERENCE_EXPIRY"
+            ],
+            "valuation_model": {
+              "method": "TTM_SBC_INCLUSIVE_OPERATING_EARNINGS_NORMALIZED_TAX_CURRENT_SHARE_PROXY",
+              "denominator": 0.8102853356608456,
+              "currency": "USD",
+              "share_basis": "listed_security",
+              "normalization_bridge": {
+                "formula": "(FY25 GAAP operating income + H126 GAAP operating income - H125 GAAP operating income) * (1 - analyst normalized tax rate) / Q226 diluted weighted shares",
+                "units": "USD thousand, shares thousand",
+                "FY25_operating_income": 1414015,
+                "H126_operating_income": 1666002,
+                "H125_operating_income": 445365,
+                "normalized_tax_rate": 0.21,
+                "diluted_share_proxy": 2568694,
+                "limitations": "SBC and related payroll costs retained. Excludes interest and all other investment income; tax rate is analyst normalization, not issuer guidance. Latest quarter shares proxy; no quarterly EPS annualization. Cash balance not added to this conservative operating-earnings screening model."
+              },
+              "denominator_source": [
+                "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000004/a2025q4ex991earningsrelease.htm",
+                "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000039/a2026q2ex991pressrelease.htm"
+              ],
+              "fair_range": [
+                17.28697120247515,
+                39.01499600392776
+              ],
+              "scenarios": [
+                {
+                  "name": "conservative",
+                  "years": 5,
+                  "growth": 0.2,
+                  "required_return": 0.12,
+                  "terminal_growth": 0.02,
+                  "cash_conversion": 0.7,
+                  "terminal_cash_conversion": 0.9
+                },
+                {
+                  "name": "base",
+                  "years": 5,
+                  "growth": 0.3,
+                  "required_return": 0.1,
+                  "terminal_growth": 0.03,
+                  "cash_conversion": 0.8,
+                  "terminal_cash_conversion": 0.95
+                }
+              ],
+              "assumption_authority": "ONECOOL_ANALYST_NOT_ISSUER_GUIDANCE",
+              "research_grade": "SCREENING_SCENARIO_NOT_FULL_DCF",
+              "policy_version": "onecool_equity_two_stage_screen_v1",
+              "rationale": "SBC-inclusive TTM operating earnings, excluding treasury/investment income and normalized at analyst 21% tax. Onecool screening scenarios use 20%/30% five-year growth fading to 2%/3%, 12%/10% required return and limited distributions; high current growth is not extrapolated indefinitely. Government procurement, AI competition, founder voting control and dilution remain material risks. This is a conservative scenario screen, not a full DCF or issuer target.",
+              "fair_range_rationale": "SBC-inclusive TTM operating earnings, excluding treasury/investment income and normalized at analyst 21% tax. Onecool screening scenarios use 20%/30% five-year growth fading to 2%/3%, 12%/10% required return and limited distributions; high current growth is not extrapolated indefinitely. Government procurement, AI competition, founder voting control and dilution remain material risks. This is a conservative scenario screen, not a full DCF or issuer target.",
+              "fair_range_sources": [
+                "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000004/a2025q4ex991earningsrelease.htm",
+                "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000039/a2026q2ex991pressrelease.htm",
+                "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+              ]
+            }
+          }
+        },
+        "lynch_research": {
+          "version": "onecool_lynch_research_v1",
+          "company_type": {
+            "status": "PROVISIONAL",
+            "primary": "FAST_GROWER",
+            "candidates": [
+              "FAST_GROWER"
+            ],
+            "evidence": [
+              {
+                "field": "verified_quality_gates",
+                "value": [
+                  "structural_growth_runway",
+                  "financial_quality"
+                ],
+                "interpretation": "FAST_GROWTH_CANDIDATE_NOT_DURABILITY_PROOF"
+              }
+            ],
+            "unresolved_categories": [
+              "SLOW_GROWER",
+              "STALWART",
+              "CYCLICAL",
+              "TURNAROUND",
+              "ASSET_PLAY"
+            ]
+          },
+          "investment_story": {
+            "status": "EVIDENCE_ONLY",
+            "evidence": [
+              {
+                "field": "competitive_advantage",
+                "value": "PASS",
+                "as_of": "2026-10-08",
+                "rationale": "Ontology, integrated operational workflows and fine-grained security controls support switching costs; supported by issuer platform descriptions, not an independent market-share audit.",
+                "sources": [
+                  "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000011/pltr-20251231.htm"
+                ]
+              },
+              {
+                "field": "structural_growth_runway",
+                "value": "PASS",
+                "as_of": "2026-10-08",
+                "rationale": "Q2 revenue $1.935bn versus $1.004bn; FY26 revenue guidance $8.150–8.158bn supports enterprise/government demand. Guidance remains conditional and procurement cycles are uneven.",
+                "sources": [
+                  "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000004/a2025q4ex991earningsrelease.htm",
+                  "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000039/a2026q2ex991pressrelease.htm"
+                ]
+              },
+              {
+                "field": "financial_quality",
+                "value": "PASS",
+                "as_of": "2026-10-08",
+                "rationale": "H1 GAAP operating income $1.666bn; CFO $2.115bn less capex $21.955m = $2.093bn FCF. Cash/securities $9.409bn; H1 SBC $466.801m retained in normalization; contract liabilities helped cash generation.",
+                "sources": [
+                  "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000004/a2025q4ex991earningsrelease.htm",
+                  "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000039/a2026q2ex991pressrelease.htm"
+                ]
+              },
+              {
+                "field": "business_risk_and_governance",
+                "value": "PASS",
+                "as_of": "2026-10-08",
+                "rationale": "Reviewed founder Class F voting concentration and minority control limits, government procurement, competition and AI deployment risks; no automatic hard exclusion established. PASS means researched risk gate, not risk-free or governance endorsement.",
+                "sources": [
+                  "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000011/pltr-20251231.htm",
+                  "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000004/a2025q4ex991earningsrelease.htm",
+                  "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000039/a2026q2ex991pressrelease.htm"
+                ]
+              },
+              {
+                "field": "valuation",
+                "value": "FAIL",
+                "as_of": "2026-10-14",
+                "rationale": "SBC-inclusive TTM operating earnings, excluding treasury/investment income and normalized at analyst 21% tax. Onecool screening scenarios use 20%/30% five-year growth fading to 2%/3%, 12%/10% required return and limited distributions; high current growth is not extrapolated indefinitely. Government procurement, AI competition, founder voting control and dilution remain material risks. This is a conservative scenario screen, not a full DCF or issuer target.",
+                "sources": [
+                  "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000004/a2025q4ex991earningsrelease.htm",
+                  "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000039/a2026q2ex991pressrelease.htm"
+                ]
+              }
+            ],
+            "required_manual_confirmation": [
+              "BUSINESS_DRIVER",
+              "DURABILITY",
+              "MANAGEMENT_EXECUTION"
+            ]
+          },
+          "story_break_conditions": [
+            {
+              "condition": "VERIFIED_COMPETITIVE_ADVANTAGE_FAILS",
+              "meaning": "Investment story requires review"
+            },
+            {
+              "condition": "VERIFIED_STRUCTURAL_GROWTH_RUNWAY_FAILS",
+              "meaning": "Growth story requires review"
+            },
+            {
+              "condition": "VERIFIED_FINANCIAL_QUALITY_OR_GOVERNANCE_FAILS",
+              "meaning": "Quality story requires review"
+            }
+          ],
+          "policy": {
+            "decision_authority": "NONE",
+            "ranking_effect": "NONE",
+            "score_effect": "NONE",
+            "cta_effect": "NONE",
+            "action_effect": "NONE",
+            "observation_is_research_lead_only": true,
+            "manual_confirmation_required": true
+          }
+        }
+      },
+      {
+        "symbol": "ABBV",
+        "price_as_of": "2026-10-14",
+        "fundamentals_as_of": "2026-06-30",
+        "fundamental_sources": [],
+        "fundamentals_published_as_of": null,
+        "liquidity_average_50d_usd": 1183715137.45,
+        "liquidity_minimum_50d_usd": 20000000,
+        "liquidity_status": "PASSED",
+        "new_entry_eligible": true,
+        "validation_warnings": [],
+        "price_basis": "adjusted_close",
+        "score_version": "onecool_us_dual_v2",
+        "thresholds": {
+          "canslim": 70,
+          "minervini": 80
+        },
+        "technical_confidence": 100,
+        "validation_status": "PASSED",
+        "validation_errors": [],
+        "canslim_score": 89,
+        "minervini_score": 100,
+        "passes_dual_system": true,
+        "company_name": "AbbVie Inc.",
+        "security_type": "COMMON_STOCK",
+        "rank_score": 90.05,
+        "status": "WAIT",
+        "trigger": "突破52週高點且成交量至少為50日均量1.5倍",
+        "formal_breakout": false,
+        "super_growth_bucket": "B",
+        "super_growth_reason": "VALUATION_ABOVE_DISCIPLINED_RANGE",
+        "quality_gate_status": {
+          "competitive_advantage": {
+            "status": "PASS",
+            "as_of": "2026-07-31",
+            "rationale": "Skyrizi與Rinvoq季度收入均約年增24%，神經科學組合年增20.3%，多個治療領域與研發管線降低單一產品依賴。",
+            "sources": [
+              "https://news.abbvie.com/2026-07-31-AbbVie-Reports-Second-Quarter-2026-Financial-Results"
+            ],
+            "data_gap": null,
+            "validation_errors": [],
+            "method": null,
+            "price_as_of": null,
+            "valid_through": null,
+            "inputs": {}
+          },
+          "structural_growth_runway": {
+            "status": "PASS",
+            "as_of": "2026-07-31",
+            "rationale": "免疫學與神經科學核心產品維持雙位數成長，並透過Apogee交易補強後期免疫學管線，支持Humira專利後的成長接續。",
+            "sources": [
+              "https://news.abbvie.com/2026-07-31-AbbVie-Reports-Second-Quarter-2026-Financial-Results"
+            ],
+            "data_gap": null,
+            "validation_errors": [],
+            "method": null,
+            "price_as_of": null,
+            "valid_through": null,
+            "inputs": {}
+          },
+          "financial_quality": {
+            "status": "PASS",
+            "as_of": "2026-07-31",
+            "rationale": "季度營收169.9億美元年增10.2%，調整後EPS年增22.9%，調整後營業利益率48.3%；成長與獲利能力均獲官方財報支持。",
+            "sources": [
+              "https://news.abbvie.com/2026-07-31-AbbVie-Reports-Second-Quarter-2026-Financial-Results"
+            ],
+            "data_gap": null,
+            "validation_errors": [],
+            "method": null,
+            "price_as_of": null,
+            "valid_through": null,
+            "inputs": {}
+          },
+          "business_risk_and_governance": {
+            "status": "PASS",
+            "as_of": "2026-07-31",
+            "rationale": "Humira收入年減35.9%、109億美元Apogee收購與IPR&D支出是明確風險，但目前由Skyrizi、Rinvoq及神經科學成長抵銷；未見足以否決候選資格的治理事件。",
+            "sources": [
+              "https://news.abbvie.com/2026-07-31-AbbVie-Reports-Second-Quarter-2026-Financial-Results",
+              "https://www.sec.gov/edgar/browse/?CIK=1551152&owner=exclude"
+            ],
+            "data_gap": null,
+            "validation_errors": [],
+            "method": null,
+            "price_as_of": null,
+            "valid_through": null,
+            "inputs": {}
+          },
+          "circle_of_competence": {
+            "status": "UNKNOWN",
+            "as_of": "2026-09-17",
+            "rationale": "藥品專利、臨床與監管判斷屬個人能力圈確認項，保留到正式建倉前，不阻擋研究排名。",
+            "sources": [
+              "https://news.abbvie.com/2026-07-31-AbbVie-Reports-Second-Quarter-2026-Financial-Results"
+            ],
+            "data_gap": "MISSING_SOURCE_BACKED_CIRCLE_OF_COMPETENCE_ASSESSMENT",
+            "validation_errors": [],
+            "method": null,
+            "price_as_of": null,
+            "valid_through": null,
+            "inputs": {}
+          },
+          "valuation": {
+            "status": "FAIL",
+            "as_of": "2026-10-14",
+            "rationale": "Official historical inputs with an explicit Onecool conservative/base equity cash-flow scenario; an opinion under this discipline, not issuer fair value. Constant operating earnings full-year dilution stress, NOT company FY27 guidance. Net debt is an estimated bridge, NOT a reported closing balance; no second deduction from equity EPS.",
+            "sources": [
+              "https://news.abbvie.com/2026-09-03-AbbVie-Completes-Acquisition-of-Apogee-Therapeutics",
+              "https://www.sec.gov/Archives/edgar/data/1551152/000155115226000026/abbv-20260630.htm",
+              "https://www.sec.gov/Archives/edgar/data/1551152/000110465926076067/tm2618365d1_ex99-2.htm"
+            ],
+            "data_gap": null,
+            "validation_errors": [],
+            "method": "FORWARD_ADJUSTED_PE_FULL_YEAR_ACQUISITION_STRESS",
+            "price_as_of": "2026-10-14",
+            "valid_through": "2026-10-14",
+            "inputs": {
+              "price": 283.4800109863281,
+              "denominator": 13.549999999999999,
+              "multiple": 20.921034021131227,
+              "fair_range": [
+                8.554162502288818,
+                16.74285714285714
+              ]
+            }
+          }
+        },
+        "evidence_coverage": "PARTIAL",
+        "missing_evidence": [
+          "circle_of_competence"
+        ],
+        "quality_data_gaps": {},
+        "valuation_posture": "ABOVE_DISCIPLINED_RANGE",
+        "cyclical_review_required": false,
+        "evidence_as_of": "2026-09-17",
+        "manual_confirmation_required": [
+          "circle_of_competence"
+        ],
+        "circle_of_competence_policy": "PRE_TRADE_USER_CONFIRMATION_NOT_DAILY_RESEARCH_BLOCKER",
+        "decision_authority": "RESEARCH_QUALITY_ONLY",
+        "quality_gate_application": "FORMAL_NEW_CANDIDATE_RESEARCH_GATE",
+        "action_eligibility": "RESEARCH_ONLY_VALUATION_TOO_HIGH",
+        "valuation_input_collection": {
+          "as_of": "2026-10-14",
+          "status": "COMPLETE",
+          "gaps": [],
+          "price_basis": "adjusted_close",
+          "inputs": {
+            "adjusted_close": 283.4800109863281
+          },
+          "sources": [
+            "https://news.abbvie.com/2026-09-03-AbbVie-Completes-Acquisition-of-Apogee-Therapeutics",
+            "https://www.sec.gov/Archives/edgar/data/1551152/000155115226000026/abbv-20260630.htm",
+            "https://www.sec.gov/Archives/edgar/data/1551152/000110465926076067/tm2618365d1_ex99-2.htm"
+          ],
+          "decision_authority": "REVIEWED_SOURCE_BACKED_VALUATION_MODEL",
+          "price_source": {
+            "provider": "yahoo_finance_adjusted_batch",
+            "symbol": "ABBV",
+            "as_of": "2026-10-14",
+            "url": "https://finance.yahoo.com/quote/ABBV/history/"
+          },
+          "price_observation": {
+            "date": "2026-10-14",
+            "adjusted_close": 283.4800109863281,
+            "raw_close": 283.4800109863281,
+            "provider": "yahoo_finance_adjusted_batch"
+          },
+          "price_sha256": "230d588f437033fec9be566eda10db353fda79b61a4afcf9310babb9224d4e00",
+          "official_reference_status": "VERIFIED",
+          "fundamental_fetch_status": "REVIEWED_OFFICIAL_REFERENCE",
+          "company_name": "AbbVie Inc.",
+          "official_reference": {
+            "symbol": "ABBV",
+            "company_name": "AbbVie Inc.",
+            "published_at": "2026-09-03",
+            "valid_through": "2026-10-14",
+            "sources": [
+              "https://news.abbvie.com/2026-09-03-AbbVie-Completes-Acquisition-of-Apogee-Therapeutics",
+              "https://www.sec.gov/Archives/edgar/data/1551152/000155115226000026/abbv-20260630.htm",
+              "https://www.sec.gov/Archives/edgar/data/1551152/000110465926076067/tm2618365d1_ex99-2.htm"
+            ],
+            "reported_facts": {
+              "period": "FY2026",
+              "currency": "USD",
+              "share_basis": "common_diluted",
+              "adjusted_eps_guidance": [
+                13.87,
+                14.07
+              ],
+              "included_ytd_iprd_per_share": 0.58,
+              "apogee_partial_year_dilution": 0.14,
+              "apogee_2027_dilution": 0.46,
+              "apogee_equity_consideration_usd_billion": 10.9
+            },
+            "model_gaps": [],
+            "refresh_on": [
+              "NEW_EARNINGS_OR_GUIDANCE",
+              "MATERIAL_CORPORATE_EVENT",
+              "REFERENCE_EXPIRY"
+            ],
+            "valuation_model": {
+              "method": "FORWARD_ADJUSTED_PE_FULL_YEAR_ACQUISITION_STRESS",
+              "denominator": 13.549999999999999,
+              "currency": "USD",
+              "share_basis": "listed_security",
+              "normalization_bridge": {
+                "formula": "13.87 - (0.46 - 0.14)",
+                "inputs": {
+                  "FY26_guidance_low": 13.87,
+                  "included_partial_year_dilution": 0.14,
+                  "FY27_full_year_dilution": 0.46,
+                  "retained_IPRD_cost": 0.58
+                },
+                "net_debt_bridge_usd_billion": {
+                  "June30_cash": 6.569,
+                  "June30_debt": 70.822,
+                  "estimated_incremental_net_transaction_cost": 10.1,
+                  "estimated_proforma_net_debt": 74.353
+                },
+                "limitations": "Constant operating earnings full-year dilution stress, NOT company FY27 guidance. Net debt is an estimated bridge, NOT a reported closing balance; no second deduction from equity EPS."
+              },
+              "denominator_source": [
+                "https://news.abbvie.com/2026-09-03-AbbVie-Completes-Acquisition-of-Apogee-Therapeutics",
+                "https://www.sec.gov/Archives/edgar/data/1551152/000155115226000026/abbv-20260630.htm",
+                "https://www.sec.gov/Archives/edgar/data/1551152/000110465926076067/tm2618365d1_ex99-2.htm"
+              ],
+              "fair_range": [
+                8.554162502288818,
+                16.74285714285714
+              ],
+              "scenarios": [
+                {
+                  "name": "conservative",
+                  "years": 5,
+                  "growth": 0.05,
+                  "required_return": 0.12,
+                  "terminal_growth": 0.02,
+                  "cash_conversion": 0.55,
+                  "terminal_cash_conversion": 0.85
+                },
+                {
+                  "name": "base",
+                  "years": 5,
+                  "growth": 0.1,
+                  "required_return": 0.1,
+                  "terminal_growth": 0.03,
+                  "cash_conversion": 0.7,
+                  "terminal_cash_conversion": 0.9
+                }
+              ],
+              "assumption_authority": "ONECOOL_ANALYST_NOT_ISSUER_GUIDANCE",
+              "research_grade": "SCREENING_SCENARIO_NOT_FULL_DCF",
+              "policy_version": "onecool_equity_two_stage_screen_v1",
+              "rationale": "Official historical inputs with an explicit Onecool conservative/base equity cash-flow scenario; an opinion under this discipline, not issuer fair value. Constant operating earnings full-year dilution stress, NOT company FY27 guidance. Net debt is an estimated bridge, NOT a reported closing balance; no second deduction from equity EPS.",
+              "fair_range_rationale": "Five-year conservative/base cash-flow scenarios. Required returns 12%/10%, terminal growth 2%/3% are Onecool hurdles, not observed WACC. Growth/cash conversion are analyst scenarios differentiated for acquisition/leverage, software SBC, semiconductor cyclicality, capex and AI concentration; bull-case extrapolation is excluded. See versioned policy for assumptions and limitations.",
+              "fair_range_sources": [
+                "https://pages.stern.nyu.edu/~adamodar/New_Home_Page/invfables/peratio.htm",
+                "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md",
+                "https://news.abbvie.com/2026-09-03-AbbVie-Completes-Acquisition-of-Apogee-Therapeutics",
+                "https://www.sec.gov/Archives/edgar/data/1551152/000155115226000026/abbv-20260630.htm",
+                "https://www.sec.gov/Archives/edgar/data/1551152/000110465926076067/tm2618365d1_ex99-2.htm"
+              ]
+            }
+          }
+        },
+        "lynch_research": {
+          "version": "onecool_lynch_research_v1",
+          "company_type": {
+            "status": "PROVISIONAL",
+            "primary": "FAST_GROWER",
+            "candidates": [
+              "FAST_GROWER"
+            ],
+            "evidence": [
+              {
+                "field": "verified_quality_gates",
+                "value": [
+                  "structural_growth_runway",
+                  "financial_quality"
+                ],
+                "interpretation": "FAST_GROWTH_CANDIDATE_NOT_DURABILITY_PROOF"
+              }
+            ],
+            "unresolved_categories": [
+              "SLOW_GROWER",
+              "STALWART",
+              "CYCLICAL",
+              "TURNAROUND",
+              "ASSET_PLAY"
+            ]
+          },
+          "investment_story": {
+            "status": "EVIDENCE_ONLY",
+            "evidence": [
+              {
+                "field": "competitive_advantage",
+                "value": "PASS",
+                "as_of": "2026-07-31",
+                "rationale": "Skyrizi與Rinvoq季度收入均約年增24%，神經科學組合年增20.3%，多個治療領域與研發管線降低單一產品依賴。",
+                "sources": [
+                  "https://news.abbvie.com/2026-07-31-AbbVie-Reports-Second-Quarter-2026-Financial-Results"
+                ]
+              },
+              {
+                "field": "structural_growth_runway",
+                "value": "PASS",
+                "as_of": "2026-07-31",
+                "rationale": "免疫學與神經科學核心產品維持雙位數成長，並透過Apogee交易補強後期免疫學管線，支持Humira專利後的成長接續。",
+                "sources": [
+                  "https://news.abbvie.com/2026-07-31-AbbVie-Reports-Second-Quarter-2026-Financial-Results"
+                ]
+              },
+              {
+                "field": "financial_quality",
+                "value": "PASS",
+                "as_of": "2026-07-31",
+                "rationale": "季度營收169.9億美元年增10.2%，調整後EPS年增22.9%，調整後營業利益率48.3%；成長與獲利能力均獲官方財報支持。",
+                "sources": [
+                  "https://news.abbvie.com/2026-07-31-AbbVie-Reports-Second-Quarter-2026-Financial-Results"
+                ]
+              },
+              {
+                "field": "business_risk_and_governance",
+                "value": "PASS",
+                "as_of": "2026-07-31",
+                "rationale": "Humira收入年減35.9%、109億美元Apogee收購與IPR&D支出是明確風險，但目前由Skyrizi、Rinvoq及神經科學成長抵銷；未見足以否決候選資格的治理事件。",
+                "sources": [
+                  "https://news.abbvie.com/2026-07-31-AbbVie-Reports-Second-Quarter-2026-Financial-Results",
+                  "https://www.sec.gov/edgar/browse/?CIK=1551152&owner=exclude"
+                ]
+              },
+              {
+                "field": "valuation",
+                "value": "FAIL",
+                "as_of": "2026-10-14",
+                "rationale": "Official historical inputs with an explicit Onecool conservative/base equity cash-flow scenario; an opinion under this discipline, not issuer fair value. Constant operating earnings full-year dilution stress, NOT company FY27 guidance. Net debt is an estimated bridge, NOT a reported closing balance; no second deduction from equity EPS.",
+                "sources": [
+                  "https://news.abbvie.com/2026-09-03-AbbVie-Completes-Acquisition-of-Apogee-Therapeutics",
+                  "https://www.sec.gov/Archives/edgar/data/1551152/000155115226000026/abbv-20260630.htm",
+                  "https://www.sec.gov/Archives/edgar/data/1551152/000110465926076067/tm2618365d1_ex99-2.htm"
+                ]
+              }
+            ],
+            "required_manual_confirmation": [
+              "BUSINESS_DRIVER",
+              "DURABILITY",
+              "MANAGEMENT_EXECUTION"
+            ]
+          },
+          "story_break_conditions": [
+            {
+              "condition": "VERIFIED_COMPETITIVE_ADVANTAGE_FAILS",
+              "meaning": "Investment story requires review"
+            },
+            {
+              "condition": "VERIFIED_STRUCTURAL_GROWTH_RUNWAY_FAILS",
+              "meaning": "Growth story requires review"
+            },
+            {
+              "condition": "VERIFIED_FINANCIAL_QUALITY_OR_GOVERNANCE_FAILS",
+              "meaning": "Quality story requires review"
+            }
+          ],
+          "policy": {
+            "decision_authority": "NONE",
+            "ranking_effect": "NONE",
+            "score_effect": "NONE",
+            "cta_effect": "NONE",
+            "action_effect": "NONE",
+            "observation_is_research_lead_only": true,
+            "manual_confirmation_required": true
+          }
+        }
+      },
+      {
+        "symbol": "THC",
+        "price_as_of": "2026-10-14",
+        "fundamentals_as_of": "2026-06-30",
+        "fundamental_sources": [],
+        "fundamentals_published_as_of": null,
+        "liquidity_average_50d_usd": 190794605.84,
+        "liquidity_minimum_50d_usd": 20000000,
+        "liquidity_status": "PASSED",
+        "new_entry_eligible": true,
+        "validation_warnings": [],
+        "price_basis": "adjusted_close",
+        "score_version": "onecool_us_dual_v2",
+        "thresholds": {
+          "canslim": 70,
+          "minervini": 80
+        },
+        "technical_confidence": 100,
+        "validation_status": "PASSED",
+        "validation_errors": [],
+        "canslim_score": 89,
+        "minervini_score": 96,
+        "passes_dual_system": true,
+        "company_name": "Tenet Healthcare Corporation",
+        "security_type": "COMMON_STOCK",
+        "rank_score": 88.25,
+        "status": "WAIT",
+        "trigger": "突破52週高點且成交量至少為50日均量1.5倍",
+        "formal_breakout": false,
+        "super_growth_bucket": "B",
+        "super_growth_reason": "VALUATION_INPUTS_UNAVAILABLE_OR_STALE",
+        "quality_gate_status": {
+          "competitive_advantage": {
+            "status": "PASS",
+            "as_of": "2026-07-23",
+            "rationale": "USPI為美國最大門診手術平台；地方設施、醫師合作與醫院網絡構成規模優勢，並非不可取代壟斷。",
+            "sources": [
+              "https://investor.tenethealth.com/press-releases/press-release-details/2026/Tenet-Reports-Strong-Second-Quarter-2026-Results-Raises-2026-Financial-Outlook/default.aspx"
+            ],
+            "data_gap": null,
+            "validation_errors": [],
+            "method": null,
+            "price_as_of": null,
+            "valid_through": null,
+            "inputs": {}
+          },
+          "structural_growth_runway": {
+            "status": "PASS",
+            "as_of": "2026-07-23",
+            "rationale": "門診同設施收入年增5%，服務組合與高複雜度提升；病例下降1.2%限制純量成長，不能把收購與價格成長視為持續高增長保證。",
+            "sources": [
+              "https://investor.tenethealth.com/press-releases/press-release-details/2026/Tenet-Reports-Strong-Second-Quarter-2026-Results-Raises-2026-Financial-Outlook/default.aspx"
+            ],
+            "data_gap": null,
+            "validation_errors": [],
+            "method": null,
+            "price_as_of": null,
+            "valid_through": null,
+            "inputs": {}
+          },
+          "financial_quality": {
+            "status": "PASS",
+            "as_of": "2026-07-23",
+            "rationale": "H1 CFO 22.26億、capex 3.48億；NCI分配3.98億。正現金流支持品質，但19億美元合約終止與Medicaid前期補收入須排除，不能用GAAP EPS直接估值。",
+            "sources": [
+              "https://investor.tenethealth.com/press-releases/press-release-details/2026/Tenet-Reports-Strong-Second-Quarter-2026-Results-Raises-2026-Financial-Outlook/default.aspx"
+            ],
+            "data_gap": null,
+            "validation_errors": [],
+            "method": null,
+            "price_as_of": null,
+            "valid_through": null,
+            "inputs": {}
+          },
+          "business_risk_and_governance": {
+            "status": "PASS",
+            "as_of": "2026-07-23",
+            "rationale": "監管給付、Medicaid、payer mix、勞動成本、槓桿與少數股權為主要風險；材料未見否決研究資格的治理事件。PASS不是無風險。",
+            "sources": [
+              "https://investor.tenethealth.com/press-releases/press-release-details/2026/Tenet-Reports-Strong-Second-Quarter-2026-Results-Raises-2026-Financial-Outlook/default.aspx"
+            ],
+            "data_gap": null,
+            "validation_errors": [],
+            "method": null,
+            "price_as_of": null,
+            "valid_through": null,
+            "inputs": {}
+          },
+          "circle_of_competence": {
+            "status": "UNKNOWN",
+            "as_of": "2026-10-13",
+            "rationale": "正式建倉前確認醫療給付、NCI與營運驅動，不阻擋研究排名。",
+            "sources": [
+              "https://investor.tenethealth.com/press-releases/press-release-details/2026/Tenet-Reports-Strong-Second-Quarter-2026-Results-Raises-2026-Financial-Outlook/default.aspx"
+            ],
+            "data_gap": "PRE_TRADE_USER_CONFIRMATION_ONLY",
+            "validation_errors": [],
+            "method": null,
+            "price_as_of": null,
+            "valid_through": null,
+            "inputs": {}
+          },
+          "valuation": {
+            "status": "UNKNOWN",
+            "as_of": "2026-10-14",
+            "rationale": "Current-session valuation model not yet validated.",
+            "sources": [],
+            "data_gap": "MISSING_SOURCE_BACKED_VALUATION_ASSESSMENT",
+            "validation_errors": [],
+            "method": null,
+            "price_as_of": null,
+            "valid_through": null,
+            "inputs": {}
+          }
+        },
+        "evidence_coverage": "PARTIAL",
+        "missing_evidence": [
+          "circle_of_competence",
+          "valuation"
+        ],
+        "quality_data_gaps": {},
+        "valuation_posture": "UNRESOLVED_WITH_SPECIFIC_GAP",
+        "cyclical_review_required": false,
+        "evidence_as_of": "2026-10-13",
+        "manual_confirmation_required": [
+          "circle_of_competence"
+        ],
+        "circle_of_competence_policy": "PRE_TRADE_USER_CONFIRMATION_NOT_DAILY_RESEARCH_BLOCKER",
+        "decision_authority": "RESEARCH_QUALITY_ONLY",
+        "quality_gate_application": "FORMAL_NEW_CANDIDATE_RESEARCH_GATE",
+        "action_eligibility": "RESEARCH_ONLY_VALUATION_DATA_GAP",
+        "valuation_input_collection": {
+          "as_of": "2026-10-14",
+          "status": "PARTIAL",
+          "gaps": [
+            "REGISTRY_UNAVAILABLE"
+          ],
+          "price_basis": "adjusted_close",
+          "inputs": {
+            "adjusted_close": 271.6000061035156
+          },
+          "sources": [],
+          "decision_authority": "REFERENCE_INPUTS_ONLY_NOT_FAIR_VALUE",
+          "price_source": {
+            "provider": "yahoo_finance_adjusted_batch",
+            "symbol": "THC",
+            "as_of": "2026-10-14",
+            "url": "https://finance.yahoo.com/quote/THC/history/"
+          },
+          "price_observation": {
+            "date": "2026-10-14",
+            "adjusted_close": 271.6000061035156,
+            "raw_close": 271.6000061035156,
+            "provider": "yahoo_finance_adjusted_batch"
+          },
+          "price_sha256": "60cee9e805df69dcf6e4c9eff062a5fcd570e5250ca8f88b370a09982d9f87c8",
+          "fundamental_fetch_status": "REGISTRY_UNAVAILABLE"
+        },
+        "lynch_research": {
+          "version": "onecool_lynch_research_v1",
+          "company_type": {
+            "status": "PROVISIONAL",
+            "primary": "FAST_GROWER",
+            "candidates": [
+              "FAST_GROWER"
+            ],
+            "evidence": [
+              {
+                "field": "verified_quality_gates",
+                "value": [
+                  "structural_growth_runway",
+                  "financial_quality"
+                ],
+                "interpretation": "FAST_GROWTH_CANDIDATE_NOT_DURABILITY_PROOF"
+              }
+            ],
+            "unresolved_categories": [
+              "SLOW_GROWER",
+              "STALWART",
+              "CYCLICAL",
+              "TURNAROUND",
+              "ASSET_PLAY"
+            ]
+          },
+          "investment_story": {
+            "status": "EVIDENCE_ONLY",
+            "evidence": [
+              {
+                "field": "competitive_advantage",
+                "value": "PASS",
+                "as_of": "2026-07-23",
+                "rationale": "USPI為美國最大門診手術平台；地方設施、醫師合作與醫院網絡構成規模優勢，並非不可取代壟斷。",
+                "sources": [
+                  "https://investor.tenethealth.com/press-releases/press-release-details/2026/Tenet-Reports-Strong-Second-Quarter-2026-Results-Raises-2026-Financial-Outlook/default.aspx"
+                ]
+              },
+              {
+                "field": "structural_growth_runway",
+                "value": "PASS",
+                "as_of": "2026-07-23",
+                "rationale": "門診同設施收入年增5%，服務組合與高複雜度提升；病例下降1.2%限制純量成長，不能把收購與價格成長視為持續高增長保證。",
+                "sources": [
+                  "https://investor.tenethealth.com/press-releases/press-release-details/2026/Tenet-Reports-Strong-Second-Quarter-2026-Results-Raises-2026-Financial-Outlook/default.aspx"
+                ]
+              },
+              {
+                "field": "financial_quality",
+                "value": "PASS",
+                "as_of": "2026-07-23",
+                "rationale": "H1 CFO 22.26億、capex 3.48億；NCI分配3.98億。正現金流支持品質，但19億美元合約終止與Medicaid前期補收入須排除，不能用GAAP EPS直接估值。",
+                "sources": [
+                  "https://investor.tenethealth.com/press-releases/press-release-details/2026/Tenet-Reports-Strong-Second-Quarter-2026-Results-Raises-2026-Financial-Outlook/default.aspx"
+                ]
+              },
+              {
+                "field": "business_risk_and_governance",
+                "value": "PASS",
+                "as_of": "2026-07-23",
+                "rationale": "監管給付、Medicaid、payer mix、勞動成本、槓桿與少數股權為主要風險；材料未見否決研究資格的治理事件。PASS不是無風險。",
+                "sources": [
+                  "https://investor.tenethealth.com/press-releases/press-release-details/2026/Tenet-Reports-Strong-Second-Quarter-2026-Results-Raises-2026-Financial-Outlook/default.aspx"
+                ]
+              }
+            ],
+            "required_manual_confirmation": [
+              "BUSINESS_DRIVER",
+              "DURABILITY",
+              "MANAGEMENT_EXECUTION"
+            ]
+          },
+          "story_break_conditions": [
+            {
+              "condition": "VERIFIED_COMPETITIVE_ADVANTAGE_FAILS",
+              "meaning": "Investment story requires review"
+            },
+            {
+              "condition": "VERIFIED_STRUCTURAL_GROWTH_RUNWAY_FAILS",
+              "meaning": "Growth story requires review"
+            },
+            {
+              "condition": "VERIFIED_FINANCIAL_QUALITY_OR_GOVERNANCE_FAILS",
+              "meaning": "Quality story requires review"
+            }
+          ],
+          "policy": {
+            "decision_authority": "NONE",
+            "ranking_effect": "NONE",
+            "score_effect": "NONE",
+            "cta_effect": "NONE",
+            "action_effect": "NONE",
+            "observation_is_research_lead_only": true,
+            "manual_confirmation_required": true
+          }
+        }
+      },
+      {
+        "symbol": "CVX",
+        "price_as_of": "2026-10-14",
+        "fundamentals_as_of": "2026-06-30",
+        "fundamental_sources": [],
+        "fundamentals_published_as_of": null,
+        "liquidity_average_50d_usd": 1755028264.64,
+        "liquidity_minimum_50d_usd": 20000000,
+        "liquidity_status": "PASSED",
+        "new_entry_eligible": true,
+        "validation_warnings": [],
+        "price_basis": "adjusted_close",
+        "score_version": "onecool_us_dual_v2",
+        "thresholds": {
+          "canslim": 70,
+          "minervini": 80
+        },
+        "technical_confidence": 100,
+        "validation_status": "PASSED",
+        "validation_errors": [],
+        "canslim_score": 89,
+        "minervini_score": 91,
+        "passes_dual_system": true,
+        "company_name": "Chevron Corporation",
+        "security_type": "COMMON_STOCK",
+        "rank_score": 86.0,
+        "status": "WAIT",
+        "trigger": "突破52週高點且成交量至少為50日均量1.5倍",
+        "formal_breakout": false,
+        "super_growth_bucket": "B",
+        "super_growth_reason": "VALUATION_INPUTS_UNAVAILABLE_OR_STALE",
+        "quality_gate_status": {
+          "competitive_advantage": {
+            "status": "PASS",
+            "as_of": "2026-07-31",
+            "rationale": "整合上游、下游與全球資產規模帶來成本、資本配置與供應韌性；季度創美國產量新高，全球產量年增20%。",
+            "sources": [
+              "https://www.chevron.com/newsroom/2026/q3/chevron-reports-second-quarter-2026-results"
+            ],
+            "data_gap": null,
+            "validation_errors": [],
+            "method": null,
+            "price_as_of": null,
+            "valid_through": null,
+            "inputs": {}
+          },
+          "structural_growth_runway": {
+            "status": "PASS",
+            "as_of": "2026-07-31",
+            "rationale": "全球產量年增20%且美國產量創高，Hess整合後資產組合支持供給成長；但屬週期產業，續航需以油價與資本紀律持續驗證。",
+            "sources": [
+              "https://www.chevron.com/newsroom/2026/q3/chevron-reports-second-quarter-2026-results"
+            ],
+            "data_gap": null,
+            "validation_errors": [],
+            "method": null,
+            "price_as_of": null,
+            "valid_through": null,
+            "inputs": {}
+          },
+          "financial_quality": {
+            "status": "PASS",
+            "as_of": "2026-07-31",
+            "rationale": "季度獲利121億美元、投入資本報酬率21%，官方結果支持目前現金獲利與資本效率；仍需區分高油價週期貢獻。",
+            "sources": [
+              "https://www.chevron.com/newsroom/2026/q3/chevron-reports-second-quarter-2026-results"
+            ],
+            "data_gap": null,
+            "validation_errors": [],
+            "method": null,
+            "price_as_of": null,
+            "valid_through": null,
+            "inputs": {}
+          },
+          "business_risk_and_governance": {
+            "status": "PASS",
+            "as_of": "2026-07-31",
+            "rationale": "主要風險是油價循環、整合執行、地緣與環境監管；官方財報與SEC披露未出現足以否決候選資格的治理事件，但必須保留週期審查。",
+            "sources": [
+              "https://www.chevron.com/newsroom/2026/q3/chevron-reports-second-quarter-2026-results",
+              "https://www.sec.gov/edgar/browse/?CIK=93410&owner=exclude"
+            ],
+            "data_gap": null,
+            "validation_errors": [],
+            "method": null,
+            "price_as_of": null,
+            "valid_through": null,
+            "inputs": {}
+          },
+          "circle_of_competence": {
+            "status": "UNKNOWN",
+            "as_of": "2026-09-17",
+            "rationale": "是否理解油氣週期、儲量品質與Hess整合風險，保留正式建倉前確認；不阻擋研究排名。",
+            "sources": [
+              "https://www.chevron.com/newsroom/2026/q3/chevron-reports-second-quarter-2026-results"
+            ],
+            "data_gap": "MISSING_SOURCE_BACKED_CIRCLE_OF_COMPETENCE_ASSESSMENT",
+            "validation_errors": [],
+            "method": null,
+            "price_as_of": null,
+            "valid_through": null,
+            "inputs": {}
+          },
+          "valuation": {
+            "status": "UNKNOWN",
+            "as_of": "2026-10-14",
+            "rationale": "Current-session valuation model not yet validated.",
+            "sources": [],
+            "data_gap": "MISSING_SOURCE_BACKED_VALUATION_ASSESSMENT",
+            "validation_errors": [],
+            "method": null,
+            "price_as_of": null,
+            "valid_through": null,
+            "inputs": {}
+          }
+        },
+        "evidence_coverage": "PARTIAL",
+        "missing_evidence": [
+          "circle_of_competence",
+          "valuation"
+        ],
+        "quality_data_gaps": {},
+        "valuation_posture": "UNRESOLVED_WITH_SPECIFIC_GAP",
+        "cyclical_review_required": true,
+        "evidence_as_of": "2026-09-17",
+        "manual_confirmation_required": [
+          "circle_of_competence"
+        ],
+        "circle_of_competence_policy": "PRE_TRADE_USER_CONFIRMATION_NOT_DAILY_RESEARCH_BLOCKER",
+        "decision_authority": "RESEARCH_QUALITY_ONLY",
+        "quality_gate_application": "FORMAL_NEW_CANDIDATE_RESEARCH_GATE",
+        "action_eligibility": "RESEARCH_ONLY_VALUATION_DATA_GAP",
+        "valuation_input_collection": {
+          "as_of": "2026-10-14",
+          "status": "PARTIAL",
+          "gaps": [
+            "SEC_COMPANYFACTS_FETCH_OR_IDENTITY_VALIDATION_FAILED"
+          ],
+          "price_basis": "adjusted_close",
+          "inputs": {
+            "adjusted_close": 222.0399932861328
+          },
+          "sources": [
+            "https://data.sec.gov/api/xbrl/companyfacts/CIK0000093410.json"
+          ],
+          "decision_authority": "REFERENCE_INPUTS_ONLY_NOT_FAIR_VALUE",
+          "price_source": {
+            "provider": "yahoo_finance_adjusted_batch",
+            "symbol": "CVX",
+            "as_of": "2026-10-14",
+            "url": "https://finance.yahoo.com/quote/CVX/history/"
+          },
+          "price_observation": {
+            "date": "2026-10-14",
+            "adjusted_close": 222.0399932861328,
+            "raw_close": 222.0399932861328,
+            "provider": "yahoo_finance_adjusted_batch"
+          },
+          "price_sha256": "6b5674d9f02236a0b3a366435c0fa29afe8a4ee9f38c246cf0331640d46446ba",
+          "fundamental_fetch_status": "FETCH_FAILED",
+          "fetch_error_type": "HTTPError"
+        },
+        "lynch_research": {
+          "version": "onecool_lynch_research_v1",
+          "company_type": {
+            "status": "PROVISIONAL",
+            "primary": "MULTIPLE_CANDIDATES",
+            "candidates": [
+              "FAST_GROWER",
+              "CYCLICAL"
+            ],
+            "evidence": [
+              {
+                "field": "industry",
+                "value": "verified cyclical flag",
+                "interpretation": "CYCLE_REVIEW_REQUIRED"
+              },
+              {
+                "field": "verified_quality_gates",
+                "value": [
+                  "structural_growth_runway",
+                  "financial_quality"
+                ],
+                "interpretation": "FAST_GROWTH_CANDIDATE_NOT_DURABILITY_PROOF"
+              }
+            ],
+            "unresolved_categories": [
+              "SLOW_GROWER",
+              "STALWART",
+              "TURNAROUND",
+              "ASSET_PLAY"
+            ]
+          },
+          "investment_story": {
+            "status": "EVIDENCE_ONLY",
+            "evidence": [
+              {
+                "field": "competitive_advantage",
+                "value": "PASS",
+                "as_of": "2026-07-31",
+                "rationale": "整合上游、下游與全球資產規模帶來成本、資本配置與供應韌性；季度創美國產量新高，全球產量年增20%。",
+                "sources": [
+                  "https://www.chevron.com/newsroom/2026/q3/chevron-reports-second-quarter-2026-results"
+                ]
+              },
+              {
+                "field": "structural_growth_runway",
+                "value": "PASS",
+                "as_of": "2026-07-31",
+                "rationale": "全球產量年增20%且美國產量創高，Hess整合後資產組合支持供給成長；但屬週期產業，續航需以油價與資本紀律持續驗證。",
+                "sources": [
+                  "https://www.chevron.com/newsroom/2026/q3/chevron-reports-second-quarter-2026-results"
+                ]
+              },
+              {
+                "field": "financial_quality",
+                "value": "PASS",
+                "as_of": "2026-07-31",
+                "rationale": "季度獲利121億美元、投入資本報酬率21%，官方結果支持目前現金獲利與資本效率；仍需區分高油價週期貢獻。",
+                "sources": [
+                  "https://www.chevron.com/newsroom/2026/q3/chevron-reports-second-quarter-2026-results"
+                ]
+              },
+              {
+                "field": "business_risk_and_governance",
+                "value": "PASS",
+                "as_of": "2026-07-31",
+                "rationale": "主要風險是油價循環、整合執行、地緣與環境監管；官方財報與SEC披露未出現足以否決候選資格的治理事件，但必須保留週期審查。",
+                "sources": [
+                  "https://www.chevron.com/newsroom/2026/q3/chevron-reports-second-quarter-2026-results",
+                  "https://www.sec.gov/edgar/browse/?CIK=93410&owner=exclude"
+                ]
+              }
+            ],
+            "required_manual_confirmation": [
+              "BUSINESS_DRIVER",
+              "DURABILITY",
+              "MANAGEMENT_EXECUTION"
+            ]
+          },
+          "story_break_conditions": [
+            {
+              "condition": "VERIFIED_COMPETITIVE_ADVANTAGE_FAILS",
+              "meaning": "Investment story requires review"
+            },
+            {
+              "condition": "VERIFIED_STRUCTURAL_GROWTH_RUNWAY_FAILS",
+              "meaning": "Growth story requires review"
+            },
+            {
+              "condition": "VERIFIED_FINANCIAL_QUALITY_OR_GOVERNANCE_FAILS",
+              "meaning": "Quality story requires review"
+            }
+          ],
+          "policy": {
+            "decision_authority": "NONE",
+            "ranking_effect": "NONE",
+            "score_effect": "NONE",
+            "cta_effect": "NONE",
+            "action_effect": "NONE",
+            "observation_is_research_lead_only": true,
+            "manual_confirmation_required": true
+          }
+        }
+      },
+      {
+        "symbol": "MSFT",
+        "price_as_of": "2026-10-14",
+        "fundamentals_as_of": "2026-06-30",
+        "fundamental_sources": [],
+        "fundamentals_published_as_of": null,
+        "liquidity_average_50d_usd": 11415295613.12,
+        "liquidity_minimum_50d_usd": 20000000,
+        "liquidity_status": "PASSED",
+        "new_entry_eligible": true,
+        "validation_warnings": [],
+        "price_basis": "adjusted_close",
+        "score_version": "onecool_us_dual_v2",
+        "thresholds": {
+          "canslim": 70,
+          "minervini": 80
+        },
+        "technical_confidence": 100,
+        "validation_status": "PASSED",
+        "validation_errors": [],
+        "canslim_score": 79,
+        "minervini_score": 99,
+        "passes_dual_system": true,
+        "company_name": "Microsoft Corporation",
+        "security_type": "COMMON_STOCK",
+        "rank_score": 85.1,
+        "status": "WAIT",
+        "trigger": "突破52週高點且成交量至少為50日均量1.5倍",
+        "formal_breakout": false,
+        "super_growth_bucket": "C",
+        "super_growth_reason": "QUALITY_DATA_GAP_NAMED",
+        "quality_gate_status": {
+          "competitive_advantage": {
+            "status": "UNKNOWN",
+            "as_of": null,
+            "rationale": null,
+            "sources": [],
+            "data_gap": "MISSING_SOURCE_BACKED_COMPETITIVE_ADVANTAGE_ASSESSMENT",
+            "validation_errors": [],
+            "method": null,
+            "price_as_of": null,
+            "valid_through": null,
+            "inputs": {}
+          },
+          "structural_growth_runway": {
+            "status": "UNKNOWN",
+            "as_of": null,
+            "rationale": null,
+            "sources": [],
+            "data_gap": "MISSING_SOURCE_BACKED_STRUCTURAL_GROWTH_RUNWAY_ASSESSMENT",
+            "validation_errors": [],
+            "method": null,
+            "price_as_of": null,
+            "valid_through": null,
+            "inputs": {}
+          },
+          "financial_quality": {
+            "status": "UNKNOWN",
+            "as_of": null,
+            "rationale": null,
+            "sources": [],
+            "data_gap": "MISSING_SOURCE_BACKED_FINANCIAL_QUALITY_ASSESSMENT",
+            "validation_errors": [],
+            "method": null,
+            "price_as_of": null,
+            "valid_through": null,
+            "inputs": {}
+          },
+          "business_risk_and_governance": {
+            "status": "UNKNOWN",
+            "as_of": null,
+            "rationale": null,
+            "sources": [],
+            "data_gap": "MISSING_SOURCE_BACKED_BUSINESS_RISK_AND_GOVERNANCE_ASSESSMENT",
+            "validation_errors": [],
+            "method": null,
+            "price_as_of": null,
+            "valid_through": null,
+            "inputs": {}
+          },
+          "circle_of_competence": {
+            "status": "UNKNOWN",
+            "as_of": null,
+            "rationale": null,
+            "sources": [],
+            "data_gap": "MISSING_SOURCE_BACKED_CIRCLE_OF_COMPETENCE_ASSESSMENT",
+            "validation_errors": [],
+            "method": null,
+            "price_as_of": null,
+            "valid_through": null,
+            "inputs": {}
+          },
+          "valuation": {
+            "status": "UNKNOWN",
+            "as_of": "2026-10-14",
+            "rationale": "Current-session valuation model not yet validated.",
+            "sources": [],
+            "data_gap": "MISSING_SOURCE_BACKED_VALUATION_ASSESSMENT",
+            "validation_errors": [],
+            "method": null,
+            "price_as_of": null,
+            "valid_through": null,
+            "inputs": {}
+          }
+        },
+        "evidence_coverage": "NONE",
+        "missing_evidence": [
+          "competitive_advantage",
+          "structural_growth_runway",
+          "financial_quality",
+          "business_risk_and_governance",
+          "circle_of_competence",
+          "valuation"
+        ],
+        "quality_data_gaps": {
+          "competitive_advantage": "MISSING_SOURCE_BACKED_COMPETITIVE_ADVANTAGE_ASSESSMENT",
+          "structural_growth_runway": "MISSING_SOURCE_BACKED_STRUCTURAL_GROWTH_RUNWAY_ASSESSMENT",
+          "financial_quality": "MISSING_SOURCE_BACKED_FINANCIAL_QUALITY_ASSESSMENT",
+          "business_risk_and_governance": "MISSING_SOURCE_BACKED_BUSINESS_RISK_AND_GOVERNANCE_ASSESSMENT"
+        },
+        "valuation_posture": "UNRESOLVED_WITH_SPECIFIC_GAP",
+        "cyclical_review_required": false,
+        "evidence_as_of": null,
+        "manual_confirmation_required": [
+          "circle_of_competence"
+        ],
+        "circle_of_competence_policy": "PRE_TRADE_USER_CONFIRMATION_NOT_DAILY_RESEARCH_BLOCKER",
+        "decision_authority": "RESEARCH_QUALITY_ONLY",
+        "quality_gate_application": "FORMAL_NEW_CANDIDATE_RESEARCH_GATE",
+        "action_eligibility": "RESEARCH_ONLY_QUALITY_EVIDENCE_INCOMPLETE",
+        "valuation_input_collection": {
+          "as_of": "2026-10-14",
+          "status": "PARTIAL",
+          "gaps": [
+            "REGISTRY_UNAVAILABLE"
+          ],
+          "price_basis": "adjusted_close",
+          "inputs": {
+            "adjusted_close": 533.6900024414062
+          },
+          "sources": [],
+          "decision_authority": "REFERENCE_INPUTS_ONLY_NOT_FAIR_VALUE",
+          "price_source": {
+            "provider": "yahoo_finance_adjusted_batch",
+            "symbol": "MSFT",
+            "as_of": "2026-10-14",
+            "url": "https://finance.yahoo.com/quote/MSFT/history/"
+          },
+          "price_observation": {
+            "date": "2026-10-14",
+            "adjusted_close": 533.6900024414062,
+            "raw_close": 533.6900024414062,
+            "provider": "yahoo_finance_adjusted_batch"
+          },
+          "price_sha256": "9a3542bb5ee968d91bb5ad985e36d84c55d2071f42d2c7b1ff70c55df69560b4",
+          "fundamental_fetch_status": "REGISTRY_UNAVAILABLE"
+        },
+        "lynch_research": {
+          "version": "onecool_lynch_research_v1",
+          "company_type": {
+            "status": "INSUFFICIENT_EVIDENCE",
+            "primary": "UNCLASSIFIED",
+            "candidates": [],
+            "evidence": [],
+            "unresolved_categories": [
+              "SLOW_GROWER",
+              "STALWART",
+              "FAST_GROWER",
+              "CYCLICAL",
+              "TURNAROUND",
+              "ASSET_PLAY"
+            ]
+          },
+          "investment_story": {
+            "status": "INSUFFICIENT_EVIDENCE",
+            "evidence": [],
+            "required_manual_confirmation": [
+              "BUSINESS_DRIVER",
+              "DURABILITY",
+              "MANAGEMENT_EXECUTION"
+            ]
+          },
+          "story_break_conditions": [
+            {
+              "condition": "VERIFIED_COMPETITIVE_ADVANTAGE_FAILS",
+              "meaning": "Investment story requires review"
+            },
+            {
+              "condition": "VERIFIED_STRUCTURAL_GROWTH_RUNWAY_FAILS",
+              "meaning": "Growth story requires review"
+            },
+            {
+              "condition": "VERIFIED_FINANCIAL_QUALITY_OR_GOVERNANCE_FAILS",
+              "meaning": "Quality story requires review"
+            }
+          ],
+          "policy": {
+            "decision_authority": "NONE",
+            "ranking_effect": "NONE",
+            "score_effect": "NONE",
+            "cta_effect": "NONE",
+            "action_effect": "NONE",
+            "observation_is_research_lead_only": true,
+            "manual_confirmation_required": true
+          }
+        }
+      }
+    ],
+    "exclusions": [
+      {
+        "symbol": "BA",
+        "technical_confidence": 100,
+        "reason": "Reviewed nonpositive prior EPS; growth comparison is not meaningful under the existing rule",
+        "assessment_status": "RULE_EXCLUDED",
+        "reviewed_evidence": {
+          "symbol": "BA",
+          "status": "NONPOSITIVE_COMPARISON_BASE",
+          "review_status": "VERIFIED",
+          "period_end": "2026-06-30",
+          "prior_period_end": "2025-06-30",
+          "current_eps": -0.67,
+          "prior_eps": -0.92,
+          "published_as_of": "2026-07-28",
+          "valid_through": "2026-10-15",
+          "source_url": "https://investors.boeing.com/investors/news/press-release-details/2026/Boeing-Reports-Second-Quarter-Results/",
+          "reviewed_as_of": "2026-10-02",
+          "review_note": "2026 Q2 GAAP diluted loss -0.67 versus 2025 Q2 -0.92; nonpositive base."
+        },
+        "fundamental_fetch_status": "UNAVAILABLE",
+        "fundamental_validation_detail": "SEC_FETCH_FAILED"
+      },
+      {
+        "symbol": "CRWD",
+        "technical_confidence": 100,
+        "reason": "Reviewed nonpositive prior EPS; growth comparison is not meaningful under the existing rule",
+        "assessment_status": "RULE_EXCLUDED",
+        "reviewed_evidence": {
+          "symbol": "CRWD",
+          "status": "NONPOSITIVE_COMPARISON_BASE",
+          "review_status": "VERIFIED",
+          "period_end": "2026-07-31",
+          "prior_period_end": "2025-07-31",
+          "current_eps": 0.01,
+          "prior_eps": -0.07,
+          "published_as_of": "2026-08-27",
+          "valid_through": "2026-10-15",
+          "source_url": "https://ir.crowdstrike.com/news-releases/news-release-details/crowdstrike-reports-second-quarter-fiscal-year-2027-financial",
+          "reviewed_as_of": "2026-10-02",
+          "review_note": "FY2027 Q2 GAAP diluted EPS 0.01 versus FY2026 Q2 -0.07; nonpositive base."
+        },
+        "fundamental_fetch_status": "UNAVAILABLE",
+        "fundamental_validation_detail": "SEC_FETCH_FAILED"
+      },
+      {
+        "symbol": "SNDK",
+        "technical_confidence": 100,
+        "reason": "Reviewed nonpositive prior EPS; growth comparison is not meaningful under the existing rule",
+        "assessment_status": "RULE_EXCLUDED",
+        "reviewed_evidence": {
+          "symbol": "SNDK",
+          "status": "NONPOSITIVE_COMPARISON_BASE",
+          "review_status": "VERIFIED",
+          "period_end": "2026-07-03",
+          "prior_period_end": "2025-06-27",
+          "current_eps": 43.97,
+          "prior_eps": -0.16,
+          "published_as_of": "2026-08-05",
+          "valid_through": "2026-10-15",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/2023554/000162828026053346/sndkq4-26ex991xpressrelease.htm",
+          "reviewed_as_of": "2026-10-02",
+          "review_note": "FY2026 Q4 GAAP diluted EPS 43.97 versus FY2025 Q4 loss 0.16; supersedes prior Q3 evidence."
+        },
+        "fundamental_fetch_status": "UNAVAILABLE",
+        "fundamental_validation_detail": "SEC_FETCH_FAILED"
+      },
+      {
+        "symbol": "SNOW",
+        "technical_confidence": 100,
+        "reason": "Reviewed nonpositive prior EPS; growth comparison is not meaningful under the existing rule",
+        "assessment_status": "RULE_EXCLUDED",
+        "reviewed_evidence": {
+          "symbol": "SNOW",
+          "status": "NONPOSITIVE_COMPARISON_BASE",
+          "review_status": "VERIFIED",
+          "period_end": "2026-07-31",
+          "prior_period_end": "2025-07-31",
+          "current_eps": -0.55,
+          "prior_eps": -0.89,
+          "published_as_of": "2026-09-04",
+          "valid_through": "2026-10-15",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1640147/000164014726000033/fy2027q2earnings.htm",
+          "reviewed_as_of": "2026-10-02",
+          "review_note": "FY2027 Q2 GAAP diluted loss -0.55 versus FY2026 Q2 -0.89; nonpositive base."
+        },
+        "fundamental_fetch_status": "UNAVAILABLE",
+        "fundamental_validation_detail": "SEC_FETCH_FAILED"
+      },
+      {
+        "symbol": "SPOT",
+        "technical_confidence": 100,
+        "reason": "Reviewed nonpositive prior EPS; growth comparison is not meaningful under the existing rule",
+        "assessment_status": "RULE_EXCLUDED",
+        "reviewed_evidence": {
+          "symbol": "SPOT",
+          "status": "NONPOSITIVE_COMPARISON_BASE",
+          "review_status": "VERIFIED",
+          "period_end": "2026-06-30",
+          "prior_period_end": "2025-06-30",
+          "current_eps": 2.61,
+          "prior_eps": -0.42,
+          "published_as_of": "2026-08-04",
+          "valid_through": "2026-10-15",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1639920/000162828026052543/spot-20260630x6xk.htm",
+          "accounting_basis": "IFRS",
+          "currency": "EUR",
+          "reviewed_as_of": "2026-10-02",
+          "review_note": "2026 Q2 IFRS diluted EPS EUR 2.61 versus 2025 Q2 loss EUR 0.42; nonpositive base."
+        },
+        "fundamental_fetch_status": "UNAVAILABLE",
+        "fundamental_validation_detail": "SEC_FETCH_FAILED"
+      },
+      {
+        "symbol": "SYM",
+        "technical_confidence": 100,
+        "reason": "Reviewed nonpositive prior EPS; growth comparison is not meaningful under the existing rule",
+        "assessment_status": "RULE_EXCLUDED",
+        "reviewed_evidence": {
+          "symbol": "SYM",
+          "status": "NONPOSITIVE_COMPARISON_BASE",
+          "review_status": "VERIFIED",
+          "period_end": "2026-06-27",
+          "prior_period_end": "2025-06-28",
+          "current_eps": 0.09,
+          "prior_eps": -0.04,
+          "published_as_of": "2026-08-05",
+          "valid_through": "2026-10-15",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1837240/000183724026000043/sym-20260627.htm",
+          "reviewed_as_of": "2026-10-02",
+          "review_note": "FY2026 Q3 Class A GAAP diluted EPS 0.09 versus FY2025 Q3 -0.04; nonpositive base."
+        },
+        "fundamental_fetch_status": "UNAVAILABLE",
+        "fundamental_validation_detail": "SEC_FETCH_FAILED"
+      }
+    ],
+    "rule_excluded_count": 6,
+    "assessment_count": 70,
+    "assessment_status": "COMPLETE",
+    "fundamental_fetch_status": {
+      "AAPL": "CACHED_VALID",
+      "ABBV": "CACHED_VALID",
+      "ABNB": "CACHED_VALID",
+      "ADBE": "CACHED_VALID",
+      "ADI": "CACHED_VALID",
+      "AMD": "CACHED_VALID",
+      "AMAT": "CACHED_VALID",
+      "AMGN": "CACHED_VALID",
+      "AMZN": "CACHED_VALID",
+      "ANET": "CACHED_VALID",
+      "APP": "CACHED_VALID",
+      "AVGO": "CACHED_VALID",
+      "AXP": "CACHED_VALID",
+      "BKNG": "CACHED_VALID",
+      "CAT": "CACHED_VALID",
+      "CEG": "CACHED_VALID",
+      "CLS": "CACHED_VALID",
+      "COIN": "UNAVAILABLE_USING_VALID_CACHE",
+      "COST": "CACHED_VALID",
+      "CRDO": "CACHED_VALID",
+      "CSCO": "CACHED_VALID",
+      "CVX": "CACHED_VALID",
+      "DDOG": "CACHED_VALID",
+      "DE": "CACHED_VALID",
+      "DELL": "CACHED_VALID",
+      "DUOL": "CACHED_VALID",
+      "ETN": "CACHED_VALID",
+      "GE": "CACHED_VALID",
+      "GEV": "CACHED_VALID",
+      "GILD": "UNAVAILABLE_USING_VALID_CACHE",
+      "GOOGL": "CACHED_VALID",
+      "GS": "CACHED_VALID",
+      "HOOD": "CACHED_VALID",
+      "IBM": "CACHED_VALID",
+      "JPM": "CACHED_VALID",
+      "KLAC": "CACHED_VALID",
+      "LLY": "CACHED_VALID",
+      "LRCX": "CACHED_VALID",
+      "MA": "CACHED_VALID",
+      "META": "CACHED_VALID",
+      "MPWR": "CACHED_VALID",
+      "MRVL": "CACHED_VALID",
+      "MS": "CACHED_VALID",
+      "MSFT": "CACHED_VALID",
+      "MU": "CACHED_VALID",
+      "NFLX": "CACHED_VALID",
+      "NOW": "CACHED_VALID",
+      "NVDA": "CACHED_VALID",
+      "ORCL": "CACHED_VALID",
+      "PANW": "UNAVAILABLE_USING_VALID_CACHE",
+      "PLTR": "CACHED_VALID",
+      "QCOM": "CACHED_VALID",
+      "RTX": "CACHED_VALID",
+      "THC": "CACHED_VALID",
+      "TSM": "CACHED_VALID",
+      "TSLA": "CACHED_VALID",
+      "UBER": "CACHED_VALID",
+      "V": "CACHED_VALID",
+      "VRT": "CACHED_VALID",
+      "WAB": "CACHED_VALID",
+      "WDC": "CACHED_VALID",
+      "WMT": "CACHED_VALID",
+      "XYZ": "FETCHED",
+      "GD": "CACHED_VALID",
+      "BABA": "FETCHED",
+      "SWKS": "FETCHED",
+      "RH": "FETCHED",
+      "UPBD": "FETCHED",
+      "BA": "UNAVAILABLE",
+      "CRWD": "UNAVAILABLE",
+      "SNDK": "UNAVAILABLE",
+      "SNOW": "UNAVAILABLE",
+      "SPOT": "UNAVAILABLE",
+      "SYM": "UNAVAILABLE"
+    },
+    "price_fetch_diagnostics": {},
+    "valuation_input_refresh_status": "COMPLETED_WITH_PER_SYMBOL_STATUS",
+    "super_growth_quality_gate": {
+      "framework": "LIN_TZU_YANG_QUALITY_PLUS_ONECOOL_CTA_TIMING",
+      "scope": "NEW_US_STOCK_CANDIDATES_ONLY",
+      "bucket_counts": {
+        "A": 0,
+        "B": 4,
+        "C": 1,
+        "REJECT": 0,
+        "INNOVATION_OPTION": 0,
+        "EXISTING_POSITION": 0
+      },
+      "ranking_policy": "ANNOTATE_ONLY; NEVER_REORDER_TECHNICAL_SCAN",
+      "missing_evidence_policy": "UNKNOWN_NEVER_INFERRED",
+      "valuation_policy": "DATED_INPUTS_REQUIRED; FAIL_MEANS_TOO_EXPENSIVE; UNKNOWN_MUST_NAME_ONE_SPECIFIC_DATA_GAP",
+      "circle_of_competence_policy": "PRE_TRADE_USER_CONFIRMATION_NOT_DAILY_RESEARCH_BLOCKER",
+      "existing_position_policy": "NO_AUTOMATIC_EXIT_OR_DOWNGRADE",
+      "innovation_option_policy": "TSLA_AND_SPCX_EXEMPT",
+      "canslim_role": "CONCEPTUAL_CROSSWALK_ONLY_NOT_AN_EXTRA_SCORE"
+    },
+    "lynch_research_layer": {
+      "framework": "PETER_LYNCH_COMPANY_TYPE_AND_STORY",
+      "scope": "DAILY_TOP5_RESEARCH_ANNOTATION_ONLY",
+      "ranking_policy": "ANNOTATE_ONLY; NEVER_REORDER_OR_RESCORE",
+      "action_policy": "NO_CTA_OR_ACTION_AUTHORITY",
+      "missing_evidence_policy": "UNCLASSIFIED_NEVER_INFERRED"
+    },
+    "publication_status": "CURRENT"
+  },
+  "corporate_action_validation": [],
+  "provider_fallback_policy": "yahoo_finance_raw_primary; alpha_vantage_core_price_fallback; last_successful_cache_on_failure"
+}
