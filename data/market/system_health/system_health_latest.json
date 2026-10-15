@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-10-15T08:32:07.456652+00:00",
+  "generated_at": "2026-10-15T09:12:27.267382+00:00",
   "taipei_date": "2026-10-15",
   "status": "BLOCKED",
   "scope_status": {
@@ -65,9 +65,9 @@
   "end_to_end_status": "NOT_FULLY_VERIFIED",
   "action_readiness": "UNSAFE_FOR_AFFECTED_REPORTS",
   "counts": {
-    "ready": 14,
+    "ready": 15,
     "partial": 1,
-    "blocked": 4
+    "blocked": 3
   },
   "modules": [
     {
@@ -163,9 +163,9 @@
       "label": "Taiwan 0050/2330 CTA",
       "scope": "asia",
       "critical": true,
-      "status": "BLOCKED",
-      "reason": "data is stale",
-      "observed_as_of": "2026-10-14",
+      "status": "READY",
+      "reason": "current",
+      "observed_as_of": "2026-10-15",
       "recovery_workflow": "update-taiwan-cta.yml",
       "retryable": true,
       "impacted_reports": [
@@ -359,20 +359,6 @@
       ]
     },
     {
-      "module_id": "taiwan_market_cta",
-      "label": "Taiwan 0050/2330 CTA",
-      "scope": "asia",
-      "critical": true,
-      "status": "BLOCKED",
-      "reason": "data is stale",
-      "observed_as_of": "2026-10-14",
-      "recovery_workflow": "update-taiwan-cta.yml",
-      "retryable": true,
-      "impacted_reports": [
-        "台股日報"
-      ]
-    },
-    {
       "module_id": "taiwan_stock_screen",
       "label": "Taiwan Stock Screen",
       "scope": "asia",
@@ -416,9 +402,8 @@
     }
   ],
   "recovery_workflows": [
-    "update-taiwan-cta.yml",
     "update-taiwan-stock-screen.yml"
   ],
-  "issue_fingerprint": "9693ac14abe28aaeee721a87e51e086bd8489243088171cb5280bb5db11858d8",
+  "issue_fingerprint": "7d591deb648670d713d45cd876eeb686b890a470b1944e4011053000468245fd",
   "policy": "Health monitoring only; never changes CTA, rankings, or investment decisions."
 }
