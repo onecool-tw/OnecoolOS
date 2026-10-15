@@ -26,6 +26,7 @@ def _seed_ready(root: Path) -> None:
         "expected_as_of": daily,
         "data_status": READY,
         "results": [
+            {"symbol": "BTC", "as_of": "2026-08-29", "cta": "SELL"},
             {"symbol": "1306", "as_of": "2026-08-28", "cta": "HOLD",
              "update_status": "CURRENT"},
             {"symbol": "069500", "as_of": "2026-08-28", "cta": "HOLD",
@@ -56,6 +57,35 @@ def _seed_ready(root: Path) -> None:
 
 def _module(report: dict, module_id: str) -> dict:
     return next(item for item in report["modules"] if item["module_id"] == module_id)
+
+
+@pytest.mark.parametrize("rows", [
+    [],
+    [{"symbol": "BTC", "as_of": "2026-08-28", "cta": "SELL"}],
+    [{"symbol": "BTC", "as_of": "2026-08-30", "cta": "SELL"}],
+    [{"symbol": "BTC", "as_of": "2026-08-29", "cta": "UNKNOWN"}],
+    [{"symbol": "BTC", "as_of": "2026-08-29", "cta": "SELL"}] * 2,
+])
+def test_bitcoin_freshness_does_not_inherit_equity_readiness(tmp_path, rows):
+    _seed_ready(tmp_path)
+    path = tmp_path / "data/market/dashboard/dashboard_latest.json"
+    payload = json.loads(path.read_text())
+    payload["results"] = [r for r in payload["results"] if r["symbol"] != "BTC"] + rows
+    _write(tmp_path, "data/market/dashboard/dashboard_latest.json", payload)
+    report = build_health_report(tmp_path, now=NOW)
+    assert _module(report, "market_dashboard")["status"] == READY
+    btc = _module(report, "bitcoin_daily")
+    assert btc["status"] == BLOCKED
+    assert btc["retryable"] is True
+    assert btc["recovery_workflow"] == "update-market-dashboard.yml"
+
+
+def test_bitcoin_utc_midnight_publication_grace(tmp_path):
+    _seed_ready(tmp_path)
+    before = datetime(2026, 8, 31, 0, 29, tzinfo=timezone.utc)
+    after = datetime(2026, 8, 31, 0, 30, tzinfo=timezone.utc)
+    assert _module(build_health_report(tmp_path, now=before), "bitcoin_daily")["status"] == READY
+    assert _module(build_health_report(tmp_path, now=after), "bitcoin_daily")["status"] == BLOCKED
 
 
 def test_all_ready_caches_produce_ready_health(tmp_path: Path) -> None:

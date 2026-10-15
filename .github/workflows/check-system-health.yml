@@ -38,6 +38,9 @@ on:
     # Daily report inputs: recover at 10:15 and run the final data gate at
     # 15:30 Taipei, after the 14:00 US dashboard retry.
     - cron: "15 2 * * 1-6"
+    # Second pre-fund recovery if the first scheduled event was delayed/missed.
+    - cron: "5 3 * * 1-6"
+    - cron: "20 3 * * 1-6"
     - cron: "30 7 * * 1-6"
     # Taiwan close inputs: start recovery before the 18:00 report, verify it,
     # then retain a final recovery/verification pair for delayed providers.
@@ -92,6 +95,8 @@ jobs:
           else
             case "$EVENT_SCHEDULE" in
               "15 2 * * 1-6") scope="morning"; phase="primary" ;;
+              "5 3 * * 1-6") scope="morning"; phase="primary" ;;
+              "20 3 * * 1-6") scope="morning"; phase="verify" ;;
               "30 7 * * 1-6") scope="morning"; phase="verify" ;;
               "30 8 * * 1-5") scope="asia"; phase="primary" ;;
               "10 9 * * 1-5") scope="asia"; phase="verify" ;;
