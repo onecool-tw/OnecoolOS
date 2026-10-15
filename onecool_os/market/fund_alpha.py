@@ -6,6 +6,7 @@ import csv
 import json
 import math
 import statistics
+import time
 from calendar import monthrange
 from collections.abc import Callable, Iterable
 from dataclasses import asdict, dataclass
@@ -13,6 +14,7 @@ from datetime import date, timedelta
 from pathlib import Path
 from typing import Any
 from urllib.parse import urlencode
+from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
 from onecool_os.market.etf_cta import DailyBar, ETFCTAError
@@ -115,7 +117,20 @@ class AnueFundClient:
         query = urlencode(
             {"fundDetailEnum": "NavHIS", "FundID": fund_code}
         )
-        payload = json.loads(self._request(f"{self.endpoint}?{query}"))
+        url = f"{self.endpoint}?{query}"
+        for attempt in range(3):
+            try:
+                response = self._request(url)
+                break
+            except HTTPError as exc:
+                if exc.code not in {429, 500, 502, 503, 504} or attempt == 2:
+                    raise
+            except (URLError, TimeoutError):
+                if attempt == 2:
+                    raise
+            time.sleep(2 ** (attempt + 1))
+        # Invalid JSON or NAV data is not a transient network failure.
+        payload = json.loads(response)
         return parse_anue_nav_history(payload, fund_code)
 
 
