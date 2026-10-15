@@ -1,10 +1,10 @@
 {
   "schema_version": "1.9",
   "module": "Onecool Market Dashboard",
-  "generated_at": "2026-10-15T06:00:11.794254+00:00",
+  "generated_at": "2026-10-15T08:06:56.068832+00:00",
   "expected_as_of": "2026-10-14",
   "data_status": "READY",
-  "last_successful_update_at": "2026-10-15T06:00:11.794254+00:00",
+  "last_successful_update_at": "2026-10-15T08:06:56.068832+00:00",
   "index_cta_basis": {
     "method": "ETF/index proxies; shared CTA engine",
     "mappings": {
@@ -21,21 +21,21 @@
       "South Korea": "069500"
     },
     "as_of": {
-      "Japan": "2026-10-14",
-      "South Korea": "2026-10-14"
+      "Japan": "2026-10-15",
+      "South Korea": "2026-10-15"
     },
     "freshness": {
       "Japan": {
         "symbol": "1306",
-        "as_of": "2026-10-14",
-        "expected_as_of": "2026-10-14",
+        "as_of": "2026-10-15",
+        "expected_as_of": "2026-10-15",
         "update_status": "CURRENT",
         "reason": "matches latest completed local session"
       },
       "South Korea": {
         "symbol": "069500",
-        "as_of": "2026-10-14",
-        "expected_as_of": "2026-10-14",
+        "as_of": "2026-10-15",
+        "expected_as_of": "2026-10-15",
         "update_status": "CURRENT",
         "reason": "matches latest completed local session"
       }
@@ -368,23 +368,23 @@
       "provider_symbol": "1306.T",
       "market": "JP",
       "theme": "broad_market",
-      "as_of": "2026-10-14",
-      "current_price": 431.299988,
-      "sma50": 427.202,
-      "sma200": 396.477133,
-      "weekly_ma30": 412.606375,
-      "weekly_ma50": 393.633525,
+      "as_of": "2026-10-15",
+      "current_price": 421.0,
+      "sma50": 427.367999,
+      "sma200": 396.846479,
+      "weekly_ma30": 412.263042,
+      "weekly_ma50": 393.427525,
       "trend": "BULLISH",
       "cta": "HOLD",
-      "confidence": 100,
+      "confidence": 75,
       "reason": "Weekly golden trend is aging without a fresh daily cross.",
       "daily_cross": {
         "alignment": "GOLDEN",
         "cross_status": "NONE",
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2025-06-18",
-        "periods_since_cross": 321,
-        "spread_pct": 7.749467,
+        "periods_since_cross": 322,
+        "spread_pct": 7.691015,
         "phase": "AGING"
       },
       "weekly_cross": {
@@ -393,23 +393,23 @@
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2025-03-14",
         "periods_since_cross": 83,
-        "spread_pct": 4.819927,
+        "spread_pct": 4.787544,
         "phase": "AGING"
       },
       "update_status": "CURRENT",
-      "source_data_as_of": "2026-10-14"
+      "source_data_as_of": "2026-10-15"
     },
     {
       "symbol": "069500",
       "provider_symbol": "069500.KS",
       "market": "KR",
       "theme": "broad_market",
-      "as_of": "2026-10-14",
-      "current_price": 94805.0,
-      "sma50": 106021.9,
-      "sma200": 98876.290749,
-      "weekly_ma30": 110777.244529,
-      "weekly_ma50": 94189.804737,
+      "as_of": "2026-10-15",
+      "current_price": 87025.0,
+      "sma50": 106009.7,
+      "sma200": 99031.532349,
+      "weekly_ma30": 110517.911196,
+      "weekly_ma50": 94034.204737,
       "trend": "BULLISH",
       "cta": "HOLD",
       "confidence": 50,
@@ -419,8 +419,8 @@
         "cross_status": "NONE",
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2025-05-22",
-        "periods_since_cross": 339,
-        "spread_pct": 7.226818,
+        "periods_since_cross": 340,
+        "spread_pct": 7.04641,
         "phase": "AGING"
       },
       "weekly_cross": {
@@ -429,11 +429,11 @@
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2025-07-04",
         "periods_since_cross": 67,
-        "spread_pct": 17.610653,
+        "spread_pct": 17.529479,
         "phase": "AGING"
       },
       "update_status": "CURRENT",
-      "source_data_as_of": "2026-10-14"
+      "source_data_as_of": "2026-10-15"
     },
     {
       "symbol": "BABA",
@@ -815,9 +815,9 @@
       "market": "CONTEXT",
       "theme": "crypto_risk_appetite",
       "as_of": "2026-10-14",
-      "current_price": 81566.28125,
-      "sma50": 81164.788906,
-      "sma200": 72204.986055,
+      "current_price": 81562.492188,
+      "sma50": 81164.713125,
+      "sma200": 72204.967109,
       "weekly_ma30": 72109.689974,
       "weekly_ma50": 77113.938359,
       "trend": "MIXED",
@@ -830,7 +830,7 @@
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2026-09-08",
         "periods_since_cross": 36,
-        "spread_pct": 12.408842,
+        "spread_pct": 12.408767,
         "phase": "ACTIVE"
       },
       "weekly_cross": {
@@ -2405,15 +2405,17 @@
         "status": "WAIT",
         "trigger": "突破52週高點且成交量至少為50日均量1.5倍",
         "formal_breakout": false,
-        "super_growth_bucket": "C",
-        "super_growth_reason": "QUALITY_DATA_GAP_NAMED",
+        "super_growth_bucket": "B",
+        "super_growth_reason": "VALUATION_INPUTS_UNAVAILABLE_OR_STALE",
         "quality_gate_status": {
           "competitive_advantage": {
-            "status": "UNKNOWN",
-            "as_of": null,
-            "rationale": null,
-            "sources": [],
-            "data_gap": "MISSING_SOURCE_BACKED_COMPETITIVE_ADVANTAGE_ASSESSMENT",
+            "status": "PASS",
+            "as_of": "2026-07-29",
+            "rationale": "Microsoft365與Azure企業分銷、整合與轉換成本構成優勢；Azure年度收入超過1000億美元，Copilot付費席位逾3000萬。",
+            "sources": [
+              "https://www.microsoft.com/en-us/investor/earnings/fy-2026-q4/press-release-webcast"
+            ],
+            "data_gap": null,
             "validation_errors": [],
             "method": null,
             "price_as_of": null,
@@ -2421,11 +2423,13 @@
             "inputs": {}
           },
           "structural_growth_runway": {
-            "status": "UNKNOWN",
-            "as_of": null,
-            "rationale": null,
-            "sources": [],
-            "data_gap": "MISSING_SOURCE_BACKED_STRUCTURAL_GROWTH_RUNWAY_ASSESSMENT",
+            "status": "PASS",
+            "as_of": "2026-07-29",
+            "rationale": "季度Azure增43%、Cloud增27%；RPO增84%。大型合約、供給限制與AI投資回報仍須監測，未把RPO當保證營收。",
+            "sources": [
+              "https://www.microsoft.com/en-us/investor/earnings/fy-2026-q4/press-release-webcast"
+            ],
+            "data_gap": null,
             "validation_errors": [],
             "method": null,
             "price_as_of": null,
@@ -2433,11 +2437,13 @@
             "inputs": {}
           },
           "financial_quality": {
-            "status": "UNKNOWN",
-            "as_of": null,
-            "rationale": null,
-            "sources": [],
-            "data_gap": "MISSING_SOURCE_BACKED_FINANCIAL_QUALITY_ASSESSMENT",
+            "status": "PASS",
+            "as_of": "2026-07-29",
+            "rationale": "FY26 CFO182935m、現金capex115948m，FCF66987m；保留SBC及營運成本，AI資本強度侵蝕現金轉換。",
+            "sources": [
+              "https://www.microsoft.com/en-us/investor/earnings/fy-2026-q4/press-release-webcast"
+            ],
+            "data_gap": null,
             "validation_errors": [],
             "method": null,
             "price_as_of": null,
@@ -2445,11 +2451,13 @@
             "inputs": {}
           },
           "business_risk_and_governance": {
-            "status": "UNKNOWN",
-            "as_of": null,
-            "rationale": null,
-            "sources": [],
-            "data_gap": "MISSING_SOURCE_BACKED_BUSINESS_RISK_AND_GOVERNANCE_ASSESSMENT",
+            "status": "PASS",
+            "as_of": "2026-07-29",
+            "rationale": "AI基建回收、模型競爭、資安與反壟斷風險需監測；目前未見官方材料足以否決研究資格的事件。",
+            "sources": [
+              "https://www.microsoft.com/en-us/investor/earnings/fy-2026-q4/press-release-webcast"
+            ],
+            "data_gap": null,
             "validation_errors": [],
             "method": null,
             "price_as_of": null,
@@ -2458,10 +2466,12 @@
           },
           "circle_of_competence": {
             "status": "UNKNOWN",
-            "as_of": null,
-            "rationale": null,
-            "sources": [],
-            "data_gap": "MISSING_SOURCE_BACKED_CIRCLE_OF_COMPETENCE_ASSESSMENT",
+            "as_of": "2026-10-14",
+            "rationale": "建倉前確認雲端使用量、AI資本支出與投資回收理解；不阻擋排名。",
+            "sources": [
+              "https://www.microsoft.com/en-us/investor/earnings/fy-2026-q4/press-release-webcast"
+            ],
+            "data_gap": "PRE_TRADE_USER_CONFIRMATION_ONLY",
             "validation_errors": [],
             "method": null,
             "price_as_of": null,
@@ -2481,31 +2491,22 @@
             "inputs": {}
           }
         },
-        "evidence_coverage": "NONE",
+        "evidence_coverage": "PARTIAL",
         "missing_evidence": [
-          "competitive_advantage",
-          "structural_growth_runway",
-          "financial_quality",
-          "business_risk_and_governance",
           "circle_of_competence",
           "valuation"
         ],
-        "quality_data_gaps": {
-          "competitive_advantage": "MISSING_SOURCE_BACKED_COMPETITIVE_ADVANTAGE_ASSESSMENT",
-          "structural_growth_runway": "MISSING_SOURCE_BACKED_STRUCTURAL_GROWTH_RUNWAY_ASSESSMENT",
-          "financial_quality": "MISSING_SOURCE_BACKED_FINANCIAL_QUALITY_ASSESSMENT",
-          "business_risk_and_governance": "MISSING_SOURCE_BACKED_BUSINESS_RISK_AND_GOVERNANCE_ASSESSMENT"
-        },
+        "quality_data_gaps": {},
         "valuation_posture": "UNRESOLVED_WITH_SPECIFIC_GAP",
         "cyclical_review_required": false,
-        "evidence_as_of": null,
+        "evidence_as_of": "2026-10-14",
         "manual_confirmation_required": [
           "circle_of_competence"
         ],
         "circle_of_competence_policy": "PRE_TRADE_USER_CONFIRMATION_NOT_DAILY_RESEARCH_BLOCKER",
         "decision_authority": "RESEARCH_QUALITY_ONLY",
         "quality_gate_application": "FORMAL_NEW_CANDIDATE_RESEARCH_GATE",
-        "action_eligibility": "RESEARCH_ONLY_QUALITY_EVIDENCE_INCOMPLETE",
+        "action_eligibility": "RESEARCH_ONLY_VALUATION_DATA_GAP",
         "valuation_input_collection": {
           "as_of": "2026-10-14",
           "status": "PARTIAL",
@@ -2536,22 +2537,69 @@
         "lynch_research": {
           "version": "onecool_lynch_research_v1",
           "company_type": {
-            "status": "INSUFFICIENT_EVIDENCE",
-            "primary": "UNCLASSIFIED",
-            "candidates": [],
-            "evidence": [],
+            "status": "PROVISIONAL",
+            "primary": "FAST_GROWER",
+            "candidates": [
+              "FAST_GROWER"
+            ],
+            "evidence": [
+              {
+                "field": "verified_quality_gates",
+                "value": [
+                  "structural_growth_runway",
+                  "financial_quality"
+                ],
+                "interpretation": "FAST_GROWTH_CANDIDATE_NOT_DURABILITY_PROOF"
+              }
+            ],
             "unresolved_categories": [
               "SLOW_GROWER",
               "STALWART",
-              "FAST_GROWER",
               "CYCLICAL",
               "TURNAROUND",
               "ASSET_PLAY"
             ]
           },
           "investment_story": {
-            "status": "INSUFFICIENT_EVIDENCE",
-            "evidence": [],
+            "status": "EVIDENCE_ONLY",
+            "evidence": [
+              {
+                "field": "competitive_advantage",
+                "value": "PASS",
+                "as_of": "2026-07-29",
+                "rationale": "Microsoft365與Azure企業分銷、整合與轉換成本構成優勢；Azure年度收入超過1000億美元，Copilot付費席位逾3000萬。",
+                "sources": [
+                  "https://www.microsoft.com/en-us/investor/earnings/fy-2026-q4/press-release-webcast"
+                ]
+              },
+              {
+                "field": "structural_growth_runway",
+                "value": "PASS",
+                "as_of": "2026-07-29",
+                "rationale": "季度Azure增43%、Cloud增27%；RPO增84%。大型合約、供給限制與AI投資回報仍須監測，未把RPO當保證營收。",
+                "sources": [
+                  "https://www.microsoft.com/en-us/investor/earnings/fy-2026-q4/press-release-webcast"
+                ]
+              },
+              {
+                "field": "financial_quality",
+                "value": "PASS",
+                "as_of": "2026-07-29",
+                "rationale": "FY26 CFO182935m、現金capex115948m，FCF66987m；保留SBC及營運成本，AI資本強度侵蝕現金轉換。",
+                "sources": [
+                  "https://www.microsoft.com/en-us/investor/earnings/fy-2026-q4/press-release-webcast"
+                ]
+              },
+              {
+                "field": "business_risk_and_governance",
+                "value": "PASS",
+                "as_of": "2026-07-29",
+                "rationale": "AI基建回收、模型競爭、資安與反壟斷風險需監測；目前未見官方材料足以否決研究資格的事件。",
+                "sources": [
+                  "https://www.microsoft.com/en-us/investor/earnings/fy-2026-q4/press-release-webcast"
+                ]
+              }
+            ],
             "required_manual_confirmation": [
               "BUSINESS_DRIVER",
               "DURABILITY",
@@ -2806,8 +2854,8 @@
       "scope": "NEW_US_STOCK_CANDIDATES_ONLY",
       "bucket_counts": {
         "A": 0,
-        "B": 4,
-        "C": 1,
+        "B": 5,
+        "C": 0,
         "REJECT": 0,
         "INNOVATION_OPTION": 0,
         "EXISTING_POSITION": 0
