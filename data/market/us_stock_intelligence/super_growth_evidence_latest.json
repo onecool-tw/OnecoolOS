@@ -686,22 +686,39 @@
         "valuation": {
           "status": "UNKNOWN",
           "as_of": "2026-10-14",
-          "rationale": "Current-session valuation model not yet validated.",
-          "sources": []
+          "price_as_of": "2026-10-14",
+          "valid_through": "2026-10-14",
+          "rationale": "官方已確認預期交割時約37億美元債務退出合併報表、2億美元現金對價及30–40億美元一次性稅後損失；仍未揭露交易後歸屬CVX的年度持續獲利橋接，無法由50%單位成本節省或0.5百分點ROCE改善反推EPS。缺口限制估值與新增部位，非CTA或技術資料失敗。",
+          "sources": [
+            "https://www.sec.gov/Archives/edgar/data/93410/000009341026000192/cvxoct2026ex991.htm",
+            "https://www.sec.gov/Archives/edgar/data/1789832/000119312526418053/d401552d8k.htm",
+            "https://www.sec.gov/Archives/edgar/data/93410/000009341026000078/cvx-20251231.htm"
+          ],
+          "data_gap": "OCT6_TRANSACTION_ANNUAL_CONTINUING_EARNINGS_BRIDGE_NOT_DISCLOSED",
+          "inputs": {
+            "price": 222.0399932861328
+          },
+          "refresh_on": [
+            "OFFICIAL_TRANSACTION_CLOSING_OR_PROFORMA_CONTINUING_EARNINGS_DISCLOSURE",
+            "NEXT_CVX_10Q_OR_EARNINGS",
+            "REFERENCE_EXPIRY"
+          ]
         }
       },
       "valuation_input_collection": {
         "as_of": "2026-10-14",
         "status": "PARTIAL",
         "gaps": [
-          "SEC_COMPANYFACTS_FETCH_OR_IDENTITY_VALIDATION_FAILED"
+          "OCT6_TRANSACTION_ANNUAL_CONTINUING_EARNINGS_BRIDGE_NOT_DISCLOSED"
         ],
         "price_basis": "adjusted_close",
         "inputs": {
           "adjusted_close": 222.0399932861328
         },
         "sources": [
-          "https://data.sec.gov/api/xbrl/companyfacts/CIK0000093410.json"
+          "https://www.sec.gov/Archives/edgar/data/93410/000009341026000192/cvxoct2026ex991.htm",
+          "https://www.sec.gov/Archives/edgar/data/1789832/000119312526418053/d401552d8k.htm",
+          "https://www.sec.gov/Archives/edgar/data/93410/000009341026000078/cvx-20251231.htm"
         ],
         "decision_authority": "REFERENCE_INPUTS_ONLY_NOT_FAIR_VALUE",
         "price_source": {
@@ -717,23 +734,82 @@
           "provider": "yahoo_finance_adjusted_batch"
         },
         "price_sha256": "6b5674d9f02236a0b3a366435c0fa29afe8a4ee9f38c246cf0331640d46446ba",
-        "fundamental_fetch_status": "FETCH_FAILED",
-        "fetch_error_type": "HTTPError"
+        "fundamental_fetch_status": "REVIEWED_OFFICIAL_REFERENCE",
+        "fetch_error_type": "HTTPError",
+        "official_reference_status": "VERIFIED",
+        "official_reference": {
+          "symbol": "CVX",
+          "company_name": "Chevron Corporation",
+          "published_at": "2026-10-06",
+          "valid_through": "2026-10-22",
+          "reviewed_as_of": "2026-10-15",
+          "sources": [
+            "https://www.sec.gov/Archives/edgar/data/93410/000009341026000192/cvxoct2026ex991.htm",
+            "https://www.sec.gov/Archives/edgar/data/1789832/000119312526418053/d401552d8k.htm",
+            "https://www.sec.gov/Archives/edgar/data/93410/000009341026000078/cvx-20251231.htm"
+          ],
+          "reported_facts": {
+            "currency": "USD",
+            "proforma_net_income_million": {
+              "FY2025": 12464,
+              "FY2024": 19003
+            },
+            "transaction": {
+              "announced": "2026-10-06",
+              "expected_closing": "BY_YEAR_END_2026_SUBJECT_TO_CONDITIONS",
+              "cash_consideration_million": 200,
+              "closing_working_capital_adjustment": true,
+              "expected_deconsolidated_HESM_debt_million": 3700,
+              "expected_one_time_after_tax_loss_million": [
+                3000,
+                4000
+              ],
+              "expected_Bakken_unit_midstream_cost_reduction_pct": 50,
+              "expected_absolute_ROCE_accretion_percentage_points": 0.5,
+              "closing_verified": false
+            },
+            "limitations": "Debt deconsolidation and cash are expected closing effects, not observed Oct14 cash/debt. ROCE improvement and unit-cost percentage do not determine annual CVX EPS; cannot substitute HESM consolidated EBITDA for CVX common earnings."
+          },
+          "model_gaps": [
+            "OCT6_TRANSACTION_ANNUAL_CONTINUING_EARNINGS_BRIDGE_NOT_DISCLOSED"
+          ],
+          "refresh_on": [
+            "OFFICIAL_TRANSACTION_CLOSING_OR_PROFORMA_CONTINUING_EARNINGS_DISCLOSURE",
+            "NEXT_CVX_10Q_OR_EARNINGS",
+            "REFERENCE_EXPIRY"
+          ]
+        }
       },
       "research_correction": {
         "as_of": "2026-10-15",
-        "scope": "2026-10-14 report cutoff",
-        "finding": "FY2025 10-K provides Hess-comparable unaudited FY2024/FY2025 pro forma net income; historical comparable data is not missing.",
-        "reported_facts": {
-          "proforma_net_income_USD_million": {
+        "historical_Hess_comparables_available": true,
+        "official_transaction_facts": {
+          "currency": "USD",
+          "proforma_net_income_million": {
             "FY2025": 12464,
             "FY2024": 19003
           },
-          "synergies_included": false
+          "transaction": {
+            "announced": "2026-10-06",
+            "expected_closing": "BY_YEAR_END_2026_SUBJECT_TO_CONDITIONS",
+            "cash_consideration_million": 200,
+            "closing_working_capital_adjustment": true,
+            "expected_deconsolidated_HESM_debt_million": 3700,
+            "expected_one_time_after_tax_loss_million": [
+              3000,
+              4000
+            ],
+            "expected_Bakken_unit_midstream_cost_reduction_pct": 50,
+            "expected_absolute_ROCE_accretion_percentage_points": 0.5,
+            "closing_verified": false
+          },
+          "limitations": "Debt deconsolidation and cash are expected closing effects, not observed Oct14 cash/debt. ROCE improvement and unit-cost percentage do not determine annual CVX EPS; cannot substitute HESM consolidated EBITDA for CVX common earnings."
         },
+        "source_registry": "reviewed_valuation_inputs.json/CVX",
         "sources": [
-          "https://www.sec.gov/Archives/edgar/data/93410/000009341026000078/cvx-20251231.htm",
-          "https://www.chevron.com/newsroom/2026/q4/chevron-to-divest-its-ownership-interests-in-hess-midstream-and-dj-basin-crude-midstream-assets"
+          "https://www.sec.gov/Archives/edgar/data/93410/000009341026000192/cvxoct2026ex991.htm",
+          "https://www.sec.gov/Archives/edgar/data/1789832/000119312526418053/d401552d8k.htm",
+          "https://www.sec.gov/Archives/edgar/data/93410/000009341026000078/cvx-20251231.htm"
         ]
       }
     },
