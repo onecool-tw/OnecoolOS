@@ -330,9 +330,9 @@
         },
         "valuation": {
           "status": "FAIL",
-          "as_of": "2026-10-13",
-          "price_as_of": "2026-10-13",
-          "valid_through": "2026-10-13",
+          "as_of": "2026-10-14",
+          "price_as_of": "2026-10-14",
+          "valid_through": "2026-10-14",
           "method": "FORWARD_ADJUSTED_PE_FULL_YEAR_ACQUISITION_STRESS",
           "rationale": "Official historical inputs with an explicit Onecool conservative/base equity cash-flow scenario; an opinion under this discipline, not issuer fair value. Constant operating earnings full-year dilution stress, NOT company FY27 guidance. Net debt is an estimated bridge, NOT a reported closing balance; no second deduction from equity EPS.",
           "sources": [
@@ -343,7 +343,7 @@
           "price_source": {
             "provider": "yahoo_finance_adjusted_batch",
             "symbol": "ABBV",
-            "as_of": "2026-10-13",
+            "as_of": "2026-10-14",
             "url": "https://finance.yahoo.com/quote/ABBV/history/"
           },
           "denominator_source": [
@@ -399,9 +399,9 @@
           ],
           "research_grade": "SCREENING_SCENARIO_NOT_FULL_DCF",
           "inputs": {
-            "price": 274.3599853515625,
+            "price": 283.4800109863281,
             "denominator": 13.549999999999999,
-            "multiple": 20.2479693986393,
+            "multiple": 20.921034021131227,
             "fair_range": [
               8.554162502288818,
               16.74285714285714
@@ -410,12 +410,12 @@
         }
       },
       "valuation_input_collection": {
-        "as_of": "2026-10-13",
+        "as_of": "2026-10-14",
         "status": "COMPLETE",
         "gaps": [],
         "price_basis": "adjusted_close",
         "inputs": {
-          "adjusted_close": 274.3599853515625
+          "adjusted_close": 283.4800109863281
         },
         "sources": [
           "https://news.abbvie.com/2026-09-03-AbbVie-Completes-Acquisition-of-Apogee-Therapeutics",
@@ -426,16 +426,16 @@
         "price_source": {
           "provider": "yahoo_finance_adjusted_batch",
           "symbol": "ABBV",
-          "as_of": "2026-10-13",
+          "as_of": "2026-10-14",
           "url": "https://finance.yahoo.com/quote/ABBV/history/"
         },
         "price_observation": {
-          "date": "2026-10-13",
-          "adjusted_close": 274.3599853515625,
-          "raw_close": 274.3599853515625,
+          "date": "2026-10-14",
+          "adjusted_close": 283.4800109863281,
+          "raw_close": 283.4800109863281,
           "provider": "yahoo_finance_adjusted_batch"
         },
-        "price_sha256": "4805a1e4097e190b7bf58e600a39bde5f9194c57a389b740c2bf8be90b598f8e",
+        "price_sha256": "230d588f437033fec9be566eda10db353fda79b61a4afcf9310babb9224d4e00",
         "official_reference_status": "VERIFIED",
         "fundamental_fetch_status": "REVIEWED_OFFICIAL_REFERENCE",
         "company_name": "AbbVie Inc.",
@@ -685,35 +685,20 @@
         },
         "valuation": {
           "status": "UNKNOWN",
-          "as_of": "2026-09-17",
-          "rationale": "撤回先前估值判定：先前價格由即時報價與漲跌額倒推，不能確認為同截止日調整後正式收盤；合理倍數区間亦缺可追溯比較依據。",
-          "method": "MID_CYCLE_PE_WITH_CYCLE_DISCOUNT",
-          "price_as_of": null,
-          "valid_through": null,
-          "inputs": {
-            "price": null,
-            "denominator": null,
-            "multiple": null,
-            "fair_range": null
-          },
-          "sources": [
-            "https://www.chevron.com/newsroom/2026/q3/chevron-reports-second-quarter-2026-results",
-            "https://finance.yahoo.com/quote/CVX/"
-          ],
-          "data_gap": "未取得2026-09-17調整後正式收盤的直接證據；須由系統補抓歷史價格，並完成盈餘口徑與估值區間驗證後重算。",
-          "review_status": "REQUIRES_SOURCE_REVALIDATION",
-          "next_step": "系統重取同截止日歷史價格及公司財報，建立具來源的估值模型；不得以UNKNOWN作為使用者人工研究要求。"
+          "as_of": "2026-10-14",
+          "rationale": "Current-session valuation model not yet validated.",
+          "sources": []
         }
       },
       "valuation_input_collection": {
-        "as_of": "2026-09-18",
+        "as_of": "2026-10-14",
         "status": "PARTIAL",
         "gaps": [
           "SEC_COMPANYFACTS_FETCH_OR_IDENTITY_VALIDATION_FAILED"
         ],
         "price_basis": "adjusted_close",
         "inputs": {
-          "adjusted_close": 209.50999450683594
+          "adjusted_close": 222.0399932861328
         },
         "sources": [
           "https://data.sec.gov/api/xbrl/companyfacts/CIK0000093410.json"
@@ -722,16 +707,16 @@
         "price_source": {
           "provider": "yahoo_finance_adjusted_batch",
           "symbol": "CVX",
-          "as_of": "2026-09-18",
+          "as_of": "2026-10-14",
           "url": "https://finance.yahoo.com/quote/CVX/history/"
         },
         "price_observation": {
-          "date": "2026-09-18",
-          "adjusted_close": 209.50999450683594,
-          "raw_close": 209.50999450683594,
+          "date": "2026-10-14",
+          "adjusted_close": 222.0399932861328,
+          "raw_close": 222.0399932861328,
           "provider": "yahoo_finance_adjusted_batch"
         },
-        "price_sha256": "92dec96e2281b5d1cbc1ad80d455aaffe2eb67c2cfccdc4be90b1c58490e530d",
+        "price_sha256": "6b5674d9f02236a0b3a366435c0fa29afe8a4ee9f38c246cf0331640d46446ba",
         "fundamental_fetch_status": "FETCH_FAILED",
         "fetch_error_type": "HTTPError"
       }
@@ -2164,9 +2149,9 @@
       "gates": {
         "valuation": {
           "status": "FAIL",
-          "as_of": "2026-10-13",
-          "price_as_of": "2026-10-13",
-          "valid_through": "2026-10-13",
+          "as_of": "2026-10-14",
+          "price_as_of": "2026-10-14",
+          "valid_through": "2026-10-14",
           "method": "TTM_SBC_INCLUSIVE_OPERATING_EARNINGS_NORMALIZED_TAX_CURRENT_SHARE_PROXY",
           "rationale": "SBC-inclusive TTM operating earnings, excluding treasury/investment income and normalized at analyst 21% tax. Onecool screening scenarios use 20%/30% five-year growth fading to 2%/3%, 12%/10% required return and limited distributions; high current growth is not extrapolated indefinitely. Government procurement, AI competition, founder voting control and dilution remain material risks. This is a conservative scenario screen, not a full DCF or issuer target.",
           "sources": [
@@ -2176,7 +2161,7 @@
           "price_source": {
             "provider": "yahoo_finance_adjusted_batch",
             "symbol": "PLTR",
-            "as_of": "2026-10-13",
+            "as_of": "2026-10-14",
             "url": "https://finance.yahoo.com/quote/PLTR/history/"
           },
           "denominator_source": [
@@ -2223,9 +2208,9 @@
           ],
           "research_grade": "SCREENING_SCENARIO_NOT_FULL_DCF",
           "inputs": {
-            "price": 208.6699981689453,
+            "price": 200.97000122070312,
             "denominator": 0.8102853356608456,
-            "multiple": 257.526563773686,
+            "multiple": 248.023742225074,
             "fair_range": [
               17.28697120247515,
               39.01499600392776
@@ -2270,12 +2255,12 @@
         }
       },
       "valuation_input_collection": {
-        "as_of": "2026-10-13",
+        "as_of": "2026-10-14",
         "status": "COMPLETE",
         "gaps": [],
         "price_basis": "adjusted_close",
         "inputs": {
-          "adjusted_close": 208.6699981689453
+          "adjusted_close": 200.97000122070312
         },
         "sources": [
           "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000004/a2025q4ex991earningsrelease.htm",
@@ -2285,16 +2270,16 @@
         "price_source": {
           "provider": "yahoo_finance_adjusted_batch",
           "symbol": "PLTR",
-          "as_of": "2026-10-13",
+          "as_of": "2026-10-14",
           "url": "https://finance.yahoo.com/quote/PLTR/history/"
         },
         "price_observation": {
-          "date": "2026-10-13",
-          "adjusted_close": 208.6699981689453,
-          "raw_close": 208.6699981689453,
+          "date": "2026-10-14",
+          "adjusted_close": 200.97000122070312,
+          "raw_close": 200.97000122070312,
           "provider": "yahoo_finance_adjusted_batch"
         },
-        "price_sha256": "0e8f381a33b66b34e01d717a54d43125a05608ebe17b2fe145bbce94906af21f",
+        "price_sha256": "92fc5326f55ceedf9ccc808a418469adac0566bdb2b375c51b85a5685a632c84",
         "official_reference_status": "VERIFIED",
         "fundamental_fetch_status": "REVIEWED_OFFICIAL_REFERENCE",
         "company_name": "Palantir Technologies Inc.",
@@ -2542,7 +2527,7 @@
         },
         "valuation": {
           "status": "UNKNOWN",
-          "as_of": "2026-10-13",
+          "as_of": "2026-10-14",
           "rationale": "Current-session valuation model not yet validated.",
           "sources": []
         }
@@ -2554,30 +2539,68 @@
         "source": "https://investor.tenethealth.com/home/default.aspx"
       },
       "valuation_input_collection": {
-        "as_of": "2026-10-13",
+        "as_of": "2026-10-14",
         "status": "PARTIAL",
         "gaps": [
           "REGISTRY_UNAVAILABLE"
         ],
         "price_basis": "adjusted_close",
         "inputs": {
-          "adjusted_close": 266.9100036621094
+          "adjusted_close": 271.6000061035156
         },
         "sources": [],
         "decision_authority": "REFERENCE_INPUTS_ONLY_NOT_FAIR_VALUE",
         "price_source": {
           "provider": "yahoo_finance_adjusted_batch",
           "symbol": "THC",
-          "as_of": "2026-10-13",
+          "as_of": "2026-10-14",
           "url": "https://finance.yahoo.com/quote/THC/history/"
         },
         "price_observation": {
-          "date": "2026-10-13",
-          "adjusted_close": 266.9100036621094,
-          "raw_close": 266.9100036621094,
+          "date": "2026-10-14",
+          "adjusted_close": 271.6000061035156,
+          "raw_close": 271.6000061035156,
           "provider": "yahoo_finance_adjusted_batch"
         },
-        "price_sha256": "7aa642f469bd5024048c4d1f18b46022e1b46b8b86a780b7608eaa6e43100daf",
+        "price_sha256": "60cee9e805df69dcf6e4c9eff062a5fcd570e5250ca8f88b370a09982d9f87c8",
+        "fundamental_fetch_status": "REGISTRY_UNAVAILABLE"
+      }
+    },
+    {
+      "symbol": "MSFT",
+      "gates": {
+        "valuation": {
+          "status": "UNKNOWN",
+          "as_of": "2026-10-14",
+          "rationale": "Current-session valuation model not yet validated.",
+          "sources": []
+        }
+      },
+      "valuation_input_collection": {
+        "as_of": "2026-10-14",
+        "status": "PARTIAL",
+        "gaps": [
+          "REGISTRY_UNAVAILABLE"
+        ],
+        "price_basis": "adjusted_close",
+        "inputs": {
+          "adjusted_close": 533.6900024414062
+        },
+        "sources": [],
+        "decision_authority": "REFERENCE_INPUTS_ONLY_NOT_FAIR_VALUE",
+        "price_source": {
+          "provider": "yahoo_finance_adjusted_batch",
+          "symbol": "MSFT",
+          "as_of": "2026-10-14",
+          "url": "https://finance.yahoo.com/quote/MSFT/history/"
+        },
+        "price_observation": {
+          "date": "2026-10-14",
+          "adjusted_close": 533.6900024414062,
+          "raw_close": 533.6900024414062,
+          "provider": "yahoo_finance_adjusted_batch"
+        },
+        "price_sha256": "9a3542bb5ee968d91bb5ad985e36d84c55d2071f42d2c7b1ff70c55df69560b4",
         "fundamental_fetch_status": "REGISTRY_UNAVAILABLE"
       }
     }
