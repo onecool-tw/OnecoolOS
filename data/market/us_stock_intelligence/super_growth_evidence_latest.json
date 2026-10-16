@@ -329,209 +329,43 @@
           ]
         },
         "valuation": {
-          "status": "FAIL",
-          "as_of": "2026-10-14",
-          "price_as_of": "2026-10-14",
-          "valid_through": "2026-10-14",
-          "method": "FORWARD_ADJUSTED_PE_FULL_YEAR_ACQUISITION_STRESS",
-          "rationale": "Official historical inputs with an explicit Onecool conservative/base equity cash-flow scenario; an opinion under this discipline, not issuer fair value. Constant operating earnings full-year dilution stress, NOT company FY27 guidance. Net debt is an estimated bridge, NOT a reported closing balance; no second deduction from equity EPS.",
-          "sources": [
-            "https://news.abbvie.com/2026-09-03-AbbVie-Completes-Acquisition-of-Apogee-Therapeutics",
-            "https://www.sec.gov/Archives/edgar/data/1551152/000155115226000026/abbv-20260630.htm",
-            "https://www.sec.gov/Archives/edgar/data/1551152/000110465926076067/tm2618365d1_ex99-2.htm"
-          ],
-          "price_source": {
-            "provider": "yahoo_finance_adjusted_batch",
-            "symbol": "ABBV",
-            "as_of": "2026-10-14",
-            "url": "https://finance.yahoo.com/quote/ABBV/history/"
-          },
-          "denominator_source": [
-            "https://news.abbvie.com/2026-09-03-AbbVie-Completes-Acquisition-of-Apogee-Therapeutics",
-            "https://www.sec.gov/Archives/edgar/data/1551152/000155115226000026/abbv-20260630.htm",
-            "https://www.sec.gov/Archives/edgar/data/1551152/000110465926076067/tm2618365d1_ex99-2.htm"
-          ],
-          "fair_range_rationale": "Five-year conservative/base cash-flow scenarios. Required returns 12%/10%, terminal growth 2%/3% are Onecool hurdles, not observed WACC. Growth/cash conversion are analyst scenarios differentiated for acquisition/leverage, software SBC, semiconductor cyclicality, capex and AI concentration; bull-case extrapolation is excluded. See versioned policy for assumptions and limitations.",
-          "fair_range_sources": [
-            "https://pages.stern.nyu.edu/~adamodar/New_Home_Page/invfables/peratio.htm",
-            "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md",
-            "https://news.abbvie.com/2026-09-03-AbbVie-Completes-Acquisition-of-Apogee-Therapeutics",
-            "https://www.sec.gov/Archives/edgar/data/1551152/000155115226000026/abbv-20260630.htm",
-            "https://www.sec.gov/Archives/edgar/data/1551152/000110465926076067/tm2618365d1_ex99-2.htm"
-          ],
-          "normalization_bridge": {
-            "formula": "13.87 - (0.46 - 0.14)",
-            "inputs": {
-              "FY26_guidance_low": 13.87,
-              "included_partial_year_dilution": 0.14,
-              "FY27_full_year_dilution": 0.46,
-              "retained_IPRD_cost": 0.58
-            },
-            "net_debt_bridge_usd_billion": {
-              "June30_cash": 6.569,
-              "June30_debt": 70.822,
-              "estimated_incremental_net_transaction_cost": 10.1,
-              "estimated_proforma_net_debt": 74.353
-            },
-            "limitations": "Constant operating earnings full-year dilution stress, NOT company FY27 guidance. Net debt is an estimated bridge, NOT a reported closing balance; no second deduction from equity EPS."
-          },
-          "policy_version": "onecool_equity_two_stage_screen_v1",
-          "assumption_authority": "ONECOOL_ANALYST_NOT_ISSUER_GUIDANCE",
-          "scenarios": [
-            {
-              "name": "conservative",
-              "years": 5,
-              "growth": 0.05,
-              "required_return": 0.12,
-              "terminal_growth": 0.02,
-              "cash_conversion": 0.55,
-              "terminal_cash_conversion": 0.85
-            },
-            {
-              "name": "base",
-              "years": 5,
-              "growth": 0.1,
-              "required_return": 0.1,
-              "terminal_growth": 0.03,
-              "cash_conversion": 0.7,
-              "terminal_cash_conversion": 0.9
-            }
-          ],
-          "research_grade": "SCREENING_SCENARIO_NOT_FULL_DCF",
-          "inputs": {
-            "price": 283.4800109863281,
-            "denominator": 13.549999999999999,
-            "multiple": 20.921034021131227,
-            "fair_range": [
-              8.554162502288818,
-              16.74285714285714
-            ]
-          }
+          "status": "UNKNOWN",
+          "as_of": "2026-10-15",
+          "rationale": "Current-session valuation model not yet validated.",
+          "sources": []
         }
       },
       "valuation_input_collection": {
-        "as_of": "2026-10-14",
-        "status": "COMPLETE",
-        "gaps": [],
+        "as_of": "2026-10-15",
+        "status": "PARTIAL",
+        "gaps": [
+          "OFFICIAL_REFERENCE_EXPIRED_OR_NOT_POINT_IN_TIME",
+          "SEC_COMPANYFACTS_FETCH_OR_IDENTITY_VALIDATION_FAILED"
+        ],
         "price_basis": "adjusted_close",
         "inputs": {
-          "adjusted_close": 283.4800109863281
+          "adjusted_close": 283.3999938964844
         },
         "sources": [
-          "https://news.abbvie.com/2026-09-03-AbbVie-Completes-Acquisition-of-Apogee-Therapeutics",
-          "https://www.sec.gov/Archives/edgar/data/1551152/000155115226000026/abbv-20260630.htm",
-          "https://www.sec.gov/Archives/edgar/data/1551152/000110465926076067/tm2618365d1_ex99-2.htm"
+          "https://data.sec.gov/api/xbrl/companyfacts/CIK0001551152.json"
         ],
-        "decision_authority": "REVIEWED_SOURCE_BACKED_VALUATION_MODEL",
+        "decision_authority": "REFERENCE_INPUTS_ONLY_NOT_FAIR_VALUE",
         "price_source": {
           "provider": "yahoo_finance_adjusted_batch",
           "symbol": "ABBV",
-          "as_of": "2026-10-14",
+          "as_of": "2026-10-15",
           "url": "https://finance.yahoo.com/quote/ABBV/history/"
         },
         "price_observation": {
-          "date": "2026-10-14",
-          "adjusted_close": 283.4800109863281,
-          "raw_close": 283.4800109863281,
+          "date": "2026-10-15",
+          "adjusted_close": 283.3999938964844,
+          "raw_close": 283.3999938964844,
           "provider": "yahoo_finance_adjusted_batch"
         },
-        "price_sha256": "230d588f437033fec9be566eda10db353fda79b61a4afcf9310babb9224d4e00",
-        "official_reference_status": "VERIFIED",
-        "fundamental_fetch_status": "REVIEWED_OFFICIAL_REFERENCE",
-        "company_name": "AbbVie Inc.",
-        "official_reference": {
-          "symbol": "ABBV",
-          "company_name": "AbbVie Inc.",
-          "published_at": "2026-09-03",
-          "valid_through": "2026-10-14",
-          "sources": [
-            "https://news.abbvie.com/2026-09-03-AbbVie-Completes-Acquisition-of-Apogee-Therapeutics",
-            "https://www.sec.gov/Archives/edgar/data/1551152/000155115226000026/abbv-20260630.htm",
-            "https://www.sec.gov/Archives/edgar/data/1551152/000110465926076067/tm2618365d1_ex99-2.htm"
-          ],
-          "reported_facts": {
-            "period": "FY2026",
-            "currency": "USD",
-            "share_basis": "common_diluted",
-            "adjusted_eps_guidance": [
-              13.87,
-              14.07
-            ],
-            "included_ytd_iprd_per_share": 0.58,
-            "apogee_partial_year_dilution": 0.14,
-            "apogee_2027_dilution": 0.46,
-            "apogee_equity_consideration_usd_billion": 10.9
-          },
-          "model_gaps": [],
-          "refresh_on": [
-            "NEW_EARNINGS_OR_GUIDANCE",
-            "MATERIAL_CORPORATE_EVENT",
-            "REFERENCE_EXPIRY"
-          ],
-          "valuation_model": {
-            "method": "FORWARD_ADJUSTED_PE_FULL_YEAR_ACQUISITION_STRESS",
-            "denominator": 13.549999999999999,
-            "currency": "USD",
-            "share_basis": "listed_security",
-            "normalization_bridge": {
-              "formula": "13.87 - (0.46 - 0.14)",
-              "inputs": {
-                "FY26_guidance_low": 13.87,
-                "included_partial_year_dilution": 0.14,
-                "FY27_full_year_dilution": 0.46,
-                "retained_IPRD_cost": 0.58
-              },
-              "net_debt_bridge_usd_billion": {
-                "June30_cash": 6.569,
-                "June30_debt": 70.822,
-                "estimated_incremental_net_transaction_cost": 10.1,
-                "estimated_proforma_net_debt": 74.353
-              },
-              "limitations": "Constant operating earnings full-year dilution stress, NOT company FY27 guidance. Net debt is an estimated bridge, NOT a reported closing balance; no second deduction from equity EPS."
-            },
-            "denominator_source": [
-              "https://news.abbvie.com/2026-09-03-AbbVie-Completes-Acquisition-of-Apogee-Therapeutics",
-              "https://www.sec.gov/Archives/edgar/data/1551152/000155115226000026/abbv-20260630.htm",
-              "https://www.sec.gov/Archives/edgar/data/1551152/000110465926076067/tm2618365d1_ex99-2.htm"
-            ],
-            "fair_range": [
-              8.554162502288818,
-              16.74285714285714
-            ],
-            "scenarios": [
-              {
-                "name": "conservative",
-                "years": 5,
-                "growth": 0.05,
-                "required_return": 0.12,
-                "terminal_growth": 0.02,
-                "cash_conversion": 0.55,
-                "terminal_cash_conversion": 0.85
-              },
-              {
-                "name": "base",
-                "years": 5,
-                "growth": 0.1,
-                "required_return": 0.1,
-                "terminal_growth": 0.03,
-                "cash_conversion": 0.7,
-                "terminal_cash_conversion": 0.9
-              }
-            ],
-            "assumption_authority": "ONECOOL_ANALYST_NOT_ISSUER_GUIDANCE",
-            "research_grade": "SCREENING_SCENARIO_NOT_FULL_DCF",
-            "policy_version": "onecool_equity_two_stage_screen_v1",
-            "rationale": "Official historical inputs with an explicit Onecool conservative/base equity cash-flow scenario; an opinion under this discipline, not issuer fair value. Constant operating earnings full-year dilution stress, NOT company FY27 guidance. Net debt is an estimated bridge, NOT a reported closing balance; no second deduction from equity EPS.",
-            "fair_range_rationale": "Five-year conservative/base cash-flow scenarios. Required returns 12%/10%, terminal growth 2%/3% are Onecool hurdles, not observed WACC. Growth/cash conversion are analyst scenarios differentiated for acquisition/leverage, software SBC, semiconductor cyclicality, capex and AI concentration; bull-case extrapolation is excluded. See versioned policy for assumptions and limitations.",
-            "fair_range_sources": [
-              "https://pages.stern.nyu.edu/~adamodar/New_Home_Page/invfables/peratio.htm",
-              "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md",
-              "https://news.abbvie.com/2026-09-03-AbbVie-Completes-Acquisition-of-Apogee-Therapeutics",
-              "https://www.sec.gov/Archives/edgar/data/1551152/000155115226000026/abbv-20260630.htm",
-              "https://www.sec.gov/Archives/edgar/data/1551152/000110465926076067/tm2618365d1_ex99-2.htm"
-            ]
-          }
-        }
+        "price_sha256": "471ab053f732fcba551c0e49a17261fbd8ddda1f90aad5a9567ca998720fb23f",
+        "official_reference_status": "REJECTED",
+        "fundamental_fetch_status": "FETCH_FAILED",
+        "fetch_error_type": "HTTPError"
       }
     },
     {
@@ -685,7 +519,7 @@
         },
         "valuation": {
           "status": "UNKNOWN",
-          "as_of": "2026-10-14",
+          "as_of": "2026-10-15",
           "rationale": "OCT6_TRANSACTION_ANNUAL_CONTINUING_EARNINGS_BRIDGE_NOT_DISCLOSED",
           "sources": [
             "https://www.sec.gov/Archives/edgar/data/93410/000009341026000192/cvxoct2026ex991.htm",
@@ -693,27 +527,27 @@
             "https://www.sec.gov/Archives/edgar/data/93410/000009341026000078/cvx-20251231.htm"
           ],
           "data_gap": "OCT6_TRANSACTION_ANNUAL_CONTINUING_EARNINGS_BRIDGE_NOT_DISCLOSED",
-          "price_as_of": "2026-10-14",
+          "price_as_of": "2026-10-15",
           "inputs": {
-            "price": 222.0399932861328
+            "price": 219.32000732421875
           },
           "price_source": {
             "provider": "yahoo_finance_adjusted_batch",
             "symbol": "CVX",
-            "as_of": "2026-10-14",
+            "as_of": "2026-10-15",
             "url": "https://finance.yahoo.com/quote/CVX/history/"
           }
         }
       },
       "valuation_input_collection": {
-        "as_of": "2026-10-14",
+        "as_of": "2026-10-15",
         "status": "PARTIAL",
         "gaps": [
           "OCT6_TRANSACTION_ANNUAL_CONTINUING_EARNINGS_BRIDGE_NOT_DISCLOSED"
         ],
         "price_basis": "adjusted_close",
         "inputs": {
-          "adjusted_close": 222.0399932861328
+          "adjusted_close": 219.32000732421875
         },
         "sources": [
           "https://www.sec.gov/Archives/edgar/data/93410/000009341026000192/cvxoct2026ex991.htm",
@@ -724,16 +558,16 @@
         "price_source": {
           "provider": "yahoo_finance_adjusted_batch",
           "symbol": "CVX",
-          "as_of": "2026-10-14",
+          "as_of": "2026-10-15",
           "url": "https://finance.yahoo.com/quote/CVX/history/"
         },
         "price_observation": {
-          "date": "2026-10-14",
-          "adjusted_close": 222.0399932861328,
-          "raw_close": 222.0399932861328,
+          "date": "2026-10-15",
+          "adjusted_close": 219.32000732421875,
+          "raw_close": 219.32000732421875,
           "provider": "yahoo_finance_adjusted_batch"
         },
-        "price_sha256": "6b5674d9f02236a0b3a366435c0fa29afe8a4ee9f38c246cf0331640d46446ba",
+        "price_sha256": "2925bfccf646f03944992fc6ad33a0d37a0d6ecde37834111da53263b26b4a0c",
         "official_reference_status": "VERIFIED",
         "fundamental_fetch_status": "REVIEWED_OFFICIAL_REFERENCE",
         "company_name": "Chevron Corporation",
@@ -2240,74 +2074,10 @@
       "symbol": "PLTR",
       "gates": {
         "valuation": {
-          "status": "FAIL",
-          "as_of": "2026-10-14",
-          "price_as_of": "2026-10-14",
-          "valid_through": "2026-10-14",
-          "method": "TTM_SBC_INCLUSIVE_OPERATING_EARNINGS_NORMALIZED_TAX_CURRENT_SHARE_PROXY",
-          "rationale": "SBC-inclusive TTM operating earnings, excluding treasury/investment income and normalized at analyst 21% tax. Onecool screening scenarios use 20%/30% five-year growth fading to 2%/3%, 12%/10% required return and limited distributions; high current growth is not extrapolated indefinitely. Government procurement, AI competition, founder voting control and dilution remain material risks. This is a conservative scenario screen, not a full DCF or issuer target.",
-          "sources": [
-            "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000004/a2025q4ex991earningsrelease.htm",
-            "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000039/a2026q2ex991pressrelease.htm"
-          ],
-          "price_source": {
-            "provider": "yahoo_finance_adjusted_batch",
-            "symbol": "PLTR",
-            "as_of": "2026-10-14",
-            "url": "https://finance.yahoo.com/quote/PLTR/history/"
-          },
-          "denominator_source": [
-            "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000004/a2025q4ex991earningsrelease.htm",
-            "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000039/a2026q2ex991pressrelease.htm"
-          ],
-          "fair_range_rationale": "SBC-inclusive TTM operating earnings, excluding treasury/investment income and normalized at analyst 21% tax. Onecool screening scenarios use 20%/30% five-year growth fading to 2%/3%, 12%/10% required return and limited distributions; high current growth is not extrapolated indefinitely. Government procurement, AI competition, founder voting control and dilution remain material risks. This is a conservative scenario screen, not a full DCF or issuer target.",
-          "fair_range_sources": [
-            "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000004/a2025q4ex991earningsrelease.htm",
-            "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000039/a2026q2ex991pressrelease.htm",
-            "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
-          ],
-          "normalization_bridge": {
-            "formula": "(FY25 GAAP operating income + H126 GAAP operating income - H125 GAAP operating income) * (1 - analyst normalized tax rate) / Q226 diluted weighted shares",
-            "units": "USD thousand, shares thousand",
-            "FY25_operating_income": 1414015,
-            "H126_operating_income": 1666002,
-            "H125_operating_income": 445365,
-            "normalized_tax_rate": 0.21,
-            "diluted_share_proxy": 2568694,
-            "limitations": "SBC and related payroll costs retained. Excludes interest and all other investment income; tax rate is analyst normalization, not issuer guidance. Latest quarter shares proxy; no quarterly EPS annualization. Cash balance not added to this conservative operating-earnings screening model."
-          },
-          "policy_version": "onecool_equity_two_stage_screen_v1",
-          "assumption_authority": "ONECOOL_ANALYST_NOT_ISSUER_GUIDANCE",
-          "scenarios": [
-            {
-              "name": "conservative",
-              "years": 5,
-              "growth": 0.2,
-              "required_return": 0.12,
-              "terminal_growth": 0.02,
-              "cash_conversion": 0.7,
-              "terminal_cash_conversion": 0.9
-            },
-            {
-              "name": "base",
-              "years": 5,
-              "growth": 0.3,
-              "required_return": 0.1,
-              "terminal_growth": 0.03,
-              "cash_conversion": 0.8,
-              "terminal_cash_conversion": 0.95
-            }
-          ],
-          "research_grade": "SCREENING_SCENARIO_NOT_FULL_DCF",
-          "inputs": {
-            "price": 200.97000122070312,
-            "denominator": 0.8102853356608456,
-            "multiple": 248.023742225074,
-            "fair_range": [
-              17.28697120247515,
-              39.01499600392776
-            ]
-          }
+          "status": "UNKNOWN",
+          "as_of": "2026-10-15",
+          "rationale": "Current-session valuation model not yet validated.",
+          "sources": []
         },
         "competitive_advantage": {
           "status": "PASS",
@@ -2347,114 +2117,33 @@
         }
       },
       "valuation_input_collection": {
-        "as_of": "2026-10-14",
-        "status": "COMPLETE",
-        "gaps": [],
+        "as_of": "2026-10-15",
+        "status": "PARTIAL",
+        "gaps": [
+          "OFFICIAL_REFERENCE_EXPIRED_OR_NOT_POINT_IN_TIME",
+          "REGISTRY_UNAVAILABLE"
+        ],
         "price_basis": "adjusted_close",
         "inputs": {
-          "adjusted_close": 200.97000122070312
+          "adjusted_close": 200.5
         },
-        "sources": [
-          "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000004/a2025q4ex991earningsrelease.htm",
-          "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000039/a2026q2ex991pressrelease.htm"
-        ],
-        "decision_authority": "REVIEWED_SOURCE_BACKED_VALUATION_MODEL",
+        "sources": [],
+        "decision_authority": "REFERENCE_INPUTS_ONLY_NOT_FAIR_VALUE",
         "price_source": {
           "provider": "yahoo_finance_adjusted_batch",
           "symbol": "PLTR",
-          "as_of": "2026-10-14",
+          "as_of": "2026-10-15",
           "url": "https://finance.yahoo.com/quote/PLTR/history/"
         },
         "price_observation": {
-          "date": "2026-10-14",
-          "adjusted_close": 200.97000122070312,
-          "raw_close": 200.97000122070312,
+          "date": "2026-10-15",
+          "adjusted_close": 200.5,
+          "raw_close": 200.5,
           "provider": "yahoo_finance_adjusted_batch"
         },
-        "price_sha256": "92fc5326f55ceedf9ccc808a418469adac0566bdb2b375c51b85a5685a632c84",
-        "official_reference_status": "VERIFIED",
-        "fundamental_fetch_status": "REVIEWED_OFFICIAL_REFERENCE",
-        "company_name": "Palantir Technologies Inc.",
-        "official_reference": {
-          "symbol": "PLTR",
-          "company_name": "Palantir Technologies Inc.",
-          "published_at": "2026-08-03",
-          "valid_through": "2026-10-14",
-          "sources": [
-            "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000004/a2025q4ex991earningsrelease.htm",
-            "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000039/a2026q2ex991pressrelease.htm"
-          ],
-          "reported_facts": {
-            "formula": "(FY25 GAAP operating income + H126 GAAP operating income - H125 GAAP operating income) * (1 - analyst normalized tax rate) / Q226 diluted weighted shares",
-            "units": "USD thousand, shares thousand",
-            "FY25_operating_income": 1414015,
-            "H126_operating_income": 1666002,
-            "H125_operating_income": 445365,
-            "normalized_tax_rate": 0.21,
-            "diluted_share_proxy": 2568694,
-            "limitations": "SBC and related payroll costs retained. Excludes interest and all other investment income; tax rate is analyst normalization, not issuer guidance. Latest quarter shares proxy; no quarterly EPS annualization. Cash balance not added to this conservative operating-earnings screening model."
-          },
-          "model_gaps": [],
-          "refresh_on": [
-            "NEW_EARNINGS_OR_GUIDANCE",
-            "MATERIAL_CORPORATE_EVENT",
-            "REFERENCE_EXPIRY"
-          ],
-          "valuation_model": {
-            "method": "TTM_SBC_INCLUSIVE_OPERATING_EARNINGS_NORMALIZED_TAX_CURRENT_SHARE_PROXY",
-            "denominator": 0.8102853356608456,
-            "currency": "USD",
-            "share_basis": "listed_security",
-            "normalization_bridge": {
-              "formula": "(FY25 GAAP operating income + H126 GAAP operating income - H125 GAAP operating income) * (1 - analyst normalized tax rate) / Q226 diluted weighted shares",
-              "units": "USD thousand, shares thousand",
-              "FY25_operating_income": 1414015,
-              "H126_operating_income": 1666002,
-              "H125_operating_income": 445365,
-              "normalized_tax_rate": 0.21,
-              "diluted_share_proxy": 2568694,
-              "limitations": "SBC and related payroll costs retained. Excludes interest and all other investment income; tax rate is analyst normalization, not issuer guidance. Latest quarter shares proxy; no quarterly EPS annualization. Cash balance not added to this conservative operating-earnings screening model."
-            },
-            "denominator_source": [
-              "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000004/a2025q4ex991earningsrelease.htm",
-              "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000039/a2026q2ex991pressrelease.htm"
-            ],
-            "fair_range": [
-              17.28697120247515,
-              39.01499600392776
-            ],
-            "scenarios": [
-              {
-                "name": "conservative",
-                "years": 5,
-                "growth": 0.2,
-                "required_return": 0.12,
-                "terminal_growth": 0.02,
-                "cash_conversion": 0.7,
-                "terminal_cash_conversion": 0.9
-              },
-              {
-                "name": "base",
-                "years": 5,
-                "growth": 0.3,
-                "required_return": 0.1,
-                "terminal_growth": 0.03,
-                "cash_conversion": 0.8,
-                "terminal_cash_conversion": 0.95
-              }
-            ],
-            "assumption_authority": "ONECOOL_ANALYST_NOT_ISSUER_GUIDANCE",
-            "research_grade": "SCREENING_SCENARIO_NOT_FULL_DCF",
-            "policy_version": "onecool_equity_two_stage_screen_v1",
-            "rationale": "SBC-inclusive TTM operating earnings, excluding treasury/investment income and normalized at analyst 21% tax. Onecool screening scenarios use 20%/30% five-year growth fading to 2%/3%, 12%/10% required return and limited distributions; high current growth is not extrapolated indefinitely. Government procurement, AI competition, founder voting control and dilution remain material risks. This is a conservative scenario screen, not a full DCF or issuer target.",
-            "fair_range_rationale": "SBC-inclusive TTM operating earnings, excluding treasury/investment income and normalized at analyst 21% tax. Onecool screening scenarios use 20%/30% five-year growth fading to 2%/3%, 12%/10% required return and limited distributions; high current growth is not extrapolated indefinitely. Government procurement, AI competition, founder voting control and dilution remain material risks. This is a conservative scenario screen, not a full DCF or issuer target.",
-            "fair_range_sources": [
-              "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000004/a2025q4ex991earningsrelease.htm",
-              "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000039/a2026q2ex991pressrelease.htm",
-              "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
-            ]
-          }
-        }
+        "price_sha256": "3318398934f1af10a870518dd024c840475e5c6c1541c509549506c34688fde7",
+        "official_reference_status": "REJECTED",
+        "fundamental_fetch_status": "REGISTRY_UNAVAILABLE"
       },
       "as_of": "2026-10-08",
       "business_model": "Gotham government/defense software; Foundry data operations; AIP enterprise AI workflow integration; Apollo software deployment. Revenue driven by subscriptions, maintenance and services.",
@@ -2619,7 +2308,7 @@
         },
         "valuation": {
           "status": "UNKNOWN",
-          "as_of": "2026-10-14",
+          "as_of": "2026-10-15",
           "rationale": "Current-session valuation model not yet validated.",
           "sources": []
         }
@@ -2631,30 +2320,30 @@
         "source": "https://investor.tenethealth.com/home/default.aspx"
       },
       "valuation_input_collection": {
-        "as_of": "2026-10-14",
+        "as_of": "2026-10-15",
         "status": "PARTIAL",
         "gaps": [
           "REGISTRY_UNAVAILABLE"
         ],
         "price_basis": "adjusted_close",
         "inputs": {
-          "adjusted_close": 271.6000061035156
+          "adjusted_close": 275.1300048828125
         },
         "sources": [],
         "decision_authority": "REFERENCE_INPUTS_ONLY_NOT_FAIR_VALUE",
         "price_source": {
           "provider": "yahoo_finance_adjusted_batch",
           "symbol": "THC",
-          "as_of": "2026-10-14",
+          "as_of": "2026-10-15",
           "url": "https://finance.yahoo.com/quote/THC/history/"
         },
         "price_observation": {
-          "date": "2026-10-14",
-          "adjusted_close": 271.6000061035156,
-          "raw_close": 271.6000061035156,
+          "date": "2026-10-15",
+          "adjusted_close": 275.1300048828125,
+          "raw_close": 275.1300048828125,
           "provider": "yahoo_finance_adjusted_batch"
         },
-        "price_sha256": "60cee9e805df69dcf6e4c9eff062a5fcd570e5250ca8f88b370a09982d9f87c8",
+        "price_sha256": "e0b5b090f2e1149b08a2596e0f8db6d772e5863214c3f068e5c0954556b0e8b7",
         "fundamental_fetch_status": "REGISTRY_UNAVAILABLE"
       }
     },
@@ -2739,6 +2428,44 @@
       "company_name": "Microsoft Corporation",
       "as_of": "2026-10-14",
       "business_model": "Azure雲端與企業軟體訂閱、Microsoft365及安全服務；收入由席位、使用量與產品組合驅動。"
+    },
+    {
+      "symbol": "MA",
+      "gates": {
+        "valuation": {
+          "status": "UNKNOWN",
+          "as_of": "2026-10-15",
+          "rationale": "Current-session valuation model not yet validated.",
+          "sources": []
+        }
+      },
+      "valuation_input_collection": {
+        "as_of": "2026-10-15",
+        "status": "PARTIAL",
+        "gaps": [
+          "REGISTRY_UNAVAILABLE"
+        ],
+        "price_basis": "adjusted_close",
+        "inputs": {
+          "adjusted_close": 616.3200073242188
+        },
+        "sources": [],
+        "decision_authority": "REFERENCE_INPUTS_ONLY_NOT_FAIR_VALUE",
+        "price_source": {
+          "provider": "yahoo_finance_adjusted_batch",
+          "symbol": "MA",
+          "as_of": "2026-10-15",
+          "url": "https://finance.yahoo.com/quote/MA/history/"
+        },
+        "price_observation": {
+          "date": "2026-10-15",
+          "adjusted_close": 616.3200073242188,
+          "raw_close": 616.3200073242188,
+          "provider": "yahoo_finance_adjusted_batch"
+        },
+        "price_sha256": "ea17600992f04f78f91800f277e9680a7dd83e899a304b962bc7f989a9545c5d",
+        "fundamental_fetch_status": "REGISTRY_UNAVAILABLE"
+      }
     }
   ],
   "valuation_models_reviewed_at": "2026-10-06"
