@@ -1,10 +1,10 @@
 {
   "schema_version": "1.9",
   "module": "Onecool Market Dashboard",
-  "generated_at": "2026-10-16T04:48:02.874802+00:00",
+  "generated_at": "2026-10-16T05:59:00.088463+00:00",
   "expected_as_of": "2026-10-15",
   "data_status": "READY",
-  "last_successful_update_at": "2026-10-16T04:48:02.874802+00:00",
+  "last_successful_update_at": "2026-10-16T05:59:00.088463+00:00",
   "index_cta_basis": {
     "method": "ETF/index proxies; shared CTA engine",
     "mappings": {
@@ -853,21 +853,22 @@
     "schema_version": "1.0",
     "expected_as_of": "2026-10-15",
     "price_basis": "adjusted_close",
-    "data_status": "PARTIAL",
+    "data_status": "READY",
     "decision_authority": "SHORT_TERM_CONTEXT_ONLY_NO_CTA_OVERRIDE",
     "results": [
       {
         "symbol": "VIX",
         "provider_symbol": "^VIX",
         "expected_as_of": "2026-10-15",
-        "as_of": null,
-        "data_status": "UNKNOWN",
-        "value": null,
+        "as_of": "2026-10-15",
+        "data_status": "READY",
+        "value": 16.459999084472656,
         "unit": "index_points",
         "price_basis": "adjusted_close",
         "decision_authority": "SHORT_TERM_CONTEXT_ONLY",
-        "error_type": "ValueError",
-        "data_gap": "RISK_OHLC_OR_SOURCE_INVALID"
+        "source": "yahoo_finance_raw",
+        "source_url": "https://finance.yahoo.com/quote/^VIX/history/",
+        "observation_sha256": "9f9d71382dba830f74590f6d9bc96fe74402d260443492b8affec945acc65dbf"
       },
       {
         "symbol": "DXY",
@@ -889,13 +890,13 @@
         "expected_as_of": "2026-10-15",
         "as_of": "2026-10-15",
         "data_status": "READY",
-        "value": 5.0889997482299805,
+        "value": 5.089000225067139,
         "unit": "percent",
         "price_basis": "adjusted_close",
         "decision_authority": "SHORT_TERM_CONTEXT_ONLY",
         "source": "yahoo_finance_raw",
         "source_url": "https://finance.yahoo.com/quote/^TNX/history/",
-        "observation_sha256": "ba262ece12bb21898e789a35cd903f993d6359786008084cab412b64564a2cfa"
+        "observation_sha256": "dca2057895059b0f690d7fe57e4ac4a18ec6e0c3e0689757d4317b0c51aef41d"
       },
       {
         "symbol": "US30Y",
