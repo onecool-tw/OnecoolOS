@@ -29,3 +29,9 @@ def test_market_dashboard_uses_health_driven_recovery_instead_of_constant_retrie
     assert 'cron: "17 8 * * 1-5"' in workflow
     assert 'cron: "47 8 * * 1-5"' in workflow
     assert 'cron: "30 9 * * 1-5"' in workflow
+
+
+def test_btc_freshness_failure_is_visible_after_valid_cache_publication():
+    workflow = (Path(__file__).resolve().parents[1] / ".github/workflows/update-market-dashboard.yml").read_text()
+    assert workflow.index("bash scripts/push_cache_commit.sh") < workflow.index("python scripts/verify_btc_freshness.py")
+    assert "continue-on-error" not in workflow

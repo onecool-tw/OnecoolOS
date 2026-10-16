@@ -92,3 +92,56 @@ def test_exact_latest_day_repair_rejects_wrong_date_and_keeps_cache_on_failure()
     assert _repair_btc_week_close(
         BTC, rows, Provider(), datetime(2026, 10, 14, tzinfo=UTC)
     ) == rows
+
+
+def test_transient_exact_day_failure_retries_without_imputation(monkeypatch):
+    monkeypatch.setattr("scripts.update_market_dashboard.sleep", lambda _: None)
+    class Provider:
+        calls = 0
+        def fetch_raw_daily(self, *args, **kwargs):
+            return []
+        def fetch_btc_completed_day(self, day):
+            self.calls += 1
+            if self.calls < 3:
+                raise RuntimeError("Temporary provider failure")
+            return [bar(day)]
+    provider = Provider()
+    result = _repair_btc_week_close(BTC, [bar(date(2026, 10, 11))], provider,
+                                    datetime(2026, 10, 14, 3, tzinfo=UTC))
+    assert provider.calls == 3
+    assert result[-1].trading_date == date(2026, 10, 13)
+
+
+def test_exhausted_retry_preserves_cache_and_stale_heartbeat_fails(monkeypatch):
+    import pytest
+    from scripts.verify_btc_freshness import verify
+    monkeypatch.setattr("scripts.update_market_dashboard.sleep", lambda _: None)
+    class Provider:
+        calls = 0
+        def fetch_raw_daily(self, *args, **kwargs):
+            return []
+        def fetch_btc_completed_day(self, day):
+            self.calls += 1
+            return []
+    provider = Provider()
+    rows = [bar(date(2026, 10, 11))]
+    now = datetime(2026, 10, 14, 3, tzinfo=UTC)
+    assert _repair_btc_week_close(BTC, rows, provider, now) == rows
+    assert provider.calls == 3
+    with pytest.raises(RuntimeError, match="actual 2026-10-11"):
+        verify({"results": [{"symbol": "BTC", "as_of": "2026-10-11", "cta": "SELL"}]}, now)
+
+
+def test_btc_heartbeat_rejects_future_duplicate_unknown_and_allows_grace():
+    import pytest
+    from scripts.verify_btc_freshness import verify
+    now = datetime(2026, 10, 16, 3, tzinfo=UTC)
+    row = {"symbol": "BTC", "as_of": "2026-10-15", "cta": "SELL"}
+    assert verify({"results": [row]}, now) == "2026-10-15"
+    for rows in ([], [row, row], [dict(row, as_of="2026-10-16")], [dict(row, cta="UNKNOWN")]):
+        with pytest.raises(RuntimeError):
+            verify({"results": rows}, now)
+    lag = dict(row, as_of="2026-10-14")
+    assert verify({"results": [lag]}, now.replace(hour=0, minute=29)) == "2026-10-14"
+    with pytest.raises(RuntimeError):
+        verify({"results": [lag]}, now.replace(hour=0, minute=30))
