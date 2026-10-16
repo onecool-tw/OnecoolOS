@@ -1,20 +1,20 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Taiwan Market Pressure Request",
-  "as_of": "2026-10-15",
+  "as_of": "2026-10-16",
   "status": "CURRENT",
   "light": "RED",
   "reason": [
-    "prior_formal_RED_2026_10_14;new_lower_close_and_worsening_volume_volatility_foreign_futures_stress;deescalation_conditions_failed",
-    "VERIFIED_TWSE_2026_10_15_TAIEX_close_46969_87_change_minus_1655_96_pct_minus_3_41_vs_prior_48625_83;new_closing_low_vs_2026_10_13_48341_31",
-    "VERIFIED_TWSE_total_turnover_TWD_1435755219704_vs_prior_978137416296;volume_pressure_worsened",
-    "VERIFIED_TAIFEX_TX_202610_regular_session_last_trade_46979_settlement_46931;last_trade_spot_basis_plus_9_13_vs_prior_plus_166_17;settlement_basis_minus_38_87;do_not_mix_price_bases",
-    "VERIFIED_TAIFEX_foreign_TX_OI_long_9171_short_106753_net_minus_97582_vs_prior_minus_86814",
-    "VERIFIED_TAIFEX_TXO_volume_PCR_74_99_OI_PCR_60_84_vs_prior_103_47_and_74_44;not_used_alone_as_release",
-    "VERIFIED_official_VIX_30_61_Last_1_min_AVG_vs_prior_26_08",
-    "VERIFIED_TWSE_institutional_TWD_foreign_minus_302555484058_trust_plus_28303026534_dealer_minus_95823663942_total_minus_370076121466",
-    "VERIFIED_margin_latest_official_2026_10_14_amount_651567390_thousand_TWD_change_plus_6588765;short_units_228653_change_plus_3194;official_lag_accepted",
-    "formal_Work_only_judgment;all_six_required_input_groups_date_verified;news_does_not_change_CTA;GitHub_persistence_only"
+    "prior_formal_RED_2026_10_15;retain_RED;only_first_session_after_new_closing_low;two_consecutive_no_trigger_sessions_not_satisfied",
+    "VERIFIED_TWSE_2026_10_16_TAIEX_47111_26_change_plus_141_39_pct_plus_0_30;above_prior_46969_87;total_turnover_TWD_993814830090_vs_1435755219704;volume_improved",
+    "VERIFIED_TWSE_ordinary_stock_breadth_up_684_down_286;intraday_high_low_and_securities_lending_NOT_VERIFIED_not_used_for_release",
+    "VERIFIED_TAIFEX_TX_202610_regular_last_trade_47242_settlement_47284;last_trade_spot_basis_plus_130_74;settlement_basis_plus_172_74;consistent_separate_price_bases",
+    "VERIFIED_TAIFEX_foreign_TX_OI_long_9812_short_103487_net_minus_93675_vs_prior_minus_97582;improved_but_stress_remains",
+    "VERIFIED_TAIFEX_TXO_volume_PCR_88_75_OI_PCR_67_60_vs_prior_74_99_and_60_84;not_standalone_release",
+    "VERIFIED_official_VIX_26_33_Last_1_min_AVG_vs_prior_30_61;improved",
+    "VERIFIED_TWSE_institutional_TWD_foreign_minus_46147162837_trust_plus_11754104508_dealer_minus_33414315063_total_minus_67807373392",
+    "VERIFIED_margin_2026_10_15_amount_646415015_thousand_TWD_change_minus_5141344;short_units_229150_change_plus_497;official_lag_accepted;provider_revised_previous_margin_amount_651556359_vs_prior_cached_651567390",
+    "formal_Work_only_judgment;all_six_required_groups_date_verified;RED_deescalation_gate_false;news_not_used_as_signal;GitHub_persistence_only"
   ],
   "confirmed_inputs": {
     "spot": true,
@@ -25,12 +25,12 @@
     "margin": true
   },
   "input_data_as_of": {
-    "spot": "2026-10-15",
-    "futures": "2026-10-15",
-    "pcr": "2026-10-15",
-    "volatility": "2026-10-15",
-    "institutional_flow": "2026-10-15",
-    "margin": "2026-10-14"
+    "spot": "2026-10-16",
+    "futures": "2026-10-16",
+    "pcr": "2026-10-16",
+    "volatility": "2026-10-16",
+    "institutional_flow": "2026-10-16",
+    "margin": "2026-10-15"
   },
   "writer": "FORMAL_TAIWAN_WORK_ONLY"
 }
