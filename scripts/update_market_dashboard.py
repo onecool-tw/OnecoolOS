@@ -5,6 +5,8 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import logging
+from time import sleep
 from datetime import UTC, date, datetime, time, timedelta
 from math import isclose
 from pathlib import Path
@@ -90,7 +92,9 @@ def _repair_btc_week_close(config, history, bootstrapper, reference_time=None):
     # a wider window, preserving actual observations and never synthesizing.
     try:
         incoming = bootstrapper.fetch_raw_daily(config.provider_symbol, period="1mo")
-        history = merge_and_adjust(history, _completed_symbol_bars(config, incoming, now))
+        completed = _completed_symbol_bars(config, incoming, now)
+        if completed:
+            history = merge_and_adjust(history, completed)
     except Exception:
         pass
     for day in targets:
@@ -98,13 +102,20 @@ def _repair_btc_week_close(config, history, bootstrapper, reference_time=None):
             continue
         fetch_exact = getattr(bootstrapper, "fetch_btc_completed_day", None)
         if fetch_exact is not None:
-            try:
-                incoming = [bar for bar in fetch_exact(day)
-                            if bar.trading_date == day]
-                if incoming:
-                    history = merge_and_adjust(history, _completed_symbol_bars(config, incoming, now))
-            except Exception:
-                pass
+            for attempt in range(3):
+                try:
+                    incoming = [bar for bar in fetch_exact(day)
+                                if bar.trading_date == day]
+                    if incoming:
+                        history = merge_and_adjust(
+                            history, _completed_symbol_bars(config, incoming, now)
+                        )
+                        break
+                    logging.warning("BTC exact-day repair %s attempt %s: no valid row", day, attempt + 1)
+                except Exception as exc:
+                    logging.warning("BTC exact-day repair %s attempt %s: %s", day, attempt + 1, type(exc).__name__)
+                if attempt < 2:
+                    sleep(2)
     return history
 
 
