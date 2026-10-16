@@ -1,0 +1,53 @@
+{
+  "report_id": "fund",
+  "report_date": "2026-10-16",
+  "generated_at": "2026-10-16T03:34:16.199858+00:00",
+  "delivery_status": "UNKNOWN",
+  "writeback_status": "VERIFIED",
+  "delivery_evidence_sha256": null,
+  "channels": {
+    "conversation": {
+      "status": "UNKNOWN",
+      "observed_at": null,
+      "evidence_sha256": null
+    },
+    "artifact": {
+      "status": "DELIVERED",
+      "observed_at": "2026-10-16T03:34:16.199858+00:00",
+      "evidence_sha256": "c43b4d715c974a2dc3e0abc5f2797b08a4ff1c4bc7180f4a1a9a2df0845dd7a0"
+    }
+  },
+  "execution_status": "PARTIAL",
+  "data_as_of": {
+    "fund_nav_min": "2026-10-14",
+    "fund_nav_max": "2026-10-14",
+    "bitcoin": "2026-10-14",
+    "bitcoin_completed_week": "2026-10-11"
+  },
+  "completed_steps": [
+    "main_snapshot_read",
+    "seven_fund_history_nav_currency_ma_action_validation",
+    "eight_period_frozen_regression_pass",
+    "bitcoin_history_and_completed_week_validation",
+    "previous_corrected_report_comparison",
+    "artifact_saved_and_readback_verified"
+  ],
+  "pending_steps": [
+    "conversation_delivery_observation",
+    "newer_bitcoin_daily_cache"
+  ],
+  "next_step": "Deliver full report in existing conversation; retain dated BTC cache until next verifiable update.",
+  "versions": {
+    "data_snapshot": "f7c017664944200cab86f6aadf547ca6ef2cbf74",
+    "fund_schema": "1.6",
+    "cta_engine": "shared_onecool_cta_engine",
+    "action_rule": "v1.3 weekly-led transition",
+    "validation_rule": "DATA-7 v1.1"
+  },
+  "data_classification": {
+    "fund_nav": "LAGGED",
+    "bitcoin_daily": "LAGGED",
+    "bitcoin_completed_week": "CURRENT"
+  },
+  "validation_status": "CONDITIONAL_PASS"
+}
