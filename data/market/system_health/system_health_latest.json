@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-10-17T08:50:04.121533+00:00",
+  "generated_at": "2026-10-17T08:57:47.273899+00:00",
   "taipei_date": "2026-10-17",
   "status": "READY",
   "scope_status": {
@@ -21,7 +21,12 @@
           "email": "DELIVERED",
           "artifact": "DELIVERED"
         },
-        "reason": "Per-channel evidence checked; missing channels remain unverified"
+        "unverified_channels": [
+          "conversation"
+        ],
+        "failed_channels": [],
+        "next_action": "Observe actual delivered message acknowledgement; do not resend solely because acknowledgement is unknown",
+        "reason": "Missing acknowledgement is unverified, not proof of failed delivery"
       },
       {
         "report_id": "us",
@@ -31,7 +36,12 @@
           "conversation": "UNKNOWN",
           "artifact": "DELIVERED"
         },
-        "reason": "Per-channel evidence checked; missing channels remain unverified"
+        "unverified_channels": [
+          "conversation"
+        ],
+        "failed_channels": [],
+        "next_action": "Observe actual delivered message acknowledgement; do not resend solely because acknowledgement is unknown",
+        "reason": "Missing acknowledgement is unverified, not proof of failed delivery"
       },
       {
         "report_id": "fund",
@@ -41,7 +51,12 @@
           "conversation": "UNKNOWN",
           "artifact": "DELIVERED"
         },
-        "reason": "Per-channel evidence checked; missing channels remain unverified"
+        "unverified_channels": [
+          "conversation"
+        ],
+        "failed_channels": [],
+        "next_action": "Observe actual delivered message acknowledgement; do not resend solely because acknowledgement is unknown",
+        "reason": "Missing acknowledgement is unverified, not proof of failed delivery"
       },
       {
         "report_id": "home",
@@ -51,7 +66,12 @@
           "conversation": "UNKNOWN",
           "artifact": "DELIVERED"
         },
-        "reason": "Per-channel evidence checked; missing channels remain unverified"
+        "unverified_channels": [
+          "conversation"
+        ],
+        "failed_channels": [],
+        "next_action": "Observe actual delivered message acknowledgement; do not resend solely because acknowledgement is unknown",
+        "reason": "Missing acknowledgement is unverified, not proof of failed delivery"
       }
     ],
     "policy": "Data readiness does not prove report delivery. Never infer email success from a generated draft."
