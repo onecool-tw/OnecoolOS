@@ -15,6 +15,7 @@ from onecool_os.market.fund_alpha import (
     read_nav_history,
     write_nav_history,
 )
+from onecool_os.market.fund_nav_backup import MoneyDJFundClient
 from onecool_os.market.fund_cta import calculate_fund_cta, fund_cta_payload
 
 
@@ -29,11 +30,13 @@ def update(
     *,
     client: AnueFundClient | None = None,
     generated_at: str | None = None,
+    backup_client: MoneyDJFundClient | None = None,
 ) -> dict[str, Any]:
     """Refresh each fund independently and retain valid NAV on failures."""
 
     fund_dir = root / "data" / "market" / "fund_nav"
     nav_client = client or AnueFundClient()
+    backup = backup_client if backup_client is not None else (MoneyDJFundClient() if client is None else None)
     benchmark_path = root / "data" / "market" / "etf_cta" / "cta_latest.json"
     benchmark_payload = (
         json.loads(benchmark_path.read_text(encoding="utf-8"))
@@ -54,7 +57,16 @@ def update(
         existing = read_nav_history(path)
         previous_date = existing[-1].nav_date if existing else None
         try:
-            incoming = nav_client.fetch_history(fund_code)
+            backup_evidence = None
+            primary_error = None
+            try:
+                incoming = nav_client.fetch_history(fund_code)
+            except Exception as exc:
+                if backup is None:
+                    raise
+                primary_error = f"{type(exc).__name__}: {exc}"
+                incoming = backup.fetch_verified(fund_code, existing)
+                backup_evidence = backup.evidence[fund_code]
             history = merge_nav_history(existing, incoming)
             latest_date = history[-1].nav_date if history else None
             status = (
@@ -73,6 +85,8 @@ def update(
                     latest_date.isoformat() if latest_date else None
                 ),
                 "error": None,
+                **({"primary_error": primary_error, "backup": backup_evidence}
+                   if backup_evidence else {}),
             }
         except Exception as exc:  # provider errors must remain fund-scoped
             failed_reads += 1
@@ -131,7 +145,11 @@ def update(
         item["nav_refresh"] = refresh_by_fund[item["fund_code"]]
     payload["generated_at"] = generated_at or datetime.now(timezone.utc).isoformat()
     payload["update_mode"] = "DAILY_NAV_CTA_ONLY"
-    payload["nav_provider"] = "Anue Fund public NavHIS"
+    payload["nav_provider"] = (
+        "Anue Fund public NavHIS; MoneyDJ verified append-only fallback"
+        if any(x.get("backup") for x in refresh_by_fund.values())
+        else "Anue Fund public NavHIS"
+    )
     payload["nav_refresh"] = {
         "status": "PARTIAL" if failed_reads else "COMPLETE",
         "successful_provider_reads": len(FUND_WATCHLIST) - failed_reads,
