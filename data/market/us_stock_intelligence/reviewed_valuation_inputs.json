@@ -972,6 +972,60 @@
           "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
         ]
       }
+    },
+    "LLY": {
+      "symbol": "LLY",
+      "company_name": "Eli Lilly and Company",
+      "published_at": "2026-08-05",
+      "reviewed_as_of": "2026-10-17",
+      "valid_through": "2026-10-23",
+      "sources": [
+        "https://investor.lilly.com/node/54781/pdf"
+      ],
+      "reported_facts": {
+        "period": "Q2_2026",
+        "revenue_million": 22974,
+        "reported_eps": 7.94,
+        "adjusted_eps": 8.38,
+        "FY26_adjusted_eps_guidance": [
+          35.5,
+          36.5
+        ],
+        "included_Q2_IPRD_per_share": 3.03,
+        "acquisitions": "Orna, Ajax, Centessa, Kelonia; issuer reported completed Q2 acquisitions; guidance excludes IPRD after June30."
+      },
+      "model_gaps": [
+        "POST_ACQUISITION_NORMALIZED_EARNINGS_AND_NET_DEBT_BRIDGE_NOT_VALIDATED"
+      ],
+      "refresh_on": [
+        "NEXT_OFFICIAL_FINANCIALS_OR_NORMALIZATION_BRIDGE",
+        "REFERENCE_EXPIRY"
+      ]
+    },
+    "MSFT": {
+      "symbol": "MSFT",
+      "company_name": "Microsoft Corporation",
+      "published_at": "2026-07-29",
+      "reviewed_as_of": "2026-10-17",
+      "valid_through": "2026-10-23",
+      "sources": [
+        "https://www.microsoft.com/en-us/Investor/earnings/FY-2026-Q4/press-release-webcast"
+      ],
+      "reported_facts": {
+        "period": "FY2026",
+        "gaap_eps": 17.95,
+        "ex_OpenAI_eps": 17.28,
+        "Q4_net_discrete_EPS_benefit": 0.27,
+        "Anthropic_gain_pretax_million": 3200,
+        "limitation": "Issuer non-GAAP removes OpenAI but retains Anthropic gain; net composite Q4 discrete benefit is not a gain-specific after-tax bridge."
+      },
+      "model_gaps": [
+        "ANTHROPIC_GAIN_SPECIFIC_AFTER_TAX_AND_RECURRING_EARNINGS_BRIDGE_NOT_VALIDATED"
+      ],
+      "refresh_on": [
+        "NEXT_OFFICIAL_FINANCIALS_OR_NORMALIZATION_BRIDGE",
+        "REFERENCE_EXPIRY"
+      ]
     }
   }
 }
