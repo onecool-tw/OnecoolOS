@@ -1,7 +1,7 @@
 {
   "report_id": "fund",
   "report_date": "2026-10-17",
-  "generated_at": "2026-10-17T03:30:12.323Z",
+  "generated_at": "2026-10-17T03:55:43.125511+00:00",
   "delivery_status": "UNKNOWN",
   "writeback_status": "VERIFIED",
   "delivery_evidence_sha256": null,
@@ -13,8 +13,8 @@
     },
     "artifact": {
       "status": "DELIVERED",
-      "observed_at": "2026-10-17T03:30:12.323Z",
-      "evidence_sha256": "f78e3fb5cfdc5954f555a6bf7915058eb07f6bbad1391f7e496fb041c2b1cafe"
+      "observed_at": "2026-10-17T03:55:43.125511+00:00",
+      "evidence_sha256": "246122513d244a1b93c02d123d961181cb7047cb66601a27971da3741fced295"
     }
   },
   "execution_status": "PARTIAL",
@@ -33,13 +33,17 @@
     "previous_corrected_report_continuity_check",
     "bitcoin_history_shared_cta_and_completed_week_validation",
     "dashboard_run_38998862797_and_freshness_step_success",
-    "artifact_saved_and_readback_verified"
+    "artifact_saved_and_readback_verified",
+    "provider_official_system_upgrade_notice_verified",
+    "maintenance_response_validation_fix_pr_119_merged",
+    "provider_validation_and_fund_regression_32_tests_pass",
+    "corrected_artifact_version_1_saved_and_readback_verified"
   ],
   "pending_steps": [
     "newer_fund_nav_and_signal_verification",
     "conversation_delivery_observation"
   ],
-  "next_step": "Retry normal fund provider recovery on next run; retain actual cache dates and deliver full report now.",
+  "next_step": "Retain verified NAV dates; normal updater retries after provider maintenance ends. Do not infer new NAV or new signals.",
   "failed_steps": [
     "fund_run_38998861742_refresh_provider_json_invalid_after_two_attempts"
   ],
@@ -55,5 +59,17 @@
     "bitcoin_daily": "CURRENT",
     "bitcoin_completed_week": "CURRENT"
   },
-  "validation_status": "PARTIAL_NEWER_FUND_DATA_UNKNOWN"
+  "validation_status": "PARTIAL_NEWER_FUND_DATA_UNKNOWN",
+  "artifact_revision_history": [
+    {
+      "status": "DELIVERED",
+      "observed_at": "2026-10-17T03:30:12.323Z",
+      "evidence_sha256": "f78e3fb5cfdc5954f555a6bf7915058eb07f6bbad1391f7e496fb041c2b1cafe"
+    }
+  ],
+  "provider_issue": {
+    "status": "MAINTENANCE",
+    "code": "ANUE_NAV_MAINTENANCE",
+    "verified_at": "2026-10-17T03:55:43.125511+00:00"
+  }
 }
