@@ -53,3 +53,12 @@ def test_verified_artifact_is_partial_until_conversation_is_observed(tmp_path):
     assert r['status']=='PARTIAL'
     assert r['channels']['artifact']=='DELIVERED'
     assert r['channels']['conversation']=='UNKNOWN'
+
+
+def test_manual_cards_no_longer_create_missing_scheduled_delivery(tmp_path):
+    before = build_delivery_health(tmp_path, datetime(2026, 9, 17, 12, tzinfo=timezone.utc))
+    after = build_delivery_health(tmp_path, datetime(2026, 9, 17, 16, tzinfo=timezone.utc))
+    assert 'cards' in {r['report_id'] for r in before['reports']}
+    assert {r['report_id'] for r in after['reports']} == {'taiwan', 'us', 'fund', 'home'}
+    assert after['status'] == 'UNVERIFIED'
+    assert all(r['status'] == 'UNKNOWN' for r in after['reports'])

@@ -34,7 +34,10 @@ A digest provides an audit reference, not independent verification of the provid
 the reporting task remains responsible for checking the underlying evidence.
 
 Current schedules: Taiwan Mon–Fri 18:00; US Tue–Sat 16:00; fund Mon–Sat 11:30;
-cards Saturday 07:00; home days 2/12/22 08:00. Update the monitor when schedules change.
+home days 2/12/22 08:00. Card ROI reports became manual-only on 2026-09-18;
+exclude them from scheduled-delivery expectations from that date, preserving
+older receipts and historical audits. The separate Ohtani MLB report is not the
+card ROI report and must not inherit its receipt identity. Update the monitor when schedules change.
 
 ## Per-channel evidence (v2)
 

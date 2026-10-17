@@ -14,6 +14,10 @@ SCHEDULES = {
 }
 
 
+# Card ROI reports became manual-only on this Taipei date. Keep older audits.
+DISABLED_FROM = {"cards": "2026-09-18"}
+
+
 def _verified_channel(channel: dict, due: datetime, now: datetime) -> bool:
     if not isinstance(channel, dict) or channel.get('status') != 'DELIVERED':
         return False
@@ -31,6 +35,8 @@ def build_delivery_health(root: str | Path, now: datetime) -> dict:
     local = now.astimezone(ZoneInfo('Asia/Taipei'))
     reports = []
     for name, (weekdays, hour, minute) in SCHEDULES.items():
+        if name in DISABLED_FROM and local.date().isoformat() >= DISABLED_FROM[name]:
+            continue
         due = local.replace(hour=hour, minute=minute, second=0, microsecond=0)
         while due + timedelta(hours=2) > local or due.weekday() not in weekdays or (name == 'home' and due.day not in {2, 12, 22}):
             due -= timedelta(days=1)
