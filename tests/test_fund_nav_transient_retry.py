@@ -42,3 +42,39 @@ def test_invalid_payload_is_not_retried(monkeypatch):
     with pytest.raises(json.JSONDecodeError):
         AnueFundClient(request=request).fetch_history("B15080")
     assert len(calls) == 1
+
+
+@pytest.mark.parametrize("url,content_type,body,reason", [
+    ("https://www.anuefund.com/", "text/html", "系統升級中".encode(), "ANUE_NAV_MAINTENANCE"),
+    ("https://www.anuefund.com/", "text/html", b"<html>Home</html>", "ANUE_NAV_ENDPOINT_REDIRECTED"),
+    (AnueFundClient.endpoint, "text/html", b"<html>Unavailable</html>", "ANUE_NAV_NON_JSON_RESPONSE"),
+    (AnueFundClient.endpoint, "application/json", b"\xef\xbb\xbf<html>Unavailable</html>", "ANUE_NAV_NON_JSON_RESPONSE"),
+    (AnueFundClient.endpoint, "application/json", b"", "ANUE_NAV_EMPTY_RESPONSE"),
+])
+def test_http_success_is_not_nav_success(monkeypatch, url, content_type, body, reason):
+    from onecool_os.market.fund_alpha import _download
+    from onecool_os.market.etf_cta import ETFCTAError
+    class Response:
+        headers = {"Content-Type": content_type}
+        def geturl(self): return url
+        def read(self): return body
+        def __enter__(self): return self
+        def __exit__(self, *args): pass
+    monkeypatch.setattr("onecool_os.market.fund_alpha.urlopen", lambda *a, **k: Response())
+    with pytest.raises(ETFCTAError, match=reason):
+        _download(AnueFundClient.endpoint + "?FundID=B16019")
+
+
+def test_valid_nav_response_remains_unchanged(monkeypatch):
+    from onecool_os.market.fund_alpha import _download
+    body = json.dumps({"data": {"fundID": "B16019", "hearder": {"ccy": "美元"},
+                              "navHIS": [{"navDate": "2026-10-15", "nav": 83.72}]}}).encode()
+    class Response:
+        headers = {"Content-Type": "application/json; charset=utf-8"}
+        def geturl(self): return AnueFundClient.endpoint
+        def read(self): return body
+        def __enter__(self): return self
+        def __exit__(self, *args): pass
+    monkeypatch.setattr("onecool_os.market.fund_alpha.urlopen", lambda *a, **k: Response())
+    assert _download(AnueFundClient.endpoint) == body
+    assert AnueFundClient().fetch_history("B16019")[0].nav == 83.72

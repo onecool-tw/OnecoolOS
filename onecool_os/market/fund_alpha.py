@@ -13,7 +13,7 @@ from dataclasses import asdict, dataclass
 from datetime import date, timedelta
 from pathlib import Path
 from typing import Any
-from urllib.parse import urlencode
+from urllib.parse import urlencode, urlsplit
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
@@ -719,6 +719,32 @@ def _format(value: float) -> str:
 
 
 def _download(url: str) -> bytes:
-    request = Request(url, headers={"User-Agent": "OnecoolOS/1.0"})
+    request = Request(url, headers={
+        "User-Agent": "OnecoolOS/1.0",
+        "Accept": "application/json",
+    })
     with urlopen(request, timeout=60) as response:  # noqa: S310 - fixed host.
-        return response.read()
+        # Maintenance redirects can return HTTP 200 HTML at the home page.
+        # Diagnose the source outage before parsing; never treat it as NAV.
+        body = response.read()
+        if "系統升級中" in body.decode("utf-8-sig", errors="replace"):
+            raise ETFCTAError(
+                "ANUE_NAV_MAINTENANCE: provider system upgrade in progress; "
+                "new NAV unknown; verified cache retained."
+            )
+        final = urlsplit(response.geturl())
+        expected = urlsplit(url)
+        if (final.hostname, final.path) != (expected.hostname, expected.path):
+            raise ETFCTAError(
+                "ANUE_NAV_ENDPOINT_REDIRECTED: expected NAV API; "
+                f"received {final.hostname}{final.path}. Verified cache retained."
+            )
+        content_type = response.headers.get("Content-Type", "").lower()
+        if "text/html" in content_type or body.lstrip(b"\xef\xbb\xbf \t\r\n").startswith(b"<"):
+            raise ETFCTAError(
+                "ANUE_NAV_NON_JSON_RESPONSE: provider returned HTML instead of NAV JSON. "
+                "Verified cache retained."
+            )
+        if not body.strip():
+            raise ETFCTAError("ANUE_NAV_EMPTY_RESPONSE: no NAV payload; verified cache retained.")
+        return body
