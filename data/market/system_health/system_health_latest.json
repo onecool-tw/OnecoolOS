@@ -1,11 +1,11 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-10-17T03:57:14.953909+00:00",
+  "generated_at": "2026-10-17T04:13:00.862882+00:00",
   "taipei_date": "2026-10-17",
-  "status": "BLOCKED",
+  "status": "PARTIAL",
   "scope_status": {
-    "morning": "BLOCKED",
+    "morning": "PARTIAL",
     "asia": "READY",
     "weekly": "READY"
   },
@@ -63,11 +63,11 @@
     "policy": "Data readiness does not prove report delivery. Never infer email success from a generated draft."
   },
   "end_to_end_status": "NOT_FULLY_VERIFIED",
-  "action_readiness": "UNSAFE_FOR_AFFECTED_REPORTS",
+  "action_readiness": "LIMITED",
   "counts": {
-    "ready": 17,
+    "ready": 18,
     "partial": 1,
-    "blocked": 1
+    "blocked": 0
   },
   "modules": [
     {
@@ -148,11 +148,11 @@
       "label": "Fund NAV CTA",
       "scope": "morning",
       "critical": true,
-      "status": "BLOCKED",
-      "reason": "generation timestamp missing, invalid or older than scheduled date 2026-10-17",
+      "status": "READY",
+      "reason": "current",
       "observed_as_of": "2026-10-16",
       "recovery_workflow": "update-fund-nav-cta.yml",
-      "retryable": true,
+      "retryable": false,
       "impacted_reports": [
         "基金日報",
         "基金週報"
@@ -356,26 +356,9 @@
       "impacted_reports": [
         "美股日報"
       ]
-    },
-    {
-      "module_id": "fund_nav_cta",
-      "label": "Fund NAV CTA",
-      "scope": "morning",
-      "critical": true,
-      "status": "BLOCKED",
-      "reason": "generation timestamp missing, invalid or older than scheduled date 2026-10-17",
-      "observed_as_of": "2026-10-16",
-      "recovery_workflow": "update-fund-nav-cta.yml",
-      "retryable": true,
-      "impacted_reports": [
-        "基金日報",
-        "基金週報"
-      ]
     }
   ],
-  "recovery_workflows": [
-    "update-fund-nav-cta.yml"
-  ],
-  "issue_fingerprint": "186ab8b3b21d055498e420b079f8e042b90fccb921b4b0e8a352f394a7031476",
+  "recovery_workflows": [],
+  "issue_fingerprint": "d939d5fd4a0dd10597ba2be91a296e77f5336c915bb7329aea48aeaf375ae507",
   "policy": "Health monitoring only; never changes CTA, rankings, or investment decisions."
 }
