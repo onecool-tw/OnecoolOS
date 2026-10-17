@@ -59,3 +59,13 @@ An optional `artifact` channel records actual saved report readback independentl
 It can establish PARTIAL delivery but never substitutes for conversation/email.
 Recovery artifacts must identify their creation date and reconstruction scope;
 they do not establish on-time delivery of a historical report.
+
+## Missing acknowledgements and explicit failures
+
+The monitor preserves explicit channel FAILED states separately from UNKNOWN.
+Each channel receipt result lists failed_channels, unverified_channels and a
+next_action. UNKNOWN is not proof of a missed delivery and does not authorize
+automatic resending. If conversation alone lacks evidence, observe the real
+delivered message acknowledgement; never use artifact success or a task's
+last-run time as a substitute. With per-channel receipts, all required delivery
+channels and artifact readback must be verified before DELIVERED.

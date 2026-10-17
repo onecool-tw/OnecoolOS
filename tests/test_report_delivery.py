@@ -37,6 +37,7 @@ def test_email_success_does_not_imply_conversation_success(tmp_path):
     assert result['status'] == 'PARTIAL'
     assert result['channels'] == {'conversation': 'UNKNOWN', 'email': 'DELIVERED', 'artifact': 'UNKNOWN'}
     receipt['channels']['conversation'] = evidence
+    receipt['channels']['artifact'] = evidence
     path.write_text(json.dumps(receipt))
     assert build_delivery_health(tmp_path, NOW)['reports'][0]['status'] == 'DELIVERED'
     receipt['channels']['email'] = {**evidence, 'evidence_sha256': 'invalid'}
@@ -62,3 +63,31 @@ def test_manual_cards_no_longer_create_missing_scheduled_delivery(tmp_path):
     assert {r['report_id'] for r in after['reports']} == {'taiwan', 'us', 'fund', 'home'}
     assert after['status'] == 'UNVERIFIED'
     assert all(r['status'] == 'UNKNOWN' for r in after['reports'])
+
+
+def test_unknown_conversation_does_not_request_automatic_resend(tmp_path):
+    path = tmp_path / 'data/operations/report_delivery/us/2026-09-12.json'
+    path.parent.mkdir(parents=True)
+    evidence = dict(status='DELIVERED', observed_at='2026-09-12T17:00:00+08:00', evidence_sha256='a'*64)
+    receipt = dict(report_id='us', report_date='2026-09-12', generated_at=evidence['observed_at'], writeback_status='VERIFIED', channels={'artifact': evidence})
+    path.write_text(json.dumps(receipt))
+    report = build_delivery_health(tmp_path, NOW)['reports'][1]
+    assert report['status'] == 'PARTIAL'
+    assert report['unverified_channels'] == ['conversation']
+    assert report['failed_channels'] == []
+    assert 'do not resend' in report['next_action']
+    receipt['channels']['conversation'] = {'status': 'FAILED'}
+    path.write_text(json.dumps(receipt))
+    report = build_delivery_health(tmp_path, NOW)['reports'][1]
+    assert report['status'] == 'FAILED'
+    assert report['failed_channels'] == ['conversation']
+
+
+def test_conversation_without_verified_artifact_cannot_be_delivered(tmp_path):
+    path = tmp_path / 'data/operations/report_delivery/us/2026-09-12.json'
+    path.parent.mkdir(parents=True)
+    evidence = dict(status='DELIVERED', observed_at='2026-09-12T17:00:00+08:00', evidence_sha256='a'*64)
+    path.write_text(json.dumps(dict(report_id='us', report_date='2026-09-12', generated_at=evidence['observed_at'], writeback_status='VERIFIED', channels={'conversation': evidence})))
+    report = build_delivery_health(tmp_path, NOW)['reports'][1]
+    assert report['status'] == 'PARTIAL'
+    assert report['unverified_channels'] == ['artifact']

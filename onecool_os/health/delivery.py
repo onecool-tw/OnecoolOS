@@ -60,12 +60,15 @@ def build_delivery_health(root: str | Path, now: datetime) -> dict:
                 required = ('conversation', 'email') if name == 'taiwan' else ('conversation',)
                 for channel in (*required, "artifact"):
                     value = channels.get(channel, {})
-                    channel_status[channel] = 'DELIVERED' if _verified_channel(value, due, local) else 'UNKNOWN'
+                    channel_status[channel] = 'DELIVERED' if _verified_channel(value, due, local) else 'FAILED' if isinstance(value, dict) and value.get('status') == 'FAILED' else 'UNKNOWN'
                 verified = sum(channel_status[k] == 'DELIVERED' for k in required)
                 any_verified = any(v == 'DELIVERED' for v in channel_status.values())
-                status = 'DELIVERED' if verified == len(required) and receipt.get('writeback_status') == 'VERIFIED' else 'PARTIAL' if any_verified else 'UNKNOWN'
-                reason = 'Per-channel evidence checked; missing channels remain unverified'
-                reports.append({'report_id': name, 'expected_report_date': expected, 'status': status, 'channels': channel_status, 'reason': reason})
+                status = 'DELIVERED' if verified == len(required) and channel_status['artifact'] == 'DELIVERED' and receipt.get('writeback_status') == 'VERIFIED' else 'FAILED' if 'FAILED' in channel_status.values() else 'PARTIAL' if any_verified else 'UNKNOWN'
+                unverified = [k for k, v in channel_status.items() if v == 'UNKNOWN']
+                failed = [k for k, v in channel_status.items() if v == 'FAILED']
+                reason = 'Explicit channel failure recorded' if failed else 'Missing acknowledgement is unverified, not proof of failed delivery' if unverified else 'All channels verified'
+                next_action = 'Investigate explicit failed channels; check duplicate-delivery evidence before retry' if failed else 'Observe actual delivered message acknowledgement; do not resend solely because acknowledgement is unknown' if unverified == ['conversation'] else 'Verify missing channel evidence and artifact writeback' if unverified or receipt.get('writeback_status') != 'VERIFIED' else 'None'
+                reports.append({'report_id': name, 'expected_report_date': expected, 'status': status, 'channels': channel_status, 'unverified_channels': unverified, 'failed_channels': failed, 'next_action': next_action, 'reason': reason})
                 continue
             status = receipt.get('delivery_status', 'UNKNOWN')
             if status not in {'DELIVERED', 'PREPARED', 'FAILED', 'UNKNOWN'}:
