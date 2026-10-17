@@ -1,9 +1,9 @@
 {
   "report_id": "fund",
   "report_date": "2026-10-17",
-  "generated_at": "2026-10-17T03:27:06.636Z",
-  "delivery_status": "PREPARED",
-  "writeback_status": "UNKNOWN",
+  "generated_at": "2026-10-17T03:30:12.323Z",
+  "delivery_status": "UNKNOWN",
+  "writeback_status": "VERIFIED",
   "delivery_evidence_sha256": null,
   "channels": {
     "conversation": {
@@ -12,24 +12,48 @@
       "evidence_sha256": null
     },
     "artifact": {
-      "status": "UNKNOWN",
-      "observed_at": null,
-      "evidence_sha256": null
+      "status": "DELIVERED",
+      "observed_at": "2026-10-17T03:30:12.323Z",
+      "evidence_sha256": "f78e3fb5cfdc5954f555a6bf7915058eb07f6bbad1391f7e496fb041c2b1cafe"
     }
   },
   "execution_status": "PARTIAL",
   "data_as_of": {
     "fund_nav_min": "2026-10-14",
     "fund_nav_max": "2026-10-15",
-    "bitcoin": "2026-10-15"
+    "bitcoin": "2026-10-16",
+    "bitcoin_completed_week": "2026-10-11"
   },
   "completed_steps": [
-    "initial_main_cache_and_delivery_contract_read"
+    "main_snapshot_and_contract_read",
+    "pre_report_health_recovery",
+    "eight_period_frozen_regression_pass",
+    "eight_committed_period_consistency_check",
+    "seven_fund_history_nav_currency_ma_cta_action_validation",
+    "previous_corrected_report_continuity_check",
+    "bitcoin_history_shared_cta_and_completed_week_validation",
+    "dashboard_run_38998862797_and_freshness_step_success",
+    "artifact_saved_and_readback_verified"
   ],
   "pending_steps": [
-    "pre_report_data_recovery",
-    "artifact_save_readback",
+    "newer_fund_nav_and_signal_verification",
     "conversation_delivery_observation"
   ],
-  "next_step": "Use existing health recovery before report finalization."
+  "next_step": "Retry normal fund provider recovery on next run; retain actual cache dates and deliver full report now.",
+  "failed_steps": [
+    "fund_run_38998861742_refresh_provider_json_invalid_after_two_attempts"
+  ],
+  "versions": {
+    "data_snapshot": "12ebee1224eee63ba3c40f3be2cbed21a34cb3b1",
+    "cta_engine": "shared_onecool_cta_engine",
+    "action_rule": "v1.3 weekly-led transition",
+    "validation_rule": "DATA-7 v1.1"
+  },
+  "data_classification": {
+    "fund_nav": "LAGGED",
+    "newer_fund_nav": "UNKNOWN",
+    "bitcoin_daily": "CURRENT",
+    "bitcoin_completed_week": "CURRENT"
+  },
+  "validation_status": "PARTIAL_NEWER_FUND_DATA_UNKNOWN"
 }
