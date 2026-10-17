@@ -1110,9 +1110,9 @@
       "change_control": "VERSION_BUMP_AND_AUDIT_RECORD_REQUIRED"
     },
     "validated_count": 64,
-    "coverage_status": "PARTIAL",
+    "coverage_status": "COMPLETE",
     "validated_coverage_pct": 91.43,
-    "research_scope": "VALIDATED_SUBSET_ONLY",
+    "research_scope": "FULL_UNIVERSE_ASSESSED_VALIDATED_SUBSET_RANKED",
     "minimum_technical_confidence": 90,
     "formal_breakout_count": 0,
     "top5": [
@@ -2207,8 +2207,8 @@
         "status": "WAIT",
         "trigger": "突破52週高點且成交量至少為50日均量1.5倍",
         "formal_breakout": false,
-        "super_growth_bucket": "C",
-        "super_growth_reason": "QUALITY_DATA_GAP_NAMED",
+        "super_growth_bucket": "B",
+        "super_growth_reason": "VALUATION_INPUTS_UNAVAILABLE_OR_STALE",
         "quality_gate_status": {
           "competitive_advantage": {
             "status": "PASS",
@@ -2239,13 +2239,14 @@
             "inputs": {}
           },
           "financial_quality": {
-            "status": "UNKNOWN",
+            "status": "PASS",
             "as_of": "2026-10-16",
-            "rationale": "官方Q2財報可驗證GAAP淨利70.95億美元，但尚缺本次可重現的營運現金、資本支出與併購後淨負債橋接，無法完成現金品質檢核。",
+            "rationale": "已核對Q2 10-Q：H1 CFO16023m、capex5259m、另有研發資產現金支出3486m與併購9805m；六月底淨負債45958m。營運現金支持財務品質，但資本配置壓力重大；九月新併購後的負債與獲利影響另列估值缺口，不將六月餘額冒充十月餘額。",
             "sources": [
-              "https://investor.lilly.com/node/54781/pdf"
+              "https://www.sec.gov/Archives/edgar/data/59478/000005947826000081/lly-20260630.htm",
+              "https://investor.lilly.com/news-releases/news-release-details/lilly-completes-acquisition-ataibeckley-advance-therapies"
             ],
-            "data_gap": "Q2_2026_CASHFLOW_AND_POST_ACQUISITION_NET_DEBT_BRIDGE_NOT_VALIDATED",
+            "data_gap": null,
             "validation_errors": [],
             "method": null,
             "price_as_of": null,
@@ -2281,11 +2282,13 @@
           "valuation": {
             "status": "UNKNOWN",
             "as_of": "2026-10-16",
-            "rationale": "POST_ACQUISITION_NORMALIZED_EARNINGS_AND_NET_DEBT_BRIDGE_NOT_VALIDATED",
+            "rationale": "SEPT11_ATAIBECKLEY_POST_CLOSE_IPRD_AND_NET_DEBT_BRIDGE_NOT_DISCLOSED_IN_REVIEWED_OFFICIAL_SOURCES",
             "sources": [
-              "https://investor.lilly.com/node/54781/pdf"
+              "https://investor.lilly.com/node/54781/pdf",
+              "https://www.sec.gov/Archives/edgar/data/59478/000005947826000081/lly-20260630.htm",
+              "https://investor.lilly.com/news-releases/news-release-details/lilly-completes-acquisition-ataibeckley-advance-therapies"
             ],
-            "data_gap": "POST_ACQUISITION_NORMALIZED_EARNINGS_AND_NET_DEBT_BRIDGE_NOT_VALIDATED",
+            "data_gap": "SEPT11_ATAIBECKLEY_POST_CLOSE_IPRD_AND_NET_DEBT_BRIDGE_NOT_DISCLOSED_IN_REVIEWED_OFFICIAL_SOURCES",
             "validation_errors": [],
             "method": null,
             "price_as_of": "2026-10-16",
@@ -2297,13 +2300,10 @@
         },
         "evidence_coverage": "PARTIAL",
         "missing_evidence": [
-          "financial_quality",
           "circle_of_competence",
           "valuation"
         ],
-        "quality_data_gaps": {
-          "financial_quality": "Q2_2026_CASHFLOW_AND_POST_ACQUISITION_NET_DEBT_BRIDGE_NOT_VALIDATED"
-        },
+        "quality_data_gaps": {},
         "valuation_posture": "UNRESOLVED_WITH_SPECIFIC_GAP",
         "cyclical_review_required": false,
         "evidence_as_of": "2026-10-16",
@@ -2313,19 +2313,21 @@
         "circle_of_competence_policy": "PRE_TRADE_USER_CONFIRMATION_NOT_DAILY_RESEARCH_BLOCKER",
         "decision_authority": "RESEARCH_QUALITY_ONLY",
         "quality_gate_application": "FORMAL_NEW_CANDIDATE_RESEARCH_GATE",
-        "action_eligibility": "RESEARCH_ONLY_QUALITY_EVIDENCE_INCOMPLETE",
+        "action_eligibility": "RESEARCH_ONLY_VALUATION_DATA_GAP",
         "valuation_input_collection": {
           "as_of": "2026-10-16",
           "status": "PARTIAL",
           "gaps": [
-            "POST_ACQUISITION_NORMALIZED_EARNINGS_AND_NET_DEBT_BRIDGE_NOT_VALIDATED"
+            "SEPT11_ATAIBECKLEY_POST_CLOSE_IPRD_AND_NET_DEBT_BRIDGE_NOT_DISCLOSED_IN_REVIEWED_OFFICIAL_SOURCES"
           ],
           "price_basis": "adjusted_close",
           "inputs": {
             "adjusted_close": 1257.030029296875
           },
           "sources": [
-            "https://investor.lilly.com/node/54781/pdf"
+            "https://investor.lilly.com/node/54781/pdf",
+            "https://www.sec.gov/Archives/edgar/data/59478/000005947826000081/lly-20260630.htm",
+            "https://investor.lilly.com/news-releases/news-release-details/lilly-completes-acquisition-ataibeckley-advance-therapies"
           ],
           "decision_authority": "REFERENCE_INPUTS_ONLY_NOT_FAIR_VALUE",
           "price_source": {
@@ -2351,7 +2353,9 @@
             "reviewed_as_of": "2026-10-17",
             "valid_through": "2026-10-23",
             "sources": [
-              "https://investor.lilly.com/node/54781/pdf"
+              "https://investor.lilly.com/node/54781/pdf",
+              "https://www.sec.gov/Archives/edgar/data/59478/000005947826000081/lly-20260630.htm",
+              "https://investor.lilly.com/news-releases/news-release-details/lilly-completes-acquisition-ataibeckley-advance-therapies"
             ],
             "reported_facts": {
               "period": "Q2_2026",
@@ -2363,10 +2367,19 @@
                 36.5
               ],
               "included_Q2_IPRD_per_share": 3.03,
-              "acquisitions": "Orna, Ajax, Centessa, Kelonia; issuer reported completed Q2 acquisitions; guidance excludes IPRD after June30."
+              "acquisitions": "Orna, Ajax, Centessa, Kelonia; issuer reported completed Q2 acquisitions; guidance excludes IPRD after June30.",
+              "H126_CFO_million": 16023,
+              "H126_capex_million": 5259,
+              "H126_IPRD_cash_purchases_million": 3486,
+              "H126_acquisition_cash_net_million": 9805,
+              "June30_cash_million": 8950,
+              "June30_current_debt_million": 7050,
+              "June30_long_debt_million": 47858,
+              "June30_net_debt_million": 45958,
+              "post_quarter_transaction": "AtaiBeckley completed September11; June30 net debt does not represent post-close balance."
             },
             "model_gaps": [
-              "POST_ACQUISITION_NORMALIZED_EARNINGS_AND_NET_DEBT_BRIDGE_NOT_VALIDATED"
+              "SEPT11_ATAIBECKLEY_POST_CLOSE_IPRD_AND_NET_DEBT_BRIDGE_NOT_DISCLOSED_IN_REVIEWED_OFFICIAL_SOURCES"
             ],
             "refresh_on": [
               "NEXT_OFFICIAL_FINANCIALS_OR_NORMALIZATION_BRIDGE",
@@ -2377,14 +2390,24 @@
         "lynch_research": {
           "version": "onecool_lynch_research_v1",
           "company_type": {
-            "status": "INSUFFICIENT_EVIDENCE",
-            "primary": "UNCLASSIFIED",
-            "candidates": [],
-            "evidence": [],
+            "status": "PROVISIONAL",
+            "primary": "FAST_GROWER",
+            "candidates": [
+              "FAST_GROWER"
+            ],
+            "evidence": [
+              {
+                "field": "verified_quality_gates",
+                "value": [
+                  "structural_growth_runway",
+                  "financial_quality"
+                ],
+                "interpretation": "FAST_GROWTH_CANDIDATE_NOT_DURABILITY_PROOF"
+              }
+            ],
             "unresolved_categories": [
               "SLOW_GROWER",
               "STALWART",
-              "FAST_GROWER",
               "CYCLICAL",
               "TURNAROUND",
               "ASSET_PLAY"
@@ -2409,6 +2432,16 @@
                 "rationale": "Q2營收年增48%，全球銷量成長60%；retatrutide第三期資料及產能投資提供成長來源，不將臨床或核准結果視為保證。",
                 "sources": [
                   "https://investor.lilly.com/node/54781/pdf"
+                ]
+              },
+              {
+                "field": "financial_quality",
+                "value": "PASS",
+                "as_of": "2026-10-16",
+                "rationale": "已核對Q2 10-Q：H1 CFO16023m、capex5259m、另有研發資產現金支出3486m與併購9805m；六月底淨負債45958m。營運現金支持財務品質，但資本配置壓力重大；九月新併購後的負債與獲利影響另列估值缺口，不將六月餘額冒充十月餘額。",
+                "sources": [
+                  "https://www.sec.gov/Archives/edgar/data/59478/000005947826000081/lly-20260630.htm",
+                  "https://investor.lilly.com/news-releases/news-release-details/lilly-completes-acquisition-ataibeckley-advance-therapies"
                 ]
               },
               {
@@ -2482,7 +2515,7 @@
         "trigger": "突破52週高點且成交量至少為50日均量1.5倍",
         "formal_breakout": false,
         "super_growth_bucket": "B",
-        "super_growth_reason": "VALUATION_INPUTS_UNAVAILABLE_OR_STALE",
+        "super_growth_reason": "VALUATION_ABOVE_DISCIPLINED_RANGE",
         "quality_gate_status": {
           "competitive_advantage": {
             "status": "PASS",
@@ -2555,29 +2588,35 @@
             "inputs": {}
           },
           "valuation": {
-            "status": "UNKNOWN",
+            "status": "FAIL",
             "as_of": "2026-10-16",
-            "rationale": "ANTHROPIC_GAIN_SPECIFIC_AFTER_TAX_AND_RECURRING_EARNINGS_BRIDGE_NOT_VALIDATED",
+            "rationale": "AI/cloud capital intensity requires a cash-flow crosscheck. Use FY26 cash flow after cash capex, economic SBC and lease principal; analyst growth 10%/15% fades to 2%/3% with 12%/10% required returns. No current market price is used to choose assumptions; this is the existing Onecool conservative/base scenario screen, not an issuer fair value or full DCF.",
             "sources": [
-              "https://www.microsoft.com/en-us/Investor/earnings/FY-2026-Q4/press-release-webcast"
+              "https://www.microsoft.com/en-us/investor/earnings/fy-2026-q4/press-release-webcast",
+              "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm"
             ],
-            "data_gap": "ANTHROPIC_GAIN_SPECIFIC_AFTER_TAX_AND_RECURRING_EARNINGS_BRIDGE_NOT_VALIDATED",
+            "data_gap": null,
             "validation_errors": [],
-            "method": null,
+            "method": "FY26_PRICE_TO_SBC_AND_FINANCE_LEASE_ADJUSTED_OWNER_CASH_PROXY",
             "price_as_of": "2026-10-16",
-            "valid_through": null,
+            "valid_through": "2026-10-16",
             "inputs": {
-              "price": 529.0499877929688
+              "price": 529.0499877929688,
+              "denominator": 6.907419830940561,
+              "multiple": 76.5915494846836,
+              "fair_range": [
+                14.059671181929403,
+                24.1011664894084
+              ]
             }
           }
         },
         "evidence_coverage": "PARTIAL",
         "missing_evidence": [
-          "circle_of_competence",
-          "valuation"
+          "circle_of_competence"
         ],
         "quality_data_gaps": {},
-        "valuation_posture": "UNRESOLVED_WITH_SPECIFIC_GAP",
+        "valuation_posture": "ABOVE_DISCIPLINED_RANGE",
         "cyclical_review_required": false,
         "evidence_as_of": "2026-10-14",
         "manual_confirmation_required": [
@@ -2586,21 +2625,20 @@
         "circle_of_competence_policy": "PRE_TRADE_USER_CONFIRMATION_NOT_DAILY_RESEARCH_BLOCKER",
         "decision_authority": "RESEARCH_QUALITY_ONLY",
         "quality_gate_application": "FORMAL_NEW_CANDIDATE_RESEARCH_GATE",
-        "action_eligibility": "RESEARCH_ONLY_VALUATION_DATA_GAP",
+        "action_eligibility": "RESEARCH_ONLY_VALUATION_TOO_HIGH",
         "valuation_input_collection": {
           "as_of": "2026-10-16",
-          "status": "PARTIAL",
-          "gaps": [
-            "ANTHROPIC_GAIN_SPECIFIC_AFTER_TAX_AND_RECURRING_EARNINGS_BRIDGE_NOT_VALIDATED"
-          ],
+          "status": "COMPLETE",
+          "gaps": [],
           "price_basis": "adjusted_close",
           "inputs": {
             "adjusted_close": 529.0499877929688
           },
           "sources": [
-            "https://www.microsoft.com/en-us/Investor/earnings/FY-2026-Q4/press-release-webcast"
+            "https://www.microsoft.com/en-us/investor/earnings/fy-2026-q4/press-release-webcast",
+            "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm"
           ],
-          "decision_authority": "REFERENCE_INPUTS_ONLY_NOT_FAIR_VALUE",
+          "decision_authority": "REVIEWED_SOURCE_BACKED_VALUATION_MODEL",
           "price_source": {
             "provider": "yahoo_finance_adjusted_batch",
             "symbol": "MSFT",
@@ -2624,7 +2662,8 @@
             "reviewed_as_of": "2026-10-17",
             "valid_through": "2026-10-23",
             "sources": [
-              "https://www.microsoft.com/en-us/Investor/earnings/FY-2026-Q4/press-release-webcast"
+              "https://www.microsoft.com/en-us/investor/earnings/fy-2026-q4/press-release-webcast",
+              "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm"
             ],
             "reported_facts": {
               "period": "FY2026",
@@ -2632,15 +2671,75 @@
               "ex_OpenAI_eps": 17.28,
               "Q4_net_discrete_EPS_benefit": 0.27,
               "Anthropic_gain_pretax_million": 3200,
-              "limitation": "Issuer non-GAAP removes OpenAI but retains Anthropic gain; net composite Q4 discrete benefit is not a gain-specific after-tax bridge."
+              "limitation": "Issuer non-GAAP removes OpenAI but retains Anthropic gain; net composite Q4 discrete benefit is not a gain-specific after-tax bridge.",
+              "CFO": 182935,
+              "cash_PPE": 115948,
+              "SBC": 12405,
+              "finance_lease_principal": 3101,
+              "diluted_shares": 7453,
+              "normalization_resolution": "Uses sourced cash flow instead of an unsupported gain-specific after-tax EPS estimate."
             },
-            "model_gaps": [
-              "ANTHROPIC_GAIN_SPECIFIC_AFTER_TAX_AND_RECURRING_EARNINGS_BRIDGE_NOT_VALIDATED"
-            ],
+            "model_gaps": [],
             "refresh_on": [
               "NEXT_OFFICIAL_FINANCIALS_OR_NORMALIZATION_BRIDGE",
               "REFERENCE_EXPIRY"
-            ]
+            ],
+            "valuation_model": {
+              "method": "FY26_PRICE_TO_SBC_AND_FINANCE_LEASE_ADJUSTED_OWNER_CASH_PROXY",
+              "denominator": 6.907419830940561,
+              "currency": "USD",
+              "share_basis": "listed_security",
+              "normalization_bridge": {
+                "formula": "(FY26 CFO - cash PPE additions - full economic SBC charge - financing cash paid on finance leases) / FY26 diluted shares",
+                "inputs_usd_million": {
+                  "CFO": 182935,
+                  "cash_PPE": 115948,
+                  "SBC": 12405,
+                  "finance_lease_principal": 3101,
+                  "diluted_shares": 7453
+                },
+                "owner_cash_proxy_million": 51481,
+                "limitations": "Reported annual cash-flow proxy, not GAAP EPS or full FCFE forecast. CFO already reverses recognized investment gains, so no guessed Anthropic-specific tax rate is required. Retains cash taxes and working-capital effects; subtracts SBC economically and finance lease principal once. Noncash lease additions and future infrastructure commitments remain risks; no cash/net-debt addition to equity valuation. Not a forecast of maintenance capex or a full DCF."
+              },
+              "denominator_source": [
+                "https://www.microsoft.com/en-us/investor/earnings/fy-2026-q4/press-release-webcast",
+                "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm"
+              ],
+              "fair_range": [
+                14.059671181929403,
+                24.1011664894084
+              ],
+              "scenarios": [
+                {
+                  "name": "conservative",
+                  "years": 5,
+                  "growth": 0.1,
+                  "required_return": 0.12,
+                  "terminal_growth": 0.02,
+                  "cash_conversion": 1,
+                  "terminal_cash_conversion": 1
+                },
+                {
+                  "name": "base",
+                  "years": 5,
+                  "growth": 0.15,
+                  "required_return": 0.1,
+                  "terminal_growth": 0.03,
+                  "cash_conversion": 1,
+                  "terminal_cash_conversion": 1
+                }
+              ],
+              "assumption_authority": "ONECOOL_ANALYST_NOT_ISSUER_GUIDANCE",
+              "research_grade": "SCREENING_SCENARIO_NOT_FULL_DCF",
+              "policy_version": "onecool_equity_two_stage_screen_v1",
+              "rationale": "AI/cloud capital intensity requires a cash-flow crosscheck. Use FY26 cash flow after cash capex, economic SBC and lease principal; analyst growth 10%/15% fades to 2%/3% with 12%/10% required returns. No current market price is used to choose assumptions; this is the existing Onecool conservative/base scenario screen, not an issuer fair value or full DCF.",
+              "fair_range_rationale": "AI/cloud capital intensity requires a cash-flow crosscheck. Use FY26 cash flow after cash capex, economic SBC and lease principal; analyst growth 10%/15% fades to 2%/3% with 12%/10% required returns. No current market price is used to choose assumptions; this is the existing Onecool conservative/base scenario screen, not an issuer fair value or full DCF.",
+              "fair_range_sources": [
+                "https://www.microsoft.com/en-us/investor/earnings/fy-2026-q4/press-release-webcast",
+                "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm",
+                "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+              ]
+            }
           }
         },
         "lynch_research": {
@@ -2707,6 +2806,16 @@
                 "sources": [
                   "https://www.microsoft.com/en-us/investor/earnings/fy-2026-q4/press-release-webcast"
                 ]
+              },
+              {
+                "field": "valuation",
+                "value": "FAIL",
+                "as_of": "2026-10-16",
+                "rationale": "AI/cloud capital intensity requires a cash-flow crosscheck. Use FY26 cash flow after cash capex, economic SBC and lease principal; analyst growth 10%/15% fades to 2%/3% with 12%/10% required returns. No current market price is used to choose assumptions; this is the existing Onecool conservative/base scenario screen, not an issuer fair value or full DCF.",
+                "sources": [
+                  "https://www.microsoft.com/en-us/investor/earnings/fy-2026-q4/press-release-webcast",
+                  "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm"
+                ]
               }
             ],
             "required_manual_confirmation": [
@@ -2745,49 +2854,142 @@
       {
         "symbol": "BA",
         "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
+        "reason": "Reviewed nonpositive prior EPS; growth comparison is not meaningful under the existing rule",
         "fundamental_fetch_status": "UNAVAILABLE",
-        "fundamental_validation_detail": "SEC_FETCH_FAILED"
+        "fundamental_validation_detail": "SEC_FETCH_FAILED",
+        "assessment_status": "RULE_EXCLUDED",
+        "reviewed_evidence": {
+          "symbol": "BA",
+          "status": "NONPOSITIVE_COMPARISON_BASE",
+          "review_status": "VERIFIED",
+          "period_end": "2026-06-30",
+          "prior_period_end": "2025-06-30",
+          "current_eps": -0.67,
+          "prior_eps": -0.92,
+          "published_as_of": "2026-07-28",
+          "valid_through": "2026-10-23",
+          "source_url": "https://investors.boeing.com/investors/news/press-release-details/2026/Boeing-Reports-Second-Quarter-Results/",
+          "reviewed_as_of": "2026-10-17",
+          "review_note": "2026 Q2 GAAP diluted loss -0.67 versus 2025 Q2 -0.92; nonpositive base. Official source reopened and comparative EPS reverified 2026-10-17 for the Oct16 cutoff. Renewed review window; no score eligibility override."
+        }
       },
       {
         "symbol": "CRWD",
         "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
+        "reason": "Reviewed nonpositive prior EPS; growth comparison is not meaningful under the existing rule",
         "fundamental_fetch_status": "UNAVAILABLE",
-        "fundamental_validation_detail": "SEC_FETCH_FAILED"
+        "fundamental_validation_detail": "SEC_FETCH_FAILED",
+        "assessment_status": "RULE_EXCLUDED",
+        "reviewed_evidence": {
+          "symbol": "CRWD",
+          "status": "NONPOSITIVE_COMPARISON_BASE",
+          "review_status": "VERIFIED",
+          "period_end": "2026-07-31",
+          "prior_period_end": "2025-07-31",
+          "current_eps": 0.01,
+          "prior_eps": -0.07,
+          "published_as_of": "2026-08-27",
+          "valid_through": "2026-10-23",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1535527/000153552726000029/crwd-20260826xex991.htm",
+          "reviewed_as_of": "2026-10-17",
+          "review_note": "FY2027 Q2 GAAP diluted EPS 0.01 versus FY2026 Q2 -0.07; nonpositive base. Official source reopened and comparative EPS reverified 2026-10-17 for the Oct16 cutoff. Renewed review window; no score eligibility override.",
+          "share_basis": "RETROACTIVELY_ADJUSTED_FOUR_FOR_ONE_SPLIT_JULY_2026"
+        }
       },
       {
         "symbol": "SNDK",
         "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
+        "reason": "Reviewed nonpositive prior EPS; growth comparison is not meaningful under the existing rule",
         "fundamental_fetch_status": "UNAVAILABLE",
-        "fundamental_validation_detail": "SEC_FETCH_FAILED"
+        "fundamental_validation_detail": "SEC_FETCH_FAILED",
+        "assessment_status": "RULE_EXCLUDED",
+        "reviewed_evidence": {
+          "symbol": "SNDK",
+          "status": "NONPOSITIVE_COMPARISON_BASE",
+          "review_status": "VERIFIED",
+          "period_end": "2026-07-03",
+          "prior_period_end": "2025-06-27",
+          "current_eps": 43.97,
+          "prior_eps": -0.16,
+          "published_as_of": "2026-08-05",
+          "valid_through": "2026-10-23",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/2023554/000162828026053346/sndkq4-26ex991xpressrelease.htm",
+          "reviewed_as_of": "2026-10-17",
+          "review_note": "FY2026 Q4 GAAP diluted EPS 43.97 versus FY2025 Q4 loss 0.16; supersedes prior Q3 evidence. Official source reopened and comparative EPS reverified 2026-10-17 for the Oct16 cutoff. Renewed review window; no score eligibility override."
+        }
       },
       {
         "symbol": "SNOW",
         "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
+        "reason": "Reviewed nonpositive prior EPS; growth comparison is not meaningful under the existing rule",
         "fundamental_fetch_status": "UNAVAILABLE",
-        "fundamental_validation_detail": "SEC_FETCH_FAILED"
+        "fundamental_validation_detail": "SEC_FETCH_FAILED",
+        "assessment_status": "RULE_EXCLUDED",
+        "reviewed_evidence": {
+          "symbol": "SNOW",
+          "status": "NONPOSITIVE_COMPARISON_BASE",
+          "review_status": "VERIFIED",
+          "period_end": "2026-07-31",
+          "prior_period_end": "2025-07-31",
+          "current_eps": -0.55,
+          "prior_eps": -0.89,
+          "published_as_of": "2026-09-04",
+          "valid_through": "2026-10-23",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1640147/000164014726000033/fy2027q2earnings.htm",
+          "reviewed_as_of": "2026-10-17",
+          "review_note": "FY2027 Q2 GAAP diluted loss -0.55 versus FY2026 Q2 -0.89; nonpositive base. Official source reopened and comparative EPS reverified 2026-10-17 for the Oct16 cutoff. Renewed review window; no score eligibility override."
+        }
       },
       {
         "symbol": "SPOT",
         "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
+        "reason": "Reviewed nonpositive prior EPS; growth comparison is not meaningful under the existing rule",
         "fundamental_fetch_status": "UNAVAILABLE",
-        "fundamental_validation_detail": "SEC_FETCH_FAILED"
+        "fundamental_validation_detail": "SEC_FETCH_FAILED",
+        "assessment_status": "RULE_EXCLUDED",
+        "reviewed_evidence": {
+          "symbol": "SPOT",
+          "status": "NONPOSITIVE_COMPARISON_BASE",
+          "review_status": "VERIFIED",
+          "period_end": "2026-06-30",
+          "prior_period_end": "2025-06-30",
+          "current_eps": 2.61,
+          "prior_eps": -0.42,
+          "published_as_of": "2026-08-04",
+          "valid_through": "2026-10-23",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1639920/000162828026052543/spot-20260630x6xk.htm",
+          "accounting_basis": "IFRS",
+          "currency": "EUR",
+          "reviewed_as_of": "2026-10-17",
+          "review_note": "2026 Q2 IFRS diluted EPS EUR 2.61 versus 2025 Q2 loss EUR 0.42; nonpositive base. Official source reopened and comparative EPS reverified 2026-10-17 for the Oct16 cutoff. Renewed review window; no score eligibility override."
+        }
       },
       {
         "symbol": "SYM",
         "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
+        "reason": "Reviewed nonpositive prior EPS; growth comparison is not meaningful under the existing rule",
         "fundamental_fetch_status": "UNAVAILABLE",
-        "fundamental_validation_detail": "SEC_FETCH_FAILED"
+        "fundamental_validation_detail": "SEC_FETCH_FAILED",
+        "assessment_status": "RULE_EXCLUDED",
+        "reviewed_evidence": {
+          "symbol": "SYM",
+          "status": "NONPOSITIVE_COMPARISON_BASE",
+          "review_status": "VERIFIED",
+          "period_end": "2026-06-27",
+          "prior_period_end": "2025-06-28",
+          "current_eps": 0.09,
+          "prior_eps": -0.04,
+          "published_as_of": "2026-08-05",
+          "valid_through": "2026-10-23",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1837240/000183724026000043/sym-20260627.htm",
+          "reviewed_as_of": "2026-10-17",
+          "review_note": "FY2026 Q3 Class A GAAP diluted EPS 0.09 versus FY2025 Q3 -0.04; nonpositive base. Official source reopened and comparative EPS reverified 2026-10-17 for the Oct16 cutoff. Renewed review window; no score eligibility override."
+        }
       }
     ],
-    "rule_excluded_count": 0,
-    "assessment_count": 64,
-    "assessment_status": "PARTIAL",
+    "rule_excluded_count": 6,
+    "assessment_count": 70,
+    "assessment_status": "COMPLETE",
     "fundamental_fetch_status": {
       "AAPL": "CACHED_VALID",
       "ABBV": "CACHED_VALID",
@@ -2871,8 +3073,8 @@
       "scope": "NEW_US_STOCK_CANDIDATES_ONLY",
       "bucket_counts": {
         "A": 1,
-        "B": 3,
-        "C": 1,
+        "B": 4,
+        "C": 0,
         "REJECT": 0,
         "INNOVATION_OPTION": 0,
         "EXISTING_POSITION": 0

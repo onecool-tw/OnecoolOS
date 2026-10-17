@@ -980,7 +980,9 @@
       "reviewed_as_of": "2026-10-17",
       "valid_through": "2026-10-23",
       "sources": [
-        "https://investor.lilly.com/node/54781/pdf"
+        "https://investor.lilly.com/node/54781/pdf",
+        "https://www.sec.gov/Archives/edgar/data/59478/000005947826000081/lly-20260630.htm",
+        "https://investor.lilly.com/news-releases/news-release-details/lilly-completes-acquisition-ataibeckley-advance-therapies"
       ],
       "reported_facts": {
         "period": "Q2_2026",
@@ -992,10 +994,19 @@
           36.5
         ],
         "included_Q2_IPRD_per_share": 3.03,
-        "acquisitions": "Orna, Ajax, Centessa, Kelonia; issuer reported completed Q2 acquisitions; guidance excludes IPRD after June30."
+        "acquisitions": "Orna, Ajax, Centessa, Kelonia; issuer reported completed Q2 acquisitions; guidance excludes IPRD after June30.",
+        "H126_CFO_million": 16023,
+        "H126_capex_million": 5259,
+        "H126_IPRD_cash_purchases_million": 3486,
+        "H126_acquisition_cash_net_million": 9805,
+        "June30_cash_million": 8950,
+        "June30_current_debt_million": 7050,
+        "June30_long_debt_million": 47858,
+        "June30_net_debt_million": 45958,
+        "post_quarter_transaction": "AtaiBeckley completed September11; June30 net debt does not represent post-close balance."
       },
       "model_gaps": [
-        "POST_ACQUISITION_NORMALIZED_EARNINGS_AND_NET_DEBT_BRIDGE_NOT_VALIDATED"
+        "SEPT11_ATAIBECKLEY_POST_CLOSE_IPRD_AND_NET_DEBT_BRIDGE_NOT_DISCLOSED_IN_REVIEWED_OFFICIAL_SOURCES"
       ],
       "refresh_on": [
         "NEXT_OFFICIAL_FINANCIALS_OR_NORMALIZATION_BRIDGE",
@@ -1009,7 +1020,8 @@
       "reviewed_as_of": "2026-10-17",
       "valid_through": "2026-10-23",
       "sources": [
-        "https://www.microsoft.com/en-us/Investor/earnings/FY-2026-Q4/press-release-webcast"
+        "https://www.microsoft.com/en-us/investor/earnings/fy-2026-q4/press-release-webcast",
+        "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm"
       ],
       "reported_facts": {
         "period": "FY2026",
@@ -1017,15 +1029,75 @@
         "ex_OpenAI_eps": 17.28,
         "Q4_net_discrete_EPS_benefit": 0.27,
         "Anthropic_gain_pretax_million": 3200,
-        "limitation": "Issuer non-GAAP removes OpenAI but retains Anthropic gain; net composite Q4 discrete benefit is not a gain-specific after-tax bridge."
+        "limitation": "Issuer non-GAAP removes OpenAI but retains Anthropic gain; net composite Q4 discrete benefit is not a gain-specific after-tax bridge.",
+        "CFO": 182935,
+        "cash_PPE": 115948,
+        "SBC": 12405,
+        "finance_lease_principal": 3101,
+        "diluted_shares": 7453,
+        "normalization_resolution": "Uses sourced cash flow instead of an unsupported gain-specific after-tax EPS estimate."
       },
-      "model_gaps": [
-        "ANTHROPIC_GAIN_SPECIFIC_AFTER_TAX_AND_RECURRING_EARNINGS_BRIDGE_NOT_VALIDATED"
-      ],
+      "model_gaps": [],
       "refresh_on": [
         "NEXT_OFFICIAL_FINANCIALS_OR_NORMALIZATION_BRIDGE",
         "REFERENCE_EXPIRY"
-      ]
+      ],
+      "valuation_model": {
+        "method": "FY26_PRICE_TO_SBC_AND_FINANCE_LEASE_ADJUSTED_OWNER_CASH_PROXY",
+        "denominator": 6.907419830940561,
+        "currency": "USD",
+        "share_basis": "listed_security",
+        "normalization_bridge": {
+          "formula": "(FY26 CFO - cash PPE additions - full economic SBC charge - financing cash paid on finance leases) / FY26 diluted shares",
+          "inputs_usd_million": {
+            "CFO": 182935,
+            "cash_PPE": 115948,
+            "SBC": 12405,
+            "finance_lease_principal": 3101,
+            "diluted_shares": 7453
+          },
+          "owner_cash_proxy_million": 51481,
+          "limitations": "Reported annual cash-flow proxy, not GAAP EPS or full FCFE forecast. CFO already reverses recognized investment gains, so no guessed Anthropic-specific tax rate is required. Retains cash taxes and working-capital effects; subtracts SBC economically and finance lease principal once. Noncash lease additions and future infrastructure commitments remain risks; no cash/net-debt addition to equity valuation. Not a forecast of maintenance capex or a full DCF."
+        },
+        "denominator_source": [
+          "https://www.microsoft.com/en-us/investor/earnings/fy-2026-q4/press-release-webcast",
+          "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm"
+        ],
+        "fair_range": [
+          14.059671181929403,
+          24.1011664894084
+        ],
+        "scenarios": [
+          {
+            "name": "conservative",
+            "years": 5,
+            "growth": 0.1,
+            "required_return": 0.12,
+            "terminal_growth": 0.02,
+            "cash_conversion": 1,
+            "terminal_cash_conversion": 1
+          },
+          {
+            "name": "base",
+            "years": 5,
+            "growth": 0.15,
+            "required_return": 0.1,
+            "terminal_growth": 0.03,
+            "cash_conversion": 1,
+            "terminal_cash_conversion": 1
+          }
+        ],
+        "assumption_authority": "ONECOOL_ANALYST_NOT_ISSUER_GUIDANCE",
+        "research_grade": "SCREENING_SCENARIO_NOT_FULL_DCF",
+        "policy_version": "onecool_equity_two_stage_screen_v1",
+        "rationale": "AI/cloud capital intensity requires a cash-flow crosscheck. Use FY26 cash flow after cash capex, economic SBC and lease principal; analyst growth 10%/15% fades to 2%/3% with 12%/10% required returns. No current market price is used to choose assumptions; this is the existing Onecool conservative/base scenario screen, not an issuer fair value or full DCF.",
+        "fair_range_rationale": "AI/cloud capital intensity requires a cash-flow crosscheck. Use FY26 cash flow after cash capex, economic SBC and lease principal; analyst growth 10%/15% fades to 2%/3% with 12%/10% required returns. No current market price is used to choose assumptions; this is the existing Onecool conservative/base scenario screen, not an issuer fair value or full DCF.",
+        "fair_range_sources": [
+          "https://www.microsoft.com/en-us/investor/earnings/fy-2026-q4/press-release-webcast",
+          "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm",
+          "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+        ]
+      }
     }
   }
 }
