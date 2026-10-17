@@ -1,10 +1,10 @@
 {
   "schema_version": "1.9",
   "module": "Onecool Market Dashboard",
-  "generated_at": "2026-10-17T05:45:14.701576+00:00",
+  "generated_at": "2026-10-17T07:59:45.774668+00:00",
   "expected_as_of": "2026-10-16",
   "data_status": "READY",
-  "last_successful_update_at": "2026-10-17T05:45:14.701576+00:00",
+  "last_successful_update_at": "2026-10-17T07:59:45.774668+00:00",
   "index_cta_basis": {
     "method": "ETF/index proxies; shared CTA engine",
     "mappings": {
@@ -815,9 +815,9 @@
       "market": "CONTEXT",
       "theme": "crypto_risk_appetite",
       "as_of": "2026-10-16",
-      "current_price": 81500.039062,
-      "sma50": 81251.843906,
-      "sma200": 72359.942773,
+      "current_price": 81500.804688,
+      "sma50": 81251.859219,
+      "sma200": 72359.946602,
       "weekly_ma30": 72109.689974,
       "weekly_ma50": 77113.938359,
       "trend": "MIXED",
@@ -830,7 +830,7 @@
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2026-09-08",
         "periods_since_cross": 38,
-        "spread_pct": 12.28843,
+        "spread_pct": 12.288446,
         "phase": "ACTIVE"
       },
       "weekly_cross": {
@@ -2211,11 +2211,13 @@
         "super_growth_reason": "QUALITY_DATA_GAP_NAMED",
         "quality_gate_status": {
           "competitive_advantage": {
-            "status": "UNKNOWN",
-            "as_of": null,
-            "rationale": null,
-            "sources": [],
-            "data_gap": "MISSING_SOURCE_BACKED_COMPETITIVE_ADVANTAGE_ASSESSMENT",
+            "status": "PASS",
+            "as_of": "2026-10-16",
+            "rationale": "Mounjaro及Zepbound專利產品、臨床資料及製造規模支持競爭優勢；需監測同類藥品競爭與降價。",
+            "sources": [
+              "https://investor.lilly.com/node/54781/pdf"
+            ],
+            "data_gap": null,
             "validation_errors": [],
             "method": null,
             "price_as_of": null,
@@ -2223,11 +2225,13 @@
             "inputs": {}
           },
           "structural_growth_runway": {
-            "status": "UNKNOWN",
-            "as_of": null,
-            "rationale": null,
-            "sources": [],
-            "data_gap": "MISSING_SOURCE_BACKED_STRUCTURAL_GROWTH_RUNWAY_ASSESSMENT",
+            "status": "PASS",
+            "as_of": "2026-10-16",
+            "rationale": "Q2營收年增48%，全球銷量成長60%；retatrutide第三期資料及產能投資提供成長來源，不將臨床或核准結果視為保證。",
+            "sources": [
+              "https://investor.lilly.com/node/54781/pdf"
+            ],
+            "data_gap": null,
             "validation_errors": [],
             "method": null,
             "price_as_of": null,
@@ -2236,10 +2240,12 @@
           },
           "financial_quality": {
             "status": "UNKNOWN",
-            "as_of": null,
-            "rationale": null,
-            "sources": [],
-            "data_gap": "MISSING_SOURCE_BACKED_FINANCIAL_QUALITY_ASSESSMENT",
+            "as_of": "2026-10-16",
+            "rationale": "官方Q2財報可驗證GAAP淨利70.95億美元，但尚缺本次可重現的營運現金、資本支出與併購後淨負債橋接，無法完成現金品質檢核。",
+            "sources": [
+              "https://investor.lilly.com/node/54781/pdf"
+            ],
+            "data_gap": "Q2_2026_CASHFLOW_AND_POST_ACQUISITION_NET_DEBT_BRIDGE_NOT_VALIDATED",
             "validation_errors": [],
             "method": null,
             "price_as_of": null,
@@ -2247,11 +2253,13 @@
             "inputs": {}
           },
           "business_risk_and_governance": {
-            "status": "UNKNOWN",
-            "as_of": null,
-            "rationale": null,
-            "sources": [],
-            "data_gap": "MISSING_SOURCE_BACKED_BUSINESS_RISK_AND_GOVERNANCE_ASSESSMENT",
+            "status": "PASS",
+            "as_of": "2026-10-16",
+            "rationale": "實現價格下滑13%、藥品集中、監管／給付、臨床及多宗併購整合是主要風險；納入持續追蹤，目前材料不足以否決研究資格。",
+            "sources": [
+              "https://investor.lilly.com/node/54781/pdf"
+            ],
+            "data_gap": null,
             "validation_errors": [],
             "method": null,
             "price_as_of": null,
@@ -2273,34 +2281,32 @@
           "valuation": {
             "status": "UNKNOWN",
             "as_of": "2026-10-16",
-            "rationale": "Current-session valuation model not yet validated.",
-            "sources": [],
-            "data_gap": "MISSING_SOURCE_BACKED_VALUATION_ASSESSMENT",
+            "rationale": "POST_ACQUISITION_NORMALIZED_EARNINGS_AND_NET_DEBT_BRIDGE_NOT_VALIDATED",
+            "sources": [
+              "https://investor.lilly.com/node/54781/pdf"
+            ],
+            "data_gap": "POST_ACQUISITION_NORMALIZED_EARNINGS_AND_NET_DEBT_BRIDGE_NOT_VALIDATED",
             "validation_errors": [],
             "method": null,
-            "price_as_of": null,
+            "price_as_of": "2026-10-16",
             "valid_through": null,
-            "inputs": {}
+            "inputs": {
+              "price": 1257.030029296875
+            }
           }
         },
-        "evidence_coverage": "NONE",
+        "evidence_coverage": "PARTIAL",
         "missing_evidence": [
-          "competitive_advantage",
-          "structural_growth_runway",
           "financial_quality",
-          "business_risk_and_governance",
           "circle_of_competence",
           "valuation"
         ],
         "quality_data_gaps": {
-          "competitive_advantage": "MISSING_SOURCE_BACKED_COMPETITIVE_ADVANTAGE_ASSESSMENT",
-          "structural_growth_runway": "MISSING_SOURCE_BACKED_STRUCTURAL_GROWTH_RUNWAY_ASSESSMENT",
-          "financial_quality": "MISSING_SOURCE_BACKED_FINANCIAL_QUALITY_ASSESSMENT",
-          "business_risk_and_governance": "MISSING_SOURCE_BACKED_BUSINESS_RISK_AND_GOVERNANCE_ASSESSMENT"
+          "financial_quality": "Q2_2026_CASHFLOW_AND_POST_ACQUISITION_NET_DEBT_BRIDGE_NOT_VALIDATED"
         },
         "valuation_posture": "UNRESOLVED_WITH_SPECIFIC_GAP",
         "cyclical_review_required": false,
-        "evidence_as_of": null,
+        "evidence_as_of": "2026-10-16",
         "manual_confirmation_required": [
           "circle_of_competence"
         ],
@@ -2312,13 +2318,15 @@
           "as_of": "2026-10-16",
           "status": "PARTIAL",
           "gaps": [
-            "REGISTRY_UNAVAILABLE"
+            "POST_ACQUISITION_NORMALIZED_EARNINGS_AND_NET_DEBT_BRIDGE_NOT_VALIDATED"
           ],
           "price_basis": "adjusted_close",
           "inputs": {
             "adjusted_close": 1257.030029296875
           },
-          "sources": [],
+          "sources": [
+            "https://investor.lilly.com/node/54781/pdf"
+          ],
           "decision_authority": "REFERENCE_INPUTS_ONLY_NOT_FAIR_VALUE",
           "price_source": {
             "provider": "yahoo_finance_adjusted_batch",
@@ -2333,7 +2341,38 @@
             "provider": "yahoo_finance_adjusted_batch"
           },
           "price_sha256": "eea249a2f3ed739c9d4dccfde84276d7022e703c27622fe190675f380f8a6b4b",
-          "fundamental_fetch_status": "REGISTRY_UNAVAILABLE"
+          "official_reference_status": "VERIFIED",
+          "fundamental_fetch_status": "REVIEWED_OFFICIAL_REFERENCE",
+          "company_name": "Eli Lilly and Company",
+          "official_reference": {
+            "symbol": "LLY",
+            "company_name": "Eli Lilly and Company",
+            "published_at": "2026-08-05",
+            "reviewed_as_of": "2026-10-17",
+            "valid_through": "2026-10-23",
+            "sources": [
+              "https://investor.lilly.com/node/54781/pdf"
+            ],
+            "reported_facts": {
+              "period": "Q2_2026",
+              "revenue_million": 22974,
+              "reported_eps": 7.94,
+              "adjusted_eps": 8.38,
+              "FY26_adjusted_eps_guidance": [
+                35.5,
+                36.5
+              ],
+              "included_Q2_IPRD_per_share": 3.03,
+              "acquisitions": "Orna, Ajax, Centessa, Kelonia; issuer reported completed Q2 acquisitions; guidance excludes IPRD after June30."
+            },
+            "model_gaps": [
+              "POST_ACQUISITION_NORMALIZED_EARNINGS_AND_NET_DEBT_BRIDGE_NOT_VALIDATED"
+            ],
+            "refresh_on": [
+              "NEXT_OFFICIAL_FINANCIALS_OR_NORMALIZATION_BRIDGE",
+              "REFERENCE_EXPIRY"
+            ]
+          }
         },
         "lynch_research": {
           "version": "onecool_lynch_research_v1",
@@ -2352,8 +2391,36 @@
             ]
           },
           "investment_story": {
-            "status": "INSUFFICIENT_EVIDENCE",
-            "evidence": [],
+            "status": "EVIDENCE_ONLY",
+            "evidence": [
+              {
+                "field": "competitive_advantage",
+                "value": "PASS",
+                "as_of": "2026-10-16",
+                "rationale": "Mounjaro及Zepbound專利產品、臨床資料及製造規模支持競爭優勢；需監測同類藥品競爭與降價。",
+                "sources": [
+                  "https://investor.lilly.com/node/54781/pdf"
+                ]
+              },
+              {
+                "field": "structural_growth_runway",
+                "value": "PASS",
+                "as_of": "2026-10-16",
+                "rationale": "Q2營收年增48%，全球銷量成長60%；retatrutide第三期資料及產能投資提供成長來源，不將臨床或核准結果視為保證。",
+                "sources": [
+                  "https://investor.lilly.com/node/54781/pdf"
+                ]
+              },
+              {
+                "field": "business_risk_and_governance",
+                "value": "PASS",
+                "as_of": "2026-10-16",
+                "rationale": "實現價格下滑13%、藥品集中、監管／給付、臨床及多宗併購整合是主要風險；納入持續追蹤，目前材料不足以否決研究資格。",
+                "sources": [
+                  "https://investor.lilly.com/node/54781/pdf"
+                ]
+              }
+            ],
             "required_manual_confirmation": [
               "BUSINESS_DRIVER",
               "DURABILITY",
@@ -2490,14 +2557,18 @@
           "valuation": {
             "status": "UNKNOWN",
             "as_of": "2026-10-16",
-            "rationale": "Current-session valuation model not yet validated.",
-            "sources": [],
-            "data_gap": "MISSING_SOURCE_BACKED_VALUATION_ASSESSMENT",
+            "rationale": "ANTHROPIC_GAIN_SPECIFIC_AFTER_TAX_AND_RECURRING_EARNINGS_BRIDGE_NOT_VALIDATED",
+            "sources": [
+              "https://www.microsoft.com/en-us/Investor/earnings/FY-2026-Q4/press-release-webcast"
+            ],
+            "data_gap": "ANTHROPIC_GAIN_SPECIFIC_AFTER_TAX_AND_RECURRING_EARNINGS_BRIDGE_NOT_VALIDATED",
             "validation_errors": [],
             "method": null,
-            "price_as_of": null,
+            "price_as_of": "2026-10-16",
             "valid_through": null,
-            "inputs": {}
+            "inputs": {
+              "price": 529.0499877929688
+            }
           }
         },
         "evidence_coverage": "PARTIAL",
@@ -2520,13 +2591,15 @@
           "as_of": "2026-10-16",
           "status": "PARTIAL",
           "gaps": [
-            "REGISTRY_UNAVAILABLE"
+            "ANTHROPIC_GAIN_SPECIFIC_AFTER_TAX_AND_RECURRING_EARNINGS_BRIDGE_NOT_VALIDATED"
           ],
           "price_basis": "adjusted_close",
           "inputs": {
             "adjusted_close": 529.0499877929688
           },
-          "sources": [],
+          "sources": [
+            "https://www.microsoft.com/en-us/Investor/earnings/FY-2026-Q4/press-release-webcast"
+          ],
           "decision_authority": "REFERENCE_INPUTS_ONLY_NOT_FAIR_VALUE",
           "price_source": {
             "provider": "yahoo_finance_adjusted_batch",
@@ -2541,7 +2614,34 @@
             "provider": "yahoo_finance_adjusted_batch"
           },
           "price_sha256": "53256db269c95d10b54bfb625e65cc51341912f389237d528842e0c6772cdd97",
-          "fundamental_fetch_status": "REGISTRY_UNAVAILABLE"
+          "official_reference_status": "VERIFIED",
+          "fundamental_fetch_status": "REVIEWED_OFFICIAL_REFERENCE",
+          "company_name": "Microsoft Corporation",
+          "official_reference": {
+            "symbol": "MSFT",
+            "company_name": "Microsoft Corporation",
+            "published_at": "2026-07-29",
+            "reviewed_as_of": "2026-10-17",
+            "valid_through": "2026-10-23",
+            "sources": [
+              "https://www.microsoft.com/en-us/Investor/earnings/FY-2026-Q4/press-release-webcast"
+            ],
+            "reported_facts": {
+              "period": "FY2026",
+              "gaap_eps": 17.95,
+              "ex_OpenAI_eps": 17.28,
+              "Q4_net_discrete_EPS_benefit": 0.27,
+              "Anthropic_gain_pretax_million": 3200,
+              "limitation": "Issuer non-GAAP removes OpenAI but retains Anthropic gain; net composite Q4 discrete benefit is not a gain-specific after-tax bridge."
+            },
+            "model_gaps": [
+              "ANTHROPIC_GAIN_SPECIFIC_AFTER_TAX_AND_RECURRING_EARNINGS_BRIDGE_NOT_VALIDATED"
+            ],
+            "refresh_on": [
+              "NEXT_OFFICIAL_FINANCIALS_OR_NORMALIZATION_BRIDGE",
+              "REFERENCE_EXPIRY"
+            ]
+          }
         },
         "lynch_research": {
           "version": "onecool_lynch_research_v1",
