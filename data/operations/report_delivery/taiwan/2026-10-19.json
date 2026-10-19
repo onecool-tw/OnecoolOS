@@ -1,13 +1,13 @@
 {
   "report_id": "taiwan",
   "report_date": "2026-10-19",
-  "generated_at": "2026-10-19T18:03:20+08:00",
+  "generated_at": "2026-10-19T19:02:20+08:00",
   "delivery_status": "UNKNOWN",
   "execution_status": "SUCCESS",
   "writeback_status": "VERIFIED",
   "actual_data_as_of": "2026-10-19",
-  "snapshot_sha256": "122cfc13ec068b79dccbda4fdaf8b3c0873059a25118850ecf203d5118d76f29",
-  "delivery_evidence_sha256": "0c9e9123fb4b20f2f2af774a36c8cfd258845fa40e2764bfeab4d0928a3f71e0",
+  "snapshot_sha256": "3574fa665f3596f99448645d8cb6101adf277726c7b75c35fd134a3f3076f808",
+  "delivery_evidence_sha256": "8a368ff79c784004783fe60e42065194d5df7e614b2e01bf696bf5f545c805cc",
   "channels": {
     "conversation": {
       "status": "UNKNOWN",
@@ -21,10 +21,10 @@
     },
     "email": {
       "status": "DELIVERED",
-      "observed_at": "2026-10-19T18:02:55+08:00",
-      "evidence_sha256": "0c9e9123fb4b20f2f2af774a36c8cfd258845fa40e2764bfeab4d0928a3f71e0",
+      "observed_at": "2026-10-19T19:01:57+08:00",
+      "evidence_sha256": "8a368ff79c784004783fe60e42065194d5df7e614b2e01bf696bf5f545c805cc",
       "recipient_count": 1,
-      "snapshot_sha256": "122cfc13ec068b79dccbda4fdaf8b3c0873059a25118850ecf203d5118d76f29",
+      "snapshot_sha256": "3574fa665f3596f99448645d8cb6101adf277726c7b75c35fd134a3f3076f808",
       "artifact_sha256": "39e112dd5436e0bfd4fe1a3b4db36ff2085fc39484fbdf4860db8b23a6d2e05c"
     }
   },
@@ -38,5 +38,13 @@
     "email_provider_acknowledged"
   ],
   "failed_steps": [],
-  "next_step": "VERIFY_CONVERSATION_ONLY_AFTER_REAL_DELIVERY_IS_OBSERVED"
+  "next_step": "VERIFY_CONVERSATION_ONLY_AFTER_REAL_DELIVERY_IS_OBSERVED",
+  "recovery": {
+    "status": "SUCCESS",
+    "as_of": "2026-10-19",
+    "post_merge_checks": "COMPLETED_SUCCESS",
+    "decision_content_changed": false,
+    "previous_snapshot_sha256": "122cfc13ec068b79dccbda4fdaf8b3c0873059a25118850ecf203d5118d76f29",
+    "reason": "SOURCE_METADATA_HASH_CHANGE_REVALIDATED"
+  }
 }
