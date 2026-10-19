@@ -120,6 +120,14 @@ def test_legacy_taiwan_cta_cache_cannot_block_current_dashboard(tmp_path):
     assert _module(build_health_report(tmp_path, now=NOW), "taiwan_market_cta")["status"] == READY
 
 
+@pytest.mark.parametrize("as_of,status", [("2026-09-14", READY), ("2026-09-15", BLOCKED)])
+def test_closed_today_is_accepted_before_recovery_gate_but_future_is_not(tmp_path, as_of, status):
+    _seed_ready(tmp_path)
+    _write(tmp_path, "data/market/taiwan_cta/cta_latest.json", {"data_cutoff": as_of})
+    report = build_health_report(tmp_path, now=datetime.fromisoformat("2026-09-14T15:00:00+08:00"))
+    assert _module(report, "taiwan_market_cta")["status"] == status
+
+
 @pytest.mark.parametrize("mode", ["missing", "duplicate", "stale", "unknown", "error", "stale_status"])
 def test_taiwan_dashboard_authority_fails_closed(tmp_path, mode):
     _seed_ready(tmp_path)
