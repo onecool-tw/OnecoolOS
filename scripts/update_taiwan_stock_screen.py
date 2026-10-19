@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import time
 from datetime import date, datetime, timedelta
@@ -67,7 +68,7 @@ def normalize_dated_report(payload, day, mapping):
 
 def fetch_dated_market(day, fetcher=fetch_json):
     query = day.strftime("%Y%m%d")
-    root = "https://www.twse.com.tw/exchangeReport"
+    root = "https://www.twse.com.tw/rwd/zh/afterTrading"
     prices = fetcher(f"{root}/MI_INDEX?response=json&date={query}&type=ALLBUT0999", expected_type=dict)
     # The legacy exchangeReport route can return no data even after the
     # current official afterTrading route has published this session.
@@ -103,12 +104,23 @@ def update(data_dir: Path, *, fetcher=fetch_json, market_date=None) -> dict:
     serialized = json.dumps(
         payload, indent=2, ensure_ascii=False, allow_nan=False
     ) + "\n"
-    (data_dir / "screen_latest.json").write_text(serialized, encoding="utf-8")
     snapshots = data_dir / "snapshots"
     snapshots.mkdir(exist_ok=True)
-    (snapshots / f"{payload['expected_as_of']}.json").write_text(
-        serialized, encoding="utf-8"
-    )
+    snapshot = snapshots / f"{payload['expected_as_of']}.json"
+    # Official feeds can backfill liquidity and fundamentals on a later run.
+    # Retain exact prior bytes before replacing the dated projection so reports
+    # can reconcile the version they actually consumed. Identical retries do
+    # not create revisions. No CTA, score or ranking is calculated here.
+    if snapshot.exists() and snapshot.read_bytes() != serialized.encode("utf-8"):
+        previous = snapshot.read_bytes()
+        digest = hashlib.sha256(previous).hexdigest()
+        revisions = snapshots / "revisions" / payload["expected_as_of"]
+        revisions.mkdir(parents=True, exist_ok=True)
+        archive = revisions / f"{digest}.json"
+        if not archive.exists():
+            archive.write_bytes(previous)
+    snapshot.write_text(serialized, encoding="utf-8")
+    (data_dir / "screen_latest.json").write_text(serialized, encoding="utf-8")
     return payload
 
 
