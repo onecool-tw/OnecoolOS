@@ -13,6 +13,19 @@ NOW = datetime(2026, 8, 30, 3, 0, tzinfo=timezone.utc)
 
 
 def _write(root: Path, relative: str, payload: dict) -> None:
+    # Logical fixture for Taiwan market CTA now seeds its Dashboard authority.
+    if relative == "data/market/taiwan_cta/cta_latest.json":
+        dashboard = root / "data/market/dashboard/dashboard_latest.json"
+        current = json.loads(dashboard.read_text()) if dashboard.exists() else {}
+        current["results"] = [r for r in current.get("results", []) if r["symbol"] not in {"0050", "2330"}]
+        current["results"] += [{"symbol": s, "as_of": payload["data_cutoff"], "cta": "HOLD"} for s in ("0050", "2330")]
+        relative, payload = "data/market/dashboard/dashboard_latest.json", current
+    elif relative == "data/market/dashboard/dashboard_latest.json":
+        existing = root / relative
+        if existing.exists():
+            market_rows = [r for r in json.loads(existing.read_text()).get("results", []) if r.get("symbol") in {"0050", "2330"}]
+            supplied = {r.get("symbol") for r in payload.get("results", [])}
+            payload = {**payload, "results": payload.get("results", []) + [r for r in market_rows if r["symbol"] not in supplied]}
     path = root / relative
     path.parent.mkdir(parents=True, exist_ok=True)
     path.write_text(json.dumps(payload), encoding="utf-8")
@@ -99,6 +112,38 @@ def test_all_ready_caches_produce_ready_health(tmp_path: Path) -> None:
     assert report["action_readiness"] == "SAFE"
 
 
+def test_legacy_taiwan_cta_cache_cannot_block_current_dashboard(tmp_path):
+    _seed_ready(tmp_path)
+    legacy = tmp_path / "data/market/taiwan_cta/cta_latest.json"
+    legacy.parent.mkdir(parents=True, exist_ok=True)
+    legacy.write_text('{"data_cutoff":"2026-01-01"}')
+    assert _module(build_health_report(tmp_path, now=NOW), "taiwan_market_cta")["status"] == READY
+
+
+@pytest.mark.parametrize("mode", ["missing", "duplicate", "stale", "unknown", "error", "stale_status"])
+def test_taiwan_dashboard_authority_fails_closed(tmp_path, mode):
+    _seed_ready(tmp_path)
+    path = tmp_path / "data/market/dashboard/dashboard_latest.json"
+    data = json.loads(path.read_text())
+    row = next(r for r in data["results"] if r["symbol"] == "0050")
+    if mode == "missing":
+        data["results"].remove(row)
+    elif mode == "duplicate":
+        data["results"].append(dict(row))
+    elif mode == "stale":
+        row["as_of"] = "2026-08-27"
+    elif mode == "unknown":
+        row["cta"] = "UNKNOWN"
+    elif mode == "error":
+        row["error"] = "calculation failed"
+    else:
+        row["update_status"] = "STALE_LAST_KNOWN"
+    path.write_text(json.dumps(data))
+    item = _module(build_health_report(tmp_path, now=NOW), "taiwan_market_cta")
+    assert item["status"] == BLOCKED
+    assert item["recovery_workflow"] == "update-market-dashboard.yml"
+
+
 def test_missing_action_cache_is_blocked_and_recovery_is_deduplicated(tmp_path: Path) -> None:
     _seed_ready(tmp_path)
     (tmp_path / "data/market/dashboard/dashboard_latest.json").unlink()
@@ -163,7 +208,7 @@ def test_stale_daily_cache_blocks_only_affected_scope(tmp_path: Path) -> None:
 
     assert report["scope_status"]["asia"] == BLOCKED
     assert report["scope_status"]["morning"] == READY
-    assert "update-taiwan-cta.yml" in report["recovery_workflows"]
+    assert "update-market-dashboard.yml" in report["recovery_workflows"]
 
 
 def test_monday_evening_requires_same_day_taiwan_caches(tmp_path: Path) -> None:
@@ -174,7 +219,7 @@ def test_monday_evening_requires_same_day_taiwan_caches(tmp_path: Path) -> None:
     )
 
     assert report["scope_status"]["asia"] == BLOCKED
-    assert {"update-taiwan-cta.yml", "update-taiwan-stock-screen.yml"}.issubset(
+    assert {"update-market-dashboard.yml", "update-taiwan-stock-screen.yml"}.issubset(
         report["recovery_workflows"]
     )
 
