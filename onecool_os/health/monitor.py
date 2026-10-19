@@ -294,7 +294,8 @@ def build_health_report(root: str | Path, *, now: datetime | None = None) -> dic
         row = rows[0] if len(rows) == 1 else {}
         observed = _date(row.get("as_of"))
         tw_dates.append(observed)
-        if (len(rows) != 1 or observed != expected_asia_session
+        if (len(rows) != 1 or observed is None
+                or not expected_asia_session <= observed <= latest_completed_market_session("TW", taipei_now)
                 or row.get("cta") not in {"BUY", "HOLD", "WATCH", "SELL"}
                 or row.get("update_status") not in (None, "CURRENT")
                 or row.get("error")):
