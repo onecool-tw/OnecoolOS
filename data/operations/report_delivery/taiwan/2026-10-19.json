@@ -1,0 +1,42 @@
+{
+  "report_id": "taiwan",
+  "report_date": "2026-10-19",
+  "generated_at": "2026-10-19T18:03:20+08:00",
+  "delivery_status": "UNKNOWN",
+  "execution_status": "SUCCESS",
+  "writeback_status": "VERIFIED",
+  "actual_data_as_of": "2026-10-19",
+  "snapshot_sha256": "122cfc13ec068b79dccbda4fdaf8b3c0873059a25118850ecf203d5118d76f29",
+  "delivery_evidence_sha256": "0c9e9123fb4b20f2f2af774a36c8cfd258845fa40e2764bfeab4d0928a3f71e0",
+  "channels": {
+    "conversation": {
+      "status": "UNKNOWN",
+      "observed_at": null,
+      "evidence_sha256": null
+    },
+    "artifact": {
+      "status": "DELIVERED",
+      "observed_at": "2026-10-19T18:02:00+08:00",
+      "evidence_sha256": "39e112dd5436e0bfd4fe1a3b4db36ff2085fc39484fbdf4860db8b23a6d2e05c"
+    },
+    "email": {
+      "status": "DELIVERED",
+      "observed_at": "2026-10-19T18:02:55+08:00",
+      "evidence_sha256": "0c9e9123fb4b20f2f2af774a36c8cfd258845fa40e2764bfeab4d0928a3f71e0",
+      "recipient_count": 1,
+      "snapshot_sha256": "122cfc13ec068b79dccbda4fdaf8b3c0873059a25118850ecf203d5118d76f29",
+      "artifact_sha256": "39e112dd5436e0bfd4fe1a3b4db36ff2085fc39484fbdf4860db8b23a6d2e05c"
+    }
+  },
+  "completed_steps": [
+    "official_sources_verified",
+    "screen_and_cta_updates_completed",
+    "pressure_persistence_readback_verified",
+    "health_asia_READY",
+    "snapshot_final_verified",
+    "artifact_saved_readback_verified",
+    "email_provider_acknowledged"
+  ],
+  "failed_steps": [],
+  "next_step": "VERIFY_CONVERSATION_ONLY_AFTER_REAL_DELIVERY_IS_OBSERVED"
+}
