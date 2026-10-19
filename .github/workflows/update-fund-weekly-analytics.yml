@@ -44,6 +44,7 @@ jobs:
       - name: Refresh US Sector Rotation
         run: python scripts/update_sector_rotation.py
       - name: Refresh monthly Fundamental Cycle context
+        timeout-minutes: 3
         continue-on-error: true
         run: python scripts/update_fundamental_cycle.py
       - name: Refresh deterministic Market Regime and macro confirmation
