@@ -170,3 +170,17 @@ def test_rate_limit_keeps_existing_actions_and_marks_stale(
         "status": "STALE",
         "reason": "alpha_vantage_daily_quota",
     } in payload["data_status"]
+
+
+def test_updater_never_uses_an_incomplete_week(tmp_path, monkeypatch):
+    original = update_etf_cta.calculate_cta
+    seen = []
+    def checked(symbol, history, **kwargs):
+        assert kwargs.get("exclude_incomplete_latest_week") is True
+        seen.append(symbol)
+        return original(symbol, history, **kwargs)
+    monkeypatch.setattr(update_etf_cta, "calculate_cta", checked)
+    monkeypatch.setattr(update_etf_cta, "fetch_yahoo_daily", lambda symbol, **_: bars())
+    monkeypatch.setattr(update_etf_cta.AlphaVantageClient, "fetch_wti_daily", lambda *_: bars())
+    update_etf_cta.update(tmp_path, "key", allow_bootstrap=True)
+    assert set(seen) == set(update_etf_cta.EQUITY_MARKET_SYMBOLS) | {"WTI"}
