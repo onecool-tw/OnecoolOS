@@ -283,11 +283,28 @@ def build_health_report(root: str | Path, *, now: datetime | None = None) -> dic
         status = PARTIAL if refresh_status not in {"READY", "CURRENT", "COMPLETE"} else READY
         modules.append(_module("fund_nav_cta", "Fund NAV CTA", "morning", True, status, "current" if status == READY else f"NAV refresh {refresh_status}", fund_date, "update-fund-nav-cta.yml", ["基金日報", "基金週報"], retryable=False))
 
-    modules.append(_daily_check(
-        root, expected_asia_session, module_id="taiwan_market_cta", label="Taiwan 0050/2330 CTA", scope="asia",
-        relative="data/market/taiwan_cta/cta_latest.json", date_field="data_cutoff",
-        status_field=None, good_statuses=set(), recovery="update-taiwan-cta.yml", reports=["台股日報"],
-        max_business_lag=0,
+    # The report's only 0050/2330 authority is Market Dashboard. A separate
+    # legacy CTA cache must neither block current Dashboard results nor make
+    # missing/invalid Dashboard rows appear ready.
+    tw_rows = (btc_payload.get("results") or [])
+    tw_issues = []
+    tw_dates = []
+    for symbol in ("0050", "2330"):
+        rows = [row for row in tw_rows if isinstance(row, dict) and row.get("symbol") == symbol]
+        row = rows[0] if len(rows) == 1 else {}
+        observed = _date(row.get("as_of"))
+        tw_dates.append(observed)
+        if (len(rows) != 1 or observed != expected_asia_session
+                or row.get("cta") not in {"BUY", "HOLD", "WATCH", "SELL"}
+                or row.get("update_status") not in (None, "CURRENT")
+                or row.get("error")):
+            tw_issues.append(f"{symbol} Dashboard date/CTA missing or invalid; expected {expected_asia_session}")
+    modules.append(_module(
+        "taiwan_market_cta", "Taiwan 0050/2330 CTA", "asia", True,
+        BLOCKED if tw_issues else READY,
+        "; ".join(tw_issues) if tw_issues else "current Dashboard authority",
+        min(tw_dates) if all(tw_dates) else None,
+        "update-market-dashboard.yml", ["台股日報"],
     ))
     modules.append(_daily_check(
         root, expected_asia_session, module_id="taiwan_stock_screen", label="Taiwan Stock Screen", scope="asia",
