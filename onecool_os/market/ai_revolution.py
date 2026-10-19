@@ -160,6 +160,12 @@ def _normalize_official_ir_text(text: str) -> str:
         normalized,
         flags=re.IGNORECASE,
     )
+    # Q4's footer build number is hosting metadata, not issuer evidence.
+    # Keep all issuer text and the vendor name; remove only the numeric build.
+    normalized = re.sub(
+        r"(Powered By Q4 Inc\.?)\s+\d+(?:\.\d+){2,}",
+        r"\1", normalized, flags=re.IGNORECASE,
+    )
     return normalized.strip()
 
 

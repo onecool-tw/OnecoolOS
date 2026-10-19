@@ -122,7 +122,7 @@ def update(
                 )
         history = merge_and_adjust([], combined)
         write_history(path, history)
-        results.append(asdict(calculate_cta(symbol, history)))
+        results.append(asdict(calculate_cta(symbol, history, exclude_incomplete_latest_week=True)))
         data_status.append(
             {
                 "symbol": symbol,
@@ -190,7 +190,7 @@ def update(
             wti_reason = "primary_and_fallback_failed"
             wti_source = "last_known_valid"
         write_history(path, history)
-        results.append(asdict(calculate_cta(symbol, history)))
+        results.append(asdict(calculate_cta(symbol, history, exclude_incomplete_latest_week=True)))
         status = {
             "symbol": symbol,
             "dataset": "daily_price",

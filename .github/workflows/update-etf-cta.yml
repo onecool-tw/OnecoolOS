@@ -1,6 +1,11 @@
 name: Update ETF CTA
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - "scripts/update_etf_cta.py"
+      - ".github/workflows/update-etf-cta.yml"
   workflow_dispatch:
     inputs:
       allow_bootstrap:

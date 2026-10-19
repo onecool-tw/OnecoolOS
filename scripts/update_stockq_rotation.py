@@ -51,6 +51,9 @@ TWD_SERIES = {
     "羅素2000": ("^RUT", "USDTWD=X"),
     "NBI生技": ("^NBI", "USDTWD=X"),
     "加拿大": ("^GSPTSE", "CADTWD=X"),
+    # Same broad local indices as StockQ; never substitute country ETFs.
+    "秘魯股市": ("^SPBLPGPT", "PENTWD=X"),
+    "哥倫比亞": ("^COLCAP", "COPTWD=X"),
     # Europe
     "荷蘭股市": ("^AEX", "EURTWD=X"),
     "波蘭股市": ("^WIG", "PLNTWD=X"),
@@ -165,6 +168,8 @@ def _fetch_tencent_shanghai_b() -> list[DailyBar]:
 # Yahoo does not consistently publish every direct TWD cross.  These pairs
 # produce TWD per unit of local currency through a same-date USD bridge.
 TRIANGULAR_TWD_FX = {
+    "PENTWD=X": (("USDPEN=X", "USDTWD=X", True),),
+    "COPTWD=X": (("USDCOP=X", "USDTWD=X", True),),
     # Try local-currency-per-USD pairs first because Yahoo publishes these
     # more consistently.  The third field means the first series must be
     # inverted before multiplying by USD/TWD.

@@ -1,6 +1,13 @@
 name: Update Fund Weekly Analytics
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - "config/ai_revolution_review.json"
+      - "onecool_os/market/ai_revolution.py"
+      - "scripts/update_stockq_rotation.py"
+      - ".github/workflows/update-fund-weekly-analytics.yml"
   workflow_dispatch:
   schedule:
     # 14:00 Asia/Taipei every Sunday (06:00 UTC), after Saturday's final

@@ -431,3 +431,13 @@ def test_complete_review_unlocks_independent_demand_quality() -> None:
     )
     assert payload["signals"]["independent_demand_quality"]["status"] == "YELLOW"
     assert payload["signals"]["capital_efficiency"]["usable_for_report"] is True
+
+
+def test_q4_footer_build_does_not_change_issuer_evidence():
+    from onecool_os.market.ai_revolution import _normalize_official_ir_text
+    first = "Revenue $96.2 billion Powered By Q4 Inc. 5.189.1.6 (opens in new window)"
+    later = first.replace("5.189.1.6", "5.190.1.9")
+    assert _normalize_official_ir_text(first) == _normalize_official_ir_text(later)
+    changed = later.replace("$96.2", "$97.2")
+    assert _normalize_official_ir_text(first) != _normalize_official_ir_text(changed)
+    assert "Revenue $96.2 billion" in _normalize_official_ir_text(first)
