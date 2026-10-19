@@ -123,10 +123,62 @@ def _fetch_stooq_daily(symbol: str) -> list[DailyBar]:
     return bars
 
 
+STOCKQ_EXACT_INDEX_CHARTS = {
+    "^SPBLPGPT": ("IGBVL", "秘魯指數"),
+    "^COLCAP": ("COLCAP", "哥倫比亞指數"),
+}
+
+
+def _parse_stockq_index_chart(text: str, symbol: str) -> list[DailyBar]:
+    """Read published Price observations only; never interpolate chart gaps."""
+    if symbol not in STOCKQ_EXACT_INDEX_CHARTS:
+        raise ETFCTAError("Unapproved StockQ exact-index identity")
+    if not re.search(r"\['Time',\s*'Price',\s*'MA20'", text):
+        raise ETFCTAError("StockQ chart price-column identity unavailable")
+    pattern = r"\[new Date\('([A-Za-z]{3} \d{1,2}, \d{4})'\),\s*([^,\]]+)"
+    rows = re.findall(pattern, text)
+    bars = []
+    seen = set()
+    for stamp, raw_price in rows:
+        day = datetime.strptime(stamp, "%b %d, %Y").date()
+        try:
+            price = float(raw_price)
+        except ValueError as exc:
+            raise ETFCTAError("Missing or invalid StockQ Price") from exc
+        if not isfinite(price) or price <= 0 or day in seen:
+            raise ETFCTAError("Invalid or duplicate StockQ Price")
+        seen.add(day)
+        bars.append(DailyBar(day, price, price, price, price, 0,
+            adjusted_close=price, source="stockq_exact_index_chart"))
+    if len(bars) < 20 or [b.trading_date for b in bars] != sorted(seen):
+        raise ETFCTAError("Insufficient or unordered StockQ Price observations")
+    return bars
+
+
+def _fetch_stockq_exact_index(symbol: str) -> list[DailyBar]:
+    code, expected_heading = STOCKQ_EXACT_INDEX_CHARTS[symbol]
+    page_url = f"https://www.stockq.org/index/{code}.php"
+    def fetch(url):
+        request = Request(url, headers={"User-Agent": "Mozilla/5.0", "Referer": page_url})
+        with urlopen(request, timeout=20) as response:
+            return response.read().decode("utf-8", errors="replace")
+    page = fetch(page_url)
+    if not re.search(r"<h1[^>]*>\s*" + re.escape(expected_heading) + r"\s*</h1>", page):
+        raise ETFCTAError("StockQ exact-index page identity mismatch")
+    url = f"https://www.stockq.org/index/chart-data.php?id={code}&type=sma&range=3m"
+    bars = _parse_stockq_index_chart(fetch(url), symbol)
+    today = datetime.now(timezone.utc).date()
+    if bars[-1].trading_date > today or (today - bars[-1].trading_date).days > 7:
+        raise ETFCTAError("StockQ exact-index chart is future-dated or stale")
+    return bars
+
+
 def _fetch_local_market(symbol: str, bootstrapper: YahooHistoryBootstrapper):
     try:
         return bootstrapper.fetch_adjusted_daily(symbol), "YAHOO"
     except Exception as yahoo_error:
+        if symbol in STOCKQ_EXACT_INDEX_CHARTS:
+            return _fetch_stockq_exact_index(symbol), "STOCKQ_EXACT_INDEX_CHART_PUBLISHED_PRECISION"
         if symbol == "000003.SS":
             return _fetch_tencent_shanghai_b(), "TENCENT_EXACT_INDEX_FALLBACK"
         if symbol not in STOOQ_MARKET_FALLBACKS:

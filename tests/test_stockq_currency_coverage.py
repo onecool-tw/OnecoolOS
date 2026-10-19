@@ -172,3 +172,20 @@ def test_unavailable_exact_index_never_becomes_zero_or_proxy(monkeypatch):
         assert period["status"] == "UNKNOWN"
         assert period["twd_return_pct"] is None
         assert "Local market series" in period["reason"]
+
+
+def test_stockq_exact_chart_reads_price_not_moving_average():
+    from scripts.update_stockq_rotation import _parse_stockq_index_chart
+    rows = "\n".join(f"[new Date('Sep {i}, 2026'), {100+i}, 999, 888, 777]," for i in range(1, 26))
+    text = "['Time', 'Price', 'MA20', 'MA60', 'MA120'],\n" + rows
+    result = _parse_stockq_index_chart(text, "^SPBLPGPT")
+    assert result[0].close == 101 and result[-1].close == 125
+    assert result[-1].trading_date.isoformat() == "2026-09-25"
+    import pytest
+    from onecool_os.market.etf_cta import ETFCTAError
+    with pytest.raises(ETFCTAError):
+        _parse_stockq_index_chart(text.replace(", 101,", ", null,", 1), "^SPBLPGPT")
+    with pytest.raises(ETFCTAError):
+        _parse_stockq_index_chart(text+"[new Date('Sep 1, 2026'), 101, 0, 0, 0]", "^SPBLPGPT")
+    with pytest.raises(ETFCTAError):
+        _parse_stockq_index_chart(text.replace("'Price'", "'MA200'"), "^SPBLPGPT")
