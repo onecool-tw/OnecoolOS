@@ -150,3 +150,25 @@ def test_fx_uses_inverse_same_date_triangulation() -> None:
 
     assert method == "TRIANGULAR:1/USDPLN=X*USDTWD=X"
     assert [item.value for item in values] == [7.5, 7.5]
+
+
+def test_peru_colombia_use_exact_indices_and_same_date_fx_bridges():
+    assert TWD_SERIES["秘魯股市"] == ("^SPBLPGPT", "PENTWD=X")
+    assert TWD_SERIES["哥倫比亞"] == ("^COLCAP", "COPTWD=X")
+    assert TRIANGULAR_TWD_FX["PENTWD=X"] == (("USDPEN=X", "USDTWD=X", True),)
+    assert TRIANGULAR_TWD_FX["COPTWD=X"] == (("USDCOP=X", "USDTWD=X", True),)
+
+
+def test_unavailable_exact_index_never_becomes_zero_or_proxy(monkeypatch):
+    from types import SimpleNamespace
+    from scripts import update_stockq_rotation as updater
+    monkeypatch.setattr(updater, "screen_markets", lambda _: [SimpleNamespace(market="秘魯股市", stage1="PASS")])
+    def unavailable(symbol, bootstrapper):
+        assert symbol == "^SPBLPGPT"
+        raise RuntimeError("HTTP 404 exact source unavailable")
+    monkeypatch.setattr(updater, "_fetch_local_market", unavailable)
+    result = updater._twd_returns_for_pass_markets("", "2026-10-16", object())
+    for period in result["秘魯股市"].values():
+        assert period["status"] == "UNKNOWN"
+        assert period["twd_return_pct"] is None
+        assert "Local market series" in period["reason"]
