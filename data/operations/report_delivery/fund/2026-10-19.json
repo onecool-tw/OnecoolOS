@@ -1,9 +1,9 @@
 {
   "report_id": "fund",
   "report_date": "2026-10-19",
-  "generated_at": "2026-10-19T03:29:18.863Z",
-  "delivery_status": "PREPARED",
-  "writeback_status": "UNKNOWN",
+  "generated_at": "2026-10-19T03:34:14.120Z",
+  "delivery_status": "UNKNOWN",
+  "writeback_status": "VERIFIED",
   "delivery_evidence_sha256": null,
   "channels": {
     "conversation": {
@@ -12,20 +12,53 @@
       "evidence_sha256": null
     },
     "artifact": {
-      "status": "UNKNOWN",
-      "observed_at": null,
-      "evidence_sha256": null
+      "status": "DELIVERED",
+      "observed_at": "2026-10-19T03:34:14.120Z",
+      "evidence_sha256": "d38f55eb04116761ed86c0c4b7310163e33a8795b82362af3c0fc2de0743a5b7"
     }
   },
   "execution_status": "PARTIAL",
   "completed_steps": [
-    "read_contract",
-    "read_initial_main_cache"
+    "contract_and_initial_snapshot",
+    "prepared_receipt_recovery_trigger",
+    "fund_run_39194958788_success",
+    "dashboard_run_39194960253_success_and_published_btc_date_verified",
+    "same_main_snapshot_seven_fund_nav_currency_ma_cta_action_validation",
+    "twenty_one_same_date_usd_excess_comparisons",
+    "frozen_eight_period_regression_and_input_hashes_verified",
+    "recent_history_consistency_and_prior_week_report_read",
+    "first_formal_regression_run_37100766349_head_and_step_reconfirmed",
+    "full_six_section_report_saved_and_readback_verified"
   ],
   "pending_steps": [
-    "recover_fund_and_btc_freshness",
-    "validate",
-    "save_report",
-    "final_response"
-  ]
+    "conversation_delivery_observation",
+    "AI_current_revision_review",
+    "global_partial_currency_mapping",
+    "next_regular_etf_cache_update"
+  ],
+  "data_as_of": {
+    "fund_nav_min": "2026-10-15",
+    "fund_nav_max": "2026-10-16",
+    "etf_min": "2026-10-15",
+    "etf_max": "2026-10-16",
+    "bitcoin": "2026-10-18",
+    "bitcoin_completed_week": "2026-10-18"
+  },
+  "versions": {
+    "data_snapshot": "2d3a95aa4debff5827914f9023fa330cf11549c2",
+    "cta_engine": "shared_onecool_cta_engine",
+    "action_rule": "v1.3 weekly-led transition",
+    "validation_rule": "DATA-7 v1.1",
+    "prompt_rule": "2026-10-16 bounded pre-report recovery"
+  },
+  "data_classification": {
+    "fund_nav": "LAGGED",
+    "bitcoin_daily": "CURRENT",
+    "bitcoin_completed_week": "CURRENT",
+    "etf": "LAGGED",
+    "ai_current_light": "UNKNOWN",
+    "global_twd_partial": "UNKNOWN"
+  },
+  "failed_steps": [],
+  "next_step": "Deliver full weekly report to existing conversation; retain unknown module fields until independently verified."
 }
