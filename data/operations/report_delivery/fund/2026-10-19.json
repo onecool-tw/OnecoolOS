@@ -1,7 +1,7 @@
 {
   "report_id": "fund",
   "report_date": "2026-10-19",
-  "generated_at": "2026-10-19T03:34:14.120Z",
+  "generated_at": "2026-10-19T04:20:26.132Z",
   "delivery_status": "UNKNOWN",
   "writeback_status": "VERIFIED",
   "delivery_evidence_sha256": null,
@@ -13,8 +13,8 @@
     },
     "artifact": {
       "status": "DELIVERED",
-      "observed_at": "2026-10-19T03:34:14.120Z",
-      "evidence_sha256": "d38f55eb04116761ed86c0c4b7310163e33a8795b82362af3c0fc2de0743a5b7"
+      "observed_at": "2026-10-19T04:20:26.132Z",
+      "evidence_sha256": "99b14be797a1b49d6e3a68e9600d153f7b34b0ab468bb183f68a59b953418e31"
     }
   },
   "execution_status": "PARTIAL",
@@ -28,24 +28,29 @@
     "frozen_eight_period_regression_and_input_hashes_verified",
     "recent_history_consistency_and_prior_week_report_read",
     "first_formal_regression_run_37100766349_head_and_step_reconfirmed",
-    "full_six_section_report_saved_and_readback_verified"
+    "full_six_section_report_saved_and_readback_verified",
+    "PR_121_122_123_merged",
+    "ETF_run_39197814140_success",
+    "AI_run_39197814120_success",
+    "global_run_39198418123_success",
+    "main_inputs_PASS_zero_warnings",
+    "updated_report_version_1_saved_and_library_readback_verified"
   ],
   "pending_steps": [
     "conversation_delivery_observation",
-    "AI_current_revision_review",
-    "global_partial_currency_mapping",
-    "next_regular_etf_cache_update"
+    "integrated_weekly_retry_39198418151"
   ],
   "data_as_of": {
     "fund_nav_min": "2026-10-15",
     "fund_nav_max": "2026-10-16",
-    "etf_min": "2026-10-15",
+    "etf_min": "2026-10-16",
     "etf_max": "2026-10-16",
     "bitcoin": "2026-10-18",
-    "bitcoin_completed_week": "2026-10-18"
+    "bitcoin_completed_week": "2026-10-18",
+    "global_twd_peru_colombia": "2026-10-15"
   },
   "versions": {
-    "data_snapshot": "2d3a95aa4debff5827914f9023fa330cf11549c2",
+    "data_snapshot": "10cb1e462bcea53cebba5c25552dfc65e3e25c61",
     "cta_engine": "shared_onecool_cta_engine",
     "action_rule": "v1.3 weekly-led transition",
     "validation_rule": "DATA-7 v1.1",
@@ -55,10 +60,17 @@
     "fund_nav": "LAGGED",
     "bitcoin_daily": "CURRENT",
     "bitcoin_completed_week": "CURRENT",
-    "etf": "LAGGED",
-    "ai_current_light": "UNKNOWN",
-    "global_twd_partial": "UNKNOWN"
+    "etf": "CURRENT",
+    "ai_current_light": "CURRENT",
+    "global_twd_partial": "CURRENT"
   },
   "failed_steps": [],
-  "next_step": "Deliver full weekly report to existing conversation; retain unknown module fields until independently verified."
+  "next_step": "Verify integrated weekly retry publication; deliver corrected report in existing conversation.",
+  "previous_artifact_evidence": [
+    {
+      "status": "DELIVERED",
+      "observed_at": "2026-10-19T03:34:14.120Z",
+      "evidence_sha256": "d38f55eb04116761ed86c0c4b7310163e33a8795b82362af3c0fc2de0743a5b7"
+    }
+  ]
 }
