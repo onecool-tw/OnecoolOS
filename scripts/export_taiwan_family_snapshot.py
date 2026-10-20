@@ -5,6 +5,7 @@ No market feeds, CTA engines, pressure evaluators or ranking algorithms run here
 from __future__ import annotations
 
 import argparse
+from copy import deepcopy
 import hashlib
 import json
 import os
@@ -164,13 +165,37 @@ def build_snapshot(root: Path):
     }
 
 
+def delivery_view(payload):
+    """Compare delivered facts, retaining all values, source dates and gates.
+
+    Provenance identifies the source revision used to create a Snapshot, not
+    the most recent execution of an otherwise unchanged source. Only these
+    explicitly listed execution metadata fields may differ on a retry.
+    """
+    view = deepcopy(payload)
+    view.pop('sources', None)
+    view.pop('source_generated_at', None)
+    inputs = view.get('market_pressure_inputs')
+    if isinstance(inputs, dict):
+        inputs.pop('generated_at', None)
+    return view
+
+
 def export_snapshot(root: Path, check=False):
     payload = build_snapshot(root)
     destination = root / OUTPUT
+    existing = None
+    if destination.exists():
+        existing = json.loads(destination.read_text(encoding='utf-8'))
+    same_delivery = existing is not None and delivery_view(existing) == delivery_view(payload)
     if check:
-        if json.loads(destination.read_text(encoding='utf-8')) != payload:
+        if not same_delivery:
             raise ValueError('Snapshot does not match current formal sources')
-        return payload
+        return existing
+    if same_delivery:
+        # Preserve the exact bytes/hash and their original, truthful provenance.
+        # All current sources were still rebuilt and validated above.
+        return existing
     destination.parent.mkdir(parents=True, exist_ok=True)
     content = json.dumps(payload, ensure_ascii=False, indent=2, allow_nan=False) + '\n'
     with tempfile.NamedTemporaryFile(mode='w', encoding='utf-8', dir=destination.parent,
