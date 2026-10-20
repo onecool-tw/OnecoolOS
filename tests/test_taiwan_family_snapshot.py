@@ -69,6 +69,84 @@ def test_check_detects_source_change(root):
         export_snapshot(root, check=True)
 
 
+def test_metadata_only_refresh_keeps_exact_snapshot_and_original_provenance(root):
+    original = export_snapshot(root)
+    before = (root / OUTPUT).read_bytes()
+    for source in ('dashboard', 'cta', 'context'):
+        change(root, source, lambda obj: obj.update(generated_at='2099-01-01T00:00:00Z'))
+    change(root, 'context', lambda obj: obj['market_pressure_inputs'].update(
+        generated_at='2099-01-01T00:00:00Z'))
+    assert export_snapshot(root, check=True) == original
+    assert export_snapshot(root) == original
+    assert (root / OUTPUT).read_bytes() == before
+
+
+@pytest.mark.parametrize('field,value', [
+    ('reason', ['revised_formal_evidence']),
+    ('status', 'STALE_LAST_KNOWN'),
+    ('as_of', '2026-01-01'),
+    ('light', 'UNKNOWN'),
+    ('action', 'PAUSE_NEW_EXPOSURE_REVISED'),
+])
+def test_formal_pressure_changes_require_new_snapshot(root, field, value):
+    export_snapshot(root)
+    before = (root / OUTPUT).read_bytes()
+    change(root, 'context', lambda obj: obj['market_pressure'].update({field: value}))
+    with pytest.raises(ValueError, match='does not match'):
+        export_snapshot(root, check=True)
+    export_snapshot(root)
+    assert (root / OUTPUT).read_bytes() != before
+
+
+@pytest.mark.parametrize('field', ['score', 'pe', 'pb', 'price_as_of'])
+def test_stock_facts_cannot_be_hidden_as_metadata(root, field):
+    export_snapshot(root)
+    before = (root / OUTPUT).read_bytes()
+    value = '2026-01-01' if field == 'price_as_of' else 123.45
+    for source in ('screen', 'context'):
+        change(root, source, lambda obj: obj['top5'][0].update({field: value}))
+    with pytest.raises(ValueError, match='does not match'):
+        export_snapshot(root, check=True)
+    export_snapshot(root)
+    assert (root / OUTPUT).read_bytes() != before
+
+
+def test_input_verification_changes_require_new_snapshot(root):
+    export_snapshot(root)
+    change(root, 'context', lambda obj: obj['market_pressure_inputs'].update(status='FETCH_FAILED'))
+    with pytest.raises(ValueError, match='does not match'):
+        export_snapshot(root, check=True)
+
+
+@pytest.mark.parametrize('field,value', [('cta', 'WATCH'), ('update_status', 'UNKNOWN')])
+def test_cta_changes_require_new_snapshot(root, field, value):
+    original = export_snapshot(root)
+    symbol = original['top5'][0]['symbol']
+    def update_cache(obj):
+        next(row for row in obj['results'] if row['symbol'] == symbol)[field] = value
+    change(root, 'cta', update_cache)
+    change(root, 'context', lambda obj: obj['top5'][0]['individual_cta'].update({field: value}))
+    with pytest.raises(ValueError, match='does not match'):
+        export_snapshot(root, check=True)
+    assert export_snapshot(root)['top5'][0]['individual_cta'][field] == value
+
+
+def test_official_input_value_revision_requires_new_snapshot(root):
+    export_snapshot(root)
+    change(root, 'context', lambda obj: obj['market_pressure_inputs']['sources']['volatility'].update(value=99))
+    with pytest.raises(ValueError, match='does not match'):
+        export_snapshot(root, check=True)
+
+
+def test_rank_change_requires_new_snapshot(root):
+    original = export_snapshot(root)
+    for source in ('screen', 'context'):
+        change(root, source, lambda obj: obj['top5'].reverse())
+    with pytest.raises(ValueError, match='does not match'):
+        export_snapshot(root, check=True)
+    assert export_snapshot(root)['top5'][0]['symbol'] == original['top5'][-1]['symbol']
+
+
 def test_pressure_persistence_to_public_snapshot_end_to_end(root):
     repo = Path(__file__).resolve().parents[1]
     payload = {

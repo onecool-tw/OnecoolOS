@@ -99,16 +99,17 @@ def test_recovery_attempts_are_non_blocking_but_final_readiness_stays_strict():
     assert "inputs.run_mode != 'recovery'" in workflow
     assert "github.event_name == 'workflow_run'" in workflow
     assert "github.event_name == 'push'" in workflow
-    assert "github.event.schedule != '17 9 * * 1-5'" in workflow
+    assert "github.event.schedule != '32 10 * * 1-5'" in workflow
     assert "::warning::Taiwan recovery attempt incomplete" in workflow
     assert "github.event_name == 'workflow_dispatch'" in workflow
-    assert "github.event.schedule == '17 9 * * 1-5'" in workflow
+    assert "github.event.schedule == '32 10 * * 1-5'" in workflow
     assert "::error::Formal Taiwan refresh incomplete" in workflow
     assert workflow.count("steps.readiness.outcome == 'failure'") == 2
     assert workflow.count("steps.screen.outcome == 'failure'") == 1
     assert "steps.readiness.outcome == 'success'" in workflow
     assert "final same-day report is READY" in workflow
-    assert workflow.count("- cron:") == 3
+    assert workflow.count("- cron:") == 4
     assert 'cron: "17 7 * * 1-5"' in workflow
     assert 'cron: "17 8 * * 1-5"' in workflow
     assert 'cron: "17 9 * * 1-5"' in workflow
+    assert 'cron: "32 10 * * 1-5"' in workflow

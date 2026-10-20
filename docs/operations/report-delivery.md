@@ -62,6 +62,21 @@ they do not establish on-time delivery of a historical report.
 
 ## Missing acknowledgements and explicit failures
 
+### Taiwan Snapshot retries
+
+The exporter validates current formal sources on every run. When all projected
+facts, dates, CTA, ranking, valuation, quality evidence and delivery gates are
+unchanged, it retains the existing Snapshot's exact bytes and original source
+provenance. Changes only to source hashes, source execution timestamps or the
+official pressure-input cache's top-level `generated_at` do not create another
+delivery version. The stored provenance continues to identify the original
+source revision; it must not be relabelled as the newest source revision.
+
+The final Email gate still compares the full retained Snapshot hash with the
+acknowledged version. Actual data, status, quality, formal pressure reason or
+readiness changes require a new validated Snapshot and the existing delivery
+checks. This does not authorize resending for an unobserved conversation.
+
 The monitor preserves explicit channel FAILED states separately from UNKNOWN.
 Each channel receipt result lists failed_channels, unverified_channels and a
 next_action. UNKNOWN is not proof of a missed delivery and does not authorize
