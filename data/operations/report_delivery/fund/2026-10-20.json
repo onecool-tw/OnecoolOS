@@ -1,29 +1,56 @@
 {
   "report_id": "fund",
   "report_date": "2026-10-20",
-  "generated_at": "2026-10-20T03:30:40.743Z",
-  "delivery_status": "PREPARED",
-  "writeback_status": "UNKNOWN",
+  "generated_at": "2026-10-20T03:33:20.642Z",
+  "delivery_status": "UNKNOWN",
+  "writeback_status": "VERIFIED",
   "delivery_evidence_sha256": null,
   "channels": {
     "conversation": {
       "status": "UNKNOWN",
       "observed_at": null,
       "evidence_sha256": null
+    },
+    "artifact": {
+      "status": "DELIVERED",
+      "observed_at": "2026-10-20T03:33:20.642Z",
+      "evidence_sha256": "25a0ddebe1037b3896bcd53151028b3ba36bf5dcea8e314e20cc006b750e2a31"
     }
   },
-  "execution_status": "PARTIAL",
+  "execution_status": "SUCCESS",
   "completed_steps": [
-    "contract_and_initial_snapshot"
+    "contract_initial_snapshot",
+    "existing_health_recovery_triggered_before_report",
+    "fund_run_39364718860_success_and_frozen_regression_step_success",
+    "dashboard_run_39364720249_success_and_actual_UTC_yesterday_verified",
+    "same_snapshot_seven_NAV_history_currency_MA_CTA_Action_verified",
+    "BTC_history_shared_engine_and_completed_week_verified",
+    "eight_distinct_period_consistency_and_frozen_eight_period_baseline_PASS",
+    "previous_formal_report_CTA_Action_and_old_cross_deduplication_verified",
+    "full_daily_report_saved_and_readback_verified"
   ],
   "pending_steps": [
-    "pre_report_cache_recovery",
-    "validation",
-    "artifact_readback"
+    "conversation_delivery_observation"
   ],
   "data_as_of": {
-    "fund_nav_min": "2026-10-15",
-    "fund_nav_max": "2026-10-16",
-    "bitcoin": "2026-10-18"
+    "fund_nav_min": "2026-10-16",
+    "fund_nav_max": "2026-10-19",
+    "bitcoin": "2026-10-19",
+    "bitcoin_completed_week": "2026-10-18"
+  },
+  "failed_steps": [],
+  "next_step": "Deliver full daily report to existing conversation.",
+  "data_classification": {
+    "fund_nav": "LAGGED",
+    "fund_refresh": "CURRENT",
+    "bitcoin_daily": "CURRENT",
+    "bitcoin_completed_week": "CURRENT"
+  },
+  "versions": {
+    "data_snapshot": "15c4303deeb31848747a831838e3b8ab00582c69",
+    "cta_engine": "shared_onecool_cta_engine",
+    "action_rule": "v1.3",
+    "validation_rule": "DATA-7 v1.1",
+    "prompt_rule": "2026-10-16 bounded pre-report recovery"
   }
 }
