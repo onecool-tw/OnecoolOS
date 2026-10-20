@@ -1098,6 +1098,87 @@
           "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
         ]
       }
+    },
+    "AMGN": {
+      "symbol": "AMGN",
+      "company_name": "Amgen Inc.",
+      "published_at": "2026-08-04",
+      "reviewed_as_of": "2026-10-20",
+      "valid_through": "2026-10-23",
+      "sources": [
+        "https://www.sec.gov/Archives/edgar/data/318154/000031815426000124/amgn-20260630earningsrelea.htm",
+        "https://www.amgen.com/tavneos-update"
+      ],
+      "reported_facts": {
+        "FY26_GAAP_EPS": [
+          15.8,
+          17.08
+        ],
+        "FY26_adjusted_EPS": [
+          22.3,
+          23.5
+        ],
+        "H1_CFO_million": 6191,
+        "H1_capex_million": 1225,
+        "H1_FCF_million": 4966
+      },
+      "model_gaps": [],
+      "refresh_on": [
+        "NEW_EARNINGS_OR_GUIDANCE",
+        "TAVNEOS_REGULATORY_DECISION",
+        "REFERENCE_EXPIRY"
+      ],
+      "valuation_model": {
+        "method": "FORWARD_GAAP_PE_EX_EQUITY_MARKS_RETAINING_ACQUISITION_COSTS",
+        "denominator": 16.18,
+        "currency": "USD",
+        "share_basis": "listed_security",
+        "normalization_bridge": {
+          "formula": "FY26 GAAP low15.80 + after-tax equity loss0.42 - other net benefit0.04",
+          "retained_acquisition_cost": 6.04,
+          "June30_cash_billion": 14,
+          "June30_debt_billion": 57.3,
+          "June30_net_debt_billion": 43.3,
+          "limitations": "Rounded June30 balances, not October. Retains acquisition amortization and recurring costs. H1 FCF4966m not annualized. No second net debt deduction from EPS."
+        },
+        "denominator_source": [
+          "https://www.sec.gov/Archives/edgar/data/318154/000031815426000124/amgn-20260630earningsrelea.htm"
+        ],
+        "fair_range": [
+          8.109050705053424,
+          13.976819907362085
+        ],
+        "scenarios": [
+          {
+            "name": "conservative",
+            "years": 5,
+            "growth": 0.03,
+            "required_return": 0.12,
+            "terminal_growth": 0.02,
+            "cash_conversion": 0.7,
+            "terminal_cash_conversion": 0.8
+          },
+          {
+            "name": "base",
+            "years": 5,
+            "growth": 0.06,
+            "required_return": 0.1,
+            "terminal_growth": 0.03,
+            "cash_conversion": 0.8,
+            "terminal_cash_conversion": 0.85
+          }
+        ],
+        "assumption_authority": "ONECOOL_ANALYST_NOT_ISSUER_GUIDANCE",
+        "research_grade": "SCREENING_SCENARIO_NOT_FULL_DCF",
+        "policy_version": "onecool_equity_two_stage_screen_v1",
+        "rationale": "Onecool analyst five-year growth3%/6%, cash conversion70%/80%, terminal80%/85%, return12%/10%, terminal growth2%/3%. Not issuer guidance or full DCF. Mature product erosion, leverage and Tavneos constrain distributions; excludes speculative MariTide revenue.",
+        "fair_range_rationale": "Onecool analyst five-year growth3%/6%, cash conversion70%/80%, terminal80%/85%, return12%/10%, terminal growth2%/3%. Not issuer guidance or full DCF. Mature product erosion, leverage and Tavneos constrain distributions; excludes speculative MariTide revenue.",
+        "fair_range_sources": [
+          "https://www.sec.gov/Archives/edgar/data/318154/000031815426000124/amgn-20260630earningsrelea.htm",
+          "https://www.amgen.com/tavneos-update",
+          "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+        ]
+      }
     }
   }
 }
