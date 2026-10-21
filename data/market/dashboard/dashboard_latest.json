@@ -1,10 +1,10 @@
 {
   "schema_version": "1.9",
   "module": "Onecool Market Dashboard",
-  "generated_at": "2026-10-21T08:07:46.803145+00:00",
+  "generated_at": "2026-10-21T10:27:49.545769+00:00",
   "expected_as_of": "2026-10-20",
   "data_status": "READY",
-  "last_successful_update_at": "2026-10-21T08:07:46.803145+00:00",
+  "last_successful_update_at": "2026-10-21T10:27:49.545769+00:00",
   "index_cta_basis": {
     "method": "ETF/index proxies; shared CTA engine",
     "mappings": {
@@ -1730,6 +1730,15 @@
               "conclusion": "Reviewed official disclosures do not supply a complete normalized earnings and net-debt bridge. Keep valuation UNKNOWN and new-entry valuation gate closed; do not infer values.",
               "next_earnings_is_guaranteed_resolution": false
             }
+          },
+          "official_disclosure_watch": {
+            "as_of": "2026-10-20",
+            "status": "FETCH_OR_VALIDATION_FAILED",
+            "filings": [],
+            "decision_authority": "RESEARCH_REFRESH_ONLY_NO_CTA_OR_SCORE_EFFECT",
+            "source": "https://data.sec.gov/submissions/CIK0000093410.json",
+            "error_type": "HTTPError",
+            "next_action": "RETRY_DURING_NEXT_EXISTING_SCAN"
           }
         },
         "lynch_research": {
@@ -2413,6 +2422,14 @@
               "conclusion": "Reviewed official disclosures do not supply a complete normalized earnings and net-debt bridge. Keep valuation UNKNOWN and new-entry valuation gate closed; do not infer values.",
               "next_earnings_is_guaranteed_resolution": false
             }
+          },
+          "official_disclosure_watch": {
+            "as_of": "2026-10-20",
+            "status": "FETCH_OR_VALIDATION_FAILED",
+            "filings": [],
+            "decision_authority": "RESEARCH_REFRESH_ONLY_NO_CTA_OR_SCORE_EFFECT",
+            "error_type": "TypeError",
+            "next_action": "RETRY_DURING_NEXT_EXISTING_SCAN"
           }
         },
         "lynch_research": {
