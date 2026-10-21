@@ -49,6 +49,14 @@ formal Work remains the sole evaluator.  Consumers must distinguish
 `NOT_PUBLISHED`, `PUBLISHED_PARSE_FAILED` and `FETCH_FAILED`; none may be
 silently relabelled as a normal one-day lag.
 
+The adapter requests the dated TAIFEX official TXT directly before consulting
+the download listing. A valid dated closing average does not depend on listing
+availability. On a download transport failure, the listing can establish
+publication state and permit a retry of the same official endpoint. Only one
+numeric `Last 1 min AVG` row for the exact requested date is valid: a last tick,
+missing value, duplicate average or other date must remain a parse failure.
+Missing source objects must keep the overall input cache incomplete.
+
 ## Mailbox payload
 
 The Work writes one JSON object to `market_pressure_request_latest.json`. It should preserve the fixed metadata fields and replace the formal result fields.
