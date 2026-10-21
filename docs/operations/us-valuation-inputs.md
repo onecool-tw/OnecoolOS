@@ -28,3 +28,24 @@ DELL uses FY27 GAAP EPS guidance 24.37 less the disclosed investment gain EPS 1.
 Every denominator stores source URLs, units, period, arithmetic bridge and limitations. AMD's 13% item-tax normalization is an assumption using the issuer normalized rate. TSM USD ADR figures are issuer quarterly rounded values, not current-FX translations; the two-year anchor is a conservative historical proxy, not proven mid-cycle earnings. NVDA retains SBC using issuer recast financials. DDOG owner-FCF proxy is not GAAP EPS. ABBV holds operating earnings constant while applying full-year acquisition dilution; its debt bridge is estimated rather than an observed post-closing balance. The base/conservative assumptions should be reconsidered with each earnings/event refresh; reference expiry is 2026-10-14, with prices revalidated every trading session. This registry is not an automatic issuer-event detector.
 
 Validation: twelve direct regression functions cover original input collection, source expiry/mapping, missing same-date prices, stale PASS invalidation, invalid units, exact cash-flow math, divergent terminal assumptions, scenario-range tampering and committed denominator arithmetic. They can also run under pytest.
+
+## Pending official disclosures
+
+References explicitly marked `source_review.status=EXTERNAL_DISCLOSURE_PENDING`
+now make one SEC submissions request during the existing daily Top 5 collection.
+The existing request adapter bounds each call to 12 seconds with no retries.
+Only filings after the reviewed checkpoint and no later than the scan session's
+16:00 America/New_York close are eligible. Same-day filings without a timezone-aware
+acceptance timestamp are excluded; insider forms, future and after-hours filings
+are excluded. This monitor uses the SEC recent-filings list, without archive
+pagination, and does not replace the separate issuer IR research step.
+
+`official_disclosure_watch` records NO_NEW_ELIGIBLE_FILINGS,
+NEW_DISCLOSURE_REQUIRES_REVIEW, or FETCH_OR_VALIDATION_FAILED, dated to the
+same scan cutoff. Discovery supplies filing URLs for research; it does not parse
+or fabricate normalized EPS, cash/debt, fair value or PASS. New disclosures keep
+valuation UNKNOWN until the official bridge is researched and the reviewed model
+updated. Retrieval failure remains isolated and is retried by the next existing
+scan; CTA, technical rankings and scores are unchanged. No additional schedule is
+created. The next earnings date is a checkpoint, not a promise of sufficient data.
+

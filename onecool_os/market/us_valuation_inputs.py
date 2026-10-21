@@ -6,7 +6,8 @@ Reference facts alone cannot promote an objective research gate to PASS.
 An optional complete reviewed model is checked by the existing quality engine.
 """
 from copy import deepcopy
-from datetime import date
+from datetime import date, datetime, time, timezone
+from zoneinfo import ZoneInfo
 from hashlib import sha256
 import json
 from math import isfinite
@@ -50,6 +51,69 @@ def scenario_multiple(scenario):
                   for t in range(1, years + 1))
     return interim + terminal_cash * (1 + g)**years * (1 + terminal) / (
         (r - terminal) * (1 + r)**years)
+
+
+def check_pending_disclosures(client, cik, official, cutoff):
+    """Discover new filings without treating discovery as a valuation model.
+
+    One bounded SEC submissions request; no archive pagination or retry here.
+    Missing acceptance timestamps cannot admit same-day filings. Only explicit
+    pending-disclosure references opt in, keeping unrelated research unchanged.
+    """
+    watch = {"as_of": cutoff.isoformat(), "status": "UNKNOWN", "filings": [],
+             "decision_authority": "RESEARCH_REFRESH_ONLY_NO_CTA_OR_SCORE_EFFECT"}
+    try:
+        cik = str(int(cik)).zfill(10)
+        watch["source"] = f"https://data.sec.gov/submissions/CIK{cik}.json"
+        payload = client._fetch(watch["source"])
+        if int(payload["cik"]) != int(cik):
+            raise ValueError("DISCLOSURE_CIK_MISMATCH")
+        recent = payload["filings"]["recent"]
+        keys = ("accessionNumber", "filingDate", "form", "primaryDocument")
+        lengths = [len(recent[k]) for k in keys]
+        if not lengths or len(set(lengths)) != 1:
+            raise ValueError("DISCLOSURE_SCHEMA_MISMATCH")
+        baseline = date.fromisoformat(official.get("reviewed_as_of") or official["published_at"])
+        checked = (official.get("source_review") or {}).get("checked_at")
+        baseline_time = datetime.fromisoformat(checked.replace("Z", "+00:00")) if checked else None
+        if baseline_time is not None and baseline_time.tzinfo is None:
+            raise ValueError("DISCLOSURE_BASELINE_TIMEZONE_MISSING")
+        close = datetime.combine(cutoff, time(16), ZoneInfo("America/New_York"))
+        accepted = recent.get("acceptanceDateTime", [])
+        for i in range(lengths[0]):
+            form = recent["form"][i]
+            if form not in {"10-Q", "10-Q/A", "10-K", "10-K/A", "8-K", "8-K/A", "20-F", "20-F/A", "6-K"}:
+                continue
+            filed = date.fromisoformat(recent["filingDate"][i])
+            if filed > cutoff:
+                continue
+            stamp = accepted[i] if i < len(accepted) else None
+            when = datetime.fromisoformat(stamp.replace("Z", "+00:00")) if stamp else None
+            if when is not None and when.tzinfo is None:
+                # SEC timezone-less timestamps are not safe for same-day use.
+                when = None
+            if when is not None:
+                if when > close or (baseline_time is not None and when <= baseline_time):
+                    continue
+                if baseline_time is None and filed <= baseline:
+                    continue
+            elif not baseline < filed < cutoff:
+                continue
+            accession = recent["accessionNumber"][i]
+            document = recent["primaryDocument"][i]
+            if not accession or not document or "/" in document or ".." in document:
+                raise ValueError("DISCLOSURE_DOCUMENT_INVALID")
+            watch["filings"].append({"form": form, "filed": filed.isoformat(),
+                "accepted_at": when.isoformat() if when else None,
+                "accession_number": accession,
+                "url": f"https://www.sec.gov/Archives/edgar/data/{int(cik)}/{accession.replace('-', '')}/{document}"})
+        watch["status"] = "NEW_DISCLOSURE_REQUIRES_REVIEW" if watch["filings"] else "NO_NEW_ELIGIBLE_FILINGS"
+        watch["next_action"] = ("READ_OFFICIAL_FILINGS_AND_REBUILD_EARNINGS_AND_NET_DEBT_BRIDGE"
+                                if watch["filings"] else "RECHECK_DURING_NEXT_EXISTING_SCAN")
+    except Exception as exc:
+        watch.update(status="FETCH_OR_VALIDATION_FAILED", error_type=type(exc).__name__,
+                     next_action="RETRY_DURING_NEXT_EXISTING_SCAN")
+    return watch
 
 
 def collect_valuation_inputs(scan, histories, evidence, client, registry=None, reviewed=None):
@@ -114,6 +178,16 @@ def collect_valuation_inputs(scan, histories, evidence, client, registry=None, r
         official = (reviewed or {}).get("results", {}).get(symbol)
         if official is not None:
             _collect_reviewed(official, candidate, pack, record, cutoff)
+            if ((official.get("source_review") or {}).get("status")
+                    == "EXTERNAL_DISCLOSURE_PENDING"):
+                watch = check_pending_disclosures(client, mapping.get(symbol), official, cutoff)
+                pack["official_disclosure_watch"] = watch
+                if watch["status"] == "NEW_DISCLOSURE_REQUIRES_REVIEW":
+                    gap = "NEW_OFFICIAL_DISCLOSURE_REQUIRES_NORMALIZATION_REVIEW"
+                    pack["gaps"].append(gap)
+                    pack["status"] = "PARTIAL"
+                    record.setdefault("gates", {})["valuation"].update(
+                        status="UNKNOWN", data_gap=gap, rationale=gap)
             # A reviewed official snapshot is an independent source, not a
             # successful SEC response. Do not spend another 12s retrying SEC.
             if pack.get("official_reference_status") == "VERIFIED":
@@ -235,3 +309,4 @@ def _collect_reviewed(official, candidate, pack, record, cutoff):
     except (KeyError, TypeError, ValueError) as exc:
         pack["official_reference_status"] = "REJECTED"
         pack["gaps"].append(str(exc))
+

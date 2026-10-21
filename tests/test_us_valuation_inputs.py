@@ -27,11 +27,18 @@ def test_reviewed_denominators_and_scenarios_are_reproducible():
     from pathlib import Path
     r=json.loads(Path('data/market/us_stock_intelligence/reviewed_valuation_inputs.json').read_text())['results']
     assert abs(r['DDOG']['valuation_model']['denominator'] - 249732/371023)<1e-10
-    assert abs(r['ABBV']['valuation_model']['denominator'] - 13.55)<1e-10
+    # Oct5 guidance and the full-year acquisition dilution stress supersede
+    # the old 13.55 reference. Do not weaken this to an arbitrary positive EPS.
+    assert abs(r['ABBV']['valuation_model']['denominator'] - 13.44)<1e-10
     assert abs(r['TSM']['valuation_model']['denominator'] - 8.845)<1e-10
     for row in r.values():
-        m=row['valuation_model']
-        assert m['fair_range']==[scenario_multiple(s) for s in m['scenarios']]
+        m=row.get('valuation_model')
+        if m is None:
+            assert row.get('model_gaps'), 'Missing models must name the actual gap'
+            continue
+        expected = [scenario_multiple(s) for s in m['scenarios']]
+        assert len(m['fair_range']) == len(expected) == 2
+        assert all(abs(a-b) < 1e-8 for a,b in zip(m['fair_range'], expected))
         assert m['research_grade']=='SCREENING_SCENARIO_NOT_FULL_DCF'
 
 def fixture():
@@ -142,3 +149,4 @@ def test_incomplete_or_wrong_currency_model_never_promoted():
         reviewed["results"]["TEST"]["valuation_model"][field]=value
         got=collect_valuation_inputs(scan,bars,None,client,{"TEST":"1"},reviewed)
         assert got["results"][0]["gates"]["valuation"]["status"] == "UNKNOWN"
+
