@@ -21,18 +21,18 @@
     },
     "cta": {
       "path": "data/market/taiwan_stock_intelligence/cta/cta_latest.json",
-      "sha256": "7399776827ae03fec0e61b46b736017b0835ad25da38b9b1a59e735540af46c6"
+      "sha256": "679f66112caaa9eb7c7a12a0f636e2f0d2f3c8de22a8597471341b0ab6b36938"
     },
     "context": {
       "path": "data/market/taiwan_stock_intelligence/daily_context_latest.json",
-      "sha256": "1fbb90ce8a6e1de9e79282975880847db3cfc584465aaab8d1e80332eb74a936"
+      "sha256": "735667ad41d477608603552b88d38e356d6fa125b0252e1617fbc08234d54636"
     }
   },
   "source_generated_at": {
     "dashboard": "2026-10-21T08:07:46.803145+00:00",
     "screen": null,
-    "cta": "2026-10-21T10:08:59.934775+00:00",
-    "context": "2026-10-21T10:10:06.058878+00:00"
+    "cta": "2026-10-21T10:11:59.614694+00:00",
+    "context": "2026-10-21T10:12:04.436254+00:00"
   },
   "screen_as_of": "2026-10-21",
   "display_status": "CURRENT",
@@ -101,10 +101,8 @@
     "consumer_action": "PAUSE_NEW_EXPOSURE"
   },
   "final_delivery_readiness": {
-    "status": "UPDATE_INCOMPLETE",
-    "issues": [
-      "MARKET_PRESSURE_INPUTS_NOT_READY"
-    ],
+    "status": "READY",
+    "issues": [],
     "rule": "EMAIL_REQUIRES_CURRENT_MARKET_PRESSURE_AND_CURRENT_LOCAL_MARKET_ASIA_CTA"
   },
   "asia_cta_readiness": {
@@ -122,24 +120,19 @@
     "consumer_rule": "STALE_OR_UNKNOWN_ASIA_CTA_BLOCKS_FINAL_EMAIL"
   },
   "market_pressure_input_readiness": {
-    "status": "UPDATE_INCOMPLETE",
+    "status": "READY",
     "expected_as_of": "2026-10-21",
-    "issues": [
-      "volatility_fetch_failed",
-      "volatility_not_current"
-    ],
+    "issues": [],
     "consumer_rule": "FINAL_EMAIL_REQUIRES_READY; MARGIN_MAY_USE_VERIFIED_OFFICIAL_LAG_BEFORE_21:30; NEVER_RECOMPUTE_PRESSURE_LIGHT"
   },
   "market_pressure_inputs": {
     "schema_version": "1.0",
     "module": "Onecool Taiwan Official Market Pressure Inputs",
-    "generated_at": "2026-10-21T10:08:48.280163+00:00",
+    "generated_at": "2026-10-21T10:11:49.324392+00:00",
     "requested_as_of": "2026-10-21",
-    "status": "UPDATE_INCOMPLETE",
-    "attempts_used": 3,
-    "issues": [
-      "volatility:FETCH_FAILED"
-    ],
+    "status": "READY",
+    "attempts_used": 1,
+    "issues": [],
     "sources": {
       "margin": {
         "status": "VERIFIED",
@@ -168,10 +161,12 @@
         "source_url": "https://www.twse.com.tw/rwd/zh/marginTrading/MI_MARGN?date=20261020&selectType=MS&response=json"
       },
       "volatility": {
-        "status": "FETCH_FAILED",
-        "as_of": null,
-        "value": null,
-        "error": "TimeoutError",
+        "status": "VERIFIED",
+        "as_of": "2026-10-21",
+        "value": 28.37,
+        "value_basis": "LAST_1_MIN_AVG",
+        "error": null,
+        "download_url": "https://www.taifex.com.tw/cht/7/getVixData?filesname=20261021",
         "source_url": "https://www.taifex.com.tw/cht/7/vixMinNew"
       }
     },
