@@ -1,9 +1,9 @@
 {
   "report_id": "fund",
   "report_date": "2026-10-21",
-  "generated_at": "2026-10-21T11:33:00+08:00",
+  "generated_at": "2026-10-21T11:40:00+08:00",
   "delivery_status": "PREPARED",
-  "writeback_status": "UNKNOWN",
+  "writeback_status": "VERIFIED",
   "delivery_evidence_sha256": null,
   "channels": {
     "conversation": {
@@ -12,24 +12,43 @@
       "evidence_sha256": null
     },
     "artifact": {
-      "status": "UNKNOWN",
-      "observed_at": null,
-      "evidence_sha256": null
+      "status": "DELIVERED",
+      "observed_at": "2026-10-21T11:39:30+08:00",
+      "evidence_sha256": "bda7984be91ada856276992ab5284f0fd80e4701476769ed8654f7f0016a03d3"
     }
   },
   "execution": {
-    "status": "PARTIAL",
+    "status": "SUCCESS",
+    "data_snapshot_sha": "b93296e5da4641866a3c9c23e1b4933d8fe0bc20",
     "data_as_of": {
-      "fund_cache_generated_at": "2026-10-20T05:06:10.303472+00:00",
-      "bitcoin": "2026-10-19"
+      "fund_cache_generated_at": "2026-10-21T03:36:07.221000+00:00",
+      "fund_nav_range": "2026-10-19/2026-10-20",
+      "bitcoin": "2026-10-20",
+      "bitcoin_completed_week": "2026-10-18"
+    },
+    "workflow_runs": {
+      "health": 39539339916,
+      "fund": 39539389077,
+      "dashboard": 39539390878
     },
     "completed_steps": [
       "read_delivery_contract",
       "read_initial_main_snapshot",
-      "classify_stale_inputs",
-      "request_existing_health_recovery"
+      "trigger_existing_health_recovery",
+      "verify_workflow_jobs_and_steps",
+      "verify_final_main_dates",
+      "recompute_seven_fund_cta_actions",
+      "verify_bitcoin_shared_engine",
+      "check_eight_period_consistency",
+      "run_frozen_regression",
+      "save_report_artifact",
+      "read_back_report_artifact"
     ],
     "failed_steps": [],
-    "next_step": "wait_for_existing_recovery_and_verify_main_dates"
+    "next_step": "deliver_full_report_in_bound_conversation"
+  },
+  "artifact": {
+    "library_file_id": "libfile_87740b9d8b4c81919690bd1d19f3143e",
+    "sha256": "bda7984be91ada856276992ab5284f0fd80e4701476769ed8654f7f0016a03d3"
   }
 }
