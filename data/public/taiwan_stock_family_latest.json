@@ -13,7 +13,7 @@
   "sources": {
     "dashboard": {
       "path": "data/market/dashboard/dashboard_latest.json",
-      "sha256": "865bf650f599f5501add039edf77695384bf588e365e475944e808ff871e181d"
+      "sha256": "2fd0c3c9af8e163e2efa233fc7cc13f5a0c8f21a8175eebe903e10205d2fd25e"
     },
     "screen": {
       "path": "data/market/taiwan_stock_intelligence/screen_latest.json",
@@ -21,18 +21,18 @@
     },
     "cta": {
       "path": "data/market/taiwan_stock_intelligence/cta/cta_latest.json",
-      "sha256": "deea2d6e019551430f5fa2a31e80eb974d13950c7e11e1767b9b7ad21fdfc2e0"
+      "sha256": "ef34bd8f16a07929ebefcf12a897797ecb6e65499bdb439f072f8509ca05588d"
     },
     "context": {
       "path": "data/market/taiwan_stock_intelligence/daily_context_latest.json",
-      "sha256": "42d136c5b3ae5ef4254c22eeecd48924bd113f555212016f120544c39b50576a"
+      "sha256": "7e577dceae540c8f726faf05aa4b7d744522ddcb76909e5e6889e2c8ee06541e"
     }
   },
   "source_generated_at": {
-    "dashboard": "2026-10-21T06:09:27.039207+00:00",
+    "dashboard": "2026-10-21T08:07:46.803145+00:00",
     "screen": null,
-    "cta": "2026-10-21T06:13:21.865591+00:00",
-    "context": "2026-10-21T06:13:24.999968+00:00"
+    "cta": "2026-10-21T08:08:07.039350+00:00",
+    "context": "2026-10-21T08:08:12.601156+00:00"
   },
   "screen_as_of": "2026-10-20",
   "display_status": "STALE",
@@ -112,8 +112,7 @@
     "issues": [
       "SCREEN_EXPECTED_AS_OF_MISMATCH",
       "MARKET_PRESSURE_AS_OF_MISMATCH",
-      "REPORT_READINESS_NOT_READY",
-      "MARKET_PRESSURE_INPUTS_NOT_READY"
+      "REPORT_READINESS_NOT_READY"
     ],
     "rule": "EMAIL_REQUIRES_CURRENT_MARKET_PRESSURE_AND_CURRENT_LOCAL_MARKET_ASIA_CTA"
   },
@@ -121,35 +120,30 @@
     "status": "READY",
     "symbols": {
       "1306": {
-        "as_of": "2026-10-20",
+        "as_of": "2026-10-21",
         "update_status": "CURRENT"
       },
       "069500": {
-        "as_of": "2026-10-20",
+        "as_of": "2026-10-21",
         "update_status": "CURRENT"
       }
     },
     "consumer_rule": "STALE_OR_UNKNOWN_ASIA_CTA_BLOCKS_FINAL_EMAIL"
   },
   "market_pressure_input_readiness": {
-    "status": "UPDATE_INCOMPLETE",
+    "status": "READY",
     "expected_as_of": "2026-10-21",
-    "issues": [
-      "volatility_not_published",
-      "volatility_not_current"
-    ],
+    "issues": [],
     "consumer_rule": "FINAL_EMAIL_REQUIRES_READY; MARGIN_MAY_USE_VERIFIED_OFFICIAL_LAG_BEFORE_21:30; NEVER_RECOMPUTE_PRESSURE_LIGHT"
   },
   "market_pressure_inputs": {
     "schema_version": "1.0",
     "module": "Onecool Taiwan Official Market Pressure Inputs",
-    "generated_at": "2026-10-21T06:13:03.517482+00:00",
+    "generated_at": "2026-10-21T08:07:56.467508+00:00",
     "requested_as_of": "2026-10-21",
-    "status": "UPDATE_INCOMPLETE",
-    "attempts_used": 3,
-    "issues": [
-      "volatility:NOT_PUBLISHED"
-    ],
+    "status": "READY",
+    "attempts_used": 1,
+    "issues": [],
     "sources": {
       "margin": {
         "status": "VERIFIED",
@@ -178,10 +172,12 @@
         "source_url": "https://www.twse.com.tw/rwd/zh/marginTrading/MI_MARGN?date=20261020&selectType=MS&response=json"
       },
       "volatility": {
-        "status": "NOT_PUBLISHED",
-        "as_of": "2026-10-20",
-        "value": null,
-        "error": "REQUESTED_DATE_NOT_PRESENT",
+        "status": "VERIFIED",
+        "as_of": "2026-10-21",
+        "value": 28.37,
+        "value_basis": "LAST_1_MIN_AVG",
+        "error": null,
+        "download_url": "https://www.taifex.com.tw/cht/7/getVixData?filesname=20261021",
         "source_url": "https://www.taifex.com.tw/cht/7/vixMinNew"
       }
     },
@@ -202,19 +198,19 @@
     },
     "1306": {
       "symbol": "1306",
-      "as_of": "2026-10-20",
+      "as_of": "2026-10-21",
       "cta": "HOLD",
       "trend": "BULLISH",
       "update_status": "CURRENT",
-      "source_data_as_of": "2026-10-20"
+      "source_data_as_of": "2026-10-21"
     },
     "069500": {
       "symbol": "069500",
-      "as_of": "2026-10-20",
+      "as_of": "2026-10-21",
       "cta": "HOLD",
       "trend": "BULLISH",
       "update_status": "CURRENT",
-      "source_data_as_of": "2026-10-20"
+      "source_data_as_of": "2026-10-21"
     }
   },
   "top5": [
