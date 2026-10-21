@@ -190,12 +190,14 @@ def parse_taifex_vix_download(raw: bytes | str, requested_as_of: str) -> dict[st
     compact_date = requested_as_of.replace("-", "")
     rows = [line.strip() for line in text.splitlines() if line.strip()]
     matching = [line for line in rows if line.startswith(compact_date + "\t")]
-    average = [line for line in matching if "Last 1 min AVG" in line]
-    target = average[-1] if average else (matching[-1] if matching else "")
-    numbers = re.findall(r"(?<!\d)(\d{1,3}(?:\.\d+)?)(?!\d)", target)
-    values = [_number(value) for value in numbers]
-    values = [value for value in values if value is not None and 0 < value < 200]
-    if not values:
+    average = [line for line in matching
+               if len(line.split("\t")) > 1
+               and line.split("\t")[1].strip() == "Last 1 min AVG"]
+    # A last tick is not the official closing average. In particular, do not
+    # parse the literal "1" in "Last 1 min AVG" as a missing value of 1.
+    fields = average[0].split("\t") if len(average) == 1 else []
+    value = _number(fields[-1]) if len(fields) >= 3 else None
+    if len(average) != 1 or value is None or not 0 < value < 200:
         return {
             "status": "PUBLISHED_PARSE_FAILED",
             "as_of": requested_as_of if matching else None,
@@ -205,8 +207,8 @@ def parse_taifex_vix_download(raw: bytes | str, requested_as_of: str) -> dict[st
     return {
         "status": "VERIFIED",
         "as_of": requested_as_of,
-        "value": values[-1],
-        "value_basis": "LAST_1_MIN_AVG" if average else "LAST_PUBLISHED_OBSERVATION",
+        "value": value,
+        "value_basis": "LAST_1_MIN_AVG",
         "error": None,
     }
 
@@ -288,18 +290,28 @@ def collect_once(
         margin = {"status": "FETCH_FAILED", "as_of": None, "metrics": {}, "error": type(exc).__name__}
     margin["source_url"] = margin_url
 
+    download_url = TAIFEX_VIX_DOWNLOAD_URL.format(
+        date=requested_as_of.replace("-", "")
+    )
     try:
-        listing = parse_taifex_vix_listing(get_text(TAIFEX_VIX_URL), requested_as_of)
-        if listing.get("status") == "DOWNLOAD_AVAILABLE":
-            file_date = str(listing["file_date"])
-            download_url = TAIFEX_VIX_DOWNLOAD_URL.format(date=file_date)
-            volatility = parse_taifex_vix_download(get_bytes(download_url), requested_as_of)
-            volatility["download_url"] = download_url
-        else:
-            volatility = listing
-            volatility.setdefault("value", None)
-    except Exception as exc:
-        volatility = {"status": "FETCH_FAILED", "as_of": None, "value": None, "error": type(exc).__name__}
+        # The dated official TXT is authoritative and independently verifiable.
+        # A slow listing page must not invalidate a valid closing average.
+        volatility = parse_taifex_vix_download(get_bytes(download_url), requested_as_of)
+    except Exception as download_error:
+        try:
+            listing = parse_taifex_vix_listing(get_text(TAIFEX_VIX_URL), requested_as_of)
+            if listing.get("status") == "DOWNLOAD_AVAILABLE":
+                volatility = parse_taifex_vix_download(get_bytes(download_url), requested_as_of)
+            else:
+                volatility = listing
+                volatility.setdefault("value", None)
+        except Exception as exc:
+            volatility = {
+                "status": "FETCH_FAILED", "as_of": None, "value": None,
+                "error": type(exc).__name__,
+                "download_error": type(download_error).__name__,
+            }
+    volatility["download_url"] = download_url
     volatility["source_url"] = TAIFEX_VIX_URL
     return {"margin": margin, "volatility": volatility}
 
@@ -323,9 +335,10 @@ def collect_market_pressure_inputs(
         if attempt < attempts and interval_seconds:
             time.sleep(interval_seconds)
     issues = []
-    for name, item in sources.items():
+    for name in ("margin", "volatility"):
+        item = sources.get(name, {})
         if item.get("status") != "VERIFIED":
-            issues.append(name + ":" + str(item.get("status")))
+            issues.append(name + ":" + str(item.get("status", "UNKNOWN")))
         elif name == "volatility" and item.get("as_of") != requested_as_of:
             issues.append(name + ":NOT_CURRENT")
         elif name == "margin" and item.get("as_of") != requested_as_of and not item.get("official_lag_accepted"):

@@ -77,6 +77,76 @@ def test_taifex_vix_download_uses_official_last_one_minute_average():
     assert result["value_basis"] == "LAST_1_MIN_AVG"
 
 
+def test_vix_last_tick_is_not_a_closing_average():
+    result = parse_taifex_vix_download("20260917\t13450000\t\t24.06\n", "2026-09-17")
+    assert result["status"] == "PUBLISHED_PARSE_FAILED"
+    assert result["value"] is None
+
+
+def test_vix_missing_average_value_does_not_parse_label_as_one():
+    result = parse_taifex_vix_download("20260917\tLast 1 min AVG\t\t\n", "2026-09-17")
+    assert result["status"] == "PUBLISHED_PARSE_FAILED"
+    assert result["value"] is None
+
+
+def test_vix_duplicate_average_is_rejected():
+    raw = "20260917\tLast 1 min AVG\t24.05\n" * 2
+    assert parse_taifex_vix_download(raw, "2026-09-17")["status"] == "PUBLISHED_PARSE_FAILED"
+
+
+def test_vix_wrong_date_is_not_current():
+    result = parse_taifex_vix_download("20260916\tLast 1 min AVG\t24.05\n", "2026-09-17")
+    assert result["status"] == "PUBLISHED_PARSE_FAILED"
+    assert result["as_of"] is None
+
+
+def test_vix_download_survives_listing_timeout():
+    def listing_timeout(_):
+        raise AssertionError("valid official TXT must not require listing")
+    result = collect_once(
+        "2026-09-17", get_json=lambda _: {}, get_text=listing_timeout,
+        get_bytes=lambda _: b"20260917\tLast 1 min AVG\t24.05\n",
+    )
+    assert result["volatility"]["status"] == "VERIFIED"
+    assert result["volatility"]["value"] == 24.05
+
+
+def test_vix_download_retry_uses_verified_listing_after_timeout():
+    calls = []
+    def download(url):
+        calls.append(url)
+        if len(calls) == 1:
+            raise TimeoutError()
+        return b"20260917\tLast 1 min AVG\t24.05\n"
+    listing = "<tr><td>2026/09/17</td><td><input title='20260917(txt)'></td></tr>"
+    result = collect_once("2026-09-17", get_json=lambda _: {},
+                          get_text=lambda _: listing, get_bytes=download)
+    assert result["volatility"]["status"] == "VERIFIED"
+    assert len(calls) == 2
+
+
+def test_vix_both_endpoints_failed_remains_fetch_failed():
+    def timeout(_):
+        raise TimeoutError()
+    result = collect_once("2026-09-17", get_json=lambda _: {},
+                          get_text=timeout, get_bytes=timeout)
+    assert result["volatility"]["status"] == "FETCH_FAILED"
+    assert result["volatility"]["value"] is None
+
+
+def test_vix_partial_download_remains_parse_failed():
+    result = collect_once("2026-09-17", get_json=lambda _: {},
+                          get_bytes=lambda _: b"20260917\t13450000\t24.06\n")
+    assert result["volatility"]["status"] == "PUBLISHED_PARSE_FAILED"
+    assert result["volatility"]["value"] is None
+
+
+def test_missing_source_is_not_ready():
+    result = collect_market_pressure_inputs("2026-09-17", collector=lambda _: {})
+    assert result["status"] == "UPDATE_INCOMPLETE"
+    assert result["issues"] == ["margin:UNKNOWN", "volatility:UNKNOWN"]
+
+
 def test_taifex_vix_distinguishes_parse_failure_from_not_published():
     published = '<tr><td>2026/09/17</td><td><input value="下載"></td></tr>'
     missing = """<tr><td>2026/09/16</td><td><input
