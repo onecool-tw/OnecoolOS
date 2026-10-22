@@ -16,6 +16,7 @@ from zoneinfo import ZoneInfo
 
 from onecool_os.market.taiwan_calendar import latest_twse_session
 from onecool_os.market.session_cutoff import latest_completed_market_session
+from onecool_os.market.taiwan_stock_intelligence import market_pressure_input_readiness
 
 
 READY = "READY"
@@ -339,6 +340,21 @@ def build_health_report(root: str | Path, *, now: datetime | None = None) -> dic
         relative="data/market/taiwan_stock_intelligence/daily_context_latest.json", date_field="screen_as_of",
         status_field="display_status", good_statuses={"CURRENT"}, recovery="update-taiwan-stock-screen.yml", reports=["台股日報"],
         max_business_lag=0,
+    ))
+
+    # Use the report's existing input-only gate. Do not infer a pressure light
+    # or trust an older daily-context READY when the official cache changed.
+    pressure_inputs = _load(root, "data/market/taiwan_stock_intelligence/market_pressure_inputs_latest.json")
+    input_gate = market_pressure_input_readiness(
+        pressure_inputs, expected_asia_session.isoformat()
+    )
+    inputs_ready = input_gate["status"] == READY
+    modules.append(_module(
+        "taiwan_pressure_inputs", "Taiwan official pressure inputs", "asia", True,
+        READY if inputs_ready else BLOCKED,
+        "official input dates/statuses ready" if inputs_ready else "; ".join(input_gate["issues"]),
+        _date((pressure_inputs or {}).get("requested_as_of")),
+        "update-taiwan-stock-screen.yml", ["台股日報"],
     ))
 
     dashboard_payload = _load(root, "data/market/dashboard/dashboard_latest.json") or {}
