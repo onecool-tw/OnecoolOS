@@ -1,0 +1,41 @@
+{
+  "report_id": "home",
+  "report_date": "2026-10-22",
+  "generated_at": "2026-10-22T08:08:15+08:00",
+  "delivery_status": "UNKNOWN",
+  "writeback_status": "VERIFIED",
+  "delivery_evidence_sha256": null,
+  "channels": {
+    "conversation": {
+      "status": "UNKNOWN",
+      "observed_at": null,
+      "evidence_sha256": null
+    },
+    "artifact": {
+      "status": "DELIVERED",
+      "observed_at": "2026-10-22T08:08:15+08:00",
+      "evidence_sha256": "061e625caae402a4e309d4b37d77407aff07ece6708e3231049dad2febc7a771"
+    }
+  },
+  "run_heartbeat": {
+    "status": "SUCCESS",
+    "data_date": "2026-10-21",
+    "completed_steps": [
+      "prior_period_readback",
+      "golden_baseline_readback",
+      "source_validation",
+      "transaction_deduplication",
+      "parking_and_special_transaction_checks",
+      "cross_period_reconciliation",
+      "supply_entity_deduplication",
+      "artifact_writeback_readback"
+    ],
+    "failed_steps": [],
+    "next_step": "next_scheduled_refresh"
+  },
+  "regression": {
+    "status": "PASS",
+    "baseline_sha256": "65ad2c7f0b432e53e5eda1eccd27fa5359c6e4c35efc2813be966de0dd4a469e"
+  },
+  "validation_flags": []
+}
