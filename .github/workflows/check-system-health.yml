@@ -66,6 +66,11 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v5
+        with:
+          ref: main
+          fetch-depth: 0
+      - name: Sync latest main before evaluating recovery
+        run: git pull --ff-only origin main
       - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
