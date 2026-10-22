@@ -34,20 +34,20 @@
   "0050_weekly_alignment": "GOLDEN",
   "market_pressure_gate": "FORMAL_FROM_DAILY_CONTEXT",
   "market_pressure": {
-    "as_of": "2026-10-21",
+    "as_of": "2026-10-22",
     "status": "CURRENT",
     "light": "RED",
     "action": "PAUSE_NEW_EXPOSURE",
     "reason": [
-      "prior_formal_RED_2026_10_20;retain_RED;at_most_one_improving_session_not_two_consecutive_nontrigger_days;no_single_day_rebound_release",
-      "VERIFIED_TWSE_2026_10_21_close_46887_77_change_plus_594_84_pct_plus_1_28_vs_prior_46292_93;no_new_closing_low_today;total_turnover_TWD_874614166736_vs_prior_802947441658;stock_breadth_up_600_down_380",
-      "VERIFIED_TAIFEX_TX_202610_expiry_day_regular_last_trade_46648_settlement_missing_EXPECTED_EXPIRY;non_synchronous_basis_minus_239_77_NOT_RELEASE_EVIDENCE;next_month_TX_202611_regular_last_trade_46992_settlement_47013_basis_plus_104_23_plus_125_23;do_not_compare_different_contracts_as_stress_improvement",
-      "VERIFIED_TAIFEX_foreign_TX_OI_long_9410_short_95482_net_minus_86072_vs_prior_minus_89748;expiry_roll_effect_NOT_FULLY_VERIFIED_not_standalone_release",
-      "VERIFIED_TAIFEX_TXO_volume_PCR_111_88_OI_PCR_62_86_vs_prior_129_06_and_66_17;monthly_expiry_resets_OI_counts;PCR_pressure_clearance_UNKNOWN_not_used_for_release",
-      "VERIFIED_TAIFEX_VIX_28_37_Last_1_min_AVG_vs_prior_30_82;volatility_improved_one_session_only",
-      "VERIFIED_TWSE_foreign_flow_plus_960229416_trust_plus_12919028988_dealer_minus_13310908467_total_plus_568349937_TWD;flow_improved_one_session_only",
-      "VERIFIED_margin_2026_10_20_amount_638100111_thousand_TWD_change_minus_2517817;short_units_215912_change_plus_14001;official_lag_accepted;revised_previous_margin_640617928_vs_prior_report_640618432_diff_minus_504_thousand_TWD;previous_margin_units_9592706_vs_prior_9592714;previous_short_units_201911_vs_prior_201916",
-      "intraday_high_low_securities_lending_settlement_roll_distortion_and_global_macro_pressure_NOT_FULLY_VERIFIED;UNKNOWN_not_zero_or_no_trigger;not_used_for_release;news_no_signal_authority;formal_Work_only_judgment_GitHub_persistence_only"
+      "prior_formal_RED_2026_10_21;retain_RED;2026_10_22_stress_recurred;two_consecutive_nontrigger_days_NOT_MET;no_rebound_release",
+      "VERIFIED_TWSE_2026_10_22_close_46041_43_change_minus_846_34_pct_minus_1_81_vs_prior_46887_77_and_2026_10_20_46292_93;new_closing_low_vs_recent_verified_sessions;turnover_TWD_933437473560_vs_prior_874614166736;stock_breadth_up_247_down_756;price_volume_pressure_NOT_IMPROVED",
+      "VERIFIED_TAIFEX_TX_202611_regular_last_trade_46272_settlement_46234;basis_plus_230_57_plus_192_57;prior_same_contract_last_46992_settlement_47013_basis_plus_104_23_plus_125_23;positive_basis_alone_cannot_release_RED;expiry_roll_comparability_NOT_FULLY_VERIFIED",
+      "VERIFIED_TAIFEX_foreign_TX_OI_long_8126_short_95423_net_minus_87297_vs_prior_minus_86072;net_short_increased_1225;derivative_pressure_NOT_IMPROVED",
+      "VERIFIED_TAIFEX_TXO_volume_PCR_86_21_OI_PCR_66_18_vs_prior_111_88_and_62_86;OI_PCR_increased;post_expiry_count_reset_comparability_UNKNOWN_not_release_evidence",
+      "VERIFIED_TAIFEX_VIX_30_35_Last_1_min_AVG_vs_prior_28_37;volatility_worsened",
+      "VERIFIED_TWSE_foreign_flow_minus_81656527790_trust_plus_8874898142_dealer_minus_27378085012_total_minus_100159714660_TWD;flow_worsened",
+      "VERIFIED_margin_2026_10_21_amount_644373559_thousand_TWD_change_plus_6273448;short_units_192598_change_minus_23314;margin_units_9632327_change_plus_31701;official_lag_accepted;revised_previous_margin_units_9600626_vs_prior_report_9600627_diff_minus_1;cash_previous_638100111_and_short_previous_215912_match_prior_report",
+      "intraday_high_low_securities_lending_roll_distortion_and_macro_transmission_NOT_FULLY_VERIFIED;UNKNOWN_not_zero_or_no_trigger;not_used_for_release;news_context_only;formal_Work_only_judgment_GitHub_persistence_only"
     ],
     "confirmed_inputs": {
       "spot": true,
@@ -58,12 +58,12 @@
       "margin": true
     },
     "input_data_as_of": {
-      "spot": "2026-10-21",
-      "futures": "2026-10-21",
-      "pcr": "2026-10-21",
-      "volatility": "2026-10-21",
-      "institutional_flow": "2026-10-21",
-      "margin": "2026-10-20"
+      "spot": "2026-10-22",
+      "futures": "2026-10-22",
+      "pcr": "2026-10-22",
+      "volatility": "2026-10-22",
+      "institutional_flow": "2026-10-22",
+      "margin": "2026-10-21"
     },
     "previous_light": "RED",
     "changed": false,
