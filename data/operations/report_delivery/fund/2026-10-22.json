@@ -1,9 +1,9 @@
 {
   "report_id": "fund",
   "report_date": "2026-10-22",
-  "generated_at": "2026-10-22T11:34:00+08:00",
+  "generated_at": "2026-10-22T12:00:00+08:00",
   "delivery_status": "PREPARED",
-  "writeback_status": "UNKNOWN",
+  "writeback_status": "VERIFIED",
   "delivery_evidence_sha256": null,
   "channels": {
     "conversation": {
@@ -12,23 +12,42 @@
       "evidence_sha256": null
     },
     "artifact": {
-      "status": "UNKNOWN",
-      "observed_at": null,
-      "evidence_sha256": null
+      "status": "DELIVERED",
+      "observed_at": "2026-10-22T11:59:20+08:00",
+      "evidence_sha256": "7ef241571b06c6e6a584bbd29bc719e17f76ff84a6f829f8b3cc751ddc248884"
     }
   },
   "execution": {
-    "status": "PARTIAL",
+    "status": "SUCCESS",
+    "data_snapshot_sha": "c9e4a2033a071eca82b7cacf0dcb8ab43be369d4",
     "data_as_of": {
-      "fund_cache_generated_at": "2026-10-21T05:07:28.824508+00:00",
-      "bitcoin": "2026-10-20"
+      "fund_cache_generated_at": "2026-10-22T03:57:11.802616+00:00",
+      "fund_nav_range": "2026-10-19/2026-10-21",
+      "bitcoin": "2026-10-21",
+      "bitcoin_completed_week": "2026-10-18"
+    },
+    "workflow_runs": {
+      "health": 39719536564,
+      "fund": 39719581352,
+      "dashboard": 39719582986
     },
     "completed_steps": [
       "read_initial_main_snapshot",
-      "classify_stale_inputs",
-      "request_existing_health_recovery"
+      "trigger_existing_health_recovery",
+      "verify_workflow_jobs_and_steps",
+      "verify_final_main_dates",
+      "recompute_seven_fund_cta_actions",
+      "verify_bitcoin_shared_engine",
+      "check_eight_period_consistency",
+      "run_frozen_regression",
+      "save_report_artifact",
+      "read_back_report_artifact"
     ],
     "failed_steps": [],
-    "next_step": "wait_for_existing_recovery_and_verify_main_dates"
+    "next_step": "deliver_full_report_in_bound_conversation"
+  },
+  "artifact": {
+    "library_file_id": "libfile_3d3a5c55fdac8191a9b5f587901a65ac",
+    "sha256": "7ef241571b06c6e6a584bbd29bc719e17f76ff84a6f829f8b3cc751ddc248884"
   }
 }
