@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-10-22T10:09:50.958954+00:00",
+  "generated_at": "2026-10-22T10:38:21.897642+00:00",
   "taipei_date": "2026-10-22",
   "status": "PARTIAL",
   "scope_status": {
@@ -70,7 +70,7 @@
   "end_to_end_status": "NOT_FULLY_VERIFIED",
   "action_readiness": "LIMITED",
   "counts": {
-    "ready": 18,
+    "ready": 19,
     "partial": 1,
     "blocked": 0
   },
@@ -212,6 +212,20 @@
       "critical": true,
       "status": "READY",
       "reason": "current",
+      "observed_as_of": "2026-10-22",
+      "recovery_workflow": "update-taiwan-stock-screen.yml",
+      "retryable": true,
+      "impacted_reports": [
+        "台股日報"
+      ]
+    },
+    {
+      "module_id": "taiwan_pressure_inputs",
+      "label": "Taiwan official pressure inputs",
+      "scope": "asia",
+      "critical": true,
+      "status": "READY",
+      "reason": "official input dates/statuses ready",
       "observed_as_of": "2026-10-22",
       "recovery_workflow": "update-taiwan-stock-screen.yml",
       "retryable": true,
