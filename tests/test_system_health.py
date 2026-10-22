@@ -13,6 +13,14 @@ NOW = datetime(2026, 8, 30, 3, 0, tzinfo=timezone.utc)
 
 
 def _write(root: Path, relative: str, payload: dict) -> None:
+    if relative == "data/market/taiwan_stock_intelligence/screen_latest.json":
+        # A current screen fixture includes its separately published input cache.
+        cutoff = payload["expected_as_of"]
+        _write(root, "data/market/taiwan_stock_intelligence/market_pressure_inputs_latest.json", {
+            "requested_as_of": cutoff,
+            "sources": {name: {"as_of": cutoff, "status": "VERIFIED"}
+                        for name in ("margin", "volatility")},
+        })
     # Logical fixture for Taiwan market CTA now seeds its Dashboard authority.
     if relative == "data/market/taiwan_cta/cta_latest.json":
         dashboard = root / "data/market/dashboard/dashboard_latest.json"
@@ -432,3 +440,37 @@ def test_critical_weekly_validation_failure_still_blocks_with_ai_review(tmp_path
     assert _module(report, "fund_validation")["critical"] is True
     assert _module(report, "ai_revolution") in report["issues"]
     assert report["recovery_workflows"] == ["update-fund-weekly-analytics.yml"]
+
+
+@pytest.mark.parametrize("failure", ["NOT_PUBLISHED", "FETCH_FAILED", "PUBLISHED_PARSE_FAILED", "MISSING", "WRONG_DATE"])
+def test_pressure_input_gap_blocks_even_with_current_prices_and_context(tmp_path, failure):
+    _seed_ready(tmp_path)
+    path = tmp_path / "data/market/taiwan_stock_intelligence/market_pressure_inputs_latest.json"
+    inputs = json.loads(path.read_text())
+    if failure == "MISSING":
+        path.unlink()
+    else:
+        if failure == "WRONG_DATE":
+            inputs["sources"]["volatility"]["as_of"] = "2026-08-27"
+        else:
+            inputs["sources"]["volatility"]["status"] = failure
+        _write(tmp_path, str(path.relative_to(tmp_path)), inputs)
+    report = build_health_report(tmp_path, now=NOW)
+    assert _module(report, "taiwan_stock_screen")["status"] == READY
+    assert _module(report, "taiwan_daily_context")["status"] == READY
+    assert report["scope_status"]["asia"] == BLOCKED
+    assert "update-taiwan-stock-screen.yml" in report["recovery_workflows"]
+    item = _module(report, "taiwan_pressure_inputs")
+    assert item["status"] == BLOCKED and item["retryable"] is True
+
+
+def test_pressure_input_health_accepts_verified_official_margin_lag(tmp_path):
+    _seed_ready(tmp_path)
+    path = "data/market/taiwan_stock_intelligence/market_pressure_inputs_latest.json"
+    inputs = json.loads((tmp_path / path).read_text())
+    inputs["sources"]["margin"].update(as_of="2026-08-27", official_lag_accepted=True)
+    _write(tmp_path, path, inputs)
+    assert _module(build_health_report(tmp_path, now=NOW), "taiwan_pressure_inputs")["status"] == READY
+    inputs["sources"]["margin"]["status"] = "FETCH_FAILED"
+    _write(tmp_path, path, inputs)
+    assert _module(build_health_report(tmp_path, now=NOW), "taiwan_pressure_inputs")["status"] == BLOCKED
