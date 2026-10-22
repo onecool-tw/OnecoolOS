@@ -1,12 +1,12 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-10-22T08:45:52.355142+00:00",
+  "generated_at": "2026-10-22T10:04:40.518184+00:00",
   "taipei_date": "2026-10-22",
-  "status": "BLOCKED",
+  "status": "PARTIAL",
   "scope_status": {
     "morning": "READY",
-    "asia": "BLOCKED",
+    "asia": "READY",
     "weekly": "READY"
   },
   "report_delivery": {
@@ -30,18 +30,9 @@
       },
       {
         "report_id": "us",
-        "expected_report_date": "2026-10-21",
-        "status": "PARTIAL",
-        "channels": {
-          "conversation": "UNKNOWN",
-          "artifact": "DELIVERED"
-        },
-        "unverified_channels": [
-          "conversation"
-        ],
-        "failed_channels": [],
-        "next_action": "Observe actual delivered message acknowledgement; do not resend solely because acknowledgement is unknown",
-        "reason": "Missing acknowledgement is unverified, not proof of failed delivery"
+        "expected_report_date": "2026-10-22",
+        "status": "UNKNOWN",
+        "reason": "No verifiable receipt for the latest completed reporting window"
       },
       {
         "report_id": "fund",
@@ -77,11 +68,11 @@
     "policy": "Data readiness does not prove report delivery. Never infer email success from a generated draft."
   },
   "end_to_end_status": "NOT_FULLY_VERIFIED",
-  "action_readiness": "UNSAFE_FOR_AFFECTED_REPORTS",
+  "action_readiness": "LIMITED",
   "counts": {
-    "ready": 15,
-    "partial": 0,
-    "blocked": 4
+    "ready": 18,
+    "partial": 1,
+    "blocked": 0
   },
   "modules": [
     {
@@ -191,9 +182,9 @@
       "label": "Taiwan Stock Screen",
       "scope": "asia",
       "critical": true,
-      "status": "BLOCKED",
-      "reason": "data is stale",
-      "observed_as_of": "2026-10-21",
+      "status": "READY",
+      "reason": "current",
+      "observed_as_of": "2026-10-22",
       "recovery_workflow": "update-taiwan-stock-screen.yml",
       "retryable": true,
       "impacted_reports": [
@@ -204,12 +195,12 @@
       "module_id": "taiwan_candidate_cta",
       "label": "Taiwan 200-stock CTA",
       "scope": "asia",
-      "critical": true,
-      "status": "BLOCKED",
-      "reason": "coverage incomplete or stale",
-      "observed_as_of": "2026-10-21",
+      "critical": false,
+      "status": "PARTIAL",
+      "reason": "current 199, stale 0, unknown 1; insufficient history: 7711 永擎: weekly observations 47/50; waiting for actual market observations, not a provider retry.",
+      "observed_as_of": "2026-10-22",
       "recovery_workflow": "update-taiwan-stock-screen.yml",
-      "retryable": true,
+      "retryable": false,
       "impacted_reports": [
         "台股日報"
       ]
@@ -219,9 +210,9 @@
       "label": "Taiwan Daily Context",
       "scope": "asia",
       "critical": true,
-      "status": "BLOCKED",
-      "reason": "data is stale",
-      "observed_as_of": "2026-10-21",
+      "status": "READY",
+      "reason": "current",
+      "observed_as_of": "2026-10-22",
       "recovery_workflow": "update-taiwan-stock-screen.yml",
       "retryable": true,
       "impacted_reports": [
@@ -233,9 +224,9 @@
       "label": "Japan/Korea CTA freshness",
       "scope": "asia",
       "critical": true,
-      "status": "BLOCKED",
-      "reason": "1306 CURRENT as_of 2026-10-21 expected 2026-10-22; 069500 CURRENT as_of 2026-10-21 expected 2026-10-22",
-      "observed_as_of": "2026-10-21",
+      "status": "READY",
+      "reason": "both local-market CTAs current",
+      "observed_as_of": "2026-10-22",
       "recovery_workflow": "update-market-dashboard.yml",
       "retryable": true,
       "impacted_reports": [
@@ -358,67 +349,21 @@
   ],
   "issues": [
     {
-      "module_id": "taiwan_stock_screen",
-      "label": "Taiwan Stock Screen",
-      "scope": "asia",
-      "critical": true,
-      "status": "BLOCKED",
-      "reason": "data is stale",
-      "observed_as_of": "2026-10-21",
-      "recovery_workflow": "update-taiwan-stock-screen.yml",
-      "retryable": true,
-      "impacted_reports": [
-        "台股日報"
-      ]
-    },
-    {
       "module_id": "taiwan_candidate_cta",
       "label": "Taiwan 200-stock CTA",
       "scope": "asia",
-      "critical": true,
-      "status": "BLOCKED",
-      "reason": "coverage incomplete or stale",
-      "observed_as_of": "2026-10-21",
+      "critical": false,
+      "status": "PARTIAL",
+      "reason": "current 199, stale 0, unknown 1; insufficient history: 7711 永擎: weekly observations 47/50; waiting for actual market observations, not a provider retry.",
+      "observed_as_of": "2026-10-22",
       "recovery_workflow": "update-taiwan-stock-screen.yml",
-      "retryable": true,
+      "retryable": false,
       "impacted_reports": [
         "台股日報"
-      ]
-    },
-    {
-      "module_id": "taiwan_daily_context",
-      "label": "Taiwan Daily Context",
-      "scope": "asia",
-      "critical": true,
-      "status": "BLOCKED",
-      "reason": "data is stale",
-      "observed_as_of": "2026-10-21",
-      "recovery_workflow": "update-taiwan-stock-screen.yml",
-      "retryable": true,
-      "impacted_reports": [
-        "台股日報"
-      ]
-    },
-    {
-      "module_id": "asia_country_cta",
-      "label": "Japan/Korea CTA freshness",
-      "scope": "asia",
-      "critical": true,
-      "status": "BLOCKED",
-      "reason": "1306 CURRENT as_of 2026-10-21 expected 2026-10-22; 069500 CURRENT as_of 2026-10-21 expected 2026-10-22",
-      "observed_as_of": "2026-10-21",
-      "recovery_workflow": "update-market-dashboard.yml",
-      "retryable": true,
-      "impacted_reports": [
-        "台股日報",
-        "基金週報"
       ]
     }
   ],
-  "recovery_workflows": [
-    "update-market-dashboard.yml",
-    "update-taiwan-stock-screen.yml"
-  ],
-  "issue_fingerprint": "27e229a2355d6b1731c3da8ccdca3dd1eec03784579b7a71e1392c2333d52dce",
+  "recovery_workflows": [],
+  "issue_fingerprint": "033aa3c95cd34999bad3192488c51c8db714e3f51b3b90f8091b31116881c581",
   "policy": "Health monitoring only; never changes CTA, rankings, or investment decisions."
 }
