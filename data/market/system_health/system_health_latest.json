@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-10-22T06:18:44.765011+00:00",
+  "generated_at": "2026-10-22T08:45:52.355142+00:00",
   "taipei_date": "2026-10-22",
   "status": "BLOCKED",
   "scope_status": {
@@ -79,9 +79,9 @@
   "end_to_end_status": "NOT_FULLY_VERIFIED",
   "action_readiness": "UNSAFE_FOR_AFFECTED_REPORTS",
   "counts": {
-    "ready": 17,
-    "partial": 1,
-    "blocked": 1
+    "ready": 15,
+    "partial": 0,
+    "blocked": 4
   },
   "modules": [
     {
@@ -191,8 +191,8 @@
       "label": "Taiwan Stock Screen",
       "scope": "asia",
       "critical": true,
-      "status": "READY",
-      "reason": "current",
+      "status": "BLOCKED",
+      "reason": "data is stale",
       "observed_as_of": "2026-10-21",
       "recovery_workflow": "update-taiwan-stock-screen.yml",
       "retryable": true,
@@ -204,12 +204,12 @@
       "module_id": "taiwan_candidate_cta",
       "label": "Taiwan 200-stock CTA",
       "scope": "asia",
-      "critical": false,
-      "status": "PARTIAL",
-      "reason": "current 199, stale 0, unknown 1; insufficient history: 7711 永擎: weekly observations 47/50; waiting for actual market observations, not a provider retry.",
+      "critical": true,
+      "status": "BLOCKED",
+      "reason": "coverage incomplete or stale",
       "observed_as_of": "2026-10-21",
       "recovery_workflow": "update-taiwan-stock-screen.yml",
-      "retryable": false,
+      "retryable": true,
       "impacted_reports": [
         "台股日報"
       ]
@@ -220,7 +220,7 @@
       "scope": "asia",
       "critical": true,
       "status": "BLOCKED",
-      "reason": "display_status is not ready",
+      "reason": "data is stale",
       "observed_as_of": "2026-10-21",
       "recovery_workflow": "update-taiwan-stock-screen.yml",
       "retryable": true,
@@ -233,8 +233,8 @@
       "label": "Japan/Korea CTA freshness",
       "scope": "asia",
       "critical": true,
-      "status": "READY",
-      "reason": "both local-market CTAs current",
+      "status": "BLOCKED",
+      "reason": "1306 CURRENT as_of 2026-10-21 expected 2026-10-22; 069500 CURRENT as_of 2026-10-21 expected 2026-10-22",
       "observed_as_of": "2026-10-21",
       "recovery_workflow": "update-market-dashboard.yml",
       "retryable": true,
@@ -358,15 +358,29 @@
   ],
   "issues": [
     {
+      "module_id": "taiwan_stock_screen",
+      "label": "Taiwan Stock Screen",
+      "scope": "asia",
+      "critical": true,
+      "status": "BLOCKED",
+      "reason": "data is stale",
+      "observed_as_of": "2026-10-21",
+      "recovery_workflow": "update-taiwan-stock-screen.yml",
+      "retryable": true,
+      "impacted_reports": [
+        "台股日報"
+      ]
+    },
+    {
       "module_id": "taiwan_candidate_cta",
       "label": "Taiwan 200-stock CTA",
       "scope": "asia",
-      "critical": false,
-      "status": "PARTIAL",
-      "reason": "current 199, stale 0, unknown 1; insufficient history: 7711 永擎: weekly observations 47/50; waiting for actual market observations, not a provider retry.",
+      "critical": true,
+      "status": "BLOCKED",
+      "reason": "coverage incomplete or stale",
       "observed_as_of": "2026-10-21",
       "recovery_workflow": "update-taiwan-stock-screen.yml",
-      "retryable": false,
+      "retryable": true,
       "impacted_reports": [
         "台股日報"
       ]
@@ -377,18 +391,34 @@
       "scope": "asia",
       "critical": true,
       "status": "BLOCKED",
-      "reason": "display_status is not ready",
+      "reason": "data is stale",
       "observed_as_of": "2026-10-21",
       "recovery_workflow": "update-taiwan-stock-screen.yml",
       "retryable": true,
       "impacted_reports": [
         "台股日報"
       ]
+    },
+    {
+      "module_id": "asia_country_cta",
+      "label": "Japan/Korea CTA freshness",
+      "scope": "asia",
+      "critical": true,
+      "status": "BLOCKED",
+      "reason": "1306 CURRENT as_of 2026-10-21 expected 2026-10-22; 069500 CURRENT as_of 2026-10-21 expected 2026-10-22",
+      "observed_as_of": "2026-10-21",
+      "recovery_workflow": "update-market-dashboard.yml",
+      "retryable": true,
+      "impacted_reports": [
+        "台股日報",
+        "基金週報"
+      ]
     }
   ],
   "recovery_workflows": [
+    "update-market-dashboard.yml",
     "update-taiwan-stock-screen.yml"
   ],
-  "issue_fingerprint": "42b83e71b2a2452e9d604e0d87c93e0cc37fc5ffde007d556746ecad0470ed3d",
+  "issue_fingerprint": "27e229a2355d6b1731c3da8ccdca3dd1eec03784579b7a71e1392c2333d52dce",
   "policy": "Health monitoring only; never changes CTA, rankings, or investment decisions."
 }
