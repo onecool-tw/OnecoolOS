@@ -1,0 +1,43 @@
+{
+  "report_id": "taiwan",
+  "report_date": "2026-10-22",
+  "generated_at": "2026-10-22T10:08:25Z",
+  "delivery_status": "UNKNOWN",
+  "writeback_status": "VERIFIED",
+  "execution_status": "SUCCESS",
+  "data_as_of": "2026-10-22",
+  "snapshot_sha256": "3d1f5c052cd2296cd009dad3aae70465be9205396ab5f9cc5c65aebff1807c3b",
+  "delivery_evidence_sha256": "82ebf1f6b20f2515bc001981c555cf59fddf248b9fabb2e546d9a64820a0ace0",
+  "channels": {
+    "conversation": {
+      "status": "UNKNOWN",
+      "observed_at": null,
+      "evidence_sha256": null
+    },
+    "artifact": {
+      "status": "DELIVERED",
+      "observed_at": "2026-10-22T10:08:12Z",
+      "evidence_sha256": "45e0635cbb239e26c2c53a773b193ccadd7725689ba26d1435319c783557529d"
+    },
+    "email": {
+      "status": "DELIVERED",
+      "observed_at": "2026-10-22T10:08:25Z",
+      "evidence_sha256": "b2dc63ac56d5d72ddbc513543c3038f3a2197506cb7746c1b3553cb5d85b3a34",
+      "snapshot_sha256": "3d1f5c052cd2296cd009dad3aae70465be9205396ab5f9cc5c65aebff1807c3b",
+      "artifact_sha256": "45e0635cbb239e26c2c53a773b193ccadd7725689ba26d1435319c783557529d",
+      "required_recipient_count": 1,
+      "acknowledged_recipient_count": 1
+    }
+  },
+  "completed_steps": [
+    "official_data_retry_recovered",
+    "screen_cta_workflows_completed",
+    "data_quality_checks",
+    "formal_pressure_persisted_readback_verified",
+    "final_snapshot_verified",
+    "artifact_saved_full_readback_verified",
+    "email_provider_acknowledged"
+  ],
+  "failed_steps": [],
+  "next_action": "Conversation acknowledgement remains unobserved; do not resend this verified final Snapshot email."
+}
