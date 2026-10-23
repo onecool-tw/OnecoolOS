@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-10-23T08:03:36.894894+00:00",
+  "generated_at": "2026-10-23T08:10:24.243493+00:00",
   "taipei_date": "2026-10-23",
   "status": "BLOCKED",
   "scope_status": {
@@ -70,9 +70,9 @@
   "end_to_end_status": "NOT_FULLY_VERIFIED",
   "action_readiness": "UNSAFE_FOR_AFFECTED_REPORTS",
   "counts": {
-    "ready": 16,
+    "ready": 17,
     "partial": 1,
-    "blocked": 3
+    "blocked": 2
   },
   "modules": [
     {
@@ -238,9 +238,9 @@
       "label": "Japan/Korea CTA freshness",
       "scope": "asia",
       "critical": true,
-      "status": "BLOCKED",
-      "reason": "1306 CURRENT as_of 2026-10-22 expected 2026-10-23; 069500 CURRENT as_of 2026-10-22 expected 2026-10-23",
-      "observed_as_of": "2026-10-22",
+      "status": "READY",
+      "reason": "both local-market CTAs current",
+      "observed_as_of": "2026-10-23",
       "recovery_workflow": "update-market-dashboard.yml",
       "retryable": true,
       "impacted_reports": [
@@ -403,27 +403,11 @@
       "impacted_reports": [
         "台股日報"
       ]
-    },
-    {
-      "module_id": "asia_country_cta",
-      "label": "Japan/Korea CTA freshness",
-      "scope": "asia",
-      "critical": true,
-      "status": "BLOCKED",
-      "reason": "1306 CURRENT as_of 2026-10-22 expected 2026-10-23; 069500 CURRENT as_of 2026-10-22 expected 2026-10-23",
-      "observed_as_of": "2026-10-22",
-      "recovery_workflow": "update-market-dashboard.yml",
-      "retryable": true,
-      "impacted_reports": [
-        "台股日報",
-        "基金週報"
-      ]
     }
   ],
   "recovery_workflows": [
-    "update-market-dashboard.yml",
     "update-taiwan-stock-screen.yml"
   ],
-  "issue_fingerprint": "aff35c4cacba2c9a5f7eff1c70c8691d7404946bb4523ce8f8ff77cb8f597ca8",
+  "issue_fingerprint": "2c3c822832eb6f472fae5a944145fa997cdf433ba15f92e6d72cb650d4dc0671",
   "policy": "Health monitoring only; never changes CTA, rankings, or investment decisions."
 }
