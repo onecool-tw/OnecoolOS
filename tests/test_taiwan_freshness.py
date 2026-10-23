@@ -113,3 +113,30 @@ def test_recovery_attempts_are_non_blocking_but_final_readiness_stays_strict():
     assert 'cron: "17 8 * * 1-5"' in workflow
     assert 'cron: "17 9 * * 1-5"' in workflow
     assert 'cron: "32 10 * * 1-5"' in workflow
+
+
+@pytest.mark.parametrize('stamp,expected', [
+    ('2026-10-23T09:00:00+08:00', date(2026, 10, 22)),
+    ('2026-10-23T18:00:00+08:00', date(2026, 10, 22)),
+    ('2026-10-26T18:00:00+08:00', date(2026, 10, 22)),
+    ('2026-10-27T13:59:00+08:00', date(2026, 10, 22)),
+    ('2026-10-27T14:00:00+08:00', date(2026, 10, 27)),
+])
+def test_exceptional_closure_shared_producers_use_actual_session(tmp_path, stamp, expected):
+    from scripts.update_taiwan_market_pressure_inputs import expected_as_of
+    now = datetime.fromisoformat(stamp)
+    assert expected_market_date(now) == expected
+    assert latest_completed_market_session('TW', now) == expected
+    assert expected_as_of(tmp_path, None, now=now) == expected.isoformat()
+
+
+def test_exceptional_closure_excludes_provider_bar_and_does_not_count_as_session():
+    from onecool_os.market.taiwan_calendar import is_twse_session, twse_session_lag
+    now = datetime.fromisoformat('2026-10-23T18:00:00+08:00')
+    bars = [SimpleNamespace(trading_date=date(2026, 10, d)) for d in (22, 23)]
+    assert completed_daily_bars(bars, 'TW', now) == bars[:1]
+    assert not is_twse_session(date(2026, 10, 23))
+    assert twse_session_lag(date(2026, 10, 22), date(2026, 10, 26)) == 0
+    assert twse_session_lag(date(2026, 10, 22), date(2026, 10, 27)) == 1
+    assert latest_completed_market_session('JP', now) == date(2026, 10, 23)
+    assert latest_completed_market_session('KR', now) == date(2026, 10, 23)
