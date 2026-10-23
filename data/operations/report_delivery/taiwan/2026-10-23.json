@@ -1,12 +1,13 @@
 {
   "report_id": "taiwan",
   "report_date": "2026-10-23",
-  "generated_at": "2026-10-23T10:00:31Z",
+  "generated_at": "2026-10-23T11:01:15Z",
   "data_as_of": "2026-10-22",
-  "execution_status": "PARTIAL",
-  "delivery_status": "FAILED",
+  "execution_status": "SUCCESS",
+  "delivery_status": "UNKNOWN",
   "writeback_status": "VERIFIED",
-  "delivery_evidence_sha256": "91cf4860c7817af56950ef81309a8211ba0be180ad42254ebae81792e53b6ee1",
+  "delivery_evidence_sha256": "87c73160d28b2a93ff838de8e258dab1b76f8157066c074f9866ad98b8af52f9",
+  "snapshot_sha256": "c0fe6319c15d8a4168a6c7b678469777cfba3758089efd04aa2cdf5fd27009b8",
   "channels": {
     "conversation": {
       "status": "UNKNOWN",
@@ -15,25 +16,35 @@
     },
     "artifact": {
       "status": "DELIVERED",
-      "observed_at": "2026-10-23T10:00:31Z",
-      "evidence_sha256": "aace3dc0f76bdda22328458f5e4f0d0d08f4700dbce90d1e557eca3b64656fa1"
+      "observed_at": "2026-10-23T11:00:35Z",
+      "evidence_sha256": "7decd251911ae2f3cf6cadeb4f7f70bc3d3064c291484f130a267985c63d658a"
     },
     "email": {
-      "status": "FAILED",
-      "observed_at": null,
-      "evidence_sha256": null,
-      "reason": "FINAL_GATE_CONFLICT_UNSCHEDULED_MARKET_CLOSURE"
+      "status": "DELIVERED",
+      "observed_at": "2026-10-23T11:01:15Z",
+      "evidence_sha256": "729d41bc2e7755ff826bb575af6f4772be4ada49a27334011593a6370efbb34f",
+      "snapshot_sha256": "c0fe6319c15d8a4168a6c7b678469777cfba3758089efd04aa2cdf5fd27009b8",
+      "artifact_sha256": "7decd251911ae2f3cf6cadeb4f7f70bc3d3064c291484f130a267985c63d658a",
+      "all_required_recipients_verified": true
     }
   },
   "completed_steps": [
     "official_closure_verified",
-    "ssot_read",
-    "last_valid_cta_preserved",
-    "artifact_saved_full_readback_verified"
+    "shared_calendar_fix_merged",
+    "required_workflows_completed",
+    "ssot_snapshot_join_verified",
+    "formal_pressure_current_same_session",
+    "artifact_saved_full_readback_verified",
+    "final_snapshot_hash_rechecked",
+    "same_session_recipient_subject_snapshot_dedup_checked",
+    "email_success_acknowledged"
   ],
-  "failed_steps": [
-    "calendar_expected_as_of_conflict",
-    "final_snapshot_delivery_gate"
-  ],
-  "next_action": "Synchronize verified unscheduled closure in existing shared market calendar; refresh and verify; no stale email."
+  "failed_steps": [],
+  "recovered_from": {
+    "generated_at": "2026-10-23T10:00:31Z",
+    "execution_status": "PARTIAL",
+    "failure": "FINAL_GATE_CONFLICT_UNSCHEDULED_MARKET_CLOSURE",
+    "previous_artifact_sha256": "aace3dc0f76bdda22328458f5e4f0d0d08f4700dbce90d1e557eca3b64656fa1"
+  },
+  "next_action": "Conversation acknowledgement remains unobserved; do not resend verified email for this reason."
 }
