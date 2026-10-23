@@ -1,0 +1,39 @@
+{
+  "report_id": "taiwan",
+  "report_date": "2026-10-23",
+  "generated_at": "2026-10-23T10:00:31Z",
+  "data_as_of": "2026-10-22",
+  "execution_status": "PARTIAL",
+  "delivery_status": "FAILED",
+  "writeback_status": "VERIFIED",
+  "delivery_evidence_sha256": "91cf4860c7817af56950ef81309a8211ba0be180ad42254ebae81792e53b6ee1",
+  "channels": {
+    "conversation": {
+      "status": "UNKNOWN",
+      "observed_at": null,
+      "evidence_sha256": null
+    },
+    "artifact": {
+      "status": "DELIVERED",
+      "observed_at": "2026-10-23T10:00:31Z",
+      "evidence_sha256": "aace3dc0f76bdda22328458f5e4f0d0d08f4700dbce90d1e557eca3b64656fa1"
+    },
+    "email": {
+      "status": "FAILED",
+      "observed_at": null,
+      "evidence_sha256": null,
+      "reason": "FINAL_GATE_CONFLICT_UNSCHEDULED_MARKET_CLOSURE"
+    }
+  },
+  "completed_steps": [
+    "official_closure_verified",
+    "ssot_read",
+    "last_valid_cta_preserved",
+    "artifact_saved_full_readback_verified"
+  ],
+  "failed_steps": [
+    "calendar_expected_as_of_conflict",
+    "final_snapshot_delivery_gate"
+  ],
+  "next_action": "Synchronize verified unscheduled closure in existing shared market calendar; refresh and verify; no stale email."
+}
