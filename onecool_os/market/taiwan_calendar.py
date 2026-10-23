@@ -2,7 +2,8 @@
 
 The calendar is intentionally local and deterministic: scheduled workflows must
 not depend on the holiday web page being reachable at run time.  Dates come
-from the official TWSE annual market holiday schedule.
+from the official TWSE annual market holiday schedule and verified exceptional
+closure notices. Missing provider data alone never establishes a closure.
 """
 
 from __future__ import annotations
@@ -35,11 +36,24 @@ _TWSE_HOLIDAYS = {
     date(2026, 12, 25),
 }
 
+# Reviewed exceptional closures, kept in the same calendar used by producers,
+# CTA session cutoffs, readiness and health. Never infer these from an empty API.
+TWSE_UNSCHEDULED_CLOSURES = {
+    date(2026, 10, 23): {
+        "reason": "TYPHOON_CHAMPI",
+        "source": "https://eshop.twse.com.tw/zh/",
+        "notice_title": "115.10.23颱風假休市公告",
+        "corroboration": "https://www.taifex.com.tw/cht/11/announcement",
+        "announced_on": "2026-10-22",
+    },
+}
+
 
 def is_twse_session(day: date) -> bool:
     """Return whether *day* is a scheduled TWSE trading session."""
 
-    return day.weekday() < 5 and day not in _TWSE_HOLIDAYS
+    return (day.weekday() < 5 and day not in _TWSE_HOLIDAYS
+            and day not in TWSE_UNSCHEDULED_CLOSURES)
 
 
 def latest_twse_session(day: date) -> date:
