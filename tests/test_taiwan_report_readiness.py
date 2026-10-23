@@ -39,3 +39,22 @@ def test_today_screen_cannot_hide_missing_duplicate_or_stale_cta():
 def test_missing_dashboard_cannot_be_complete():
     s, c, _ = inputs()
     assert report_readiness(s, c, {}, '2026-09-10')['status'] == 'UPDATE_INCOMPLETE'
+
+
+def test_typhoon_closure_accepts_last_actual_session_without_changing_signals():
+    from datetime import datetime
+    from onecool_os.market.session_cutoff import latest_completed_market_session
+    s, c, d = inputs()
+    s['expected_as_of'] = s['top5'][0]['price_as_of'] = '2026-10-22'
+    for row in c['results'] + d['results']:
+        row['as_of'] = '2026-10-22'
+    before = deepcopy((s, c, d))
+    expected = latest_completed_market_session(
+        'TW', datetime.fromisoformat('2026-10-23T18:00:00+08:00')
+    ).isoformat()
+    result = report_readiness(s, c, d, expected)
+    assert result['status'] == 'READY'
+    assert result['expected_as_of'] == result['screen_as_of'] == '2026-10-22'
+    assert (s, c, d) == before
+    # Opening of the next actual session still requires fresh data.
+    assert report_readiness(s, c, d, '2026-10-27')['status'] == 'UPDATE_INCOMPLETE'
