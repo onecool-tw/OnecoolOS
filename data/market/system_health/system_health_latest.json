@@ -1,11 +1,11 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-10-23T03:33:09.409030+00:00",
+  "generated_at": "2026-10-23T03:36:25.059264+00:00",
   "taipei_date": "2026-10-23",
-  "status": "BLOCKED",
+  "status": "PARTIAL",
   "scope_status": {
-    "morning": "BLOCKED",
+    "morning": "READY",
     "asia": "READY",
     "weekly": "READY"
   },
@@ -68,11 +68,11 @@
     "policy": "Data readiness does not prove report delivery. Never infer email success from a generated draft."
   },
   "end_to_end_status": "NOT_FULLY_VERIFIED",
-  "action_readiness": "UNSAFE_FOR_AFFECTED_REPORTS",
+  "action_readiness": "LIMITED",
   "counts": {
-    "ready": 17,
+    "ready": 19,
     "partial": 1,
-    "blocked": 2
+    "blocked": 0
   },
   "modules": [
     {
@@ -82,7 +82,7 @@
       "critical": true,
       "status": "READY",
       "reason": "current",
-      "observed_as_of": "2026-10-21",
+      "observed_as_of": "2026-10-22",
       "recovery_workflow": "update-market-dashboard.yml",
       "retryable": true,
       "impacted_reports": [
@@ -95,9 +95,9 @@
       "label": "Bitcoin completed UTC day",
       "scope": "morning",
       "critical": true,
-      "status": "BLOCKED",
-      "reason": "BTC date/CTA missing or invalid; expected 2026-10-22",
-      "observed_as_of": "2026-10-21",
+      "status": "READY",
+      "reason": "current",
+      "observed_as_of": "2026-10-22",
       "recovery_workflow": "update-market-dashboard.yml",
       "retryable": true,
       "impacted_reports": [
@@ -112,7 +112,7 @@
       "critical": true,
       "status": "READY",
       "reason": "current",
-      "observed_as_of": "2026-10-21",
+      "observed_as_of": "2026-10-22",
       "recovery_workflow": "update-market-dashboard.yml",
       "retryable": true,
       "impacted_reports": [
@@ -126,7 +126,7 @@
       "critical": true,
       "status": "READY",
       "reason": "current",
-      "observed_as_of": "2026-10-21",
+      "observed_as_of": "2026-10-22",
       "recovery_workflow": "update-market-dashboard.yml",
       "retryable": true,
       "impacted_reports": [
@@ -153,11 +153,11 @@
       "label": "Fund NAV CTA",
       "scope": "morning",
       "critical": true,
-      "status": "BLOCKED",
-      "reason": "generation timestamp missing, invalid or older than scheduled date 2026-10-23",
+      "status": "READY",
+      "reason": "current",
       "observed_as_of": "2026-10-22",
       "recovery_workflow": "update-fund-nav-cta.yml",
-      "retryable": true,
+      "retryable": false,
       "impacted_reports": [
         "基金日報",
         "基金週報"
@@ -363,36 +363,6 @@
   ],
   "issues": [
     {
-      "module_id": "bitcoin_daily",
-      "label": "Bitcoin completed UTC day",
-      "scope": "morning",
-      "critical": true,
-      "status": "BLOCKED",
-      "reason": "BTC date/CTA missing or invalid; expected 2026-10-22",
-      "observed_as_of": "2026-10-21",
-      "recovery_workflow": "update-market-dashboard.yml",
-      "retryable": true,
-      "impacted_reports": [
-        "基金日報",
-        "基金週報"
-      ]
-    },
-    {
-      "module_id": "fund_nav_cta",
-      "label": "Fund NAV CTA",
-      "scope": "morning",
-      "critical": true,
-      "status": "BLOCKED",
-      "reason": "generation timestamp missing, invalid or older than scheduled date 2026-10-23",
-      "observed_as_of": "2026-10-22",
-      "recovery_workflow": "update-fund-nav-cta.yml",
-      "retryable": true,
-      "impacted_reports": [
-        "基金日報",
-        "基金週報"
-      ]
-    },
-    {
       "module_id": "taiwan_candidate_cta",
       "label": "Taiwan 200-stock CTA",
       "scope": "asia",
@@ -407,10 +377,7 @@
       ]
     }
   ],
-  "recovery_workflows": [
-    "update-fund-nav-cta.yml",
-    "update-market-dashboard.yml"
-  ],
-  "issue_fingerprint": "cf4e7aede285488cb3cbb5b922af8ac81129b2658a6c88c9aca8503469b188e9",
+  "recovery_workflows": [],
+  "issue_fingerprint": "033aa3c95cd34999bad3192488c51c8db714e3f51b3b90f8091b31116881c581",
   "policy": "Health monitoring only; never changes CTA, rankings, or investment decisions."
 }
