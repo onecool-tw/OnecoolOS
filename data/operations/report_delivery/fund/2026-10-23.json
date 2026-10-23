@@ -1,9 +1,9 @@
 {
   "report_id": "fund",
   "report_date": "2026-10-23",
-  "generated_at": "2026-10-23T11:34:00+08:00",
+  "generated_at": "2026-10-23T11:36:00+08:00",
   "delivery_status": "PREPARED",
-  "writeback_status": "UNKNOWN",
+  "writeback_status": "VERIFIED",
   "delivery_evidence_sha256": null,
   "channels": {
     "conversation": {
@@ -12,24 +12,43 @@
       "evidence_sha256": null
     },
     "artifact": {
-      "status": "UNKNOWN",
-      "observed_at": null,
-      "evidence_sha256": null
+      "status": "DELIVERED",
+      "observed_at": "2026-10-23T11:35:30+08:00",
+      "evidence_sha256": "d2d55648c878cd973cf41cd25c0b3df13d8dfd6dc3c836140332871791021790"
     }
   },
   "execution": {
-    "status": "PARTIAL",
+    "status": "SUCCESS",
+    "data_snapshot_sha": "e5b02ccd6cd88907850fe737a3447d85e4e408fd",
     "data_as_of": {
-      "fund_cache_generated_at": "2026-10-22T05:10:38.921617+00:00",
-      "bitcoin": "2026-10-21"
+      "fund_cache_generated_at": "2026-10-23T03:33:56.822238+00:00",
+      "fund_nav_range": "2026-10-21/2026-10-22",
+      "bitcoin": "2026-10-22",
+      "bitcoin_completed_week": "2026-10-18"
+    },
+    "workflow_runs": {
+      "health": 39895576824,
+      "fund": 39895615298,
+      "dashboard": 39895617598
     },
     "completed_steps": [
       "read_delivery_contract",
       "read_initial_main_snapshot",
-      "classify_stale_inputs",
-      "request_existing_health_recovery"
+      "trigger_existing_health_recovery",
+      "verify_workflow_jobs_and_steps",
+      "verify_final_main_dates",
+      "recompute_seven_fund_cta_actions",
+      "verify_bitcoin_shared_engine",
+      "check_eight_period_consistency",
+      "run_frozen_regression",
+      "save_report_artifact",
+      "read_back_report_artifact"
     ],
     "failed_steps": [],
-    "next_step": "wait_for_existing_recovery_and_verify_main_dates"
+    "next_step": "deliver_full_report_in_bound_conversation"
+  },
+  "artifact": {
+    "library_file_id": "libfile_4269f8bd3dbc819192791710b04a3c26",
+    "sha256": "d2d55648c878cd973cf41cd25c0b3df13d8dfd6dc3c836140332871791021790"
   }
 }
