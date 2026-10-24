@@ -6,7 +6,10 @@ import argparse
 import json
 from collections.abc import Callable
 from dataclasses import asdict
+from datetime import UTC, datetime
 from pathlib import Path
+
+from onecool_os.market.session_cutoff import completed_daily_bars
 
 from onecool_os.market.etf_cta import (
     CTAResult,
@@ -60,11 +63,13 @@ def update(
     *,
     allow_bootstrap: bool = False,
     fetcher: Callable[..., list[DailyBar]] = fetch_yahoo_daily,
+    reference_time: datetime | None = None,
 ) -> dict:
     """Update both Taiwan symbols with one shared CTA implementation."""
 
     results: list[dict] = []
     dates: set[str] = set()
+    now = reference_time or datetime.now(UTC)
     for symbol, provider_symbol in TAIWAN_CTA_SYMBOLS.items():
         path = data_dir / "history" / f"{symbol}.csv"
         existing = read_history(path)
@@ -75,7 +80,10 @@ def update(
                 )
             existing = fetcher(provider_symbol, period="5y")
         incoming = fetcher(provider_symbol, period="10d")
-        history = merge_and_adjust(existing, incoming)
+        history = merge_and_adjust(
+            completed_daily_bars(existing, "TW", now),
+            completed_daily_bars(incoming, "TW", now),
+        )
         result: CTAResult = calculate_cta(symbol, history)
         write_history(path, history)
         dates.add(result.as_of)
