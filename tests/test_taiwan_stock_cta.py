@@ -22,10 +22,11 @@ def history(end: date, *, falling: bool = False):
 
 
 def business_history(end: date):
+    from onecool_os.market.taiwan_calendar import is_twse_session
     days = []
     cursor = end
     while len(days) < 400:
-        if cursor.weekday() < 5:
+        if is_twse_session(cursor):
             days.append(cursor)
         cursor -= timedelta(days=1)
     days.reverse()

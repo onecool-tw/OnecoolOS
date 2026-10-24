@@ -140,3 +140,27 @@ def test_exceptional_closure_excludes_provider_bar_and_does_not_count_as_session
     assert twse_session_lag(date(2026, 10, 22), date(2026, 10, 27)) == 1
     assert latest_completed_market_session('JP', now) == date(2026, 10, 23)
     assert latest_completed_market_session('KR', now) == date(2026, 10, 23)
+
+
+@pytest.mark.parametrize('stamp', [
+    '2026-10-24T14:00:00+08:00',
+    '2026-10-26T18:00:00+08:00',
+    '2026-10-27T14:00:00+08:00',
+])
+def test_cached_closure_bars_never_become_valid_on_a_later_day(stamp):
+    from scripts.update_market_dashboard import _completed_symbol_bars
+    days = [date(2026, 10, d) for d in (22, 23, 24, 26, 27)]
+    bars = [SimpleNamespace(trading_date=day) for day in days]
+    now = datetime.fromisoformat(stamp)
+    expected = [bars[0], bars[-1]] if now.day == 27 else bars[:1]
+    assert completed_daily_bars(bars, 'TW', now) == expected
+    assert _completed_symbol_bars(SimpleNamespace(symbol='2330', market='TW'), bars, now) == expected
+    # The Taiwan exceptional closure must not remove overseas trading sessions.
+    assert bars[1] in completed_daily_bars(bars, 'JP', now)
+
+
+def test_cached_scheduled_holiday_is_rejected_after_reopening():
+    bars = [SimpleNamespace(trading_date=date(2026, 9, d)) for d in (24, 25, 28, 29)]
+    assert completed_daily_bars(
+        bars, 'TW', datetime.fromisoformat('2026-09-29T18:00:00+08:00')
+    ) == [bars[0], bars[-1]]
