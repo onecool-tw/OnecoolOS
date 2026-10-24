@@ -485,6 +485,8 @@ def update(
             spy_history = next((h for c, h in staged if c.symbol == "SPY"), [])
             history = [b for b in history if spy_history and
                        b.trading_date <= spy_history[-1].trading_date]
+        # Fallback providers must obey the same calendar as primary/cache data.
+        history = _completed_symbol_bars(config, history, reference_time)
         staged.append((config, history))
         if config.symbol in INNOVATION_OPTION_SYMBOLS:
             innovation_histories[config.symbol] = history

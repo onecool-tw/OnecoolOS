@@ -29,10 +29,13 @@ def completed_daily_bars(bars, market, reference_time=None):
         if market == "TW"
         else is_regional_session(market, local.date())
     )
-    return [bar for bar in bars if bar.trading_date < local.date() or (
+    # A closed-session provider bar stays invalid after midnight too. Apply
+    # the TWSE calendar to cached history as well as newly fetched rows.
+    return [bar for bar in bars if (market != "TW" or is_twse_session(bar.trading_date))
+        and (bar.trading_date < local.date() or (
         bar.trading_date == local.date() and session_today
         and local.time() >= ready
-    )]
+    ))]
 
 
 def latest_completed_market_session(market, reference_time=None):

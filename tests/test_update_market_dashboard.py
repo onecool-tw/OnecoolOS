@@ -73,6 +73,35 @@ class LiquidFakeBootstrapper(FakeBootstrapper):
         ]
 
 
+@pytest.mark.parametrize('fallback', [False, True])
+def test_dashboard_filters_cached_primary_and_fallback_closed_twse_bars(tmp_path, monkeypatch, fallback):
+    bars = FakeBootstrapper().fetch_daily('2330.TW')
+    history_path = tmp_path / 'data/market/dashboard/history/2330.csv'
+    update_market_dashboard.write_history(history_path, merge_and_adjust([], bars))
+
+    class Bootstrapper(FakeBootstrapper):
+        def fetch_raw_daily(self, symbol, *, period='10d'):
+            if fallback and symbol == '2330.TW':
+                raise RuntimeError('primary unavailable')
+            return super().fetch_raw_daily(symbol, period=period)
+
+    monkeypatch.setattr(update_market_dashboard, 'AlphaVantageClient', FakeClient)
+    # Deliberately return contaminated fallback history to exercise the final
+    # publication guard independently of the primary provider's filter.
+    monkeypatch.setattr(update_market_dashboard, '_alpha_price_fallback',
+                        lambda *a, **kw: merge_and_adjust([], bars))
+    payload = update_market_dashboard.update(
+        tmp_path, 'secret', bootstrapper=Bootstrapper(),
+        reference_time=datetime.fromisoformat('2026-10-24T14:00:00+08:00'),
+    )
+    row = next(item for item in payload['results'] if item['symbol'] == '2330')
+    assert row['as_of'] == '2026-10-22'
+    assert row['cta'] in {'BUY', 'HOLD', 'WATCH', 'SELL'}
+    saved = update_market_dashboard.read_history(history_path)
+    assert saved[-1].trading_date == date(2026, 10, 22)
+    assert date(2026, 10, 23) not in {bar.trading_date for bar in saved}
+
+
 def test_delayed_asia_run_excludes_incomplete_us_session(
     tmp_path: Path, monkeypatch
 ) -> None:
