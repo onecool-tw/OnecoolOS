@@ -123,6 +123,15 @@ def parse_cnyes_peer_ranking(
         if category_match
         else None
     )
+    if category is None:
+        # Issuer/share-class display names can change independently of the
+        # published category. Require the explicit category adjacent to label.
+        explicit = re.search(
+            r"((?:產業|股票|股債混合|貴金屬)[-－][^\s<>]{2,60})\s*同組基金排行",
+            text,
+        )
+        if explicit:
+            category = explicit.group(1)
     date_matches = re.findall(r"更新日期[：:]\s*(\d{4})[/.-](\d{1,2})[/.-](\d{1,2})", text)
     as_of = None
     if date_matches:
