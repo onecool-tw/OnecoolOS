@@ -1,0 +1,36 @@
+{
+  "report_id": "taiwan",
+  "report_date": "2026-10-26",
+  "generated_at": "2026-10-26T10:05:21Z",
+  "data_as_of": "2026-10-22",
+  "execution_status": "PARTIAL",
+  "delivery_status": "UNKNOWN",
+  "writeback_status": "VERIFIED",
+  "channels": {
+    "conversation": {
+      "status": "UNKNOWN",
+      "observed_at": null,
+      "evidence_sha256": null
+    },
+    "artifact": {
+      "status": "DELIVERED",
+      "observed_at": "2026-10-26T10:05:21Z",
+      "evidence_sha256": "f26460dfd90b0fa923c666b1e5a478108eed9ac8181079ca266543f99ce6d6c5"
+    },
+    "email": {
+      "status": "UNKNOWN",
+      "observed_at": null,
+      "evidence_sha256": null
+    }
+  },
+  "completed_steps": [
+    "ssot_read",
+    "top5_source_join",
+    "news_verified",
+    "artifact_saved_readback"
+  ],
+  "failed_steps": [
+    "final_workflow_regression_and_email_version_checks_incomplete"
+  ],
+  "next_action": "Continue final workflow and regression checks; verify final snapshot and artifact hash before email dedup and send."
+}
