@@ -149,7 +149,10 @@ def parse_cnyes_peer_ranking(
     p3, p6, p1 = (rank_values[PERIOD_INDEX[key]] for key in ("3m", "6m", "1y"))
     if any(value < 0 or value > 100 for value in (p3, p6, p1)):
         raise ValueError(f"Invalid Cnyes percentile for {fund_code}.")
-    scope = PEER_SCOPE_OVERRIDES.get(fund_code, {})
+    scope = dict(PEER_SCOPE_OVERRIDES.get(fund_code, {}))
+    if category is None:
+        scope["decision_use"] = "CONTEXT_ONLY"
+        scope["strategy_match"] = "UNKNOWN"
     return PeerRanking(
         fund_code=fund_code,
         fund_name=name,
@@ -164,7 +167,7 @@ def parse_cnyes_peer_ranking(
         peer_average_6m=peer_values[PERIOD_INDEX["6m"]],
         peer_average_1y=peer_values[PERIOD_INDEX["1y"]],
         data_quality="VALID" if category else "PARTIAL",
-        ranking_band=ranking_band(p1),
+        ranking_band=ranking_band(p1) if category else "UNKNOWN",
         reason=(
             "Published Cnyes/Morningstar peer percentile; no local reconstruction."
             if category
