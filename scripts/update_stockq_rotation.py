@@ -54,6 +54,7 @@ TWD_SERIES = {
     # Same broad local indices as StockQ; never substitute country ETFs.
     "秘魯股市": ("^SPBLPGPT", "PENTWD=X"),
     "哥倫比亞": ("^COLCAP", "COPTWD=X"),
+    "巴西股市": ("^BVSP", "BRLTWD=X"),
     # Europe
     "荷蘭股市": ("^AEX", "EURTWD=X"),
     "波蘭股市": ("^WIG", "PLNTWD=X"),

@@ -261,7 +261,9 @@ def screen_funds(html: str, *, limit: int = 3) -> list[FundCandidate]:
         returns = {period: _percentage(record[period]) for period in FUND_PERIODS}
         if any(value is None or value <= 0 for value in returns.values()):
             continue
-        eligible.append((name, {key: float(value) for key, value in returns.items()}))
+        candidate = (name, {key: float(value) for key, value in returns.items()})
+        if candidate not in eligible:
+            eligible.append(candidate)
 
     if not eligible:
         return []
