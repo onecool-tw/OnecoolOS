@@ -3396,13 +3396,15 @@
             "conclusion": "Reviewed official disclosures do not supply a complete normalized earnings and net-debt bridge. Keep valuation UNKNOWN and new-entry valuation gate closed; do not infer values.",
             "next_earnings_is_guaranteed_resolution": false,
             "latest_recheck": {
-              "checked_at": "2026-10-26T09:48:48.376Z",
+              "checked_at": "2026-10-26T09:52:55.847Z",
               "market_information_cutoff": "2026-10-23",
-              "status": "PARTIAL_SOURCE_ACCESS_BLOCKED",
-              "result": "Official transaction release located in indexed search; direct issuer retrieval returned HTTP403. No complete new earnings/net-debt bridge verified. Existing UNKNOWN retained; no source expiry extension.",
+              "status": "OFFICIAL_ALTERNATE_SOURCES_READ_BRIDGE_UNRESOLVED",
+              "source_access_status": "RESOLVED_VIA_SEC",
               "sources": [
-                "https://investor.lilly.com/news-releases/news-release-details/lilly-completes-acquisition-ataibeckley-advance-therapies"
+                "https://www.sec.gov/Archives/edgar/data/2081043/000114036126036283/ef20081247_8k.htm",
+                "https://www.sec.gov/Archives/edgar/data/59478/000005947826000081/lly-20260630.htm"
               ],
+              "result": "Read closing 8-K: confirms September11 closing and cash/CVR terms, but not Lilly post-close IPRD charge/tax or consolidated cash/debt bridge. June30 10-Q predates closing.",
               "next_action": "RECHECK_EXISTING_DAILY_SCAN_ON_NEW_OFFICIAL_EARNINGS_OR_TRANSACTION_FILINGS",
               "user_action_required": false
             }
