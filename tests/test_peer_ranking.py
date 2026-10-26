@@ -28,6 +28,12 @@ HTML = """
 </body></html>
 """
 
+def test_category_survives_changed_share_class_display_name():
+    document = HTML.replace("群益印度中小基金-美元", "來源更新後的基金名稱")
+    result = parse_cnyes_peer_ranking(document, fund_code="A16075", source_url="https://example.test")
+    assert result.category == "股票-印度美元"
+    assert result.data_quality == "VALID"
+
 
 def test_parse_cnyes_published_peer_values() -> None:
     result = parse_cnyes_peer_ranking(
