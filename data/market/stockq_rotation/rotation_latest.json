@@ -41,7 +41,7 @@
           "fx_return_pct": null,
           "twd_return_pct": null,
           "status": "UNKNOWN",
-          "reason": "Exact local-market/currency history mapping unavailable; no proxy substitution."
+          "reason": "Same-date FX update failed: ETFCTAError"
         },
         "1m": {
           "start_date": null,
@@ -50,7 +50,7 @@
           "fx_return_pct": null,
           "twd_return_pct": null,
           "status": "UNKNOWN",
-          "reason": "Exact local-market/currency history mapping unavailable; no proxy substitution."
+          "reason": "Same-date FX update failed: ETFCTAError"
         }
       },
       "stage2": "PASS",
@@ -63,17 +63,7 @@
             "六個月": 6.91,
             "一年": 49.83
           },
-          "consistency_score": 89.38
-        },
-        {
-          "name": "瀚亞巴西基金/台幣",
-          "returns": {
-            "一個月": 17.98,
-            "三個月": 22.32,
-            "六個月": 6.91,
-            "一年": 49.83
-          },
-          "consistency_score": 89.38
+          "consistency_score": 96.15
         },
         {
           "name": "野村巴西基金/台幣",
@@ -83,7 +73,17 @@
             "六個月": 4.36,
             "一年": 54.13
           },
-          "consistency_score": 76.25
+          "consistency_score": 86.92
+        },
+        {
+          "name": "法巴巴西股票基金-C股/美元",
+          "returns": {
+            "一個月": 13.01,
+            "三個月": 18.99,
+            "六個月": 3.9,
+            "一年": 38.49
+          },
+          "consistency_score": 70.0
         }
       ]
     },
@@ -108,8 +108,8 @@
           "start_date": "2026-10-16",
           "end_date": "2026-10-23",
           "local_return_pct": -0.9844,
-          "fx_return_pct": 0.7773,
-          "twd_return_pct": -0.2147,
+          "fx_return_pct": 0.9008,
+          "twd_return_pct": -0.0924,
           "status": "VALID",
           "fx_method": "DIRECT",
           "local_market_method": "YAHOO"
@@ -118,8 +118,8 @@
           "start_date": "2026-09-23",
           "end_date": "2026-10-23",
           "local_return_pct": 2.1391,
-          "fx_return_pct": 0.7278,
-          "twd_return_pct": 2.8824,
+          "fx_return_pct": 0.8512,
+          "twd_return_pct": 3.0085,
           "status": "VALID",
           "fx_method": "DIRECT",
           "local_market_method": "YAHOO"
