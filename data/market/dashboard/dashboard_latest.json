@@ -1,10 +1,10 @@
 {
   "schema_version": "1.9",
   "module": "Onecool Market Dashboard",
-  "generated_at": "2026-10-24T06:37:18.169484+00:00",
+  "generated_at": "2026-10-26T03:29:12.906735+00:00",
   "expected_as_of": "2026-10-23",
   "data_status": "READY",
-  "last_successful_update_at": "2026-10-24T06:37:18.169484+00:00",
+  "last_successful_update_at": "2026-10-26T03:29:12.906735+00:00",
   "index_cta_basis": {
     "method": "ETF/index proxies; shared CTA engine",
     "mappings": {
@@ -814,12 +814,12 @@
       "provider_symbol": "BTC-USD",
       "market": "CONTEXT",
       "theme": "crypto_risk_appetite",
-      "as_of": "2026-10-23",
-      "current_price": 81074.6875,
-      "sma50": 81778.352969,
-      "sma200": 72856.591875,
-      "weekly_ma30": 72582.102995,
-      "weekly_ma50": 76541.497891,
+      "as_of": "2026-10-25",
+      "current_price": 80043.820312,
+      "sma50": 81805.119375,
+      "sma200": 72945.442344,
+      "weekly_ma30": 73051.732943,
+      "weekly_ma50": 76047.981484,
       "trend": "MIXED",
       "cta": "SELL",
       "confidence": 50,
@@ -829,8 +829,8 @@
         "cross_status": "NONE",
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2026-09-08",
-        "periods_since_cross": 45,
-        "spread_pct": 12.245647,
+        "periods_since_cross": 47,
+        "spread_pct": 12.145621,
         "phase": "ACTIVE"
       },
       "weekly_cross": {
@@ -838,12 +838,12 @@
         "cross_status": "NONE",
         "last_cross_status": "DEATH",
         "last_cross_date": "2026-02-22",
-        "periods_since_cross": 34,
-        "spread_pct": -5.172874,
+        "periods_since_cross": 35,
+        "spread_pct": -3.939945,
         "phase": "ACTIVE"
       },
-      "weekly_data_as_of": "2026-10-18",
-      "weekly_expected_as_of": "2026-10-18",
+      "weekly_data_as_of": "2026-10-25",
+      "weekly_expected_as_of": "2026-10-25",
       "weekly_data_status": "CURRENT"
     }
   ],
@@ -1109,9 +1109,9 @@
       "daily_membership_mutation": false,
       "change_control": "VERSION_BUMP_AND_AUDIT_RECORD_REQUIRED"
     },
-    "validated_count": 64,
+    "validated_count": 65,
     "coverage_status": "COMPLETE",
-    "validated_coverage_pct": 91.43,
+    "validated_coverage_pct": 92.86,
     "research_scope": "FULL_UNIVERSE_ASSESSED_VALIDATED_SUBSET_RANKED",
     "minimum_technical_confidence": 90,
     "formal_breakout_count": 0,
@@ -2700,30 +2700,6 @@
         "fundamental_validation_detail": "SEC_FETCH_FAILED"
       },
       {
-        "symbol": "SPOT",
-        "technical_confidence": 100,
-        "reason": "Reviewed nonpositive prior EPS; growth comparison is not meaningful under the existing rule",
-        "assessment_status": "RULE_EXCLUDED",
-        "reviewed_evidence": {
-          "symbol": "SPOT",
-          "status": "NONPOSITIVE_COMPARISON_BASE",
-          "review_status": "VERIFIED",
-          "period_end": "2026-06-30",
-          "prior_period_end": "2025-06-30",
-          "current_eps": 2.61,
-          "prior_eps": -0.42,
-          "published_as_of": "2026-08-04",
-          "valid_through": "2026-10-23",
-          "source_url": "https://www.sec.gov/Archives/edgar/data/1639920/000162828026052543/spot-20260630x6xk.htm",
-          "accounting_basis": "IFRS",
-          "currency": "EUR",
-          "reviewed_as_of": "2026-10-17",
-          "review_note": "2026 Q2 IFRS diluted EPS EUR 2.61 versus 2025 Q2 loss EUR 0.42; nonpositive base. Official source reopened and comparative EPS reverified 2026-10-17 for the Oct16 cutoff. Renewed review window; no score eligibility override."
-        },
-        "fundamental_fetch_status": "UNAVAILABLE",
-        "fundamental_validation_detail": "SEC_FETCH_FAILED"
-      },
-      {
         "symbol": "SYM",
         "technical_confidence": 100,
         "reason": "Reviewed nonpositive prior EPS; growth comparison is not meaningful under the existing rule",
@@ -2746,7 +2722,7 @@
         "fundamental_validation_detail": "SEC_FETCH_FAILED"
       }
     ],
-    "rule_excluded_count": 6,
+    "rule_excluded_count": 5,
     "assessment_count": 70,
     "assessment_status": "COMPLETE",
     "fundamental_fetch_status": {
@@ -2822,7 +2798,7 @@
       "CRWD": "UNAVAILABLE",
       "SNDK": "UNAVAILABLE",
       "SNOW": "UNAVAILABLE",
-      "SPOT": "UNAVAILABLE",
+      "SPOT": "FETCHED",
       "SYM": "UNAVAILABLE"
     },
     "price_fetch_diagnostics": {},

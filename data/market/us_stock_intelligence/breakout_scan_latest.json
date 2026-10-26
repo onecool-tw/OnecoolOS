@@ -28,9 +28,9 @@
     "daily_membership_mutation": false,
     "change_control": "VERSION_BUMP_AND_AUDIT_RECORD_REQUIRED"
   },
-  "validated_count": 64,
+  "validated_count": 65,
   "coverage_status": "COMPLETE",
-  "validated_coverage_pct": 91.43,
+  "validated_coverage_pct": 92.86,
   "research_scope": "FULL_UNIVERSE_ASSESSED_VALIDATED_SUBSET_RANKED",
   "minimum_technical_confidence": 90,
   "formal_breakout_count": 0,
@@ -1619,30 +1619,6 @@
       "fundamental_validation_detail": "SEC_FETCH_FAILED"
     },
     {
-      "symbol": "SPOT",
-      "technical_confidence": 100,
-      "reason": "Reviewed nonpositive prior EPS; growth comparison is not meaningful under the existing rule",
-      "assessment_status": "RULE_EXCLUDED",
-      "reviewed_evidence": {
-        "symbol": "SPOT",
-        "status": "NONPOSITIVE_COMPARISON_BASE",
-        "review_status": "VERIFIED",
-        "period_end": "2026-06-30",
-        "prior_period_end": "2025-06-30",
-        "current_eps": 2.61,
-        "prior_eps": -0.42,
-        "published_as_of": "2026-08-04",
-        "valid_through": "2026-10-23",
-        "source_url": "https://www.sec.gov/Archives/edgar/data/1639920/000162828026052543/spot-20260630x6xk.htm",
-        "accounting_basis": "IFRS",
-        "currency": "EUR",
-        "reviewed_as_of": "2026-10-17",
-        "review_note": "2026 Q2 IFRS diluted EPS EUR 2.61 versus 2025 Q2 loss EUR 0.42; nonpositive base. Official source reopened and comparative EPS reverified 2026-10-17 for the Oct16 cutoff. Renewed review window; no score eligibility override."
-      },
-      "fundamental_fetch_status": "UNAVAILABLE",
-      "fundamental_validation_detail": "SEC_FETCH_FAILED"
-    },
-    {
       "symbol": "SYM",
       "technical_confidence": 100,
       "reason": "Reviewed nonpositive prior EPS; growth comparison is not meaningful under the existing rule",
@@ -1665,7 +1641,7 @@
       "fundamental_validation_detail": "SEC_FETCH_FAILED"
     }
   ],
-  "rule_excluded_count": 6,
+  "rule_excluded_count": 5,
   "assessment_count": 70,
   "assessment_status": "COMPLETE",
   "fundamental_fetch_status": {
@@ -1741,7 +1717,7 @@
     "CRWD": "UNAVAILABLE",
     "SNDK": "UNAVAILABLE",
     "SNOW": "UNAVAILABLE",
-    "SPOT": "UNAVAILABLE",
+    "SPOT": "FETCHED",
     "SYM": "UNAVAILABLE"
   },
   "price_fetch_diagnostics": {},
