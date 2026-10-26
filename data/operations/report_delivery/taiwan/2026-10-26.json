@@ -1,9 +1,9 @@
 {
   "report_id": "taiwan",
   "report_date": "2026-10-26",
-  "generated_at": "2026-10-26T10:05:21Z",
+  "generated_at": "2026-10-26T10:07:58Z",
   "data_as_of": "2026-10-22",
-  "execution_status": "PARTIAL",
+  "execution_status": "SUCCESS",
   "delivery_status": "UNKNOWN",
   "writeback_status": "VERIFIED",
   "channels": {
@@ -14,23 +14,28 @@
     },
     "artifact": {
       "status": "DELIVERED",
-      "observed_at": "2026-10-26T10:05:21Z",
-      "evidence_sha256": "f26460dfd90b0fa923c666b1e5a478108eed9ac8181079ca266543f99ce6d6c5"
+      "observed_at": "2026-10-26T10:07:58Z",
+      "evidence_sha256": "782099d34ba8077fa3fc04e1d25928d09b81e0d243346cdea24d39df13761b68"
     },
     "email": {
-      "status": "UNKNOWN",
-      "observed_at": null,
-      "evidence_sha256": null
+      "status": "DELIVERED",
+      "observed_at": "2026-10-26T10:07:58Z",
+      "evidence_sha256": "0d5fbc069c0d205f82acbdca5a1bf999e5df1525d775311e81521dedb10f3a21",
+      "snapshot_sha256": "b55578d1e35414ed5cce4d38378f2c69d6ba5b60e07e7e4c4755f541de1ba679",
+      "all_required_recipients_verified": true
     }
   },
   "completed_steps": [
     "ssot_read",
     "top5_source_join",
     "news_verified",
-    "artifact_saved_readback"
+    "artifact_saved_readback",
+    "regression_fingerprints_match",
+    "final_snapshot_stable",
+    "email_dedup_checked",
+    "email_success_acknowledged"
   ],
-  "failed_steps": [
-    "final_workflow_regression_and_email_version_checks_incomplete"
-  ],
-  "next_action": "Continue final workflow and regression checks; verify final snapshot and artifact hash before email dedup and send."
+  "failed_steps": [],
+  "next_action": "Conversation acknowledgement unobserved; no resend for UNKNOWN conversation.",
+  "snapshot_sha256": "b55578d1e35414ed5cce4d38378f2c69d6ba5b60e07e7e4c4755f541de1ba679"
 }
