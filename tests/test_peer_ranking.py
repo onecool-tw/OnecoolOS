@@ -127,6 +127,9 @@ def test_published_ranking_survives_missing_category_label() -> None:
     assert result.category is None
     assert result.percentile_1y == 74
     assert result.data_quality == "PARTIAL"
+    assert result.ranking_band == "UNKNOWN"
+    assert result.decision_use == "CONTEXT_ONLY"
+    assert result.strategy_match == "UNKNOWN"
 
 
 def test_missing_source_is_unknown_and_never_imputed() -> None:
