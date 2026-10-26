@@ -1,10 +1,10 @@
 {
   "schema_version": "1.9",
   "module": "Onecool Market Dashboard",
-  "generated_at": "2026-10-26T09:41:59.769062+00:00",
+  "generated_at": "2026-10-26T09:49:25.086429+00:00",
   "expected_as_of": "2026-10-23",
   "data_status": "READY",
-  "last_successful_update_at": "2026-10-26T09:41:59.769062+00:00",
+  "last_successful_update_at": "2026-10-26T09:49:25.086429+00:00",
   "index_cta_basis": {
     "method": "ETF/index proxies; shared CTA engine",
     "mappings": {
@@ -2720,7 +2720,18 @@
                 "UPDATED_NORMALIZED_EARNINGS_GUIDANCE"
               ],
               "conclusion": "Reviewed official disclosures do not supply a complete normalized earnings and net-debt bridge. Keep valuation UNKNOWN and new-entry valuation gate closed; do not infer values.",
-              "next_earnings_is_guaranteed_resolution": false
+              "next_earnings_is_guaranteed_resolution": false,
+              "latest_recheck": {
+                "checked_at": "2026-10-26T09:48:48.376Z",
+                "market_information_cutoff": "2026-10-23",
+                "status": "PARTIAL_SOURCE_ACCESS_BLOCKED",
+                "result": "Official transaction release located in indexed search; direct issuer retrieval returned HTTP403. No complete new earnings/net-debt bridge verified. Existing UNKNOWN retained; no source expiry extension.",
+                "sources": [
+                  "https://investor.lilly.com/news-releases/news-release-details/lilly-completes-acquisition-ataibeckley-advance-therapies"
+                ],
+                "next_action": "RECHECK_EXISTING_DAILY_SCAN_ON_NEW_OFFICIAL_EARNINGS_OR_TRANSACTION_FILINGS",
+                "user_action_required": false
+              }
             }
           },
           "official_disclosure_watch": {
