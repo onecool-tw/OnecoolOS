@@ -1,12 +1,12 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-10-26T06:32:47.462035+00:00",
+  "generated_at": "2026-10-26T09:09:10.107976+00:00",
   "taipei_date": "2026-10-26",
-  "status": "PARTIAL",
+  "status": "BLOCKED",
   "scope_status": {
     "morning": "READY",
-    "asia": "READY",
+    "asia": "BLOCKED",
     "weekly": "READY"
   },
   "report_delivery": {
@@ -68,11 +68,11 @@
     "policy": "Data readiness does not prove report delivery. Never infer email success from a generated draft."
   },
   "end_to_end_status": "NOT_FULLY_VERIFIED",
-  "action_readiness": "LIMITED",
+  "action_readiness": "UNSAFE_FOR_AFFECTED_REPORTS",
   "counts": {
-    "ready": 19,
+    "ready": 18,
     "partial": 1,
-    "blocked": 0
+    "blocked": 1
   },
   "modules": [
     {
@@ -238,8 +238,8 @@
       "label": "Japan/Korea CTA freshness",
       "scope": "asia",
       "critical": true,
-      "status": "READY",
-      "reason": "both local-market CTAs current",
+      "status": "BLOCKED",
+      "reason": "1306 CURRENT as_of 2026-10-23 expected 2026-10-26; 069500 CURRENT as_of 2026-10-23 expected 2026-10-26",
       "observed_as_of": "2026-10-23",
       "recovery_workflow": "update-market-dashboard.yml",
       "retryable": true,
@@ -375,9 +375,26 @@
       "impacted_reports": [
         "台股日報"
       ]
+    },
+    {
+      "module_id": "asia_country_cta",
+      "label": "Japan/Korea CTA freshness",
+      "scope": "asia",
+      "critical": true,
+      "status": "BLOCKED",
+      "reason": "1306 CURRENT as_of 2026-10-23 expected 2026-10-26; 069500 CURRENT as_of 2026-10-23 expected 2026-10-26",
+      "observed_as_of": "2026-10-23",
+      "recovery_workflow": "update-market-dashboard.yml",
+      "retryable": true,
+      "impacted_reports": [
+        "台股日報",
+        "基金週報"
+      ]
     }
   ],
-  "recovery_workflows": [],
-  "issue_fingerprint": "033aa3c95cd34999bad3192488c51c8db714e3f51b3b90f8091b31116881c581",
+  "recovery_workflows": [
+    "update-market-dashboard.yml"
+  ],
+  "issue_fingerprint": "707a8ad759e2bc1523625470ffb3a4f0c50e6bd00ed8fabca00b13679596a3db",
   "policy": "Health monitoring only; never changes CTA, rankings, or investment decisions."
 }
