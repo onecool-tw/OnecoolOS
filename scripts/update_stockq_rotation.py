@@ -221,6 +221,10 @@ def _fetch_tencent_shanghai_b() -> list[DailyBar]:
 # Yahoo does not consistently publish every direct TWD cross.  These pairs
 # produce TWD per unit of local currency through a same-date USD bridge.
 TRIANGULAR_TWD_FX = {
+    "BRLTWD=X": (
+        ("USDBRL=X", "USDTWD=X", True),
+        ("BRLUSD=X", "USDTWD=X", False),
+    ),
     "PENTWD=X": (("USDPEN=X", "USDTWD=X", True),),
     "COPTWD=X": (("USDCOP=X", "USDTWD=X", True),),
     # Try local-currency-per-USD pairs first because Yahoo publishes these
