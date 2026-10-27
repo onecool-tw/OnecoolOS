@@ -173,13 +173,15 @@
         "status": "PARTIAL",
         "gaps": [
           "OFFICIAL_REFERENCE_EXPIRED_OR_NOT_POINT_IN_TIME",
-          "REGISTRY_UNAVAILABLE"
+          "SEC_COMPANYFACTS_FETCH_OR_IDENTITY_VALIDATION_FAILED"
         ],
         "price_basis": "adjusted_close",
         "inputs": {
           "adjusted_close": 198.83999633789062
         },
-        "sources": [],
+        "sources": [
+          "https://data.sec.gov/api/xbrl/companyfacts/CIK0001321655.json"
+        ],
         "decision_authority": "REFERENCE_INPUTS_ONLY_NOT_FAIR_VALUE",
         "price_source": {
           "provider": "yahoo_finance_adjusted_batch",
@@ -195,7 +197,8 @@
         },
         "price_sha256": "20115bf12e4afb8f8593b9ac2cfb600908616fd0b3aaa783892ea44505dfff39",
         "official_reference_status": "REJECTED",
-        "fundamental_fetch_status": "REGISTRY_UNAVAILABLE"
+        "fundamental_fetch_status": "FETCH_FAILED",
+        "fetch_error_type": "HTTPError"
       },
       "lynch_research": {
         "version": "onecool_lynch_research_v1",
