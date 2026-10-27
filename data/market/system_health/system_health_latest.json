@@ -1,11 +1,11 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-10-27T08:21:26.498886+00:00",
+  "generated_at": "2026-10-27T08:22:38.518953+00:00",
   "taipei_date": "2026-10-27",
   "status": "BLOCKED",
   "scope_status": {
-    "morning": "PARTIAL",
+    "morning": "READY",
     "asia": "BLOCKED",
     "weekly": "READY"
   },
@@ -79,8 +79,8 @@
   "end_to_end_status": "NOT_FULLY_VERIFIED",
   "action_readiness": "UNSAFE_FOR_AFFECTED_REPORTS",
   "counts": {
-    "ready": 16,
-    "partial": 2,
+    "ready": 17,
+    "partial": 1,
     "blocked": 2
   },
   "modules": [
@@ -119,11 +119,11 @@
       "label": "US Breakout Scan",
       "scope": "morning",
       "critical": true,
-      "status": "PARTIAL",
-      "reason": "validated subset 65/70; see per-symbol fetch/validation status",
+      "status": "READY",
+      "reason": "current",
       "observed_as_of": "2026-10-26",
       "recovery_workflow": "update-market-dashboard.yml",
-      "retryable": false,
+      "retryable": true,
       "impacted_reports": [
         "美股日報"
       ]
@@ -372,20 +372,6 @@
   ],
   "issues": [
     {
-      "module_id": "us_breakout_scan",
-      "label": "US Breakout Scan",
-      "scope": "morning",
-      "critical": true,
-      "status": "PARTIAL",
-      "reason": "validated subset 65/70; see per-symbol fetch/validation status",
-      "observed_as_of": "2026-10-26",
-      "recovery_workflow": "update-market-dashboard.yml",
-      "retryable": false,
-      "impacted_reports": [
-        "美股日報"
-      ]
-    },
-    {
       "module_id": "taiwan_candidate_cta",
       "label": "Taiwan 200-stock CTA",
       "scope": "asia",
@@ -431,6 +417,6 @@
   "recovery_workflows": [
     "update-taiwan-stock-screen.yml"
   ],
-  "issue_fingerprint": "4382769fa3610c9bc73a827edcd3a06a165ace406d63d41d6314d84793a5f65f",
+  "issue_fingerprint": "72c56e49f6db4aac7422132fe011bb3d9ae83c958cc964059a95415bafd47eac",
   "policy": "Health monitoring only; never changes CTA, rankings, or investment decisions."
 }
