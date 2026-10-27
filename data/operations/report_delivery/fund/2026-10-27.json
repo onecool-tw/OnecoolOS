@@ -1,1 +1,36 @@
-{"report_id":"fund","report_date":"2026-10-27","generated_at":"2026-10-27T03:32:07.941Z","delivery_status":"PREPARED","writeback_status":"UNKNOWN","channels":{"conversation":{"status":"UNKNOWN"},"artifact":{"status":"UNKNOWN"}},"heartbeat":"PARTIAL"}
+{
+  "report_id": "fund",
+  "report_date": "2026-10-27",
+  "generated_at": "2026-10-27T03:32:07.941Z",
+  "delivery_status": "PREPARED",
+  "writeback_status": "VERIFIED",
+  "channels": {
+    "conversation": {
+      "status": "UNKNOWN"
+    },
+    "artifact": {
+      "status": "DELIVERED",
+      "observed_at": "2026-10-27T03:35:43.190Z",
+      "evidence_sha256": "9d5d0ecf3f8ca48f5e3832ff0edf5e37cc54c2c012d9192fcc2c5f737c6d3174"
+    }
+  },
+  "heartbeat": "SUCCESS",
+  "data_as_of": {
+    "fund_nav_min": "2026-10-21",
+    "fund_nav_max": "2026-10-26",
+    "bitcoin": "2026-10-26",
+    "bitcoin_completed_week": "2026-10-25"
+  },
+  "validation": {
+    "snapshot": "e872254bd0a7c3370ed2ebe81597e03083ea8d3c",
+    "periods": 9,
+    "result": "PASS"
+  },
+  "completed_steps": [
+    "recovery",
+    "cache_date_verification",
+    "history_regression",
+    "artifact_save_readback"
+  ],
+  "next_step": "conversation_delivery_evidence_pending"
+}
