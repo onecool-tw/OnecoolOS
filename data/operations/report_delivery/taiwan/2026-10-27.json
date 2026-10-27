@@ -1,7 +1,7 @@
 {
   "report_id": "taiwan",
   "report_date": "2026-10-27",
-  "generated_at": "2026-10-27T09:58:47Z",
+  "generated_at": "2026-10-27T10:37:19Z",
   "data_as_of": "2026-10-22",
   "execution_status": "PARTIAL",
   "delivery_status": "UNKNOWN",
@@ -14,26 +14,31 @@
     },
     "artifact": {
       "status": "DELIVERED",
-      "observed_at": "2026-10-27T09:58:47Z",
-      "evidence_sha256": "a10220e022dea5ea59321605adb8ee30bb57627ee1d8d27d3ecbd6e64c08ba38"
+      "observed_at": "2026-10-27T10:37:19Z",
+      "evidence_sha256": "fe8bcb46287c5a2cbeb65e6b19b90d3cb73445b41911b43508dc2256e2ec6414"
     },
     "email": {
-      "status": "FAILED",
-      "observed_at": null,
-      "evidence_sha256": null,
-      "reason": "FINAL_GATE_UPDATE_INCOMPLETE"
+      "status": "DELIVERED",
+      "observed_at": "2026-10-27T10:37:19Z",
+      "evidence_sha256": "2072c5c19e081df42b61f55d010089d33124d8493dea52d7adbc385d197c6772",
+      "snapshot_sha256": "16d81519943598e83db663eb44ffeebed9ac5ce994863b9c113e5b6dd63141f2",
+      "all_required_recipients_verified": true
     }
   },
   "completed_steps": [
     "formal_cta_read",
     "workflow_completed_verified",
-    "artifact_saved_full_readback"
+    "artifact_saved_full_readback",
+    "current_screen_ready",
+    "formal_RED_persistence_readback",
+    "final_snapshot_ready",
+    "artifact_final_readback",
+    "email_ack_success"
   ],
-  "failed_steps": [
-    "screen_not_current",
-    "formal_pressure_evidence_incomplete",
-    "pressure_writeback_not_completed",
-    "final_snapshot_incomplete"
+  "failed_steps": [],
+  "next_action": "Retain RED; retry unavailable official derivatives without inventing values. Conversation acknowledgement unobserved; do not resend.",
+  "unresolved_items": [
+    "official_PCR_and_foreign_TX_OI_unavailable_not_used_for_release"
   ],
-  "next_action": "Resume current Screen and full official pressure input validation, persist formal result, then verify final artifact and Snapshot before email."
+  "snapshot_sha256": "16d81519943598e83db663eb44ffeebed9ac5ce994863b9c113e5b6dd63141f2"
 }
