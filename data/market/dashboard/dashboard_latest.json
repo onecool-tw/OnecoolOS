@@ -1,10 +1,10 @@
 {
   "schema_version": "1.9",
   "module": "Onecool Market Dashboard",
-  "generated_at": "2026-10-27T03:33:12.880189+00:00",
+  "generated_at": "2026-10-27T05:21:55.972814+00:00",
   "expected_as_of": "2026-10-26",
   "data_status": "READY",
-  "last_successful_update_at": "2026-10-27T03:33:12.880189+00:00",
+  "last_successful_update_at": "2026-10-27T05:21:55.972814+00:00",
   "index_cta_basis": {
     "method": "ETF/index proxies; shared CTA engine",
     "mappings": {
@@ -233,11 +233,11 @@
       "market": "US",
       "theme": "small_cap",
       "as_of": "2026-10-26",
-      "current_price": 2786.424072,
-      "sma50": 2875.177866,
-      "sma200": 2801.27912,
-      "weekly_ma30": 2886.982479,
-      "weekly_ma50": 2754.920288,
+      "current_price": 2786.419922,
+      "sma50": 2875.177783,
+      "sma200": 2801.279099,
+      "weekly_ma30": 2886.98234,
+      "weekly_ma50": 2754.920205,
       "trend": "BULLISH",
       "cta": "BUY",
       "confidence": 50,
@@ -248,7 +248,7 @@
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2025-08-06",
         "periods_since_cross": 307,
-        "spread_pct": 2.638036,
+        "spread_pct": 2.638034,
         "phase": "AGING"
       },
       "weekly_cross": {
@@ -257,7 +257,7 @@
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2025-10-31",
         "periods_since_cross": 52,
-        "spread_pct": 4.793685,
+        "spread_pct": 4.793683,
         "phase": "ACTIVE"
       }
     },
@@ -747,11 +747,11 @@
       "market": "CONTEXT",
       "theme": "us_dollar",
       "as_of": "2026-10-26",
-      "current_price": 102.045998,
-      "sma50": 100.58592,
-      "sma200": 99.57548,
-      "weekly_ma30": 100.058,
-      "weekly_ma50": 99.5204,
+      "current_price": 101.959999,
+      "sma50": 100.5842,
+      "sma200": 99.57505,
+      "weekly_ma30": 100.055133,
+      "weekly_ma50": 99.51868,
       "trend": "BULLISH",
       "cta": "BUY",
       "confidence": 100,
@@ -762,7 +762,7 @@
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2026-04-08",
         "periods_since_cross": 142,
-        "spread_pct": 1.014747,
+        "spread_pct": 1.013456,
         "phase": "AGING"
       },
       "weekly_cross": {
@@ -771,7 +771,7 @@
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2026-04-02",
         "periods_since_cross": 30,
-        "spread_pct": 0.540191,
+        "spread_pct": 0.539048,
         "phase": "ACTIVE"
       }
     },
@@ -848,7 +848,7 @@
     }
   ],
   "us_session_cutoff_policy": "exclude_current_New_York_daily_bar_until_16:15_America/New_York",
-  "excluded_incomplete_us_session": null,
+  "excluded_incomplete_us_session": "2026-10-27",
   "us_short_term_risk_context": {
     "schema_version": "1.0",
     "expected_as_of": "2026-10-26",
@@ -876,13 +876,13 @@
         "expected_as_of": "2026-10-26",
         "as_of": "2026-10-26",
         "data_status": "READY",
-        "value": 102.0459976196289,
+        "value": 101.95999908447266,
         "unit": "index_points",
         "price_basis": "adjusted_close",
         "decision_authority": "SHORT_TERM_CONTEXT_ONLY",
         "source": "yahoo_finance_raw",
         "source_url": "https://finance.yahoo.com/quote/DX-Y.NYB/history/",
-        "observation_sha256": "53282ac8067a0a8159964e2713afe8ae92e954738e2f7a0734729639d9aad059"
+        "observation_sha256": "a0e3ebdac85cd2f2156b5a9b98829f85ec235c4895bdfba28ecbc5d020bd042b"
       },
       {
         "symbol": "US10Y",
@@ -904,13 +904,13 @@
         "expected_as_of": "2026-10-26",
         "as_of": "2026-10-26",
         "data_status": "READY",
-        "value": 5.300999641418457,
+        "value": 5.301000118255615,
         "unit": "percent",
         "price_basis": "adjusted_close",
         "decision_authority": "SHORT_TERM_CONTEXT_ONLY",
         "source": "yahoo_finance_raw",
         "source_url": "https://finance.yahoo.com/quote/^TYX/history/",
-        "observation_sha256": "d5e05b63cfedb413fe8b6a8fd4686f134ab34bf4386f0e2fc8068959808b026b"
+        "observation_sha256": "7e827e7345224541ee200f731190143b1afbafbf7d7dbcd13c9b8bc7dbe3e479"
       },
       {
         "symbol": "SOX",
@@ -2592,6 +2592,36 @@
     },
     "publication_status": "CURRENT"
   },
-  "corporate_action_validation": [],
+  "corporate_action_validation": [
+    {
+      "symbol": "SPY",
+      "status": "MATCHED_WITH_MINOR_PROVIDER_DIFFERENCE",
+      "source_a": "yahoo_finance_raw",
+      "source_b": "alpha_vantage",
+      "as_of": "2026-10-26",
+      "minor_differences": [
+        "2021-12-17: dividend yahoo=1.633 alpha=1.636431 difference=0.003431"
+      ],
+      "minor_difference_policy": "non_blocking_only_when_absolute_difference_lte_0.005_and_relative_difference_lte_1pct"
+    },
+    {
+      "symbol": "QQQ",
+      "status": "MATCHED",
+      "source_a": "yahoo_finance_raw",
+      "source_b": "alpha_vantage",
+      "as_of": "2026-10-26"
+    },
+    {
+      "symbol": "DIA",
+      "status": "MATCHED_WITH_MINOR_PROVIDER_DIFFERENCE",
+      "source_a": "yahoo_finance_raw",
+      "source_b": "alpha_vantage",
+      "as_of": "2026-10-26",
+      "minor_differences": [
+        "2021-12-17: dividend yahoo=0.662 alpha=0.6639 difference=0.001900"
+      ],
+      "minor_difference_policy": "non_blocking_only_when_absolute_difference_lte_0.005_and_relative_difference_lte_1pct"
+    }
+  ],
   "provider_fallback_policy": "yahoo_finance_raw_primary; alpha_vantage_core_price_fallback; last_successful_cache_on_failure"
 }
