@@ -1,0 +1,39 @@
+{
+  "report_id": "taiwan",
+  "report_date": "2026-10-27",
+  "generated_at": "2026-10-27T09:58:47Z",
+  "data_as_of": "2026-10-22",
+  "execution_status": "PARTIAL",
+  "delivery_status": "UNKNOWN",
+  "writeback_status": "VERIFIED",
+  "channels": {
+    "conversation": {
+      "status": "UNKNOWN",
+      "observed_at": null,
+      "evidence_sha256": null
+    },
+    "artifact": {
+      "status": "DELIVERED",
+      "observed_at": "2026-10-27T09:58:47Z",
+      "evidence_sha256": "a10220e022dea5ea59321605adb8ee30bb57627ee1d8d27d3ecbd6e64c08ba38"
+    },
+    "email": {
+      "status": "FAILED",
+      "observed_at": null,
+      "evidence_sha256": null,
+      "reason": "FINAL_GATE_UPDATE_INCOMPLETE"
+    }
+  },
+  "completed_steps": [
+    "formal_cta_read",
+    "workflow_completed_verified",
+    "artifact_saved_full_readback"
+  ],
+  "failed_steps": [
+    "screen_not_current",
+    "formal_pressure_evidence_incomplete",
+    "pressure_writeback_not_completed",
+    "final_snapshot_incomplete"
+  ],
+  "next_action": "Resume current Screen and full official pressure input validation, persist formal result, then verify final artifact and Snapshot before email."
+}
