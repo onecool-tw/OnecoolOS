@@ -34,36 +34,34 @@
   "0050_weekly_alignment": "GOLDEN",
   "market_pressure_gate": "FORMAL_FROM_DAILY_CONTEXT",
   "market_pressure": {
-    "as_of": "2026-10-22",
+    "as_of": "2026-10-27",
     "status": "CURRENT",
     "light": "RED",
     "action": "PAUSE_NEW_EXPOSURE",
     "reason": [
-      "prior_formal_RED_2026_10_21;retain_RED;2026_10_22_stress_recurred;two_consecutive_nontrigger_days_NOT_MET;no_rebound_release",
-      "VERIFIED_TWSE_2026_10_22_close_46041_43_change_minus_846_34_pct_minus_1_81_vs_prior_46887_77_and_2026_10_20_46292_93;new_closing_low_vs_recent_verified_sessions;turnover_TWD_933437473560_vs_prior_874614166736;stock_breadth_up_247_down_756;price_volume_pressure_NOT_IMPROVED",
-      "VERIFIED_TAIFEX_TX_202611_regular_last_trade_46272_settlement_46234;basis_plus_230_57_plus_192_57;prior_same_contract_last_46992_settlement_47013_basis_plus_104_23_plus_125_23;positive_basis_alone_cannot_release_RED;expiry_roll_comparability_NOT_FULLY_VERIFIED",
-      "VERIFIED_TAIFEX_foreign_TX_OI_long_8126_short_95423_net_minus_87297_vs_prior_minus_86072;net_short_increased_1225;derivative_pressure_NOT_IMPROVED",
-      "VERIFIED_TAIFEX_TXO_volume_PCR_86_21_OI_PCR_66_18_vs_prior_111_88_and_62_86;OI_PCR_increased;post_expiry_count_reset_comparability_UNKNOWN_not_release_evidence",
-      "VERIFIED_TAIFEX_VIX_30_35_Last_1_min_AVG_vs_prior_28_37;volatility_worsened",
-      "VERIFIED_TWSE_foreign_flow_minus_81656527790_trust_plus_8874898142_dealer_minus_27378085012_total_minus_100159714660_TWD;flow_worsened",
-      "VERIFIED_margin_2026_10_21_amount_644373559_thousand_TWD_change_plus_6273448;short_units_192598_change_minus_23314;margin_units_9632327_change_plus_31701;official_lag_accepted;revised_previous_margin_units_9600626_vs_prior_report_9600627_diff_minus_1;cash_previous_638100111_and_short_previous_215912_match_prior_report",
-      "intraday_high_low_securities_lending_roll_distortion_and_macro_transmission_NOT_FULLY_VERIFIED;UNKNOWN_not_zero_or_no_trigger;not_used_for_release;news_context_only;formal_Work_only_judgment_GitHub_persistence_only"
+      "retain_prior_formal_RED_2026_10_22;first_completed_session_since_prior;two_consecutive_nontrigger_sessions_NOT_MET;no_rebound_release",
+      "VERIFIED_TWSE_2026_10_27_close_46096_23_change_plus_54_80_pct_plus_0_12;prior_46041_43;turnover_TWD_1031683538938_vs_prior_933437473560;stock_breadth_up464_down523;one_session_rebound_not_release",
+      "VERIFIED_TAIFEX_TX202611_regular_last46081_settlement46106;spot46096_23;basis_minus15_23_plus9_77;prior_same_contract_last46272_settlement46234;basis_narrowed_not_independent_release",
+      "VERIFIED_TWSE_foreign_flow_minus8103915678_trust_plus23645327285_dealer_minus12399047408_total_plus3142364199_TWD;foreign_still_net_selling",
+      "VERIFIED_TAIFEX_VIX_2026_10_27_29_86_LAST_1_MIN_AVG_vs_prior30_35;improved_one_session_only",
+      "VERIFIED_TWSE_margin_2026_10_22_cash633880174_thousand_TWD_change_minus10493450;units9604402_change_minus27925;short216539_change_plus23941;official_lag_accepted",
+      "TAIFEX_foreign_TX_OI_and_PCR_dated_endpoints_returned_no_data_at_observation;UNKNOWN_not_zero_not_no_trigger;cannot_use_for_RED_release;news_not_pressure_authority"
     ],
     "confirmed_inputs": {
       "spot": true,
       "futures": true,
-      "pcr": true,
+      "pcr": false,
       "volatility": true,
       "institutional_flow": true,
       "margin": true
     },
     "input_data_as_of": {
-      "spot": "2026-10-22",
-      "futures": "2026-10-22",
-      "pcr": "2026-10-22",
-      "volatility": "2026-10-22",
-      "institutional_flow": "2026-10-22",
-      "margin": "2026-10-21"
+      "spot": "2026-10-27",
+      "futures": "2026-10-27",
+      "pcr": null,
+      "volatility": "2026-10-27",
+      "institutional_flow": "2026-10-27",
+      "margin": "2026-10-22"
     },
     "previous_light": "RED",
     "changed": false,
