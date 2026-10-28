@@ -1,9 +1,9 @@
 {
   "report_id": "taiwan",
   "report_date": "2026-10-28",
-  "generated_at": "2026-10-28T10:12:48Z",
-  "data_as_of": "2026-10-27",
-  "execution_status": "PARTIAL",
+  "generated_at": "2026-10-28T10:24:01Z",
+  "data_as_of": "2026-10-28",
+  "execution_status": "SUCCESS",
   "delivery_status": "UNKNOWN",
   "writeback_status": "VERIFIED",
   "channels": {
@@ -14,14 +14,15 @@
     },
     "artifact": {
       "status": "DELIVERED",
-      "observed_at": "2026-10-28T10:12:48Z",
-      "evidence_sha256": "5a757af0d711783a386ba055b18fdf11d76bbb66114db19c9c4bd3e432dde884"
+      "observed_at": "2026-10-28T10:24:01Z",
+      "evidence_sha256": "ba1e9eff8ab1b8dfb1ca3e31a74a4f51bb1258991e73c1f0c9f531fbd7e23a13"
     },
     "email": {
-      "status": "FAILED",
-      "observed_at": null,
-      "evidence_sha256": null,
-      "reason": "FINAL_GATE_UPDATE_INCOMPLETE"
+      "status": "DELIVERED",
+      "observed_at": "2026-10-28T10:24:01Z",
+      "evidence_sha256": "3352fdfb231476859853833f7bb05051c8ab5a8b8eb27f4e13e2173d03009d3e",
+      "snapshot_sha256": "489a8233d8b99090db6f0bfa3cdd4691c239bab6134011984a8383c69fdfa1a5",
+      "all_required_recipients_verified": true
     }
   },
   "completed_steps": [
@@ -30,12 +31,16 @@
     "artifact_saved_full_readback",
     "official_spot_futures_PCR_flow_verified",
     "formal_RED_persisted_readback",
-    "three_screen_attempts_completed"
+    "three_screen_attempts_completed",
+    "current_screen_recovered",
+    "foreign_OI_official_all_contracts_verified",
+    "source_join_pass",
+    "health_asia_ready",
+    "final_artifact_readback",
+    "snapshot_stable",
+    "email_success_ack"
   ],
-  "failed_steps": [
-    "screen_official_income_bd_endpoint_non_json",
-    "foreign_TX_OI_unavailable",
-    "final_snapshot_incomplete"
-  ],
-  "next_action": "Retry official financial feed after provider recovery; never fabricate current Screen; Email remains paused."
+  "failed_steps": [],
+  "next_action": "No resend for unobserved conversation acknowledgement; formal pressure version retained after late input discovery.",
+  "snapshot_sha256": "489a8233d8b99090db6f0bfa3cdd4691c239bab6134011984a8383c69fdfa1a5"
 }
