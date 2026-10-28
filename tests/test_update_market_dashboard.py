@@ -669,6 +669,8 @@ def test_us_scan_is_published_with_same_dashboard_cutoff(
                 quarterly_revenue_growth=0.3,
                 annual_eps_growth=0.4,
                 institutional_holders_available=True,
+                source_urls=("https://www.sec.gov/fixture",),
+                published_as_of=expected_as_of,
             )
         }
 
@@ -753,6 +755,8 @@ def test_partial_us_scan_cannot_overwrite_broader_last_valid_artifact(
                 quarterly_revenue_growth=0.3,
                 annual_eps_growth=0.4,
                 institutional_holders_available=True,
+                source_urls=("https://www.sec.gov/fixture",),
+                published_as_of=expected_as_of,
             )
         }
 

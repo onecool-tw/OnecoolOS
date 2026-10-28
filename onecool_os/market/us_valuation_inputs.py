@@ -178,12 +178,18 @@ def collect_valuation_inputs(scan, histories, evidence, client, registry=None, r
         official = (reviewed or {}).get("results", {}).get(symbol)
         if official is not None:
             _collect_reviewed(official, candidate, pack, record, cutoff)
-            if ((official.get("source_review") or {}).get("status")
-                    == "EXTERNAL_DISCLOSURE_PENDING"):
+            if (official.get("source_review") or {}).get("status") in {
+                    "EXTERNAL_DISCLOSURE_PENDING", "VERIFIED_SOURCE_RECHECK"}:
                 watch = check_pending_disclosures(client, mapping.get(symbol), official, cutoff)
                 pack["official_disclosure_watch"] = watch
                 if watch["status"] == "NEW_DISCLOSURE_REQUIRES_REVIEW":
                     gap = "NEW_OFFICIAL_DISCLOSURE_REQUIRES_NORMALIZATION_REVIEW"
+                    pack["gaps"].append(gap)
+                    pack["status"] = "PARTIAL"
+                    record.setdefault("gates", {})["valuation"].update(
+                        status="UNKNOWN", data_gap=gap, rationale=gap)
+                elif watch["status"] == "FETCH_OR_VALIDATION_FAILED" and (official.get("source_review") or {}).get("status") == "VERIFIED_SOURCE_RECHECK":
+                    gap = "CURRENT_DISCLOSURE_CHECK_UNAVAILABLE"
                     pack["gaps"].append(gap)
                     pack["status"] = "PARTIAL"
                     record.setdefault("gates", {})["valuation"].update(
@@ -280,6 +286,19 @@ def _collect_reviewed(official, candidate, pack, record, cutoff):
         if not _positive(price):
             return
         multiple = price / model["denominator"]
+        capital = model.get("capital_structure")
+        cross_check = None
+        if capital:
+            if date.fromisoformat(capital["as_of"]) > cutoff:
+                raise ValueError("CAPITAL_STRUCTURE_AFTER_CUTOFF")
+            if not all(_positive(capital.get(k)) for k in ("shares_outstanding", "reported_ttm_fcf")):
+                raise ValueError("CAPITAL_STRUCTURE_INPUTS_INVALID")
+            ev = price * capital["shares_outstanding"] + capital["debt"] - capital["cash"]
+            if not _positive(ev):
+                raise ValueError("ENTERPRISE_VALUE_INVALID")
+            cross_check = {**deepcopy(capital), "price_as_of": cutoff.isoformat(),
+                           "enterprise_value": ev, "ev_reported_fcf": ev/capital["reported_ttm_fcf"],
+                           "reported_fcf_yield": capital["reported_ttm_fcf"]/ev}
         gate = {"status": "FAIL" if multiple > limits[1] else "PASS",
                 "as_of": cutoff.isoformat(), "price_as_of": cutoff.isoformat(),
                 # Price is recalculated each run. Never carry a valuation to
@@ -304,6 +323,8 @@ def _collect_reviewed(official, candidate, pack, record, cutoff):
         if verified["status"] != gate["status"]:
             raise ValueError("REVIEWED_VALUATION_MODEL_GATE_VALIDATION_FAILED")
         record["gates"]["valuation"] = gate
+        if cross_check:
+            gate["inputs"]["fcf_ev_cross_check"] = cross_check
         pack["status"] = "COMPLETE"
         pack["decision_authority"] = "REVIEWED_SOURCE_BACKED_VALUATION_MODEL"
     except (KeyError, TypeError, ValueError) as exc:

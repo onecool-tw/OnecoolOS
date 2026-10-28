@@ -584,6 +584,7 @@ def update(
                     provider_cache = {}
                 fetch_diagnostics = {}
                 price_diagnostics = {}
+                from onecool_os.market.yahoo_chart import fetch_adjusted_chart
                 scan_histories, scan_fundamentals = fetch_yahoo_breakout_inputs(
                     yfinance,
                     expected_as_of=payload["expected_as_of"],
@@ -594,16 +595,20 @@ def update(
                     fundamental_cache=provider_cache,
                     fetch_diagnostics=fetch_diagnostics,
                     price_diagnostics=price_diagnostics,
+                    chart_fetcher=fetch_adjusted_chart,
+                    fetch_snapshot_fundamentals=False,
                 )
                 from onecool_os.market.ai_revolution import SecClient
                 from onecool_os.market.sec_fundamentals import fill_missing_fundamentals
+                from onecool_os.market.us_valuation_inputs import fetch_sec_json
                 sec_details = fill_missing_fundamentals(
                     SecClient(
                         os.environ.get(
                             "SEC_USER_AGENT",
                             "OnecoolOS research onecool-tw@users.noreply.github.com",
                         ),
-                        retry_delays=(1.0,),
+                        request=fetch_sec_json,
+                        retry_delays=(),
                     ),
                     scan_histories, scan_fundamentals, payload["expected_as_of"],
                     provider_cache, fetch_diagnostics,
@@ -620,10 +625,18 @@ def update(
             # Reviewed point-in-time filing versions take precedence over a
             # provider's latest snapshot (which can include after-hours news).
             for symbol, fundamental in reviewed_fundamentals.items():
-                scan_fundamentals[symbol] = fundamental
+                existing = scan_fundamentals.get(symbol)
+                if existing is None or fundamental.as_of >= existing.as_of:
+                    scan_fundamentals[symbol] = fundamental
             # Use the same adjusted bars as Dashboard for overlapping symbols.
             scan_histories.update({s: h for s, h in histories_by_symbol.items()
                                    if s in scan_histories})
+            from onecool_os.market.us_background_validation import build_background_validation
+            background = build_background_validation(
+                {**scan_histories, "SPY": histories_by_symbol["SPY"]}, payload["expected_as_of"])
+            intelligence_dir.mkdir(parents=True, exist_ok=True)
+            (intelligence_dir / "background_validation_latest.json").write_text(
+                json.dumps(background, indent=2, allow_nan=False) + "\n", encoding="utf-8")
             breakout_scan = build_breakout_scan_payload(
                 scan_histories,
                 scan_fundamentals,
@@ -632,7 +645,7 @@ def update(
             )
             from onecool_os.market.sec_fundamentals import annotate_reviewed_exclusions
             exclusions_path = intelligence_dir / "reviewed_exclusions.json"
-            annotate_reviewed_exclusions(breakout_scan, json.loads(exclusions_path.read_text()) if exclusions_path.exists() else {}, payload["expected_as_of"])
+            annotate_reviewed_exclusions(breakout_scan, json.loads(exclusions_path.read_text()) if exclusions_path.exists() else {}, payload["expected_as_of"], sec_details if breakout_input_loader is None else None)
             if breakout_input_loader is None:
                 breakout_scan["fundamental_fetch_status"] = fetch_diagnostics
                 breakout_scan["price_fetch_diagnostics"] = price_diagnostics
@@ -654,6 +667,8 @@ def update(
                 if (
                     previous_scan.get("data_status") == "READY"
                     and previous_count > 0
+                    and all(c.get("fundamental_sources") and c.get("fundamentals_published_as_of")
+                            for c in previous_scan.get("top5", []))
                     and (current_count < minimum_count or same_cutoff_regression)
                 ):
                     attempted_as_of = breakout_scan.get("expected_as_of")
@@ -684,7 +699,9 @@ def update(
         breakout_scan = json.loads(scan_path.read_text(encoding="utf-8"))
         breakout_scan["publication_status"] = "LAST_VALID"
     for symbol, fundamental in reviewed_fundamentals.items():
-        scan_fundamentals[symbol] = fundamental
+        existing = scan_fundamentals.get(symbol)
+        if existing is None or fundamental.as_of >= existing.as_of:
+            scan_fundamentals[symbol] = fundamental
     portfolio_scores = build_portfolio_score_payload(
         histories_by_symbol, expected_as_of=payload["expected_as_of"],
         fundamentals=scan_fundamentals,

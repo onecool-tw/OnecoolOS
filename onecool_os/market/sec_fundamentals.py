@@ -5,11 +5,12 @@ Same-day filings are excluded because Company Facts only supplies filing dates.
 """
 from datetime import date
 from math import isfinite
+from concurrent.futures import ThreadPoolExecutor, as_completed
 
 TAGS = {
     'us-gaap': {
         'eps': ('EarningsPerShareDiluted',),
-        'revenue': ('RevenueFromContractWithCustomerExcludingAssessedTax', 'Revenues', 'SalesRevenueNet', 'RevenueFromContractWithCustomerIncludingAssessedTax'),
+        'revenue': ('RevenueFromContractWithCustomerExcludingAssessedTax', 'RevenuesNetOfInterestExpense', 'Revenues', 'SalesRevenueNet', 'RevenueFromContractWithCustomerIncludingAssessedTax'),
     },
     'ifrs-full': {
         'eps': ('DilutedEarningsLossPerShare',),
@@ -92,7 +93,7 @@ def extract_fundamentals(facts, expected_as_of):
 
 
 def fill_missing_fundamentals(client, histories, fundamentals, expected_as_of, cache, diagnostics, registry_mapping=None):
-    """Fetch SEC sequentially, retaining raw filing evidence and distinct exclusions."""
+    """Fetch bounded SEC batches, retaining raw evidence and distinct exclusions."""
     from dataclasses import asdict
     from onecool_os.market.us_breakout_scan import FundamentalMetrics, technical_confidence
     expected = date.fromisoformat(expected_as_of)
@@ -113,44 +114,45 @@ def fill_missing_fundamentals(client, histories, fundamentals, expected_as_of, c
         except Exception:
             if not mapping:
                 return {s: {'status': 'SEC_REGISTRY_UNAVAILABLE'} for s in missing}
-    details = {}
-    for symbol in missing:
-        if symbol in conflicts:
-            details[symbol] = {'status': 'SEC_TICKER_MAPPING_CONFLICT'}
-            continue
-        cik = mapping.get(symbol)
-        if not cik:
-            details[symbol] = {'status': 'SEC_TICKER_UNMAPPED'}
-            continue
-        try:
-            facts = client.fetch_companyfacts(cik)
-            if int(facts['cik']) != int(cik):
-                raise ValueError('CIK mismatch')
-            evidence, reason = extract_fundamentals(facts, expected_as_of)
-            details[symbol] = {'status': reason, 'source_url': f'https://data.sec.gov/api/xbrl/companyfacts/CIK{cik}.json', 'evidence': evidence}
-            if reason != 'SEC_VERIFIED':
-                diagnostics[symbol] = reason
-                continue
-            pairs = evidence['pairs']
-            fundamental = FundamentalMetrics(
-                as_of=pairs['quarterly_eps']['current']['end'],
-                quarterly_eps_growth=pairs['quarterly_eps']['current']['val']/pairs['quarterly_eps']['prior']['val']-1,
-                quarterly_revenue_growth=pairs['quarterly_revenue']['current']['val']/pairs['quarterly_revenue']['prior']['val']-1,
-                annual_eps_growth=pairs['annual_eps']['current']['val']/pairs['annual_eps']['prior']['val']-1,
-                institutional_holders_available=False,
-                source_urls=(details[symbol]['source_url'],),
-                published_as_of=max(r['filed'] for p in pairs.values() for r in p.values()),
-            )
-            fundamentals[symbol] = fundamental
-            cache.setdefault(symbol, {}).update(metrics=asdict(fundamental), fetched_as_of=expected_as_of, provider='SEC', sec_evidence=evidence)
-            diagnostics[symbol] = 'SEC_VERIFIED'
-        except Exception as exc:
-            details[symbol] = {'status': 'SEC_FETCH_FAILED', 'error_type': type(exc).__name__,
-                               'provider_error': str(exc)[:200] if type(exc).__name__ == 'AIRevolutionError' else None}
+    details = {s: {'status': 'SEC_TICKER_MAPPING_CONFLICT' if s in conflicts else 'SEC_TICKER_UNMAPPED'}
+               for s in missing if s in conflicts or not mapping.get(s)}
+    # Three concurrent, individually bounded official requests stay below SEC's
+    # fair-access limit and avoid serial per-symbol timeouts delaying delivery.
+    with ThreadPoolExecutor(max_workers=3) as executor:
+        futures = {executor.submit(client.fetch_companyfacts, str(mapping[s]).zfill(10)): s
+                   for s in missing if s not in details}
+        for future in as_completed(futures):
+            symbol = futures[future]
+            cik = str(mapping[symbol]).zfill(10)
+            try:
+                facts = future.result()
+                if int(facts['cik']) != int(cik):
+                    raise ValueError('CIK mismatch')
+                evidence, reason = extract_fundamentals(facts, expected_as_of)
+                details[symbol] = {'status': reason, 'source_url': f'https://data.sec.gov/api/xbrl/companyfacts/CIK{cik}.json', 'evidence': evidence}
+                if reason != 'SEC_VERIFIED':
+                    diagnostics[symbol] = reason
+                    continue
+                pairs = evidence['pairs']
+                fundamental = FundamentalMetrics(
+                    as_of=pairs['quarterly_eps']['current']['end'],
+                    quarterly_eps_growth=pairs['quarterly_eps']['current']['val']/pairs['quarterly_eps']['prior']['val']-1,
+                    quarterly_revenue_growth=pairs['quarterly_revenue']['current']['val']/pairs['quarterly_revenue']['prior']['val']-1,
+                    annual_eps_growth=pairs['annual_eps']['current']['val']/pairs['annual_eps']['prior']['val']-1,
+                    institutional_holders_available=False,
+                    source_urls=(details[symbol]['source_url'],),
+                    published_as_of=max(r['filed'] for p in pairs.values() for r in p.values()),
+                )
+                fundamentals[symbol] = fundamental
+                cache.setdefault(symbol, {}).update(metrics=asdict(fundamental), fetched_as_of=expected_as_of, provider='SEC', sec_evidence=evidence)
+                diagnostics[symbol] = 'SEC_VERIFIED'
+            except Exception as exc:
+                details[symbol] = {'status': 'SEC_FETCH_FAILED', 'error_type': type(exc).__name__,
+                                   'provider_error': str(exc)[:200] if type(exc).__name__ == 'AIRevolutionError' else None}
     return details
 
 
-def annotate_reviewed_exclusions(scan, reviewed, expected_as_of):
+def annotate_reviewed_exclusions(scan, reviewed, expected_as_of, sec_details=None):
     """Explain reviewed rule exclusions without relabeling them as scored stocks."""
     expected = date.fromisoformat(expected_as_of)
     rules = {}
@@ -168,6 +170,15 @@ def annotate_reviewed_exclusions(scan, reviewed, expected_as_of):
             continue
     for exclusion in scan.get('exclusions', []):
         symbol = exclusion['symbol']
+        detail = (sec_details or {}).get(symbol, {})
+        evidence = detail.get('evidence') or {}
+        if (str(detail.get('status', '')).startswith('NONPOSITIVE_COMPARISON_BASE:')
+                and evidence.get('pairs') and detail.get('source_url', '').startswith('https://')
+                and exclusion.get('technical_confidence', 0) >= 90
+                and exclusion.get('reason') == 'fundamental validation unavailable'):
+            exclusion['assessment_status'] = 'RULE_EXCLUDED'
+            exclusion['reason'] = 'SEC verified nonpositive comparison base; growth comparison is not meaningful under the existing rule'
+            exclusion['reviewed_evidence'] = detail
         if symbol in rules and exclusion.get('technical_confidence', 0) >= 90 and exclusion.get('reason') == 'fundamental validation unavailable':
             exclusion['assessment_status'] = 'RULE_EXCLUDED'
             exclusion['reason'] = 'Reviewed nonpositive prior EPS; growth comparison is not meaningful under the existing rule'

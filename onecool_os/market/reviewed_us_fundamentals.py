@@ -15,7 +15,7 @@ def load_reviewed_fundamentals(payload, expected_as_of):
     for row in payload.get("results", []):
         try:
             symbol = row["symbol"]
-            if symbol not in US_SECURITY_MASTER or row["accounting_basis"] != "GAAP":
+            if symbol not in US_SECURITY_MASTER or row["accounting_basis"] not in {"GAAP", "IFRS"}:
                 continue
             if row["review_status"] != "VERIFIED" or not row["sources"]:
                 continue

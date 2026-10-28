@@ -44,6 +44,8 @@ def _fundamental(as_of: str) -> FundamentalMetrics:
         quarterly_revenue_growth=0.3,
         annual_eps_growth=0.4,
         institutional_holders_available=True,
+        source_urls=("https://www.sec.gov/fixture",),
+        published_as_of=as_of,
     )
 
 
@@ -171,25 +173,24 @@ def test_yahoo_input_loader_uses_batch_prices_and_shortlists_fundamentals(batch_
 
     assert set(histories) == {"AAA", "BBB"}
     assert all(len(history) == len(spy) for history in histories.values())
-    assert len(fundamentals) == 1
-    assert "AAA" in fundamentals
-    assert diagnostics == {"AAA": "FETCHED", "BBB": "NOT_REQUESTED"}
+    assert fundamentals == {}
+    assert diagnostics == {"AAA": "UNVERIFIED_PROVIDER_SNAPSHOT", "BBB": "NOT_REQUESTED"}
     diagnostics = {}
     _, second = fetch_yahoo_breakout_inputs(
         FakeYahoo, expected_as_of=spy[-1].trading_date.isoformat(),
         spy_history=spy, universe=("AAA", "BBB"), fundamental_shortlist_size=1,
         fundamental_cache=cache, fetch_diagnostics=diagnostics,
     )
-    assert set(second) == {"AAA", "BBB"}
-    assert diagnostics == {"AAA": "CACHED_VALID", "BBB": "FETCHED"}
+    assert second == {}
+    assert diagnostics == {"AAA": "NOT_REQUESTED", "BBB": "UNVERIFIED_PROVIDER_SNAPSHOT"}
     _, full = fetch_yahoo_breakout_inputs(
         FakeYahoo, expected_as_of=spy[-1].trading_date.isoformat(),
         spy_history=spy, universe=("AAA", "BBB"),
     )
-    assert set(full) == {"AAA", "BBB"}
+    assert full == {}
 
 
-def test_refresh_failure_retains_fundamentally_valid_sec_cache() -> None:
+def test_refresh_failure_does_not_relabel_previous_session_sec_cache_current() -> None:
     spy = _history(strength=0.1)
     dates = pd.to_datetime([bar.trading_date for bar in spy])
     frame = pd.DataFrame({
@@ -245,8 +246,8 @@ def test_refresh_failure_retains_fundamentally_valid_sec_cache() -> None:
         fetch_diagnostics=diagnostics,
     )
 
-    assert fundamentals["AAA"].quarterly_eps_growth == 0.2
-    assert diagnostics["AAA"] == "UNAVAILABLE_USING_VALID_CACHE"
+    assert "AAA" not in fundamentals
+    assert diagnostics["AAA"] == "UNAVAILABLE"
     assert cache["AAA"]["attempted_as_of"] == expected.isoformat()
 
 

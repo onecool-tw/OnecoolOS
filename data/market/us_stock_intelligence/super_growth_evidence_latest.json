@@ -1821,29 +1821,98 @@
           "data_gap": "PRE_TRADE_USER_CONFIRMATION_ONLY"
         },
         "valuation": {
-          "status": "UNKNOWN",
+          "status": "FAIL",
           "as_of": "2026-10-27",
-          "rationale": "Current-session valuation model not yet validated.",
-          "sources": []
+          "price_as_of": "2026-10-27",
+          "valid_through": "2026-10-27",
+          "method": "TTM_PRICE_TO_SBC_COSTED_OWNER_FCF_PROXY",
+          "rationale": "Official historical inputs with an explicit Onecool conservative/base equity cash-flow scenario; an opinion under this discipline, not issuer fair value. Onecool economic SBC charge proxy, not GAAP EPS or issuer FCFE. No estimated future SBC or tax benefit. FCF already deducts capital expenditures and capitalized software. Latest diluted share count is a conservative current-share denominator.",
+          "sources": [
+            "https://investors.datadoghq.com/news-releases/news-release-details/datadog-announces-fourth-quarter-and-fiscal-year-2025-financial",
+            "https://investors.datadoghq.com/news-releases/news-release-details/datadog-announces-second-quarter-2026-financial-results/"
+          ],
+          "price_source": {
+            "provider": "yahoo_finance_adjusted_chart",
+            "symbol": "DDOG",
+            "as_of": "2026-10-27",
+            "url": "https://finance.yahoo.com/quote/DDOG/history/"
+          },
+          "denominator_source": [
+            "https://investors.datadoghq.com/news-releases/news-release-details/datadog-announces-fourth-quarter-and-fiscal-year-2025-financial",
+            "https://investors.datadoghq.com/news-releases/news-release-details/datadog-announces-second-quarter-2026-financial-results/"
+          ],
+          "fair_range_rationale": "Five-year conservative/base cash-flow scenarios. Required returns 12%/10%, terminal growth 2%/3% are Onecool hurdles, not observed WACC. Growth/cash conversion are analyst scenarios differentiated for acquisition/leverage, software SBC, semiconductor cyclicality, capex and AI concentration; bull-case extrapolation is excluded. See versioned policy for assumptions and limitations.",
+          "fair_range_sources": [
+            "https://pages.stern.nyu.edu/~adamodar/New_Home_Page/invfables/peratio.htm",
+            "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md",
+            "https://investors.datadoghq.com/news-releases/news-release-details/datadog-announces-fourth-quarter-and-fiscal-year-2025-financial",
+            "https://investors.datadoghq.com/news-releases/news-release-details/datadog-announces-second-quarter-2026-financial-results/"
+          ],
+          "normalization_bridge": {
+            "formula": "(FY25 FCF + H126 FCF - H125 FCF - (FY25 SBC + H126 SBC - H125 SBC)) / Q226 diluted shares",
+            "inputs_usd_thousands": {
+              "FY25_FCF": 914717,
+              "H126_FCF": 567796,
+              "H125_FCF": 409744,
+              "FY25_SBC": 750671,
+              "H126_SBC": 417093,
+              "H125_SBC": 344727,
+              "Q226_diluted_shares_thousands": 371023
+            },
+            "TTM_FCF": 1072769,
+            "TTM_SBC": 823037,
+            "owner_FCF_proxy": 249732,
+            "limitations": "Onecool economic SBC charge proxy, not GAAP EPS or issuer FCFE. No estimated future SBC or tax benefit. FCF already deducts capital expenditures and capitalized software. Latest diluted share count is a conservative current-share denominator."
+          },
+          "policy_version": "onecool_equity_two_stage_screen_v1",
+          "assumption_authority": "ONECOOL_ANALYST_NOT_ISSUER_GUIDANCE",
+          "scenarios": [
+            {
+              "name": "conservative",
+              "years": 5,
+              "growth": 0.15,
+              "required_return": 0.12,
+              "terminal_growth": 0.02,
+              "cash_conversion": 1,
+              "terminal_cash_conversion": 1
+            },
+            {
+              "name": "base",
+              "years": 5,
+              "growth": 0.25,
+              "required_return": 0.1,
+              "terminal_growth": 0.03,
+              "cash_conversion": 1,
+              "terminal_cash_conversion": 1
+            }
+          ],
+          "research_grade": "SCREENING_SCENARIO_NOT_FULL_DCF",
+          "inputs": {
+            "price": 280.82000732421875,
+            "denominator": 0.6730903474986726,
+            "multiple": 417.20997540344695,
+            "fair_range": [
+              17.05766704071565,
+              35.33963453901469
+            ]
+          }
         }
       },
       "valuation_input_collection": {
         "as_of": "2026-10-27",
-        "status": "PARTIAL",
-        "gaps": [
-          "OFFICIAL_REFERENCE_EXPIRED_OR_NOT_POINT_IN_TIME",
-          "SEC_COMPANYFACTS_FETCH_OR_IDENTITY_VALIDATION_FAILED"
-        ],
+        "status": "COMPLETE",
+        "gaps": [],
         "price_basis": "adjusted_close",
         "inputs": {
           "adjusted_close": 280.82000732421875
         },
         "sources": [
-          "https://data.sec.gov/api/xbrl/companyfacts/CIK0001561550.json"
+          "https://investors.datadoghq.com/news-releases/news-release-details/datadog-announces-fourth-quarter-and-fiscal-year-2025-financial",
+          "https://investors.datadoghq.com/news-releases/news-release-details/datadog-announces-second-quarter-2026-financial-results/"
         ],
-        "decision_authority": "REFERENCE_INPUTS_ONLY_NOT_FAIR_VALUE",
+        "decision_authority": "REVIEWED_SOURCE_BACKED_VALUATION_MODEL",
         "price_source": {
-          "provider": "yahoo_finance_adjusted_batch",
+          "provider": "yahoo_finance_adjusted_chart",
           "symbol": "DDOG",
           "as_of": "2026-10-27",
           "url": "https://finance.yahoo.com/quote/DDOG/history/"
@@ -1852,12 +1921,123 @@
           "date": "2026-10-27",
           "adjusted_close": 280.82000732421875,
           "raw_close": 280.82000732421875,
-          "provider": "yahoo_finance_adjusted_batch"
+          "provider": "yahoo_finance_adjusted_chart"
         },
-        "price_sha256": "7370715ab02c07c8793d5f74bcb97a5868aba5e70cd45cded692a1cd3a62e5f5",
-        "official_reference_status": "REJECTED",
-        "fundamental_fetch_status": "FETCH_FAILED",
-        "fetch_error_type": "HTTPError"
+        "price_sha256": "ac5692890dd644fc54f369b73b14108745006bf5e48ef06b90fa2c6e7e154f16",
+        "official_reference_status": "VERIFIED",
+        "fundamental_fetch_status": "REVIEWED_OFFICIAL_REFERENCE",
+        "company_name": "Datadog, Inc.",
+        "official_reference": {
+          "symbol": "DDOG",
+          "company_name": "Datadog, Inc.",
+          "published_at": "2026-08-06",
+          "valid_through": "2026-11-03",
+          "sources": [
+            "https://investors.datadoghq.com/news-releases/news-release-details/datadog-announces-fourth-quarter-and-fiscal-year-2025-financial",
+            "https://investors.datadoghq.com/news-releases/news-release-details/datadog-announces-second-quarter-2026-financial-results/"
+          ],
+          "reported_facts": {
+            "period": "FY2026",
+            "currency": "USD",
+            "share_basis": "common_diluted",
+            "non_gaap_eps_guidance": [
+              2.5,
+              2.54
+            ],
+            "guidance_diluted_shares_million": 376,
+            "sbc_excluded": true
+          },
+          "model_gaps": [],
+          "refresh_on": [
+            "NEW_EARNINGS_OR_GUIDANCE",
+            "MATERIAL_CORPORATE_EVENT",
+            "REFERENCE_EXPIRY"
+          ],
+          "valuation_model": {
+            "method": "TTM_PRICE_TO_SBC_COSTED_OWNER_FCF_PROXY",
+            "denominator": 0.6730903474986726,
+            "currency": "USD",
+            "share_basis": "listed_security",
+            "normalization_bridge": {
+              "formula": "(FY25 FCF + H126 FCF - H125 FCF - (FY25 SBC + H126 SBC - H125 SBC)) / Q226 diluted shares",
+              "inputs_usd_thousands": {
+                "FY25_FCF": 914717,
+                "H126_FCF": 567796,
+                "H125_FCF": 409744,
+                "FY25_SBC": 750671,
+                "H126_SBC": 417093,
+                "H125_SBC": 344727,
+                "Q226_diluted_shares_thousands": 371023
+              },
+              "TTM_FCF": 1072769,
+              "TTM_SBC": 823037,
+              "owner_FCF_proxy": 249732,
+              "limitations": "Onecool economic SBC charge proxy, not GAAP EPS or issuer FCFE. No estimated future SBC or tax benefit. FCF already deducts capital expenditures and capitalized software. Latest diluted share count is a conservative current-share denominator."
+            },
+            "denominator_source": [
+              "https://investors.datadoghq.com/news-releases/news-release-details/datadog-announces-fourth-quarter-and-fiscal-year-2025-financial",
+              "https://investors.datadoghq.com/news-releases/news-release-details/datadog-announces-second-quarter-2026-financial-results/"
+            ],
+            "fair_range": [
+              17.05766704071565,
+              35.33963453901469
+            ],
+            "scenarios": [
+              {
+                "name": "conservative",
+                "years": 5,
+                "growth": 0.15,
+                "required_return": 0.12,
+                "terminal_growth": 0.02,
+                "cash_conversion": 1,
+                "terminal_cash_conversion": 1
+              },
+              {
+                "name": "base",
+                "years": 5,
+                "growth": 0.25,
+                "required_return": 0.1,
+                "terminal_growth": 0.03,
+                "cash_conversion": 1,
+                "terminal_cash_conversion": 1
+              }
+            ],
+            "assumption_authority": "ONECOOL_ANALYST_NOT_ISSUER_GUIDANCE",
+            "research_grade": "SCREENING_SCENARIO_NOT_FULL_DCF",
+            "policy_version": "onecool_equity_two_stage_screen_v1",
+            "rationale": "Official historical inputs with an explicit Onecool conservative/base equity cash-flow scenario; an opinion under this discipline, not issuer fair value. Onecool economic SBC charge proxy, not GAAP EPS or issuer FCFE. No estimated future SBC or tax benefit. FCF already deducts capital expenditures and capitalized software. Latest diluted share count is a conservative current-share denominator.",
+            "fair_range_rationale": "Five-year conservative/base cash-flow scenarios. Required returns 12%/10%, terminal growth 2%/3% are Onecool hurdles, not observed WACC. Growth/cash conversion are analyst scenarios differentiated for acquisition/leverage, software SBC, semiconductor cyclicality, capex and AI concentration; bull-case extrapolation is excluded. See versioned policy for assumptions and limitations.",
+            "fair_range_sources": [
+              "https://pages.stern.nyu.edu/~adamodar/New_Home_Page/invfables/peratio.htm",
+              "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md",
+              "https://investors.datadoghq.com/news-releases/news-release-details/datadog-announces-fourth-quarter-and-fiscal-year-2025-financial",
+              "https://investors.datadoghq.com/news-releases/news-release-details/datadog-announces-second-quarter-2026-financial-results/"
+            ]
+          },
+          "reviewed_as_of": "2026-10-27",
+          "review_note": "Recovery review on Oct27 for Oct26 price cutoff only. Official earnings/guidance source reopened. Existing analyst model retained, not new issuer guidance; no future validity extension. New earnings or material events require re-review.",
+          "source_review": {
+            "status": "VERIFIED_SOURCE_RECHECK",
+            "checked_at": "2026-10-28T08:18:47+00:00",
+            "information_cutoff": "2026-10-27",
+            "next_announced_earnings_date": "2026-11-04",
+            "event_source": "https://investors.datadoghq.com/news-releases/news-release-details/datadog-announces-date-third-quarter-fiscal-year-2026-earnings",
+            "review_sources": [
+              "https://investors.datadoghq.com/news-releases/news-release-details/datadog-announces-fourth-quarter-and-fiscal-year-2025-financial",
+              "https://investors.datadoghq.com/news-releases/news-release-details/datadog-announces-second-quarter-2026-financial-results/",
+              "https://investors.datadoghq.com/news-releases/news-release-details/datadog-announces-date-third-quarter-fiscal-year-2026-earnings"
+            ],
+            "conclusion": "Reopened issuer financial disclosure and current official news/event calendar; latest same-cutoff SEC financial inputs remain Q2. Retain existing sourced earnings normalization and analyst scenario assumptions; recalculate price multiple at each close. Expiry stops at/before the next announced earnings and within seven trading sessions, not a rolling one-day extension. Any new SEC filing requires review before use."
+          }
+        },
+        "official_disclosure_watch": {
+          "as_of": "2026-10-27",
+          "status": "NO_NEW_ELIGIBLE_FILINGS",
+          "filings": [],
+          "decision_authority": "RESEARCH_REFRESH_ONLY_NO_CTA_OR_SCORE_EFFECT",
+          "source": "https://data.sec.gov/submissions/CIK0001561550.json",
+          "next_action": "RECHECK_DURING_NEXT_EXISTING_SCAN"
+        }
       },
       "company_name": "Datadog, Inc.",
       "sector": "Technology",
@@ -1868,10 +2048,74 @@
       "symbol": "PLTR",
       "gates": {
         "valuation": {
-          "status": "UNKNOWN",
+          "status": "FAIL",
           "as_of": "2026-10-27",
-          "rationale": "Current-session valuation model not yet validated.",
-          "sources": []
+          "price_as_of": "2026-10-27",
+          "valid_through": "2026-10-27",
+          "method": "TTM_SBC_INCLUSIVE_OPERATING_EARNINGS_NORMALIZED_TAX_CURRENT_SHARE_PROXY",
+          "rationale": "SBC-inclusive TTM operating earnings, excluding treasury/investment income and normalized at analyst 21% tax. Onecool screening scenarios use 20%/30% five-year growth fading to 2%/3%, 12%/10% required return and limited distributions; high current growth is not extrapolated indefinitely. Government procurement, AI competition, founder voting control and dilution remain material risks. This is a conservative scenario screen, not a full DCF or issuer target.",
+          "sources": [
+            "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000004/a2025q4ex991earningsrelease.htm",
+            "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000039/a2026q2ex991pressrelease.htm"
+          ],
+          "price_source": {
+            "provider": "yahoo_finance_adjusted_chart",
+            "symbol": "PLTR",
+            "as_of": "2026-10-27",
+            "url": "https://finance.yahoo.com/quote/PLTR/history/"
+          },
+          "denominator_source": [
+            "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000004/a2025q4ex991earningsrelease.htm",
+            "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000039/a2026q2ex991pressrelease.htm"
+          ],
+          "fair_range_rationale": "SBC-inclusive TTM operating earnings, excluding treasury/investment income and normalized at analyst 21% tax. Onecool screening scenarios use 20%/30% five-year growth fading to 2%/3%, 12%/10% required return and limited distributions; high current growth is not extrapolated indefinitely. Government procurement, AI competition, founder voting control and dilution remain material risks. This is a conservative scenario screen, not a full DCF or issuer target.",
+          "fair_range_sources": [
+            "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000004/a2025q4ex991earningsrelease.htm",
+            "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000039/a2026q2ex991pressrelease.htm",
+            "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+          ],
+          "normalization_bridge": {
+            "formula": "(FY25 GAAP operating income + H126 GAAP operating income - H125 GAAP operating income) * (1 - analyst normalized tax rate) / Q226 diluted weighted shares",
+            "units": "USD thousand, shares thousand",
+            "FY25_operating_income": 1414015,
+            "H126_operating_income": 1666002,
+            "H125_operating_income": 445365,
+            "normalized_tax_rate": 0.21,
+            "diluted_share_proxy": 2568694,
+            "limitations": "SBC and related payroll costs retained. Excludes interest and all other investment income; tax rate is analyst normalization, not issuer guidance. Latest quarter shares proxy; no quarterly EPS annualization. Cash balance not added to this conservative operating-earnings screening model."
+          },
+          "policy_version": "onecool_equity_two_stage_screen_v1",
+          "assumption_authority": "ONECOOL_ANALYST_NOT_ISSUER_GUIDANCE",
+          "scenarios": [
+            {
+              "name": "conservative",
+              "years": 5,
+              "growth": 0.2,
+              "required_return": 0.12,
+              "terminal_growth": 0.02,
+              "cash_conversion": 0.7,
+              "terminal_cash_conversion": 0.9
+            },
+            {
+              "name": "base",
+              "years": 5,
+              "growth": 0.3,
+              "required_return": 0.1,
+              "terminal_growth": 0.03,
+              "cash_conversion": 0.8,
+              "terminal_cash_conversion": 0.95
+            }
+          ],
+          "research_grade": "SCREENING_SCENARIO_NOT_FULL_DCF",
+          "inputs": {
+            "price": 198.72999572753906,
+            "denominator": 0.8102853356608456,
+            "multiple": 245.25927717235626,
+            "fair_range": [
+              17.28697120247515,
+              39.01499600392776
+            ]
+          }
         },
         "competitive_advantage": {
           "status": "PASS",
@@ -1912,21 +2156,19 @@
       },
       "valuation_input_collection": {
         "as_of": "2026-10-27",
-        "status": "PARTIAL",
-        "gaps": [
-          "OFFICIAL_REFERENCE_EXPIRED_OR_NOT_POINT_IN_TIME",
-          "SEC_COMPANYFACTS_FETCH_OR_IDENTITY_VALIDATION_FAILED"
-        ],
+        "status": "COMPLETE",
+        "gaps": [],
         "price_basis": "adjusted_close",
         "inputs": {
           "adjusted_close": 198.72999572753906
         },
         "sources": [
-          "https://data.sec.gov/api/xbrl/companyfacts/CIK0001321655.json"
+          "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000004/a2025q4ex991earningsrelease.htm",
+          "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000039/a2026q2ex991pressrelease.htm"
         ],
-        "decision_authority": "REFERENCE_INPUTS_ONLY_NOT_FAIR_VALUE",
+        "decision_authority": "REVIEWED_SOURCE_BACKED_VALUATION_MODEL",
         "price_source": {
-          "provider": "yahoo_finance_adjusted_batch",
+          "provider": "yahoo_finance_adjusted_chart",
           "symbol": "PLTR",
           "as_of": "2026-10-27",
           "url": "https://finance.yahoo.com/quote/PLTR/history/"
@@ -1935,12 +2177,115 @@
           "date": "2026-10-27",
           "adjusted_close": 198.72999572753906,
           "raw_close": 198.72999572753906,
-          "provider": "yahoo_finance_adjusted_batch"
+          "provider": "yahoo_finance_adjusted_chart"
         },
-        "price_sha256": "9097ddcc6678bf88ef2e8594749824619ea0b46a4ffc1907813914dd3caf07eb",
-        "official_reference_status": "REJECTED",
-        "fundamental_fetch_status": "FETCH_FAILED",
-        "fetch_error_type": "HTTPError"
+        "price_sha256": "951fe8efffd1c65e4c8695eb9247437ce796dba160760786172788542cf2243b",
+        "official_reference_status": "VERIFIED",
+        "fundamental_fetch_status": "REVIEWED_OFFICIAL_REFERENCE",
+        "company_name": "Palantir Technologies Inc.",
+        "official_reference": {
+          "symbol": "PLTR",
+          "company_name": "Palantir Technologies Inc.",
+          "published_at": "2026-08-03",
+          "valid_through": "2026-11-02",
+          "sources": [
+            "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000004/a2025q4ex991earningsrelease.htm",
+            "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000039/a2026q2ex991pressrelease.htm"
+          ],
+          "reported_facts": {
+            "formula": "(FY25 GAAP operating income + H126 GAAP operating income - H125 GAAP operating income) * (1 - analyst normalized tax rate) / Q226 diluted weighted shares",
+            "units": "USD thousand, shares thousand",
+            "FY25_operating_income": 1414015,
+            "H126_operating_income": 1666002,
+            "H125_operating_income": 445365,
+            "normalized_tax_rate": 0.21,
+            "diluted_share_proxy": 2568694,
+            "limitations": "SBC and related payroll costs retained. Excludes interest and all other investment income; tax rate is analyst normalization, not issuer guidance. Latest quarter shares proxy; no quarterly EPS annualization. Cash balance not added to this conservative operating-earnings screening model."
+          },
+          "model_gaps": [],
+          "refresh_on": [
+            "NEW_EARNINGS_OR_GUIDANCE",
+            "MATERIAL_CORPORATE_EVENT",
+            "REFERENCE_EXPIRY"
+          ],
+          "valuation_model": {
+            "method": "TTM_SBC_INCLUSIVE_OPERATING_EARNINGS_NORMALIZED_TAX_CURRENT_SHARE_PROXY",
+            "denominator": 0.8102853356608456,
+            "currency": "USD",
+            "share_basis": "listed_security",
+            "normalization_bridge": {
+              "formula": "(FY25 GAAP operating income + H126 GAAP operating income - H125 GAAP operating income) * (1 - analyst normalized tax rate) / Q226 diluted weighted shares",
+              "units": "USD thousand, shares thousand",
+              "FY25_operating_income": 1414015,
+              "H126_operating_income": 1666002,
+              "H125_operating_income": 445365,
+              "normalized_tax_rate": 0.21,
+              "diluted_share_proxy": 2568694,
+              "limitations": "SBC and related payroll costs retained. Excludes interest and all other investment income; tax rate is analyst normalization, not issuer guidance. Latest quarter shares proxy; no quarterly EPS annualization. Cash balance not added to this conservative operating-earnings screening model."
+            },
+            "denominator_source": [
+              "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000004/a2025q4ex991earningsrelease.htm",
+              "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000039/a2026q2ex991pressrelease.htm"
+            ],
+            "fair_range": [
+              17.28697120247515,
+              39.01499600392776
+            ],
+            "scenarios": [
+              {
+                "name": "conservative",
+                "years": 5,
+                "growth": 0.2,
+                "required_return": 0.12,
+                "terminal_growth": 0.02,
+                "cash_conversion": 0.7,
+                "terminal_cash_conversion": 0.9
+              },
+              {
+                "name": "base",
+                "years": 5,
+                "growth": 0.3,
+                "required_return": 0.1,
+                "terminal_growth": 0.03,
+                "cash_conversion": 0.8,
+                "terminal_cash_conversion": 0.95
+              }
+            ],
+            "assumption_authority": "ONECOOL_ANALYST_NOT_ISSUER_GUIDANCE",
+            "research_grade": "SCREENING_SCENARIO_NOT_FULL_DCF",
+            "policy_version": "onecool_equity_two_stage_screen_v1",
+            "rationale": "SBC-inclusive TTM operating earnings, excluding treasury/investment income and normalized at analyst 21% tax. Onecool screening scenarios use 20%/30% five-year growth fading to 2%/3%, 12%/10% required return and limited distributions; high current growth is not extrapolated indefinitely. Government procurement, AI competition, founder voting control and dilution remain material risks. This is a conservative scenario screen, not a full DCF or issuer target.",
+            "fair_range_rationale": "SBC-inclusive TTM operating earnings, excluding treasury/investment income and normalized at analyst 21% tax. Onecool screening scenarios use 20%/30% five-year growth fading to 2%/3%, 12%/10% required return and limited distributions; high current growth is not extrapolated indefinitely. Government procurement, AI competition, founder voting control and dilution remain material risks. This is a conservative scenario screen, not a full DCF or issuer target.",
+            "fair_range_sources": [
+              "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000004/a2025q4ex991earningsrelease.htm",
+              "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000039/a2026q2ex991pressrelease.htm",
+              "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+            ]
+          },
+          "reviewed_as_of": "2026-10-27",
+          "review_note": "Recovery review on Oct27 for Oct26 price cutoff only. Official earnings/guidance source reopened. Existing analyst model retained, not new issuer guidance; no future validity extension. New earnings or material events require re-review.",
+          "source_review": {
+            "status": "VERIFIED_SOURCE_RECHECK",
+            "checked_at": "2026-10-28T08:18:47+00:00",
+            "information_cutoff": "2026-10-27",
+            "next_announced_earnings_date": "2026-11-02",
+            "event_source": "https://investors.palantir.com/news-details/2026/Palantir-Announces-Date-of-Third-Quarter-2026-Earnings-Release-and-Webcast/",
+            "review_sources": [
+              "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000004/a2025q4ex991earningsrelease.htm",
+              "https://www.sec.gov/Archives/edgar/data/1321655/000132165526000039/a2026q2ex991pressrelease.htm",
+              "https://investors.palantir.com/news-details/2026/Palantir-Announces-Date-of-Third-Quarter-2026-Earnings-Release-and-Webcast/"
+            ],
+            "conclusion": "Reopened issuer financial disclosure and current official news/event calendar; latest same-cutoff SEC financial inputs remain Q2. Retain existing sourced earnings normalization and analyst scenario assumptions; recalculate price multiple at each close. Expiry stops at/before the next announced earnings and within seven trading sessions, not a rolling one-day extension. Any new SEC filing requires review before use."
+          }
+        },
+        "official_disclosure_watch": {
+          "as_of": "2026-10-27",
+          "status": "NO_NEW_ELIGIBLE_FILINGS",
+          "filings": [],
+          "decision_authority": "RESEARCH_REFRESH_ONLY_NO_CTA_OR_SCORE_EFFECT",
+          "source": "https://data.sec.gov/submissions/CIK0001321655.json",
+          "next_action": "RECHECK_DURING_NEXT_EXISTING_SCAN"
+        }
       },
       "as_of": "2026-10-08",
       "business_model": "Gotham government/defense software; Foundry data operations; AIP enterprise AI workflow integration; Apollo software deployment. Revenue driven by subscriptions, maintenance and services.",
@@ -2782,7 +3127,7 @@
       "gates": {
         "valuation": {
           "status": "UNKNOWN",
-          "as_of": "2026-10-23",
+          "as_of": "2026-10-27",
           "rationale": "SEPT11_ATAIBECKLEY_POST_CLOSE_IPRD_AND_NET_DEBT_BRIDGE_NOT_DISCLOSED_IN_REVIEWED_OFFICIAL_SOURCES",
           "sources": [
             "https://investor.lilly.com/node/54781/pdf",
@@ -2790,14 +3135,14 @@
             "https://investor.lilly.com/news-releases/news-release-details/lilly-completes-acquisition-ataibeckley-advance-therapies"
           ],
           "data_gap": "SEPT11_ATAIBECKLEY_POST_CLOSE_IPRD_AND_NET_DEBT_BRIDGE_NOT_DISCLOSED_IN_REVIEWED_OFFICIAL_SOURCES",
-          "price_as_of": "2026-10-23",
+          "price_as_of": "2026-10-27",
           "inputs": {
-            "price": 1273.4599609375
+            "price": 1281.9100341796875
           },
           "price_source": {
-            "provider": "yahoo_finance_adjusted_batch",
+            "provider": "yahoo_finance_adjusted_chart",
             "symbol": "LLY",
-            "as_of": "2026-10-23",
+            "as_of": "2026-10-27",
             "url": "https://finance.yahoo.com/quote/LLY/history/"
           }
         },
@@ -2836,14 +3181,14 @@
         }
       },
       "valuation_input_collection": {
-        "as_of": "2026-10-23",
+        "as_of": "2026-10-27",
         "status": "PARTIAL",
         "gaps": [
           "SEPT11_ATAIBECKLEY_POST_CLOSE_IPRD_AND_NET_DEBT_BRIDGE_NOT_DISCLOSED_IN_REVIEWED_OFFICIAL_SOURCES"
         ],
         "price_basis": "adjusted_close",
         "inputs": {
-          "adjusted_close": 1273.4599609375
+          "adjusted_close": 1281.9100341796875
         },
         "sources": [
           "https://investor.lilly.com/node/54781/pdf",
@@ -2852,18 +3197,18 @@
         ],
         "decision_authority": "REFERENCE_INPUTS_ONLY_NOT_FAIR_VALUE",
         "price_source": {
-          "provider": "yahoo_finance_adjusted_batch",
+          "provider": "yahoo_finance_adjusted_chart",
           "symbol": "LLY",
-          "as_of": "2026-10-23",
+          "as_of": "2026-10-27",
           "url": "https://finance.yahoo.com/quote/LLY/history/"
         },
         "price_observation": {
-          "date": "2026-10-23",
-          "adjusted_close": 1273.4599609375,
-          "raw_close": 1273.4599609375,
-          "provider": "yahoo_finance_adjusted_batch"
+          "date": "2026-10-27",
+          "adjusted_close": 1281.9100341796875,
+          "raw_close": 1281.9100341796875,
+          "provider": "yahoo_finance_adjusted_chart"
         },
-        "price_sha256": "fdd7d18b1615b879565a54d95755ce8ea7bf39b77dae0bd4b706763ac8947106",
+        "price_sha256": "6770721873a6686bfe7f24298e1835b00718051d0573b8fbf9a2d4882c2977c1",
         "official_reference_status": "VERIFIED",
         "fundamental_fetch_status": "REVIEWED_OFFICIAL_REFERENCE",
         "company_name": "Eli Lilly and Company",
@@ -2872,7 +3217,7 @@
           "company_name": "Eli Lilly and Company",
           "published_at": "2026-08-05",
           "reviewed_as_of": "2026-10-17",
-          "valid_through": "2026-10-23",
+          "valid_through": "2026-10-28",
           "sources": [
             "https://investor.lilly.com/node/54781/pdf",
             "https://www.sec.gov/Archives/edgar/data/59478/000005947826000081/lly-20260630.htm",
@@ -2920,28 +3265,27 @@
             "conclusion": "Reviewed official disclosures do not supply a complete normalized earnings and net-debt bridge. Keep valuation UNKNOWN and new-entry valuation gate closed; do not infer values.",
             "next_earnings_is_guaranteed_resolution": false,
             "latest_recheck": {
-              "checked_at": "2026-10-26T09:52:55.847Z",
-              "market_information_cutoff": "2026-10-23",
-              "status": "OFFICIAL_ALTERNATE_SOURCES_READ_BRIDGE_UNRESOLVED",
-              "source_access_status": "RESOLVED_VIA_SEC",
+              "checked_at": "2026-10-28T08:18:47+00:00",
+              "market_information_cutoff": "2026-10-27",
+              "status": "OFFICIAL_SOURCE_READ_BRIDGE_UNRESOLVED",
               "sources": [
-                "https://www.sec.gov/Archives/edgar/data/2081043/000114036126036283/ef20081247_8k.htm",
-                "https://www.sec.gov/Archives/edgar/data/59478/000005947826000081/lly-20260630.htm"
+                "https://investor.lilly.com/node/54781/pdf",
+                "https://www.sec.gov/Archives/edgar/data/59478/000005947826000081/lly-20260630.htm",
+                "https://investor.lilly.com/news-releases/news-release-details/lilly-completes-acquisition-ataibeckley-advance-therapies"
               ],
-              "result": "Read closing 8-K: confirms September11 closing and cash/CVR terms, but not Lilly post-close IPRD charge/tax or consolidated cash/debt bridge. June30 10-Q predates closing.",
-              "next_action": "RECHECK_EXISTING_DAILY_SCAN_ON_NEW_OFFICIAL_EARNINGS_OR_TRANSACTION_FILINGS",
+              "result": "Official closing release reopened and SEC submission scan returned no newer eligible filing; post-close parent IPRD/tax and consolidated net-debt bridge remain unprovided. Do not substitute June30 debt or infer a normalized denominator.",
+              "next_action": "RECHECK_NEXT_OFFICIAL_EARNINGS_OR_TRANSACTION_DISCLOSURE",
               "user_action_required": false
             }
           }
         },
         "official_disclosure_watch": {
-          "as_of": "2026-10-23",
-          "status": "FETCH_OR_VALIDATION_FAILED",
+          "as_of": "2026-10-27",
+          "status": "NO_NEW_ELIGIBLE_FILINGS",
           "filings": [],
           "decision_authority": "RESEARCH_REFRESH_ONLY_NO_CTA_OR_SCORE_EFFECT",
           "source": "https://data.sec.gov/submissions/CIK0000059478.json",
-          "error_type": "HTTPError",
-          "next_action": "RETRY_DURING_NEXT_EXISTING_SCAN"
+          "next_action": "RECHECK_DURING_NEXT_EXISTING_SCAN"
         }
       },
       "company_name": "Eli Lilly and Company",
@@ -2991,10 +3335,71 @@
           ]
         },
         "valuation": {
-          "status": "UNKNOWN",
+          "status": "FAIL",
           "as_of": "2026-10-27",
-          "rationale": "Current-session valuation model not yet validated.",
-          "sources": []
+          "price_as_of": "2026-10-27",
+          "valid_through": "2026-10-27",
+          "method": "FORWARD_GAAP_PE_EX_EQUITY_MARKS_RETAINING_ACQUISITION_COSTS",
+          "rationale": "Onecool analyst five-year growth3%/6%, cash conversion70%/80%, terminal80%/85%, return12%/10%, terminal growth2%/3%. Not issuer guidance or full DCF. Mature product erosion, leverage and Tavneos constrain distributions; excludes speculative MariTide revenue.",
+          "sources": [
+            "https://www.sec.gov/Archives/edgar/data/318154/000031815426000124/amgn-20260630earningsrelea.htm",
+            "https://www.amgen.com/tavneos-update"
+          ],
+          "price_source": {
+            "provider": "yahoo_finance_adjusted_chart",
+            "symbol": "AMGN",
+            "as_of": "2026-10-27",
+            "url": "https://finance.yahoo.com/quote/AMGN/history/"
+          },
+          "denominator_source": [
+            "https://www.sec.gov/Archives/edgar/data/318154/000031815426000124/amgn-20260630earningsrelea.htm"
+          ],
+          "fair_range_rationale": "Onecool analyst five-year growth3%/6%, cash conversion70%/80%, terminal80%/85%, return12%/10%, terminal growth2%/3%. Not issuer guidance or full DCF. Mature product erosion, leverage and Tavneos constrain distributions; excludes speculative MariTide revenue.",
+          "fair_range_sources": [
+            "https://www.sec.gov/Archives/edgar/data/318154/000031815426000124/amgn-20260630earningsrelea.htm",
+            "https://www.amgen.com/tavneos-update",
+            "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+          ],
+          "normalization_bridge": {
+            "formula": "FY26 GAAP low15.80 + after-tax equity loss0.42 - other net benefit0.04",
+            "retained_acquisition_cost": 6.04,
+            "June30_cash_billion": 14,
+            "June30_debt_billion": 57.3,
+            "June30_net_debt_billion": 43.3,
+            "limitations": "Rounded June30 balances, not October. Retains acquisition amortization and recurring costs. H1 FCF4966m not annualized. No second net debt deduction from EPS."
+          },
+          "policy_version": "onecool_equity_two_stage_screen_v1",
+          "assumption_authority": "ONECOOL_ANALYST_NOT_ISSUER_GUIDANCE",
+          "scenarios": [
+            {
+              "name": "conservative",
+              "years": 5,
+              "growth": 0.03,
+              "required_return": 0.12,
+              "terminal_growth": 0.02,
+              "cash_conversion": 0.7,
+              "terminal_cash_conversion": 0.8
+            },
+            {
+              "name": "base",
+              "years": 5,
+              "growth": 0.06,
+              "required_return": 0.1,
+              "terminal_growth": 0.03,
+              "cash_conversion": 0.8,
+              "terminal_cash_conversion": 0.85
+            }
+          ],
+          "research_grade": "SCREENING_SCENARIO_NOT_FULL_DCF",
+          "inputs": {
+            "price": 447.95001220703125,
+            "denominator": 16.18,
+            "multiple": 27.68541484592282,
+            "fair_range": [
+              8.109050705053424,
+              13.976819907362085
+            ]
+          }
         },
         "circle_of_competence": {
           "status": "UNKNOWN",
@@ -3008,19 +3413,19 @@
       },
       "valuation_input_collection": {
         "as_of": "2026-10-27",
-        "status": "PARTIAL",
-        "gaps": [
-          "OFFICIAL_REFERENCE_EXPIRED_OR_NOT_POINT_IN_TIME",
-          "REGISTRY_UNAVAILABLE"
-        ],
+        "status": "COMPLETE",
+        "gaps": [],
         "price_basis": "adjusted_close",
         "inputs": {
           "adjusted_close": 447.95001220703125
         },
-        "sources": [],
-        "decision_authority": "REFERENCE_INPUTS_ONLY_NOT_FAIR_VALUE",
+        "sources": [
+          "https://www.sec.gov/Archives/edgar/data/318154/000031815426000124/amgn-20260630earningsrelea.htm",
+          "https://www.amgen.com/tavneos-update"
+        ],
+        "decision_authority": "REVIEWED_SOURCE_BACKED_VALUATION_MODEL",
         "price_source": {
-          "provider": "yahoo_finance_adjusted_batch",
+          "provider": "yahoo_finance_adjusted_chart",
           "symbol": "AMGN",
           "as_of": "2026-10-27",
           "url": "https://finance.yahoo.com/quote/AMGN/history/"
@@ -3029,11 +3434,340 @@
           "date": "2026-10-27",
           "adjusted_close": 447.95001220703125,
           "raw_close": 447.95001220703125,
-          "provider": "yahoo_finance_adjusted_batch"
+          "provider": "yahoo_finance_adjusted_chart"
         },
-        "price_sha256": "6b37d09d3e9d209f4e0d81178ecf4444cb5c4b68cd4f96cb8c1074186426aec2",
-        "official_reference_status": "REJECTED",
-        "fundamental_fetch_status": "REGISTRY_UNAVAILABLE"
+        "price_sha256": "0182d49ee4fbeaacd39dda834188dcf2bbf07745295665983c17be237f194016",
+        "official_reference_status": "VERIFIED",
+        "fundamental_fetch_status": "REVIEWED_OFFICIAL_REFERENCE",
+        "company_name": "Amgen Inc.",
+        "official_reference": {
+          "symbol": "AMGN",
+          "company_name": "Amgen Inc.",
+          "published_at": "2026-08-04",
+          "reviewed_as_of": "2026-10-27",
+          "valid_through": "2026-11-02",
+          "sources": [
+            "https://www.sec.gov/Archives/edgar/data/318154/000031815426000124/amgn-20260630earningsrelea.htm",
+            "https://www.amgen.com/tavneos-update"
+          ],
+          "reported_facts": {
+            "FY26_GAAP_EPS": [
+              15.8,
+              17.08
+            ],
+            "FY26_adjusted_EPS": [
+              22.3,
+              23.5
+            ],
+            "H1_CFO_million": 6191,
+            "H1_capex_million": 1225,
+            "H1_FCF_million": 4966
+          },
+          "model_gaps": [],
+          "refresh_on": [
+            "NEW_EARNINGS_OR_GUIDANCE",
+            "TAVNEOS_REGULATORY_DECISION",
+            "REFERENCE_EXPIRY"
+          ],
+          "valuation_model": {
+            "method": "FORWARD_GAAP_PE_EX_EQUITY_MARKS_RETAINING_ACQUISITION_COSTS",
+            "denominator": 16.18,
+            "currency": "USD",
+            "share_basis": "listed_security",
+            "normalization_bridge": {
+              "formula": "FY26 GAAP low15.80 + after-tax equity loss0.42 - other net benefit0.04",
+              "retained_acquisition_cost": 6.04,
+              "June30_cash_billion": 14,
+              "June30_debt_billion": 57.3,
+              "June30_net_debt_billion": 43.3,
+              "limitations": "Rounded June30 balances, not October. Retains acquisition amortization and recurring costs. H1 FCF4966m not annualized. No second net debt deduction from EPS."
+            },
+            "denominator_source": [
+              "https://www.sec.gov/Archives/edgar/data/318154/000031815426000124/amgn-20260630earningsrelea.htm"
+            ],
+            "fair_range": [
+              8.109050705053424,
+              13.976819907362085
+            ],
+            "scenarios": [
+              {
+                "name": "conservative",
+                "years": 5,
+                "growth": 0.03,
+                "required_return": 0.12,
+                "terminal_growth": 0.02,
+                "cash_conversion": 0.7,
+                "terminal_cash_conversion": 0.8
+              },
+              {
+                "name": "base",
+                "years": 5,
+                "growth": 0.06,
+                "required_return": 0.1,
+                "terminal_growth": 0.03,
+                "cash_conversion": 0.8,
+                "terminal_cash_conversion": 0.85
+              }
+            ],
+            "assumption_authority": "ONECOOL_ANALYST_NOT_ISSUER_GUIDANCE",
+            "research_grade": "SCREENING_SCENARIO_NOT_FULL_DCF",
+            "policy_version": "onecool_equity_two_stage_screen_v1",
+            "rationale": "Onecool analyst five-year growth3%/6%, cash conversion70%/80%, terminal80%/85%, return12%/10%, terminal growth2%/3%. Not issuer guidance or full DCF. Mature product erosion, leverage and Tavneos constrain distributions; excludes speculative MariTide revenue.",
+            "fair_range_rationale": "Onecool analyst five-year growth3%/6%, cash conversion70%/80%, terminal80%/85%, return12%/10%, terminal growth2%/3%. Not issuer guidance or full DCF. Mature product erosion, leverage and Tavneos constrain distributions; excludes speculative MariTide revenue.",
+            "fair_range_sources": [
+              "https://www.sec.gov/Archives/edgar/data/318154/000031815426000124/amgn-20260630earningsrelea.htm",
+              "https://www.amgen.com/tavneos-update",
+              "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+            ]
+          },
+          "source_review": {
+            "status": "VERIFIED_SOURCE_RECHECK",
+            "checked_at": "2026-10-28T08:18:47+00:00",
+            "information_cutoff": "2026-10-27",
+            "next_announced_earnings_date": "2026-11-03",
+            "event_source": "https://investors.amgen.com/",
+            "review_sources": [
+              "https://www.sec.gov/Archives/edgar/data/318154/000031815426000124/amgn-20260630earningsrelea.htm",
+              "https://www.amgen.com/tavneos-update",
+              "https://investors.amgen.com/news-and-events/events-calendar",
+              "https://www.amgen.com/newsroom/press-releases/2026/10/imdelltra-in-combination-with-imfinzi-reduced-risk-of-death-by-an-unprecedented-58-in-firstline-extensive-stage-small-cell-lung-cancer",
+              "https://investors.amgen.com/"
+            ],
+            "conclusion": "Official Q2 financial release and Oct24 clinical release reviewed; clinical efficacy result is not revenue approval and does not change the normalized current-earnings denominator. Keep existing analyst valuation assumptions. November2 is a conservative review deadline within seven sessions, not an asserted earnings date; any new financial filing invalidates the reference.",
+            "event_date_status": "CONFIRMED_OFFICIAL_IR_HOME"
+          }
+        },
+        "official_disclosure_watch": {
+          "as_of": "2026-10-27",
+          "status": "NO_NEW_ELIGIBLE_FILINGS",
+          "filings": [],
+          "decision_authority": "RESEARCH_REFRESH_ONLY_NO_CTA_OR_SCORE_EFFECT",
+          "source": "https://data.sec.gov/submissions/CIK0000318154.json",
+          "next_action": "RECHECK_DURING_NEXT_EXISTING_SCAN"
+        }
+      }
+    },
+    {
+      "symbol": "ADI",
+      "gates": {
+        "valuation": {
+          "status": "FAIL",
+          "as_of": "2026-10-27",
+          "price_as_of": "2026-10-27",
+          "valid_through": "2026-10-27",
+          "method": "CYCLICAL_FORWARD_GAAP_EPS_STRESS_WITH_FCF_EV_CROSS_CHECK",
+          "rationale": "FY2026低端情境以已公布9個月GAAP EPS 6.83加Q4指引低端2.99，再採Onecool分析假設25%週期壓力折價；保留SBC與收購攤銷成本，不把調整後EPS直接當正常化獲利。此為保守情境估計，非公司全年指引或已實現EPS。",
+          "sources": [
+            "https://www.sec.gov/Archives/edgar/data/6281/000000628126000072/adi3q26exhibit991earnings.htm"
+          ],
+          "price_source": {
+            "provider": "yahoo_finance_adjusted_chart",
+            "symbol": "ADI",
+            "as_of": "2026-10-27",
+            "url": "https://finance.yahoo.com/quote/ADI/history/"
+          },
+          "denominator_source": "https://www.sec.gov/Archives/edgar/data/6281/000000628126000072/adi3q26exhibit991earnings.htm",
+          "fair_range_rationale": "景氣循環風險：5年成長3%/6%、必要報酬12%/10%、終端成長2%/2.5%、盈餘現金轉換85%/90%。全為Onecool分析假設，非公司預測；未用股價反推。",
+          "fair_range_sources": [
+            "https://www.sec.gov/Archives/edgar/data/6281/000000628126000072/adi3q26exhibit991earnings.htm"
+          ],
+          "normalization_bridge": {
+            "nine_month_gaap_eps": 6.83,
+            "q4_gaap_guidance_low": 2.99,
+            "forward_gaap_low_case": 9.82,
+            "onecool_cycle_haircut_assumption": 0.25,
+            "stressed_denominator": 7.365,
+            "no_adjusted_eps_addback": true
+          },
+          "policy_version": "onecool_sourced_two_stage_v1",
+          "assumption_authority": "ONECOOL_ANALYST_NOT_ISSUER_GUIDANCE",
+          "scenarios": [
+            {
+              "growth": 0.03,
+              "required_return": 0.12,
+              "terminal_growth": 0.02,
+              "cash_conversion": 0.85,
+              "terminal_cash_conversion": 0.85,
+              "years": 5
+            },
+            {
+              "growth": 0.06,
+              "required_return": 0.1,
+              "terminal_growth": 0.025,
+              "cash_conversion": 0.9,
+              "terminal_cash_conversion": 0.9,
+              "years": 5
+            }
+          ],
+          "research_grade": "SCREENING_SCENARIO_NOT_FULL_DCF",
+          "inputs": {
+            "price": 425.3500061035156,
+            "denominator": 7.365,
+            "multiple": 57.752886096879244,
+            "fair_range": [
+              9.031968125292082,
+              14.252726203947816
+            ],
+            "fcf_ev_cross_check": {
+              "as_of": "2026-08-01",
+              "shares_outstanding": 484565465,
+              "cash": 2165870000,
+              "debt": 8116479000,
+              "reported_ttm_fcf": 4937495000,
+              "source": "https://www.sec.gov/Archives/edgar/data/6281/000000628126000072/adi3q26exhibit991earnings.htm",
+              "basis": "Reported cash, current and long-term financial debt; operating leases excluded. Market capitalization uses dated filed share count, not an asserted current share count. FCF includes SBC addback and is a cross-check, not owner earnings.",
+              "price_as_of": "2026-10-27",
+              "enterprise_value": 212060532495.3029,
+              "ev_reported_fcf": 42.9490120993141,
+              "reported_fcf_yield": 0.02328342262419512
+            }
+          }
+        },
+        "competitive_advantage": {
+          "status": "PASS",
+          "as_of": "2026-10-27",
+          "rationale": "高精度類比與混合訊號產品、長期客戶設計導入及混合製造模式，支持轉換成本；此判斷以公司產品及製造揭露為依據，不由股價推論。",
+          "sources": [
+            "https://www.sec.gov/Archives/edgar/data/6281/000000628126000072/adi3q26exhibit991earnings.htm"
+          ]
+        },
+        "structural_growth_runway": {
+          "status": "PASS",
+          "as_of": "2026-10-27",
+          "rationale": "Q3營收40.22億美元，資料中心與工業需求帶動年增40%；公司Q4營收指引43億正負1億，需求續航有來源支持，但仍保留半導體週期風險。",
+          "sources": [
+            "https://www.sec.gov/Archives/edgar/data/6281/000000628126000072/adi3q26exhibit991earnings.htm"
+          ]
+        },
+        "financial_quality": {
+          "status": "PASS",
+          "as_of": "2026-10-27",
+          "rationale": "TTM CFO55.45億減capex6.08億得FCF49.37億；仍扣列SBC與GAAP收購費用，並揭露金融淨負債約59.51億，不將FCF視為無成本股東盈餘。",
+          "sources": [
+            "https://www.sec.gov/Archives/edgar/data/6281/000000628126000072/adi3q26exhibit991earnings.htm"
+          ]
+        },
+        "business_risk_and_governance": {
+          "status": "PASS",
+          "as_of": "2026-10-27",
+          "rationale": "已識別週期性、庫存／客戶需求、出口與地緣風險、收購整合、資本支出及槓桿。此PASS表示風險研究已完成，非保證無治理風險。",
+          "sources": [
+            "https://www.sec.gov/Archives/edgar/data/6281/000000628126000072/adi3q26exhibit991earnings.htm"
+          ]
+        },
+        "circle_of_competence": {
+          "status": "UNKNOWN",
+          "as_of": "2026-10-27",
+          "rationale": "正式建倉前確認對類比半導體、設計導入及景氣循環的理解；不阻擋研究排名。",
+          "sources": [
+            "https://www.sec.gov/Archives/edgar/data/6281/000000628126000072/adi3q26exhibit991earnings.htm"
+          ],
+          "data_gap": "PRE_TRADE_USER_CONFIRMATION_ONLY"
+        }
+      },
+      "valuation_input_collection": {
+        "as_of": "2026-10-27",
+        "status": "COMPLETE",
+        "gaps": [],
+        "price_basis": "adjusted_close",
+        "inputs": {
+          "adjusted_close": 425.3500061035156
+        },
+        "sources": [
+          "https://www.sec.gov/Archives/edgar/data/6281/000000628126000072/adi3q26exhibit991earnings.htm"
+        ],
+        "decision_authority": "REVIEWED_SOURCE_BACKED_VALUATION_MODEL",
+        "price_source": {
+          "provider": "yahoo_finance_adjusted_chart",
+          "symbol": "ADI",
+          "as_of": "2026-10-27",
+          "url": "https://finance.yahoo.com/quote/ADI/history/"
+        },
+        "price_observation": {
+          "date": "2026-10-27",
+          "adjusted_close": 425.3500061035156,
+          "raw_close": 425.3500061035156,
+          "provider": "yahoo_finance_adjusted_chart"
+        },
+        "price_sha256": "ab92e415a7ccbe335bb2822d4de77d934d9061fa82a33f087609f6f0193ccc47",
+        "official_reference_status": "VERIFIED",
+        "fundamental_fetch_status": "REVIEWED_OFFICIAL_REFERENCE",
+        "company_name": "Analog Devices, Inc.",
+        "official_reference": {
+          "symbol": "ADI",
+          "company_name": "Analog Devices, Inc.",
+          "published_at": "2026-08-19",
+          "reviewed_as_of": "2026-10-27",
+          "valid_through": "2026-11-05",
+          "sources": [
+            "https://www.sec.gov/Archives/edgar/data/6281/000000628126000072/adi3q26exhibit991earnings.htm"
+          ],
+          "reported_facts": {
+            "nine_month_gaap_diluted_eps": 6.83,
+            "q4_gaap_eps_guidance_low": 2.99,
+            "q4_gaap_eps_guidance_high": 3.29,
+            "reported_ttm_cfo_usd": 5545325000,
+            "ttm_capex_usd": 607830000,
+            "reported_ttm_fcf_usd": 4937495000,
+            "quarter_revenue_usd": 4021899000,
+            "quarter_gaap_eps": 2.74
+          },
+          "model_gaps": [],
+          "valuation_model": {
+            "method": "CYCLICAL_FORWARD_GAAP_EPS_STRESS_WITH_FCF_EV_CROSS_CHECK",
+            "currency": "USD",
+            "share_basis": "listed_security",
+            "denominator": 7.365,
+            "denominator_source": "https://www.sec.gov/Archives/edgar/data/6281/000000628126000072/adi3q26exhibit991earnings.htm",
+            "rationale": "FY2026低端情境以已公布9個月GAAP EPS 6.83加Q4指引低端2.99，再採Onecool分析假設25%週期壓力折價；保留SBC與收購攤銷成本，不把調整後EPS直接當正常化獲利。此為保守情境估計，非公司全年指引或已實現EPS。",
+            "normalization_bridge": {
+              "nine_month_gaap_eps": 6.83,
+              "q4_gaap_guidance_low": 2.99,
+              "forward_gaap_low_case": 9.82,
+              "onecool_cycle_haircut_assumption": 0.25,
+              "stressed_denominator": 7.365,
+              "no_adjusted_eps_addback": true
+            },
+            "fair_range": [
+              9.031968125292082,
+              14.252726203947816
+            ],
+            "fair_range_rationale": "景氣循環風險：5年成長3%/6%、必要報酬12%/10%、終端成長2%/2.5%、盈餘現金轉換85%/90%。全為Onecool分析假設，非公司預測；未用股價反推。",
+            "fair_range_sources": [
+              "https://www.sec.gov/Archives/edgar/data/6281/000000628126000072/adi3q26exhibit991earnings.htm"
+            ],
+            "policy_version": "onecool_sourced_two_stage_v1",
+            "assumption_authority": "ONECOOL_ANALYST_NOT_ISSUER_GUIDANCE",
+            "scenarios": [
+              {
+                "growth": 0.03,
+                "required_return": 0.12,
+                "terminal_growth": 0.02,
+                "cash_conversion": 0.85,
+                "terminal_cash_conversion": 0.85,
+                "years": 5
+              },
+              {
+                "growth": 0.06,
+                "required_return": 0.1,
+                "terminal_growth": 0.025,
+                "cash_conversion": 0.9,
+                "terminal_cash_conversion": 0.9,
+                "years": 5
+              }
+            ],
+            "capital_structure": {
+              "as_of": "2026-08-01",
+              "shares_outstanding": 484565465,
+              "cash": 2165870000,
+              "debt": 8116479000,
+              "reported_ttm_fcf": 4937495000,
+              "source": "https://www.sec.gov/Archives/edgar/data/6281/000000628126000072/adi3q26exhibit991earnings.htm",
+              "basis": "Reported cash, current and long-term financial debt; operating leases excluded. Market capitalization uses dated filed share count, not an asserted current share count. FCF includes SBC addback and is a cross-check, not owner earnings."
+            },
+            "research_grade": "SCREENING_SCENARIO_NOT_FULL_DCF"
+          }
+        }
       }
     }
   ],

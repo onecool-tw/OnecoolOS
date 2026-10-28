@@ -10,7 +10,8 @@ from tests.test_us_breakout_scan import _history
 
 
 def evidence():
-    return json.loads(Path("data/market/us_stock_intelligence/reviewed_fundamentals.json").read_text())
+    payload = json.loads(Path("data/market/us_stock_intelligence/reviewed_fundamentals.json").read_text())
+    return {"results": [r for r in payload["results"] if r["symbol"] == "RH"]}
 
 
 def test_rh_official_inputs_reproduce_growth_without_stored_score():

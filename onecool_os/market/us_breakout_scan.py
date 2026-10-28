@@ -160,6 +160,10 @@ US_SECURITY_MASTER = {
 def fundamental_validation_error(fundamental, expected: date) -> str | None:
     if fundamental is None:
         return "fundamental validation unavailable"
+    if (not fundamental.source_urls or not fundamental.published_as_of
+            or any(not isinstance(url, str) or not url.startswith("https://")
+                   for url in fundamental.source_urls)):
+        return "fundamental source/publication evidence unavailable"
     try:
         age = (expected - date.fromisoformat(fundamental.as_of)).days
     except (ValueError, TypeError):
@@ -375,12 +379,15 @@ def fetch_yahoo_breakout_inputs(
     fetch_diagnostics: dict | None = None,
     price_diagnostics: dict | None = None,
     tiingo_client=None,
+    chart_fetcher=None,
+    fetch_snapshot_fundamentals=True,
 ) -> tuple[dict[str, list[DailyBar]], dict[str, FundamentalMetrics]]:
     """Batch-download prices and cover every eligible missing fundamental.
 
     The two-stage design keeps the scheduled job API-safe: all symbols receive
     the same batch price cutoff, while uncovered technical candidates
-    are progressively fetched and valid fundamentals are reused for seven days.
+    are progressively fetched. A filing cache is current only after verification
+    for this session; quote-summary growth snapshots cannot establish EPS inputs.
     """
 
     expected = date.fromisoformat(expected_as_of)
@@ -457,6 +464,21 @@ def fetch_yahoo_breakout_inputs(
                 best_observed[symbol] = recovered
             if not is_incomplete(recovered):
                 histories[symbol] = recovered
+    if chart_fetcher is not None:
+        with ThreadPoolExecutor(max_workers=4) as executor:
+            futures = {executor.submit(chart_fetcher, s, expected_as_of): s
+                       for s in symbols if is_incomplete(histories[s])}
+            for future in as_completed(futures):
+                symbol = futures[future]
+                try:
+                    recovered = future.result()
+                    if len(recovered) > len(best_observed[symbol]):
+                        best_observed[symbol] = recovered
+                    if not is_incomplete(recovered):
+                        histories[symbol] = recovered
+                        price_details[symbol] = {"status": "RECOVERED_FROM_YAHOO_ADJUSTED_CHART"}
+                except Exception as exc:
+                    price_details[symbol] = {"status": "YAHOO_CHART_REQUEST_OR_VALIDATION_FAILED", "error_type": type(exc).__name__}
     # Some Yahoo long-range responses omit one otherwise ordinary US session.
     # Ask the same adjusted source for exactly that date, then recheck every
     # reference session before accepting the combined series. Never synthesize.
@@ -665,13 +687,11 @@ def fetch_yahoo_breakout_inputs(
         try:
             age = (expected - date.fromisoformat(entry["fetched_as_of"])).days
             fundamental = FundamentalMetrics(**entry["metrics"])
-            if age >= 0 and fundamental_validation_error(fundamental, expected) is None:
+            if age == 0 and fundamental_validation_error(fundamental, expected) is None:
                 fundamentals[symbol] = fundamental
-                if age <= 7:
-                    diagnostics[symbol] = "CACHED_VALID"
-                else:
-                    diagnostics[symbol] = "VALID_CACHE_PENDING_REFRESH"
-                    refresh_required.add(symbol)
+                diagnostics[symbol] = "CACHED_VALID"
+            elif age > 0:
+                diagnostics[symbol] = "SOURCE_REFRESH_REQUIRED"
         except (KeyError, TypeError, ValueError):
             pass
     # Fill uncovered names first; a valid cache prevents repeatedly spending
@@ -685,6 +705,8 @@ def fetch_yahoo_breakout_inputs(
     uncovered.sort(key=lambda s: cache.get(s, {}).get("attempted_as_of", ""))
     shortlist = uncovered if fundamental_shortlist_size is None else uncovered[:fundamental_shortlist_size]
     shortlist = list(dict.fromkeys([*shortlist, *required_fundamental_symbols]))
+    if not fetch_snapshot_fundamentals:
+        shortlist = []  # Unattributed quote-summary growth is not filing EPS.
     for symbol in symbols:
         diagnostics.setdefault(symbol, "NOT_REQUESTED")
     # Yahoo's quote-summary endpoint is materially slower than price download.
@@ -708,6 +730,9 @@ def fetch_yahoo_breakout_inputs(
                 )
                 continue
             if fundamental is not None:
+                if fundamental_validation_error(fundamental, expected) is not None:
+                    diagnostics[symbol] = "UNVERIFIED_PROVIDER_SNAPSHOT"
+                    continue
                 fundamentals[symbol] = fundamental
                 cache[symbol].update(fetched_as_of=expected.isoformat(), metrics=asdict(fundamental))
                 diagnostics[symbol] = "FETCHED"
