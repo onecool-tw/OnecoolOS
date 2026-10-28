@@ -1,7 +1,7 @@
 {
   "report_id": "taiwan",
   "report_date": "2026-10-28",
-  "generated_at": "2026-10-28T10:05:36Z",
+  "generated_at": "2026-10-28T10:12:48Z",
   "data_as_of": "2026-10-27",
   "execution_status": "PARTIAL",
   "delivery_status": "UNKNOWN",
@@ -14,8 +14,8 @@
     },
     "artifact": {
       "status": "DELIVERED",
-      "observed_at": "2026-10-28T10:05:36Z",
-      "evidence_sha256": "7494fe4cc740d2796c62ea094c7d71d7186bdf6b9b642c0399e83932143462d5"
+      "observed_at": "2026-10-28T10:12:48Z",
+      "evidence_sha256": "5a757af0d711783a386ba055b18fdf11d76bbb66114db19c9c4bd3e432dde884"
     },
     "email": {
       "status": "FAILED",
@@ -27,12 +27,15 @@
   "completed_steps": [
     "ssot_read",
     "latest_cta_preserved",
-    "artifact_saved_full_readback"
+    "artifact_saved_full_readback",
+    "official_spot_futures_PCR_flow_verified",
+    "formal_RED_persisted_readback",
+    "three_screen_attempts_completed"
   ],
   "failed_steps": [
-    "screen_not_current",
-    "today_pressure_not_formalized",
+    "screen_official_income_bd_endpoint_non_json",
+    "foreign_TX_OI_unavailable",
     "final_snapshot_incomplete"
   ],
-  "next_action": "Resume current Screen and official pressure evidence validation, then persistence and final delivery gates."
+  "next_action": "Retry official financial feed after provider recovery; never fabricate current Screen; Email remains paused."
 }
