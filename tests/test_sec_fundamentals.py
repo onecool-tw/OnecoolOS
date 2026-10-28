@@ -94,6 +94,7 @@ def test_sec_fetch_failure_remains_unscored_with_named_provider_error():
                                              "2026-09-11", cache, diagnostics,
                                              registry_mapping={"BA": "0000000001"})
     assert details["BA"]["status"] == "SEC_FETCH_FAILED"
+    assert diagnostics["BA"] == "SEC_FETCH_FAILED"
     assert details["BA"]["provider_error"] == "HTTP 403: Forbidden"
     assert "BA" not in fundamentals
 

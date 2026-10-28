@@ -147,6 +147,7 @@ def fill_missing_fundamentals(client, histories, fundamentals, expected_as_of, c
                 cache.setdefault(symbol, {}).update(metrics=asdict(fundamental), fetched_as_of=expected_as_of, provider='SEC', sec_evidence=evidence)
                 diagnostics[symbol] = 'SEC_VERIFIED'
             except Exception as exc:
+                diagnostics[symbol] = 'SEC_FETCH_FAILED'
                 details[symbol] = {'status': 'SEC_FETCH_FAILED', 'error_type': type(exc).__name__,
                                    'provider_error': str(exc)[:200] if type(exc).__name__ == 'AIRevolutionError' else None}
     return details

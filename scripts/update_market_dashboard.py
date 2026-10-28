@@ -628,6 +628,8 @@ def update(
                 existing = scan_fundamentals.get(symbol)
                 if existing is None or fundamental.as_of >= existing.as_of:
                     scan_fundamentals[symbol] = fundamental
+                    if breakout_input_loader is None:
+                        fetch_diagnostics[symbol] = "REVIEWED_OFFICIAL_REFERENCE"
             # Use the same adjusted bars as Dashboard for overlapping symbols.
             scan_histories.update({s: h for s, h in histories_by_symbol.items()
                                    if s in scan_histories})
