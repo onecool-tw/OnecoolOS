@@ -1,33 +1,36 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Taiwan Market Pressure Request",
-  "as_of": "2026-10-27",
+  "as_of": "2026-10-28",
   "status": "CURRENT",
   "light": "RED",
   "reason": [
-    "retain_prior_formal_RED_2026_10_22;first_completed_session_since_prior;two_consecutive_nontrigger_sessions_NOT_MET;no_rebound_release",
-    "VERIFIED_TWSE_2026_10_27_close_46096_23_change_plus_54_80_pct_plus_0_12;prior_46041_43;turnover_TWD_1031683538938_vs_prior_933437473560;stock_breadth_up464_down523;one_session_rebound_not_release",
-    "VERIFIED_TAIFEX_TX202611_regular_last46081_settlement46106;spot46096_23;basis_minus15_23_plus9_77;prior_same_contract_last46272_settlement46234;basis_narrowed_not_independent_release",
-    "VERIFIED_TWSE_foreign_flow_minus8103915678_trust_plus23645327285_dealer_minus12399047408_total_plus3142364199_TWD;foreign_still_net_selling",
-    "VERIFIED_TAIFEX_VIX_2026_10_27_29_86_LAST_1_MIN_AVG_vs_prior30_35;improved_one_session_only",
-    "VERIFIED_TWSE_margin_2026_10_22_cash633880174_thousand_TWD_change_minus10493450;units9604402_change_minus27925;short216539_change_plus23941;official_lag_accepted",
-    "TAIFEX_foreign_TX_OI_and_PCR_dated_endpoints_returned_no_data_at_observation;UNKNOWN_not_zero_not_no_trigger;cannot_use_for_RED_release;news_not_pressure_authority"
+    "retain_prior_formal_RED_2026_10_27;two_consecutive_verified_nontrigger_sessions_NOT_ESTABLISHED;prior_session_derivatives_UNKNOWN;no_rebound_release",
+    "VERIFIED_TWSE_2026_10_28_close47035_58_change_plus939_35_pct2_04;prior46096_23;turnover750340536882_TWD_vs1031683538938;breadth714_up280_down;price_volume_improved",
+    "VERIFIED_TAIFEX_TX202611_regular_last47244_settlement47249;basis_plus208_42_plus213_42;prior_last46081_settle46106_basis_minus15_23_plus9_77",
+    "VERIFIED_TAIFEX_PCR_2026_10_28_volume92_29_OI69_38;put_volume344811_call373599_put_OI47770_call68849;prior_day_PCR_UNKNOWN_cannot_prove_two_day_improvement",
+    "VERIFIED_TAIFEX_VIX27_42_LAST_1_MIN_AVG_vs29_86;one_session_improvement_not_sufficient_release",
+    "VERIFIED_TWSE_foreign15922194130_trust11807036161_dealer2165284983_total29894515274_TWD",
+    "VERIFIED_margin_2026_10_27_cash623386860_thousand_TWD_change_minus10493314_units9550611_change_minus53788_short217708_change1169;official_lag_accepted;previous_units9604399_vs_prior9604402_backfill_minus3",
+    "foreign_TX_OI_2026_10_28_query_unavailable_UNKNOWN_not_zero_not_no_trigger;not_used_for_release;news_no_signal_authority"
   ],
   "confirmed_inputs": {
     "spot": true,
     "futures": true,
-    "pcr": false,
+    "pcr": true,
     "volatility": true,
     "institutional_flow": true,
-    "margin": true
+    "margin": true,
+    "foreign_futures_oi": false
   },
   "input_data_as_of": {
-    "spot": "2026-10-27",
-    "futures": "2026-10-27",
-    "pcr": null,
-    "volatility": "2026-10-27",
-    "institutional_flow": "2026-10-27",
-    "margin": "2026-10-22"
+    "spot": "2026-10-28",
+    "futures": "2026-10-28",
+    "pcr": "2026-10-28",
+    "volatility": "2026-10-28",
+    "institutional_flow": "2026-10-28",
+    "margin": "2026-10-27",
+    "foreign_futures_oi": null
   },
   "writer": "FORMAL_TAIWAN_WORK_ONLY"
 }
