@@ -21,18 +21,18 @@
     },
     "cta": {
       "path": "data/market/taiwan_stock_intelligence/cta/cta_latest.json",
-      "sha256": "cdad6397832ac4c69199276b0aa95ae528f6490206cfc900cef171b729c7183d"
+      "sha256": "35ff679836f78be100ad01d6956e3cae8190f993ed56083c7034c56d245e4b51"
     },
     "context": {
       "path": "data/market/taiwan_stock_intelligence/daily_context_latest.json",
-      "sha256": "c7eef7523b9e41abf46decc3899bb7204180278db6fe1218c25970e4e926a263"
+      "sha256": "3c8241df9f17e812b4139dd4ec031bd266cca05e7f65761754fdac80940a4a1f"
     }
   },
   "source_generated_at": {
     "dashboard": "2026-10-28T08:38:44.225878+00:00",
     "screen": null,
-    "cta": "2026-10-28T10:20:38.185203+00:00",
-    "context": "2026-10-28T10:21:22.964604+00:00"
+    "cta": "2026-10-28T14:00:19.952100+00:00",
+    "context": "2026-10-28T14:00:24.756088+00:00"
   },
   "screen_as_of": "2026-10-28",
   "display_status": "CURRENT",
@@ -129,7 +129,7 @@
   "market_pressure_inputs": {
     "schema_version": "1.0",
     "module": "Onecool Taiwan Official Market Pressure Inputs",
-    "generated_at": "2026-10-28T10:20:19.573410+00:00",
+    "generated_at": "2026-10-28T14:00:00.996563+00:00",
     "requested_as_of": "2026-10-28",
     "status": "READY",
     "attempts_used": 1,
@@ -137,29 +137,26 @@
     "sources": {
       "margin": {
         "status": "VERIFIED",
-        "as_of": "2026-10-27",
+        "as_of": "2026-10-28",
         "metrics": {
           "融資(交易單位)": {
-            "previous": 9604399.0,
-            "current": 9550611.0,
-            "change": -53788.0
+            "previous": 9550611.0,
+            "current": 9550911.0,
+            "change": 300.0
           },
           "融券(交易單位)": {
-            "previous": 216539.0,
-            "current": 217708.0,
-            "change": 1169.0
+            "previous": 217708.0,
+            "current": 193040.0,
+            "change": -24668.0
           },
           "融資金額(仟元)": {
-            "previous": 633880174.0,
-            "current": 623386860.0,
-            "change": -10493314.0
+            "previous": 623386833.0,
+            "current": 632299552.0,
+            "change": 8912719.0
           }
         },
         "error": null,
-        "official_lag_accepted": true,
-        "availability_basis": "LATEST_OFFICIAL_BEFORE_SAME_DAY_PUBLICATION",
-        "requested_as_of": "2026-10-28",
-        "source_url": "https://www.twse.com.tw/rwd/zh/marginTrading/MI_MARGN?date=20261027&selectType=MS&response=json"
+        "source_url": "https://www.twse.com.tw/rwd/zh/marginTrading/MI_MARGN?date=20261028&selectType=MS&response=json"
       },
       "volatility": {
         "status": "VERIFIED",
