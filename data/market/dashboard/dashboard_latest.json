@@ -1,10 +1,10 @@
 {
   "schema_version": "1.9",
   "module": "Onecool Market Dashboard",
-  "generated_at": "2026-10-28T06:58:04.908448+00:00",
+  "generated_at": "2026-10-28T08:33:21.314133+00:00",
   "expected_as_of": "2026-10-27",
   "data_status": "READY",
-  "last_successful_update_at": "2026-10-28T06:58:04.908448+00:00",
+  "last_successful_update_at": "2026-10-28T08:33:21.314133+00:00",
   "index_cta_basis": {
     "method": "ETF/index proxies; shared CTA engine",
     "mappings": {
@@ -815,9 +815,9 @@
       "market": "CONTEXT",
       "theme": "crypto_risk_appetite",
       "as_of": "2026-10-27",
-      "current_price": 80799.507812,
-      "sma50": 81831.528438,
-      "sma200": 73025.639727,
+      "current_price": 80805.078125,
+      "sma50": 81831.639844,
+      "sma200": 73025.667578,
       "weekly_ma30": 73051.072526,
       "weekly_ma50": 76047.585234,
       "trend": "MIXED",
@@ -830,7 +830,7 @@
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2026-09-08",
         "periods_since_cross": 49,
-        "spread_pct": 12.058626,
+        "spread_pct": 12.058736,
         "phase": "ACTIVE"
       },
       "weekly_cross": {
@@ -987,7 +987,7 @@
           "https://data.sec.gov/api/xbrl/companyfacts/CIK0001512673.json"
         ],
         "fundamentals_published_as_of": "2026-08-05",
-        "liquidity_average_50d_usd": 331506666.0,
+        "liquidity_average_50d_usd": 331506666.01,
         "liquidity_minimum_50d_usd": 20000000,
         "liquidity_status": "PASSED",
         "new_entry_eligible": true,
@@ -3590,7 +3590,7 @@
       "ADI": "SEC_VERIFIED",
       "SYM": "NONPOSITIVE_COMPARISON_BASE:quarterly_eps,annual_eps"
     },
-    "publication_status": "CURRENT",
+    "publication_status": "LAST_VALID",
     "super_growth_quality_gate": {
       "framework": "LIN_TZU_YANG_QUALITY_PLUS_ONECOOL_CTA_TIMING",
       "scope": "NEW_US_STOCK_CANDIDATES_ONLY",
@@ -3616,89 +3616,11 @@
       "ranking_policy": "ANNOTATE_ONLY; NEVER_REORDER_OR_RESCORE",
       "action_policy": "NO_CTA_OR_ACTION_AUTHORITY",
       "missing_evidence_policy": "UNCLASSIFIED_NEVER_INFERRED"
-    }
+    },
+    "attempted_as_of": "2026-10-27",
+    "attempted_assessment_count": 65,
+    "last_attempt_error": "SCAN_ASSESSMENT_COVERAGE_BELOW_PUBLICATION_GATE:65/70"
   },
   "corporate_action_validation": [],
-  "provider_fallback_policy": "yahoo_finance_raw_primary; alpha_vantage_core_price_fallback; last_successful_cache_on_failure",
-  "us_background_validation": {
-    "schema_version": "1.1",
-    "expected_as_of": "2026-10-27",
-    "price_basis": "adjusted_close",
-    "data_status": "READY",
-    "decision_authority": "BACKGROUND_VALIDATION_ONLY_NO_CTA_OR_RANKING_OVERRIDE",
-    "results": [
-      {
-        "symbol": "AMD",
-        "as_of": "2026-10-27",
-        "expected_as_of": "2026-10-27",
-        "price_basis": "adjusted_close",
-        "technical_confidence": 100,
-        "validation_errors": [],
-        "validation_status": "PASSED",
-        "observations": 501,
-        "adjusted_close": 560.260009765625,
-        "moving_averages": {
-          "20": 581.0274932861328,
-          "50": 543.7023986816406,
-          "150": 469.18660013834636,
-          "200": 405.5017000579834
-        },
-        "volume_average_50d": 19969334.0,
-        "high_52w_adjusted": 649.4199829101562,
-        "low_52w_adjusted": 190.9499969482422,
-        "relative_return_126d_to_SPY": 0.5947855405249778,
-        "source_url": "https://finance.yahoo.com/quote/AMD/history/",
-        "history_sha256": "50d97131cf496fa8632bbc86833205b1638ec26aa02d7bced69abe2982ea7a60",
-        "corporate_action_policy": "Own security adjusted history only; no ticker splice"
-      },
-      {
-        "symbol": "TSM",
-        "as_of": "2026-10-27",
-        "expected_as_of": "2026-10-27",
-        "price_basis": "adjusted_close",
-        "technical_confidence": 100,
-        "validation_errors": [],
-        "validation_status": "PASSED",
-        "observations": 501,
-        "adjusted_close": 436.8699951171875,
-        "moving_averages": {
-          "20": 443.169499206543,
-          "50": 433.7490490722656,
-          "150": 414.3854791259766,
-          "200": 397.1736570739746
-        },
-        "volume_average_50d": 10437048.0,
-        "high_52w_adjusted": 485.79998779296875,
-        "low_52w_adjusted": 272.1793518066406,
-        "relative_return_126d_to_SPY": 0.029595118515792773,
-        "source_url": "https://finance.yahoo.com/quote/TSM/history/",
-        "history_sha256": "52811fd26a51b3e1ea3b33e0ae0795051aa7a6e25792571b05108e090cccfad4",
-        "corporate_action_policy": "Own security adjusted history only; no ticker splice"
-      },
-      {
-        "symbol": "NVDA",
-        "as_of": "2026-10-27",
-        "expected_as_of": "2026-10-27",
-        "price_basis": "adjusted_close",
-        "technical_confidence": 100,
-        "validation_errors": [],
-        "validation_status": "PASSED",
-        "observations": 1316,
-        "adjusted_close": 217.94000244,
-        "moving_averages": {
-          "20": 224.43500137249998,
-          "50": 222.079393245,
-          "150": 210.31864584833332,
-          "200": 203.68675187879998
-        },
-        "volume_average_50d": 114607470.0,
-        "high_52w_adjusted": 239.24000549,
-        "low_52w_adjusted": 164.79331787,
-        "relative_return_126d_to_SPY": -0.057242754492236814,
-        "source_url": "https://finance.yahoo.com/quote/NVDA/history/",
-        "history_sha256": "c64323b54541db46dcab715415645501360bcb2f0509b846b1217fe94ef3b902",
-        "corporate_action_policy": "Own security adjusted history only; no ticker splice"
-      }
-    ]
-  }
+  "provider_fallback_policy": "yahoo_finance_raw_primary; alpha_vantage_core_price_fallback; last_successful_cache_on_failure"
 }
