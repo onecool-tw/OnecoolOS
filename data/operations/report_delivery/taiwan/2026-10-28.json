@@ -1,0 +1,38 @@
+{
+  "report_id": "taiwan",
+  "report_date": "2026-10-28",
+  "generated_at": "2026-10-28T10:05:36Z",
+  "data_as_of": "2026-10-27",
+  "execution_status": "PARTIAL",
+  "delivery_status": "UNKNOWN",
+  "writeback_status": "VERIFIED",
+  "channels": {
+    "conversation": {
+      "status": "UNKNOWN",
+      "observed_at": null,
+      "evidence_sha256": null
+    },
+    "artifact": {
+      "status": "DELIVERED",
+      "observed_at": "2026-10-28T10:05:36Z",
+      "evidence_sha256": "7494fe4cc740d2796c62ea094c7d71d7186bdf6b9b642c0399e83932143462d5"
+    },
+    "email": {
+      "status": "FAILED",
+      "observed_at": null,
+      "evidence_sha256": null,
+      "reason": "FINAL_GATE_UPDATE_INCOMPLETE"
+    }
+  },
+  "completed_steps": [
+    "ssot_read",
+    "latest_cta_preserved",
+    "artifact_saved_full_readback"
+  ],
+  "failed_steps": [
+    "screen_not_current",
+    "today_pressure_not_formalized",
+    "final_snapshot_incomplete"
+  ],
+  "next_action": "Resume current Screen and official pressure evidence validation, then persistence and final delivery gates."
+}
