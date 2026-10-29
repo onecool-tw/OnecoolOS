@@ -5,7 +5,6 @@ Same-day filings are excluded because Company Facts only supplies filing dates.
 """
 from datetime import date
 from math import isfinite
-from concurrent.futures import ThreadPoolExecutor, as_completed
 
 TAGS = {
     'us-gaap': {
@@ -116,40 +115,55 @@ def fill_missing_fundamentals(client, histories, fundamentals, expected_as_of, c
                 return {s: {'status': 'SEC_REGISTRY_UNAVAILABLE'} for s in missing}
     details = {s: {'status': 'SEC_TICKER_MAPPING_CONFLICT' if s in conflicts else 'SEC_TICKER_UNMAPPED'}
                for s in missing if s in conflicts or not mapping.get(s)}
-    # Three concurrent, individually bounded official requests stay below SEC's
-    # fair-access limit and avoid serial per-symbol timeouts delaying delivery.
-    with ThreadPoolExecutor(max_workers=3) as executor:
-        futures = {executor.submit(client.fetch_companyfacts, str(mapping[s]).zfill(10)): s
-                   for s in missing if s not in details}
-        for future in as_completed(futures):
-            symbol = futures[future]
-            cik = str(mapping[symbol]).zfill(10)
-            try:
-                facts = future.result()
-                if int(facts['cik']) != int(cik):
-                    raise ValueError('CIK mismatch')
-                evidence, reason = extract_fundamentals(facts, expected_as_of)
-                details[symbol] = {'status': reason, 'source_url': f'https://data.sec.gov/api/xbrl/companyfacts/CIK{cik}.json', 'evidence': evidence}
-                if reason != 'SEC_VERIFIED':
-                    diagnostics[symbol] = reason
-                    continue
-                pairs = evidence['pairs']
-                fundamental = FundamentalMetrics(
-                    as_of=pairs['quarterly_eps']['current']['end'],
-                    quarterly_eps_growth=pairs['quarterly_eps']['current']['val']/pairs['quarterly_eps']['prior']['val']-1,
-                    quarterly_revenue_growth=pairs['quarterly_revenue']['current']['val']/pairs['quarterly_revenue']['prior']['val']-1,
-                    annual_eps_growth=pairs['annual_eps']['current']['val']/pairs['annual_eps']['prior']['val']-1,
-                    institutional_holders_available=False,
-                    source_urls=(details[symbol]['source_url'],),
-                    published_as_of=max(r['filed'] for p in pairs.values() for r in p.values()),
-                )
-                fundamentals[symbol] = fundamental
-                cache.setdefault(symbol, {}).update(metrics=asdict(fundamental), fetched_as_of=expected_as_of, provider='SEC', sec_evidence=evidence)
-                diagnostics[symbol] = 'SEC_VERIFIED'
-            except Exception as exc:
-                diagnostics[symbol] = 'SEC_FETCH_FAILED'
-                details[symbol] = {'status': 'SEC_FETCH_FAILED', 'error_type': type(exc).__name__,
-                                   'provider_error': str(exc)[:200] if type(exc).__name__ == 'AIRevolutionError' else None}
+    # SEC can throttle even a small concurrent burst from a shared CI address.
+    # Keep the bounded batch serial and retry a transient request once.  This is
+    # intentionally slower than parallel fetching, but prevents a partial scan
+    # from being published merely because multiple official requests collided.
+    sleeper = getattr(client, 'sleeper', lambda _seconds: None)
+    spacing = max(float(getattr(client, 'request_spacing_seconds', 0.0)), 0.0)
+    for symbol in (s for s in missing if s not in details):
+        cik = str(mapping[symbol]).zfill(10)
+        try:
+            last_error = None
+            for attempt in range(2):
+                if spacing:
+                    sleeper(spacing if attempt == 0 else max(spacing, 1.0))
+                try:
+                    facts = client.fetch_companyfacts(cik)
+                    last_error = None
+                    break
+                except Exception as exc:
+                    last_error = exc
+                    if attempt == 0:
+                        continue
+            if last_error is not None:
+                raise last_error
+            if int(facts['cik']) != int(cik):
+                raise ValueError('CIK mismatch')
+            evidence, reason = extract_fundamentals(facts, expected_as_of)
+            details[symbol] = {'status': reason, 'source_url': f'https://data.sec.gov/api/xbrl/companyfacts/CIK{cik}.json', 'evidence': evidence}
+            if reason != 'SEC_VERIFIED':
+                diagnostics[symbol] = reason
+                continue
+            pairs = evidence['pairs']
+            fundamental = FundamentalMetrics(
+                as_of=pairs['quarterly_eps']['current']['end'],
+                quarterly_eps_growth=pairs['quarterly_eps']['current']['val']/pairs['quarterly_eps']['prior']['val']-1,
+                quarterly_revenue_growth=pairs['quarterly_revenue']['current']['val']/pairs['quarterly_revenue']['prior']['val']-1,
+                annual_eps_growth=pairs['annual_eps']['current']['val']/pairs['annual_eps']['prior']['val']-1,
+                institutional_holders_available=False,
+                source_urls=(details[symbol]['source_url'],),
+                published_as_of=max(r['filed'] for p in pairs.values() for r in p.values()),
+            )
+            fundamentals[symbol] = fundamental
+            cache.setdefault(symbol, {}).update(metrics=asdict(fundamental), fetched_as_of=expected_as_of, provider='SEC', sec_evidence=evidence)
+            diagnostics[symbol] = 'SEC_VERIFIED'
+        except Exception as exc:
+            diagnostics[symbol] = 'SEC_FETCH_FAILED'
+            error_name = type(exc).__name__
+            provider_error = str(exc)[:200] if error_name in {'AIRevolutionError', 'HTTPError'} else None
+            details[symbol] = {'status': 'SEC_FETCH_FAILED', 'error_type': error_name,
+                               'provider_error': provider_error}
     return details
 
 
