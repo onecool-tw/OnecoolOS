@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-10-29T03:32:50.090737+00:00",
+  "generated_at": "2026-10-29T03:36:10.345453+00:00",
   "taipei_date": "2026-10-29",
   "status": "BLOCKED",
   "scope_status": {
@@ -82,7 +82,7 @@
       "critical": true,
       "status": "READY",
       "reason": "current",
-      "observed_as_of": "2026-10-27",
+      "observed_as_of": "2026-10-28",
       "recovery_workflow": "update-market-dashboard.yml",
       "retryable": true,
       "impacted_reports": [
@@ -95,9 +95,9 @@
       "label": "Bitcoin completed UTC day",
       "scope": "morning",
       "critical": true,
-      "status": "BLOCKED",
-      "reason": "BTC date/CTA missing or invalid; expected 2026-10-28",
-      "observed_as_of": "2026-10-27",
+      "status": "READY",
+      "reason": "current",
+      "observed_as_of": "2026-10-28",
       "recovery_workflow": "update-market-dashboard.yml",
       "retryable": true,
       "impacted_reports": [
@@ -110,8 +110,8 @@
       "label": "US Breakout Scan",
       "scope": "morning",
       "critical": true,
-      "status": "READY",
-      "reason": "current",
+      "status": "BLOCKED",
+      "reason": "date does not match Market Dashboard",
       "observed_as_of": "2026-10-27",
       "recovery_workflow": "update-market-dashboard.yml",
       "retryable": true,
@@ -124,9 +124,9 @@
       "label": "US Portfolio Scores",
       "scope": "morning",
       "critical": true,
-      "status": "READY",
-      "reason": "current",
-      "observed_as_of": "2026-10-27",
+      "status": "BLOCKED",
+      "reason": "data_status is not ready",
+      "observed_as_of": "2026-10-28",
       "recovery_workflow": "update-market-dashboard.yml",
       "retryable": true,
       "impacted_reports": [
@@ -153,11 +153,11 @@
       "label": "Fund NAV CTA",
       "scope": "morning",
       "critical": true,
-      "status": "BLOCKED",
-      "reason": "generation timestamp missing, invalid or older than scheduled date 2026-10-29",
+      "status": "READY",
+      "reason": "current",
       "observed_as_of": "2026-10-28",
       "recovery_workflow": "update-fund-nav-cta.yml",
-      "retryable": true,
+      "retryable": false,
       "impacted_reports": [
         "基金日報",
         "基金週報"
@@ -363,33 +363,31 @@
   ],
   "issues": [
     {
-      "module_id": "bitcoin_daily",
-      "label": "Bitcoin completed UTC day",
+      "module_id": "us_breakout_scan",
+      "label": "US Breakout Scan",
       "scope": "morning",
       "critical": true,
       "status": "BLOCKED",
-      "reason": "BTC date/CTA missing or invalid; expected 2026-10-28",
+      "reason": "date does not match Market Dashboard",
       "observed_as_of": "2026-10-27",
       "recovery_workflow": "update-market-dashboard.yml",
       "retryable": true,
       "impacted_reports": [
-        "基金日報",
-        "基金週報"
+        "美股日報"
       ]
     },
     {
-      "module_id": "fund_nav_cta",
-      "label": "Fund NAV CTA",
+      "module_id": "us_portfolio_scores",
+      "label": "US Portfolio Scores",
       "scope": "morning",
       "critical": true,
       "status": "BLOCKED",
-      "reason": "generation timestamp missing, invalid or older than scheduled date 2026-10-29",
+      "reason": "data_status is not ready",
       "observed_as_of": "2026-10-28",
-      "recovery_workflow": "update-fund-nav-cta.yml",
+      "recovery_workflow": "update-market-dashboard.yml",
       "retryable": true,
       "impacted_reports": [
-        "基金日報",
-        "基金週報"
+        "美股日報"
       ]
     },
     {
@@ -408,9 +406,8 @@
     }
   ],
   "recovery_workflows": [
-    "update-fund-nav-cta.yml",
     "update-market-dashboard.yml"
   ],
-  "issue_fingerprint": "f576581887e17dd2eed0d50900e6876f06f75b5d93ef9b617c2c72ded7729479",
+  "issue_fingerprint": "b1447b74529c067e3d5b911d95b45d8d9a6f21051a07cda984649b7a9afca484",
   "policy": "Health monitoring only; never changes CTA, rankings, or investment decisions."
 }
