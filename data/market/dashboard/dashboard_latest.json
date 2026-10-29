@@ -1,10 +1,10 @@
 {
   "schema_version": "1.9",
   "module": "Onecool Market Dashboard",
-  "generated_at": "2026-10-29T11:31:33.171173+00:00",
+  "generated_at": "2026-10-29T11:34:14.725130+00:00",
   "expected_as_of": "2026-10-28",
   "data_status": "READY",
-  "last_successful_update_at": "2026-10-29T11:31:33.171173+00:00",
+  "last_successful_update_at": "2026-10-29T11:34:14.725130+00:00",
   "index_cta_basis": {
     "method": "ETF/index proxies; shared CTA engine",
     "mappings": {
@@ -945,7 +945,7 @@
     "classification": "Onecool proxy scores; not IBD official ratings",
     "expected_as_of": "2026-10-28",
     "price_basis": "adjusted_close",
-    "data_status": "PARTIAL",
+    "data_status": "READY",
     "thresholds": {
       "canslim": 70,
       "minervini": 80
@@ -982,9 +982,11 @@
       {
         "symbol": "XYZ",
         "price_as_of": "2026-10-28",
-        "fundamentals_as_of": null,
-        "fundamental_sources": [],
-        "fundamentals_published_as_of": null,
+        "fundamentals_as_of": "2026-06-30",
+        "fundamental_sources": [
+          "https://data.sec.gov/api/xbrl/companyfacts/CIK0001512673.json"
+        ],
+        "fundamentals_published_as_of": "2026-08-05",
         "liquidity_average_50d_usd": 329989651.65,
         "liquidity_minimum_50d_usd": 20000000,
         "liquidity_status": "PASSED",
@@ -997,20 +999,20 @@
           "minervini": 80
         },
         "technical_confidence": 100,
-        "validation_status": "Technical Data Validation Failed",
-        "validation_errors": [
-          "fundamental validation unavailable"
-        ],
-        "canslim_score": null,
+        "validation_status": "PASSED",
+        "validation_errors": [],
+        "canslim_score": 38,
         "minervini_score": 74,
-        "passes_dual_system": null
+        "passes_dual_system": false
       },
       {
         "symbol": "SWKS",
         "price_as_of": "2026-10-28",
-        "fundamentals_as_of": null,
-        "fundamental_sources": [],
-        "fundamentals_published_as_of": null,
+        "fundamentals_as_of": "2026-07-03",
+        "fundamental_sources": [
+          "https://data.sec.gov/api/xbrl/companyfacts/CIK0000004127.json"
+        ],
+        "fundamentals_published_as_of": "2026-07-28",
         "liquidity_average_50d_usd": 555781648.35,
         "liquidity_minimum_50d_usd": 20000000,
         "liquidity_status": "PASSED",
@@ -1023,13 +1025,11 @@
           "minervini": 80
         },
         "technical_confidence": 100,
-        "validation_status": "Technical Data Validation Failed",
-        "validation_errors": [
-          "fundamental validation unavailable"
-        ],
-        "canslim_score": null,
+        "validation_status": "PASSED",
+        "validation_errors": [],
+        "canslim_score": 45,
         "minervini_score": 100,
-        "passes_dual_system": null
+        "passes_dual_system": false
       },
       {
         "symbol": "RH",
@@ -1061,9 +1061,11 @@
       {
         "symbol": "UPBD",
         "price_as_of": "2026-10-28",
-        "fundamentals_as_of": null,
-        "fundamental_sources": [],
-        "fundamentals_published_as_of": null,
+        "fundamentals_as_of": "2026-06-30",
+        "fundamental_sources": [
+          "https://data.sec.gov/api/xbrl/companyfacts/CIK0000933036.json"
+        ],
+        "fundamentals_published_as_of": "2026-07-31",
         "liquidity_average_50d_usd": 16181901.0,
         "liquidity_minimum_50d_usd": 20000000,
         "liquidity_status": "BELOW_NEW_ENTRY_MINIMUM",
@@ -1078,13 +1080,11 @@
           "minervini": 80
         },
         "technical_confidence": 100,
-        "validation_status": "Technical Data Validation Failed",
-        "validation_errors": [
-          "fundamental validation unavailable"
-        ],
-        "canslim_score": null,
+        "validation_status": "PASSED",
+        "validation_errors": [],
+        "canslim_score": 46,
         "minervini_score": 23,
-        "passes_dual_system": null
+        "passes_dual_system": false
       }
     ]
   },
@@ -3618,8 +3618,8 @@
       "missing_evidence_policy": "UNCLASSIFIED_NEVER_INFERRED"
     },
     "attempted_as_of": "2026-10-28",
-    "attempted_assessment_count": 7,
-    "last_attempt_error": "SCAN_ASSESSMENT_COVERAGE_BELOW_PUBLICATION_GATE:7/70"
+    "attempted_assessment_count": 62,
+    "last_attempt_error": "SCAN_ASSESSMENT_COVERAGE_BELOW_PUBLICATION_GATE:62/70"
   },
   "corporate_action_validation": [],
   "provider_fallback_policy": "yahoo_finance_raw_primary; alpha_vantage_core_price_fallback; last_successful_cache_on_failure"
