@@ -26,16 +26,13 @@
     "asia_and_margin_policy": "KEEP_ACTUAL_LOCAL_SOURCE_DATES"
   },
   "market_pressure_input_readiness": {
-    "status": "UPDATE_INCOMPLETE",
+    "status": "READY",
     "expected_as_of": "2026-10-29",
-    "issues": [
-      "volatility_published_parse_failed",
-      "volatility_not_current"
-    ],
+    "issues": [],
     "consumer_rule": "FINAL_EMAIL_REQUIRES_READY; MARGIN_MAY_USE_VERIFIED_OFFICIAL_LAG_BEFORE_21:30; NEVER_RECOMPUTE_PRESSURE_LIGHT"
   },
   "module": "Onecool Taiwan Stock Daily Context",
-  "generated_at": "2026-10-29T06:13:11.294678+00:00",
+  "generated_at": "2026-10-29T07:22:18.973460+00:00",
   "source_policy": "LATEST_SUCCESSFUL_SCREEN_WITH_EXPLICIT_DATE",
   "screen_as_of": "2026-10-28",
   "screen_business_day_lag": 1,
@@ -84,13 +81,11 @@
   "market_pressure_inputs": {
     "schema_version": "1.0",
     "module": "Onecool Taiwan Official Market Pressure Inputs",
-    "generated_at": "2026-10-29T06:12:14.128368+00:00",
+    "generated_at": "2026-10-29T07:20:08.962860+00:00",
     "requested_as_of": "2026-10-29",
-    "status": "UPDATE_INCOMPLETE",
-    "attempts_used": 3,
-    "issues": [
-      "volatility:PUBLISHED_PARSE_FAILED"
-    ],
+    "status": "READY",
+    "attempts_used": 1,
+    "issues": [],
     "sources": {
       "margin": {
         "status": "VERIFIED",
@@ -119,10 +114,11 @@
         "source_url": "https://www.twse.com.tw/rwd/zh/marginTrading/MI_MARGN?date=20261028&selectType=MS&response=json"
       },
       "volatility": {
-        "status": "PUBLISHED_PARSE_FAILED",
-        "as_of": null,
-        "value": null,
-        "error": "VIX_LAST_1_MIN_AVG_NOT_PARSED",
+        "status": "VERIFIED",
+        "as_of": "2026-10-29",
+        "value": 28.26,
+        "value_basis": "LAST_1_MIN_AVG",
+        "error": null,
         "download_url": "https://www.taifex.com.tw/cht/7/getVixData?filesname=20261029",
         "source_url": "https://www.taifex.com.tw/cht/7/vixMinNew"
       }
@@ -132,7 +128,7 @@
   "candidate_action_gate": "WATCH_ONLY_STALE_OR_MISSING_SCREEN",
   "candidate_cta_cache": {
     "screen_as_of": "2026-10-28",
-    "generated_at": "2026-10-29T06:12:28.508319+00:00",
+    "generated_at": "2026-10-29T07:20:28.569069+00:00",
     "requested_count": 200,
     "coverage": {
       "current": 199,
@@ -173,7 +169,7 @@
         "status": "REVIEW",
         "label": "需留意",
         "as_of": "2026Q2",
-        "observed_at": "2026-10-28T06:59:58.474991+00:00",
+        "observed_at": "2026-10-29T07:20:31.571861+00:00",
         "source_url": "https://mopsov.twse.com.tw/server-java/t164sb01?step=1&CO_ID=6669&SYEAR=2026&SSEASON=2&REPORT_ID=C",
         "source_sha256": "46c5a07d7e9e4429f043710768ca5e33e630bfa4e60f2cb95cdb5a6c87599811",
         "scope": "CONSOLIDATED_THREE_STATEMENTS",
@@ -466,7 +462,7 @@
           "spread_pct": -2.440464,
           "phase": "CONFIRMED"
         },
-        "last_attempt_at": "2026-10-29T06:12:28.508319+00:00",
+        "last_attempt_at": "2026-10-29T07:20:28.569069+00:00",
         "error": null
       },
       "action_eligibility": "WATCH_ONLY_STALE_OR_MISSING_SCREEN"
@@ -784,7 +780,7 @@
           "spread_pct": 21.077474,
           "phase": "ACTIVE"
         },
-        "last_attempt_at": "2026-10-29T06:12:28.508319+00:00",
+        "last_attempt_at": "2026-10-29T07:20:28.569069+00:00",
         "error": null
       },
       "action_eligibility": "WATCH_ONLY_STALE_OR_MISSING_SCREEN"
@@ -1106,7 +1102,7 @@
           "spread_pct": 14.071672,
           "phase": "ACTIVE"
         },
-        "last_attempt_at": "2026-10-29T06:12:28.508319+00:00",
+        "last_attempt_at": "2026-10-29T07:20:28.569069+00:00",
         "error": null
       },
       "action_eligibility": "WATCH_ONLY_STALE_OR_MISSING_SCREEN"
@@ -1422,7 +1418,7 @@
           "spread_pct": 7.327579,
           "phase": "ACTIVE"
         },
-        "last_attempt_at": "2026-10-29T06:12:28.508319+00:00",
+        "last_attempt_at": "2026-10-29T07:20:28.569069+00:00",
         "error": null
       },
       "action_eligibility": "WATCH_ONLY_STALE_OR_MISSING_SCREEN"
@@ -1446,7 +1442,7 @@
         "status": "REVIEW",
         "label": "需留意",
         "as_of": "2026Q2",
-        "observed_at": "2026-10-28T06:59:58.474991+00:00",
+        "observed_at": "2026-10-29T07:20:31.571861+00:00",
         "source_url": "https://mopsov.twse.com.tw/server-java/t164sb01?step=1&CO_ID=3036&SYEAR=2026&SSEASON=2&REPORT_ID=C",
         "source_sha256": "72a6fd9165fc3fa57e1cfebc6addad202335da1fc5fb53e9a4ba404bab336d4d",
         "scope": "CONSOLIDATED_THREE_STATEMENTS",
@@ -1738,7 +1734,7 @@
           "spread_pct": 11.31359,
           "phase": "AGING"
         },
-        "last_attempt_at": "2026-10-29T06:12:28.508319+00:00",
+        "last_attempt_at": "2026-10-29T07:20:28.569069+00:00",
         "error": null
       },
       "action_eligibility": "WATCH_ONLY_STALE_OR_MISSING_SCREEN"
