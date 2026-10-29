@@ -99,6 +99,34 @@ def test_sec_fetch_failure_remains_unscored_with_named_provider_error():
     assert "BA" not in fundamentals
 
 
+def test_transient_sec_failure_is_retried_once_before_exclusion():
+    from onecool_os.market.sec_fundamentals import fill_missing_fundamentals
+    from unittest.mock import patch
+
+    class Client:
+        request_spacing_seconds = 0
+
+        def __init__(self):
+            self.calls = 0
+
+        def fetch_companyfacts(self, cik):
+            self.calls += 1
+            if self.calls == 1:
+                raise RuntimeError("temporary SEC failure")
+            return fixture()
+
+    client = Client()
+    with patch("onecool_os.market.us_breakout_scan.technical_confidence", return_value=(100, [])):
+        fundamentals, cache, diagnostics = {}, {}, {}
+        details = fill_missing_fundamentals(client, {"BA": [object()]}, fundamentals,
+                                             "2026-09-11", cache, diagnostics,
+                                             registry_mapping={"BA": "0000000001"})
+    assert client.calls == 2
+    assert details["BA"]["status"] == "SEC_VERIFIED"
+    assert diagnostics["BA"] == "SEC_VERIFIED"
+    assert "BA" in fundamentals
+
+
 def test_october_issuer_review_classifies_six_without_scoring_them():
     import json
     from pathlib import Path
