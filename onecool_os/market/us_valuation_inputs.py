@@ -18,6 +18,9 @@ from onecool_os.market.sec_fundamentals import _series
 
 def fetch_sec_json(url, user_agent):
     """Bound each optional research request so report delivery can proceed."""
+    # GitHub exports unavailable secrets as empty strings. Normalize here so
+    # every SEC caller retains the existing attributable default identity.
+    user_agent = (user_agent or "").strip() or "OnecoolOS research onecool-tw@users.noreply.github.com"
     request = Request(url, headers={"User-Agent": user_agent, "Accept": "application/json"})
     with urlopen(request, timeout=12) as response:
         return json.load(response)
