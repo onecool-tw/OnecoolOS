@@ -687,9 +687,28 @@ def fetch_yahoo_breakout_inputs(
         try:
             age = (expected - date.fromisoformat(entry["fetched_as_of"])).days
             fundamental = FundamentalMetrics(**entry["metrics"])
-            if age == 0 and fundamental_validation_error(fundamental, expected) is None:
+            cache_is_verified_sec = (
+                entry.get("provider") == "SEC"
+                and isinstance(entry.get("sec_evidence"), dict)
+                and bool(entry["sec_evidence"].get("pairs"))
+            )
+            # A Company Facts response verified on the prior calendar day is
+            # still point-in-time complete for today's scan. The SEC parser
+            # deliberately excludes filings whose filed date equals the price
+            # cutoff because their intraday publication time is unknown.
+            # Keep the original fetch date and provenance; never extend this
+            # rule beyond one calendar day or relabel it as a current fetch.
+            prior_day_sec_cache = age == 1 and cache_is_verified_sec
+            if (
+                (age == 0 or prior_day_sec_cache)
+                and fundamental_validation_error(fundamental, expected) is None
+            ):
                 fundamentals[symbol] = fundamental
-                diagnostics[symbol] = "CACHED_VALID"
+                diagnostics[symbol] = (
+                    "CACHED_PRIOR_DAY_SEC_VERIFIED"
+                    if prior_day_sec_cache
+                    else "CACHED_VALID"
+                )
             elif age > 0:
                 diagnostics[symbol] = "SOURCE_REFRESH_REQUIRED"
         except (KeyError, TypeError, ValueError):
