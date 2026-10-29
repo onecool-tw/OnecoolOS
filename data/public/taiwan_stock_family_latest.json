@@ -13,48 +13,55 @@
   "sources": {
     "dashboard": {
       "path": "data/market/dashboard/dashboard_latest.json",
-      "sha256": "97a7fc738db303b042cae4b8571fb7cf3a32af936401ff00f28ac20e3e452413"
+      "sha256": "709554b2e79d317ab3d88fd9f0a36859b6bb985d93baaac1a921656e7aaed5dc"
     },
     "screen": {
       "path": "data/market/taiwan_stock_intelligence/screen_latest.json",
-      "sha256": "08d0746cee8f3631cf478de96979e9f8d1435a7ac5de3dc103c7f66d1c79a32f"
+      "sha256": "50083d3b3d99b814f85e87c390927ea6778daad0546d0d2797a97e40200fff03"
     },
     "cta": {
       "path": "data/market/taiwan_stock_intelligence/cta/cta_latest.json",
-      "sha256": "35ff679836f78be100ad01d6956e3cae8190f993ed56083c7034c56d245e4b51"
+      "sha256": "77b603dc0a41e1bd968d981202f677b3d2d667b24ee92b3a269855b2550dfe3a"
     },
     "context": {
       "path": "data/market/taiwan_stock_intelligence/daily_context_latest.json",
-      "sha256": "3c8241df9f17e812b4139dd4ec031bd266cca05e7f65761754fdac80940a4a1f"
+      "sha256": "dd9a52b12925e63eba568a0fd3b9c452769902f2fe9cb4bef01e4bc0a5bfef4e"
     }
   },
   "source_generated_at": {
-    "dashboard": "2026-10-28T08:38:44.225878+00:00",
+    "dashboard": "2026-10-29T06:09:20.387897+00:00",
     "screen": null,
-    "cta": "2026-10-28T14:00:19.952100+00:00",
-    "context": "2026-10-28T14:00:24.756088+00:00"
+    "cta": "2026-10-29T06:12:28.508319+00:00",
+    "context": "2026-10-29T06:13:11.294678+00:00"
   },
   "screen_as_of": "2026-10-28",
-  "display_status": "CURRENT",
+  "display_status": "STALE",
   "report_readiness": {
-    "status": "READY",
-    "expected_as_of": "2026-10-28",
+    "status": "UPDATE_INCOMPLETE",
+    "expected_as_of": "2026-10-29",
     "screen_as_of": "2026-10-28",
     "taiwan_cta_dates": {
-      "0050": "2026-10-28",
-      "2330": "2026-10-28",
-      "6669": "2026-10-28",
-      "3006": "2026-10-28",
-      "4967": "2026-10-28",
-      "2382": "2026-10-28",
-      "3036": "2026-10-28"
+      "0050": "2026-10-29",
+      "2330": "2026-10-29",
+      "6669": "2026-10-29",
+      "3006": "2026-10-29",
+      "4967": "2026-10-29",
+      "2382": "2026-10-29",
+      "3036": "2026-10-29"
     },
-    "issues": [],
+    "issues": [
+      "screen_not_current",
+      "6669_price_not_current",
+      "3006_price_not_current",
+      "4967_price_not_current",
+      "2382_price_not_current",
+      "3036_price_not_current"
+    ],
     "scope": "TAIWAN_PRICE_VALUATION_AND_CTA_ONLY",
     "consumer_rule": "INCOMPLETE_MEANS_NO_NEW_EXPOSURE_AND_NO_UNCHANGED_RANKING_CLAIM",
     "asia_and_margin_policy": "KEEP_ACTUAL_LOCAL_SOURCE_DATES"
   },
-  "candidate_action_gate": "REQUIRES_INDIVIDUAL_CTA_AND_PRESSURE_GREEN",
+  "candidate_action_gate": "WATCH_ONLY_STALE_OR_MISSING_SCREEN",
   "market_pressure": {
     "as_of": "2026-10-28",
     "status": "CURRENT",
@@ -94,16 +101,21 @@
     "data_quality": "READY"
   },
   "market_pressure_freshness": {
-    "expected_as_of": "2026-10-28",
+    "expected_as_of": "2026-10-29",
     "as_of": "2026-10-28",
     "source_status": "CURRENT",
-    "status": "CURRENT",
-    "same_day_current": true,
+    "status": "STALE_LAST_KNOWN",
+    "same_day_current": false,
     "consumer_action": "PAUSE_NEW_EXPOSURE"
   },
   "final_delivery_readiness": {
-    "status": "READY",
-    "issues": [],
+    "status": "UPDATE_INCOMPLETE",
+    "issues": [
+      "SCREEN_EXPECTED_AS_OF_MISMATCH",
+      "MARKET_PRESSURE_AS_OF_MISMATCH",
+      "REPORT_READINESS_NOT_READY",
+      "MARKET_PRESSURE_INPUTS_NOT_READY"
+    ],
     "rule": "EMAIL_REQUIRES_CURRENT_MARKET_PRESSURE_AND_CURRENT_LOCAL_MARKET_ASIA_CTA"
   },
   "asia_cta_readiness": {
@@ -121,19 +133,24 @@
     "consumer_rule": "STALE_OR_UNKNOWN_ASIA_CTA_BLOCKS_FINAL_EMAIL"
   },
   "market_pressure_input_readiness": {
-    "status": "READY",
-    "expected_as_of": "2026-10-28",
-    "issues": [],
+    "status": "UPDATE_INCOMPLETE",
+    "expected_as_of": "2026-10-29",
+    "issues": [
+      "volatility_published_parse_failed",
+      "volatility_not_current"
+    ],
     "consumer_rule": "FINAL_EMAIL_REQUIRES_READY; MARGIN_MAY_USE_VERIFIED_OFFICIAL_LAG_BEFORE_21:30; NEVER_RECOMPUTE_PRESSURE_LIGHT"
   },
   "market_pressure_inputs": {
     "schema_version": "1.0",
     "module": "Onecool Taiwan Official Market Pressure Inputs",
-    "generated_at": "2026-10-28T14:00:00.996563+00:00",
-    "requested_as_of": "2026-10-28",
-    "status": "READY",
-    "attempts_used": 1,
-    "issues": [],
+    "generated_at": "2026-10-29T06:12:14.128368+00:00",
+    "requested_as_of": "2026-10-29",
+    "status": "UPDATE_INCOMPLETE",
+    "attempts_used": 3,
+    "issues": [
+      "volatility:PUBLISHED_PARSE_FAILED"
+    ],
     "sources": {
       "margin": {
         "status": "VERIFIED",
@@ -156,15 +173,17 @@
           }
         },
         "error": null,
+        "official_lag_accepted": true,
+        "availability_basis": "LATEST_OFFICIAL_BEFORE_SAME_DAY_PUBLICATION",
+        "requested_as_of": "2026-10-29",
         "source_url": "https://www.twse.com.tw/rwd/zh/marginTrading/MI_MARGN?date=20261028&selectType=MS&response=json"
       },
       "volatility": {
-        "status": "VERIFIED",
-        "as_of": "2026-10-28",
-        "value": 27.42,
-        "value_basis": "LAST_1_MIN_AVG",
-        "error": null,
-        "download_url": "https://www.taifex.com.tw/cht/7/getVixData?filesname=20261028",
+        "status": "PUBLISHED_PARSE_FAILED",
+        "as_of": null,
+        "value": null,
+        "error": "VIX_LAST_1_MIN_AVG_NOT_PARSED",
+        "download_url": "https://www.taifex.com.tw/cht/7/getVixData?filesname=20261029",
         "source_url": "https://www.taifex.com.tw/cht/7/vixMinNew"
       }
     },
@@ -173,13 +192,13 @@
   "market_cta": {
     "0050": {
       "symbol": "0050",
-      "as_of": "2026-10-28",
+      "as_of": "2026-10-29",
       "cta": "HOLD",
       "trend": "BULLISH"
     },
     "2330": {
       "symbol": "2330",
-      "as_of": "2026-10-28",
+      "as_of": "2026-10-29",
       "cta": "HOLD",
       "trend": "BULLISH"
     },
@@ -213,7 +232,7 @@
       "monthly_revenue_as_of": "2026-09",
       "price_basis": "official_unadjusted_close",
       "selection_status": "FORMAL",
-      "action_eligibility": "WATCH_ONLY_FULL_WEAKNESS",
+      "action_eligibility": "WATCH_ONLY_STALE_OR_MISSING_SCREEN",
       "financial_quality": {
         "version": "onecool_tw_financial_quality_v2",
         "status": "REVIEW",
@@ -470,13 +489,13 @@
       },
       "individual_cta": {
         "symbol": "6669",
-        "as_of": "2026-10-28",
+        "as_of": "2026-10-29",
         "cta": "SELL",
         "state": "WEEKLY_BEARISH_DAILY_BEARISH",
         "update_status": "CURRENT",
         "price_basis": "locally_adjusted_close",
         "weekly_data_as_of": "2026-10-22",
-        "source_data_as_of": "2026-10-28",
+        "source_data_as_of": "2026-10-29",
         "error": null
       }
     },
@@ -492,13 +511,13 @@
       "monthly_revenue_as_of": "2026-09",
       "price_basis": "official_unadjusted_close",
       "selection_status": "FORMAL",
-      "action_eligibility": "ELIGIBLE_IF_0050_BULLISH_AND_PRESSURE_GREEN",
+      "action_eligibility": "WATCH_ONLY_STALE_OR_MISSING_SCREEN",
       "financial_quality": {
         "version": "onecool_tw_financial_quality_v2",
         "status": "NORMAL",
         "label": "正常",
         "as_of": "2026Q2",
-        "observed_at": "2026-10-28T06:05:14.976173+00:00",
+        "observed_at": "2026-10-29T06:12:32.559317+00:00",
         "source_url": "https://mopsov.twse.com.tw/server-java/t164sb01?step=1&CO_ID=3006&SYEAR=2026&SSEASON=2&REPORT_ID=C",
         "source_sha256": "cc403f689c719b486a97f8ea03fc0d5225f45eb1e6fb7010bfb205ca8466d068",
         "scope": "CONSOLIDATED_THREE_STATEMENTS",
@@ -750,13 +769,13 @@
       },
       "individual_cta": {
         "symbol": "3006",
-        "as_of": "2026-10-28",
+        "as_of": "2026-10-29",
         "cta": "BUY",
         "state": "WEEKLY_BULLISH_DAILY_BULLISH",
         "update_status": "CURRENT",
         "price_basis": "locally_adjusted_close",
         "weekly_data_as_of": "2026-10-22",
-        "source_data_as_of": "2026-10-28",
+        "source_data_as_of": "2026-10-29",
         "error": null
       }
     },
@@ -772,7 +791,7 @@
       "monthly_revenue_as_of": "2026-09",
       "price_basis": "official_unadjusted_close",
       "selection_status": "FORMAL",
-      "action_eligibility": "ELIGIBLE_IF_0050_BULLISH_AND_PRESSURE_GREEN",
+      "action_eligibility": "WATCH_ONLY_STALE_OR_MISSING_SCREEN",
       "financial_quality": {
         "version": "onecool_tw_financial_quality_v2",
         "status": "REVIEW",
@@ -1034,13 +1053,13 @@
       },
       "individual_cta": {
         "symbol": "4967",
-        "as_of": "2026-10-28",
+        "as_of": "2026-10-29",
         "cta": "BUY",
         "state": "WEEKLY_BULLISH_DAILY_BULLISH",
         "update_status": "CURRENT",
         "price_basis": "locally_adjusted_close",
         "weekly_data_as_of": "2026-10-22",
-        "source_data_as_of": "2026-10-28",
+        "source_data_as_of": "2026-10-29",
         "error": null
       }
     },
@@ -1056,13 +1075,13 @@
       "monthly_revenue_as_of": "2026-09",
       "price_basis": "official_unadjusted_close",
       "selection_status": "FORMAL",
-      "action_eligibility": "ELIGIBLE_IF_0050_BULLISH_AND_PRESSURE_GREEN",
+      "action_eligibility": "WATCH_ONLY_STALE_OR_MISSING_SCREEN",
       "financial_quality": {
         "version": "onecool_tw_financial_quality_v2",
         "status": "REVIEW",
         "label": "需留意",
         "as_of": "2026Q2",
-        "observed_at": "2026-10-28T06:05:14.976173+00:00",
+        "observed_at": "2026-10-29T06:12:32.559317+00:00",
         "source_url": "https://mopsov.twse.com.tw/server-java/t164sb01?step=1&CO_ID=2382&SYEAR=2026&SSEASON=2&REPORT_ID=C",
         "source_sha256": "b6059fc3a4d6237487440c2855fc85ac40330b4ebcdb0da9e722136f4d7dd3f4",
         "scope": "CONSOLIDATED_THREE_STATEMENTS",
@@ -1312,13 +1331,13 @@
       },
       "individual_cta": {
         "symbol": "2382",
-        "as_of": "2026-10-28",
+        "as_of": "2026-10-29",
         "cta": "BUY",
         "state": "WEEKLY_BULLISH_DAILY_BULLISH",
         "update_status": "CURRENT",
         "price_basis": "locally_adjusted_close",
         "weekly_data_as_of": "2026-10-22",
-        "source_data_as_of": "2026-10-28",
+        "source_data_as_of": "2026-10-29",
         "error": null
       }
     },
@@ -1334,7 +1353,7 @@
       "monthly_revenue_as_of": "2026-09",
       "price_basis": "official_unadjusted_close",
       "selection_status": "FORMAL",
-      "action_eligibility": "HOLD_EXISTING_PAUSE_RIGHT_SIDE_ADD",
+      "action_eligibility": "WATCH_ONLY_STALE_OR_MISSING_SCREEN",
       "financial_quality": {
         "version": "onecool_tw_financial_quality_v2",
         "status": "REVIEW",
@@ -1590,13 +1609,13 @@
       },
       "individual_cta": {
         "symbol": "3036",
-        "as_of": "2026-10-28",
+        "as_of": "2026-10-29",
         "cta": "WATCH",
         "state": "WEEKLY_BULLISH_DAILY_BEARISH",
         "update_status": "CURRENT",
         "price_basis": "locally_adjusted_close",
         "weekly_data_as_of": "2026-10-22",
-        "source_data_as_of": "2026-10-28",
+        "source_data_as_of": "2026-10-29",
         "error": null
       }
     }
