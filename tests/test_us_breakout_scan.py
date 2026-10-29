@@ -251,6 +251,74 @@ def test_refresh_failure_does_not_relabel_previous_session_sec_cache_current() -
     assert cache["AAA"]["attempted_as_of"] == expected.isoformat()
 
 
+def test_prior_calendar_day_verified_sec_cache_remains_point_in_time_valid() -> None:
+    spy = _history(strength=0.1)
+    dates = pd.to_datetime([bar.trading_date for bar in spy])
+    frame = pd.DataFrame({
+        "Open": [bar.open for bar in spy],
+        "High": [bar.high for bar in spy],
+        "Low": [bar.low for bar in spy],
+        "Close": [bar.close for bar in spy],
+        "Volume": [bar.volume for bar in spy],
+    }, index=dates)
+
+    class FakeTicker:
+        info = {}
+
+        @staticmethod
+        def history(**kwargs):
+            return frame
+
+    class FakeYahoo:
+        Ticker = lambda symbol: FakeTicker()  # noqa: E731
+
+        @staticmethod
+        def download(*args, **kwargs):
+            return frame
+
+    expected = spy[-1].trading_date
+    cache = {
+        "AAA": {
+            "fetched_as_of": (expected - timedelta(days=1)).isoformat(),
+            "provider": "SEC",
+            "metrics": {
+                "as_of": (expected - timedelta(days=80)).isoformat(),
+                "quarterly_eps_growth": 0.2,
+                "quarterly_revenue_growth": 0.1,
+                "annual_eps_growth": 0.15,
+                "institutional_holders_available": False,
+                "source_urls": [
+                    "https://data.sec.gov/api/xbrl/companyfacts/CIK0000000001.json"
+                ],
+                "published_as_of": (expected - timedelta(days=70)).isoformat(),
+                "valid_through": None,
+            },
+            "sec_evidence": {
+                "pairs": {
+                    "quarterly_eps": {"current": {}, "prior": {}},
+                    "quarterly_revenue": {"current": {}, "prior": {}},
+                    "annual_eps": {"current": {}, "prior": {}},
+                }
+            },
+        }
+    }
+    diagnostics = {}
+
+    _, fundamentals = fetch_yahoo_breakout_inputs(
+        FakeYahoo,
+        expected_as_of=expected.isoformat(),
+        spy_history=spy,
+        universe=("AAA",),
+        fundamental_shortlist_size=0,
+        fundamental_cache=cache,
+        fetch_diagnostics=diagnostics,
+    )
+
+    assert fundamentals["AAA"].quarterly_eps_growth == 0.2
+    assert diagnostics["AAA"] == "CACHED_PRIOR_DAY_SEC_VERIFIED"
+    assert cache["AAA"]["fetched_as_of"] == (expected - timedelta(days=1)).isoformat()
+
+
 def test_batch_union_leading_missing_rows_do_not_discard_valid_history() -> None:
     bars = _history(days=320)
     dates = pd.to_datetime([
