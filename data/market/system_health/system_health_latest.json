@@ -1,11 +1,11 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-10-29T11:41:53.939614+00:00",
+  "generated_at": "2026-10-29T11:45:32.169154+00:00",
   "taipei_date": "2026-10-29",
-  "status": "BLOCKED",
+  "status": "PARTIAL",
   "scope_status": {
-    "morning": "BLOCKED",
+    "morning": "PARTIAL",
     "asia": "READY",
     "weekly": "READY"
   },
@@ -77,11 +77,11 @@
     "policy": "Data readiness does not prove report delivery. Never infer email success from a generated draft."
   },
   "end_to_end_status": "NOT_FULLY_VERIFIED",
-  "action_readiness": "UNSAFE_FOR_AFFECTED_REPORTS",
+  "action_readiness": "LIMITED",
   "counts": {
     "ready": 18,
-    "partial": 1,
-    "blocked": 1
+    "partial": 2,
+    "blocked": 0
   },
   "modules": [
     {
@@ -119,11 +119,11 @@
       "label": "US Breakout Scan",
       "scope": "morning",
       "critical": true,
-      "status": "BLOCKED",
-      "reason": "date does not match Market Dashboard",
-      "observed_as_of": "2026-10-27",
+      "status": "PARTIAL",
+      "reason": "validated subset 61/70; see per-symbol fetch/validation status",
+      "observed_as_of": "2026-10-28",
       "recovery_workflow": "update-market-dashboard.yml",
-      "retryable": true,
+      "retryable": false,
       "impacted_reports": [
         "美股日報"
       ]
@@ -376,11 +376,11 @@
       "label": "US Breakout Scan",
       "scope": "morning",
       "critical": true,
-      "status": "BLOCKED",
-      "reason": "date does not match Market Dashboard",
-      "observed_as_of": "2026-10-27",
+      "status": "PARTIAL",
+      "reason": "validated subset 61/70; see per-symbol fetch/validation status",
+      "observed_as_of": "2026-10-28",
       "recovery_workflow": "update-market-dashboard.yml",
-      "retryable": true,
+      "retryable": false,
       "impacted_reports": [
         "美股日報"
       ]
@@ -400,9 +400,7 @@
       ]
     }
   ],
-  "recovery_workflows": [
-    "update-market-dashboard.yml"
-  ],
-  "issue_fingerprint": "e5c2ccbf0bee1f4332f8062c1a6957c2c238c4a66734d4e092f28250b8afac25",
+  "recovery_workflows": [],
+  "issue_fingerprint": "bc0bbf8992842638b566d8de1f5e511918ed82c328c58075b7c42402455f011b",
   "policy": "Health monitoring only; never changes CTA, rankings, or investment decisions."
 }
