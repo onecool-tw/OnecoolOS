@@ -1,12 +1,12 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-10-30T15:07:49.367762+00:00",
+  "generated_at": "2026-10-30T15:26:18.917427+00:00",
   "taipei_date": "2026-10-30",
-  "status": "READY",
+  "status": "BLOCKED",
   "scope_status": {
     "morning": "READY",
-    "asia": "READY",
+    "asia": "BLOCKED",
     "weekly": "READY"
   },
   "report_delivery": {
@@ -68,11 +68,11 @@
     "policy": "Data readiness does not prove report delivery. Never infer email success from a generated draft."
   },
   "end_to_end_status": "NOT_FULLY_VERIFIED",
-  "action_readiness": "SAFE",
+  "action_readiness": "UNSAFE_FOR_AFFECTED_REPORTS",
   "counts": {
-    "ready": 20,
+    "ready": 19,
     "partial": 0,
-    "blocked": 0
+    "blocked": 1
   },
   "modules": [
     {
@@ -224,8 +224,8 @@
       "label": "Taiwan official pressure inputs",
       "scope": "asia",
       "critical": true,
-      "status": "READY",
-      "reason": "official input dates/statuses ready",
+      "status": "BLOCKED",
+      "reason": "volatility_fetch_failed; volatility_not_current",
       "observed_as_of": "2026-10-30",
       "recovery_workflow": "update-taiwan-stock-screen.yml",
       "retryable": true,
@@ -361,8 +361,25 @@
       ]
     }
   ],
-  "issues": [],
-  "recovery_workflows": [],
-  "issue_fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+  "issues": [
+    {
+      "module_id": "taiwan_pressure_inputs",
+      "label": "Taiwan official pressure inputs",
+      "scope": "asia",
+      "critical": true,
+      "status": "BLOCKED",
+      "reason": "volatility_fetch_failed; volatility_not_current",
+      "observed_as_of": "2026-10-30",
+      "recovery_workflow": "update-taiwan-stock-screen.yml",
+      "retryable": true,
+      "impacted_reports": [
+        "台股日報"
+      ]
+    }
+  ],
+  "recovery_workflows": [
+    "update-taiwan-stock-screen.yml"
+  ],
+  "issue_fingerprint": "34c186ac5e441f734cdec23fea5cad208fa3c96fbaf0a35d15bb36478a6e312c",
   "policy": "Health monitoring only; never changes CTA, rankings, or investment decisions."
 }
