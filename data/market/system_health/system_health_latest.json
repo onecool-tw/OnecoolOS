@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-10-30T08:18:53.369899+00:00",
+  "generated_at": "2026-10-30T08:40:18.569752+00:00",
   "taipei_date": "2026-10-30",
   "status": "BLOCKED",
   "scope_status": {
@@ -70,9 +70,9 @@
   "end_to_end_status": "NOT_FULLY_VERIFIED",
   "action_readiness": "UNSAFE_FOR_AFFECTED_REPORTS",
   "counts": {
-    "ready": 17,
-    "partial": 1,
-    "blocked": 2
+    "ready": 16,
+    "partial": 0,
+    "blocked": 4
   },
   "modules": [
     {
@@ -182,8 +182,8 @@
       "label": "Taiwan Stock Screen",
       "scope": "asia",
       "critical": true,
-      "status": "READY",
-      "reason": "current",
+      "status": "BLOCKED",
+      "reason": "data is stale",
       "observed_as_of": "2026-10-29",
       "recovery_workflow": "update-taiwan-stock-screen.yml",
       "retryable": true,
@@ -195,12 +195,12 @@
       "module_id": "taiwan_candidate_cta",
       "label": "Taiwan 200-stock CTA",
       "scope": "asia",
-      "critical": false,
-      "status": "PARTIAL",
-      "reason": "current 199, stale 0, unknown 1; insufficient history: 7711 永擎: weekly observations 49/50; waiting for actual market observations, not a provider retry.",
+      "critical": true,
+      "status": "BLOCKED",
+      "reason": "coverage incomplete or stale",
       "observed_as_of": "2026-10-29",
       "recovery_workflow": "update-taiwan-stock-screen.yml",
-      "retryable": false,
+      "retryable": true,
       "impacted_reports": [
         "台股日報"
       ]
@@ -211,7 +211,7 @@
       "scope": "asia",
       "critical": true,
       "status": "BLOCKED",
-      "reason": "display_status is not ready",
+      "reason": "data is stale",
       "observed_as_of": "2026-10-29",
       "recovery_workflow": "update-taiwan-stock-screen.yml",
       "retryable": true,
@@ -225,7 +225,7 @@
       "scope": "asia",
       "critical": true,
       "status": "BLOCKED",
-      "reason": "pressure_inputs_wrong_requested_date; volatility_not_current",
+      "reason": "volatility_fetch_failed; volatility_not_current",
       "observed_as_of": "2026-10-30",
       "recovery_workflow": "update-taiwan-stock-screen.yml",
       "retryable": true,
@@ -363,15 +363,29 @@
   ],
   "issues": [
     {
+      "module_id": "taiwan_stock_screen",
+      "label": "Taiwan Stock Screen",
+      "scope": "asia",
+      "critical": true,
+      "status": "BLOCKED",
+      "reason": "data is stale",
+      "observed_as_of": "2026-10-29",
+      "recovery_workflow": "update-taiwan-stock-screen.yml",
+      "retryable": true,
+      "impacted_reports": [
+        "台股日報"
+      ]
+    },
+    {
       "module_id": "taiwan_candidate_cta",
       "label": "Taiwan 200-stock CTA",
       "scope": "asia",
-      "critical": false,
-      "status": "PARTIAL",
-      "reason": "current 199, stale 0, unknown 1; insufficient history: 7711 永擎: weekly observations 49/50; waiting for actual market observations, not a provider retry.",
+      "critical": true,
+      "status": "BLOCKED",
+      "reason": "coverage incomplete or stale",
       "observed_as_of": "2026-10-29",
       "recovery_workflow": "update-taiwan-stock-screen.yml",
-      "retryable": false,
+      "retryable": true,
       "impacted_reports": [
         "台股日報"
       ]
@@ -382,7 +396,7 @@
       "scope": "asia",
       "critical": true,
       "status": "BLOCKED",
-      "reason": "display_status is not ready",
+      "reason": "data is stale",
       "observed_as_of": "2026-10-29",
       "recovery_workflow": "update-taiwan-stock-screen.yml",
       "retryable": true,
@@ -396,7 +410,7 @@
       "scope": "asia",
       "critical": true,
       "status": "BLOCKED",
-      "reason": "pressure_inputs_wrong_requested_date; volatility_not_current",
+      "reason": "volatility_fetch_failed; volatility_not_current",
       "observed_as_of": "2026-10-30",
       "recovery_workflow": "update-taiwan-stock-screen.yml",
       "retryable": true,
@@ -408,6 +422,6 @@
   "recovery_workflows": [
     "update-taiwan-stock-screen.yml"
   ],
-  "issue_fingerprint": "502f142da83440dbd3d0e9a6a331f336b873699455a007f1f716f9739eca42ec",
+  "issue_fingerprint": "adb32614e3a0c465a45fa546e9ec5becc5c94eeebb9e268c1f4450cab7026347",
   "policy": "Health monitoring only; never changes CTA, rankings, or investment decisions."
 }
