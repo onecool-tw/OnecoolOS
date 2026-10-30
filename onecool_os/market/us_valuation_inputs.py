@@ -10,10 +10,26 @@ from datetime import date, datetime, time, timezone
 from zoneinfo import ZoneInfo
 from hashlib import sha256
 import json
+import time as clock
 from math import isfinite
+from threading import Lock
+from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
 from onecool_os.market.sec_fundamentals import _series
+
+_SEC_REQUEST_LOCK = Lock()
+_SEC_NEXT_REQUEST = 0.0
+
+
+def _wait_for_sec_slot():
+    """Share a two-request/second budget across SEC request callers."""
+    global _SEC_NEXT_REQUEST
+    with _SEC_REQUEST_LOCK:
+        wait = _SEC_NEXT_REQUEST - clock.monotonic()
+        if wait > 0:
+            clock.sleep(wait)
+        _SEC_NEXT_REQUEST = clock.monotonic() + 0.5
 
 
 def fetch_sec_json(url, user_agent):
@@ -21,9 +37,29 @@ def fetch_sec_json(url, user_agent):
     # GitHub exports unavailable secrets as empty strings. Normalize here so
     # every SEC caller retains the existing attributable default identity.
     user_agent = (user_agent or "").strip() or "OnecoolOS research onecool-tw@users.noreply.github.com"
-    request = Request(url, headers={"User-Agent": user_agent, "Accept": "application/json"})
-    with urlopen(request, timeout=12) as response:
-        return json.load(response)
+    headers = {"User-Agent": user_agent, "Accept": "application/json"}
+    contact = user_agent.rsplit(" ", 1)[-1]
+    if "@" in contact:
+        headers["From"] = contact
+    for attempt in range(2):
+        _wait_for_sec_slot()
+        try:
+            with urlopen(Request(url, headers=headers), timeout=12) as response:
+                return json.load(response)
+        except HTTPError as exc:
+            if attempt or exc.code not in {429, 500, 502, 503, 504}:
+                exc.sec_retry_exhausted = True
+                raise
+            try:
+                delay = min(30.0, max(2.0, float(exc.headers.get("Retry-After", "2"))))
+            except (AttributeError, ValueError):
+                delay = 2.0
+        except (URLError, TimeoutError) as exc:
+            if attempt:
+                exc.sec_retry_exhausted = True
+                raise
+            delay = 2.0
+        clock.sleep(delay)
 
 
 def _positive(value):

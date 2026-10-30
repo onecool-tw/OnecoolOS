@@ -134,6 +134,11 @@ def fill_missing_fundamentals(client, histories, fundamentals, expected_as_of, c
                     break
                 except Exception as exc:
                     last_error = exc
+                    # Access denial is not a temporary service outage.
+                    if (getattr(exc, 'code', None) == 403
+                            or getattr(exc, 'sec_retry_exhausted', False)
+                            or isinstance(exc, (ValueError, KeyError, TypeError))):
+                        break
                     if attempt == 0:
                         continue
             if last_error is not None:
@@ -163,6 +168,7 @@ def fill_missing_fundamentals(client, histories, fundamentals, expected_as_of, c
             error_name = type(exc).__name__
             provider_error = str(exc)[:200] if error_name in {'AIRevolutionError', 'HTTPError'} else None
             details[symbol] = {'status': 'SEC_FETCH_FAILED', 'error_type': error_name,
+                               'http_status': getattr(exc, 'code', None),
                                'provider_error': provider_error}
     return details
 
