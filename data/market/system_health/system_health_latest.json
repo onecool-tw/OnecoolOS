@@ -1,11 +1,11 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-10-30T08:08:38.386905+00:00",
+  "generated_at": "2026-10-30T08:10:43.465328+00:00",
   "taipei_date": "2026-10-30",
   "status": "BLOCKED",
   "scope_status": {
-    "morning": "BLOCKED",
+    "morning": "PARTIAL",
     "asia": "BLOCKED",
     "weekly": "READY"
   },
@@ -71,8 +71,8 @@
   "action_readiness": "UNSAFE_FOR_AFFECTED_REPORTS",
   "counts": {
     "ready": 16,
-    "partial": 1,
-    "blocked": 3
+    "partial": 2,
+    "blocked": 2
   },
   "modules": [
     {
@@ -110,11 +110,11 @@
       "label": "US Breakout Scan",
       "scope": "morning",
       "critical": true,
-      "status": "BLOCKED",
-      "reason": "date does not match Market Dashboard",
-      "observed_as_of": "2026-10-28",
+      "status": "PARTIAL",
+      "reason": "validated subset 61/70; see per-symbol fetch/validation status",
+      "observed_as_of": "2026-10-29",
       "recovery_workflow": "update-market-dashboard.yml",
-      "retryable": true,
+      "retryable": false,
       "impacted_reports": [
         "美股日報"
       ]
@@ -367,11 +367,11 @@
       "label": "US Breakout Scan",
       "scope": "morning",
       "critical": true,
-      "status": "BLOCKED",
-      "reason": "date does not match Market Dashboard",
-      "observed_as_of": "2026-10-28",
+      "status": "PARTIAL",
+      "reason": "validated subset 61/70; see per-symbol fetch/validation status",
+      "observed_as_of": "2026-10-29",
       "recovery_workflow": "update-market-dashboard.yml",
-      "retryable": true,
+      "retryable": false,
       "impacted_reports": [
         "美股日報"
       ]
@@ -420,9 +420,8 @@
     }
   ],
   "recovery_workflows": [
-    "update-market-dashboard.yml",
     "update-taiwan-stock-screen.yml"
   ],
-  "issue_fingerprint": "77b53776ec5fc8856012e2227c3c3715f4249a1509c2e78eb33329f8e74126ba",
+  "issue_fingerprint": "687c9c14a9082e458240e506d1150a3fe96836c747b48d7282d65f8e7e4b2550",
   "policy": "Health monitoring only; never changes CTA, rankings, or investment decisions."
 }
