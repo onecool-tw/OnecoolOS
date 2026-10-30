@@ -17,22 +17,22 @@
     },
     "screen": {
       "path": "data/market/taiwan_stock_intelligence/screen_latest.json",
-      "sha256": "2bcf6a9fa5db8fc9984509e648a80ae93a53bbb8b6cf31d2949f82f3f182da1d"
+      "sha256": "8218ef28c9c328c3dffb696b92314df10c4a52225ab7896b27e2b4c7e90768b5"
     },
     "cta": {
       "path": "data/market/taiwan_stock_intelligence/cta/cta_latest.json",
-      "sha256": "b6e5ca3792e4eb159f02a333aa1f3e3a2e6ebc458f68c87aa3c4ae977491f11c"
+      "sha256": "ca1abfc01e5a6813d2b3c7c96762383b4c0d2e5c7103e9676fc4a5d689abe307"
     },
     "context": {
       "path": "data/market/taiwan_stock_intelligence/daily_context_latest.json",
-      "sha256": "c708ff74889e2b00a8bbe4de10a2f6b763b90765345246c57f34f340237814bf"
+      "sha256": "229628d66fc45c155430d9feafc643f745c97eb349c02c110ae3745869cbc5e1"
     }
   },
   "source_generated_at": {
     "dashboard": "2026-10-30T07:21:16.994203+00:00",
     "screen": null,
-    "cta": "2026-10-30T06:12:37.897375+00:00",
-    "context": "2026-10-30T06:13:11.621481+00:00"
+    "cta": "2026-10-30T07:23:25.689360+00:00",
+    "context": "2026-10-30T07:24:48.574374+00:00"
   },
   "screen_as_of": "2026-10-29",
   "display_status": "STALE",
@@ -114,8 +114,7 @@
     "issues": [
       "SCREEN_EXPECTED_AS_OF_MISMATCH",
       "MARKET_PRESSURE_AS_OF_MISMATCH",
-      "REPORT_READINESS_NOT_READY",
-      "MARKET_PRESSURE_INPUTS_NOT_READY"
+      "REPORT_READINESS_NOT_READY"
     ],
     "rule": "EMAIL_REQUIRES_CURRENT_MARKET_PRESSURE_AND_CURRENT_LOCAL_MARKET_ASIA_CTA"
   },
@@ -134,24 +133,19 @@
     "consumer_rule": "STALE_OR_UNKNOWN_ASIA_CTA_BLOCKS_FINAL_EMAIL"
   },
   "market_pressure_input_readiness": {
-    "status": "UPDATE_INCOMPLETE",
+    "status": "READY",
     "expected_as_of": "2026-10-30",
-    "issues": [
-      "volatility_published_parse_failed",
-      "volatility_not_current"
-    ],
+    "issues": [],
     "consumer_rule": "FINAL_EMAIL_REQUIRES_READY; MARGIN_MAY_USE_VERIFIED_OFFICIAL_LAG_BEFORE_21:30; NEVER_RECOMPUTE_PRESSURE_LIGHT"
   },
   "market_pressure_inputs": {
     "schema_version": "1.0",
     "module": "Onecool Taiwan Official Market Pressure Inputs",
-    "generated_at": "2026-10-30T06:12:27.209347+00:00",
+    "generated_at": "2026-10-30T07:23:11.963772+00:00",
     "requested_as_of": "2026-10-30",
-    "status": "UPDATE_INCOMPLETE",
-    "attempts_used": 3,
-    "issues": [
-      "volatility:PUBLISHED_PARSE_FAILED"
-    ],
+    "status": "READY",
+    "attempts_used": 1,
+    "issues": [],
     "sources": {
       "margin": {
         "status": "VERIFIED",
@@ -180,10 +174,11 @@
         "source_url": "https://www.twse.com.tw/rwd/zh/marginTrading/MI_MARGN?date=20261029&selectType=MS&response=json"
       },
       "volatility": {
-        "status": "PUBLISHED_PARSE_FAILED",
-        "as_of": null,
-        "value": null,
-        "error": "VIX_LAST_1_MIN_AVG_NOT_PARSED",
+        "status": "VERIFIED",
+        "as_of": "2026-10-30",
+        "value": 30.88,
+        "value_basis": "LAST_1_MIN_AVG",
+        "error": null,
         "download_url": "https://www.taifex.com.tw/cht/7/getVixData?filesname=20261030",
         "source_url": "https://www.taifex.com.tw/cht/7/vixMinNew"
       }
@@ -519,7 +514,7 @@
         "status": "REVIEW",
         "label": "需留意",
         "as_of": "2026Q2",
-        "observed_at": "2026-10-29T07:20:31.571861+00:00",
+        "observed_at": "2026-10-30T07:23:30.562525+00:00",
         "source_url": "https://mopsov.twse.com.tw/server-java/t164sb01?step=1&CO_ID=6669&SYEAR=2026&SSEASON=2&REPORT_ID=C",
         "source_sha256": "46c5a07d7e9e4429f043710768ca5e33e630bfa4e60f2cb95cdb5a6c87599811",
         "scope": "CONSOLIDATED_THREE_STATEMENTS",
@@ -1361,7 +1356,7 @@
         "status": "REVIEW",
         "label": "需留意",
         "as_of": "2026Q2",
-        "observed_at": "2026-10-29T07:20:31.571861+00:00",
+        "observed_at": "2026-10-30T07:23:30.562525+00:00",
         "source_url": "https://mopsov.twse.com.tw/server-java/t164sb01?step=1&CO_ID=3036&SYEAR=2026&SSEASON=2&REPORT_ID=C",
         "source_sha256": "72a6fd9165fc3fa57e1cfebc6addad202335da1fc5fb53e9a4ba404bab336d4d",
         "scope": "CONSOLIDATED_THREE_STATEMENTS",
