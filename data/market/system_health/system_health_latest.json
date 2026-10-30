@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-10-30T03:28:20.240359+00:00",
+  "generated_at": "2026-10-30T03:31:01.998089+00:00",
   "taipei_date": "2026-10-30",
   "status": "BLOCKED",
   "scope_status": {
@@ -79,9 +79,9 @@
   "end_to_end_status": "NOT_FULLY_VERIFIED",
   "action_readiness": "UNSAFE_FOR_AFFECTED_REPORTS",
   "counts": {
-    "ready": 16,
-    "partial": 2,
-    "blocked": 2
+    "ready": 18,
+    "partial": 1,
+    "blocked": 1
   },
   "modules": [
     {
@@ -91,7 +91,7 @@
       "critical": true,
       "status": "READY",
       "reason": "current",
-      "observed_as_of": "2026-10-28",
+      "observed_as_of": "2026-10-29",
       "recovery_workflow": "update-market-dashboard.yml",
       "retryable": true,
       "impacted_reports": [
@@ -104,9 +104,9 @@
       "label": "Bitcoin completed UTC day",
       "scope": "morning",
       "critical": true,
-      "status": "BLOCKED",
-      "reason": "BTC date/CTA missing or invalid; expected 2026-10-29",
-      "observed_as_of": "2026-10-28",
+      "status": "READY",
+      "reason": "current",
+      "observed_as_of": "2026-10-29",
       "recovery_workflow": "update-market-dashboard.yml",
       "retryable": true,
       "impacted_reports": [
@@ -119,11 +119,11 @@
       "label": "US Breakout Scan",
       "scope": "morning",
       "critical": true,
-      "status": "PARTIAL",
-      "reason": "validated subset 61/70; see per-symbol fetch/validation status",
+      "status": "BLOCKED",
+      "reason": "date does not match Market Dashboard",
       "observed_as_of": "2026-10-28",
       "recovery_workflow": "update-market-dashboard.yml",
-      "retryable": false,
+      "retryable": true,
       "impacted_reports": [
         "美股日報"
       ]
@@ -135,7 +135,7 @@
       "critical": true,
       "status": "READY",
       "reason": "current",
-      "observed_as_of": "2026-10-28",
+      "observed_as_of": "2026-10-29",
       "recovery_workflow": "update-market-dashboard.yml",
       "retryable": true,
       "impacted_reports": [
@@ -162,11 +162,11 @@
       "label": "Fund NAV CTA",
       "scope": "morning",
       "critical": true,
-      "status": "BLOCKED",
-      "reason": "generation timestamp missing, invalid or older than scheduled date 2026-10-30",
+      "status": "READY",
+      "reason": "current",
       "observed_as_of": "2026-10-29",
       "recovery_workflow": "update-fund-nav-cta.yml",
-      "retryable": true,
+      "retryable": false,
       "impacted_reports": [
         "基金日報",
         "基金週報"
@@ -372,47 +372,17 @@
   ],
   "issues": [
     {
-      "module_id": "bitcoin_daily",
-      "label": "Bitcoin completed UTC day",
-      "scope": "morning",
-      "critical": true,
-      "status": "BLOCKED",
-      "reason": "BTC date/CTA missing or invalid; expected 2026-10-29",
-      "observed_as_of": "2026-10-28",
-      "recovery_workflow": "update-market-dashboard.yml",
-      "retryable": true,
-      "impacted_reports": [
-        "基金日報",
-        "基金週報"
-      ]
-    },
-    {
       "module_id": "us_breakout_scan",
       "label": "US Breakout Scan",
       "scope": "morning",
       "critical": true,
-      "status": "PARTIAL",
-      "reason": "validated subset 61/70; see per-symbol fetch/validation status",
+      "status": "BLOCKED",
+      "reason": "date does not match Market Dashboard",
       "observed_as_of": "2026-10-28",
       "recovery_workflow": "update-market-dashboard.yml",
-      "retryable": false,
-      "impacted_reports": [
-        "美股日報"
-      ]
-    },
-    {
-      "module_id": "fund_nav_cta",
-      "label": "Fund NAV CTA",
-      "scope": "morning",
-      "critical": true,
-      "status": "BLOCKED",
-      "reason": "generation timestamp missing, invalid or older than scheduled date 2026-10-30",
-      "observed_as_of": "2026-10-29",
-      "recovery_workflow": "update-fund-nav-cta.yml",
       "retryable": true,
       "impacted_reports": [
-        "基金日報",
-        "基金週報"
+        "美股日報"
       ]
     },
     {
@@ -431,9 +401,8 @@
     }
   ],
   "recovery_workflows": [
-    "update-fund-nav-cta.yml",
     "update-market-dashboard.yml"
   ],
-  "issue_fingerprint": "e9dba0371476f2967db72274fc8e90b0056ab30283b085894ddcb3a474cc43fd",
+  "issue_fingerprint": "e5c2ccbf0bee1f4332f8062c1a6957c2c238c4a66734d4e092f28250b8afac25",
   "policy": "Health monitoring only; never changes CTA, rankings, or investment decisions."
 }
