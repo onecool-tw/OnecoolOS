@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-10-30T03:31:01.998089+00:00",
+  "generated_at": "2026-10-30T06:11:06.765854+00:00",
   "taipei_date": "2026-10-30",
   "status": "BLOCKED",
   "scope_status": {
@@ -45,18 +45,9 @@
       },
       {
         "report_id": "fund",
-        "expected_report_date": "2026-10-29",
-        "status": "PARTIAL",
-        "channels": {
-          "conversation": "UNKNOWN",
-          "artifact": "DELIVERED"
-        },
-        "unverified_channels": [
-          "conversation"
-        ],
-        "failed_channels": [],
-        "next_action": "Observe actual delivered message acknowledgement; do not resend solely because acknowledgement is unknown",
-        "reason": "Missing acknowledgement is unverified, not proof of failed delivery"
+        "expected_report_date": "2026-10-30",
+        "status": "UNKNOWN",
+        "reason": "Invalid or unverifiable receipt"
       },
       {
         "report_id": "home",
@@ -179,7 +170,7 @@
       "critical": true,
       "status": "READY",
       "reason": "current Dashboard authority",
-      "observed_as_of": "2026-10-29",
+      "observed_as_of": "2026-10-30",
       "recovery_workflow": "update-market-dashboard.yml",
       "retryable": true,
       "impacted_reports": [
