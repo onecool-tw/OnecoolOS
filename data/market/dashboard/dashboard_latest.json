@@ -1,10 +1,10 @@
 {
   "schema_version": "1.9",
   "module": "Onecool Market Dashboard",
-  "generated_at": "2026-10-30T08:12:30.439561+00:00",
+  "generated_at": "2026-10-30T08:13:36.909725+00:00",
   "expected_as_of": "2026-10-29",
   "data_status": "READY",
-  "last_successful_update_at": "2026-10-30T08:12:30.439561+00:00",
+  "last_successful_update_at": "2026-10-30T08:13:36.909725+00:00",
   "index_cta_basis": {
     "method": "ETF/index proxies; shared CTA engine",
     "mappings": {
@@ -2743,7 +2743,23 @@
       {
         "symbol": "MRVL",
         "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
+        "reason": "Reviewed nonpositive prior EPS; growth comparison is not meaningful under the existing rule",
+        "assessment_status": "RULE_EXCLUDED",
+        "reviewed_evidence": {
+          "symbol": "MRVL",
+          "status": "NONPOSITIVE_COMPARISON_BASE",
+          "review_status": "VERIFIED",
+          "period_end": "2026-01-31",
+          "prior_period_end": "2025-02-01",
+          "current_eps": 3.07,
+          "prior_eps": -1.02,
+          "published_as_of": "2026-03-11",
+          "valid_through": "2026-10-29",
+          "source_url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001835632.json",
+          "reviewed_as_of": "2026-10-30",
+          "review_note": "Direct SEC Company Facts evidence shows FY2026 diluted EPS 3.07 versus FY2025 -1.02; annual EPS growth comparison has a nonpositive base, so MRVL is rule-excluded and never scored.",
+          "comparison_scope": "annual_eps"
+        },
         "fundamental_fetch_status": "SEC_FETCH_FAILED",
         "fundamental_validation_detail": "SEC_FETCH_FAILED"
       },
@@ -2826,8 +2842,8 @@
         "fundamental_validation_detail": "SEC_FETCH_FAILED"
       }
     ],
-    "rule_excluded_count": 5,
-    "assessment_count": 68,
+    "rule_excluded_count": 6,
+    "assessment_count": 69,
     "assessment_status": "PARTIAL",
     "fundamental_fetch_status": {
       "AAPL": "CACHED_RECENT_SEC_VERIFIED",
