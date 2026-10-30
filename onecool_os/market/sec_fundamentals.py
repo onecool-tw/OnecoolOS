@@ -178,7 +178,7 @@ def annotate_reviewed_exclusions(scan, reviewed, expected_as_of, sec_details=Non
                 and float(row['prior_eps']) <= 0 and isfinite(float(row['current_eps']))
                 and row['source_url'].startswith('https://')
                 and date.fromisoformat(row['published_as_of']) < expected <= date.fromisoformat(row['valid_through'])
-                and 0 <= (expected-period).days <= 180
+                and 0 <= (expected-period).days <= (550 if row.get('comparison_scope') == 'annual_eps' else 180)
                 and 350 <= (period-date.fromisoformat(row['prior_period_end'])).days <= 380):
                 rules[row['symbol']] = row
         except (KeyError, ValueError, TypeError):
