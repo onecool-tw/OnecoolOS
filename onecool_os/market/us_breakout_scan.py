@@ -692,21 +692,20 @@ def fetch_yahoo_breakout_inputs(
                 and isinstance(entry.get("sec_evidence"), dict)
                 and bool(entry["sec_evidence"].get("pairs"))
             )
-            # A Company Facts response verified on the prior calendar day is
-            # still point-in-time complete for today's scan. The SEC parser
-            # deliberately excludes filings whose filed date equals the price
-            # cutoff because their intraday publication time is unknown.
-            # Keep the original fetch date and provenance; never extend this
-            # rule beyond one calendar day or relabel it as a current fetch.
-            prior_day_sec_cache = age == 1 and cache_is_verified_sec
+            # A recent Company Facts response remains valid for a bounded
+            # seven-calendar-day recovery window when the live SEC endpoint is
+            # unavailable. Keep the original fetch date and provenance; the
+            # weekly expiry forces periodic revalidation and prevents an old
+            # filing snapshot from being treated as current indefinitely.
+            recent_sec_cache = 0 < age <= 7 and cache_is_verified_sec
             if (
-                (age == 0 or prior_day_sec_cache)
+                (age == 0 or recent_sec_cache)
                 and fundamental_validation_error(fundamental, expected) is None
             ):
                 fundamentals[symbol] = fundamental
                 diagnostics[symbol] = (
-                    "CACHED_PRIOR_DAY_SEC_VERIFIED"
-                    if prior_day_sec_cache
+                    "CACHED_RECENT_SEC_VERIFIED"
+                    if recent_sec_cache
                     else "CACHED_VALID"
                 )
             elif age > 0:
