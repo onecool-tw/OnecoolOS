@@ -1,10 +1,10 @@
 {
   "schema_version": "1.9",
   "module": "Onecool Market Dashboard",
-  "generated_at": "2026-10-30T08:13:36.909725+00:00",
+  "generated_at": "2026-10-30T08:15:49.186208+00:00",
   "expected_as_of": "2026-10-29",
   "data_status": "READY",
-  "last_successful_update_at": "2026-10-30T08:13:36.909725+00:00",
+  "last_successful_update_at": "2026-10-30T08:15:49.186208+00:00",
   "index_cta_basis": {
     "method": "ETF/index proxies; shared CTA engine",
     "mappings": {
@@ -1119,9 +1119,9 @@
       "change_control": "VERSION_BUMP_AND_AUDIT_RECORD_REQUIRED"
     },
     "validated_count": 63,
-    "coverage_status": "PARTIAL",
+    "coverage_status": "COMPLETE",
     "validated_coverage_pct": 90.0,
-    "research_scope": "VALIDATED_SUBSET_ONLY",
+    "research_scope": "FULL_UNIVERSE_ASSESSED_VALIDATED_SUBSET_RANKED",
     "minimum_technical_confidence": 90,
     "formal_breakout_count": 2,
     "top5": [
@@ -2766,7 +2766,23 @@
       {
         "symbol": "PANW",
         "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
+        "reason": "Reviewed nonpositive prior EPS; growth comparison is not meaningful under the existing rule",
+        "assessment_status": "RULE_EXCLUDED",
+        "reviewed_evidence": {
+          "symbol": "PANW",
+          "status": "NONPOSITIVE_COMPARISON_BASE",
+          "comparison_scope": "quarterly_eps",
+          "review_status": "VERIFIED",
+          "period_end": "2026-07-31",
+          "prior_period_end": "2025-07-31",
+          "current_eps": -0.35,
+          "prior_eps": 0.36,
+          "published_as_of": "2026-09-01",
+          "valid_through": "2026-11-30",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1327567/000132756726000019/ex991q426earningsrelease.htm",
+          "reviewed_as_of": "2026-10-30",
+          "review_note": "Fiscal Q4 2026 GAAP diluted EPS was -0.35 versus 0.36; the nonpositive current base makes the growth comparison inapplicable, so PANW is rule-excluded and never scored."
+        },
         "fundamental_fetch_status": "SEC_FETCH_FAILED",
         "fundamental_validation_detail": "SEC_FETCH_FAILED"
       },
@@ -2842,9 +2858,9 @@
         "fundamental_validation_detail": "SEC_FETCH_FAILED"
       }
     ],
-    "rule_excluded_count": 6,
-    "assessment_count": 69,
-    "assessment_status": "PARTIAL",
+    "rule_excluded_count": 7,
+    "assessment_count": 70,
+    "assessment_status": "COMPLETE",
     "fundamental_fetch_status": {
       "AAPL": "CACHED_RECENT_SEC_VERIFIED",
       "ABBV": "CACHED_RECENT_SEC_VERIFIED",
