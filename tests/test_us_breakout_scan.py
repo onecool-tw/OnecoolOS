@@ -251,7 +251,7 @@ def test_refresh_failure_does_not_relabel_previous_session_sec_cache_current() -
     assert cache["AAA"]["attempted_as_of"] == expected.isoformat()
 
 
-def test_prior_calendar_day_verified_sec_cache_remains_point_in_time_valid() -> None:
+def test_recent_verified_sec_cache_remains_point_in_time_valid() -> None:
     spy = _history(strength=0.1)
     dates = pd.to_datetime([bar.trading_date for bar in spy])
     frame = pd.DataFrame({
@@ -279,7 +279,7 @@ def test_prior_calendar_day_verified_sec_cache_remains_point_in_time_valid() -> 
     expected = spy[-1].trading_date
     cache = {
         "AAA": {
-            "fetched_as_of": (expected - timedelta(days=1)).isoformat(),
+            "fetched_as_of": (expected - timedelta(days=6)).isoformat(),
             "provider": "SEC",
             "metrics": {
                 "as_of": (expected - timedelta(days=80)).isoformat(),
@@ -315,8 +315,8 @@ def test_prior_calendar_day_verified_sec_cache_remains_point_in_time_valid() -> 
     )
 
     assert fundamentals["AAA"].quarterly_eps_growth == 0.2
-    assert diagnostics["AAA"] == "CACHED_PRIOR_DAY_SEC_VERIFIED"
-    assert cache["AAA"]["fetched_as_of"] == (expected - timedelta(days=1)).isoformat()
+    assert diagnostics["AAA"] == "CACHED_RECENT_SEC_VERIFIED"
+    assert cache["AAA"]["fetched_as_of"] == (expected - timedelta(days=6)).isoformat()
 
 
 def test_batch_union_leading_missing_rows_do_not_discard_valid_history() -> None:
