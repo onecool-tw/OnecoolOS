@@ -1,32 +1,30 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Taiwan Official Market Pressure Inputs",
-  "generated_at": "2026-10-30T08:39:26.267940+00:00",
+  "generated_at": "2026-10-30T08:50:36.323631+00:00",
   "requested_as_of": "2026-10-30",
-  "status": "UPDATE_INCOMPLETE",
-  "attempts_used": 3,
-  "issues": [
-    "volatility:FETCH_FAILED"
-  ],
+  "status": "READY",
+  "attempts_used": 1,
+  "issues": [],
   "sources": {
     "margin": {
       "status": "VERIFIED",
       "as_of": "2026-10-29",
       "metrics": {
         "融資(交易單位)": {
-          "previous": 9550908.0,
-          "current": 9588759.0,
-          "change": 37851.0
+          "previous": 9550908,
+          "current": 9588759,
+          "change": 37851
         },
         "融券(交易單位)": {
-          "previous": 193040.0,
-          "current": 189002.0,
-          "change": -4038.0
+          "previous": 193040,
+          "current": 189002,
+          "change": -4038
         },
         "融資金額(仟元)": {
-          "previous": 632299552.0,
-          "current": 633910848.0,
-          "change": 1611296.0
+          "previous": 632299552,
+          "current": 633910848,
+          "change": 1611296
         }
       },
       "error": null,
@@ -36,11 +34,11 @@
       "source_url": "https://www.twse.com.tw/rwd/zh/marginTrading/MI_MARGN?date=20261029&selectType=MS&response=json"
     },
     "volatility": {
-      "status": "FETCH_FAILED",
-      "as_of": null,
-      "value": null,
-      "error": "HTTPError",
-      "download_error": "HTTPError",
+      "status": "VERIFIED",
+      "as_of": "2026-10-30",
+      "value": 30.88,
+      "value_basis": "LAST_1_MIN_AVG",
+      "error": null,
       "download_url": "https://www.taifex.com.tw/cht/7/getVixData?filesname=20261030",
       "source_url": "https://www.taifex.com.tw/cht/7/vixMinNew"
     }
