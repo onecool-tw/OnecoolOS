@@ -37,7 +37,8 @@ def fetch_sec_json(url, user_agent):
     # GitHub exports unavailable secrets as empty strings. Normalize here so
     # every SEC caller retains the existing attributable default identity.
     user_agent = (user_agent or "").strip() or "OnecoolOS research onecool-tw@users.noreply.github.com"
-    headers = {"User-Agent": user_agent, "Accept": "application/json",\n               "Accept-Encoding": "identity", "Connection": "close"}
+    headers = {"User-Agent": user_agent, "Accept": "application/json",
+               "Accept-Encoding": "identity", "Connection": "close"}
     contact = user_agent.rsplit(" ", 1)[-1]
     if "@" in contact:
         headers["From"] = contact
