@@ -37,21 +37,21 @@ def fetch_sec_json(url, user_agent):
     # GitHub exports unavailable secrets as empty strings. Normalize here so
     # every SEC caller retains the existing attributable default identity.
     user_agent = (user_agent or "").strip() or "OnecoolOS research onecool-tw@users.noreply.github.com"
-    headers = {"User-Agent": user_agent, "Accept": "application/json"}
+    headers = {"User-Agent": user_agent, "Accept": "application/json",\n               "Accept-Encoding": "gzip, deflate", "Connection": "close"}
     contact = user_agent.rsplit(" ", 1)[-1]
     if "@" in contact:
         headers["From"] = contact
-    for attempt in range(2):
+    for attempt in range(3):
         _wait_for_sec_slot()
         try:
             with urlopen(Request(url, headers=headers), timeout=12) as response:
                 return json.load(response)
         except HTTPError as exc:
-            if attempt or exc.code not in {429, 500, 502, 503, 504}:
+            if attempt == 2 or exc.code not in {403, 429, 500, 502, 503, 504}:
                 exc.sec_retry_exhausted = True
                 raise
             try:
-                delay = min(30.0, max(2.0, float(exc.headers.get("Retry-After", "2"))))
+                delay = min(30.0, max(2.0, float(exc.headers.get("Retry-After", str(2 ** (attempt + 1))))))
             except (AttributeError, ValueError):
                 delay = 2.0
         except (URLError, TimeoutError) as exc:
