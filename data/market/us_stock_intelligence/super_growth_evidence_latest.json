@@ -721,13 +721,13 @@
         },
         "valuation": {
           "status": "UNKNOWN",
-          "as_of": "2026-10-27",
+          "as_of": "2026-10-30",
           "rationale": "Current-session valuation model not yet validated.",
           "sources": []
         }
       },
       "valuation_input_collection": {
-        "as_of": "2026-10-27",
+        "as_of": "2026-10-30",
         "status": "PARTIAL",
         "gaps": [
           "OFFICIAL_REFERENCE_EXPIRED_OR_NOT_POINT_IN_TIME",
@@ -735,7 +735,7 @@
         ],
         "price_basis": "adjusted_close",
         "inputs": {
-          "adjusted_close": 228.22999572753906
+          "adjusted_close": 235.52000427246094
         },
         "sources": [
           "https://data.sec.gov/api/xbrl/companyfacts/CIK0000093410.json"
@@ -744,19 +744,19 @@
         "price_source": {
           "provider": "yahoo_finance_adjusted_batch",
           "symbol": "CVX",
-          "as_of": "2026-10-27",
+          "as_of": "2026-10-30",
           "url": "https://finance.yahoo.com/quote/CVX/history/"
         },
         "price_observation": {
-          "date": "2026-10-27",
-          "adjusted_close": 228.22999572753906,
-          "raw_close": 228.22999572753906,
+          "date": "2026-10-30",
+          "adjusted_close": 235.52000427246094,
+          "raw_close": 235.52000427246094,
           "provider": "yahoo_finance_adjusted_batch"
         },
-        "price_sha256": "4bfff262d310621d7e142880cdbd946a8a18f5e018cc80771be976872c2e701e",
+        "price_sha256": "9e2cb6525256e1c77437577ea6511bd1c6f5ee7efa291977d8570a893b6841fc",
         "official_reference_status": "REJECTED",
         "official_disclosure_watch": {
-          "as_of": "2026-10-27",
+          "as_of": "2026-10-30",
           "status": "FETCH_OR_VALIDATION_FAILED",
           "filings": [],
           "decision_authority": "RESEARCH_REFRESH_ONLY_NO_CTA_OR_SCORE_EFFECT",
@@ -852,25 +852,40 @@
         },
         "valuation": {
           "status": "UNKNOWN",
-          "as_of": "2026-09-17",
-          "rationale": "撤回先前估值判定：先前價格由即時報價與漲跌額倒推，不能確認為同截止日調整後正式收盤；合理倍數区間亦缺可追溯比較依據。",
-          "data_gap": "未取得2026-09-17調整後正式收盤的直接證據；須由系統補抓歷史價格，並完成盈餘口徑與估值區間驗證後重算。",
-          "method": "POST_ACQUISITION_NORMALIZED_PE",
-          "price_as_of": null,
-          "valid_through": null,
-          "inputs": {
-            "price": null,
-            "denominator": null,
-            "multiple": null,
-            "fair_range": null
-          },
-          "sources": [
-            "https://www.gilead.com/news/news-details/2026/gilead-sciences-announces-second-quarter-2026-financial-results",
-            "https://finance.yahoo.com/quote/GILD/"
-          ],
-          "review_status": "REQUIRES_SOURCE_REVALIDATION",
-          "next_step": "系統重取同截止日歷史價格及公司財報，建立具來源的估值模型；不得以UNKNOWN作為使用者人工研究要求。"
+          "as_of": "2026-10-30",
+          "rationale": "Current-session valuation model not yet validated.",
+          "sources": []
         }
+      },
+      "valuation_input_collection": {
+        "as_of": "2026-10-30",
+        "status": "PARTIAL",
+        "gaps": [
+          "SEC_COMPANYFACTS_FETCH_OR_IDENTITY_VALIDATION_FAILED"
+        ],
+        "price_basis": "adjusted_close",
+        "inputs": {
+          "adjusted_close": 170.67999267578125
+        },
+        "sources": [
+          "https://data.sec.gov/api/xbrl/companyfacts/CIK0000882095.json"
+        ],
+        "decision_authority": "REFERENCE_INPUTS_ONLY_NOT_FAIR_VALUE",
+        "price_source": {
+          "provider": "yahoo_finance_adjusted_batch",
+          "symbol": "GILD",
+          "as_of": "2026-10-30",
+          "url": "https://finance.yahoo.com/quote/GILD/history/"
+        },
+        "price_observation": {
+          "date": "2026-10-30",
+          "adjusted_close": 170.67999267578125,
+          "raw_close": 170.67999267578125,
+          "provider": "yahoo_finance_adjusted_batch"
+        },
+        "price_sha256": "f8760e79e7e31122558458db33d858da6267fbf0c8e541aec44921c4534263db",
+        "fundamental_fetch_status": "FETCH_FAILED",
+        "fetch_error_type": "HTTPError"
       }
     },
     {
@@ -2925,7 +2940,7 @@
       "gates": {
         "valuation": {
           "status": "UNKNOWN",
-          "as_of": "2026-10-29",
+          "as_of": "2026-10-30",
           "rationale": "Current-session valuation model not yet validated.",
           "sources": []
         },
@@ -2981,7 +2996,7 @@
         }
       },
       "valuation_input_collection": {
-        "as_of": "2026-10-29",
+        "as_of": "2026-10-30",
         "status": "PARTIAL",
         "gaps": [
           "OFFICIAL_REFERENCE_EXPIRED_OR_NOT_POINT_IN_TIME",
@@ -2989,7 +3004,7 @@
         ],
         "price_basis": "adjusted_close",
         "inputs": {
-          "adjusted_close": 635.7000122070312
+          "adjusted_close": 638.010009765625
         },
         "sources": [
           "https://data.sec.gov/api/xbrl/companyfacts/CIK0001141391.json"
@@ -2998,16 +3013,16 @@
         "price_source": {
           "provider": "yahoo_finance_adjusted_batch",
           "symbol": "MA",
-          "as_of": "2026-10-29",
+          "as_of": "2026-10-30",
           "url": "https://finance.yahoo.com/quote/MA/history/"
         },
         "price_observation": {
-          "date": "2026-10-29",
-          "adjusted_close": 635.7000122070312,
-          "raw_close": 635.7000122070312,
+          "date": "2026-10-30",
+          "adjusted_close": 638.010009765625,
+          "raw_close": 638.010009765625,
           "provider": "yahoo_finance_adjusted_batch"
         },
-        "price_sha256": "9c1a604423d965089f826f31c15a4d8c599e43079a97fc667792be780e906cde",
+        "price_sha256": "427a530691a75c0f908a9085feb522b52a8d01855636383ced22479e991888d2",
         "official_reference_status": "REJECTED",
         "fundamental_fetch_status": "FETCH_FAILED",
         "fetch_error_type": "HTTPError"
@@ -3030,7 +3045,7 @@
       "gates": {
         "valuation": {
           "status": "UNKNOWN",
-          "as_of": "2026-10-29",
+          "as_of": "2026-10-30",
           "rationale": "Current-session valuation model not yet validated.",
           "sources": []
         },
@@ -3069,7 +3084,7 @@
         }
       },
       "valuation_input_collection": {
-        "as_of": "2026-10-29",
+        "as_of": "2026-10-30",
         "status": "PARTIAL",
         "gaps": [
           "OFFICIAL_REFERENCE_EXPIRED_OR_NOT_POINT_IN_TIME",
@@ -3077,7 +3092,7 @@
         ],
         "price_basis": "adjusted_close",
         "inputs": {
-          "adjusted_close": 1373.699951171875
+          "adjusted_close": 1417.5400390625
         },
         "sources": [
           "https://data.sec.gov/api/xbrl/companyfacts/CIK0000059478.json"
@@ -3086,19 +3101,19 @@
         "price_source": {
           "provider": "yahoo_finance_adjusted_batch",
           "symbol": "LLY",
-          "as_of": "2026-10-29",
+          "as_of": "2026-10-30",
           "url": "https://finance.yahoo.com/quote/LLY/history/"
         },
         "price_observation": {
-          "date": "2026-10-29",
-          "adjusted_close": 1373.699951171875,
-          "raw_close": 1373.699951171875,
+          "date": "2026-10-30",
+          "adjusted_close": 1417.5400390625,
+          "raw_close": 1417.5400390625,
           "provider": "yahoo_finance_adjusted_batch"
         },
-        "price_sha256": "00d81b09652be324b88a77b6b0aedf52bf1efa0e02ed183f53aa67aaa1af6a39",
+        "price_sha256": "4a37a6b9ba6b2520fa9a8a78451b75afe77b2344ce2e6e87705e485415e4ac89",
         "official_reference_status": "REJECTED",
         "official_disclosure_watch": {
-          "as_of": "2026-10-29",
+          "as_of": "2026-10-30",
           "status": "FETCH_OR_VALIDATION_FAILED",
           "filings": [],
           "decision_authority": "RESEARCH_REFRESH_ONLY_NO_CTA_OR_SCORE_EFFECT",
@@ -3157,9 +3172,9 @@
         },
         "valuation": {
           "status": "UNKNOWN",
-          "as_of": "2026-10-29",
-          "price_as_of": "2026-10-29",
-          "valid_through": "2026-10-29",
+          "as_of": "2026-10-30",
+          "price_as_of": "2026-10-30",
+          "valid_through": "2026-10-30",
           "method": "FORWARD_GAAP_PE_EX_EQUITY_MARKS_RETAINING_ACQUISITION_COSTS",
           "rationale": "CURRENT_DISCLOSURE_CHECK_UNAVAILABLE",
           "sources": [
@@ -3169,7 +3184,7 @@
           "price_source": {
             "provider": "yahoo_finance_adjusted_batch",
             "symbol": "AMGN",
-            "as_of": "2026-10-29",
+            "as_of": "2026-10-30",
             "url": "https://finance.yahoo.com/quote/AMGN/history/"
           },
           "denominator_source": [
@@ -3213,9 +3228,9 @@
           ],
           "research_grade": "SCREENING_SCENARIO_NOT_FULL_DCF",
           "inputs": {
-            "price": 460.7300109863281,
+            "price": 466.010009765625,
             "denominator": 16.18,
-            "multiple": 28.47527880014389,
+            "multiple": 28.80160752568758,
             "fair_range": [
               8.109050705053424,
               13.976819907362085
@@ -3234,14 +3249,14 @@
         }
       },
       "valuation_input_collection": {
-        "as_of": "2026-10-29",
+        "as_of": "2026-10-30",
         "status": "PARTIAL",
         "gaps": [
           "CURRENT_DISCLOSURE_CHECK_UNAVAILABLE"
         ],
         "price_basis": "adjusted_close",
         "inputs": {
-          "adjusted_close": 460.7300109863281
+          "adjusted_close": 466.010009765625
         },
         "sources": [
           "https://www.sec.gov/Archives/edgar/data/318154/000031815426000124/amgn-20260630earningsrelea.htm",
@@ -3251,16 +3266,16 @@
         "price_source": {
           "provider": "yahoo_finance_adjusted_batch",
           "symbol": "AMGN",
-          "as_of": "2026-10-29",
+          "as_of": "2026-10-30",
           "url": "https://finance.yahoo.com/quote/AMGN/history/"
         },
         "price_observation": {
-          "date": "2026-10-29",
-          "adjusted_close": 460.7300109863281,
-          "raw_close": 460.7300109863281,
+          "date": "2026-10-30",
+          "adjusted_close": 466.010009765625,
+          "raw_close": 466.010009765625,
           "provider": "yahoo_finance_adjusted_batch"
         },
-        "price_sha256": "d09372303c8b772b1a6685dc8fa19dec2845cdfd58b47e65dbfb041ee1910eba",
+        "price_sha256": "e57210d37f1634557e5d59008d7b8b105945b6b2de0e41055613318cfd96d518",
         "official_reference_status": "VERIFIED",
         "fundamental_fetch_status": "REVIEWED_OFFICIAL_REFERENCE",
         "company_name": "Amgen Inc.",
@@ -3362,7 +3377,7 @@
           }
         },
         "official_disclosure_watch": {
-          "as_of": "2026-10-29",
+          "as_of": "2026-10-30",
           "status": "FETCH_OR_VALIDATION_FAILED",
           "filings": [],
           "decision_authority": "RESEARCH_REFRESH_ONLY_NO_CTA_OR_SCORE_EFFECT",
