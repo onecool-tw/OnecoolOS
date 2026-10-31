@@ -204,9 +204,42 @@ def annotate_reviewed_exclusions(scan, reviewed, expected_as_of, sec_details=Non
             exclusion['assessment_status'] = 'RULE_EXCLUDED'
             exclusion['reason'] = 'Reviewed nonpositive prior EPS; growth comparison is not meaningful under the existing rule'
             exclusion['reviewed_evidence'] = rules[symbol]
-    ruled = sum(r.get('assessment_status') == 'RULE_EXCLUDED' for r in scan.get('exclusions', []))
+    exclusions = scan.get('exclusions', [])
+    ruled_rows = [
+        row for row in exclusions
+        if row.get('assessment_status') == 'RULE_EXCLUDED'
+    ]
+    failed_rows = [
+        row for row in exclusions
+        if row.get('assessment_status') != 'RULE_EXCLUDED'
+    ]
+    # A reviewed rule exclusion is a completed assessment even when today's
+    # live SEC refresh failed. Keep that fetch attempt as audit detail, but do
+    # not expose the symbol as both RULE_EXCLUDED and SEC_FETCH_FAILED.
+    fetch_status = scan.get('fundamental_fetch_status')
+    for row in ruled_rows:
+        latest = row.get('fundamental_fetch_status')
+        if latest and latest != 'RULE_EXCLUDED_REVIEWED':
+            row['latest_fetch_attempt_status'] = latest
+        row['fundamental_fetch_status'] = 'RULE_EXCLUDED_REVIEWED'
+        if isinstance(fetch_status, dict):
+            latest = fetch_status.get(row['symbol'])
+            if latest and latest != 'RULE_EXCLUDED_REVIEWED':
+                row['latest_fetch_attempt_status'] = latest
+            fetch_status[row['symbol']] = 'RULE_EXCLUDED_REVIEWED'
+
+    ruled = len(ruled_rows)
+    failed = len(failed_rows)
     scan['rule_excluded_count'] = ruled
+    scan['rule_excluded_symbols'] = sorted(row['symbol'] for row in ruled_rows)
+    scan['data_validation_failed_count'] = failed
+    scan['data_validation_failed_symbols'] = sorted(
+        row['symbol'] for row in failed_rows
+    )
     scan['assessment_count'] = scan.get('validated_count', 0) + ruled
+    scan['unassessed_count'] = max(
+        0, scan.get('universe_size', 0) - scan['assessment_count']
+    )
     scan['assessment_status'] = 'COMPLETE' if scan['assessment_count'] == scan.get('universe_size', 0) else 'PARTIAL'
     # Coverage describes completed per-symbol assessment, not ranking eligibility.
     scan['coverage_status'] = scan['assessment_status']
