@@ -1,11 +1,11 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-10-31T03:30:12.284934+00:00",
+  "generated_at": "2026-10-31T03:32:21.373198+00:00",
   "taipei_date": "2026-10-31",
-  "status": "BLOCKED",
+  "status": "PARTIAL",
   "scope_status": {
-    "morning": "BLOCKED",
+    "morning": "PARTIAL",
     "asia": "READY",
     "weekly": "READY"
   },
@@ -68,11 +68,11 @@
     "policy": "Data readiness does not prove report delivery. Never infer email success from a generated draft."
   },
   "end_to_end_status": "NOT_FULLY_VERIFIED",
-  "action_readiness": "UNSAFE_FOR_AFFECTED_REPORTS",
+  "action_readiness": "LIMITED",
   "counts": {
-    "ready": 18,
-    "partial": 0,
-    "blocked": 2
+    "ready": 19,
+    "partial": 1,
+    "blocked": 0
   },
   "modules": [
     {
@@ -82,7 +82,7 @@
       "critical": true,
       "status": "READY",
       "reason": "current",
-      "observed_as_of": "2026-10-29",
+      "observed_as_of": "2026-10-30",
       "recovery_workflow": "update-market-dashboard.yml",
       "retryable": true,
       "impacted_reports": [
@@ -95,9 +95,9 @@
       "label": "Bitcoin completed UTC day",
       "scope": "morning",
       "critical": true,
-      "status": "BLOCKED",
-      "reason": "BTC date/CTA missing or invalid; expected 2026-10-30",
-      "observed_as_of": "2026-10-29",
+      "status": "READY",
+      "reason": "current",
+      "observed_as_of": "2026-10-30",
       "recovery_workflow": "update-market-dashboard.yml",
       "retryable": true,
       "impacted_reports": [
@@ -110,11 +110,11 @@
       "label": "US Breakout Scan",
       "scope": "morning",
       "critical": true,
-      "status": "READY",
-      "reason": "current",
-      "observed_as_of": "2026-10-29",
+      "status": "PARTIAL",
+      "reason": "validated subset 62/70; see per-symbol fetch/validation status",
+      "observed_as_of": "2026-10-30",
       "recovery_workflow": "update-market-dashboard.yml",
-      "retryable": true,
+      "retryable": false,
       "impacted_reports": [
         "美股日報"
       ]
@@ -126,7 +126,7 @@
       "critical": true,
       "status": "READY",
       "reason": "current",
-      "observed_as_of": "2026-10-29",
+      "observed_as_of": "2026-10-30",
       "recovery_workflow": "update-market-dashboard.yml",
       "retryable": true,
       "impacted_reports": [
@@ -153,11 +153,11 @@
       "label": "Fund NAV CTA",
       "scope": "morning",
       "critical": true,
-      "status": "BLOCKED",
-      "reason": "generation timestamp missing, invalid or older than scheduled date 2026-10-31",
+      "status": "READY",
+      "reason": "current",
       "observed_as_of": "2026-10-30",
       "recovery_workflow": "update-fund-nav-cta.yml",
-      "retryable": true,
+      "retryable": false,
       "impacted_reports": [
         "基金日報",
         "基金週報"
@@ -363,40 +363,21 @@
   ],
   "issues": [
     {
-      "module_id": "bitcoin_daily",
-      "label": "Bitcoin completed UTC day",
+      "module_id": "us_breakout_scan",
+      "label": "US Breakout Scan",
       "scope": "morning",
       "critical": true,
-      "status": "BLOCKED",
-      "reason": "BTC date/CTA missing or invalid; expected 2026-10-30",
-      "observed_as_of": "2026-10-29",
-      "recovery_workflow": "update-market-dashboard.yml",
-      "retryable": true,
-      "impacted_reports": [
-        "基金日報",
-        "基金週報"
-      ]
-    },
-    {
-      "module_id": "fund_nav_cta",
-      "label": "Fund NAV CTA",
-      "scope": "morning",
-      "critical": true,
-      "status": "BLOCKED",
-      "reason": "generation timestamp missing, invalid or older than scheduled date 2026-10-31",
+      "status": "PARTIAL",
+      "reason": "validated subset 62/70; see per-symbol fetch/validation status",
       "observed_as_of": "2026-10-30",
-      "recovery_workflow": "update-fund-nav-cta.yml",
-      "retryable": true,
+      "recovery_workflow": "update-market-dashboard.yml",
+      "retryable": false,
       "impacted_reports": [
-        "基金日報",
-        "基金週報"
+        "美股日報"
       ]
     }
   ],
-  "recovery_workflows": [
-    "update-fund-nav-cta.yml",
-    "update-market-dashboard.yml"
-  ],
-  "issue_fingerprint": "1f54c53681eb8957b0b614c3d57c25eff299541a9e282a429ec561cf6ccaf8d3",
+  "recovery_workflows": [],
+  "issue_fingerprint": "ab586a80884d33b74cc58c8d5ec7aa9d4acac384fd125a5e2af0bb830cc74fd6",
   "policy": "Health monitoring only; never changes CTA, rankings, or investment decisions."
 }
