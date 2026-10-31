@@ -649,12 +649,22 @@ def update(
             exclusions_path = intelligence_dir / "reviewed_exclusions.json"
             annotate_reviewed_exclusions(breakout_scan, json.loads(exclusions_path.read_text()) if exclusions_path.exists() else {}, payload["expected_as_of"], sec_details if breakout_input_loader is None else None)
             if breakout_input_loader is None:
-                breakout_scan["fundamental_fetch_status"] = fetch_diagnostics
+                # Publish mutually exclusive assessment classifications.
+                # A live SEC failure may coexist with older reviewed evidence,
+                # but a RULE_EXCLUDED symbol is not an unassessed data failure.
+                published_fetch = dict(fetch_diagnostics)
                 breakout_scan["price_fetch_diagnostics"] = price_diagnostics
                 for item in breakout_scan["exclusions"]:
-                    item["fundamental_fetch_status"] = fetch_diagnostics.get(item["symbol"], "NOT_REQUESTED")
+                    latest = fetch_diagnostics.get(item["symbol"], "NOT_REQUESTED")
+                    if item.get("assessment_status") == "RULE_EXCLUDED":
+                        item["latest_fetch_attempt_status"] = latest
+                        item["fundamental_fetch_status"] = "RULE_EXCLUDED_REVIEWED"
+                        published_fetch[item["symbol"]] = "RULE_EXCLUDED_REVIEWED"
+                    else:
+                        item["fundamental_fetch_status"] = latest
                     if item["symbol"] in sec_details:
                         item["fundamental_validation_detail"] = sec_details[item["symbol"]]["status"]
+                breakout_scan["fundamental_fetch_status"] = published_fetch
             if scan_path.exists():
                 previous_scan = json.loads(scan_path.read_text(encoding="utf-8"))
                 current_count = int(breakout_scan.get("assessment_count", 0))
