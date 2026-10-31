@@ -1,11 +1,11 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-10-30T16:49:08.805853+00:00",
+  "generated_at": "2026-10-31T03:30:12.284934+00:00",
   "taipei_date": "2026-10-31",
-  "status": "READY",
+  "status": "BLOCKED",
   "scope_status": {
-    "morning": "READY",
+    "morning": "BLOCKED",
     "asia": "READY",
     "weekly": "READY"
   },
@@ -68,11 +68,11 @@
     "policy": "Data readiness does not prove report delivery. Never infer email success from a generated draft."
   },
   "end_to_end_status": "NOT_FULLY_VERIFIED",
-  "action_readiness": "SAFE",
+  "action_readiness": "UNSAFE_FOR_AFFECTED_REPORTS",
   "counts": {
-    "ready": 20,
+    "ready": 18,
     "partial": 0,
-    "blocked": 0
+    "blocked": 2
   },
   "modules": [
     {
@@ -95,8 +95,8 @@
       "label": "Bitcoin completed UTC day",
       "scope": "morning",
       "critical": true,
-      "status": "READY",
-      "reason": "current",
+      "status": "BLOCKED",
+      "reason": "BTC date/CTA missing or invalid; expected 2026-10-30",
       "observed_as_of": "2026-10-29",
       "recovery_workflow": "update-market-dashboard.yml",
       "retryable": true,
@@ -140,7 +140,7 @@
       "critical": true,
       "status": "READY",
       "reason": "all symbols current",
-      "observed_as_of": "2026-10-29",
+      "observed_as_of": "2026-10-30",
       "recovery_workflow": "update-etf-cta.yml",
       "retryable": true,
       "impacted_reports": [
@@ -153,11 +153,11 @@
       "label": "Fund NAV CTA",
       "scope": "morning",
       "critical": true,
-      "status": "READY",
-      "reason": "current",
-      "observed_as_of": "2026-10-29",
+      "status": "BLOCKED",
+      "reason": "generation timestamp missing, invalid or older than scheduled date 2026-10-31",
+      "observed_as_of": "2026-10-30",
       "recovery_workflow": "update-fund-nav-cta.yml",
-      "retryable": false,
+      "retryable": true,
       "impacted_reports": [
         "基金日報",
         "基金週報"
@@ -361,8 +361,42 @@
       ]
     }
   ],
-  "issues": [],
-  "recovery_workflows": [],
-  "issue_fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+  "issues": [
+    {
+      "module_id": "bitcoin_daily",
+      "label": "Bitcoin completed UTC day",
+      "scope": "morning",
+      "critical": true,
+      "status": "BLOCKED",
+      "reason": "BTC date/CTA missing or invalid; expected 2026-10-30",
+      "observed_as_of": "2026-10-29",
+      "recovery_workflow": "update-market-dashboard.yml",
+      "retryable": true,
+      "impacted_reports": [
+        "基金日報",
+        "基金週報"
+      ]
+    },
+    {
+      "module_id": "fund_nav_cta",
+      "label": "Fund NAV CTA",
+      "scope": "morning",
+      "critical": true,
+      "status": "BLOCKED",
+      "reason": "generation timestamp missing, invalid or older than scheduled date 2026-10-31",
+      "observed_as_of": "2026-10-30",
+      "recovery_workflow": "update-fund-nav-cta.yml",
+      "retryable": true,
+      "impacted_reports": [
+        "基金日報",
+        "基金週報"
+      ]
+    }
+  ],
+  "recovery_workflows": [
+    "update-fund-nav-cta.yml",
+    "update-market-dashboard.yml"
+  ],
+  "issue_fingerprint": "1f54c53681eb8957b0b614c3d57c25eff299541a9e282a429ec561cf6ccaf8d3",
   "policy": "Health monitoring only; never changes CTA, rankings, or investment decisions."
 }
