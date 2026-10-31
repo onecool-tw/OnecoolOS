@@ -55,10 +55,39 @@ def test_verified_rule_exclusions_complete_assessment_without_inflating_validate
     assert scan['rule_excluded_count']==1
     assert scan['coverage_status']=='COMPLETE'
     assert scan['validated_count']==1
+    assert scan['rule_excluded_symbols']==['BA']
+    assert scan['data_validation_failed_count']==0
+    assert scan['data_validation_failed_symbols']==[]
+    assert scan['unassessed_count']==0
     scan={'validated_count':1,'universe_size':2,'exclusions':[{'symbol':'BA','technical_confidence':100,'reason':'fundamental validation unavailable'}]}
     annotate_reviewed_exclusions(scan,{'results':[row]},'2026-10-01')
     assert scan['assessment_status']=='PARTIAL'
     assert scan['coverage_status']=='PARTIAL'
+    assert scan['data_validation_failed_count']==1
+    assert scan['data_validation_failed_symbols']==['BA']
+    assert scan['unassessed_count']==1
+
+
+def test_rule_exclusion_and_live_fetch_failure_are_not_double_counted():
+    from onecool_os.market.sec_fundamentals import annotate_reviewed_exclusions
+    row={'symbol':'PANW','review_status':'VERIFIED','status':'NONPOSITIVE_COMPARISON_BASE',
+         'prior_eps':-1,'current_eps':1,'period_end':'2026-07-31',
+         'prior_period_end':'2025-07-31','published_as_of':'2026-08-28',
+         'valid_through':'2026-11-30','source_url':'https://www.sec.gov/fixture'}
+    scan={'validated_count':69,'universe_size':70,
+          'fundamental_fetch_status':{'PANW':'SEC_FETCH_FAILED'},
+          'exclusions':[{'symbol':'PANW','technical_confidence':100,
+                         'reason':'fundamental validation unavailable',
+                         'fundamental_fetch_status':'SEC_FETCH_FAILED'}]}
+    annotate_reviewed_exclusions(scan,{'results':[row]},'2026-10-30')
+    excluded=scan['exclusions'][0]
+    assert scan['assessment_status']=='COMPLETE'
+    assert scan['assessment_count']==70
+    assert scan['rule_excluded_count']==1
+    assert scan['data_validation_failed_count']==0
+    assert scan['fundamental_fetch_status']['PANW']=='RULE_EXCLUDED_REVIEWED'
+    assert excluded['fundamental_fetch_status']=='RULE_EXCLUDED_REVIEWED'
+    assert excluded['latest_fetch_attempt_status']=='SEC_FETCH_FAILED'
 
 
 def test_static_cik_fallback_skips_unavailable_registry_and_validates_identity():
