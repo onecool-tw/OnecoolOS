@@ -1,7 +1,7 @@
 from datetime import date
 from types import SimpleNamespace
 from onecool_os.market.us_valuation_inputs import collect_valuation_inputs
-from onecool_os.market.us_valuation_inputs import scenario_multiple
+from onecool_os.market.us_valuation_inputs import scenario_multiple\nfrom onecool_os.market.us_valuation_inputs import fetch_sec_json
 
 def test_two_stage_cashflow_matches_constant_growth_perpetuity():
     s={'years':5,'growth':.02,'required_return':.10,'terminal_growth':.02,
@@ -150,3 +150,31 @@ def test_incomplete_or_wrong_currency_model_never_promoted():
         got=collect_valuation_inputs(scan,bars,None,client,{"TEST":"1"},reviewed)
         assert got["results"][0]["gates"]["valuation"]["status"] == "UNKNOWN"
 
+
+
+def test_sec_fetch_retries_403_with_bounded_backoff(monkeypatch):
+    import io
+    import json
+    from urllib.error import HTTPError
+    import onecool_os.market.us_valuation_inputs as module
+
+    calls = []
+    class Response:
+        def __enter__(self):
+            return io.BytesIO(json.dumps({"ok": True}).encode())
+        def __exit__(self, *_args):
+            return False
+
+    def fake_open(request, timeout):
+        calls.append((request, timeout))
+        if len(calls) < 3:
+            raise HTTPError(request.full_url, 403, "Forbidden", {}, None)
+        return Response()
+
+    monkeypatch.setattr(module, "urlopen", fake_open)
+    monkeypatch.setattr(module, "_wait_for_sec_slot", lambda: None)
+    monkeypatch.setattr(module.clock, "sleep", lambda _seconds: None)
+    assert fetch_sec_json("https://data.sec.gov/test.json", "research test@example.com") == {"ok": True}
+    assert len(calls) == 3
+    assert calls[-1][0].get_header("Accept-encoding") == "identity"
+    assert calls[-1][0].get_header("Connection") == "close"
