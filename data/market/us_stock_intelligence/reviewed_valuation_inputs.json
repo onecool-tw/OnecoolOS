@@ -810,13 +810,14 @@
       "symbol": "CVX",
       "company_name": "Chevron Corporation",
       "published_at": "2026-10-06",
-      "valid_through": "2026-10-22",
-      "reviewed_as_of": "2026-10-16",
+      "valid_through": "2026-10-30",
+      "reviewed_as_of": "2026-10-31",
       "sources": [
         "https://www.sec.gov/Archives/edgar/data/93410/000009341026000192/cvxoct2026ex991.htm",
         "https://www.sec.gov/Archives/edgar/data/1789832/000119312526418053/d401552d8k.htm",
         "https://www.sec.gov/Archives/edgar/data/93410/000009341026000078/cvx-20251231.htm",
-        "https://www.sec.gov/Archives/edgar/data/1789832/000119312526418053/d401552dex991.htm"
+        "https://www.sec.gov/Archives/edgar/data/1789832/000119312526418053/d401552dex991.htm",
+        "https://www.chevron.com/newsroom/2026/q4/chevron-reports-third-quarter-2026-results"
       ],
       "reported_facts": {
         "currency": "USD",
@@ -842,7 +843,7 @@
         "official_accounting_limitation": "HESM October6 release: transaction accounting incomplete; projected 2027 Adjusted EBITDA cannot be reconciled to GAAP net income without unreasonable effort. This does not supply Chevron annual continuing EPS."
       },
       "model_gaps": [
-        "OCT6_TRANSACTION_ANNUAL_CONTINUING_EARNINGS_BRIDGE_NOT_DISCLOSED"
+        "SAME_DAY_Q3_RELEASE_ACCEPTANCE_TIME_AND_POST_TRANSACTION_NORMALIZED_EARNINGS_BRIDGE_UNAVAILABLE"
       ],
       "refresh_on": [
         "OFFICIAL_TRANSACTION_CLOSING_OR_PROFORMA_CONTINUING_EARNINGS_DISCLOSURE",
@@ -851,52 +852,28 @@
       ],
       "external_dependency": "ISSUER_TRANSACTION_ACCOUNTING_AND_CVX_CONTINUING_EARNINGS_BRIDGE",
       "source_review": {
-        "checked_at": "2026-10-20T08:12:06.078Z",
-        "information_cutoff": "2026-10-19",
-        "status": "EXTERNAL_DISCLOSURE_PENDING",
-        "next_announced_earnings_date": "2026-10-30",
-        "event_source": "https://www.chevron.com/investors",
-        "required_fields": [
-          "ANNUAL_CONTINUING_COMMON_EARNINGS_BRIDGE",
-          "TRANSACTION_CLOSING_CONFIRMATION",
-          "POST_TRANSACTION_CASH_DEBT_AND_NCI"
-        ],
-        "conclusion": "Reviewed official disclosures do not supply a complete normalized earnings and net-debt bridge. Keep valuation UNKNOWN and new-entry valuation gate closed; do not infer values.",
-        "next_earnings_is_guaranteed_resolution": false,
-        "latest_recheck": {
-          "checked_at": "2026-10-26T09:52:55.847Z",
-          "market_information_cutoff": "2026-10-23",
-          "status": "OFFICIAL_ALTERNATE_SOURCES_READ_BRIDGE_UNRESOLVED",
-          "source_access_status": "RESOLVED_VIA_SEC",
-          "sources": [
-            "https://www.sec.gov/Archives/edgar/data/93410/000009341026000192/cvxoct2026ex991.htm",
-            "https://www.sec.gov/Archives/edgar/data/1789832/000119312526418053/d401552dex991.htm"
-          ],
-          "result": "Read issuer SEC exhibits: deal terms and HESM projections do not supply CVX annual continuing common earnings. Do not substitute subsidiary EBITDA.",
-          "next_action": "RECHECK_EXISTING_DAILY_SCAN_ON_NEW_OFFICIAL_EARNINGS_OR_TRANSACTION_FILINGS",
-          "user_action_required": false
-        }
+        "status": "VERIFIED_CURRENT_OFFICIAL",
+        "checked_at": "2026-10-31T08:25:00+00:00",
+        "information_cutoff": "2026-10-30",
+        "conclusion": "Chevron's Q3 release is dated on the cutoff date and the current date-only evidence does not prove pre-close availability; the HESM transaction also lacks a completed post-transaction annual continuing-earnings bridge. Valuation remains UNKNOWN without inference."
       }
     },
     "MA": {
       "symbol": "MA",
       "company_name": "Mastercard Incorporated",
-      "published_at": "2026-07-31",
-      "valid_through": "2026-10-22",
-      "reviewed_as_of": "2026-10-16",
+      "published_at": "2026-10-29",
+      "valid_through": "2027-01-25",
+      "reviewed_as_of": "2026-10-31",
       "sources": [
-        "https://www.sec.gov/Archives/edgar/data/1141391/000114139126000003/ma12312025-exx991xearnings.htm",
-        "https://www.sec.gov/Archives/edgar/data/1141391/000114139126000081/ma06302026-exx991xearnings.htm",
-        "https://www.sec.gov/Archives/edgar/data/1141391/000114139126000083/ma-20260630.htm"
+        "https://investor.mastercard.com/files/content_files/3Q26-Mastercard-Earnings-Release.pdf",
+        "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
       ],
       "reported_facts": {
         "FY25_adjusted_EPS": 17.01,
-        "H126_adjusted_EPS": 9.64,
-        "H125_adjusted_EPS": 7.87,
-        "H126_CFO_million": 6772,
-        "H126_capex_million": 445,
-        "H126_capitalized_software_million": 368,
-        "H126_GAAP_NI_million": 8270
+        "YTD26_adjusted_EPS": 14.94,
+        "YTD25_adjusted_EPS": 12.25,
+        "Q3_2026_adjusted_EPS": 5.31,
+        "Q3_2026_net_revenue_billion": 9.8
       },
       "model_gaps": [],
       "refresh_on": [
@@ -906,23 +883,20 @@
       ],
       "valuation_model": {
         "method": "TTM_ADJUSTED_PE_WITH_CASH_CONVERSION_STRESS",
-        "denominator": 18.78,
+        "denominator": 19.7,
         "currency": "USD",
         "share_basis": "listed_security",
         "normalization_bridge": {
-          "formula": "FY25 adjusted EPS + H126 adjusted EPS - H125 adjusted EPS",
+          "formula": "FY25 adjusted EPS 17.01 + YTD26 adjusted EPS 14.94 - YTD25 adjusted EPS 12.25",
           "inputs": [
             17.01,
-            9.64,
-            7.87
+            14.94,
+            12.25
           ],
-          "cash_crosscheck": "(6772 - 445 - 368) / 8270 = 72.06% H1 FCF/GAAP net income; not annualized",
-          "limitations": "Rolling issuer adjusted EPS is a per-share TTM proxy, not forward guidance. Excludes special legal charges and investment gains/losses; recurrent litigation, incentives, buybacks and share-count changes can affect normalization. Scenario cash conversion 65%/75% limits distribution; no debt subtraction again from equity EPS."
+          "limitations": "Issuer-adjusted rolling EPS proxy; legal, incentive and acquisition costs can recur. No debt subtraction from an equity EPS denominator."
         },
         "denominator_source": [
-          "https://www.sec.gov/Archives/edgar/data/1141391/000114139126000003/ma12312025-exx991xearnings.htm",
-          "https://www.sec.gov/Archives/edgar/data/1141391/000114139126000081/ma06302026-exx991xearnings.htm",
-          "https://www.sec.gov/Archives/edgar/data/1141391/000114139126000083/ma-20260630.htm"
+          "https://investor.mastercard.com/files/content_files/3Q26-Mastercard-Earnings-Release.pdf"
         ],
         "fair_range": [
           10.146422449537393,
@@ -954,11 +928,15 @@
         "rationale": "Payment network and services growth support 8%/12% five-year analyst scenarios fading to terminal growth; legal/regulatory cost, incentives and weaker interim cash conversion justify conservative distributions. Not a full DCF.",
         "fair_range_rationale": "Payment network and services growth support 8%/12% five-year analyst scenarios fading to terminal growth; legal/regulatory cost, incentives and weaker interim cash conversion justify conservative distributions. Not a full DCF. Required return 12%/10%, terminal growth 2%/3% and cash conversion are Onecool analyst assumptions, not issuer targets; range selected without using the current share price.",
         "fair_range_sources": [
-          "https://www.sec.gov/Archives/edgar/data/1141391/000114139126000003/ma12312025-exx991xearnings.htm",
-          "https://www.sec.gov/Archives/edgar/data/1141391/000114139126000081/ma06302026-exx991xearnings.htm",
-          "https://www.sec.gov/Archives/edgar/data/1141391/000114139126000083/ma-20260630.htm",
+          "https://investor.mastercard.com/files/content_files/3Q26-Mastercard-Earnings-Release.pdf",
           "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
         ]
+      },
+      "source_review": {
+        "status": "VERIFIED_CURRENT_OFFICIAL",
+        "checked_at": "2026-10-31T08:25:00+00:00",
+        "information_cutoff": "2026-10-30",
+        "conclusion": "Q3 and year-to-date adjusted EPS refreshed from Mastercard's official release."
       }
     },
     "THC": {
@@ -1047,68 +1025,85 @@
     "LLY": {
       "symbol": "LLY",
       "company_name": "Eli Lilly and Company",
-      "published_at": "2026-08-05",
-      "reviewed_as_of": "2026-10-17",
-      "valid_through": "2026-10-28",
+      "published_at": "2026-10-29",
+      "reviewed_as_of": "2026-10-31",
+      "valid_through": "2027-01-25",
       "sources": [
-        "https://investor.lilly.com/node/54781/pdf",
-        "https://www.sec.gov/Archives/edgar/data/59478/000005947826000081/lly-20260630.htm",
-        "https://investor.lilly.com/news-releases/news-release-details/lilly-completes-acquisition-ataibeckley-advance-therapies"
+        "https://investor.lilly.com/news-releases/news-release-details/lilly-reports-third-quarter-2026-financial-results-raises-full",
+        "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
       ],
       "reported_facts": {
-        "period": "Q2_2026",
-        "revenue_million": 22974,
-        "reported_eps": 7.94,
-        "adjusted_eps": 8.38,
-        "FY26_adjusted_eps_guidance": [
-          35.5,
-          36.5
+        "period": "Q3_2026",
+        "revenue_million": 24397,
+        "reported_eps": 7.22,
+        "non_gaap_eps": 7.48,
+        "FY26_non_gaap_eps_guidance": [
+          35,
+          36
         ],
-        "included_Q2_IPRD_per_share": 3.03,
-        "acquisitions": "Orna, Ajax, Centessa, Kelonia; issuer reported completed Q2 acquisitions; guidance excludes IPRD after June30.",
-        "H126_CFO_million": 16023,
-        "H126_capex_million": 5259,
-        "H126_IPRD_cash_purchases_million": 3486,
-        "H126_acquisition_cash_net_million": 9805,
-        "June30_cash_million": 8950,
-        "June30_current_debt_million": 7050,
-        "June30_long_debt_million": 47858,
-        "June30_net_debt_million": 45958,
-        "post_quarter_transaction": "AtaiBeckley completed September11; June30 net debt does not represent post-close balance."
+        "Q3_acquired_IPRD_per_share": 4.57
       },
-      "model_gaps": [
-        "SEPT11_ATAIBECKLEY_POST_CLOSE_IPRD_AND_NET_DEBT_BRIDGE_NOT_DISCLOSED_IN_REVIEWED_OFFICIAL_SOURCES"
-      ],
+      "model_gaps": [],
       "refresh_on": [
-        "NEXT_OFFICIAL_FINANCIALS_OR_NORMALIZATION_BRIDGE",
+        "NEW_EARNINGS_OR_GUIDANCE",
+        "MATERIAL_ACQUISITION",
         "REFERENCE_EXPIRY"
       ],
-      "source_review": {
-        "checked_at": "2026-10-20T08:12:06.078Z",
-        "information_cutoff": "2026-10-19",
-        "status": "EXTERNAL_DISCLOSURE_PENDING",
-        "next_announced_earnings_date": "2026-10-29",
-        "event_source": "https://investor.lilly.com/news-releases/news-release-details/lilly-confirms-date-and-conference-call-third-quarter-2026",
-        "required_fields": [
-          "POST_CLOSE_IPRD_CHARGE_AND_TAX_TREATMENT",
-          "POST_CLOSE_CASH_AND_DEBT",
-          "UPDATED_NORMALIZED_EARNINGS_GUIDANCE"
-        ],
-        "conclusion": "Reviewed official disclosures do not supply a complete normalized earnings and net-debt bridge. Keep valuation UNKNOWN and new-entry valuation gate closed; do not infer values.",
-        "next_earnings_is_guaranteed_resolution": false,
-        "latest_recheck": {
-          "checked_at": "2026-10-28T08:18:47+00:00",
-          "market_information_cutoff": "2026-10-27",
-          "status": "OFFICIAL_SOURCE_READ_BRIDGE_UNRESOLVED",
-          "sources": [
-            "https://investor.lilly.com/node/54781/pdf",
-            "https://www.sec.gov/Archives/edgar/data/59478/000005947826000081/lly-20260630.htm",
-            "https://investor.lilly.com/news-releases/news-release-details/lilly-completes-acquisition-ataibeckley-advance-therapies"
+      "valuation_model": {
+        "method": "FORWARD_NORMALIZED_PE_EX_KNOWN_Q3_ACQUIRED_IPRD",
+        "denominator": 40.07,
+        "currency": "USD",
+        "share_basis": "listed_security",
+        "normalization_bridge": {
+          "formula": "FY26 non-GAAP EPS guidance midpoint 35.50 + Q3 acquired IPR&D 4.57",
+          "inputs": [
+            35.5,
+            4.57
           ],
-          "result": "Official closing release reopened and SEC submission scan returned no newer eligible filing; post-close parent IPRD/tax and consolidated net-debt bridge remain unprovided. Do not substitute June30 debt or infer a normalized denominator.",
-          "next_action": "RECHECK_NEXT_OFFICIAL_EARNINGS_OR_TRANSACTION_DISCLOSURE",
-          "user_action_required": false
-        }
+          "limitations": "Removes the disclosed Q3 acquired IPR&D charge only; does not assume unannounced transactions or pipeline revenue."
+        },
+        "denominator_source": [
+          "https://investor.lilly.com/news-releases/news-release-details/lilly-reports-third-quarter-2026-financial-results-raises-full"
+        ],
+        "fair_range": [
+          11.881578947368421,
+          23.463686944114407
+        ],
+        "scenarios": [
+          {
+            "name": "conservative",
+            "years": 5,
+            "growth": 0.12,
+            "required_return": 0.12,
+            "terminal_growth": 0.025,
+            "cash_conversion": 0.65,
+            "terminal_cash_conversion": 0.8
+          },
+          {
+            "name": "base",
+            "years": 5,
+            "growth": 0.18,
+            "required_return": 0.1,
+            "terminal_growth": 0.03,
+            "cash_conversion": 0.75,
+            "terminal_cash_conversion": 0.9
+          }
+        ],
+        "assumption_authority": "ONECOOL_ANALYST_NOT_ISSUER_GUIDANCE",
+        "research_grade": "SCREENING_SCENARIO_NOT_FULL_DCF",
+        "policy_version": "onecool_equity_two_stage_screen_v1",
+        "rationale": "Mounjaro and Zepbound support high growth, while pricing, launch investment and acquisition execution constrain distributable earnings.",
+        "fair_range_rationale": "Five-year 12%/18% growth, 65%/75% interim cash conversion, 80%/90% terminal conversion, 12%/10% required return and 2.5%/3% terminal growth are Onecool analyst screening assumptions selected without using the current share price.",
+        "fair_range_sources": [
+          "https://investor.lilly.com/news-releases/news-release-details/lilly-reports-third-quarter-2026-financial-results-raises-full",
+          "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+        ]
+      },
+      "source_review": {
+        "status": "VERIFIED_CURRENT_OFFICIAL",
+        "checked_at": "2026-10-31T08:25:00+00:00",
+        "information_cutoff": "2026-10-30",
+        "conclusion": "Q3 results and updated FY2026 guidance normalized using the issuer-disclosed Q3 acquired IPR&D charge."
       }
     },
     "MSFT": {
@@ -1278,9 +1273,9 @@
         ]
       },
       "source_review": {
-        "status": "VERIFIED_SOURCE_RECHECK",
-        "checked_at": "2026-10-28T08:18:47+00:00",
-        "information_cutoff": "2026-10-27",
+        "status": "VERIFIED_CURRENT_OFFICIAL",
+        "checked_at": "2026-10-31T08:25:00+00:00",
+        "information_cutoff": "2026-10-30",
         "next_announced_earnings_date": "2026-11-03",
         "event_source": "https://investors.amgen.com/",
         "review_sources": [
@@ -1290,7 +1285,7 @@
           "https://www.amgen.com/newsroom/press-releases/2026/10/imdelltra-in-combination-with-imfinzi-reduced-risk-of-death-by-an-unprecedented-58-in-firstline-extensive-stage-small-cell-lung-cancer",
           "https://investors.amgen.com/"
         ],
-        "conclusion": "Official Q2 financial release and Oct24 clinical release reviewed; clinical efficacy result is not revenue approval and does not change the normalized current-earnings denominator. Keep existing analyst valuation assumptions. November2 is a conservative review deadline within seven sessions, not an asserted earnings date; any new financial filing invalidates the reference.",
+        "conclusion": "Official sources rechecked through the October 30 close; no newer financial release preceded the November 3 earnings event.",
         "event_date_status": "CONFIRMED_OFFICIAL_IR_HOME"
       }
     },
@@ -1367,6 +1362,94 @@
           "basis": "Reported cash, current and long-term financial debt; operating leases excluded. Market capitalization uses dated filed share count, not an asserted current share count. FCF includes SBC addback and is a cross-check, not owner earnings."
         },
         "research_grade": "SCREENING_SCENARIO_NOT_FULL_DCF"
+      }
+    },
+    "GILD": {
+      "symbol": "GILD",
+      "company_name": "Gilead Sciences, Inc.",
+      "published_at": "2026-10-29",
+      "reviewed_as_of": "2026-10-31",
+      "valid_through": "2027-01-25",
+      "sources": [
+        "https://investors.gilead.com/news/news-details/2026/Gilead-Sciences-Announces-Third-Quarter-2026-Financial-Results/default.aspx",
+        "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+      ],
+      "reported_facts": {
+        "period": "Q3_2026",
+        "reported_eps": 1.94,
+        "non_gaap_eps": 2.55,
+        "FY26_GAAP_EPS_guidance": [
+          -4.4,
+          -4.05
+        ],
+        "FY26_non_GAAP_EPS_guidance": [
+          -1.2,
+          -0.85
+        ],
+        "FY26_acquired_IPRD_per_share": 9.88,
+        "September_cash_and_securities_billion": 6.4
+      },
+      "model_gaps": [],
+      "refresh_on": [
+        "NEW_EARNINGS_OR_GUIDANCE",
+        "MATERIAL_ACQUISITION",
+        "REFERENCE_EXPIRY"
+      ],
+      "valuation_model": {
+        "method": "FORWARD_NORMALIZED_PE_EX_DISCLOSED_ACQUIRED_IPRD",
+        "denominator": 8.855,
+        "currency": "USD",
+        "share_basis": "listed_security",
+        "normalization_bridge": {
+          "formula": "FY26 non-GAAP loss guidance midpoint -1.025 + disclosed acquired IPR&D impact 9.88",
+          "inputs": [
+            -1.025,
+            9.88
+          ],
+          "limitations": "Removes the explicitly disclosed acquired IPR&D impact; retains ordinary operating costs and does not credit unapproved pipeline revenue."
+        },
+        "denominator_source": [
+          "https://investors.gilead.com/news/news-details/2026/Gilead-Sciences-Announces-Third-Quarter-2026-Financial-Results/default.aspx"
+        ],
+        "fair_range": [
+          8.640342947717663,
+          14.81216308103289
+        ],
+        "scenarios": [
+          {
+            "name": "conservative",
+            "years": 5,
+            "growth": 0.03,
+            "required_return": 0.12,
+            "terminal_growth": 0.02,
+            "cash_conversion": 0.75,
+            "terminal_cash_conversion": 0.85
+          },
+          {
+            "name": "base",
+            "years": 5,
+            "growth": 0.06,
+            "required_return": 0.1,
+            "terminal_growth": 0.03,
+            "cash_conversion": 0.85,
+            "terminal_cash_conversion": 0.9
+          }
+        ],
+        "assumption_authority": "ONECOOL_ANALYST_NOT_ISSUER_GUIDANCE",
+        "research_grade": "SCREENING_SCENARIO_NOT_FULL_DCF",
+        "policy_version": "onecool_equity_two_stage_screen_v1",
+        "rationale": "HIV franchise growth and improving gross margin support modest growth; acquisition integration, oncology competition and leverage constrain distributions.",
+        "fair_range_rationale": "Five-year 3%/6% growth and mature-pharma cash conversion assumptions are Onecool screening assumptions selected without using current price.",
+        "fair_range_sources": [
+          "https://investors.gilead.com/news/news-details/2026/Gilead-Sciences-Announces-Third-Quarter-2026-Financial-Results/default.aspx",
+          "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+        ]
+      },
+      "source_review": {
+        "status": "VERIFIED_CURRENT_OFFICIAL",
+        "checked_at": "2026-10-31T08:25:00+00:00",
+        "information_cutoff": "2026-10-30",
+        "conclusion": "Q3 results and FY2026 guidance normalized using the issuer-disclosed acquired IPR&D per-share impact."
       }
     }
   }
