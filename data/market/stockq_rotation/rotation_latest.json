@@ -1,6 +1,6 @@
 {
   "schema_version": "1.1",
-  "as_of": "2026-10-23",
+  "as_of": "2026-10-30",
   "source": "https://www.stockq.org/market/",
   "source_policy": "StockQ rankings and related-fund tables; no estimation",
   "rules": {
@@ -18,110 +18,219 @@
   },
   "passed_markets": [
     {
-      "market": "巴西股市",
-      "index_url": "https://www.stockq.org/index/IBOV.php",
+      "market": "NBI生技",
+      "index_url": "https://www.stockq.org/index/NBI.php",
       "appearances": 3,
       "ranks": {
-        "一個月": 2,
-        "三個月": 2,
-        "六個月": 12
+        "一個月": 7,
+        "三個月": 3,
+        "六個月": 2
       },
       "returns": {
-        "一個月": 10.37,
-        "三個月": 16.05,
-        "六個月": 7.16
+        "一個月": 2.88,
+        "三個月": 11.37,
+        "六個月": 24.84
       },
-      "breadth_score": 32,
+      "breadth_score": 36,
       "stage1": "PASS",
       "twd_returns": {
         "1w": {
-          "start_date": "2026-10-16",
-          "end_date": "2026-10-23",
-          "local_return_pct": -0.1689,
-          "fx_return_pct": 1.768,
-          "twd_return_pct": 1.5961,
+          "start_date": "2026-10-23",
+          "end_date": "2026-10-30",
+          "local_return_pct": 4.6797,
+          "fx_return_pct": -0.0923,
+          "twd_return_pct": 4.583,
           "status": "VALID",
-          "fx_method": "TRIANGULAR:1/USDBRL=X*USDTWD=X",
+          "fx_method": "DIRECT",
           "local_market_method": "YAHOO"
         },
         "1m": {
-          "start_date": "2026-09-23",
-          "end_date": "2026-10-23",
-          "local_return_pct": 10.37,
-          "fx_return_pct": 3.915,
-          "twd_return_pct": 14.691,
+          "start_date": "2026-09-30",
+          "end_date": "2026-10-30",
+          "local_return_pct": 2.882,
+          "fx_return_pct": 2.2509,
+          "twd_return_pct": 5.1977,
           "status": "VALID",
-          "fx_method": "TRIANGULAR:1/USDBRL=X*USDTWD=X",
+          "fx_method": "DIRECT",
           "local_market_method": "YAHOO"
         }
       },
       "stage2": "PASS",
       "funds": [
         {
-          "name": "瀚亞巴西基金/台幣",
+          "name": "貝萊德世界健康科學基金A2/歐元",
           "returns": {
-            "一個月": 17.98,
-            "三個月": 22.32,
-            "六個月": 6.91,
-            "一年": 49.83
+            "一個月": 9.67,
+            "三個月": 14.73,
+            "六個月": 27.32,
+            "一年": 25.86
           },
-          "consistency_score": 96.15
+          "consistency_score": 94.29
         },
         {
-          "name": "野村巴西基金/台幣",
+          "name": "群益全球關鍵生技基金/台幣",
           "returns": {
-            "一個月": 15.45,
-            "三個月": 19.59,
-            "六個月": 4.36,
-            "一年": 54.13
+            "一個月": 3.2,
+            "三個月": 14.41,
+            "六個月": 25.14,
+            "一年": 23.92
           },
-          "consistency_score": 86.92
+          "consistency_score": 75.71
         },
         {
-          "name": "法巴巴西股票基金-C股/美元",
+          "name": "安聯全球生技趨勢基金/台幣",
           "returns": {
-            "一個月": 13.01,
-            "三個月": 18.99,
-            "六個月": 3.9,
-            "一年": 38.49
+            "一個月": 4.55,
+            "三個月": 10.15,
+            "六個月": 24.76,
+            "一年": 29.35
           },
-          "consistency_score": 70.0
+          "consistency_score": 71.43
         }
       ]
+    },
+    {
+      "market": "瑞士股市",
+      "index_url": "https://www.stockq.org/index/SMI.php",
+      "appearances": 3,
+      "ranks": {
+        "一個月": 4,
+        "三個月": 12,
+        "六個月": 6
+      },
+      "returns": {
+        "一個月": 7.09,
+        "三個月": 2.56,
+        "六個月": 12.75
+      },
+      "breadth_score": 26,
+      "stage1": "PASS",
+      "twd_returns": {
+        "1w": {
+          "start_date": null,
+          "end_date": null,
+          "local_return_pct": null,
+          "fx_return_pct": null,
+          "twd_return_pct": null,
+          "status": "UNKNOWN",
+          "reason": "Exact local-market/currency history mapping unavailable; no proxy substitution."
+        },
+        "1m": {
+          "start_date": null,
+          "end_date": null,
+          "local_return_pct": null,
+          "fx_return_pct": null,
+          "twd_return_pct": null,
+          "status": "UNKNOWN",
+          "reason": "Exact local-market/currency history mapping unavailable; no proxy substitution."
+        }
+      },
+      "stage2": "PASS",
+      "funds": [
+        {
+          "name": "富達瑞士基金/瑞士法郎",
+          "returns": {
+            "一個月": 5.01,
+            "三個月": 4.68,
+            "六個月": 14.98,
+            "一年": 21.93
+          },
+          "consistency_score": 100.0
+        },
+        {
+          "name": "施羅德瑞士股票基金-A1/累積/瑞郎",
+          "returns": {
+            "一個月": 4.94,
+            "三個月": 2.6,
+            "六個月": 12.71,
+            "一年": 16.75
+          },
+          "consistency_score": 56.67
+        },
+        {
+          "name": "施羅德瑞士中小型股票基金-A1/累積/瑞郎",
+          "returns": {
+            "一個月": 2.22,
+            "三個月": 3.98,
+            "六個月": 9.94,
+            "一年": 10.69
+          },
+          "consistency_score": 43.33
+        }
+      ]
+    },
+    {
+      "market": "比利時",
+      "index_url": "https://www.stockq.org/index/BEL20.php",
+      "appearances": 3,
+      "ranks": {
+        "一個月": 5,
+        "三個月": 10,
+        "六個月": 10
+      },
+      "returns": {
+        "一個月": 4.19,
+        "三個月": 3.29,
+        "六個月": 9.12
+      },
+      "breadth_score": 23,
+      "stage1": "PASS",
+      "twd_returns": {
+        "1w": {
+          "start_date": null,
+          "end_date": null,
+          "local_return_pct": null,
+          "fx_return_pct": null,
+          "twd_return_pct": null,
+          "status": "UNKNOWN",
+          "reason": "Exact local-market/currency history mapping unavailable; no proxy substitution."
+        },
+        "1m": {
+          "start_date": null,
+          "end_date": null,
+          "local_return_pct": null,
+          "fx_return_pct": null,
+          "twd_return_pct": null,
+          "status": "UNKNOWN",
+          "reason": "Exact local-market/currency history mapping unavailable; no proxy substitution."
+        }
+      },
+      "stage2": "NO_ELIGIBLE_FUND",
+      "funds": []
     },
     {
       "market": "荷蘭股市",
       "index_url": "https://www.stockq.org/index/AEX.php",
       "appearances": 3,
       "ranks": {
-        "一個月": 5,
-        "三個月": 12,
-        "六個月": 6
+        "一個月": 10,
+        "三個月": 9,
+        "六個月": 7
       },
       "returns": {
-        "一個月": 2.14,
-        "三個月": 4.14,
-        "六個月": 11.59
+        "一個月": 1.78,
+        "三個月": 3.53,
+        "六個月": 11.9
       },
-      "breadth_score": 25,
+      "breadth_score": 22,
       "stage1": "PASS",
       "twd_returns": {
         "1w": {
-          "start_date": "2026-10-16",
-          "end_date": "2026-10-23",
-          "local_return_pct": -0.9844,
-          "fx_return_pct": 0.9008,
-          "twd_return_pct": -0.0924,
+          "start_date": "2026-10-23",
+          "end_date": "2026-10-30",
+          "local_return_pct": 0.2483,
+          "fx_return_pct": -0.4359,
+          "twd_return_pct": -0.1887,
           "status": "VALID",
           "fx_method": "DIRECT",
           "local_market_method": "YAHOO"
         },
         "1m": {
-          "start_date": "2026-09-23",
-          "end_date": "2026-10-23",
-          "local_return_pct": 2.1391,
-          "fx_return_pct": 0.8512,
-          "twd_return_pct": 3.0085,
+          "start_date": "2026-09-30",
+          "end_date": "2026-10-30",
+          "local_return_pct": 1.7526,
+          "fx_return_pct": 0.8196,
+          "twd_return_pct": 2.5866,
           "status": "VALID",
           "fx_method": "DIRECT",
           "local_market_method": "YAHOO"
@@ -141,8 +250,8 @@
         "六個月": 1
       },
       "returns": {
-        "三個月": 63.68,
-        "六個月": 63.68
+        "三個月": 63.79,
+        "六個月": 63.79
       },
       "breadth_score": 30,
       "stage1": "WATCH"
@@ -153,43 +262,28 @@
       "appearances": 2,
       "ranks": {
         "一個月": 1,
-        "三個月": 3
+        "三個月": 4
       },
       "returns": {
-        "一個月": 11.71,
-        "三個月": 12.07
+        "一個月": 15.16,
+        "三個月": 9.64
       },
-      "breadth_score": 28,
+      "breadth_score": 27,
       "stage1": "WATCH"
     },
     {
-      "market": "哥倫比亞",
-      "index_url": "https://www.stockq.org/index/COLCAP.php",
+      "market": "台灣加權",
+      "index_url": "https://www.stockq.org/index/TWSE.php",
       "appearances": 2,
       "ranks": {
-        "三個月": 4,
-        "六個月": 5
+        "三個月": 2,
+        "六個月": 4
       },
       "returns": {
-        "三個月": 10.78,
-        "六個月": 12.26
+        "三個月": 13.22,
+        "六個月": 16.15
       },
-      "breadth_score": 23,
-      "stage1": "WATCH"
-    },
-    {
-      "market": "NBI生技",
-      "index_url": "https://www.stockq.org/index/NBI.php",
-      "appearances": 2,
-      "ranks": {
-        "三個月": 8,
-        "六個月": 3
-      },
-      "returns": {
-        "三個月": 7.14,
-        "六個月": 17.22
-      },
-      "breadth_score": 21,
+      "breadth_score": 26,
       "stage1": "WATCH"
     },
     {
@@ -197,44 +291,44 @@
       "index_url": "https://www.stockq.org/index/MEXBOL.php",
       "appearances": 2,
       "ranks": {
-        "一個月": 3,
-        "三個月": 9
+        "一個月": 2,
+        "三個月": 8
       },
       "returns": {
-        "一個月": 8.72,
-        "三個月": 5.45
+        "一個月": 8.67,
+        "三個月": 3.7
       },
-      "breadth_score": 20,
+      "breadth_score": 22,
       "stage1": "WATCH"
     },
     {
-      "market": "瑞士股市",
-      "index_url": "https://www.stockq.org/index/SMI.php",
+      "market": "哥倫比亞",
+      "index_url": "https://www.stockq.org/index/COLCAP.php",
       "appearances": 2,
       "ranks": {
-        "一個月": 4,
-        "六個月": 8
+        "三個月": 6,
+        "六個月": 5
       },
       "returns": {
-        "一個月": 3.88,
-        "六個月": 9.17
+        "三個月": 8.04,
+        "六個月": 14.32
       },
-      "breadth_score": 20,
+      "breadth_score": 21,
       "stage1": "WATCH"
     },
     {
-      "market": "比利時",
-      "index_url": "https://www.stockq.org/index/BEL20.php",
+      "market": "挪威股市",
+      "index_url": "https://www.stockq.org/index/OBX.php",
       "appearances": 2,
       "ranks": {
-        "一個月": 7,
-        "六個月": 11
+        "一個月": 6,
+        "三個月": 7
       },
       "returns": {
-        "一個月": 1.66,
-        "六個月": 7.23
+        "一個月": 3.65,
+        "三個月": 5.43
       },
-      "breadth_score": 14,
+      "breadth_score": 19,
       "stage1": "WATCH"
     },
     {
@@ -242,14 +336,44 @@
       "index_url": "https://www.stockq.org/index/ASE.php",
       "appearances": 2,
       "ranks": {
-        "三個月": 15,
-        "六個月": 4
+        "三個月": 11,
+        "六個月": 3
       },
       "returns": {
-        "三個月": 3.03,
-        "六個月": 13.24
+        "三個月": 3.11,
+        "六個月": 19.66
       },
-      "breadth_score": 13,
+      "breadth_score": 18,
+      "stage1": "WATCH"
+    },
+    {
+      "market": "德國股市",
+      "index_url": "https://www.stockq.org/index/DAX.php",
+      "appearances": 2,
+      "ranks": {
+        "一個月": 9,
+        "六個月": 15
+      },
+      "returns": {
+        "一個月": 2.46,
+        "六個月": 6.28
+      },
+      "breadth_score": 8,
+      "stage1": "WATCH"
+    },
+    {
+      "market": "日經225",
+      "index_url": "https://www.stockq.org/index/NKY.php",
+      "appearances": 2,
+      "ranks": {
+        "三個月": 14,
+        "六個月": 14
+      },
+      "returns": {
+        "三個月": 2.3,
+        "六個月": 6.76
+      },
+      "breadth_score": 4,
       "stage1": "WATCH"
     }
   ]
