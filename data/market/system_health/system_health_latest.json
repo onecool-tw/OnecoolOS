@@ -1,11 +1,11 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-10-31T13:47:24.957204+00:00",
-  "taipei_date": "2026-10-31",
-  "status": "READY",
+  "generated_at": "2026-11-01T14:47:55.182892+00:00",
+  "taipei_date": "2026-11-01",
+  "status": "BLOCKED",
   "scope_status": {
-    "morning": "READY",
+    "morning": "BLOCKED",
     "asia": "READY",
     "weekly": "READY"
   },
@@ -68,11 +68,11 @@
     "policy": "Data readiness does not prove report delivery. Never infer email success from a generated draft."
   },
   "end_to_end_status": "NOT_FULLY_VERIFIED",
-  "action_readiness": "SAFE",
+  "action_readiness": "UNSAFE_FOR_AFFECTED_REPORTS",
   "counts": {
-    "ready": 20,
-    "partial": 0,
-    "blocked": 0
+    "ready": 18,
+    "partial": 1,
+    "blocked": 1
   },
   "modules": [
     {
@@ -95,8 +95,8 @@
       "label": "Bitcoin completed UTC day",
       "scope": "morning",
       "critical": true,
-      "status": "READY",
-      "reason": "current",
+      "status": "BLOCKED",
+      "reason": "BTC date/CTA missing or invalid; expected 2026-10-31",
       "observed_as_of": "2026-10-30",
       "recovery_workflow": "update-market-dashboard.yml",
       "retryable": true,
@@ -255,7 +255,7 @@
       "critical": false,
       "status": "READY",
       "reason": "current",
-      "observed_as_of": "2026-10-26",
+      "observed_as_of": "2026-11-01",
       "recovery_workflow": "update-fund-weekly-analytics.yml",
       "retryable": false,
       "impacted_reports": [
@@ -269,7 +269,7 @@
       "critical": false,
       "status": "READY",
       "reason": "current",
-      "observed_as_of": "2026-10-23",
+      "observed_as_of": "2026-10-30",
       "recovery_workflow": "update-fund-weekly-analytics.yml",
       "retryable": false,
       "impacted_reports": [
@@ -283,7 +283,7 @@
       "critical": false,
       "status": "READY",
       "reason": "current",
-      "observed_as_of": "2026-10-26",
+      "observed_as_of": "2026-11-01",
       "recovery_workflow": "update-fund-weekly-analytics.yml",
       "retryable": false,
       "impacted_reports": [
@@ -297,7 +297,7 @@
       "critical": false,
       "status": "READY",
       "reason": "current",
-      "observed_as_of": "2026-10-23",
+      "observed_as_of": "2026-10-30",
       "recovery_workflow": "update-fund-weekly-analytics.yml",
       "retryable": false,
       "impacted_reports": [
@@ -311,7 +311,7 @@
       "critical": false,
       "status": "READY",
       "reason": "current",
-      "observed_as_of": "2026-10-23",
+      "observed_as_of": "2026-10-30",
       "recovery_workflow": "update-fund-weekly-analytics.yml",
       "retryable": false,
       "impacted_reports": [
@@ -337,9 +337,9 @@
       "label": "AI Revolution",
       "scope": "weekly",
       "critical": false,
-      "status": "READY",
-      "reason": "current and reviewed",
-      "observed_as_of": "2026-10-26",
+      "status": "PARTIAL",
+      "reason": "official evidence requires manual review",
+      "observed_as_of": "2026-11-01",
       "recovery_workflow": null,
       "retryable": false,
       "impacted_reports": [
@@ -353,7 +353,7 @@
       "critical": true,
       "status": "READY",
       "reason": "validation PASS",
-      "observed_as_of": "2026-10-26",
+      "observed_as_of": "2026-11-01",
       "recovery_workflow": null,
       "retryable": false,
       "impacted_reports": [
@@ -361,8 +361,40 @@
       ]
     }
   ],
-  "issues": [],
-  "recovery_workflows": [],
-  "issue_fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+  "issues": [
+    {
+      "module_id": "bitcoin_daily",
+      "label": "Bitcoin completed UTC day",
+      "scope": "morning",
+      "critical": true,
+      "status": "BLOCKED",
+      "reason": "BTC date/CTA missing or invalid; expected 2026-10-31",
+      "observed_as_of": "2026-10-30",
+      "recovery_workflow": "update-market-dashboard.yml",
+      "retryable": true,
+      "impacted_reports": [
+        "基金日報",
+        "基金週報"
+      ]
+    },
+    {
+      "module_id": "ai_revolution",
+      "label": "AI Revolution",
+      "scope": "weekly",
+      "critical": false,
+      "status": "PARTIAL",
+      "reason": "official evidence requires manual review",
+      "observed_as_of": "2026-11-01",
+      "recovery_workflow": null,
+      "retryable": false,
+      "impacted_reports": [
+        "基金週報"
+      ]
+    }
+  ],
+  "recovery_workflows": [
+    "update-market-dashboard.yml"
+  ],
+  "issue_fingerprint": "4f346aba69e3b58a54e58fd5c6f148b24b03f6bb5c53bc19a3363825069363f6",
   "policy": "Health monitoring only; never changes CTA, rankings, or investment decisions."
 }
