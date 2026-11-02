@@ -127,7 +127,7 @@ def parse_cnyes_peer_ranking(
         # Issuer/share-class display names can change independently of the
         # published category. Require the explicit category adjacent to label.
         explicit = re.search(
-            r"((?:產業|股票|股債混合|貴金屬)[-－][^\s<>]{2,60})\s*同組基金排行",
+            r"((?:產業|股票|股債混合|貴金屬)[-－][^\s<>]{2,60}(?:\s+(?:美元|歐元|台幣|日圓|英鎊|瑞郎))?)\s*同組基金排行",
             text,
         )
         if explicit:

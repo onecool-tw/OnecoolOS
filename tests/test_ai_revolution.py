@@ -45,12 +45,11 @@ def test_committed_six_company_cache_preserves_review_gate() -> None:
         for signal in cache["signals"].values()
     )
     microsoft_review = review["review_basis"]["Microsoft"]
-    assert microsoft_review["change_type"] in {"IR_LANDING_PAGE_NON_EARNINGS_UPDATE", "CAPTURED_IR_NON_PERIODIC_REVISION_REVIEW"}
-    assert microsoft_review["reviewed_at"] >= "2026-09-27"
+    assert microsoft_review["change_type"] == "OFFICIAL_PERIODIC_RESULTS_REVIEW"
+    assert microsoft_review["reviewed_at"] >= "2026-11-02"
     assert microsoft_review["reviewed_revision"] == revisions["Microsoft"]
-    assert microsoft_review["landing_source_url"] == "https://www.microsoft.com/en-us/Investor"
-    assert "dividend increase" in microsoft_review["summary"]
-    assert "signals" in microsoft_review["summary"]
+    assert microsoft_review["source_url"].endswith("/fy-2027-q1/press-release-webcast")
+    assert "capex ROI" in microsoft_review["summary"]
     nvidia_review = review["review_basis"]["Nvidia"]
     assert nvidia_review["change_type"] in {"SUBSTANTIVE_QUARTERLY_RESULTS", "PERIODIC_SOURCE_REVIEW_WITH_CAPTURED_LANDING_SENTINEL", "CAPTURED_IR_NON_PERIODIC_REVISION_REVIEW"}
     assert nvidia_review["reviewed_at"] >= "2026-09-01"

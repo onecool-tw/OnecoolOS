@@ -34,6 +34,8 @@ def test_current_stockq_names_and_currency_groups_are_mapped() -> None:
         "澳洲": ("^AXJO", "AUDTWD=X"),
         "加拿大": ("^GSPTSE", "CADTWD=X"),
         "瑞士": ("^SSMI", "CHFTWD=X"),
+        "瑞士股市": ("^SSMI", "CHFTWD=X"),
+        "比利時": ("^BFX", "EURTWD=X"),
         "印度": ("^NSEI", "INRTWD=X"),
         "印尼": ("^JKSE", "IDRTWD=X"),
         "馬來西亞": ("^KLSE", "MYRTWD=X"),
