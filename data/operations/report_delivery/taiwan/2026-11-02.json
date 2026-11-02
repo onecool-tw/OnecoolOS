@@ -2,12 +2,12 @@
   "report_id": "taiwan",
   "report_date": "2026-11-02",
   "data_as_of": "2026-11-02",
-  "generated_at": "2026-11-02T18:03:53+08:00",
-  "execution_status": "PARTIAL",
+  "generated_at": "2026-11-02T18:45:09+08:00",
+  "execution_status": "SUCCESS",
   "delivery_status": "UNKNOWN",
   "writeback_status": "VERIFIED",
-  "delivery_evidence_sha256": "5318b5dca2b9eec4d0468eab44b0c90549a2b4f555f3d89ac4dd1214b70a5738",
-  "snapshot_sha256": "64d359f7fac78015eada81e9ffa167d5b115d3f70d5f56a5b029e1aec35b1459",
+  "delivery_evidence_sha256": "d6c86a521971963121a7df0daceafc498fb553322af2a121c47461986734c031",
+  "snapshot_sha256": "879a56d03826eddb1a29bc6dcebb68fee5e28121096e80bc33fa218921ea4c6b",
   "channels": {
     "conversation": {
       "status": "UNKNOWN",
@@ -16,28 +16,29 @@
     },
     "artifact": {
       "status": "DELIVERED",
-      "observed_at": "2026-11-02T18:03:53+08:00",
-      "evidence_sha256": "b728d355c0d37c84b87444019311e5255e6e82ce6bdcfea30ba08c0d4de39308",
+      "observed_at": "2026-11-02T18:44:30+08:00",
+      "evidence_sha256": "94bde59a8fca3d13f2441b011f0b92fa4bed95dd30e572ad535ad26d39adaf7b",
       "writeback_status": "VERIFIED"
     },
     "email": {
-      "status": "UNKNOWN",
-      "observed_at": null,
-      "evidence_sha256": null,
-      "reason": "PAUSED_FINAL_RESEARCH_COVERAGE_VALIDATION_FAILED"
+      "status": "DELIVERED",
+      "observed_at": "2026-11-02T18:45:09+08:00",
+      "evidence_sha256": "d6c86a521971963121a7df0daceafc498fb553322af2a121c47461986734c031",
+      "snapshot_sha256": "879a56d03826eddb1a29bc6dcebb68fee5e28121096e80bc33fa218921ea4c6b",
+      "all_authorized_recipients_confirmed": true
     }
   },
   "completed_steps": [
-    "screen_retry_completed",
-    "formal_pressure_CURRENT_readback_verified",
-    "CTA_rank_industry_score_checked",
-    "regression_fingerprints_verified",
-    "artifact_full_readback_verified",
-    "private_evidence_saved"
+    "PR142_merged",
+    "21_tests_and_golden_regression_passed",
+    "formal_refresh_completed",
+    "common_quarter_source_verified",
+    "coverage_restored_166_of_200",
+    "final_snapshot_and_gates_verified",
+    "artifact_replaced_same_identity_readback_verified",
+    "email_acknowledged",
+    "private_evidence_version_saved"
   ],
-  "failed_steps": [
-    "Q3_CANDIDATE_COVERAGE_20_OF_200",
-    "FINAL_EMAIL_VALIDATION"
-  ],
-  "next_action": "Verify seasonal Q3 coverage or await official filings; no new exposure; do not infer email delivery"
+  "failed_steps": [],
+  "next_action": "Observe conversation acknowledgement; never resend solely for UNKNOWN conversation acknowledgement"
 }
