@@ -86,6 +86,56 @@ def fetch_dated_market(day, fetcher=fetch_json):
     )
 
 
+def select_income_period(data_dir, prices, valuations, revenues, income):
+    """Keep one verified common quarter through a partial reporting rollover.
+
+    Prior formal EPS observations are source records, not estimates. Never mix
+    quarters or carry forward prices, revenues, scores or ranks.
+    """
+    current = build_taiwan_stock_screen_payload(prices, valuations, revenues, income)
+    missing = sum("missing quarterly income statement" in x["reason"]
+                  for x in current["exclusions"])
+    size = current["universe_size"]
+    if not size or missing / size <= 0.20:
+        return current
+    pending_year, pending_quarter = map(int, current["fundamentals_as_of"].split("Q"))
+    previous_period = (f"{pending_year}Q{pending_quarter - 1}" if pending_quarter > 1
+                       else f"{pending_year - 1}Q4")
+    for path in sorted((data_dir / "snapshots").glob("*.json"), reverse=True):
+        raw = path.read_bytes()
+        prior = json.loads(raw)
+        if prior.get("fundamentals_as_of") != previous_period:
+            continue
+        if prior.get("screen_version") != current["screen_version"]:
+            continue
+        if not prior.get("data_quality", {}).get("common_cutoff_verified"):
+            continue
+        period = prior["fundamentals_as_of"]
+        year, quarter = period.split("Q")
+        rows = [{"公司代號": x["symbol"], "年度": year, "季別": quarter,
+                 "基本每股盈餘（元）": x["eps"]}
+                for x in prior["rankings"]
+                if x.get("fundamentals_as_of") == period]
+        fallback = build_taiwan_stock_screen_payload(prices, valuations, revenues, rows)
+        missing_fallback = sum("missing quarterly income statement" in x["reason"]
+                               for x in fallback["exclusions"])
+        if missing_fallback / fallback["universe_size"] > 0.20:
+            continue
+        fallback["fundamental_period_selection"] = {
+            "status": "VERIFIED_PREVIOUS_COMMON_PERIOD",
+            "selected_period": period,
+            "pending_period": current["fundamentals_as_of"],
+            "pending_missing_income_count": missing,
+            "source_snapshot": path.as_posix(),
+            "source_sha256": hashlib.sha256(raw).hexdigest(),
+            "carried_fields": ["eps"],
+            "estimated_values_used": False,
+            "policy": "MINIMUM_80_PERCENT_COMMON_INCOME_COVERAGE",
+        }
+        return fallback
+    raise ValueError("Common-quarter coverage incomplete; preserve last valid screen")
+
+
 def update(data_dir: Path, *, fetcher=fetch_json, market_date=None) -> dict:
     if market_date is not None:
         prices, valuations = fetch_dated_market(market_date, fetcher)
@@ -96,9 +146,7 @@ def update(data_dir: Path, *, fetcher=fetch_json, market_date=None) -> dict:
     income = []
     for url in INCOME_ENDPOINTS:
         income.extend({**row, "_financial_source": url} for row in fetcher(url))
-    payload = build_taiwan_stock_screen_payload(
-        prices, valuations, revenues, income
-    )
+    payload = select_income_period(data_dir, prices, valuations, revenues, income)
     payload["source_policy"] = "TWSE_DATED_REPORTS" if market_date else "TWSE_OPENAPI"
     data_dir.mkdir(parents=True, exist_ok=True)
     serialized = json.dumps(
