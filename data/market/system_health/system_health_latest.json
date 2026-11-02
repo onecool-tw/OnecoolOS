@@ -1,9 +1,9 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-11-02T03:34:38.795245+00:00",
+  "generated_at": "2026-11-02T03:48:48.545124+00:00",
   "taipei_date": "2026-11-02",
-  "status": "PARTIAL",
+  "status": "READY",
   "scope_status": {
     "morning": "READY",
     "asia": "READY",
@@ -68,10 +68,10 @@
     "policy": "Data readiness does not prove report delivery. Never infer email success from a generated draft."
   },
   "end_to_end_status": "NOT_FULLY_VERIFIED",
-  "action_readiness": "LIMITED",
+  "action_readiness": "SAFE",
   "counts": {
-    "ready": 19,
-    "partial": 1,
+    "ready": 20,
+    "partial": 0,
     "blocked": 0
   },
   "modules": [
@@ -255,7 +255,7 @@
       "critical": false,
       "status": "READY",
       "reason": "current",
-      "observed_as_of": "2026-11-01",
+      "observed_as_of": "2026-11-02",
       "recovery_workflow": "update-fund-weekly-analytics.yml",
       "retryable": false,
       "impacted_reports": [
@@ -283,7 +283,7 @@
       "critical": false,
       "status": "READY",
       "reason": "current",
-      "observed_as_of": "2026-11-01",
+      "observed_as_of": "2026-11-02",
       "recovery_workflow": "update-fund-weekly-analytics.yml",
       "retryable": false,
       "impacted_reports": [
@@ -325,7 +325,7 @@
       "critical": false,
       "status": "READY",
       "reason": "current",
-      "observed_as_of": "2026-10-05",
+      "observed_as_of": "2026-11-02",
       "recovery_workflow": "update-fund-weekly-analytics.yml",
       "retryable": false,
       "impacted_reports": [
@@ -337,9 +337,9 @@
       "label": "AI Revolution",
       "scope": "weekly",
       "critical": false,
-      "status": "PARTIAL",
-      "reason": "official evidence requires manual review",
-      "observed_as_of": "2026-11-01",
+      "status": "READY",
+      "reason": "current and reviewed",
+      "observed_as_of": "2026-11-02",
       "recovery_workflow": null,
       "retryable": false,
       "impacted_reports": [
@@ -353,7 +353,7 @@
       "critical": true,
       "status": "READY",
       "reason": "validation PASS",
-      "observed_as_of": "2026-11-01",
+      "observed_as_of": "2026-11-02",
       "recovery_workflow": null,
       "retryable": false,
       "impacted_reports": [
@@ -361,23 +361,8 @@
       ]
     }
   ],
-  "issues": [
-    {
-      "module_id": "ai_revolution",
-      "label": "AI Revolution",
-      "scope": "weekly",
-      "critical": false,
-      "status": "PARTIAL",
-      "reason": "official evidence requires manual review",
-      "observed_as_of": "2026-11-01",
-      "recovery_workflow": null,
-      "retryable": false,
-      "impacted_reports": [
-        "基金週報"
-      ]
-    }
-  ],
+  "issues": [],
   "recovery_workflows": [],
-  "issue_fingerprint": "7aee8da8003de9665b409508f4aca154b17088fcf5eee4a935c065706b561a3a",
+  "issue_fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
   "policy": "Health monitoring only; never changes CTA, rankings, or investment decisions."
 }
