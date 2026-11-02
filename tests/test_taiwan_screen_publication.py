@@ -26,7 +26,7 @@ def test_dated_prices_use_published_after_trading_route():
 
 def test_backfill_preserves_prior_bytes_and_identical_retry_is_idempotent(tmp_path, monkeypatch):
     payload = {"expected_as_of": "2026-10-19", "top5": [{"score": 90}]}
-    monkeypatch.setattr(screen, "build_taiwan_stock_screen_payload", lambda *args: dict(payload))
+    monkeypatch.setattr(screen, "select_income_period", lambda *args: dict(payload))
     screen.update(tmp_path, fetcher=lambda *args, **kwargs: [])
     snapshot = tmp_path / "snapshots/2026-10-19.json"
     original = snapshot.read_bytes()
@@ -48,3 +48,40 @@ def test_unpublished_dated_report_never_overwrites_last_success(tmp_path):
         screen.update(tmp_path, market_date=date(2026, 10, 19),
                       fetcher=lambda *args, **kwargs: {"stat": "no data"})
     assert latest.read_bytes() == original
+
+
+def test_partial_quarter_keeps_verified_common_eps_and_current_prices(tmp_path):
+    from test_taiwan_stock_screen import _inputs
+    prices, valuations, revenues, income = _inputs()
+    prior = screen.build_taiwan_stock_screen_payload(prices, valuations, revenues, income)
+    snapshots = tmp_path / "snapshots"
+    snapshots.mkdir()
+    raw = json.dumps(prior).encode()
+    (snapshots / "2026-08-25.json").write_bytes(raw)
+    for row in prices + valuations:
+        row["Date"] = "1151102"
+    partial = [{**income[0], "季別": "3", "基本每股盈餘（元）": "99"}]
+    result = screen.select_income_period(tmp_path, prices, valuations, revenues, partial)
+    assert result["expected_as_of"] == "2026-11-02"
+    assert result["fundamentals_as_of"] == "2026Q2"
+    assert result["validated_count"] == len(income)
+    assert result["rankings"][0]["eps"] != 99
+    assert result["fundamental_period_selection"]["source_sha256"] == hashlib.sha256(raw).hexdigest()
+    assert all(x["financial_quality"]["status"] != "NORMAL" for x in result["rankings"])
+
+
+def test_partial_quarter_without_valid_previous_period_fails_closed(tmp_path):
+    from test_taiwan_stock_screen import _inputs
+    prices, valuations, revenues, income = _inputs()
+    partial = [{**income[0], "季別": "3"}]
+    with pytest.raises(ValueError, match="coverage incomplete"):
+        screen.select_income_period(tmp_path, prices, valuations, revenues, partial)
+
+
+def test_complete_new_quarter_replaces_old_quarter(tmp_path):
+    from test_taiwan_stock_screen import _inputs
+    prices, valuations, revenues, income = _inputs()
+    complete = [{**x, "季別": "3"} for x in income]
+    result = screen.select_income_period(tmp_path, prices, valuations, revenues, complete)
+    assert result["fundamentals_as_of"] == "2026Q3"
+    assert "fundamental_period_selection" not in result
