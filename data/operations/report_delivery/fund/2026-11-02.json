@@ -1,1 +1,34 @@
-{"report_id":"fund","report_date":"2026-11-02","generated_at":"2026-11-02T03:29:47.064Z","delivery_status":"PREPARED","writeback_status":"UNKNOWN","channels":{"conversation":{"status":"UNKNOWN"},"artifact":{"status":"UNKNOWN"}},"heartbeat":"PARTIAL"}
+{
+  "report_id": "fund",
+  "report_date": "2026-11-02",
+  "generated_at": "2026-11-02T03:29:47.064Z",
+  "delivery_status": "PREPARED",
+  "writeback_status": "VERIFIED",
+  "channels": {
+    "conversation": {
+      "status": "UNKNOWN"
+    },
+    "artifact": {
+      "status": "DELIVERED",
+      "observed_at": "2026-11-02T03:34:08.367Z",
+      "evidence_sha256": "eac9c641d9fd971cf2ecbeccb93f29d865575e747e6098c6f994f61ead839425"
+    }
+  },
+  "heartbeat": "PARTIAL",
+  "validation": {
+    "snapshot": "0aeb894b8d0685f31df4e958b350301997e1d6ef",
+    "periods": 9,
+    "result": "CONDITIONAL_PASS",
+    "pending": [
+      "AI_PERIOD_REVIEW",
+      "PEER_CATEGORY",
+      "PARTIAL_FX",
+      "FUNDAMENTAL_FRESHNESS"
+    ]
+  },
+  "data_as_of": {
+    "fund_min": "2026-10-29",
+    "fund_max": "2026-10-30",
+    "bitcoin": "2026-11-01"
+  }
+}
