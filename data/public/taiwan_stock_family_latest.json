@@ -17,22 +17,22 @@
     },
     "screen": {
       "path": "data/market/taiwan_stock_intelligence/screen_latest.json",
-      "sha256": "afc4ad67e4b37d7c21d7d75219195ca3e802f9d4385343a287a0725d3642f635"
+      "sha256": "981eb0e8c0792781bf2c5214e4c1d3d1e7ea17bd89a8c11420206e047706f5e2"
     },
     "cta": {
       "path": "data/market/taiwan_stock_intelligence/cta/cta_latest.json",
-      "sha256": "3409df7fbb053bb4ee4337c6f05c1dd6c1d821ecacdca021f6041a0c79dd80c7"
+      "sha256": "6299a01b9fcf3c70e34aea44f74e60d092170847686a8cf962c6d03bc6e2efe3"
     },
     "context": {
       "path": "data/market/taiwan_stock_intelligence/daily_context_latest.json",
-      "sha256": "412a078a468b9d51b1bec4eed46a5ef14e0a5d824d4afd4ef891af5607ddfbb6"
+      "sha256": "25688bd7790efe67b0e8e8729e74ce3970f2f41ca7de55753722382f5a9290ee"
     }
   },
   "source_generated_at": {
     "dashboard": "2026-11-03T07:04:25.695341+00:00",
     "screen": null,
-    "cta": "2026-11-02T20:29:51.243816+00:00",
-    "context": "2026-11-03T07:07:58.500596+00:00"
+    "cta": "2026-11-03T07:08:58.809927+00:00",
+    "context": "2026-11-03T07:11:10.015402+00:00"
   },
   "screen_as_of": "2026-11-02",
   "display_status": "STALE",
@@ -43,24 +43,19 @@
     "taiwan_cta_dates": {
       "0050": "2026-11-03",
       "2330": "2026-11-03",
-      "6669": "2026-11-02",
-      "3006": "2026-11-02",
-      "2408": "2026-11-02",
-      "2382": "2026-11-02",
-      "2603": "2026-11-02"
+      "6669": "2026-11-03",
+      "3006": "2026-11-03",
+      "2408": "2026-11-03",
+      "2382": "2026-11-03",
+      "2603": "2026-11-03"
     },
     "issues": [
       "screen_not_current",
       "6669_price_not_current",
-      "6669_cta_not_current",
       "3006_price_not_current",
-      "3006_cta_not_current",
       "2408_price_not_current",
-      "2408_cta_not_current",
       "2382_price_not_current",
-      "2382_cta_not_current",
-      "2603_price_not_current",
-      "2603_cta_not_current"
+      "2603_price_not_current"
     ],
     "scope": "TAIWAN_PRICE_VALUATION_AND_CTA_ONLY",
     "consumer_rule": "INCOMPLETE_MEANS_NO_NEW_EXPOSURE_AND_NO_UNCHANGED_RANKING_CLAIM",
@@ -119,8 +114,7 @@
     "issues": [
       "SCREEN_EXPECTED_AS_OF_MISMATCH",
       "MARKET_PRESSURE_AS_OF_MISMATCH",
-      "REPORT_READINESS_NOT_READY",
-      "MARKET_PRESSURE_INPUTS_NOT_READY"
+      "REPORT_READINESS_NOT_READY"
     ],
     "rule": "EMAIL_REQUIRES_CURRENT_MARKET_PRESSURE_AND_CURRENT_LOCAL_MARKET_ASIA_CTA"
   },
@@ -139,20 +133,16 @@
     "consumer_rule": "STALE_OR_UNKNOWN_ASIA_CTA_BLOCKS_FINAL_EMAIL"
   },
   "market_pressure_input_readiness": {
-    "status": "UPDATE_INCOMPLETE",
+    "status": "READY",
     "expected_as_of": "2026-11-03",
-    "issues": [
-      "pressure_inputs_wrong_requested_date",
-      "margin_not_current",
-      "volatility_not_current"
-    ],
+    "issues": [],
     "consumer_rule": "FINAL_EMAIL_REQUIRES_READY; MARGIN_MAY_USE_VERIFIED_OFFICIAL_LAG_BEFORE_21:30; NEVER_RECOMPUTE_PRESSURE_LIGHT"
   },
   "market_pressure_inputs": {
     "schema_version": "1.0",
     "module": "Onecool Taiwan Official Market Pressure Inputs",
-    "generated_at": "2026-11-02T20:29:32.441670+00:00",
-    "requested_as_of": "2026-11-02",
+    "generated_at": "2026-11-03T07:08:39.849422+00:00",
+    "requested_as_of": "2026-11-03",
     "status": "READY",
     "attempts_used": 1,
     "issues": [],
@@ -178,15 +168,18 @@
           }
         },
         "error": null,
+        "official_lag_accepted": true,
+        "availability_basis": "LATEST_OFFICIAL_BEFORE_SAME_DAY_PUBLICATION",
+        "requested_as_of": "2026-11-03",
         "source_url": "https://www.twse.com.tw/rwd/zh/marginTrading/MI_MARGN?date=20261102&selectType=MS&response=json"
       },
       "volatility": {
         "status": "VERIFIED",
-        "as_of": "2026-11-02",
-        "value": 31.28,
+        "as_of": "2026-11-03",
+        "value": 36.83,
         "value_basis": "LAST_1_MIN_AVG",
         "error": null,
-        "download_url": "https://www.taifex.com.tw/cht/7/getVixData?filesname=20261102",
+        "download_url": "https://www.taifex.com.tw/cht/7/getVixData?filesname=20261103",
         "source_url": "https://www.taifex.com.tw/cht/7/vixMinNew"
       }
     },
@@ -241,7 +234,7 @@
         "status": "REVIEW",
         "label": "需留意",
         "as_of": "2026Q2",
-        "observed_at": "2026-11-02T06:40:49.759318+00:00",
+        "observed_at": "2026-11-03T07:09:04.223329+00:00",
         "source_url": "https://mopsov.twse.com.tw/server-java/t164sb01?step=1&CO_ID=6669&SYEAR=2026&SSEASON=2&REPORT_ID=C",
         "source_sha256": "46c5a07d7e9e4429f043710768ca5e33e630bfa4e60f2cb95cdb5a6c87599811",
         "scope": "CONSOLIDATED_THREE_STATEMENTS",
@@ -492,13 +485,13 @@
       },
       "individual_cta": {
         "symbol": "6669",
-        "as_of": "2026-11-02",
+        "as_of": "2026-11-03",
         "cta": "SELL",
         "state": "WEEKLY_BEARISH_DAILY_BEARISH",
         "update_status": "CURRENT",
         "price_basis": "locally_adjusted_close",
         "weekly_data_as_of": "2026-10-30",
-        "source_data_as_of": "2026-11-02",
+        "source_data_as_of": "2026-11-03",
         "error": null
       }
     },
@@ -520,7 +513,7 @@
         "status": "NORMAL",
         "label": "正常",
         "as_of": "2026Q2",
-        "observed_at": "2026-11-02T06:40:49.759318+00:00",
+        "observed_at": "2026-11-03T07:09:04.223329+00:00",
         "source_url": "https://mopsov.twse.com.tw/server-java/t164sb01?step=1&CO_ID=3006&SYEAR=2026&SSEASON=2&REPORT_ID=C",
         "source_sha256": "cc403f689c719b486a97f8ea03fc0d5225f45eb1e6fb7010bfb205ca8466d068",
         "scope": "CONSOLIDATED_THREE_STATEMENTS",
@@ -772,13 +765,13 @@
       },
       "individual_cta": {
         "symbol": "3006",
-        "as_of": "2026-11-02",
+        "as_of": "2026-11-03",
         "cta": "BUY",
         "state": "WEEKLY_BULLISH_DAILY_BULLISH",
         "update_status": "CURRENT",
         "price_basis": "locally_adjusted_close",
         "weekly_data_as_of": "2026-10-30",
-        "source_data_as_of": "2026-11-02",
+        "source_data_as_of": "2026-11-03",
         "error": null
       }
     },
@@ -800,7 +793,7 @@
         "status": "NORMAL",
         "label": "正常",
         "as_of": "2026Q2",
-        "observed_at": "2026-11-02T06:40:49.759318+00:00",
+        "observed_at": "2026-11-03T07:09:04.223329+00:00",
         "source_url": "https://mopsov.twse.com.tw/server-java/t164sb01?step=1&CO_ID=2408&SYEAR=2026&SSEASON=2&REPORT_ID=C",
         "source_sha256": "bb0ce99f39a30e80e0328d5bd6fbb90cc076e8e45dee924de8be263b81e683c4",
         "scope": "CONSOLIDATED_THREE_STATEMENTS",
@@ -1052,13 +1045,13 @@
       },
       "individual_cta": {
         "symbol": "2408",
-        "as_of": "2026-11-02",
+        "as_of": "2026-11-03",
         "cta": "HOLD",
         "state": "WEEKLY_BULLISH_DAILY_BULLISH",
         "update_status": "CURRENT",
         "price_basis": "locally_adjusted_close",
         "weekly_data_as_of": "2026-10-30",
-        "source_data_as_of": "2026-11-02",
+        "source_data_as_of": "2026-11-03",
         "error": null
       }
     },
@@ -1080,7 +1073,7 @@
         "status": "REVIEW",
         "label": "需留意",
         "as_of": "2026Q2",
-        "observed_at": "2026-11-02T06:40:49.759318+00:00",
+        "observed_at": "2026-11-03T07:09:04.223329+00:00",
         "source_url": "https://mopsov.twse.com.tw/server-java/t164sb01?step=1&CO_ID=2382&SYEAR=2026&SSEASON=2&REPORT_ID=C",
         "source_sha256": "b6059fc3a4d6237487440c2855fc85ac40330b4ebcdb0da9e722136f4d7dd3f4",
         "scope": "CONSOLIDATED_THREE_STATEMENTS",
@@ -1330,13 +1323,13 @@
       },
       "individual_cta": {
         "symbol": "2382",
-        "as_of": "2026-11-02",
+        "as_of": "2026-11-03",
         "cta": "BUY",
         "state": "WEEKLY_BULLISH_DAILY_BULLISH",
         "update_status": "CURRENT",
         "price_basis": "locally_adjusted_close",
         "weekly_data_as_of": "2026-10-30",
-        "source_data_as_of": "2026-11-02",
+        "source_data_as_of": "2026-11-03",
         "error": null
       }
     },
@@ -1358,7 +1351,7 @@
         "status": "REVIEW",
         "label": "需留意",
         "as_of": "2026Q2",
-        "observed_at": "2026-11-02T06:40:49.759318+00:00",
+        "observed_at": "2026-11-03T07:09:04.223329+00:00",
         "source_url": "https://mopsov.twse.com.tw/server-java/t164sb01?step=1&CO_ID=2603&SYEAR=2026&SSEASON=2&REPORT_ID=C",
         "source_sha256": "cdf780ad9533550201441387171fd64ebc16e37c8e0ec2ead9d3f3eb0b05437f",
         "scope": "CONSOLIDATED_THREE_STATEMENTS",
@@ -1604,13 +1597,13 @@
       },
       "individual_cta": {
         "symbol": "2603",
-        "as_of": "2026-11-02",
+        "as_of": "2026-11-03",
         "cta": "BUY",
         "state": "WEEKLY_BULLISH_DAILY_BULLISH",
         "update_status": "CURRENT",
         "price_basis": "locally_adjusted_close",
         "weekly_data_as_of": "2026-10-30",
-        "source_data_as_of": "2026-11-02",
+        "source_data_as_of": "2026-11-03",
         "error": null
       }
     }
