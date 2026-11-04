@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-11-04T11:20:31.092453+00:00",
+  "generated_at": "2026-11-04T15:19:05.722732+00:00",
   "taipei_date": "2026-11-04",
   "status": "READY",
   "scope_status": {
@@ -14,19 +14,18 @@
     "reports": [
       {
         "report_id": "taiwan",
-        "expected_report_date": "2026-11-03",
+        "expected_report_date": "2026-11-04",
         "status": "PARTIAL",
         "channels": {
           "conversation": "UNKNOWN",
-          "email": "UNKNOWN",
+          "email": "DELIVERED",
           "artifact": "DELIVERED"
         },
         "unverified_channels": [
-          "conversation",
-          "email"
+          "conversation"
         ],
         "failed_channels": [],
-        "next_action": "Verify missing channel evidence and artifact writeback",
+        "next_action": "Observe actual delivered message acknowledgement; do not resend solely because acknowledgement is unknown",
         "reason": "Missing acknowledgement is unverified, not proof of failed delivery"
       },
       {
