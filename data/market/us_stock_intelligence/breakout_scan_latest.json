@@ -7,7 +7,7 @@
     "minervini": 80
   },
   "classification": "Onecool proxy scores; not IBD official ratings",
-  "expected_as_of": "2026-11-03",
+  "expected_as_of": "2026-11-04",
   "data_status": "READY",
   "price_basis": "adjusted_close",
   "universe_size": 70,
@@ -33,17 +33,17 @@
   "validated_coverage_pct": 90.0,
   "research_scope": "FULL_UNIVERSE_ASSESSED_VALIDATED_SUBSET_RANKED",
   "minimum_technical_confidence": 90,
-  "formal_breakout_count": 0,
+  "formal_breakout_count": 9,
   "top5": [
     {
       "symbol": "AMGN",
-      "price_as_of": "2026-11-03",
+      "price_as_of": "2026-11-04",
       "fundamentals_as_of": "2026-06-30",
       "fundamental_sources": [
         "https://data.sec.gov/api/xbrl/companyfacts/CIK0000318154.json"
       ],
       "fundamentals_published_as_of": "2026-08-05",
-      "liquidity_average_50d_usd": 1179087902.53,
+      "liquidity_average_50d_usd": 1204940148.88,
       "liquidity_minimum_50d_usd": 20000000,
       "liquidity_status": "PASSED",
       "new_entry_eligible": true,
@@ -57,15 +57,15 @@
       "technical_confidence": 100,
       "validation_status": "PASSED",
       "validation_errors": [],
-      "canslim_score": 74,
+      "canslim_score": 80,
       "minervini_score": 100,
       "passes_dual_system": true,
       "company_name": "Amgen Inc.",
       "security_type": "COMMON_STOCK",
-      "rank_score": 83.3,
-      "status": "WAIT",
-      "trigger": "突破52週高點且成交量至少為50日均量1.5倍",
-      "formal_breakout": false,
+      "rank_score": 91.0,
+      "status": "BREAKOUT",
+      "trigger": "維持突破區且成交量至少為50日均量1.5倍",
+      "formal_breakout": true,
       "super_growth_bucket": "B",
       "super_growth_reason": "VALUATION_INPUTS_UNAVAILABLE_OR_STALE",
       "quality_gate_status": {
@@ -145,7 +145,7 @@
         },
         "valuation": {
           "status": "UNKNOWN",
-          "as_of": "2026-11-03",
+          "as_of": "2026-11-04",
           "rationale": "Current-session valuation model not yet validated.",
           "sources": [],
           "data_gap": "MISSING_SOURCE_BACKED_VALUATION_ASSESSMENT",
@@ -173,7 +173,7 @@
       "quality_gate_application": "FORMAL_NEW_CANDIDATE_RESEARCH_GATE",
       "action_eligibility": "RESEARCH_ONLY_VALUATION_DATA_GAP",
       "valuation_input_collection": {
-        "as_of": "2026-11-03",
+        "as_of": "2026-11-04",
         "status": "PARTIAL",
         "gaps": [
           "OFFICIAL_REFERENCE_EXPIRED_OR_NOT_POINT_IN_TIME",
@@ -181,7 +181,7 @@
         ],
         "price_basis": "adjusted_close",
         "inputs": {
-          "adjusted_close": 461.260009765625
+          "adjusted_close": 478.4800109863281
         },
         "sources": [
           "https://data.sec.gov/api/xbrl/companyfacts/CIK0000318154.json"
@@ -190,16 +190,16 @@
         "price_source": {
           "provider": "yahoo_finance_adjusted_batch",
           "symbol": "AMGN",
-          "as_of": "2026-11-03",
+          "as_of": "2026-11-04",
           "url": "https://finance.yahoo.com/quote/AMGN/history/"
         },
         "price_observation": {
-          "date": "2026-11-03",
-          "adjusted_close": 461.260009765625,
-          "raw_close": 461.260009765625,
+          "date": "2026-11-04",
+          "adjusted_close": 478.4800109863281,
+          "raw_close": 478.4800109863281,
           "provider": "yahoo_finance_adjusted_batch"
         },
-        "price_sha256": "7baea40dd070dba85a940fe38055dac1da248f6ffe7e469416bd8b9a54b6e701",
+        "price_sha256": "967df2a83eaba1efc5895abd48581b8fef69a7e43d280e441560be9867f74de8",
         "official_reference_status": "REJECTED",
         "fundamental_fetch_status": "FETCH_FAILED",
         "fetch_error_type": "HTTPError"
@@ -306,14 +306,14 @@
       }
     },
     {
-      "symbol": "LLY",
-      "price_as_of": "2026-11-03",
-      "fundamentals_as_of": "2026-06-30",
+      "symbol": "MSFT",
+      "price_as_of": "2026-11-04",
+      "fundamentals_as_of": "2026-09-30",
       "fundamental_sources": [
-        "https://data.sec.gov/api/xbrl/companyfacts/CIK0000059478.json"
+        "https://news.microsoft.com/source/2026/10/28/microsoft-announces-first-quarter-results-2"
       ],
-      "fundamentals_published_as_of": "2026-08-05",
-      "liquidity_average_50d_usd": 2994310124.16,
+      "fundamentals_published_as_of": "2026-10-28",
+      "liquidity_average_50d_usd": 11752556987.16,
       "liquidity_minimum_50d_usd": 20000000,
       "liquidity_status": "PASSED",
       "new_entry_eligible": true,
@@ -327,24 +327,24 @@
       "technical_confidence": 100,
       "validation_status": "PASSED",
       "validation_errors": [],
-      "canslim_score": 72,
-      "minervini_score": 100,
+      "canslim_score": 70,
+      "minervini_score": 96,
       "passes_dual_system": true,
-      "company_name": "Eli Lilly and Company",
+      "company_name": "Microsoft Corporation",
       "security_type": "COMMON_STOCK",
-      "rank_score": 82.4,
-      "status": "WAIT",
-      "trigger": "突破52週高點且成交量至少為50日均量1.5倍",
-      "formal_breakout": false,
+      "rank_score": 84.7,
+      "status": "BREAKOUT",
+      "trigger": "維持突破區且成交量至少為50日均量1.5倍",
+      "formal_breakout": true,
       "super_growth_bucket": "B",
-      "super_growth_reason": "VALUATION_ABOVE_DISCIPLINED_RANGE",
+      "super_growth_reason": "VALUATION_INPUTS_UNAVAILABLE_OR_STALE",
       "quality_gate_status": {
         "competitive_advantage": {
           "status": "PASS",
-          "as_of": "2026-10-16",
-          "rationale": "Mounjaro及Zepbound專利產品、臨床資料及製造規模支持競爭優勢；需監測同類藥品競爭與降價。",
+          "as_of": "2026-07-29",
+          "rationale": "Microsoft365與Azure企業分銷、整合與轉換成本構成優勢；Azure年度收入超過1000億美元，Copilot付費席位逾3000萬。",
           "sources": [
-            "https://investor.lilly.com/node/54781/pdf"
+            "https://www.microsoft.com/en-us/investor/earnings/fy-2026-q4/press-release-webcast"
           ],
           "data_gap": null,
           "validation_errors": [],
@@ -355,10 +355,10 @@
         },
         "structural_growth_runway": {
           "status": "PASS",
-          "as_of": "2026-10-16",
-          "rationale": "Q2營收年增48%，全球銷量成長60%；retatrutide第三期資料及產能投資提供成長來源，不將臨床或核准結果視為保證。",
+          "as_of": "2026-07-29",
+          "rationale": "季度Azure增43%、Cloud增27%；RPO增84%。大型合約、供給限制與AI投資回報仍須監測，未把RPO當保證營收。",
           "sources": [
-            "https://investor.lilly.com/node/54781/pdf"
+            "https://www.microsoft.com/en-us/investor/earnings/fy-2026-q4/press-release-webcast"
           ],
           "data_gap": null,
           "validation_errors": [],
@@ -369,11 +369,10 @@
         },
         "financial_quality": {
           "status": "PASS",
-          "as_of": "2026-10-16",
-          "rationale": "已核對Q2 10-Q：H1 CFO16023m、capex5259m、另有研發資產現金支出3486m與併購9805m；六月底淨負債45958m。營運現金支持財務品質，但資本配置壓力重大；九月新併購後的負債與獲利影響另列估值缺口，不將六月餘額冒充十月餘額。",
+          "as_of": "2026-07-29",
+          "rationale": "FY26 CFO182935m、現金capex115948m，FCF66987m；保留SBC及營運成本，AI資本強度侵蝕現金轉換。",
           "sources": [
-            "https://www.sec.gov/Archives/edgar/data/59478/000005947826000081/lly-20260630.htm",
-            "https://investor.lilly.com/news-releases/news-release-details/lilly-completes-acquisition-ataibeckley-advance-therapies"
+            "https://www.microsoft.com/en-us/investor/earnings/fy-2026-q4/press-release-webcast"
           ],
           "data_gap": null,
           "validation_errors": [],
@@ -384,10 +383,10 @@
         },
         "business_risk_and_governance": {
           "status": "PASS",
-          "as_of": "2026-10-16",
-          "rationale": "實現價格下滑13%、藥品集中、監管／給付、臨床及多宗併購整合是主要風險；納入持續追蹤，目前材料不足以否決研究資格。",
+          "as_of": "2026-07-29",
+          "rationale": "AI基建回收、模型競爭、資安與反壟斷風險需監測；目前未見官方材料足以否決研究資格的事件。",
           "sources": [
-            "https://investor.lilly.com/node/54781/pdf"
+            "https://www.microsoft.com/en-us/investor/earnings/fy-2026-q4/press-release-webcast"
           ],
           "data_gap": null,
           "validation_errors": [],
@@ -398,10 +397,12 @@
         },
         "circle_of_competence": {
           "status": "UNKNOWN",
-          "as_of": null,
-          "rationale": null,
-          "sources": [],
-          "data_gap": "MISSING_SOURCE_BACKED_CIRCLE_OF_COMPETENCE_ASSESSMENT",
+          "as_of": "2026-10-14",
+          "rationale": "建倉前確認雲端使用量、AI資本支出與投資回收理解；不阻擋排名。",
+          "sources": [
+            "https://www.microsoft.com/en-us/investor/earnings/fy-2026-q4/press-release-webcast"
+          ],
+          "data_gap": "PRE_TRADE_USER_CONFIRMATION_ONLY",
           "validation_errors": [],
           "method": null,
           "price_as_of": null,
@@ -409,157 +410,65 @@
           "inputs": {}
         },
         "valuation": {
-          "status": "FAIL",
-          "as_of": "2026-11-03",
-          "rationale": "Mounjaro and Zepbound support high growth, while pricing, launch investment and acquisition execution constrain distributable earnings.",
-          "sources": [
-            "https://investor.lilly.com/news-releases/news-release-details/lilly-reports-third-quarter-2026-financial-results-raises-full",
-            "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
-          ],
-          "data_gap": null,
+          "status": "UNKNOWN",
+          "as_of": "2026-11-04",
+          "rationale": "Current-session valuation model not yet validated.",
+          "sources": [],
+          "data_gap": "MISSING_SOURCE_BACKED_VALUATION_ASSESSMENT",
           "validation_errors": [],
-          "method": "FORWARD_NORMALIZED_PE_EX_KNOWN_Q3_ACQUIRED_IPRD",
-          "price_as_of": "2026-11-03",
-          "valid_through": "2026-11-03",
-          "inputs": {
-            "price": 1409.3800048828125,
-            "denominator": 40.07,
-            "multiple": 35.172947464008296,
-            "fair_range": [
-              11.881578947368421,
-              23.463686944114407
-            ]
-          }
+          "method": null,
+          "price_as_of": null,
+          "valid_through": null,
+          "inputs": {}
         }
       },
       "evidence_coverage": "PARTIAL",
       "missing_evidence": [
-        "circle_of_competence"
+        "circle_of_competence",
+        "valuation"
       ],
       "quality_data_gaps": {},
-      "valuation_posture": "ABOVE_DISCIPLINED_RANGE",
+      "valuation_posture": "UNRESOLVED_WITH_SPECIFIC_GAP",
       "cyclical_review_required": false,
-      "evidence_as_of": "2026-10-16",
+      "evidence_as_of": "2026-10-14",
       "manual_confirmation_required": [
         "circle_of_competence"
       ],
       "circle_of_competence_policy": "PRE_TRADE_USER_CONFIRMATION_NOT_DAILY_RESEARCH_BLOCKER",
       "decision_authority": "RESEARCH_QUALITY_ONLY",
       "quality_gate_application": "FORMAL_NEW_CANDIDATE_RESEARCH_GATE",
-      "action_eligibility": "RESEARCH_ONLY_VALUATION_TOO_HIGH",
+      "action_eligibility": "RESEARCH_ONLY_VALUATION_DATA_GAP",
       "valuation_input_collection": {
-        "as_of": "2026-11-03",
-        "status": "COMPLETE",
-        "gaps": [],
+        "as_of": "2026-11-04",
+        "status": "PARTIAL",
+        "gaps": [
+          "OFFICIAL_REFERENCE_EXPIRED_OR_NOT_POINT_IN_TIME",
+          "SEC_COMPANYFACTS_FETCH_OR_IDENTITY_VALIDATION_FAILED"
+        ],
         "price_basis": "adjusted_close",
         "inputs": {
-          "adjusted_close": 1409.3800048828125
+          "adjusted_close": 555.7999877929688
         },
         "sources": [
-          "https://investor.lilly.com/news-releases/news-release-details/lilly-reports-third-quarter-2026-financial-results-raises-full",
-          "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+          "https://data.sec.gov/api/xbrl/companyfacts/CIK0000789019.json"
         ],
-        "decision_authority": "REVIEWED_SOURCE_BACKED_VALUATION_MODEL",
+        "decision_authority": "REFERENCE_INPUTS_ONLY_NOT_FAIR_VALUE",
         "price_source": {
           "provider": "yahoo_finance_adjusted_batch",
-          "symbol": "LLY",
-          "as_of": "2026-11-03",
-          "url": "https://finance.yahoo.com/quote/LLY/history/"
+          "symbol": "MSFT",
+          "as_of": "2026-11-04",
+          "url": "https://finance.yahoo.com/quote/MSFT/history/"
         },
         "price_observation": {
-          "date": "2026-11-03",
-          "adjusted_close": 1409.3800048828125,
-          "raw_close": 1409.3800048828125,
+          "date": "2026-11-04",
+          "adjusted_close": 555.7999877929688,
+          "raw_close": 555.7999877929688,
           "provider": "yahoo_finance_adjusted_batch"
         },
-        "price_sha256": "70ecc5ed8c7c7dbd07add568e48d3bddc535d97bfbbf3fd3a895c0ec02fe1e76",
-        "official_reference_status": "VERIFIED",
-        "fundamental_fetch_status": "REVIEWED_OFFICIAL_REFERENCE",
-        "company_name": "Eli Lilly and Company",
-        "official_reference": {
-          "symbol": "LLY",
-          "company_name": "Eli Lilly and Company",
-          "published_at": "2026-10-29",
-          "reviewed_as_of": "2026-10-31",
-          "valid_through": "2027-01-25",
-          "sources": [
-            "https://investor.lilly.com/news-releases/news-release-details/lilly-reports-third-quarter-2026-financial-results-raises-full",
-            "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
-          ],
-          "reported_facts": {
-            "period": "Q3_2026",
-            "revenue_million": 24397,
-            "reported_eps": 7.22,
-            "non_gaap_eps": 7.48,
-            "FY26_non_gaap_eps_guidance": [
-              35,
-              36
-            ],
-            "Q3_acquired_IPRD_per_share": 4.57
-          },
-          "model_gaps": [],
-          "refresh_on": [
-            "NEW_EARNINGS_OR_GUIDANCE",
-            "MATERIAL_ACQUISITION",
-            "REFERENCE_EXPIRY"
-          ],
-          "valuation_model": {
-            "method": "FORWARD_NORMALIZED_PE_EX_KNOWN_Q3_ACQUIRED_IPRD",
-            "denominator": 40.07,
-            "currency": "USD",
-            "share_basis": "listed_security",
-            "normalization_bridge": {
-              "formula": "FY26 non-GAAP EPS guidance midpoint 35.50 + Q3 acquired IPR&D 4.57",
-              "inputs": [
-                35.5,
-                4.57
-              ],
-              "limitations": "Removes the disclosed Q3 acquired IPR&D charge only; does not assume unannounced transactions or pipeline revenue."
-            },
-            "denominator_source": [
-              "https://investor.lilly.com/news-releases/news-release-details/lilly-reports-third-quarter-2026-financial-results-raises-full"
-            ],
-            "fair_range": [
-              11.881578947368421,
-              23.463686944114407
-            ],
-            "scenarios": [
-              {
-                "name": "conservative",
-                "years": 5,
-                "growth": 0.12,
-                "required_return": 0.12,
-                "terminal_growth": 0.025,
-                "cash_conversion": 0.65,
-                "terminal_cash_conversion": 0.8
-              },
-              {
-                "name": "base",
-                "years": 5,
-                "growth": 0.18,
-                "required_return": 0.1,
-                "terminal_growth": 0.03,
-                "cash_conversion": 0.75,
-                "terminal_cash_conversion": 0.9
-              }
-            ],
-            "assumption_authority": "ONECOOL_ANALYST_NOT_ISSUER_GUIDANCE",
-            "research_grade": "SCREENING_SCENARIO_NOT_FULL_DCF",
-            "policy_version": "onecool_equity_two_stage_screen_v1",
-            "rationale": "Mounjaro and Zepbound support high growth, while pricing, launch investment and acquisition execution constrain distributable earnings.",
-            "fair_range_rationale": "Five-year 12%/18% growth, 65%/75% interim cash conversion, 80%/90% terminal conversion, 12%/10% required return and 2.5%/3% terminal growth are Onecool analyst screening assumptions selected without using the current share price.",
-            "fair_range_sources": [
-              "https://investor.lilly.com/news-releases/news-release-details/lilly-reports-third-quarter-2026-financial-results-raises-full",
-              "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
-            ]
-          },
-          "source_review": {
-            "status": "VERIFIED_CURRENT_OFFICIAL",
-            "checked_at": "2026-10-31T08:25:00+00:00",
-            "information_cutoff": "2026-10-30",
-            "conclusion": "Q3 results and updated FY2026 guidance normalized using the issuer-disclosed Q3 acquired IPR&D charge."
-          }
-        }
+        "price_sha256": "211af8ca7fd239fa2f78df54d5676dbd3e06baa22d9cc5465f7cf9eca22a429d",
+        "official_reference_status": "REJECTED",
+        "fundamental_fetch_status": "FETCH_FAILED",
+        "fetch_error_type": "HTTPError"
       },
       "lynch_research": {
         "version": "onecool_lynch_research_v1",
@@ -593,48 +502,37 @@
             {
               "field": "competitive_advantage",
               "value": "PASS",
-              "as_of": "2026-10-16",
-              "rationale": "Mounjaro及Zepbound專利產品、臨床資料及製造規模支持競爭優勢；需監測同類藥品競爭與降價。",
+              "as_of": "2026-07-29",
+              "rationale": "Microsoft365與Azure企業分銷、整合與轉換成本構成優勢；Azure年度收入超過1000億美元，Copilot付費席位逾3000萬。",
               "sources": [
-                "https://investor.lilly.com/node/54781/pdf"
+                "https://www.microsoft.com/en-us/investor/earnings/fy-2026-q4/press-release-webcast"
               ]
             },
             {
               "field": "structural_growth_runway",
               "value": "PASS",
-              "as_of": "2026-10-16",
-              "rationale": "Q2營收年增48%，全球銷量成長60%；retatrutide第三期資料及產能投資提供成長來源，不將臨床或核准結果視為保證。",
+              "as_of": "2026-07-29",
+              "rationale": "季度Azure增43%、Cloud增27%；RPO增84%。大型合約、供給限制與AI投資回報仍須監測，未把RPO當保證營收。",
               "sources": [
-                "https://investor.lilly.com/node/54781/pdf"
+                "https://www.microsoft.com/en-us/investor/earnings/fy-2026-q4/press-release-webcast"
               ]
             },
             {
               "field": "financial_quality",
               "value": "PASS",
-              "as_of": "2026-10-16",
-              "rationale": "已核對Q2 10-Q：H1 CFO16023m、capex5259m、另有研發資產現金支出3486m與併購9805m；六月底淨負債45958m。營運現金支持財務品質，但資本配置壓力重大；九月新併購後的負債與獲利影響另列估值缺口，不將六月餘額冒充十月餘額。",
+              "as_of": "2026-07-29",
+              "rationale": "FY26 CFO182935m、現金capex115948m，FCF66987m；保留SBC及營運成本，AI資本強度侵蝕現金轉換。",
               "sources": [
-                "https://www.sec.gov/Archives/edgar/data/59478/000005947826000081/lly-20260630.htm",
-                "https://investor.lilly.com/news-releases/news-release-details/lilly-completes-acquisition-ataibeckley-advance-therapies"
+                "https://www.microsoft.com/en-us/investor/earnings/fy-2026-q4/press-release-webcast"
               ]
             },
             {
               "field": "business_risk_and_governance",
               "value": "PASS",
-              "as_of": "2026-10-16",
-              "rationale": "實現價格下滑13%、藥品集中、監管／給付、臨床及多宗併購整合是主要風險；納入持續追蹤，目前材料不足以否決研究資格。",
+              "as_of": "2026-07-29",
+              "rationale": "AI基建回收、模型競爭、資安與反壟斷風險需監測；目前未見官方材料足以否決研究資格的事件。",
               "sources": [
-                "https://investor.lilly.com/node/54781/pdf"
-              ]
-            },
-            {
-              "field": "valuation",
-              "value": "FAIL",
-              "as_of": "2026-11-03",
-              "rationale": "Mounjaro and Zepbound support high growth, while pricing, launch investment and acquisition execution constrain distributable earnings.",
-              "sources": [
-                "https://investor.lilly.com/news-releases/news-release-details/lilly-reports-third-quarter-2026-financial-results-raises-full",
-                "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+                "https://www.microsoft.com/en-us/investor/earnings/fy-2026-q4/press-release-webcast"
               ]
             }
           ],
@@ -671,13 +569,13 @@
     },
     {
       "symbol": "ABBV",
-      "price_as_of": "2026-11-03",
+      "price_as_of": "2026-11-04",
       "fundamentals_as_of": "2026-06-30",
       "fundamental_sources": [
         "https://data.sec.gov/api/xbrl/companyfacts/CIK0001551152.json"
       ],
       "fundamentals_published_as_of": "2026-08-03",
-      "liquidity_average_50d_usd": 1273781800.95,
+      "liquidity_average_50d_usd": 1304221506.14,
       "liquidity_minimum_50d_usd": 20000000,
       "liquidity_status": "PASSED",
       "new_entry_eligible": true,
@@ -691,15 +589,15 @@
       "technical_confidence": 100,
       "validation_status": "PASSED",
       "validation_errors": [],
-      "canslim_score": 60,
+      "canslim_score": 65,
       "minervini_score": 100,
       "passes_dual_system": false,
       "company_name": "AbbVie Inc.",
       "security_type": "COMMON_STOCK",
-      "rank_score": 77.0,
-      "status": "WAIT",
-      "trigger": "突破52週高點且成交量至少為50日均量1.5倍",
-      "formal_breakout": false,
+      "rank_score": 84.25,
+      "status": "BREAKOUT",
+      "trigger": "維持突破區且成交量至少為50日均量1.5倍",
+      "formal_breakout": true,
       "super_growth_bucket": "B",
       "super_growth_reason": "VALUATION_INPUTS_UNAVAILABLE_OR_STALE",
       "quality_gate_status": {
@@ -776,7 +674,7 @@
         },
         "valuation": {
           "status": "UNKNOWN",
-          "as_of": "2026-11-03",
+          "as_of": "2026-11-04",
           "rationale": "CURRENT_DISCLOSURE_CHECK_UNAVAILABLE",
           "sources": [],
           "data_gap": "CURRENT_DISCLOSURE_CHECK_UNAVAILABLE",
@@ -804,7 +702,7 @@
       "quality_gate_application": "FORMAL_NEW_CANDIDATE_RESEARCH_GATE",
       "action_eligibility": "RESEARCH_ONLY_VALUATION_DATA_GAP",
       "valuation_input_collection": {
-        "as_of": "2026-11-03",
+        "as_of": "2026-11-04",
         "status": "PARTIAL",
         "gaps": [
           "OFFICIAL_REFERENCE_EXPIRED_OR_NOT_POINT_IN_TIME",
@@ -813,7 +711,7 @@
         ],
         "price_basis": "adjusted_close",
         "inputs": {
-          "adjusted_close": 286.0
+          "adjusted_close": 294.8299865722656
         },
         "sources": [
           "https://data.sec.gov/api/xbrl/companyfacts/CIK0001551152.json"
@@ -822,19 +720,19 @@
         "price_source": {
           "provider": "yahoo_finance_adjusted_batch",
           "symbol": "ABBV",
-          "as_of": "2026-11-03",
+          "as_of": "2026-11-04",
           "url": "https://finance.yahoo.com/quote/ABBV/history/"
         },
         "price_observation": {
-          "date": "2026-11-03",
-          "adjusted_close": 286.0,
-          "raw_close": 286.0,
+          "date": "2026-11-04",
+          "adjusted_close": 294.8299865722656,
+          "raw_close": 294.8299865722656,
           "provider": "yahoo_finance_adjusted_batch"
         },
-        "price_sha256": "f3952bd0b5e58d6012e8f37f4681da769da24668e83b5ace8baedad8223be631",
+        "price_sha256": "c1afb743074e55d161f7319eb70a6c3b2bed823d6ea1859978e381db010fecba",
         "official_reference_status": "REJECTED",
         "official_disclosure_watch": {
-          "as_of": "2026-11-03",
+          "as_of": "2026-11-04",
           "status": "FETCH_OR_VALIDATION_FAILED",
           "filings": [],
           "decision_authority": "RESEARCH_REFRESH_ONLY_NO_CTA_OR_SCORE_EFFECT",
@@ -944,14 +842,14 @@
       }
     },
     {
-      "symbol": "CVX",
-      "price_as_of": "2026-11-03",
+      "symbol": "THC",
+      "price_as_of": "2026-11-04",
       "fundamentals_as_of": "2026-06-30",
       "fundamental_sources": [
-        "https://data.sec.gov/api/xbrl/companyfacts/CIK0000093410.json"
+        "https://data.sec.gov/api/xbrl/companyfacts/CIK0000070318.json"
       ],
-      "fundamentals_published_as_of": "2026-08-06",
-      "liquidity_average_50d_usd": 1820974181.34,
+      "fundamentals_published_as_of": "2026-07-29",
+      "liquidity_average_50d_usd": 209385307.72,
       "liquidity_minimum_50d_usd": 20000000,
       "liquidity_status": "PASSED",
       "new_entry_eligible": true,
@@ -965,24 +863,24 @@
       "technical_confidence": 100,
       "validation_status": "PASSED",
       "validation_errors": [],
-      "canslim_score": 61,
-      "minervini_score": 97,
+      "canslim_score": 63,
+      "minervini_score": 100,
       "passes_dual_system": false,
-      "company_name": "Chevron Corporation",
+      "company_name": "Tenet Healthcare Corporation",
       "security_type": "COMMON_STOCK",
-      "rank_score": 76.1,
-      "status": "WAIT",
-      "trigger": "突破52週高點且成交量至少為50日均量1.5倍",
-      "formal_breakout": false,
+      "rank_score": 83.35,
+      "status": "BREAKOUT",
+      "trigger": "維持突破區且成交量至少為50日均量1.5倍",
+      "formal_breakout": true,
       "super_growth_bucket": "B",
       "super_growth_reason": "VALUATION_INPUTS_UNAVAILABLE_OR_STALE",
       "quality_gate_status": {
         "competitive_advantage": {
           "status": "PASS",
-          "as_of": "2026-07-31",
-          "rationale": "整合上游、下游與全球資產規模帶來成本、資本配置與供應韌性；季度創美國產量新高，全球產量年增20%。",
+          "as_of": "2026-07-23",
+          "rationale": "USPI為美國最大門診手術平台；地方設施、醫師合作與醫院網絡構成規模優勢，並非不可取代壟斷。",
           "sources": [
-            "https://www.chevron.com/newsroom/2026/q3/chevron-reports-second-quarter-2026-results"
+            "https://investor.tenethealth.com/press-releases/press-release-details/2026/Tenet-Reports-Strong-Second-Quarter-2026-Results-Raises-2026-Financial-Outlook/default.aspx"
           ],
           "data_gap": null,
           "validation_errors": [],
@@ -993,10 +891,10 @@
         },
         "structural_growth_runway": {
           "status": "PASS",
-          "as_of": "2026-07-31",
-          "rationale": "全球產量年增20%且美國產量創高，Hess整合後資產組合支持供給成長；但屬週期產業，續航需以油價與資本紀律持續驗證。",
+          "as_of": "2026-07-23",
+          "rationale": "門診同設施收入年增5%，服務組合與高複雜度提升；病例下降1.2%限制純量成長，不能把收購與價格成長視為持續高增長保證。",
           "sources": [
-            "https://www.chevron.com/newsroom/2026/q3/chevron-reports-second-quarter-2026-results"
+            "https://investor.tenethealth.com/press-releases/press-release-details/2026/Tenet-Reports-Strong-Second-Quarter-2026-Results-Raises-2026-Financial-Outlook/default.aspx"
           ],
           "data_gap": null,
           "validation_errors": [],
@@ -1007,10 +905,10 @@
         },
         "financial_quality": {
           "status": "PASS",
-          "as_of": "2026-07-31",
-          "rationale": "季度獲利121億美元、投入資本報酬率21%，官方結果支持目前現金獲利與資本效率；仍需區分高油價週期貢獻。",
+          "as_of": "2026-07-23",
+          "rationale": "H1 CFO 22.26億、capex 3.48億；NCI分配3.98億。正現金流支持品質，但19億美元合約終止與Medicaid前期補收入須排除，不能用GAAP EPS直接估值。",
           "sources": [
-            "https://www.chevron.com/newsroom/2026/q3/chevron-reports-second-quarter-2026-results"
+            "https://investor.tenethealth.com/press-releases/press-release-details/2026/Tenet-Reports-Strong-Second-Quarter-2026-Results-Raises-2026-Financial-Outlook/default.aspx"
           ],
           "data_gap": null,
           "validation_errors": [],
@@ -1021,11 +919,10 @@
         },
         "business_risk_and_governance": {
           "status": "PASS",
-          "as_of": "2026-07-31",
-          "rationale": "主要風險是油價循環、整合執行、地緣與環境監管；官方財報與SEC披露未出現足以否決候選資格的治理事件，但必須保留週期審查。",
+          "as_of": "2026-07-23",
+          "rationale": "監管給付、Medicaid、payer mix、勞動成本、槓桿與少數股權為主要風險；材料未見否決研究資格的治理事件。PASS不是無風險。",
           "sources": [
-            "https://www.chevron.com/newsroom/2026/q3/chevron-reports-second-quarter-2026-results",
-            "https://www.sec.gov/edgar/browse/?CIK=93410&owner=exclude"
+            "https://investor.tenethealth.com/press-releases/press-release-details/2026/Tenet-Reports-Strong-Second-Quarter-2026-Results-Raises-2026-Financial-Outlook/default.aspx"
           ],
           "data_gap": null,
           "validation_errors": [],
@@ -1036,12 +933,12 @@
         },
         "circle_of_competence": {
           "status": "UNKNOWN",
-          "as_of": "2026-09-17",
-          "rationale": "是否理解油氣週期、儲量品質與Hess整合風險，保留正式建倉前確認；不阻擋研究排名。",
+          "as_of": "2026-10-13",
+          "rationale": "正式建倉前確認醫療給付、NCI與營運驅動，不阻擋研究排名。",
           "sources": [
-            "https://www.chevron.com/newsroom/2026/q3/chevron-reports-second-quarter-2026-results"
+            "https://investor.tenethealth.com/press-releases/press-release-details/2026/Tenet-Reports-Strong-Second-Quarter-2026-Results-Raises-2026-Financial-Outlook/default.aspx"
           ],
-          "data_gap": "MISSING_SOURCE_BACKED_CIRCLE_OF_COMPETENCE_ASSESSMENT",
+          "data_gap": "PRE_TRADE_USER_CONFIRMATION_ONLY",
           "validation_errors": [],
           "method": null,
           "price_as_of": null,
@@ -1050,7 +947,7 @@
         },
         "valuation": {
           "status": "UNKNOWN",
-          "as_of": "2026-11-03",
+          "as_of": "2026-11-04",
           "rationale": "Current-session valuation model not yet validated.",
           "sources": [],
           "data_gap": "MISSING_SOURCE_BACKED_VALUATION_ASSESSMENT",
@@ -1068,8 +965,8 @@
       ],
       "quality_data_gaps": {},
       "valuation_posture": "UNRESOLVED_WITH_SPECIFIC_GAP",
-      "cyclical_review_required": true,
-      "evidence_as_of": "2026-09-17",
+      "cyclical_review_required": false,
+      "evidence_as_of": "2026-10-13",
       "manual_confirmation_required": [
         "circle_of_competence"
       ],
@@ -1078,7 +975,7 @@
       "quality_gate_application": "FORMAL_NEW_CANDIDATE_RESEARCH_GATE",
       "action_eligibility": "RESEARCH_ONLY_VALUATION_DATA_GAP",
       "valuation_input_collection": {
-        "as_of": "2026-11-03",
+        "as_of": "2026-11-04",
         "status": "PARTIAL",
         "gaps": [
           "OFFICIAL_REFERENCE_EXPIRED_OR_NOT_POINT_IN_TIME",
@@ -1086,25 +983,25 @@
         ],
         "price_basis": "adjusted_close",
         "inputs": {
-          "adjusted_close": 225.27000427246094
+          "adjusted_close": 292.25
         },
         "sources": [
-          "https://data.sec.gov/api/xbrl/companyfacts/CIK0000093410.json"
+          "https://data.sec.gov/api/xbrl/companyfacts/CIK0000070318.json"
         ],
         "decision_authority": "REFERENCE_INPUTS_ONLY_NOT_FAIR_VALUE",
         "price_source": {
           "provider": "yahoo_finance_adjusted_batch",
-          "symbol": "CVX",
-          "as_of": "2026-11-03",
-          "url": "https://finance.yahoo.com/quote/CVX/history/"
+          "symbol": "THC",
+          "as_of": "2026-11-04",
+          "url": "https://finance.yahoo.com/quote/THC/history/"
         },
         "price_observation": {
-          "date": "2026-11-03",
-          "adjusted_close": 225.27000427246094,
-          "raw_close": 225.27000427246094,
+          "date": "2026-11-04",
+          "adjusted_close": 292.25,
+          "raw_close": 292.25,
           "provider": "yahoo_finance_adjusted_batch"
         },
-        "price_sha256": "fd4ba8e51729cb4d2f51a3b7f60f18ac5e9ec69c7e8886c4f53b534d2b9b6f4b",
+        "price_sha256": "061e62a6d3cd61e82d298803e55fca29ffe6242a778a318d34dc01945cdca589",
         "official_reference_status": "REJECTED",
         "fundamental_fetch_status": "FETCH_FAILED",
         "fetch_error_type": "HTTPError"
@@ -1113,17 +1010,11 @@
         "version": "onecool_lynch_research_v1",
         "company_type": {
           "status": "PROVISIONAL",
-          "primary": "MULTIPLE_CANDIDATES",
+          "primary": "FAST_GROWER",
           "candidates": [
-            "FAST_GROWER",
-            "CYCLICAL"
+            "FAST_GROWER"
           ],
           "evidence": [
-            {
-              "field": "industry",
-              "value": "verified cyclical flag",
-              "interpretation": "CYCLE_REVIEW_REQUIRED"
-            },
             {
               "field": "verified_quality_gates",
               "value": [
@@ -1136,6 +1027,7 @@
           "unresolved_categories": [
             "SLOW_GROWER",
             "STALWART",
+            "CYCLICAL",
             "TURNAROUND",
             "ASSET_PLAY"
           ]
@@ -1146,38 +1038,37 @@
             {
               "field": "competitive_advantage",
               "value": "PASS",
-              "as_of": "2026-07-31",
-              "rationale": "整合上游、下游與全球資產規模帶來成本、資本配置與供應韌性；季度創美國產量新高，全球產量年增20%。",
+              "as_of": "2026-07-23",
+              "rationale": "USPI為美國最大門診手術平台；地方設施、醫師合作與醫院網絡構成規模優勢，並非不可取代壟斷。",
               "sources": [
-                "https://www.chevron.com/newsroom/2026/q3/chevron-reports-second-quarter-2026-results"
+                "https://investor.tenethealth.com/press-releases/press-release-details/2026/Tenet-Reports-Strong-Second-Quarter-2026-Results-Raises-2026-Financial-Outlook/default.aspx"
               ]
             },
             {
               "field": "structural_growth_runway",
               "value": "PASS",
-              "as_of": "2026-07-31",
-              "rationale": "全球產量年增20%且美國產量創高，Hess整合後資產組合支持供給成長；但屬週期產業，續航需以油價與資本紀律持續驗證。",
+              "as_of": "2026-07-23",
+              "rationale": "門診同設施收入年增5%，服務組合與高複雜度提升；病例下降1.2%限制純量成長，不能把收購與價格成長視為持續高增長保證。",
               "sources": [
-                "https://www.chevron.com/newsroom/2026/q3/chevron-reports-second-quarter-2026-results"
+                "https://investor.tenethealth.com/press-releases/press-release-details/2026/Tenet-Reports-Strong-Second-Quarter-2026-Results-Raises-2026-Financial-Outlook/default.aspx"
               ]
             },
             {
               "field": "financial_quality",
               "value": "PASS",
-              "as_of": "2026-07-31",
-              "rationale": "季度獲利121億美元、投入資本報酬率21%，官方結果支持目前現金獲利與資本效率；仍需區分高油價週期貢獻。",
+              "as_of": "2026-07-23",
+              "rationale": "H1 CFO 22.26億、capex 3.48億；NCI分配3.98億。正現金流支持品質，但19億美元合約終止與Medicaid前期補收入須排除，不能用GAAP EPS直接估值。",
               "sources": [
-                "https://www.chevron.com/newsroom/2026/q3/chevron-reports-second-quarter-2026-results"
+                "https://investor.tenethealth.com/press-releases/press-release-details/2026/Tenet-Reports-Strong-Second-Quarter-2026-Results-Raises-2026-Financial-Outlook/default.aspx"
               ]
             },
             {
               "field": "business_risk_and_governance",
               "value": "PASS",
-              "as_of": "2026-07-31",
-              "rationale": "主要風險是油價循環、整合執行、地緣與環境監管；官方財報與SEC披露未出現足以否決候選資格的治理事件，但必須保留週期審查。",
+              "as_of": "2026-07-23",
+              "rationale": "監管給付、Medicaid、payer mix、勞動成本、槓桿與少數股權為主要風險；材料未見否決研究資格的治理事件。PASS不是無風險。",
               "sources": [
-                "https://www.chevron.com/newsroom/2026/q3/chevron-reports-second-quarter-2026-results",
-                "https://www.sec.gov/edgar/browse/?CIK=93410&owner=exclude"
+                "https://investor.tenethealth.com/press-releases/press-release-details/2026/Tenet-Reports-Strong-Second-Quarter-2026-Results-Raises-2026-Financial-Outlook/default.aspx"
               ]
             }
           ],
@@ -1214,14 +1105,14 @@
     },
     {
       "symbol": "V",
-      "price_as_of": "2026-11-03",
+      "price_as_of": "2026-11-04",
       "fundamentals_as_of": "2026-09-30",
       "fundamental_sources": [
         "https://www.sec.gov/Archives/edgar/data/1403161/000140316126000126/q42026earningsrelease.htm",
         "https://www.sec.gov/Archives/edgar/data/1403161/000140316126000126/v-20261027.htm"
       ],
       "fundamentals_published_as_of": "2026-10-27",
-      "liquidity_average_50d_usd": 2362667952.53,
+      "liquidity_average_50d_usd": 2395093383.9,
       "liquidity_minimum_50d_usd": 20000000,
       "liquidity_status": "PASSED",
       "new_entry_eligible": true,
@@ -1235,15 +1126,15 @@
       "technical_confidence": 100,
       "validation_status": "PASSED",
       "validation_errors": [],
-      "canslim_score": 56,
+      "canslim_score": 62,
       "minervini_score": 100,
       "passes_dual_system": false,
       "company_name": "Visa Inc.",
       "security_type": "COMMON_STOCK",
-      "rank_score": 75.2,
-      "status": "WAIT",
-      "trigger": "突破52週高點且成交量至少為50日均量1.5倍",
-      "formal_breakout": false,
+      "rank_score": 82.9,
+      "status": "BREAKOUT",
+      "trigger": "維持突破區且成交量至少為50日均量1.5倍",
+      "formal_breakout": true,
       "super_growth_bucket": "C",
       "super_growth_reason": "QUALITY_DATA_GAP_NAMED",
       "quality_gate_status": {
@@ -1309,7 +1200,7 @@
         },
         "valuation": {
           "status": "UNKNOWN",
-          "as_of": "2026-11-03",
+          "as_of": "2026-11-04",
           "rationale": "Current-session valuation model not yet validated.",
           "sources": [],
           "data_gap": "MISSING_SOURCE_BACKED_VALUATION_ASSESSMENT",
@@ -1346,14 +1237,14 @@
       "quality_gate_application": "FORMAL_NEW_CANDIDATE_RESEARCH_GATE",
       "action_eligibility": "RESEARCH_ONLY_QUALITY_EVIDENCE_INCOMPLETE",
       "valuation_input_collection": {
-        "as_of": "2026-11-03",
+        "as_of": "2026-11-04",
         "status": "PARTIAL",
         "gaps": [
           "SEC_COMPANYFACTS_FETCH_OR_IDENTITY_VALIDATION_FAILED"
         ],
         "price_basis": "adjusted_close",
         "inputs": {
-          "adjusted_close": 420.4200134277344
+          "adjusted_close": 436.57000732421875
         },
         "sources": [
           "https://data.sec.gov/api/xbrl/companyfacts/CIK0001403161.json"
@@ -1362,16 +1253,16 @@
         "price_source": {
           "provider": "yahoo_finance_adjusted_batch",
           "symbol": "V",
-          "as_of": "2026-11-03",
+          "as_of": "2026-11-04",
           "url": "https://finance.yahoo.com/quote/V/history/"
         },
         "price_observation": {
-          "date": "2026-11-03",
-          "adjusted_close": 420.4200134277344,
-          "raw_close": 420.4200134277344,
+          "date": "2026-11-04",
+          "adjusted_close": 436.57000732421875,
+          "raw_close": 436.57000732421875,
           "provider": "yahoo_finance_adjusted_batch"
         },
-        "price_sha256": "73c4b85d4cdffb42a90e0f8a2072db2565becfd4119f9dd6777df46b324a3e5b",
+        "price_sha256": "77a858786c67715937a7e69d1963ee63f267b74012674af1d87eca7adf477a64",
         "fundamental_fetch_status": "FETCH_FAILED",
         "fetch_error_type": "HTTPError"
       },
