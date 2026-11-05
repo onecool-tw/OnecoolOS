@@ -1,9 +1,9 @@
 {
   "schema_version": "1.5",
   "report_readiness": {
-    "status": "UPDATE_INCOMPLETE",
+    "status": "READY",
     "expected_as_of": "2026-11-05",
-    "screen_as_of": "2026-11-04",
+    "screen_as_of": "2026-11-05",
     "taiwan_cta_dates": {
       "0050": "2026-11-05",
       "2330": "2026-11-05",
@@ -13,33 +13,23 @@
       "2382": "2026-11-05",
       "3036": "2026-11-05"
     },
-    "issues": [
-      "screen_not_current",
-      "2408_price_not_current",
-      "6669_price_not_current",
-      "3006_price_not_current",
-      "2382_price_not_current",
-      "3036_price_not_current"
-    ],
+    "issues": [],
     "scope": "TAIWAN_PRICE_VALUATION_AND_CTA_ONLY",
     "consumer_rule": "INCOMPLETE_MEANS_NO_NEW_EXPOSURE_AND_NO_UNCHANGED_RANKING_CLAIM",
     "asia_and_margin_policy": "KEEP_ACTUAL_LOCAL_SOURCE_DATES"
   },
   "market_pressure_input_readiness": {
-    "status": "UPDATE_INCOMPLETE",
+    "status": "READY",
     "expected_as_of": "2026-11-05",
-    "issues": [
-      "volatility_fetch_failed",
-      "volatility_not_current"
-    ],
+    "issues": [],
     "consumer_rule": "FINAL_EMAIL_REQUIRES_READY; MARGIN_MAY_USE_VERIFIED_OFFICIAL_LAG_BEFORE_21:30; NEVER_RECOMPUTE_PRESSURE_LIGHT"
   },
   "module": "Onecool Taiwan Stock Daily Context",
-  "generated_at": "2026-11-05T08:08:15.425291+00:00",
+  "generated_at": "2026-11-05T09:59:22.050296+00:00",
   "source_policy": "LATEST_SUCCESSFUL_SCREEN_WITH_EXPLICIT_DATE",
-  "screen_as_of": "2026-11-04",
-  "screen_business_day_lag": 1,
-  "display_status": "STALE",
+  "screen_as_of": "2026-11-05",
+  "screen_business_day_lag": 0,
+  "display_status": "CURRENT",
   "screen_data_status": "READY",
   "0050_weekly_alignment": "GOLDEN",
   "market_pressure_gate": "FORMAL_FROM_DAILY_CONTEXT",
@@ -80,13 +70,11 @@
   "market_pressure_inputs": {
     "schema_version": "1.0",
     "module": "Onecool Taiwan Official Market Pressure Inputs",
-    "generated_at": "2026-11-05T08:06:00.866863+00:00",
+    "generated_at": "2026-11-05T09:58:54.564553+00:00",
     "requested_as_of": "2026-11-05",
-    "status": "UPDATE_INCOMPLETE",
-    "attempts_used": 3,
-    "issues": [
-      "volatility:FETCH_FAILED"
-    ],
+    "status": "READY",
+    "attempts_used": 1,
+    "issues": [],
     "sources": {
       "margin": {
         "status": "VERIFIED",
@@ -115,26 +103,26 @@
         "source_url": "https://www.twse.com.tw/rwd/zh/marginTrading/MI_MARGN?date=20261104&selectType=MS&response=json"
       },
       "volatility": {
-        "status": "FETCH_FAILED",
-        "as_of": null,
-        "value": null,
-        "error": "HTTPError",
-        "download_error": "HTTPError",
+        "status": "VERIFIED",
+        "as_of": "2026-11-05",
+        "value": 39.93,
+        "value_basis": "LAST_1_MIN_AVG",
+        "error": null,
         "download_url": "https://www.taifex.com.tw/cht/7/getVixData?filesname=20261105",
         "source_url": "https://www.taifex.com.tw/cht/7/vixMinNew"
       }
     },
     "authority": "OFFICIAL_INPUT_CACHE_ONLY_NO_PRESSURE_LIGHT_CALCULATION"
   },
-  "candidate_action_gate": "WATCH_ONLY_STALE_OR_MISSING_SCREEN",
+  "candidate_action_gate": "REQUIRES_INDIVIDUAL_CTA_AND_PRESSURE_GREEN",
   "candidate_cta_cache": {
-    "screen_as_of": "2026-11-04",
-    "generated_at": "2026-11-05T08:06:24.170626+00:00",
+    "screen_as_of": "2026-11-05",
+    "generated_at": "2026-11-05T09:59:17.762027+00:00",
     "requested_count": 200,
     "coverage": {
-      "current": 200,
+      "current": 199,
       "stale_last_known": 0,
-      "unknown": 0
+      "unknown": 1
     },
     "ranking_authority": "NONE"
   },
@@ -155,16 +143,16 @@
       "symbol": "2408",
       "company_name": "南亞科",
       "industry": "半導體業",
-      "price_as_of": "2026-11-04",
+      "price_as_of": "2026-11-05",
       "fundamentals_as_of": "2026Q2",
       "monthly_revenue_as_of": "2026-09",
       "price_basis": "official_unadjusted_close",
-      "liquidity_rank": 7,
+      "liquidity_rank": 8,
       "monthly_revenue_yoy": 576.622775031737,
       "cumulative_revenue_yoy": 626.9495065095125,
       "eps": 23.38,
-      "pe": 7.88,
-      "pb": 3.36,
+      "pe": 7.1,
+      "pb": 3.03,
       "financial_quality": {
         "version": "onecool_tw_financial_quality_v2",
         "status": "NORMAL",
@@ -339,9 +327,9 @@
         "eps": 30.0,
         "pe": 10.0,
         "pb": 2.0,
-        "liquidity": 14.44
+        "liquidity": 14.35
       },
-      "score": 96.44,
+      "score": 96.35,
       "confidence": "HIGH",
       "selection_status": "FORMAL",
       "candidate_role": "RESEARCH_PRIORITY_ONLY",
@@ -397,13 +385,13 @@
             },
             {
               "field": "pe",
-              "value": 7.88,
-              "as_of": "2026-11-04"
+              "value": 7.1,
+              "as_of": "2026-11-05"
             },
             {
               "field": "pb",
-              "value": 3.36,
-              "as_of": "2026-11-04"
+              "value": 3.03,
+              "as_of": "2026-11-05"
             }
           ],
           "required_manual_confirmation": [
@@ -467,25 +455,25 @@
           "spread_pct": 22.842501,
           "phase": "AGING"
         },
-        "last_attempt_at": "2026-11-05T08:06:24.170626+00:00",
+        "last_attempt_at": "2026-11-05T09:59:17.762027+00:00",
         "error": null
       },
-      "action_eligibility": "WATCH_ONLY_STALE_OR_MISSING_SCREEN"
+      "action_eligibility": "ELIGIBLE_IF_0050_BULLISH_AND_PRESSURE_GREEN"
     },
     {
       "symbol": "6669",
       "company_name": "緯穎",
       "industry": "電腦及週邊設備業",
-      "price_as_of": "2026-11-04",
+      "price_as_of": "2026-11-05",
       "fundamentals_as_of": "2026Q2",
       "monthly_revenue_as_of": "2026-09",
       "price_basis": "official_unadjusted_close",
-      "liquidity_rank": 30,
+      "liquidity_rank": 21,
       "monthly_revenue_yoy": 99.98511294484359,
       "cumulative_revenue_yoy": 50.29530615079897,
       "eps": 156.38,
-      "pe": 5.72,
-      "pb": 2.43,
+      "pe": 5.29,
+      "pb": 2.25,
       "financial_quality": {
         "version": "onecool_tw_financial_quality_v2",
         "status": "REVIEW",
@@ -661,9 +649,9 @@
         "eps": 30.0,
         "pe": 10.0,
         "pb": 3.0,
-        "liquidity": 12.28
+        "liquidity": 13.14
       },
-      "score": 95.28,
+      "score": 96.14,
       "confidence": "HIGH",
       "selection_status": "FORMAL",
       "candidate_role": "RESEARCH_PRIORITY_ONLY",
@@ -714,13 +702,13 @@
             },
             {
               "field": "pe",
-              "value": 5.72,
-              "as_of": "2026-11-04"
+              "value": 5.29,
+              "as_of": "2026-11-05"
             },
             {
               "field": "pb",
-              "value": 2.43,
-              "as_of": "2026-11-04"
+              "value": 2.25,
+              "as_of": "2026-11-05"
             }
           ],
           "required_manual_confirmation": [
@@ -784,25 +772,25 @@
           "spread_pct": -2.65727,
           "phase": "ACTIVE"
         },
-        "last_attempt_at": "2026-11-05T08:06:24.170626+00:00",
+        "last_attempt_at": "2026-11-05T09:59:17.762027+00:00",
         "error": null
       },
-      "action_eligibility": "WATCH_ONLY_STALE_OR_MISSING_SCREEN"
+      "action_eligibility": "WATCH_ONLY_FULL_WEAKNESS"
     },
     {
       "symbol": "3006",
       "company_name": "晶豪科",
       "industry": "半導體業",
-      "price_as_of": "2026-11-04",
+      "price_as_of": "2026-11-05",
       "fundamentals_as_of": "2026Q2",
       "monthly_revenue_as_of": "2026-09",
       "price_basis": "official_unadjusted_close",
-      "liquidity_rank": 43,
+      "liquidity_rank": 65,
       "monthly_revenue_yoy": 470.2347504677583,
       "cumulative_revenue_yoy": 343.911329000345,
       "eps": 27.58,
-      "pe": 3.26,
-      "pb": 2.16,
+      "pe": 3.01,
+      "pb": 2.0,
       "financial_quality": {
         "version": "onecool_tw_financial_quality_v2",
         "status": "NORMAL",
@@ -973,10 +961,10 @@
         "cumulative_revenue_yoy": 20.0,
         "eps": 30.0,
         "pe": 10.0,
-        "pb": 3.0,
-        "liquidity": 11.06
+        "pb": 4.0,
+        "liquidity": 9.22
       },
-      "score": 94.06,
+      "score": 93.22,
       "confidence": "HIGH",
       "selection_status": "FORMAL",
       "candidate_role": "RESEARCH_PRIORITY_ONLY",
@@ -1032,13 +1020,13 @@
             },
             {
               "field": "pe",
-              "value": 3.26,
-              "as_of": "2026-11-04"
+              "value": 3.01,
+              "as_of": "2026-11-05"
             },
             {
               "field": "pb",
-              "value": 2.16,
-              "as_of": "2026-11-04"
+              "value": 2.0,
+              "as_of": "2026-11-05"
             }
           ],
           "required_manual_confirmation": [
@@ -1102,25 +1090,25 @@
           "spread_pct": 20.985202,
           "phase": "ACTIVE"
         },
-        "last_attempt_at": "2026-11-05T08:06:24.170626+00:00",
+        "last_attempt_at": "2026-11-05T09:59:17.762027+00:00",
         "error": null
       },
-      "action_eligibility": "WATCH_ONLY_STALE_OR_MISSING_SCREEN"
+      "action_eligibility": "ELIGIBLE_IF_0050_BULLISH_AND_PRESSURE_GREEN"
     },
     {
       "symbol": "2382",
       "company_name": "廣達",
       "industry": "電腦及週邊設備業",
-      "price_as_of": "2026-11-04",
+      "price_as_of": "2026-11-05",
       "fundamentals_as_of": "2026Q2",
       "monthly_revenue_as_of": "2026-09",
       "price_basis": "official_unadjusted_close",
-      "liquidity_rank": 39,
+      "liquidity_rank": 47,
       "monthly_revenue_yoy": 76.68901002964485,
       "cumulative_revenue_yoy": 99.41108069855139,
       "eps": 12.93,
-      "pe": 13.18,
-      "pb": 4.79,
+      "pe": 13.07,
+      "pb": 4.75,
       "financial_quality": {
         "version": "onecool_tw_financial_quality_v2",
         "status": "REVIEW",
@@ -1295,9 +1283,9 @@
         "eps": 30.0,
         "pe": 8.0,
         "pb": 2.0,
-        "liquidity": 11.44
+        "liquidity": 10.81
       },
-      "score": 91.44,
+      "score": 90.81,
       "confidence": "HIGH",
       "selection_status": "FORMAL",
       "candidate_role": "RESEARCH_PRIORITY_ONLY",
@@ -1348,13 +1336,13 @@
             },
             {
               "field": "pe",
-              "value": 13.18,
-              "as_of": "2026-11-04"
+              "value": 13.07,
+              "as_of": "2026-11-05"
             },
             {
               "field": "pb",
-              "value": 4.79,
-              "as_of": "2026-11-04"
+              "value": 4.75,
+              "as_of": "2026-11-05"
             }
           ],
           "required_manual_confirmation": [
@@ -1418,25 +1406,25 @@
           "spread_pct": 7.520062,
           "phase": "ACTIVE"
         },
-        "last_attempt_at": "2026-11-05T08:06:24.170626+00:00",
+        "last_attempt_at": "2026-11-05T09:59:17.762027+00:00",
         "error": null
       },
-      "action_eligibility": "WATCH_ONLY_STALE_OR_MISSING_SCREEN"
+      "action_eligibility": "ELIGIBLE_IF_0050_BULLISH_AND_PRESSURE_GREEN"
     },
     {
       "symbol": "3036",
       "company_name": "文曄",
       "industry": "電子通路業",
-      "price_as_of": "2026-11-04",
+      "price_as_of": "2026-11-05",
       "fundamentals_as_of": "2026Q2",
       "monthly_revenue_as_of": "2026-09",
       "price_basis": "official_unadjusted_close",
-      "liquidity_rank": 67,
+      "liquidity_rank": 85,
       "monthly_revenue_yoy": 60.01219345400749,
       "cumulative_revenue_yoy": 101.25914660378932,
       "eps": 13.0,
-      "pe": 10.5,
-      "pb": 2.09,
+      "pe": 10.01,
+      "pb": 1.99,
       "financial_quality": {
         "version": "onecool_tw_financial_quality_v2",
         "status": "REVIEW",
@@ -1610,10 +1598,10 @@
         "cumulative_revenue_yoy": 20.0,
         "eps": 30.0,
         "pe": 8.0,
-        "pb": 3.0,
-        "liquidity": 9.0
+        "pb": 4.0,
+        "liquidity": 7.64
       },
-      "score": 90.0,
+      "score": 89.64,
       "confidence": "HIGH",
       "selection_status": "FORMAL",
       "candidate_role": "RESEARCH_PRIORITY_ONLY",
@@ -1664,13 +1652,13 @@
             },
             {
               "field": "pe",
-              "value": 10.5,
-              "as_of": "2026-11-04"
+              "value": 10.01,
+              "as_of": "2026-11-05"
             },
             {
               "field": "pb",
-              "value": 2.09,
-              "as_of": "2026-11-04"
+              "value": 1.99,
+              "as_of": "2026-11-05"
             }
           ],
           "required_manual_confirmation": [
@@ -1734,10 +1722,10 @@
           "spread_pct": 10.435422,
           "phase": "AGING"
         },
-        "last_attempt_at": "2026-11-05T08:06:24.170626+00:00",
+        "last_attempt_at": "2026-11-05T09:59:17.762027+00:00",
         "error": null
       },
-      "action_eligibility": "WATCH_ONLY_STALE_OR_MISSING_SCREEN"
+      "action_eligibility": "HOLD_EXISTING_PAUSE_RIGHT_SIDE_ADD"
     }
   ],
   "authority_order": [
