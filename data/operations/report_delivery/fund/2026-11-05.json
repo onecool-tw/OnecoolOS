@@ -3,14 +3,31 @@
   "report_date": "2026-11-05",
   "generated_at": "2026-11-05T03:31:53.119Z",
   "delivery_status": "PREPARED",
-  "writeback_status": "UNKNOWN",
-  "heartbeat": "PARTIAL",
+  "writeback_status": "VERIFIED",
+  "heartbeat": "SUCCESS",
   "channels": {
     "conversation": {
       "status": "UNKNOWN"
     },
     "artifact": {
-      "status": "UNKNOWN"
+      "status": "DELIVERED",
+      "observed_at": "2026-11-05T03:36:20.156Z",
+      "evidence_sha256": "912468b72d8e0775e0a840d5cd0e43b26a75d59407ed57ef30de7388ed06f293"
     }
+  },
+  "data_as_of": {
+    "fund_min": "2026-11-03",
+    "fund_max": "2026-11-04",
+    "bitcoin": "2026-11-04"
+  },
+  "steps": {
+    "completed": [
+      "refresh_fund",
+      "refresh_bitcoin",
+      "validate_snapshot",
+      "artifact_readback"
+    ],
+    "failed": [],
+    "next": "observe_conversation"
   }
 }
