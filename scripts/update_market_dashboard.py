@@ -860,6 +860,8 @@ def update(
     payload["provider_fallback_policy"] = (
         "yahoo_finance_raw_primary; "
         "alpha_vantage_core_price_fallback; "
+        "tiingo_verified_terminal_scan_repair; "
+        "coinbase_verified_btc_completed_day_repair; "
         "last_successful_cache_on_failure"
     )
     for day, evidence in getattr(history_bootstrapper, "btc_day_repairs", {}).items():
