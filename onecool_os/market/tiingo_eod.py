@@ -94,3 +94,53 @@ def verified_missing_bar(rows: list[dict], missing: date, before: DailyBar,
         ) or abs(candidate.volume - anchor.volume) > max(1, anchor.volume * 0.01):
             return None, "ANCHOR_MISMATCH"
     return parsed[missing], "ROW_VALID"
+
+
+def verified_terminal_bar(rows: list[dict], missing: date,
+                          before: DailyBar) -> tuple[DailyBar | None, str]:
+    """Validate a latest completed EOD bar against the preceding Yahoo anchor.
+
+    This handles a provider-wide one-day lag, where an after-anchor cannot yet
+    exist. The requested date must be present, have no corporate action, and
+    the independent feed's preceding session must agree with Yahoo.
+    """
+    parsed: dict[date, DailyBar] = {}
+    actions: dict[date, tuple[float, float]] = {}
+    for row in rows:
+        try:
+            day = date.fromisoformat(str(row["date"])[:10])
+            prices = [float(row[key]) for key in (
+                "adjOpen", "adjHigh", "adjLow", "adjClose")]
+            volume_number = float(row["volume"])
+            split = float(row["splitFactor"])
+            dividend = float(row["divCash"])
+        except (KeyError, TypeError, ValueError, OverflowError):
+            return None, "INVALID_ROW"
+        if (day in parsed
+                or not all(isfinite(x) for x in (
+                    *prices, volume_number, split, dividend))
+                or min(prices) <= 0 or volume_number < 0
+                or not volume_number.is_integer() or split <= 0 or dividend < 0
+                or prices[1] < max(prices[0], prices[2], prices[3])
+                or prices[2] > min(prices[0], prices[1], prices[3])):
+            return None, "INVALID_ROW"
+        parsed[day] = DailyBar(
+            trading_date=day, open=prices[0], high=prices[1],
+            low=prices[2], close=prices[3], adjusted_close=prices[3],
+            volume=int(volume_number), source="tiingo_eod_adjusted_transient",
+        )
+        actions[day] = (split, dividend)
+    if missing not in parsed:
+        return None, "DATE_ABSENT"
+    if before.trading_date not in parsed:
+        return None, "ANCHOR_UNAVAILABLE"
+    if actions[missing] != (1.0, 0.0):
+        return None, "CORPORATE_ACTION_REQUIRES_REVIEW"
+    candidate = parsed[before.trading_date]
+    if any(
+        abs(getattr(candidate, field) - getattr(before, field)) >
+        max(0.02, abs(getattr(before, field)) * 0.002)
+        for field in ("open", "high", "low", "adjusted_close")
+    ) or abs(candidate.volume - before.volume) > max(1, before.volume * 0.01):
+        return None, "ANCHOR_MISMATCH"
+    return parsed[missing], "ROW_VALID"
