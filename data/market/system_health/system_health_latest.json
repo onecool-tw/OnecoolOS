@@ -1,11 +1,11 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-11-06T11:10:54.289471+00:00",
+  "generated_at": "2026-11-06T11:15:06.194194+00:00",
   "taipei_date": "2026-11-06",
-  "status": "BLOCKED",
+  "status": "READY",
   "scope_status": {
-    "morning": "BLOCKED",
+    "morning": "READY",
     "asia": "READY",
     "weekly": "READY"
   },
@@ -49,11 +49,11 @@
     "policy": "Data readiness does not prove report delivery. Never infer email success from a generated draft."
   },
   "end_to_end_status": "NOT_FULLY_VERIFIED",
-  "action_readiness": "UNSAFE_FOR_AFFECTED_REPORTS",
+  "action_readiness": "SAFE",
   "counts": {
-    "ready": 19,
+    "ready": 20,
     "partial": 0,
-    "blocked": 1
+    "blocked": 0
   },
   "modules": [
     {
@@ -91,8 +91,8 @@
       "label": "US Breakout Scan",
       "scope": "morning",
       "critical": true,
-      "status": "BLOCKED",
-      "reason": "data_status is not ready",
+      "status": "READY",
+      "reason": "current",
       "observed_as_of": "2026-11-05",
       "recovery_workflow": "update-market-dashboard.yml",
       "retryable": true,
@@ -342,25 +342,8 @@
       ]
     }
   ],
-  "issues": [
-    {
-      "module_id": "us_breakout_scan",
-      "label": "US Breakout Scan",
-      "scope": "morning",
-      "critical": true,
-      "status": "BLOCKED",
-      "reason": "data_status is not ready",
-      "observed_as_of": "2026-11-05",
-      "recovery_workflow": "update-market-dashboard.yml",
-      "retryable": true,
-      "impacted_reports": [
-        "美股日報"
-      ]
-    }
-  ],
-  "recovery_workflows": [
-    "update-market-dashboard.yml"
-  ],
-  "issue_fingerprint": "1423fa708b52df162254c970521e5be2ad35da7709bdc316861d9ac486c0f128",
+  "issues": [],
+  "recovery_workflows": [],
+  "issue_fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
   "policy": "Health monitoring only; never changes CTA, rankings, or investment decisions."
 }
