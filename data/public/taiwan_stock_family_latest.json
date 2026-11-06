@@ -13,7 +13,7 @@
   "sources": {
     "dashboard": {
       "path": "data/market/dashboard/dashboard_latest.json",
-      "sha256": "ff35a1d0eb628f69a31f4869e9bf08e2a7d21a73e672333c0b9ef4048f1a48ab"
+      "sha256": "372088d32d63b732270a77d8457ed7584ea2077bbba8127c64d0b8728483a4c1"
     },
     "screen": {
       "path": "data/market/taiwan_stock_intelligence/screen_latest.json",
@@ -21,18 +21,18 @@
     },
     "cta": {
       "path": "data/market/taiwan_stock_intelligence/cta/cta_latest.json",
-      "sha256": "4d8eeacd96d51929bf37dea2cf85dccd62fccbce049018847f6ad0e091917583"
+      "sha256": "b51e0b809f4fd2d4f549986472e1e1227ecf8fc604790c78f11bfb31d0be429e"
     },
     "context": {
       "path": "data/market/taiwan_stock_intelligence/daily_context_latest.json",
-      "sha256": "588a4752f66dfb02c9079017fc50aed4674ee9b60110ac6b314a322c84be429c"
+      "sha256": "11e84946faa36b8e340d295341ff98e8516eb7bc32ad3105bad5f9b038f6e6e0"
     }
   },
   "source_generated_at": {
-    "dashboard": "2026-11-06T06:52:08.272966+00:00",
+    "dashboard": "2026-11-06T10:32:53.198848+00:00",
     "screen": null,
-    "cta": "2026-11-06T06:52:02.478666+00:00",
-    "context": "2026-11-06T06:52:08.416534+00:00"
+    "cta": "2026-11-06T07:55:27.924371+00:00",
+    "context": "2026-11-06T07:55:33.956932+00:00"
   },
   "screen_as_of": "2026-11-05",
   "display_status": "STALE",
@@ -63,16 +63,15 @@
   },
   "candidate_action_gate": "WATCH_ONLY_STALE_OR_MISSING_SCREEN",
   "market_pressure": {
-    "as_of": "2026-11-05",
+    "as_of": "2026-11-06",
     "status": "CURRENT",
     "light": "RED",
     "action": "PAUSE_NEW_EXPOSURE",
     "reason": [
-      "Retain prior formal RED; official TWSE FMTQIK 41574.72 down 1374.19 turnover 975389949511; new closing low",
-      "Official TAIFEX TX202611 regular close 41915 settle 41882 basis +340.28/+307.28; foreign OI long13388 short109039 net -95651",
-      "Official TAIFEX PCR 72.63/44.09 and verified closing VIX 39.93",
-      "Official dated TWSE BFI82U HTML: foreign -102460621838 trust +22531591838 dealer -43527495658 total -123456525658 TWD https://www.twse.com.tw/fund/BFI82U?response=html&type=day",
-      "Official margin accepted lag 2026-11-04"
+      "Retain prior formal RED: 39701.64 close below 41574.72; down 1873.08, turnover 1.246104 trillion TWD, no release",
+      "TAIFEX TX 202611 last 39786 settle 39652 basis +84.36/-49.64; foreign OI 15873 long 115803 short net -99930; PCR 75.85/39.73; VIX 46.62",
+      "Official TWSE BFI82U dated 115/11/06: foreign -91188249259, trust +26657595282, dealer -49476204430, total -114006858407 TWD",
+      "Margin verified permitted lag 2026-11-05"
     ],
     "confirmed_inputs": {
       "spot": true,
@@ -84,13 +83,13 @@
       "foreign_futures_oi": true
     },
     "input_data_as_of": {
-      "spot": "2026-11-05",
-      "futures": "2026-11-05",
-      "pcr": "2026-11-05",
-      "volatility": "2026-11-05",
-      "institutional_flow": "2026-11-05",
-      "margin": "2026-11-04",
-      "foreign_futures_oi": "2026-11-05"
+      "spot": "2026-11-06",
+      "futures": "2026-11-06",
+      "pcr": "2026-11-06",
+      "volatility": "2026-11-06",
+      "institutional_flow": "2026-11-06",
+      "margin": "2026-11-05",
+      "foreign_futures_oi": "2026-11-06"
     },
     "previous_light": "RED",
     "changed": false,
@@ -99,7 +98,7 @@
   },
   "market_pressure_freshness": {
     "expected_as_of": "2026-11-06",
-    "as_of": "2026-11-05",
+    "as_of": "2026-11-06",
     "source_status": "CURRENT",
     "status": "STALE_LAST_KNOWN",
     "same_day_current": false,
@@ -109,7 +108,6 @@
     "status": "UPDATE_INCOMPLETE",
     "issues": [
       "SCREEN_EXPECTED_AS_OF_MISMATCH",
-      "MARKET_PRESSURE_AS_OF_MISMATCH",
       "REPORT_READINESS_NOT_READY"
     ],
     "rule": "EMAIL_REQUIRES_CURRENT_MARKET_PRESSURE_AND_CURRENT_LOCAL_MARKET_ASIA_CTA"
@@ -137,7 +135,7 @@
   "market_pressure_inputs": {
     "schema_version": "1.0",
     "module": "Onecool Taiwan Official Market Pressure Inputs",
-    "generated_at": "2026-11-06T06:51:45.494082+00:00",
+    "generated_at": "2026-11-06T07:55:11.434296+00:00",
     "requested_as_of": "2026-11-06",
     "status": "READY",
     "attempts_used": 1,
