@@ -862,6 +862,7 @@ def update(
         "alpha_vantage_core_price_fallback; "
         "tiingo_parallel_verified_terminal_scan_repair; "
         "coinbase_verified_btc_completed_day_repair; "
+        "partial_current_scan_only_with_explicit_validation_failures; "
         "last_successful_cache_on_failure"
     )
     for day, evidence in getattr(history_bootstrapper, "btc_day_repairs", {}).items():
