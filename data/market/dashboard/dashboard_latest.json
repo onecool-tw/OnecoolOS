@@ -1,10 +1,10 @@
 {
   "schema_version": "1.9",
   "module": "Onecool Market Dashboard",
-  "generated_at": "2026-11-06T06:41:59.433957+00:00",
+  "generated_at": "2026-11-06T06:52:08.272966+00:00",
   "expected_as_of": "2026-11-05",
   "data_status": "READY",
-  "last_successful_update_at": "2026-11-06T06:41:59.433957+00:00",
+  "last_successful_update_at": "2026-11-06T06:52:08.272966+00:00",
   "index_cta_basis": {
     "method": "ETF/index proxies; shared CTA engine",
     "mappings": {
@@ -21,21 +21,21 @@
       "South Korea": "069500"
     },
     "as_of": {
-      "Japan": "2026-11-05",
-      "South Korea": "2026-11-05"
+      "Japan": "2026-11-06",
+      "South Korea": "2026-11-06"
     },
     "freshness": {
       "Japan": {
         "symbol": "1306",
-        "as_of": "2026-11-05",
-        "expected_as_of": "2026-11-05",
+        "as_of": "2026-11-06",
+        "expected_as_of": "2026-11-06",
         "update_status": "CURRENT",
         "reason": "matches latest completed local session"
       },
       "South Korea": {
         "symbol": "069500",
-        "as_of": "2026-11-05",
-        "expected_as_of": "2026-11-05",
+        "as_of": "2026-11-06",
+        "expected_as_of": "2026-11-06",
         "update_status": "CURRENT",
         "reason": "matches latest completed local session"
       }
@@ -129,7 +129,7 @@
     "QQQ": "yahoo_finance_raw",
     "RUSSELL_2000": "yahoo_finance_raw",
     "DIA": "yahoo_finance_raw",
-    "SOXX": "yahoo_finance_raw",
+    "SOXX": "yahoo_finance_raw_full_rebuild_after_split",
     "NVDA": "yahoo_finance_raw",
     "1306": "yahoo_finance_raw",
     "069500": "yahoo_finance_raw",
@@ -153,7 +153,7 @@
   "summary_method": "deterministic CTA aggregation; no forecast",
   "summary": {
     "us_market_trend": "BULLISH",
-    "ai_market_line": "MIXED",
+    "ai_market_line": "CONFIRMED",
     "taiwan_market_trend": "BULLISH",
     "us_taiwan_synchronization": "SYNCHRONIZED",
     "market_cta_summary": "BUY=2, HOLD=9, WATCH=1, SELL=1"
@@ -302,22 +302,22 @@
       "theme": "semiconductor",
       "as_of": "2026-11-05",
       "current_price": 131.899994,
-      "sma50": 459.840876,
-      "sma200": 462.136155,
-      "weekly_ma30": 496.680941,
-      "weekly_ma50": 430.554553,
-      "trend": "MIXED",
-      "cta": "WATCH",
-      "confidence": 75,
-      "reason": "Weekly golden trend remains, but daily trend weakened.",
+      "sma50": 174.405451,
+      "sma200": 159.326651,
+      "weekly_ma30": 175.526301,
+      "weekly_ma50": 149.49776,
+      "trend": "BULLISH",
+      "cta": "HOLD",
+      "confidence": 50,
+      "reason": "Weekly golden trend is aging without a fresh daily cross.",
       "daily_cross": {
-        "alignment": "DEATH",
-        "cross_status": "DEATH",
-        "last_cross_status": "DEATH",
-        "last_cross_date": "2026-11-05",
-        "periods_since_cross": 0,
-        "spread_pct": -0.496667,
-        "phase": "NEW"
+        "alignment": "GOLDEN",
+        "cross_status": "NONE",
+        "last_cross_status": "GOLDEN",
+        "last_cross_date": "2025-07-08",
+        "periods_since_cross": 336,
+        "spread_pct": 9.464079,
+        "phase": "AGING"
       },
       "weekly_cross": {
         "alignment": "GOLDEN",
@@ -325,7 +325,7 @@
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2025-09-26",
         "periods_since_cross": 58,
-        "spread_pct": 15.358423,
+        "spread_pct": 17.410656,
         "phase": "AGING"
       }
     },
@@ -368,12 +368,12 @@
       "provider_symbol": "1306.T",
       "market": "JP",
       "theme": "broad_market",
-      "as_of": "2026-11-05",
-      "current_price": 415.600006,
-      "sma50": 425.924,
-      "sma200": 401.517487,
-      "weekly_ma30": 415.992215,
-      "weekly_ma50": 398.066884,
+      "as_of": "2026-11-06",
+      "current_price": 388.600006,
+      "sma50": 425.214,
+      "sma200": 401.650265,
+      "weekly_ma30": 415.092215,
+      "weekly_ma50": 397.526884,
       "trend": "BULLISH",
       "cta": "HOLD",
       "confidence": 50,
@@ -383,8 +383,8 @@
         "cross_status": "NONE",
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2025-06-18",
-        "periods_since_cross": 336,
-        "spread_pct": 6.078568,
+        "periods_since_cross": 337,
+        "spread_pct": 5.866729,
         "phase": "AGING"
       },
       "weekly_cross": {
@@ -393,35 +393,35 @@
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2025-03-14",
         "periods_since_cross": 86,
-        "spread_pct": 4.503095,
+        "spread_pct": 4.418652,
         "phase": "AGING"
       },
       "update_status": "CURRENT",
-      "source_data_as_of": "2026-11-05"
+      "source_data_as_of": "2026-11-06"
     },
     {
       "symbol": "069500",
       "provider_symbol": "069500.KS",
       "market": "KR",
       "theme": "broad_market",
-      "as_of": "2026-11-05",
-      "current_price": 84610.0,
-      "sma50": 101581.191895,
-      "sma200": 101020.9331,
-      "weekly_ma30": 110880.806262,
-      "weekly_ma50": 95878.302173,
-      "trend": "BULLISH",
-      "cta": "HOLD",
-      "confidence": 50,
-      "reason": "Weekly golden trend is aging without a fresh daily cross.",
+      "as_of": "2026-11-06",
+      "current_price": 79005.0,
+      "sma50": 101044.406076,
+      "sma200": 101080.922442,
+      "weekly_ma30": 110693.972929,
+      "weekly_ma50": 95766.202173,
+      "trend": "MIXED",
+      "cta": "WATCH",
+      "confidence": 75,
+      "reason": "Weekly golden trend remains, but daily trend weakened.",
       "daily_cross": {
-        "alignment": "GOLDEN",
-        "cross_status": "NONE",
-        "last_cross_status": "GOLDEN",
-        "last_cross_date": "2025-05-22",
-        "periods_since_cross": 355,
-        "spread_pct": 0.554597,
-        "phase": "AGING"
+        "alignment": "DEATH",
+        "cross_status": "DEATH",
+        "last_cross_status": "DEATH",
+        "last_cross_date": "2026-11-06",
+        "periods_since_cross": 0,
+        "spread_pct": -0.036126,
+        "phase": "NEW"
       },
       "weekly_cross": {
         "alignment": "GOLDEN",
@@ -429,11 +429,11 @@
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2025-07-04",
         "periods_since_cross": 70,
-        "spread_pct": 15.647444,
+        "spread_pct": 15.587723,
         "phase": "AGING"
       },
       "update_status": "CURRENT",
-      "source_data_as_of": "2026-11-05"
+      "source_data_as_of": "2026-11-06"
     },
     {
       "symbol": "BABA",
