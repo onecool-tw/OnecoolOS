@@ -47,7 +47,8 @@ from onecool_os.market.session_cutoff import completed_daily_bars
 
 
 CORE_ALPHA_FALLBACK_SYMBOLS = {
-    "SPY", "QQQ", "DIA", "SOXX", "NVDA", *PORTFOLIO_SYMBOLS,
+    "SPY", "QQQ", "DIA", "SOXX", "NVDA",
+    *PORTFOLIO_SYMBOLS, *INNOVATION_OPTION_SYMBOLS,
 }
 ADJUSTED_HISTORY_SOURCES = {
     "yahoo_finance_adjusted_fallback",
