@@ -612,26 +612,19 @@ def fetch_yahoo_breakout_inputs(
     # when its adjacent adjusted bars agree with Yahoo's observed history.
     # Its raw data must never be cached or included in publication artifacts.
     tiingo_attempts = {}
-    tiingo_blocked = None
-    for symbol in ranking_symbols:
-        if not is_incomplete(histories[symbol]):
-            continue
+
+    def repair_from_tiingo(symbol: str):
         day = missing_day(symbol)
         if day is None:
-            continue
-        if tiingo_blocked:
-            tiingo_attempts[symbol] = tiingo_blocked
-            continue
+            return symbol, None, "NOT_REQUIRED", None
         if tiingo_client is None:
-            tiingo_attempts[symbol] = "NOT_CONFIGURED"
-            continue
+            return symbol, None, "NOT_CONFIGURED", day
         observed = {bar.trading_date: bar for bar in best_observed[symbol]}
         neighbors = sorted(observed)
         before = next((d for d in reversed(neighbors) if d < day), None)
         after = next((d for d in neighbors if d > day), None)
         if before is None:
-            tiingo_attempts[symbol] = "ANCHOR_UNAVAILABLE"
-            continue
+            return symbol, None, "ANCHOR_UNAVAILABLE", day
         try:
             rows = tiingo_client.fetch_window(
                 symbol, before, after if after is not None else day
@@ -647,23 +640,39 @@ def fetch_yahoo_breakout_inputs(
             else:
                 patch, status = None, "ANCHOR_UNAVAILABLE"
         except TiingoEODError as exc:
-            status = str(exc)
-            patch = None
-        except Exception:  # noqa: BLE001 - never expose provider payload or token.
-            status = "REQUEST_FAILED"
-            patch = None
-        tiingo_attempts[symbol] = status
-        if status in ("HTTP_401", "HTTP_403", "HTTP_429"):
-            tiingo_blocked = status
-        if patch is None:
-            continue
-        recovered = sorted([*best_observed[symbol], patch], key=lambda bar: bar.trading_date)
-        if not is_incomplete(recovered):
-            histories[symbol] = recovered
-            price_details[symbol] = {
-                "status": "RECOVERED_FROM_TIINGO_ADJUSTED",
-                "recovered_date": day.isoformat(),
-            }
+            patch, status = None, str(exc)
+        except Exception:
+            patch, status = None, "REQUEST_FAILED"
+        return symbol, patch, status, day
+
+    tiingo_symbols = [
+        symbol for symbol in ranking_symbols
+        if is_incomplete(histories[symbol])
+    ]
+    with ThreadPoolExecutor(max_workers=4) as executor:
+        futures = {
+            executor.submit(repair_from_tiingo, symbol): symbol
+            for symbol in tiingo_symbols
+        }
+        for future in as_completed(futures):
+            symbol = futures[future]
+            try:
+                _, patch, status, day = future.result()
+            except Exception:
+                patch, status, day = None, "REQUEST_FAILED", missing_day(symbol)
+            tiingo_attempts[symbol] = status
+            if patch is None or day is None:
+                continue
+            recovered = sorted(
+                [*best_observed[symbol], patch],
+                key=lambda bar: bar.trading_date,
+            )
+            if not is_incomplete(recovered):
+                histories[symbol] = recovered
+                price_details[symbol] = {
+                    "status": "RECOVERED_FROM_TIINGO_ADJUSTED",
+                    "recovered_date": day.isoformat(),
+                }
     for symbol in symbols:
         history = histories[symbol]
         if is_incomplete(history):
