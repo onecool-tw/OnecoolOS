@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-11-06T06:25:28.258358+00:00",
+  "generated_at": "2026-11-06T06:32:57.135810+00:00",
   "taipei_date": "2026-11-06",
   "status": "BLOCKED",
   "scope_status": {
@@ -92,8 +92,8 @@
       "scope": "morning",
       "critical": true,
       "status": "BLOCKED",
-      "reason": "date does not match Market Dashboard",
-      "observed_as_of": "2026-11-04",
+      "reason": "data_status is not ready",
+      "observed_as_of": "2026-11-05",
       "recovery_workflow": "update-market-dashboard.yml",
       "retryable": true,
       "impacted_reports": [
@@ -349,8 +349,8 @@
       "scope": "morning",
       "critical": true,
       "status": "BLOCKED",
-      "reason": "date does not match Market Dashboard",
-      "observed_as_of": "2026-11-04",
+      "reason": "data_status is not ready",
+      "observed_as_of": "2026-11-05",
       "recovery_workflow": "update-market-dashboard.yml",
       "retryable": true,
       "impacted_reports": [
@@ -420,6 +420,6 @@
     "update-market-dashboard.yml",
     "update-taiwan-stock-screen.yml"
   ],
-  "issue_fingerprint": "1b1bcca11c5441bdd213d7061347a08bf09ea1cde7a5a3c1ff1ef0a5e503a3bc",
+  "issue_fingerprint": "6d3c7861a3ebe26d71c976b3b55ac3bb877e8c4317be463f326234b6262122f8",
   "policy": "Health monitoring only; never changes CTA, rankings, or investment decisions."
 }
