@@ -14,7 +14,11 @@ from math import isfinite
 from typing import Iterable
 
 from onecool_os.market.etf_cta import DailyBar
-from onecool_os.market.tiingo_eod import TiingoEODError, verified_missing_bar
+from onecool_os.market.tiingo_eod import (
+    TiingoEODError,
+    verified_missing_bar,
+    verified_terminal_bar,
+)
 
 
 SCAN_VERSION = "onecool_us_breakout_v1"
@@ -625,12 +629,23 @@ def fetch_yahoo_breakout_inputs(
         neighbors = sorted(observed)
         before = next((d for d in reversed(neighbors) if d < day), None)
         after = next((d for d in neighbors if d > day), None)
-        if before is None or after is None:
+        if before is None:
             tiingo_attempts[symbol] = "ANCHOR_UNAVAILABLE"
             continue
         try:
-            rows = tiingo_client.fetch_window(symbol, before, after)
-            patch, status = verified_missing_bar(rows, day, observed[before], observed[after])
+            rows = tiingo_client.fetch_window(
+                symbol, before, after if after is not None else day
+            )
+            if after is None and day == expected:
+                patch, status = verified_terminal_bar(
+                    rows, day, observed[before]
+                )
+            elif after is not None:
+                patch, status = verified_missing_bar(
+                    rows, day, observed[before], observed[after]
+                )
+            else:
+                patch, status = None, "ANCHOR_UNAVAILABLE"
         except TiingoEODError as exc:
             status = str(exc)
             patch = None
