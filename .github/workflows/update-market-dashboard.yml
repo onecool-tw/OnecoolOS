@@ -107,6 +107,11 @@ jobs:
           # Dashboard and Breakout Scan then publish the same US cutoff.
           if [[ "${{ github.event_name }}" == "workflow_dispatch" && "${{ inputs.refresh_us_scan }}" == "true" ]]; then
             args+=(--refresh-us-scan)
+          elif [[ "${{ github.event_name }}" == "push" ]]; then
+            # A code/config push listed in this workflow changes scan behavior.
+            # Rebuild the same-cutoff scan immediately so main never exposes
+            # new logic beside a stale artifact from the previous ruleset.
+            args+=(--refresh-us-scan)
           elif [[ "${{ github.event_name }}" == "schedule" ]]; then
             args+=(--refresh-us-scan)
           fi
