@@ -717,19 +717,20 @@ def fetch_yahoo_breakout_inputs(
                 and bool(entry["sec_evidence"].get("pairs"))
             )
             # A recent Company Facts response remains valid for a bounded
-            # seven-calendar-day recovery window when the live SEC endpoint is
-            # unavailable. Keep the original fetch date and provenance; the
-            # weekly expiry forces periodic revalidation and prevents an old
-            # filing snapshot from being treated as current indefinitely.
-            recent_sec_cache = 0 < age <= 7 and cache_is_verified_sec
+            # A verified filing remains point-in-time evidence until the
+            # fundamental-age gate expires.  fetched_as_of is a transport
+            # timestamp, not the economic validity date of the filing.  Do
+            # attempt a live refresh below, but do not discard still-valid SEC
+            # evidence merely because the endpoint is temporarily unavailable.
+            verified_sec_cache = age > 0 and cache_is_verified_sec
             if (
-                (age == 0 or recent_sec_cache)
+                (age == 0 or verified_sec_cache)
                 and fundamental_validation_error(fundamental, expected) is None
             ):
                 fundamentals[symbol] = fundamental
                 diagnostics[symbol] = (
-                    "CACHED_RECENT_SEC_VERIFIED"
-                    if recent_sec_cache
+                    "CACHED_POINT_IN_TIME_SEC_VERIFIED"
+                    if verified_sec_cache
                     else "CACHED_VALID"
                 )
             elif age > 0:

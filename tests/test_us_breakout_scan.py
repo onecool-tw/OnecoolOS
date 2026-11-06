@@ -315,8 +315,45 @@ def test_recent_verified_sec_cache_remains_point_in_time_valid() -> None:
     )
 
     assert fundamentals["AAA"].quarterly_eps_growth == 0.2
-    assert diagnostics["AAA"] == "CACHED_RECENT_SEC_VERIFIED"
+    assert diagnostics["AAA"] == "CACHED_POINT_IN_TIME_SEC_VERIFIED"
     assert cache["AAA"]["fetched_as_of"] == (expected - timedelta(days=6)).isoformat()
+
+
+def test_verified_sec_cache_survives_transport_age_until_filing_age_gate() -> None:
+    spy = _history(strength=0.1)
+    dates = pd.to_datetime([bar.trading_date for bar in spy])
+    frame = pd.DataFrame({
+        "Open": [bar.open for bar in spy], "High": [bar.high for bar in spy],
+        "Low": [bar.low for bar in spy], "Close": [bar.close for bar in spy],
+        "Volume": [bar.volume for bar in spy],
+    }, index=dates)
+
+    class FakeYahoo:
+        download = staticmethod(lambda *args, **kwargs: frame)
+        Ticker = staticmethod(lambda symbol: type("T", (), {"info": {}})())
+
+    expected = spy[-1].trading_date
+    cache = {"AAA": {
+        "fetched_as_of": (expected - timedelta(days=30)).isoformat(),
+        "provider": "SEC",
+        "metrics": {
+            "as_of": (expected - timedelta(days=90)).isoformat(),
+            "quarterly_eps_growth": 0.2, "quarterly_revenue_growth": 0.1,
+            "annual_eps_growth": 0.15, "institutional_holders_available": False,
+            "source_urls": ["https://data.sec.gov/fixture"],
+            "published_as_of": (expected - timedelta(days=60)).isoformat(),
+            "valid_through": None,
+        },
+        "sec_evidence": {"pairs": {"quarterly_eps": {"current": {}, "prior": {}}}},
+    }}
+    diagnostics = {}
+    _, fundamentals = fetch_yahoo_breakout_inputs(
+        FakeYahoo, expected_as_of=expected.isoformat(), spy_history=spy,
+        universe=("AAA",), fundamental_shortlist_size=0,
+        fundamental_cache=cache, fetch_diagnostics=diagnostics,
+    )
+    assert fundamentals["AAA"].quarterly_eps_growth == 0.2
+    assert diagnostics["AAA"] == "CACHED_POINT_IN_TIME_SEC_VERIFIED"
 
 
 def test_batch_union_leading_missing_rows_do_not_discard_valid_history() -> None:
