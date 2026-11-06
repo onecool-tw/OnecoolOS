@@ -236,13 +236,29 @@ def annotate_reviewed_exclusions(scan, reviewed, expected_as_of, sec_details=Non
     scan['data_validation_failed_symbols'] = sorted(
         row['symbol'] for row in failed_rows
     )
-    scan['assessment_count'] = scan.get('validated_count', 0) + ruled
+    # Assessment count means every universe member that reached a terminal
+    # per-symbol outcome. A validation failure is still an assessed symbol; it
+    # is never ranked, and remains separately visible from rule exclusions.
+    scan['assessment_count'] = (
+        scan.get('validated_count', 0) + ruled + failed
+    )
     scan['unassessed_count'] = max(
         0, scan.get('universe_size', 0) - scan['assessment_count']
     )
-    scan['assessment_status'] = 'COMPLETE' if scan['assessment_count'] == scan.get('universe_size', 0) else 'PARTIAL'
-    # Coverage describes completed per-symbol assessment, not ranking eligibility.
-    scan['coverage_status'] = scan['assessment_status']
-    scan['research_scope'] = ('FULL_UNIVERSE_ASSESSED_VALIDATED_SUBSET_RANKED'
-                              if scan['assessment_status'] == 'COMPLETE'
-                              else 'VALIDATED_SUBSET_ONLY')
+    scan['assessment_status'] = (
+        'COMPLETE'
+        if scan['assessment_count'] == scan.get('universe_size', 0)
+        else 'PARTIAL'
+    )
+    if scan['unassessed_count']:
+        scan['coverage_status'] = 'INCOMPLETE_ASSESSMENT'
+    elif failed:
+        scan['coverage_status'] = 'COMPLETE_WITH_VALIDATION_FAILURES'
+    else:
+        scan['coverage_status'] = 'COMPLETE'
+    scan['data_status'] = 'PARTIAL' if failed or scan['unassessed_count'] else 'READY'
+    scan['research_scope'] = (
+        'FULL_UNIVERSE_ASSESSED_VALIDATED_SUBSET_RANKED'
+        if scan['assessment_status'] == 'COMPLETE'
+        else 'VALIDATED_SUBSET_ONLY'
+    )
