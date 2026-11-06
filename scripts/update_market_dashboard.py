@@ -426,12 +426,38 @@ def update(
                 config, incoming, incomplete_us_session
             )
             incoming = _completed_symbol_bars(config, incoming, reference_time)
-            base = [] if needs_raw_rebuild else _drop_incomplete_us_session(
-                config, existing, incomplete_us_session
+            # A newly reported split can make cached bars from a fallback
+            # provider use a different historical price scale from Yahoo's
+            # back-adjusted OHLC. Rebuild the complete Yahoo series so moving
+            # averages never mix pre- and post-split scales.
+            new_split = any(
+                bar.split_factor != 1.0 for bar in incoming
+                if not existing or bar.trading_date > existing[-1].trading_date
             )
+            mixed_provider_cache = any(
+                bar.source != "yahoo_finance_raw" for bar in existing
+            )
+            if new_split and existing and mixed_provider_cache:
+                incoming = history_bootstrapper.fetch_raw_daily(
+                    config.provider_symbol, period="5y"
+                )
+                incoming = _drop_incomplete_us_session(
+                    config, incoming, incomplete_us_session
+                )
+                incoming = _completed_symbol_bars(
+                    config, incoming, reference_time
+                )
+                base = []
+                providers[config.symbol] = (
+                    "yahoo_finance_raw_full_rebuild_after_split"
+                )
+            else:
+                base = [] if needs_raw_rebuild else _drop_incomplete_us_session(
+                    config, existing, incomplete_us_session
+                )
+                providers[config.symbol] = "yahoo_finance_raw"
             anomaly = has_new_price_anomaly(base, incoming)
             history = merge_and_adjust(base, incoming)
-            providers[config.symbol] = "yahoo_finance_raw"
         except Exception:
             history = _alpha_price_fallback(
                 config,
