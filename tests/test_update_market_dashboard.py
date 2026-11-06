@@ -6,9 +6,22 @@ from pathlib import Path
 
 import pytest
 
+from onecool_os.market.dashboard import MarketSymbol
 from onecool_os.market.etf_cta import DailyBar, merge_and_adjust
 from onecool_os.market.us_breakout_scan import FundamentalMetrics
 from scripts import update_market_dashboard
+
+
+def test_corporate_action_validation_support_scope() -> None:
+    assert update_market_dashboard._supports_corporate_action_validation(
+        MarketSymbol("SOXX", "SOXX", "US", "semiconductor")
+    )
+    assert not update_market_dashboard._supports_corporate_action_validation(
+        MarketSymbol("VIX", "^VIX", "CONTEXT", "volatility")
+    )
+    assert not update_market_dashboard._supports_corporate_action_validation(
+        MarketSymbol("RUSSELL_2000", "^RUT", "US", "small_cap")
+    )
 
 
 class FakeClient:

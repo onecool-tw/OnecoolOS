@@ -63,6 +63,12 @@ US_MARKET_TIME_ZONE = ZoneInfo("America/New_York")
 US_DAILY_BAR_READY_TIME = time(16, 15)
 
 
+def _supports_corporate_action_validation(config) -> bool:
+    """Limit cross-provider action checks to supported US-listed securities."""
+
+    return config.market == "US" and not config.provider_symbol.startswith("^")
+
+
 def _completed_symbol_bars(config, bars, reference_time=None):
     if config.symbol == "BTC":
         now = reference_time or datetime.now(UTC)
@@ -452,8 +458,11 @@ def update(
                 providers[config.symbol] = "yahoo_finance_raw_gap_unrepaired"
 
         should_validate_actions = (
-            config.symbol in (refresh_action_symbols or set())
-            or anomaly
+            _supports_corporate_action_validation(config)
+            and (
+                config.symbol in (refresh_action_symbols or set())
+                or anomaly
+            )
         )
         if should_validate_actions:
             if client is None:
