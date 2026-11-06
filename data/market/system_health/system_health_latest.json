@@ -1,12 +1,12 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-11-06T06:10:32.661366+00:00",
+  "generated_at": "2026-11-06T06:12:55.740644+00:00",
   "taipei_date": "2026-11-06",
   "status": "BLOCKED",
   "scope_status": {
     "morning": "BLOCKED",
-    "asia": "READY",
+    "asia": "BLOCKED",
     "weekly": "READY"
   },
   "report_delivery": {
@@ -76,9 +76,9 @@
       "label": "Bitcoin completed UTC day",
       "scope": "morning",
       "critical": true,
-      "status": "BLOCKED",
-      "reason": "BTC date/CTA missing or invalid; expected 2026-11-05",
-      "observed_as_of": "2026-11-04",
+      "status": "READY",
+      "reason": "current",
+      "observed_as_of": "2026-11-05",
       "recovery_workflow": "update-market-dashboard.yml",
       "retryable": true,
       "impacted_reports": [
@@ -151,7 +151,7 @@
       "critical": true,
       "status": "READY",
       "reason": "current Dashboard authority",
-      "observed_as_of": "2026-11-05",
+      "observed_as_of": "2026-11-06",
       "recovery_workflow": "update-market-dashboard.yml",
       "retryable": true,
       "impacted_reports": [
@@ -191,8 +191,8 @@
       "label": "Taiwan Daily Context",
       "scope": "asia",
       "critical": true,
-      "status": "READY",
-      "reason": "current",
+      "status": "BLOCKED",
+      "reason": "display_status is not ready",
       "observed_as_of": "2026-11-05",
       "recovery_workflow": "update-taiwan-stock-screen.yml",
       "retryable": true,
@@ -344,21 +344,6 @@
   ],
   "issues": [
     {
-      "module_id": "bitcoin_daily",
-      "label": "Bitcoin completed UTC day",
-      "scope": "morning",
-      "critical": true,
-      "status": "BLOCKED",
-      "reason": "BTC date/CTA missing or invalid; expected 2026-11-05",
-      "observed_as_of": "2026-11-04",
-      "recovery_workflow": "update-market-dashboard.yml",
-      "retryable": true,
-      "impacted_reports": [
-        "基金日報",
-        "基金週報"
-      ]
-    },
-    {
       "module_id": "us_breakout_scan",
       "label": "US Breakout Scan",
       "scope": "morning",
@@ -414,12 +399,27 @@
       "impacted_reports": [
         "台股日報"
       ]
+    },
+    {
+      "module_id": "taiwan_daily_context",
+      "label": "Taiwan Daily Context",
+      "scope": "asia",
+      "critical": true,
+      "status": "BLOCKED",
+      "reason": "display_status is not ready",
+      "observed_as_of": "2026-11-05",
+      "recovery_workflow": "update-taiwan-stock-screen.yml",
+      "retryable": true,
+      "impacted_reports": [
+        "台股日報"
+      ]
     }
   ],
   "recovery_workflows": [
     "update-fund-nav-cta.yml",
-    "update-market-dashboard.yml"
+    "update-market-dashboard.yml",
+    "update-taiwan-stock-screen.yml"
   ],
-  "issue_fingerprint": "744cb6a8fc12e955f5e8980b572f577a9794e18b160bc616088dd3361cec4a27",
+  "issue_fingerprint": "d7287b863f5d10daa4ff0ff457d19794437b84bb50e5f3479ffa2ba247acd788",
   "policy": "Health monitoring only; never changes CTA, rankings, or investment decisions."
 }
