@@ -12,6 +12,15 @@ from onecool_os.market.us_breakout_scan import FundamentalMetrics
 from scripts import update_market_dashboard
 
 
+def test_us_session_repair_candidate_after_close_and_weekend() -> None:
+    assert update_market_dashboard._us_session_repair_candidate(
+        datetime(2026, 11, 6, 1, 0, tzinfo=UTC)
+    ) == date(2026, 11, 5)
+    assert update_market_dashboard._us_session_repair_candidate(
+        datetime(2026, 11, 8, 15, 0, tzinfo=UTC)
+    ) == date(2026, 11, 6)
+
+
 def test_corporate_action_validation_support_scope() -> None:
     assert update_market_dashboard._supports_corporate_action_validation(
         MarketSymbol("SOXX", "SOXX", "US", "semiconductor")

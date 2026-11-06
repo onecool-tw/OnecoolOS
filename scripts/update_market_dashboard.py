@@ -69,6 +69,27 @@ def _supports_corporate_action_validation(config) -> bool:
     return config.market == "US" and not config.provider_symbol.startswith("^")
 
 
+def _us_session_repair_candidate(reference_time=None) -> date:
+    """Return the latest weekday that may have a completed US cash session.
+
+    This is only a trigger for an independent-provider repair attempt.  Market
+    holidays remain safe: a provider with no bar for that date leaves history
+    unchanged, and the strict common-cutoff validation still decides whether
+    publication is allowed.
+    """
+
+    now = reference_time or datetime.now(UTC)
+    if now.tzinfo is None:
+        raise ValueError("reference_time must be timezone-aware")
+    local = now.astimezone(US_MARKET_TIME_ZONE)
+    candidate = local.date()
+    if local.time() < US_DAILY_BAR_READY_TIME:
+        candidate -= timedelta(days=1)
+    while candidate.weekday() >= 5:
+        candidate -= timedelta(days=1)
+    return candidate
+
+
 def _completed_symbol_bars(config, bars, reference_time=None):
     if config.symbol == "BTC":
         now = reference_time or datetime.now(UTC)
@@ -424,6 +445,33 @@ def update(
             history = _drop_incomplete_us_session(
                 config, history, incomplete_us_session
             )
+
+        repair_candidate = _us_session_repair_candidate(reference_time)
+        if (
+            config.symbol in CORE_ALPHA_FALLBACK_SYMBOLS
+            and client is not None
+            and history
+            and history[-1].trading_date < repair_candidate
+        ):
+            try:
+                repaired = _alpha_price_fallback(
+                    config, history, client, refresh_actions=False
+                )
+                repaired = _drop_incomplete_us_session(
+                    config, repaired, incomplete_us_session
+                )
+                if repaired and repaired[-1].trading_date > history[-1].trading_date:
+                    history = repaired
+                    providers[config.symbol] = (
+                        "yahoo_finance_raw+alpha_vantage_latest_session_repair"
+                    )
+            except Exception as exc:
+                logging.warning(
+                    "%s latest-session repair for %s failed: %s",
+                    config.symbol,
+                    repair_candidate,
+                    type(exc).__name__,
+                )
 
         history = _repair_btc_week_close(config, history, history_bootstrapper, reference_time)
 
