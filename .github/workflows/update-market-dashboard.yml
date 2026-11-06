@@ -107,7 +107,7 @@ jobs:
           # Dashboard and Breakout Scan then publish the same US cutoff.
           if [[ "${{ github.event_name }}" == "workflow_dispatch" && "${{ inputs.refresh_us_scan }}" == "true" ]]; then
             args+=(--refresh-us-scan)
-          elif [[ "${{ github.event_name }}" == "push" || "${{ github.event_name }}" == "schedule" ]]; then
+          elif [[ "${{ github.event_name }}" == "schedule" ]]; then
             args+=(--refresh-us-scan)
           fi
           python scripts/update_market_dashboard.py "${args[@]}"
