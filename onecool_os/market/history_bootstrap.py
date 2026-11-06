@@ -36,10 +36,16 @@ class YahooHistoryBootstrapper:
             # Yahoo may leave a daily row null while all hourly bars exist.
             # Aggregate only a complete actual UTC day, without imputation.
             url = "https://query1.finance.yahoo.com/v8/finance/chart/BTC-USD?range=1mo&interval=60m"
-            request = Request(url, headers={"User-Agent": "OnecoolOS/1.0 BTC hourly repair"})
-            with urlopen(request, timeout=15) as response:
-                payload = json.loads(response.read().decode("utf-8"))
-            bar, evidence = _parse_btc_hourly_day(payload, day)
+            try:
+                request = Request(
+                    url, headers={"User-Agent": "OnecoolOS/1.0 BTC hourly repair"}
+                )
+                with urlopen(request, timeout=15) as response:
+                    payload = json.loads(response.read().decode("utf-8"))
+                bar, evidence = _parse_btc_hourly_day(payload, day)
+            except Exception:
+                bar, evidence = _fetch_coinbase_btc_completed_day(day)
+                url = evidence["source_url"]
             evidence["source_url"] = url
             evidence["fetched_at"] = datetime.now(UTC).isoformat()
             self.btc_day_repairs[day.isoformat()] = evidence
@@ -191,6 +197,91 @@ def _parse_btc_hourly_day(payload: dict, day: date):
                  "method": "UTC 00:00-24:00; first open, max high, min low, last close, sum provider hourly volume",
                  "observations": 24, "excluded": "all other UTC days; no missing-value filling",
                  "samples_sha256": digest, "samples": samples}
+
+
+def _fetch_coinbase_btc_completed_day(day: date):
+    """Aggregate 24 actual Coinbase UTC hourly candles for one completed day."""
+    if day >= datetime.now(UTC).date():
+        raise ETFCTAError("BTC repair day must be completed in UTC.")
+    start = datetime.combine(day, datetime.min.time(), tzinfo=UTC)
+    end = start + timedelta(days=1)
+    url = (
+        "https://api.exchange.coinbase.com/products/BTC-USD/candles"
+        f"?granularity=3600&start={start.isoformat()}&end={end.isoformat()}"
+    )
+    request = Request(
+        url,
+        headers={
+            "User-Agent": "OnecoolOS/1.0 BTC completed-day repair",
+            "Accept": "application/json",
+        },
+    )
+    with urlopen(request, timeout=15) as response:
+        payload = json.loads(response.read().decode("utf-8"))
+    if not isinstance(payload, list):
+        raise ETFCTAError("Coinbase BTC hourly response unavailable.")
+    samples = []
+    for row in payload:
+        if not isinstance(row, list) or len(row) < 6:
+            raise ETFCTAError("Invalid Coinbase BTC hourly observation.")
+        stamp, low, high, open_, close, volume = row[:6]
+        try:
+            stamp = int(stamp)
+            low, high, open_, close, volume = map(
+                float, (low, high, open_, close, volume)
+            )
+        except (TypeError, ValueError, OverflowError) as exc:
+            raise ETFCTAError("Invalid Coinbase BTC hourly observation.") from exc
+        if datetime.fromtimestamp(stamp, UTC).date() != day:
+            continue
+        if (
+            not all(isfinite(x) and x > 0 for x in (
+                low, high, open_, close, volume
+            ))
+            or low > min(open_, close)
+            or high < max(open_, close)
+        ):
+            raise ETFCTAError("Invalid Coinbase BTC hourly observation.")
+        samples.append({
+            "timestamp": stamp,
+            "open": open_,
+            "high": high,
+            "low": low,
+            "close": close,
+            "volume": volume,
+        })
+    samples.sort(key=lambda row: row["timestamp"])
+    expected = [int(start.timestamp()) + i * 3600 for i in range(24)]
+    if [row["timestamp"] for row in samples] != expected:
+        raise ETFCTAError(
+            "Coinbase BTC UTC day needs exactly 24 unique hourly candles."
+        )
+    bar = DailyBar(
+        trading_date=day,
+        open=samples[0]["open"],
+        high=max(row["high"] for row in samples),
+        low=min(row["low"] for row in samples),
+        close=samples[-1]["close"],
+        volume=int(round(sum(row["volume"] for row in samples))),
+        source="coinbase_exchange_utc_hourly_aggregation",
+    )
+    digest = hashlib.sha256(
+        json.dumps(samples, sort_keys=True, allow_nan=False).encode()
+    ).hexdigest()
+    return bar, {
+        "symbol": "BTC-USD",
+        "currency": "USD",
+        "date": day.isoformat(),
+        "method": (
+            "UTC 00:00-24:00; first open, max high, min low, last close, "
+            "sum Coinbase base volume"
+        ),
+        "observations": 24,
+        "excluded": "all other UTC days; no missing-value filling",
+        "samples_sha256": digest,
+        "samples": samples,
+        "source_url": url,
+    }
 
 
 def _parse_btc_completed_day(payload: dict, day: date) -> list[DailyBar]:
