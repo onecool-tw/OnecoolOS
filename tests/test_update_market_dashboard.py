@@ -499,6 +499,39 @@ def test_corporate_action_validation_normalizes_dividends_before_split() -> None
     ) == []
 
 
+def test_corporate_action_validation_accepts_already_split_adjusted_dividend() -> None:
+    dividend_date = date(2021, 9, 24)
+    split_date = date(2024, 3, 7)
+    bars = [
+        DailyBar(
+            trading_date=dividend_date,
+            open=100.0,
+            high=101.0,
+            low=99.0,
+            close=100.0,
+            volume=100,
+            dividend=0.385667,
+        ),
+        DailyBar(
+            trading_date=split_date,
+            open=70.0,
+            high=71.0,
+            low=69.0,
+            close=70.0,
+            volume=100,
+            split_factor=3.0,
+        ),
+    ]
+    alpha_actions = {
+        dividend_date: (0.385569333333, 1.0),
+        split_date: (0.0, 3.0),
+    }
+
+    assert update_market_dashboard._corporate_action_mismatches(
+        bars, alpha_actions
+    ) == []
+
+
 def test_corporate_action_validation_rejects_post_normalization_gap() -> None:
     dividend_date = date(2021, 9, 24)
     split_date = date(2024, 3, 7)

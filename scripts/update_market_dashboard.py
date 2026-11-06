@@ -255,8 +255,17 @@ def _corporate_action_discrepancies(
     for day in sorted(yahoo_actions.keys() | alpha_actions.keys()):
         yahoo_dividend, yahoo_split = yahoo_actions.get(day, (0.0, 1.0))
         alpha_raw_dividend, alpha_split = alpha_actions.get(day, (0.0, 1.0))
-        alpha_dividend = _dividend_on_latest_share_basis(
+        alpha_split_adjusted_dividend = _dividend_on_latest_share_basis(
             day, alpha_raw_dividend, alpha_actions
+        )
+        # Alpha Vantage has returned both payment-date and latest-share-basis
+        # dividends across symbols and API revisions.  Compare both legitimate
+        # representations with Yahoo and retain the closer one.  A genuine
+        # provider gap still fails below because neither representation will
+        # satisfy the absolute/relative tolerance.
+        alpha_dividend = min(
+            (alpha_raw_dividend, alpha_split_adjusted_dividend),
+            key=lambda value: abs(yahoo_dividend - value),
         )
         if not isclose(
             yahoo_dividend,
