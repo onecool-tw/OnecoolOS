@@ -432,7 +432,6 @@ def update(
             # averages never mix pre- and post-split scales.
             new_split = any(
                 bar.split_factor != 1.0 for bar in incoming
-                if not existing or bar.trading_date > existing[-1].trading_date
             )
             mixed_provider_cache = any(
                 bar.source != "yahoo_finance_raw" for bar in existing
