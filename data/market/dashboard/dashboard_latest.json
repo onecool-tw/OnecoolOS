@@ -1,10 +1,10 @@
 {
   "schema_version": "1.9",
   "module": "Onecool Market Dashboard",
-  "generated_at": "2026-11-06T07:54:20.064543+00:00",
+  "generated_at": "2026-11-06T09:28:30.541483+00:00",
   "expected_as_of": "2026-11-05",
   "data_status": "READY",
-  "last_successful_update_at": "2026-11-06T07:54:20.064543+00:00",
+  "last_successful_update_at": "2026-11-06T09:28:30.541483+00:00",
   "index_cta_basis": {
     "method": "ETF/index proxies; shared CTA engine",
     "mappings": {
@@ -945,7 +945,7 @@
     "classification": "Onecool proxy scores; not IBD official ratings",
     "expected_as_of": "2026-11-05",
     "price_basis": "adjusted_close",
-    "data_status": "PARTIAL",
+    "data_status": "READY",
     "thresholds": {
       "canslim": 70,
       "minervini": 80
@@ -982,9 +982,11 @@
       {
         "symbol": "XYZ",
         "price_as_of": "2026-11-05",
-        "fundamentals_as_of": null,
-        "fundamental_sources": [],
-        "fundamentals_published_as_of": null,
+        "fundamentals_as_of": "2026-06-30",
+        "fundamental_sources": [
+          "https://data.sec.gov/api/xbrl/companyfacts/CIK0001512673.json"
+        ],
+        "fundamentals_published_as_of": "2026-08-05",
         "liquidity_average_50d_usd": 384843944.31,
         "liquidity_minimum_50d_usd": 20000000,
         "liquidity_status": "PASSED",
@@ -997,20 +999,20 @@
           "minervini": 80
         },
         "technical_confidence": 100,
-        "validation_status": "Technical Data Validation Failed",
-        "validation_errors": [
-          "fundamental validation unavailable"
-        ],
-        "canslim_score": null,
+        "validation_status": "PASSED",
+        "validation_errors": [],
+        "canslim_score": 35,
         "minervini_score": 95,
-        "passes_dual_system": null
+        "passes_dual_system": false
       },
       {
         "symbol": "SWKS",
         "price_as_of": "2026-11-05",
-        "fundamentals_as_of": null,
-        "fundamental_sources": [],
-        "fundamentals_published_as_of": null,
+        "fundamentals_as_of": "2026-07-03",
+        "fundamental_sources": [
+          "https://data.sec.gov/api/xbrl/companyfacts/CIK0000004127.json"
+        ],
+        "fundamentals_published_as_of": "2026-07-28",
         "liquidity_average_50d_usd": 581311816.76,
         "liquidity_minimum_50d_usd": 20000000,
         "liquidity_status": "PASSED",
@@ -1023,13 +1025,11 @@
           "minervini": 80
         },
         "technical_confidence": 100,
-        "validation_status": "Technical Data Validation Failed",
-        "validation_errors": [
-          "fundamental validation unavailable"
-        ],
-        "canslim_score": null,
+        "validation_status": "PASSED",
+        "validation_errors": [],
+        "canslim_score": 34,
         "minervini_score": 88,
-        "passes_dual_system": null
+        "passes_dual_system": false
       },
       {
         "symbol": "RH",
@@ -1061,9 +1061,11 @@
       {
         "symbol": "UPBD",
         "price_as_of": "2026-11-05",
-        "fundamentals_as_of": null,
-        "fundamental_sources": [],
-        "fundamentals_published_as_of": null,
+        "fundamentals_as_of": "2026-06-30",
+        "fundamental_sources": [
+          "https://data.sec.gov/api/xbrl/companyfacts/CIK0000933036.json"
+        ],
+        "fundamentals_published_as_of": "2026-07-31",
         "liquidity_average_50d_usd": 20343920.77,
         "liquidity_minimum_50d_usd": 20000000,
         "liquidity_status": "PASSED",
@@ -1076,13 +1078,11 @@
           "minervini": 80
         },
         "technical_confidence": 100,
-        "validation_status": "Technical Data Validation Failed",
-        "validation_errors": [
-          "fundamental validation unavailable"
-        ],
-        "canslim_score": null,
+        "validation_status": "PASSED",
+        "validation_errors": [],
+        "canslim_score": 53,
         "minervini_score": 92,
-        "passes_dual_system": null
+        "passes_dual_system": false
       }
     ]
   },
@@ -1116,13 +1116,495 @@
       "daily_membership_mutation": false,
       "change_control": "VERSION_BUMP_AND_AUDIT_RECORD_REQUIRED"
     },
-    "validated_count": 7,
+    "validated_count": 62,
     "coverage_status": "COMPLETE_WITH_VALIDATION_FAILURES",
-    "validated_coverage_pct": 10.0,
+    "validated_coverage_pct": 88.57,
     "research_scope": "FULL_UNIVERSE_ASSESSED_VALIDATED_SUBSET_RANKED",
     "minimum_technical_confidence": 90,
     "formal_breakout_count": 0,
     "top5": [
+      {
+        "symbol": "AMGN",
+        "price_as_of": "2026-11-05",
+        "fundamentals_as_of": "2026-06-30",
+        "fundamental_sources": [
+          "https://data.sec.gov/api/xbrl/companyfacts/CIK0000318154.json"
+        ],
+        "fundamentals_published_as_of": "2026-08-05",
+        "liquidity_average_50d_usd": 1222577736.22,
+        "liquidity_minimum_50d_usd": 20000000,
+        "liquidity_status": "PASSED",
+        "new_entry_eligible": true,
+        "validation_warnings": [],
+        "price_basis": "adjusted_close",
+        "score_version": "onecool_us_dual_v2",
+        "thresholds": {
+          "canslim": 70,
+          "minervini": 80
+        },
+        "technical_confidence": 100,
+        "validation_status": "PASSED",
+        "validation_errors": [],
+        "canslim_score": 74,
+        "minervini_score": 100,
+        "passes_dual_system": true,
+        "company_name": "Amgen Inc.",
+        "security_type": "COMMON_STOCK",
+        "rank_score": 83.3,
+        "status": "WAIT",
+        "trigger": "突破52週高點且成交量至少為50日均量1.5倍",
+        "formal_breakout": false,
+        "super_growth_bucket": "B",
+        "super_growth_reason": "VALUATION_INPUTS_UNAVAILABLE_OR_STALE",
+        "quality_gate_status": {
+          "competitive_advantage": {
+            "status": "PASS",
+            "as_of": "2026-10-19",
+            "rationale": "專利藥、臨床資料、製造及商業化規模，多產品降低單藥依賴。",
+            "sources": [
+              "https://www.sec.gov/Archives/edgar/data/318154/000031815426000124/amgn-20260630earningsrelea.htm",
+              "https://www.amgen.com/tavneos-update"
+            ],
+            "data_gap": null,
+            "validation_errors": [],
+            "method": null,
+            "price_as_of": null,
+            "valid_through": null,
+            "inputs": {}
+          },
+          "structural_growth_runway": {
+            "status": "PASS",
+            "as_of": "2026-10-19",
+            "rationale": "六大來源Q2合計增26%；須抵銷Prolia/Xgeva競爭，不計入未核准藥收入。",
+            "sources": [
+              "https://www.sec.gov/Archives/edgar/data/318154/000031815426000124/amgn-20260630earningsrelea.htm",
+              "https://www.amgen.com/tavneos-update"
+            ],
+            "data_gap": null,
+            "validation_errors": [],
+            "method": null,
+            "price_as_of": null,
+            "valid_through": null,
+            "inputs": {}
+          },
+          "financial_quality": {
+            "status": "PASS",
+            "as_of": "2026-10-19",
+            "rationale": "H1 CFO6191m減capex1225m得FCF4966m；六月底淨負債約43.3bn，正現金流支持品質但槓桿限制配置。",
+            "sources": [
+              "https://www.sec.gov/Archives/edgar/data/318154/000031815426000124/amgn-20260630earningsrelea.htm",
+              "https://www.amgen.com/tavneos-update"
+            ],
+            "data_gap": null,
+            "validation_errors": [],
+            "method": null,
+            "price_as_of": null,
+            "valid_through": null,
+            "inputs": {}
+          },
+          "business_risk_and_governance": {
+            "status": "PASS",
+            "as_of": "2026-10-19",
+            "rationale": "FDA擬撤回Tavneos、藥價及負債風險已辨識；Tavneos季度150m相對集團10.1bn，列監管觀察，未單獨否決整體研究資格。",
+            "sources": [
+              "https://www.sec.gov/Archives/edgar/data/318154/000031815426000124/amgn-20260630earningsrelea.htm",
+              "https://www.amgen.com/tavneos-update"
+            ],
+            "data_gap": null,
+            "validation_errors": [],
+            "method": null,
+            "price_as_of": null,
+            "valid_through": null,
+            "inputs": {}
+          },
+          "circle_of_competence": {
+            "status": "UNKNOWN",
+            "as_of": "2026-10-19",
+            "rationale": "建倉前確認藥品生命週期與監管風險理解。",
+            "sources": [
+              "https://www.sec.gov/Archives/edgar/data/318154/000031815426000124/amgn-20260630earningsrelea.htm"
+            ],
+            "data_gap": "PRE_TRADE_USER_CONFIRMATION_ONLY",
+            "validation_errors": [],
+            "method": null,
+            "price_as_of": null,
+            "valid_through": null,
+            "inputs": {}
+          },
+          "valuation": {
+            "status": "UNKNOWN",
+            "as_of": "2026-11-04",
+            "rationale": "Current-session valuation model not yet validated.",
+            "sources": [],
+            "data_gap": "MISSING_SOURCE_BACKED_VALUATION_ASSESSMENT",
+            "validation_errors": [],
+            "method": null,
+            "price_as_of": null,
+            "valid_through": null,
+            "inputs": {}
+          }
+        },
+        "evidence_coverage": "PARTIAL",
+        "missing_evidence": [
+          "circle_of_competence",
+          "valuation"
+        ],
+        "quality_data_gaps": {},
+        "valuation_posture": "UNRESOLVED_WITH_SPECIFIC_GAP",
+        "cyclical_review_required": false,
+        "evidence_as_of": "2026-10-19",
+        "manual_confirmation_required": [
+          "circle_of_competence"
+        ],
+        "circle_of_competence_policy": "PRE_TRADE_USER_CONFIRMATION_NOT_DAILY_RESEARCH_BLOCKER",
+        "decision_authority": "RESEARCH_QUALITY_ONLY",
+        "quality_gate_application": "FORMAL_NEW_CANDIDATE_RESEARCH_GATE",
+        "action_eligibility": "RESEARCH_ONLY_VALUATION_DATA_GAP",
+        "lynch_research": {
+          "version": "onecool_lynch_research_v1",
+          "company_type": {
+            "status": "PROVISIONAL",
+            "primary": "FAST_GROWER",
+            "candidates": [
+              "FAST_GROWER"
+            ],
+            "evidence": [
+              {
+                "field": "verified_quality_gates",
+                "value": [
+                  "structural_growth_runway",
+                  "financial_quality"
+                ],
+                "interpretation": "FAST_GROWTH_CANDIDATE_NOT_DURABILITY_PROOF"
+              }
+            ],
+            "unresolved_categories": [
+              "SLOW_GROWER",
+              "STALWART",
+              "CYCLICAL",
+              "TURNAROUND",
+              "ASSET_PLAY"
+            ]
+          },
+          "investment_story": {
+            "status": "EVIDENCE_ONLY",
+            "evidence": [
+              {
+                "field": "competitive_advantage",
+                "value": "PASS",
+                "as_of": "2026-10-19",
+                "rationale": "專利藥、臨床資料、製造及商業化規模，多產品降低單藥依賴。",
+                "sources": [
+                  "https://www.sec.gov/Archives/edgar/data/318154/000031815426000124/amgn-20260630earningsrelea.htm",
+                  "https://www.amgen.com/tavneos-update"
+                ]
+              },
+              {
+                "field": "structural_growth_runway",
+                "value": "PASS",
+                "as_of": "2026-10-19",
+                "rationale": "六大來源Q2合計增26%；須抵銷Prolia/Xgeva競爭，不計入未核准藥收入。",
+                "sources": [
+                  "https://www.sec.gov/Archives/edgar/data/318154/000031815426000124/amgn-20260630earningsrelea.htm",
+                  "https://www.amgen.com/tavneos-update"
+                ]
+              },
+              {
+                "field": "financial_quality",
+                "value": "PASS",
+                "as_of": "2026-10-19",
+                "rationale": "H1 CFO6191m減capex1225m得FCF4966m；六月底淨負債約43.3bn，正現金流支持品質但槓桿限制配置。",
+                "sources": [
+                  "https://www.sec.gov/Archives/edgar/data/318154/000031815426000124/amgn-20260630earningsrelea.htm",
+                  "https://www.amgen.com/tavneos-update"
+                ]
+              },
+              {
+                "field": "business_risk_and_governance",
+                "value": "PASS",
+                "as_of": "2026-10-19",
+                "rationale": "FDA擬撤回Tavneos、藥價及負債風險已辨識；Tavneos季度150m相對集團10.1bn，列監管觀察，未單獨否決整體研究資格。",
+                "sources": [
+                  "https://www.sec.gov/Archives/edgar/data/318154/000031815426000124/amgn-20260630earningsrelea.htm",
+                  "https://www.amgen.com/tavneos-update"
+                ]
+              }
+            ],
+            "required_manual_confirmation": [
+              "BUSINESS_DRIVER",
+              "DURABILITY",
+              "MANAGEMENT_EXECUTION"
+            ]
+          },
+          "story_break_conditions": [
+            {
+              "condition": "VERIFIED_COMPETITIVE_ADVANTAGE_FAILS",
+              "meaning": "Investment story requires review"
+            },
+            {
+              "condition": "VERIFIED_STRUCTURAL_GROWTH_RUNWAY_FAILS",
+              "meaning": "Growth story requires review"
+            },
+            {
+              "condition": "VERIFIED_FINANCIAL_QUALITY_OR_GOVERNANCE_FAILS",
+              "meaning": "Quality story requires review"
+            }
+          ],
+          "policy": {
+            "decision_authority": "NONE",
+            "ranking_effect": "NONE",
+            "score_effect": "NONE",
+            "cta_effect": "NONE",
+            "action_effect": "NONE",
+            "observation_is_research_lead_only": true,
+            "manual_confirmation_required": true
+          }
+        }
+      },
+      {
+        "symbol": "LLY",
+        "price_as_of": "2026-11-05",
+        "fundamentals_as_of": "2026-06-30",
+        "fundamental_sources": [
+          "https://data.sec.gov/api/xbrl/companyfacts/CIK0000059478.json"
+        ],
+        "fundamentals_published_as_of": "2026-08-05",
+        "liquidity_average_50d_usd": 3108644924.01,
+        "liquidity_minimum_50d_usd": 20000000,
+        "liquidity_status": "PASSED",
+        "new_entry_eligible": true,
+        "validation_warnings": [],
+        "price_basis": "adjusted_close",
+        "score_version": "onecool_us_dual_v2",
+        "thresholds": {
+          "canslim": 70,
+          "minervini": 80
+        },
+        "technical_confidence": 100,
+        "validation_status": "PASSED",
+        "validation_errors": [],
+        "canslim_score": 72,
+        "minervini_score": 100,
+        "passes_dual_system": true,
+        "company_name": "Eli Lilly and Company",
+        "security_type": "COMMON_STOCK",
+        "rank_score": 82.4,
+        "status": "WAIT",
+        "trigger": "突破52週高點且成交量至少為50日均量1.5倍",
+        "formal_breakout": false,
+        "super_growth_bucket": "B",
+        "super_growth_reason": "VALUATION_INPUTS_UNAVAILABLE_OR_STALE",
+        "quality_gate_status": {
+          "competitive_advantage": {
+            "status": "PASS",
+            "as_of": "2026-10-16",
+            "rationale": "Mounjaro及Zepbound專利產品、臨床資料及製造規模支持競爭優勢；需監測同類藥品競爭與降價。",
+            "sources": [
+              "https://investor.lilly.com/node/54781/pdf"
+            ],
+            "data_gap": null,
+            "validation_errors": [],
+            "method": null,
+            "price_as_of": null,
+            "valid_through": null,
+            "inputs": {}
+          },
+          "structural_growth_runway": {
+            "status": "PASS",
+            "as_of": "2026-10-16",
+            "rationale": "Q2營收年增48%，全球銷量成長60%；retatrutide第三期資料及產能投資提供成長來源，不將臨床或核准結果視為保證。",
+            "sources": [
+              "https://investor.lilly.com/node/54781/pdf"
+            ],
+            "data_gap": null,
+            "validation_errors": [],
+            "method": null,
+            "price_as_of": null,
+            "valid_through": null,
+            "inputs": {}
+          },
+          "financial_quality": {
+            "status": "PASS",
+            "as_of": "2026-10-16",
+            "rationale": "已核對Q2 10-Q：H1 CFO16023m、capex5259m、另有研發資產現金支出3486m與併購9805m；六月底淨負債45958m。營運現金支持財務品質，但資本配置壓力重大；九月新併購後的負債與獲利影響另列估值缺口，不將六月餘額冒充十月餘額。",
+            "sources": [
+              "https://www.sec.gov/Archives/edgar/data/59478/000005947826000081/lly-20260630.htm",
+              "https://investor.lilly.com/news-releases/news-release-details/lilly-completes-acquisition-ataibeckley-advance-therapies"
+            ],
+            "data_gap": null,
+            "validation_errors": [],
+            "method": null,
+            "price_as_of": null,
+            "valid_through": null,
+            "inputs": {}
+          },
+          "business_risk_and_governance": {
+            "status": "PASS",
+            "as_of": "2026-10-16",
+            "rationale": "實現價格下滑13%、藥品集中、監管／給付、臨床及多宗併購整合是主要風險；納入持續追蹤，目前材料不足以否決研究資格。",
+            "sources": [
+              "https://investor.lilly.com/node/54781/pdf"
+            ],
+            "data_gap": null,
+            "validation_errors": [],
+            "method": null,
+            "price_as_of": null,
+            "valid_through": null,
+            "inputs": {}
+          },
+          "circle_of_competence": {
+            "status": "UNKNOWN",
+            "as_of": null,
+            "rationale": null,
+            "sources": [],
+            "data_gap": "MISSING_SOURCE_BACKED_CIRCLE_OF_COMPETENCE_ASSESSMENT",
+            "validation_errors": [],
+            "method": null,
+            "price_as_of": null,
+            "valid_through": null,
+            "inputs": {}
+          },
+          "valuation": {
+            "status": "UNKNOWN",
+            "as_of": "2026-11-03",
+            "rationale": "Mounjaro and Zepbound support high growth, while pricing, launch investment and acquisition execution constrain distributable earnings.",
+            "sources": [
+              "https://investor.lilly.com/news-releases/news-release-details/lilly-reports-third-quarter-2026-financial-results-raises-full",
+              "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+            ],
+            "data_gap": "PRICE_CUTOFF_MISMATCH; VALUATION_EXPIRED",
+            "validation_errors": [
+              "PRICE_CUTOFF_MISMATCH",
+              "VALUATION_EXPIRED"
+            ],
+            "method": "FORWARD_NORMALIZED_PE_EX_KNOWN_Q3_ACQUIRED_IPRD",
+            "price_as_of": "2026-11-03",
+            "valid_through": "2026-11-03",
+            "inputs": {
+              "price": 1409.3800048828125,
+              "denominator": 40.07,
+              "multiple": 35.172947464008296,
+              "fair_range": [
+                11.881578947368421,
+                23.463686944114407
+              ]
+            }
+          }
+        },
+        "evidence_coverage": "PARTIAL",
+        "missing_evidence": [
+          "circle_of_competence",
+          "valuation"
+        ],
+        "quality_data_gaps": {},
+        "valuation_posture": "UNRESOLVED_WITH_SPECIFIC_GAP",
+        "cyclical_review_required": false,
+        "evidence_as_of": "2026-10-16",
+        "manual_confirmation_required": [
+          "circle_of_competence"
+        ],
+        "circle_of_competence_policy": "PRE_TRADE_USER_CONFIRMATION_NOT_DAILY_RESEARCH_BLOCKER",
+        "decision_authority": "RESEARCH_QUALITY_ONLY",
+        "quality_gate_application": "FORMAL_NEW_CANDIDATE_RESEARCH_GATE",
+        "action_eligibility": "RESEARCH_ONLY_VALUATION_DATA_GAP",
+        "lynch_research": {
+          "version": "onecool_lynch_research_v1",
+          "company_type": {
+            "status": "PROVISIONAL",
+            "primary": "FAST_GROWER",
+            "candidates": [
+              "FAST_GROWER"
+            ],
+            "evidence": [
+              {
+                "field": "verified_quality_gates",
+                "value": [
+                  "structural_growth_runway",
+                  "financial_quality"
+                ],
+                "interpretation": "FAST_GROWTH_CANDIDATE_NOT_DURABILITY_PROOF"
+              }
+            ],
+            "unresolved_categories": [
+              "SLOW_GROWER",
+              "STALWART",
+              "CYCLICAL",
+              "TURNAROUND",
+              "ASSET_PLAY"
+            ]
+          },
+          "investment_story": {
+            "status": "EVIDENCE_ONLY",
+            "evidence": [
+              {
+                "field": "competitive_advantage",
+                "value": "PASS",
+                "as_of": "2026-10-16",
+                "rationale": "Mounjaro及Zepbound專利產品、臨床資料及製造規模支持競爭優勢；需監測同類藥品競爭與降價。",
+                "sources": [
+                  "https://investor.lilly.com/node/54781/pdf"
+                ]
+              },
+              {
+                "field": "structural_growth_runway",
+                "value": "PASS",
+                "as_of": "2026-10-16",
+                "rationale": "Q2營收年增48%，全球銷量成長60%；retatrutide第三期資料及產能投資提供成長來源，不將臨床或核准結果視為保證。",
+                "sources": [
+                  "https://investor.lilly.com/node/54781/pdf"
+                ]
+              },
+              {
+                "field": "financial_quality",
+                "value": "PASS",
+                "as_of": "2026-10-16",
+                "rationale": "已核對Q2 10-Q：H1 CFO16023m、capex5259m、另有研發資產現金支出3486m與併購9805m；六月底淨負債45958m。營運現金支持財務品質，但資本配置壓力重大；九月新併購後的負債與獲利影響另列估值缺口，不將六月餘額冒充十月餘額。",
+                "sources": [
+                  "https://www.sec.gov/Archives/edgar/data/59478/000005947826000081/lly-20260630.htm",
+                  "https://investor.lilly.com/news-releases/news-release-details/lilly-completes-acquisition-ataibeckley-advance-therapies"
+                ]
+              },
+              {
+                "field": "business_risk_and_governance",
+                "value": "PASS",
+                "as_of": "2026-10-16",
+                "rationale": "實現價格下滑13%、藥品集中、監管／給付、臨床及多宗併購整合是主要風險；納入持續追蹤，目前材料不足以否決研究資格。",
+                "sources": [
+                  "https://investor.lilly.com/node/54781/pdf"
+                ]
+              }
+            ],
+            "required_manual_confirmation": [
+              "BUSINESS_DRIVER",
+              "DURABILITY",
+              "MANAGEMENT_EXECUTION"
+            ]
+          },
+          "story_break_conditions": [
+            {
+              "condition": "VERIFIED_COMPETITIVE_ADVANTAGE_FAILS",
+              "meaning": "Investment story requires review"
+            },
+            {
+              "condition": "VERIFIED_STRUCTURAL_GROWTH_RUNWAY_FAILS",
+              "meaning": "Growth story requires review"
+            },
+            {
+              "condition": "VERIFIED_FINANCIAL_QUALITY_OR_GOVERNANCE_FAILS",
+              "meaning": "Quality story requires review"
+            }
+          ],
+          "policy": {
+            "decision_authority": "NONE",
+            "ranking_effect": "NONE",
+            "score_effect": "NONE",
+            "cta_effect": "NONE",
+            "action_effect": "NONE",
+            "observation_is_research_lead_only": true,
+            "manual_confirmation_required": true
+          }
+        }
+      },
       {
         "symbol": "MSFT",
         "price_as_of": "2026-11-05",
@@ -1354,15 +1836,14 @@
         }
       },
       {
-        "symbol": "V",
+        "symbol": "ABBV",
         "price_as_of": "2026-11-05",
-        "fundamentals_as_of": "2026-09-30",
+        "fundamentals_as_of": "2026-06-30",
         "fundamental_sources": [
-          "https://www.sec.gov/Archives/edgar/data/1403161/000140316126000126/q42026earningsrelease.htm",
-          "https://www.sec.gov/Archives/edgar/data/1403161/000140316126000126/v-20261027.htm"
+          "https://data.sec.gov/api/xbrl/companyfacts/CIK0001551152.json"
         ],
-        "fundamentals_published_as_of": "2026-10-27",
-        "liquidity_average_50d_usd": 2475481855.28,
+        "fundamentals_published_as_of": "2026-08-03",
+        "liquidity_average_50d_usd": 1332878657.84,
         "liquidity_minimum_50d_usd": 20000000,
         "liquidity_status": "PASSED",
         "new_entry_eligible": true,
@@ -1376,24 +1857,26 @@
         "technical_confidence": 100,
         "validation_status": "PASSED",
         "validation_errors": [],
-        "canslim_score": 56,
+        "canslim_score": 59,
         "minervini_score": 100,
         "passes_dual_system": false,
-        "company_name": "Visa Inc.",
+        "company_name": "AbbVie Inc.",
         "security_type": "COMMON_STOCK",
-        "rank_score": 75.2,
+        "rank_score": 76.55,
         "status": "WAIT",
         "trigger": "突破52週高點且成交量至少為50日均量1.5倍",
         "formal_breakout": false,
-        "super_growth_bucket": "C",
-        "super_growth_reason": "QUALITY_DATA_GAP_NAMED",
+        "super_growth_bucket": "B",
+        "super_growth_reason": "VALUATION_INPUTS_UNAVAILABLE_OR_STALE",
         "quality_gate_status": {
           "competitive_advantage": {
-            "status": "UNKNOWN",
-            "as_of": null,
-            "rationale": null,
-            "sources": [],
-            "data_gap": "MISSING_SOURCE_BACKED_COMPETITIVE_ADVANTAGE_ASSESSMENT",
+            "status": "PASS",
+            "as_of": "2026-07-31",
+            "rationale": "Skyrizi與Rinvoq季度收入均約年增24%，神經科學組合年增20.3%，多個治療領域與研發管線降低單一產品依賴。",
+            "sources": [
+              "https://news.abbvie.com/2026-07-31-AbbVie-Reports-Second-Quarter-2026-Financial-Results"
+            ],
+            "data_gap": null,
             "validation_errors": [],
             "method": null,
             "price_as_of": null,
@@ -1401,11 +1884,13 @@
             "inputs": {}
           },
           "structural_growth_runway": {
-            "status": "UNKNOWN",
-            "as_of": null,
-            "rationale": null,
-            "sources": [],
-            "data_gap": "MISSING_SOURCE_BACKED_STRUCTURAL_GROWTH_RUNWAY_ASSESSMENT",
+            "status": "PASS",
+            "as_of": "2026-07-31",
+            "rationale": "免疫學與神經科學核心產品維持雙位數成長，並透過Apogee交易補強後期免疫學管線，支持Humira專利後的成長接續。",
+            "sources": [
+              "https://news.abbvie.com/2026-07-31-AbbVie-Reports-Second-Quarter-2026-Financial-Results"
+            ],
+            "data_gap": null,
             "validation_errors": [],
             "method": null,
             "price_as_of": null,
@@ -1413,11 +1898,13 @@
             "inputs": {}
           },
           "financial_quality": {
-            "status": "UNKNOWN",
-            "as_of": null,
-            "rationale": null,
-            "sources": [],
-            "data_gap": "MISSING_SOURCE_BACKED_FINANCIAL_QUALITY_ASSESSMENT",
+            "status": "PASS",
+            "as_of": "2026-07-31",
+            "rationale": "季度營收169.9億美元年增10.2%，調整後EPS年增22.9%，調整後營業利益率48.3%；成長與獲利能力均獲官方財報支持。",
+            "sources": [
+              "https://news.abbvie.com/2026-07-31-AbbVie-Reports-Second-Quarter-2026-Financial-Results"
+            ],
+            "data_gap": null,
             "validation_errors": [],
             "method": null,
             "price_as_of": null,
@@ -1425,11 +1912,14 @@
             "inputs": {}
           },
           "business_risk_and_governance": {
-            "status": "UNKNOWN",
-            "as_of": null,
-            "rationale": null,
-            "sources": [],
-            "data_gap": "MISSING_SOURCE_BACKED_BUSINESS_RISK_AND_GOVERNANCE_ASSESSMENT",
+            "status": "PASS",
+            "as_of": "2026-07-31",
+            "rationale": "Humira收入年減35.9%、109億美元Apogee收購與IPR&D支出是明確風險，但目前由Skyrizi、Rinvoq及神經科學成長抵銷；未見足以否決候選資格的治理事件。",
+            "sources": [
+              "https://news.abbvie.com/2026-07-31-AbbVie-Reports-Second-Quarter-2026-Financial-Results",
+              "https://www.sec.gov/edgar/browse/?CIK=1551152&owner=exclude"
+            ],
+            "data_gap": null,
             "validation_errors": [],
             "method": null,
             "price_as_of": null,
@@ -1438,10 +1928,243 @@
           },
           "circle_of_competence": {
             "status": "UNKNOWN",
-            "as_of": null,
-            "rationale": null,
-            "sources": [],
+            "as_of": "2026-09-17",
+            "rationale": "藥品專利、臨床與監管判斷屬個人能力圈確認項，保留到正式建倉前，不阻擋研究排名。",
+            "sources": [
+              "https://news.abbvie.com/2026-07-31-AbbVie-Reports-Second-Quarter-2026-Financial-Results"
+            ],
             "data_gap": "MISSING_SOURCE_BACKED_CIRCLE_OF_COMPETENCE_ASSESSMENT",
+            "validation_errors": [],
+            "method": null,
+            "price_as_of": null,
+            "valid_through": null,
+            "inputs": {}
+          },
+          "valuation": {
+            "status": "UNKNOWN",
+            "as_of": "2026-11-04",
+            "rationale": "CURRENT_DISCLOSURE_CHECK_UNAVAILABLE",
+            "sources": [],
+            "data_gap": "CURRENT_DISCLOSURE_CHECK_UNAVAILABLE",
+            "validation_errors": [],
+            "method": null,
+            "price_as_of": null,
+            "valid_through": null,
+            "inputs": {}
+          }
+        },
+        "evidence_coverage": "PARTIAL",
+        "missing_evidence": [
+          "circle_of_competence",
+          "valuation"
+        ],
+        "quality_data_gaps": {},
+        "valuation_posture": "UNRESOLVED_WITH_SPECIFIC_GAP",
+        "cyclical_review_required": false,
+        "evidence_as_of": "2026-09-17",
+        "manual_confirmation_required": [
+          "circle_of_competence"
+        ],
+        "circle_of_competence_policy": "PRE_TRADE_USER_CONFIRMATION_NOT_DAILY_RESEARCH_BLOCKER",
+        "decision_authority": "RESEARCH_QUALITY_ONLY",
+        "quality_gate_application": "FORMAL_NEW_CANDIDATE_RESEARCH_GATE",
+        "action_eligibility": "RESEARCH_ONLY_VALUATION_DATA_GAP",
+        "lynch_research": {
+          "version": "onecool_lynch_research_v1",
+          "company_type": {
+            "status": "PROVISIONAL",
+            "primary": "FAST_GROWER",
+            "candidates": [
+              "FAST_GROWER"
+            ],
+            "evidence": [
+              {
+                "field": "verified_quality_gates",
+                "value": [
+                  "structural_growth_runway",
+                  "financial_quality"
+                ],
+                "interpretation": "FAST_GROWTH_CANDIDATE_NOT_DURABILITY_PROOF"
+              }
+            ],
+            "unresolved_categories": [
+              "SLOW_GROWER",
+              "STALWART",
+              "CYCLICAL",
+              "TURNAROUND",
+              "ASSET_PLAY"
+            ]
+          },
+          "investment_story": {
+            "status": "EVIDENCE_ONLY",
+            "evidence": [
+              {
+                "field": "competitive_advantage",
+                "value": "PASS",
+                "as_of": "2026-07-31",
+                "rationale": "Skyrizi與Rinvoq季度收入均約年增24%，神經科學組合年增20.3%，多個治療領域與研發管線降低單一產品依賴。",
+                "sources": [
+                  "https://news.abbvie.com/2026-07-31-AbbVie-Reports-Second-Quarter-2026-Financial-Results"
+                ]
+              },
+              {
+                "field": "structural_growth_runway",
+                "value": "PASS",
+                "as_of": "2026-07-31",
+                "rationale": "免疫學與神經科學核心產品維持雙位數成長，並透過Apogee交易補強後期免疫學管線，支持Humira專利後的成長接續。",
+                "sources": [
+                  "https://news.abbvie.com/2026-07-31-AbbVie-Reports-Second-Quarter-2026-Financial-Results"
+                ]
+              },
+              {
+                "field": "financial_quality",
+                "value": "PASS",
+                "as_of": "2026-07-31",
+                "rationale": "季度營收169.9億美元年增10.2%，調整後EPS年增22.9%，調整後營業利益率48.3%；成長與獲利能力均獲官方財報支持。",
+                "sources": [
+                  "https://news.abbvie.com/2026-07-31-AbbVie-Reports-Second-Quarter-2026-Financial-Results"
+                ]
+              },
+              {
+                "field": "business_risk_and_governance",
+                "value": "PASS",
+                "as_of": "2026-07-31",
+                "rationale": "Humira收入年減35.9%、109億美元Apogee收購與IPR&D支出是明確風險，但目前由Skyrizi、Rinvoq及神經科學成長抵銷；未見足以否決候選資格的治理事件。",
+                "sources": [
+                  "https://news.abbvie.com/2026-07-31-AbbVie-Reports-Second-Quarter-2026-Financial-Results",
+                  "https://www.sec.gov/edgar/browse/?CIK=1551152&owner=exclude"
+                ]
+              }
+            ],
+            "required_manual_confirmation": [
+              "BUSINESS_DRIVER",
+              "DURABILITY",
+              "MANAGEMENT_EXECUTION"
+            ]
+          },
+          "story_break_conditions": [
+            {
+              "condition": "VERIFIED_COMPETITIVE_ADVANTAGE_FAILS",
+              "meaning": "Investment story requires review"
+            },
+            {
+              "condition": "VERIFIED_STRUCTURAL_GROWTH_RUNWAY_FAILS",
+              "meaning": "Growth story requires review"
+            },
+            {
+              "condition": "VERIFIED_FINANCIAL_QUALITY_OR_GOVERNANCE_FAILS",
+              "meaning": "Quality story requires review"
+            }
+          ],
+          "policy": {
+            "decision_authority": "NONE",
+            "ranking_effect": "NONE",
+            "score_effect": "NONE",
+            "cta_effect": "NONE",
+            "action_effect": "NONE",
+            "observation_is_research_lead_only": true,
+            "manual_confirmation_required": true
+          }
+        }
+      },
+      {
+        "symbol": "THC",
+        "price_as_of": "2026-11-05",
+        "fundamentals_as_of": "2026-06-30",
+        "fundamental_sources": [
+          "https://data.sec.gov/api/xbrl/companyfacts/CIK0000070318.json"
+        ],
+        "fundamentals_published_as_of": "2026-07-29",
+        "liquidity_average_50d_usd": 212692123.17,
+        "liquidity_minimum_50d_usd": 20000000,
+        "liquidity_status": "PASSED",
+        "new_entry_eligible": true,
+        "validation_warnings": [],
+        "price_basis": "adjusted_close",
+        "score_version": "onecool_us_dual_v2",
+        "thresholds": {
+          "canslim": 70,
+          "minervini": 80
+        },
+        "technical_confidence": 100,
+        "validation_status": "PASSED",
+        "validation_errors": [],
+        "canslim_score": 58,
+        "minervini_score": 100,
+        "passes_dual_system": false,
+        "company_name": "Tenet Healthcare Corporation",
+        "security_type": "COMMON_STOCK",
+        "rank_score": 76.1,
+        "status": "WAIT",
+        "trigger": "突破52週高點且成交量至少為50日均量1.5倍",
+        "formal_breakout": false,
+        "super_growth_bucket": "B",
+        "super_growth_reason": "VALUATION_INPUTS_UNAVAILABLE_OR_STALE",
+        "quality_gate_status": {
+          "competitive_advantage": {
+            "status": "PASS",
+            "as_of": "2026-07-23",
+            "rationale": "USPI為美國最大門診手術平台；地方設施、醫師合作與醫院網絡構成規模優勢，並非不可取代壟斷。",
+            "sources": [
+              "https://investor.tenethealth.com/press-releases/press-release-details/2026/Tenet-Reports-Strong-Second-Quarter-2026-Results-Raises-2026-Financial-Outlook/default.aspx"
+            ],
+            "data_gap": null,
+            "validation_errors": [],
+            "method": null,
+            "price_as_of": null,
+            "valid_through": null,
+            "inputs": {}
+          },
+          "structural_growth_runway": {
+            "status": "PASS",
+            "as_of": "2026-07-23",
+            "rationale": "門診同設施收入年增5%，服務組合與高複雜度提升；病例下降1.2%限制純量成長，不能把收購與價格成長視為持續高增長保證。",
+            "sources": [
+              "https://investor.tenethealth.com/press-releases/press-release-details/2026/Tenet-Reports-Strong-Second-Quarter-2026-Results-Raises-2026-Financial-Outlook/default.aspx"
+            ],
+            "data_gap": null,
+            "validation_errors": [],
+            "method": null,
+            "price_as_of": null,
+            "valid_through": null,
+            "inputs": {}
+          },
+          "financial_quality": {
+            "status": "PASS",
+            "as_of": "2026-07-23",
+            "rationale": "H1 CFO 22.26億、capex 3.48億；NCI分配3.98億。正現金流支持品質，但19億美元合約終止與Medicaid前期補收入須排除，不能用GAAP EPS直接估值。",
+            "sources": [
+              "https://investor.tenethealth.com/press-releases/press-release-details/2026/Tenet-Reports-Strong-Second-Quarter-2026-Results-Raises-2026-Financial-Outlook/default.aspx"
+            ],
+            "data_gap": null,
+            "validation_errors": [],
+            "method": null,
+            "price_as_of": null,
+            "valid_through": null,
+            "inputs": {}
+          },
+          "business_risk_and_governance": {
+            "status": "PASS",
+            "as_of": "2026-07-23",
+            "rationale": "監管給付、Medicaid、payer mix、勞動成本、槓桿與少數股權為主要風險；材料未見否決研究資格的治理事件。PASS不是無風險。",
+            "sources": [
+              "https://investor.tenethealth.com/press-releases/press-release-details/2026/Tenet-Reports-Strong-Second-Quarter-2026-Results-Raises-2026-Financial-Outlook/default.aspx"
+            ],
+            "data_gap": null,
+            "validation_errors": [],
+            "method": null,
+            "price_as_of": null,
+            "valid_through": null,
+            "inputs": {}
+          },
+          "circle_of_competence": {
+            "status": "UNKNOWN",
+            "as_of": "2026-10-13",
+            "rationale": "正式建倉前確認醫療給付、NCI與營運驅動，不阻擋研究排名。",
+            "sources": [
+              "https://investor.tenethealth.com/press-releases/press-release-details/2026/Tenet-Reports-Strong-Second-Quarter-2026-Results-Raises-2026-Financial-Outlook/default.aspx"
+            ],
+            "data_gap": "PRE_TRADE_USER_CONFIRMATION_ONLY",
             "validation_errors": [],
             "method": null,
             "price_as_of": null,
@@ -1461,50 +2184,88 @@
             "inputs": {}
           }
         },
-        "evidence_coverage": "NONE",
+        "evidence_coverage": "PARTIAL",
         "missing_evidence": [
-          "competitive_advantage",
-          "structural_growth_runway",
-          "financial_quality",
-          "business_risk_and_governance",
           "circle_of_competence",
           "valuation"
         ],
-        "quality_data_gaps": {
-          "competitive_advantage": "MISSING_SOURCE_BACKED_COMPETITIVE_ADVANTAGE_ASSESSMENT",
-          "structural_growth_runway": "MISSING_SOURCE_BACKED_STRUCTURAL_GROWTH_RUNWAY_ASSESSMENT",
-          "financial_quality": "MISSING_SOURCE_BACKED_FINANCIAL_QUALITY_ASSESSMENT",
-          "business_risk_and_governance": "MISSING_SOURCE_BACKED_BUSINESS_RISK_AND_GOVERNANCE_ASSESSMENT"
-        },
+        "quality_data_gaps": {},
         "valuation_posture": "UNRESOLVED_WITH_SPECIFIC_GAP",
         "cyclical_review_required": false,
-        "evidence_as_of": null,
+        "evidence_as_of": "2026-10-13",
         "manual_confirmation_required": [
           "circle_of_competence"
         ],
         "circle_of_competence_policy": "PRE_TRADE_USER_CONFIRMATION_NOT_DAILY_RESEARCH_BLOCKER",
         "decision_authority": "RESEARCH_QUALITY_ONLY",
         "quality_gate_application": "FORMAL_NEW_CANDIDATE_RESEARCH_GATE",
-        "action_eligibility": "RESEARCH_ONLY_QUALITY_EVIDENCE_INCOMPLETE",
+        "action_eligibility": "RESEARCH_ONLY_VALUATION_DATA_GAP",
         "lynch_research": {
           "version": "onecool_lynch_research_v1",
           "company_type": {
-            "status": "INSUFFICIENT_EVIDENCE",
-            "primary": "UNCLASSIFIED",
-            "candidates": [],
-            "evidence": [],
+            "status": "PROVISIONAL",
+            "primary": "FAST_GROWER",
+            "candidates": [
+              "FAST_GROWER"
+            ],
+            "evidence": [
+              {
+                "field": "verified_quality_gates",
+                "value": [
+                  "structural_growth_runway",
+                  "financial_quality"
+                ],
+                "interpretation": "FAST_GROWTH_CANDIDATE_NOT_DURABILITY_PROOF"
+              }
+            ],
             "unresolved_categories": [
               "SLOW_GROWER",
               "STALWART",
-              "FAST_GROWER",
               "CYCLICAL",
               "TURNAROUND",
               "ASSET_PLAY"
             ]
           },
           "investment_story": {
-            "status": "INSUFFICIENT_EVIDENCE",
-            "evidence": [],
+            "status": "EVIDENCE_ONLY",
+            "evidence": [
+              {
+                "field": "competitive_advantage",
+                "value": "PASS",
+                "as_of": "2026-07-23",
+                "rationale": "USPI為美國最大門診手術平台；地方設施、醫師合作與醫院網絡構成規模優勢，並非不可取代壟斷。",
+                "sources": [
+                  "https://investor.tenethealth.com/press-releases/press-release-details/2026/Tenet-Reports-Strong-Second-Quarter-2026-Results-Raises-2026-Financial-Outlook/default.aspx"
+                ]
+              },
+              {
+                "field": "structural_growth_runway",
+                "value": "PASS",
+                "as_of": "2026-07-23",
+                "rationale": "門診同設施收入年增5%，服務組合與高複雜度提升；病例下降1.2%限制純量成長，不能把收購與價格成長視為持續高增長保證。",
+                "sources": [
+                  "https://investor.tenethealth.com/press-releases/press-release-details/2026/Tenet-Reports-Strong-Second-Quarter-2026-Results-Raises-2026-Financial-Outlook/default.aspx"
+                ]
+              },
+              {
+                "field": "financial_quality",
+                "value": "PASS",
+                "as_of": "2026-07-23",
+                "rationale": "H1 CFO 22.26億、capex 3.48億；NCI分配3.98億。正現金流支持品質，但19億美元合約終止與Medicaid前期補收入須排除，不能用GAAP EPS直接估值。",
+                "sources": [
+                  "https://investor.tenethealth.com/press-releases/press-release-details/2026/Tenet-Reports-Strong-Second-Quarter-2026-Results-Raises-2026-Financial-Outlook/default.aspx"
+                ]
+              },
+              {
+                "field": "business_risk_and_governance",
+                "value": "PASS",
+                "as_of": "2026-07-23",
+                "rationale": "監管給付、Medicaid、payer mix、勞動成本、槓桿與少數股權為主要風險；材料未見否決研究資格的治理事件。PASS不是無風險。",
+                "sources": [
+                  "https://investor.tenethealth.com/press-releases/press-release-details/2026/Tenet-Reports-Strong-Second-Quarter-2026-Results-Raises-2026-Financial-Outlook/default.aspx"
+                ]
+              }
+            ],
             "required_manual_confirmation": [
               "BUSINESS_DRIVER",
               "DURABILITY",
@@ -1539,91 +2300,7 @@
     ],
     "exclusions": [
       {
-        "symbol": "AAPL",
-        "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
-        "fundamental_fetch_status": "SEC_FETCH_FAILED",
-        "fundamental_validation_detail": "SEC_FETCH_FAILED"
-      },
-      {
-        "symbol": "ABBV",
-        "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
-        "fundamental_fetch_status": "SEC_FETCH_FAILED",
-        "fundamental_validation_detail": "SEC_FETCH_FAILED"
-      },
-      {
         "symbol": "ABNB",
-        "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
-        "fundamental_fetch_status": "SEC_FETCH_FAILED",
-        "fundamental_validation_detail": "SEC_FETCH_FAILED"
-      },
-      {
-        "symbol": "ADBE",
-        "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
-        "fundamental_fetch_status": "SEC_FETCH_FAILED",
-        "fundamental_validation_detail": "SEC_FETCH_FAILED"
-      },
-      {
-        "symbol": "ADI",
-        "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
-        "fundamental_fetch_status": "SEC_FETCH_FAILED",
-        "fundamental_validation_detail": "SEC_FETCH_FAILED"
-      },
-      {
-        "symbol": "AMD",
-        "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
-        "fundamental_fetch_status": "SEC_FETCH_FAILED",
-        "fundamental_validation_detail": "SEC_FETCH_FAILED"
-      },
-      {
-        "symbol": "AMAT",
-        "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
-        "fundamental_fetch_status": "SEC_FETCH_FAILED",
-        "fundamental_validation_detail": "SEC_FETCH_FAILED"
-      },
-      {
-        "symbol": "AMGN",
-        "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
-        "fundamental_fetch_status": "SEC_FETCH_FAILED",
-        "fundamental_validation_detail": "SEC_FETCH_FAILED"
-      },
-      {
-        "symbol": "AMZN",
-        "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
-        "fundamental_fetch_status": "SEC_FETCH_FAILED",
-        "fundamental_validation_detail": "SEC_FETCH_FAILED"
-      },
-      {
-        "symbol": "ANET",
-        "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
-        "fundamental_fetch_status": "SEC_FETCH_FAILED",
-        "fundamental_validation_detail": "SEC_FETCH_FAILED"
-      },
-      {
-        "symbol": "APP",
-        "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
-        "fundamental_fetch_status": "SEC_FETCH_FAILED",
-        "fundamental_validation_detail": "SEC_FETCH_FAILED"
-      },
-      {
-        "symbol": "AVGO",
-        "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
-        "fundamental_fetch_status": "SEC_FETCH_FAILED",
-        "fundamental_validation_detail": "SEC_FETCH_FAILED"
-      },
-      {
-        "symbol": "AXP",
         "technical_confidence": 100,
         "reason": "fundamental validation unavailable",
         "fundamental_fetch_status": "SEC_FETCH_FAILED",
@@ -1655,55 +2332,6 @@
         "fundamental_validation_detail": "SEC_FETCH_FAILED"
       },
       {
-        "symbol": "BKNG",
-        "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
-        "fundamental_fetch_status": "SEC_FETCH_FAILED",
-        "fundamental_validation_detail": "SEC_FETCH_FAILED"
-      },
-      {
-        "symbol": "CAT",
-        "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
-        "fundamental_fetch_status": "SEC_FETCH_FAILED",
-        "fundamental_validation_detail": "SEC_FETCH_FAILED"
-      },
-      {
-        "symbol": "CEG",
-        "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
-        "fundamental_fetch_status": "SEC_FETCH_FAILED",
-        "fundamental_validation_detail": "SEC_FETCH_FAILED"
-      },
-      {
-        "symbol": "CLS",
-        "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
-        "fundamental_fetch_status": "SEC_FETCH_FAILED",
-        "fundamental_validation_detail": "SEC_FETCH_FAILED"
-      },
-      {
-        "symbol": "COIN",
-        "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
-        "fundamental_fetch_status": "SEC_FETCH_FAILED",
-        "fundamental_validation_detail": "SEC_FETCH_FAILED"
-      },
-      {
-        "symbol": "COST",
-        "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
-        "fundamental_fetch_status": "SEC_FETCH_FAILED",
-        "fundamental_validation_detail": "SEC_FETCH_FAILED"
-      },
-      {
-        "symbol": "CRDO",
-        "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
-        "fundamental_fetch_status": "SEC_FETCH_FAILED",
-        "fundamental_validation_detail": "SEC_FETCH_FAILED"
-      },
-      {
         "symbol": "CRWD",
         "technical_confidence": 100,
         "reason": "Reviewed nonpositive prior EPS; growth comparison is not meaningful under the existing rule",
@@ -1726,139 +2354,6 @@
         },
         "fundamental_fetch_status": "RULE_EXCLUDED_REVIEWED",
         "latest_fetch_attempt_status": "SEC_FETCH_FAILED",
-        "fundamental_validation_detail": "SEC_FETCH_FAILED"
-      },
-      {
-        "symbol": "CVX",
-        "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
-        "fundamental_fetch_status": "SEC_FETCH_FAILED",
-        "fundamental_validation_detail": "SEC_FETCH_FAILED"
-      },
-      {
-        "symbol": "DDOG",
-        "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
-        "fundamental_fetch_status": "SEC_FETCH_FAILED",
-        "fundamental_validation_detail": "SEC_FETCH_FAILED"
-      },
-      {
-        "symbol": "DE",
-        "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
-        "fundamental_fetch_status": "SEC_FETCH_FAILED",
-        "fundamental_validation_detail": "SEC_FETCH_FAILED"
-      },
-      {
-        "symbol": "DELL",
-        "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
-        "fundamental_fetch_status": "SEC_FETCH_FAILED",
-        "fundamental_validation_detail": "SEC_FETCH_FAILED"
-      },
-      {
-        "symbol": "DUOL",
-        "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
-        "fundamental_fetch_status": "SEC_FETCH_FAILED",
-        "fundamental_validation_detail": "SEC_FETCH_FAILED"
-      },
-      {
-        "symbol": "ETN",
-        "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
-        "fundamental_fetch_status": "SEC_FETCH_FAILED",
-        "fundamental_validation_detail": "SEC_FETCH_FAILED"
-      },
-      {
-        "symbol": "GE",
-        "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
-        "fundamental_fetch_status": "SEC_FETCH_FAILED",
-        "fundamental_validation_detail": "SEC_FETCH_FAILED"
-      },
-      {
-        "symbol": "GEV",
-        "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
-        "fundamental_fetch_status": "SEC_FETCH_FAILED",
-        "fundamental_validation_detail": "SEC_FETCH_FAILED"
-      },
-      {
-        "symbol": "GILD",
-        "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
-        "fundamental_fetch_status": "SEC_FETCH_FAILED",
-        "fundamental_validation_detail": "SEC_FETCH_FAILED"
-      },
-      {
-        "symbol": "GOOGL",
-        "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
-        "fundamental_fetch_status": "SEC_FETCH_FAILED",
-        "fundamental_validation_detail": "SEC_FETCH_FAILED"
-      },
-      {
-        "symbol": "GS",
-        "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
-        "fundamental_fetch_status": "SEC_FETCH_FAILED",
-        "fundamental_validation_detail": "SEC_FETCH_FAILED"
-      },
-      {
-        "symbol": "HOOD",
-        "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
-        "fundamental_fetch_status": "SEC_FETCH_FAILED",
-        "fundamental_validation_detail": "SEC_FETCH_FAILED"
-      },
-      {
-        "symbol": "IBM",
-        "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
-        "fundamental_fetch_status": "SEC_FETCH_FAILED",
-        "fundamental_validation_detail": "SEC_FETCH_FAILED"
-      },
-      {
-        "symbol": "JPM",
-        "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
-        "fundamental_fetch_status": "SEC_FETCH_FAILED",
-        "fundamental_validation_detail": "SEC_FETCH_FAILED"
-      },
-      {
-        "symbol": "LLY",
-        "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
-        "fundamental_fetch_status": "SEC_FETCH_FAILED",
-        "fundamental_validation_detail": "SEC_FETCH_FAILED"
-      },
-      {
-        "symbol": "LRCX",
-        "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
-        "fundamental_fetch_status": "SEC_FETCH_FAILED",
-        "fundamental_validation_detail": "SEC_FETCH_FAILED"
-      },
-      {
-        "symbol": "MA",
-        "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
-        "fundamental_fetch_status": "SEC_FETCH_FAILED",
-        "fundamental_validation_detail": "SEC_FETCH_FAILED"
-      },
-      {
-        "symbol": "META",
-        "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
-        "fundamental_fetch_status": "SEC_FETCH_FAILED",
-        "fundamental_validation_detail": "SEC_FETCH_FAILED"
-      },
-      {
-        "symbol": "MPWR",
-        "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
-        "fundamental_fetch_status": "SEC_FETCH_FAILED",
         "fundamental_validation_detail": "SEC_FETCH_FAILED"
       },
       {
@@ -1886,48 +2381,6 @@
         "fundamental_validation_detail": "SEC_FETCH_FAILED"
       },
       {
-        "symbol": "MS",
-        "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
-        "fundamental_fetch_status": "SEC_FETCH_FAILED",
-        "fundamental_validation_detail": "SEC_FETCH_FAILED"
-      },
-      {
-        "symbol": "MU",
-        "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
-        "fundamental_fetch_status": "SEC_FETCH_FAILED",
-        "fundamental_validation_detail": "SEC_FETCH_FAILED"
-      },
-      {
-        "symbol": "NFLX",
-        "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
-        "fundamental_fetch_status": "SEC_FETCH_FAILED",
-        "fundamental_validation_detail": "SEC_FETCH_FAILED"
-      },
-      {
-        "symbol": "NOW",
-        "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
-        "fundamental_fetch_status": "SEC_FETCH_FAILED",
-        "fundamental_validation_detail": "SEC_FETCH_FAILED"
-      },
-      {
-        "symbol": "NVDA",
-        "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
-        "fundamental_fetch_status": "SEC_FETCH_FAILED",
-        "fundamental_validation_detail": "SEC_FETCH_FAILED"
-      },
-      {
-        "symbol": "ORCL",
-        "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
-        "fundamental_fetch_status": "SEC_FETCH_FAILED",
-        "fundamental_validation_detail": "SEC_FETCH_FAILED"
-      },
-      {
         "symbol": "PANW",
         "technical_confidence": 100,
         "reason": "Reviewed nonpositive prior EPS; growth comparison is not meaningful under the existing rule",
@@ -1949,27 +2402,6 @@
         },
         "fundamental_fetch_status": "RULE_EXCLUDED_REVIEWED",
         "latest_fetch_attempt_status": "SEC_FETCH_FAILED",
-        "fundamental_validation_detail": "SEC_FETCH_FAILED"
-      },
-      {
-        "symbol": "PLTR",
-        "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
-        "fundamental_fetch_status": "SEC_FETCH_FAILED",
-        "fundamental_validation_detail": "SEC_FETCH_FAILED"
-      },
-      {
-        "symbol": "QCOM",
-        "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
-        "fundamental_fetch_status": "SEC_FETCH_FAILED",
-        "fundamental_validation_detail": "SEC_FETCH_FAILED"
-      },
-      {
-        "symbol": "RTX",
-        "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
-        "fundamental_fetch_status": "SEC_FETCH_FAILED",
         "fundamental_validation_detail": "SEC_FETCH_FAILED"
       },
       {
@@ -2046,62 +2478,6 @@
         "fundamental_fetch_status": "RULE_EXCLUDED_REVIEWED",
         "latest_fetch_attempt_status": "SEC_FETCH_FAILED",
         "fundamental_validation_detail": "SEC_FETCH_FAILED"
-      },
-      {
-        "symbol": "THC",
-        "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
-        "fundamental_fetch_status": "SEC_FETCH_FAILED",
-        "fundamental_validation_detail": "SEC_FETCH_FAILED"
-      },
-      {
-        "symbol": "TSLA",
-        "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
-        "fundamental_fetch_status": "SEC_FETCH_FAILED",
-        "fundamental_validation_detail": "SEC_FETCH_FAILED"
-      },
-      {
-        "symbol": "UBER",
-        "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
-        "fundamental_fetch_status": "SEC_FETCH_FAILED",
-        "fundamental_validation_detail": "SEC_FETCH_FAILED"
-      },
-      {
-        "symbol": "VRT",
-        "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
-        "fundamental_fetch_status": "SEC_FETCH_FAILED",
-        "fundamental_validation_detail": "SEC_FETCH_FAILED"
-      },
-      {
-        "symbol": "WAB",
-        "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
-        "fundamental_fetch_status": "SEC_FETCH_FAILED",
-        "fundamental_validation_detail": "SEC_FETCH_FAILED"
-      },
-      {
-        "symbol": "WDC",
-        "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
-        "fundamental_fetch_status": "SEC_FETCH_FAILED",
-        "fundamental_validation_detail": "SEC_FETCH_FAILED"
-      },
-      {
-        "symbol": "WMT",
-        "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
-        "fundamental_fetch_status": "SEC_FETCH_FAILED",
-        "fundamental_validation_detail": "SEC_FETCH_FAILED"
-      },
-      {
-        "symbol": "XYZ",
-        "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
-        "fundamental_fetch_status": "SEC_FETCH_FAILED",
-        "fundamental_validation_detail": "SEC_FETCH_FAILED"
       }
     ],
     "rule_excluded_count": 7,
@@ -2114,139 +2490,84 @@
       "SNOW",
       "SYM"
     ],
-    "data_validation_failed_count": 56,
+    "data_validation_failed_count": 1,
     "data_validation_failed_symbols": [
-      "AAPL",
-      "ABBV",
-      "ABNB",
-      "ADBE",
-      "ADI",
-      "AMAT",
-      "AMD",
-      "AMGN",
-      "AMZN",
-      "ANET",
-      "APP",
-      "AVGO",
-      "AXP",
-      "BKNG",
-      "CAT",
-      "CEG",
-      "CLS",
-      "COIN",
-      "COST",
-      "CRDO",
-      "CVX",
-      "DDOG",
-      "DE",
-      "DELL",
-      "DUOL",
-      "ETN",
-      "GE",
-      "GEV",
-      "GILD",
-      "GOOGL",
-      "GS",
-      "HOOD",
-      "IBM",
-      "JPM",
-      "LLY",
-      "LRCX",
-      "MA",
-      "META",
-      "MPWR",
-      "MS",
-      "MU",
-      "NFLX",
-      "NOW",
-      "NVDA",
-      "ORCL",
-      "PLTR",
-      "QCOM",
-      "RTX",
-      "THC",
-      "TSLA",
-      "UBER",
-      "VRT",
-      "WAB",
-      "WDC",
-      "WMT",
-      "XYZ"
+      "ABNB"
     ],
     "assessment_count": 70,
     "unassessed_count": 0,
     "assessment_status": "COMPLETE",
     "price_fetch_diagnostics": {},
     "fundamental_fetch_status": {
-      "AAPL": "SEC_FETCH_FAILED",
-      "ABBV": "SEC_FETCH_FAILED",
+      "AAPL": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
+      "ABBV": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
       "ABNB": "SEC_FETCH_FAILED",
-      "ADBE": "SEC_FETCH_FAILED",
-      "ADI": "SEC_FETCH_FAILED",
-      "AMD": "SEC_FETCH_FAILED",
-      "AMAT": "SEC_FETCH_FAILED",
-      "AMGN": "SEC_FETCH_FAILED",
-      "AMZN": "SEC_FETCH_FAILED",
-      "ANET": "SEC_FETCH_FAILED",
-      "APP": "SEC_FETCH_FAILED",
-      "AVGO": "SEC_FETCH_FAILED",
-      "AXP": "SEC_FETCH_FAILED",
-      "BKNG": "SEC_FETCH_FAILED",
-      "CAT": "SEC_FETCH_FAILED",
-      "CEG": "SEC_FETCH_FAILED",
-      "CLS": "SEC_FETCH_FAILED",
-      "COIN": "SEC_FETCH_FAILED",
-      "COST": "SEC_FETCH_FAILED",
-      "CRDO": "SEC_FETCH_FAILED",
+      "ADBE": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
+      "ADI": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
+      "AMD": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
+      "AMAT": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
+      "AMGN": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
+      "AMZN": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
+      "ANET": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
+      "APP": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
+      "AVGO": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
+      "AXP": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
+      "BKNG": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
+      "CAT": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
+      "CEG": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
+      "CLS": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
+      "COIN": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
+      "COST": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
+      "CRDO": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
       "CSCO": "REVIEWED_OFFICIAL_REFERENCE",
-      "CVX": "SEC_FETCH_FAILED",
-      "DDOG": "SEC_FETCH_FAILED",
-      "DE": "SEC_FETCH_FAILED",
-      "DELL": "SEC_FETCH_FAILED",
-      "DUOL": "SEC_FETCH_FAILED",
-      "ETN": "SEC_FETCH_FAILED",
-      "GE": "SEC_FETCH_FAILED",
-      "GEV": "SEC_FETCH_FAILED",
-      "GILD": "SEC_FETCH_FAILED",
-      "GOOGL": "SEC_FETCH_FAILED",
-      "GS": "SEC_FETCH_FAILED",
-      "HOOD": "SEC_FETCH_FAILED",
-      "IBM": "SEC_FETCH_FAILED",
-      "JPM": "SEC_FETCH_FAILED",
+      "CVX": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
+      "DDOG": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
+      "DE": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
+      "DELL": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
+      "DUOL": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
+      "ETN": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
+      "GE": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
+      "GEV": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
+      "GILD": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
+      "GOOGL": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
+      "GS": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
+      "HOOD": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
+      "IBM": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
+      "JPM": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
       "KLAC": "REVIEWED_OFFICIAL_REFERENCE",
-      "LLY": "SEC_FETCH_FAILED",
-      "LRCX": "SEC_FETCH_FAILED",
-      "MA": "SEC_FETCH_FAILED",
-      "META": "SEC_FETCH_FAILED",
-      "MPWR": "SEC_FETCH_FAILED",
+      "LLY": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
+      "LRCX": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
+      "MA": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
+      "META": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
+      "MPWR": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
       "MRVL": "RULE_EXCLUDED_REVIEWED",
-      "MS": "SEC_FETCH_FAILED",
+      "MS": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
       "MSFT": "REVIEWED_OFFICIAL_REFERENCE",
-      "MU": "SEC_FETCH_FAILED",
-      "NFLX": "SEC_FETCH_FAILED",
-      "NOW": "SEC_FETCH_FAILED",
-      "NVDA": "SEC_FETCH_FAILED",
-      "ORCL": "SEC_FETCH_FAILED",
+      "MU": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
+      "NFLX": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
+      "NOW": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
+      "NVDA": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
+      "ORCL": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
       "PANW": "RULE_EXCLUDED_REVIEWED",
-      "PLTR": "SEC_FETCH_FAILED",
-      "QCOM": "SEC_FETCH_FAILED",
-      "RTX": "SEC_FETCH_FAILED",
+      "PLTR": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
+      "QCOM": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
+      "RTX": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
       "SPOT": "REVIEWED_OFFICIAL_REFERENCE",
-      "THC": "SEC_FETCH_FAILED",
+      "THC": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
       "TSM": "REVIEWED_OFFICIAL_REFERENCE",
-      "TSLA": "SEC_FETCH_FAILED",
-      "UBER": "SEC_FETCH_FAILED",
+      "TSLA": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
+      "UBER": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
       "V": "REVIEWED_OFFICIAL_REFERENCE",
-      "VRT": "SEC_FETCH_FAILED",
-      "WAB": "SEC_FETCH_FAILED",
-      "WDC": "SEC_FETCH_FAILED",
-      "WMT": "SEC_FETCH_FAILED",
-      "XYZ": "SEC_FETCH_FAILED",
+      "VRT": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
+      "WAB": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
+      "WDC": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
+      "WMT": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
+      "XYZ": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
       "GD": "REVIEWED_OFFICIAL_REFERENCE",
       "BABA": "REVIEWED_OFFICIAL_REFERENCE",
-      "SWKS": "SEC_FETCH_FAILED",
+      "SWKS": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
       "RH": "REVIEWED_OFFICIAL_REFERENCE",
-      "UPBD": "SEC_FETCH_FAILED",
+      "UPBD": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
       "BA": "RULE_EXCLUDED_REVIEWED",
       "CRWD": "RULE_EXCLUDED_REVIEWED",
       "SNDK": "RULE_EXCLUDED_REVIEWED",
@@ -2258,8 +2579,8 @@
       "scope": "NEW_US_STOCK_CANDIDATES_ONLY",
       "bucket_counts": {
         "A": 0,
-        "B": 1,
-        "C": 1,
+        "B": 5,
+        "C": 0,
         "REJECT": 0,
         "INNOVATION_OPTION": 0,
         "EXISTING_POSITION": 0
@@ -2279,7 +2600,7 @@
       "action_policy": "NO_CTA_OR_ACTION_AUTHORITY",
       "missing_evidence_policy": "UNCLASSIFIED_NEVER_INFERRED"
     },
-    "publication_status": "LAST_VALID"
+    "publication_status": "CURRENT"
   },
   "corporate_action_validation": [],
   "provider_fallback_policy": "yahoo_finance_raw_primary; alpha_vantage_core_price_fallback; tiingo_parallel_verified_terminal_scan_repair; coinbase_verified_btc_completed_day_repair; partial_current_scan_only_with_explicit_validation_failures; last_successful_cache_on_failure"
