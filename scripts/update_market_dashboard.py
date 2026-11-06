@@ -448,7 +448,10 @@ def update(
 
         repair_candidate = _us_session_repair_candidate(reference_time)
         if (
-            config.symbol in CORE_ALPHA_FALLBACK_SYMBOLS
+            (
+                config.symbol in CORE_ALPHA_FALLBACK_SYMBOLS
+                or config.symbol in INNOVATION_OPTION_SYMBOLS
+            )
             and client is not None
             and history
             and history[-1].trading_date < repair_candidate
@@ -580,6 +583,33 @@ def update(
     )
     spcx_history = merge_and_adjust(spcx_existing, spcx_incoming)
     providers["SPCX"] = "yahoo_finance_raw"
+    repair_candidate = _us_session_repair_candidate(reference_time)
+    if (
+        client is not None
+        and spcx_history
+        and spcx_history[-1].trading_date < repair_candidate
+    ):
+        try:
+            repaired = _alpha_price_fallback(
+                spcx, spcx_history, client, refresh_actions=False
+            )
+            repaired = _drop_incomplete_us_session(
+                spcx, repaired, incomplete_us_session
+            )
+            if (
+                repaired
+                and repaired[-1].trading_date > spcx_history[-1].trading_date
+            ):
+                spcx_history = repaired
+                providers["SPCX"] = (
+                    "yahoo_finance_raw+alpha_vantage_latest_session_repair"
+                )
+        except Exception as exc:
+            logging.warning(
+                "SPCX latest-session repair for %s failed: %s",
+                repair_candidate,
+                type(exc).__name__,
+            )
     staged.append((spcx, spcx_history))
     innovation_histories["SPCX"] = spcx_history
 
