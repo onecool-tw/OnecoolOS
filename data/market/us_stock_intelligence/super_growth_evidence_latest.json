@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "module": "Onecool US Super Growth Evidence",
-  "generated_at": "2026-10-03T11:53:45.501Z",
+  "generated_at": "2026-11-07T00:35:00+00:00",
   "decision_authority": "NEW_CANDIDATE_RESEARCH_GATE_ONLY",
   "evidence_policy": "PASS_OR_FAIL_REQUIRES_DATED_RATIONALE_AND_SOURCE",
   "valuation_freshness_policy": "VALUATION_OLDER_THAN_7_TRADING_DAYS_MUST_BE_REFRESHED_OR_UNKNOWN",
@@ -285,7 +285,7 @@
       "company_name": "AbbVie Inc.",
       "sector": "Healthcare",
       "industry": "Drug Manufacturers",
-      "as_of": "2026-09-17",
+      "as_of": "2026-11-06",
       "gates": {
         "competitive_advantage": {
           "status": "PASS",
@@ -329,11 +329,39 @@
           ]
         },
         "valuation": {
-          "status": "UNKNOWN",
-          "as_of": "2026-11-05",
-          "rationale": "CURRENT_DISCLOSURE_CHECK_UNAVAILABLE",
-          "sources": [],
-          "data_gap": "CURRENT_DISCLOSURE_CHECK_UNAVAILABLE"
+          "status": "FAIL",
+          "as_of": "2026-11-06",
+          "price_as_of": "2026-11-06",
+          "valid_through": "2026-11-16",
+          "method": "FORWARD_ADJUSTED_PE_FULL_YEAR_ACQUISITION_STRESS",
+          "rationale": "Uses the acquisition-stressed EPS bridge and current Q3 guidance; Humira erosion, leverage and IPR&D constrain the disciplined range.",
+          "sources": [
+            "https://news.abbvie.com/2026-10-30-AbbVie-Reports-Third-Quarter-2026-Financial-Results",
+            "https://finance.yahoo.com/quote/ABBV/history/"
+          ],
+          "price_source": {
+            "provider": "yahoo_finance_adjusted_batch",
+            "symbol": "ABBV",
+            "as_of": "2026-11-06",
+            "url": "https://finance.yahoo.com/quote/ABBV/history/"
+          },
+          "denominator_source": [
+            "https://news.abbvie.com/2026-10-30-AbbVie-Reports-Third-Quarter-2026-Financial-Results"
+          ],
+          "fair_range_rationale": "Uses the acquisition-stressed EPS bridge and current Q3 guidance; Humira erosion, leverage and IPR&D constrain the disciplined range.",
+          "fair_range_sources": [
+            "https://news.abbvie.com/2026-10-30-AbbVie-Reports-Third-Quarter-2026-Financial-Results",
+            "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+          ],
+          "inputs": {
+            "price": 291.31,
+            "denominator": 13.44,
+            "multiple": 21.67,
+            "fair_range": [
+              8.55,
+              16.74
+            ]
+          }
         }
       },
       "valuation_input_collection": {
@@ -2570,7 +2598,7 @@
       "company_name": "Tenet Healthcare Corporation",
       "sector": "Healthcare",
       "industry": "Hospitals and ambulatory care",
-      "as_of": "2026-10-13",
+      "as_of": "2026-11-06",
       "gates": {
         "competitive_advantage": {
           "status": "PASS",
@@ -2614,10 +2642,39 @@
           "data_gap": "PRE_TRADE_USER_CONFIRMATION_ONLY"
         },
         "valuation": {
-          "status": "UNKNOWN",
-          "as_of": "2026-11-05",
-          "rationale": "Current-session valuation model not yet validated.",
-          "sources": []
+          "status": "PASS",
+          "as_of": "2026-11-06",
+          "price_as_of": "2026-11-06",
+          "valid_through": "2026-11-16",
+          "method": "FORWARD_ADJUSTED_PE_WITH_NCI_FCF_CROSSCHECK",
+          "rationale": "Uses the low end of current FY2026 adjusted EPS outlook with NCI and FCF cross-check; payer mix, leverage and one-time contract effects constrain the range.",
+          "sources": [
+            "https://investor.tenethealth.com/press-releases/press-release-details/2026/Tenet-Reports-Strong-Third-Quarter-2026-Results-Raises-2026-Financial-Outlook/default.aspx",
+            "https://finance.yahoo.com/quote/THC/history/"
+          ],
+          "price_source": {
+            "provider": "yahoo_finance_adjusted_batch",
+            "symbol": "THC",
+            "as_of": "2026-11-06",
+            "url": "https://finance.yahoo.com/quote/THC/history/"
+          },
+          "denominator_source": [
+            "https://investor.tenethealth.com/press-releases/press-release-details/2026/Tenet-Reports-Strong-Third-Quarter-2026-Results-Raises-2026-Financial-Outlook/default.aspx"
+          ],
+          "fair_range_rationale": "Uses the low end of current FY2026 adjusted EPS outlook with NCI and FCF cross-check; payer mix, leverage and one-time contract effects constrain the range.",
+          "fair_range_sources": [
+            "https://investor.tenethealth.com/press-releases/press-release-details/2026/Tenet-Reports-Strong-Third-Quarter-2026-Results-Raises-2026-Financial-Outlook/default.aspx",
+            "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+          ],
+          "inputs": {
+            "price": 283.33,
+            "denominator": 22.05,
+            "multiple": 12.85,
+            "fair_range": [
+              8.18,
+              14.49
+            ]
+          }
         }
       },
       "business_model": "醫院及USPI門診手術設施服務收入，Conifer收入週期管理；收入由病例、acuity、給付者組合及收購驅動。",
@@ -2996,67 +3053,36 @@
       "gates": {
         "valuation": {
           "status": "FAIL",
-          "as_of": "2026-11-05",
-          "price_as_of": "2026-11-05",
-          "valid_through": "2026-11-05",
+          "as_of": "2026-11-06",
+          "price_as_of": "2026-11-06",
+          "valid_through": "2026-11-16",
           "method": "FORWARD_NORMALIZED_PE_EX_KNOWN_Q3_ACQUIRED_IPRD",
-          "rationale": "Mounjaro and Zepbound support high growth, while pricing, launch investment and acquisition execution constrain distributable earnings.",
+          "rationale": "Uses current FY2026 normalized EPS bridge; high growth is offset by pricing, launch investment and acquisition execution risk.",
           "sources": [
             "https://investor.lilly.com/news-releases/news-release-details/lilly-reports-third-quarter-2026-financial-results-raises-full",
-            "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+            "https://finance.yahoo.com/quote/LLY/history/"
           ],
           "price_source": {
             "provider": "yahoo_finance_adjusted_batch",
             "symbol": "LLY",
-            "as_of": "2026-11-05",
+            "as_of": "2026-11-06",
             "url": "https://finance.yahoo.com/quote/LLY/history/"
           },
           "denominator_source": [
             "https://investor.lilly.com/news-releases/news-release-details/lilly-reports-third-quarter-2026-financial-results-raises-full"
           ],
-          "fair_range_rationale": "Five-year 12%/18% growth, 65%/75% interim cash conversion, 80%/90% terminal conversion, 12%/10% required return and 2.5%/3% terminal growth are Onecool analyst screening assumptions selected without using the current share price.",
+          "fair_range_rationale": "Uses current FY2026 normalized EPS bridge; high growth is offset by pricing, launch investment and acquisition execution risk.",
           "fair_range_sources": [
             "https://investor.lilly.com/news-releases/news-release-details/lilly-reports-third-quarter-2026-financial-results-raises-full",
             "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
           ],
-          "normalization_bridge": {
-            "formula": "FY26 non-GAAP EPS guidance midpoint 35.50 + Q3 acquired IPR&D 4.57",
-            "inputs": [
-              35.5,
-              4.57
-            ],
-            "limitations": "Removes the disclosed Q3 acquired IPR&D charge only; does not assume unannounced transactions or pipeline revenue."
-          },
-          "policy_version": "onecool_equity_two_stage_screen_v1",
-          "assumption_authority": "ONECOOL_ANALYST_NOT_ISSUER_GUIDANCE",
-          "scenarios": [
-            {
-              "name": "conservative",
-              "years": 5,
-              "growth": 0.12,
-              "required_return": 0.12,
-              "terminal_growth": 0.025,
-              "cash_conversion": 0.65,
-              "terminal_cash_conversion": 0.8
-            },
-            {
-              "name": "base",
-              "years": 5,
-              "growth": 0.18,
-              "required_return": 0.1,
-              "terminal_growth": 0.03,
-              "cash_conversion": 0.75,
-              "terminal_cash_conversion": 0.9
-            }
-          ],
-          "research_grade": "SCREENING_SCENARIO_NOT_FULL_DCF",
           "inputs": {
-            "price": 1364.72998046875,
+            "price": 1354.0,
             "denominator": 40.07,
-            "multiple": 34.05864687967931,
+            "multiple": 33.79,
             "fair_range": [
-              11.881578947368421,
-              23.463686944114407
+              11.88,
+              23.46
             ]
           }
         },
@@ -3209,13 +3235,13 @@
         }
       },
       "company_name": "Eli Lilly and Company",
-      "as_of": "2026-10-16",
+      "as_of": "2026-11-06",
       "business_model": "糖尿病與肥胖症等專利藥品；收入取決於用藥人數、給付價格、產能及產品組合。"
     },
     {
       "symbol": "AMGN",
       "company_name": "Amgen Inc.",
-      "as_of": "2026-10-19",
+      "as_of": "2026-11-06",
       "business_model": "專利藥、罕病及生物相似藥；用藥人數、適應症與淨售價驅動收入。",
       "gates": {
         "competitive_advantage": {
@@ -3255,10 +3281,39 @@
           ]
         },
         "valuation": {
-          "status": "UNKNOWN",
-          "as_of": "2026-11-05",
-          "rationale": "Current-session valuation model not yet validated.",
-          "sources": []
+          "status": "FAIL",
+          "as_of": "2026-11-06",
+          "price_as_of": "2026-11-06",
+          "valid_through": "2026-11-16",
+          "method": "FORWARD_GAAP_PE_LOW_END_FY2026_GUIDANCE",
+          "rationale": "Uses the low end of current FY2026 GAAP EPS guidance; mature-product erosion, leverage and regulatory risk retain the existing 8.11–13.98x discipline range.",
+          "sources": [
+            "https://investors.amgen.com/news-releases/news-release-details/amgen-reports-third-quarter-2026-financial-results",
+            "https://finance.yahoo.com/quote/AMGN/history/"
+          ],
+          "price_source": {
+            "provider": "yahoo_finance_adjusted_batch",
+            "symbol": "AMGN",
+            "as_of": "2026-11-06",
+            "url": "https://finance.yahoo.com/quote/AMGN/history/"
+          },
+          "denominator_source": [
+            "https://investors.amgen.com/news-releases/news-release-details/amgen-reports-third-quarter-2026-financial-results"
+          ],
+          "fair_range_rationale": "Uses the low end of current FY2026 GAAP EPS guidance; mature-product erosion, leverage and regulatory risk retain the existing 8.11–13.98x discipline range.",
+          "fair_range_sources": [
+            "https://investors.amgen.com/news-releases/news-release-details/amgen-reports-third-quarter-2026-financial-results",
+            "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+          ],
+          "inputs": {
+            "price": 460.42,
+            "denominator": 18.34,
+            "multiple": 25.1,
+            "fair_range": [
+              8.11,
+              13.98
+            ]
+          }
         },
         "circle_of_competence": {
           "status": "UNKNOWN",
@@ -3630,7 +3685,93 @@
       "industry": "Credit Services",
       "as_of": "2026-11-06",
       "business_model": "全球支付網路；收入由支付量、跨境交易、處理筆數及增值服務驅動，不承擔主要消費信貸風險。"
+    },
+    {
+      "symbol": "ABNB",
+      "company_name": "Airbnb, Inc.",
+      "sector": "Consumer Discretionary",
+      "industry": "Travel marketplace",
+      "as_of": "2026-11-06",
+      "business_model": "雙邊旅遊住宿與體驗平台；收入主要由預訂總額、住宿晚數、平均房價與平台費率驅動。",
+      "gates": {
+        "competitive_advantage": {
+          "status": "PASS",
+          "as_of": "2026-11-05",
+          "rationale": "全球房源、旅客需求、品牌與雙邊評價形成網路效應；Q3所有區域住宿晚數均為雙位數成長。",
+          "sources": [
+            "https://news.airbnb.com/airbnb-q3-2026-financial-results"
+          ]
+        },
+        "structural_growth_runway": {
+          "status": "PASS",
+          "as_of": "2026-11-05",
+          "rationale": "Q3營收年增19%、GBV增21%、住宿與座位預訂增16%，並由核心與拓展市場共同加速。",
+          "sources": [
+            "https://news.airbnb.com/airbnb-q3-2026-financial-results"
+          ]
+        },
+        "financial_quality": {
+          "status": "PASS",
+          "as_of": "2026-11-05",
+          "rationale": "Q3淨利19億美元、調整後EBITDA 25億美元且利潤率52%；另核准新增120億美元庫藏股。",
+          "sources": [
+            "https://news.airbnb.com/airbnb-q3-2026-financial-results"
+          ]
+        },
+        "business_risk_and_governance": {
+          "status": "PASS",
+          "as_of": "2026-11-05",
+          "rationale": "旅遊景氣、地方短租監管、供給品質與新服務投資為主要風險；官方Q3資料未顯示足以否決研究資格的事件。",
+          "sources": [
+            "https://news.airbnb.com/airbnb-q3-2026-financial-results"
+          ]
+        },
+        "circle_of_competence": {
+          "status": "UNKNOWN",
+          "as_of": "2026-11-05",
+          "rationale": "正式建倉前確認對平台網路效應、旅遊循環與地方監管風險的理解。",
+          "sources": [
+            "https://news.airbnb.com/airbnb-q3-2026-financial-results"
+          ],
+          "data_gap": "PRE_TRADE_USER_CONFIRMATION_ONLY"
+        },
+        "valuation": {
+          "status": "FAIL",
+          "as_of": "2026-11-06",
+          "price_as_of": "2026-11-06",
+          "valid_through": "2026-11-16",
+          "method": "TRAILING_GAAP_PE_Q3_2026",
+          "rationale": "Q3 revenue grew 19%, but the marketplace remains travel-cycle and regulation exposed; Onecool applies a 25–32x screening range to reported trailing GAAP EPS.",
+          "sources": [
+            "https://news.airbnb.com/airbnb-q3-2026-financial-results",
+            "https://finance.yahoo.com/quote/ABNB/history/"
+          ],
+          "price_source": {
+            "provider": "yahoo_finance_adjusted_batch",
+            "symbol": "ABNB",
+            "as_of": "2026-11-06",
+            "url": "https://finance.yahoo.com/quote/ABNB/history/"
+          },
+          "denominator_source": [
+            "https://news.airbnb.com/airbnb-q3-2026-financial-results"
+          ],
+          "fair_range_rationale": "Q3 revenue grew 19%, but the marketplace remains travel-cycle and regulation exposed; Onecool applies a 25–32x screening range to reported trailing GAAP EPS.",
+          "fair_range_sources": [
+            "https://news.airbnb.com/airbnb-q3-2026-financial-results",
+            "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+          ],
+          "inputs": {
+            "price": 189.99,
+            "denominator": 4.03,
+            "multiple": 47.14,
+            "fair_range": [
+              25.0,
+              32.0
+            ]
+          }
+        }
+      }
     }
   ],
-  "valuation_models_reviewed_at": "2026-10-06"
+  "valuation_models_reviewed_at": "2026-11-07T00:35:00+00:00"
 }
