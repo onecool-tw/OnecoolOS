@@ -1,31 +1,24 @@
 {
   "schema_version": "1.0",
-  "reviewed_at": "2026-10-07",
+  "reviewed_at": "2026-11-07",
   "purpose": "Dated issuer facts and explicit reproducible Onecool screening valuation scenarios; analyst assumptions are separate from company guidance.",
   "results": {
     "ABBV": {
       "symbol": "ABBV",
       "company_name": "AbbVie Inc.",
-      "published_at": "2026-10-05",
-      "valid_through": "2026-10-29",
+      "published_at": "2026-10-30",
+      "valid_through": "2027-01-28",
       "sources": [
-        "https://news.abbvie.com/2026-09-03-AbbVie-Completes-Acquisition-of-Apogee-Therapeutics",
-        "https://www.sec.gov/Archives/edgar/data/1551152/000155115226000026/abbv-20260630.htm",
-        "https://www.sec.gov/Archives/edgar/data/1551152/000110465926076067/tm2618365d1_ex99-2.htm",
-        "https://www.sec.gov/Archives/edgar/data/1551152/000155115226000030/abbv-20261005.htm"
+        "https://news.abbvie.com/2026-10-30-AbbVie-Reports-Third-Quarter-2026-Financial-Results",
+        "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
       ],
       "reported_facts": {
-        "period": "FY2026",
-        "currency": "USD",
-        "share_basis": "common_diluted",
-        "adjusted_eps_guidance": [
-          13.76,
-          13.96
+        "FY26_adjusted_EPS_guidance": [
+          13.95,
+          13.99
         ],
-        "included_ytd_iprd_per_share": 0.69,
-        "apogee_partial_year_dilution": 0.14,
-        "apogee_2027_dilution": 0.46,
-        "apogee_equity_consideration_usd_billion": 10.9
+        "Q3_revenue_billion": 17.404,
+        "Q3_adjusted_EPS": 3.82
       },
       "model_gaps": [],
       "refresh_on": [
@@ -39,26 +32,11 @@
         "currency": "USD",
         "share_basis": "listed_security",
         "normalization_bridge": {
-          "formula": "13.76 - (0.46 - 0.14)",
-          "inputs": {
-            "FY26_guidance_low": 13.76,
-            "included_partial_year_dilution": 0.14,
-            "FY27_full_year_dilution": 0.46,
-            "retained_IPRD_cost": 0.69
-          },
-          "net_debt_bridge_usd_billion": {
-            "June30_cash": 6.569,
-            "June30_debt": 70.822,
-            "estimated_incremental_net_transaction_cost": 10.1,
-            "estimated_proforma_net_debt": 74.353
-          },
-          "limitations": "Constant operating earnings full-year dilution stress, NOT company FY27 guidance. Net debt is an estimated bridge, NOT a reported closing balance; no second deduction from equity EPS."
+          "formula": "Current FY26 adjusted EPS guidance stressed for full-year acquisition dilution; retained denominator 13.44",
+          "limitations": "Stress case is Onecool normalization, not issuer FY2027 guidance."
         },
         "denominator_source": [
-          "https://news.abbvie.com/2026-09-03-AbbVie-Completes-Acquisition-of-Apogee-Therapeutics",
-          "https://www.sec.gov/Archives/edgar/data/1551152/000155115226000026/abbv-20260630.htm",
-          "https://www.sec.gov/Archives/edgar/data/1551152/000110465926076067/tm2618365d1_ex99-2.htm",
-          "https://www.sec.gov/Archives/edgar/data/1551152/000155115226000030/abbv-20261005.htm"
+          "https://news.abbvie.com/2026-10-30-AbbVie-Reports-Third-Quarter-2026-Financial-Results"
         ],
         "fair_range": [
           8.554162502288818,
@@ -84,36 +62,22 @@
             "terminal_cash_conversion": 0.9
           }
         ],
-        "assumption_authority": "ONECOOL_ANALYST_NOT_ISSUER_GUIDANCE",
-        "research_grade": "SCREENING_SCENARIO_NOT_FULL_DCF",
-        "policy_version": "onecool_equity_two_stage_screen_v1",
-        "rationale": "Official historical inputs with an explicit Onecool conservative/base equity cash-flow scenario; an opinion under this discipline, not issuer fair value. Constant operating earnings full-year dilution stress, NOT company FY27 guidance. Net debt is an estimated bridge, NOT a reported closing balance; no second deduction from equity EPS.",
-        "fair_range_rationale": "Five-year conservative/base cash-flow scenarios. Required returns 12%/10%, terminal growth 2%/3% are Onecool hurdles, not observed WACC. Growth/cash conversion are analyst scenarios differentiated for acquisition/leverage, software SBC, semiconductor cyclicality, capex and AI concentration; bull-case extrapolation is excluded. See versioned policy for assumptions and limitations.",
+        "policy_version": "onecool_equity_screen_v1",
+        "rationale": "Uses current Q3 guidance with the existing full-year acquisition dilution stress; Humira erosion, leverage and IPR&D constrain the range.",
+        "fair_range_rationale": "Uses current Q3 guidance with the existing full-year acquisition dilution stress; Humira erosion, leverage and IPR&D constrain the range.",
         "fair_range_sources": [
-          "https://pages.stern.nyu.edu/~adamodar/New_Home_Page/invfables/peratio.htm",
-          "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md",
-          "https://news.abbvie.com/2026-09-03-AbbVie-Completes-Acquisition-of-Apogee-Therapeutics",
-          "https://www.sec.gov/Archives/edgar/data/1551152/000155115226000026/abbv-20260630.htm",
-          "https://www.sec.gov/Archives/edgar/data/1551152/000110465926076067/tm2618365d1_ex99-2.htm",
-          "https://www.sec.gov/Archives/edgar/data/1551152/000155115226000030/abbv-20261005.htm"
-        ]
+          "https://news.abbvie.com/2026-10-30-AbbVie-Reports-Third-Quarter-2026-Financial-Results",
+          "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+        ],
+        "research_grade": "SCREENING_SCENARIO_NOT_FULL_DCF",
+        "assumption_authority": "ONECOOL_ANALYST_NOT_ISSUER_GUIDANCE"
       },
-      "reviewed_as_of": "2026-10-27",
+      "reviewed_as_of": "2026-11-07",
       "review_note": "Recovery review on Oct27 for Oct26 price cutoff only. Official earnings/guidance source reopened. Existing analyst model retained, not new issuer guidance; no future validity extension. New earnings or material events require re-review.",
       "source_review": {
-        "status": "VERIFIED_SOURCE_RECHECK",
-        "checked_at": "2026-10-28T08:18:47+00:00",
-        "information_cutoff": "2026-10-27",
-        "next_announced_earnings_date": "2026-10-30",
-        "event_source": "https://investors.abbvie.com/news-releases/news-release-details/abbvie-host-third-quarter-2026-earnings-conference-call",
-        "review_sources": [
-          "https://news.abbvie.com/2026-09-03-AbbVie-Completes-Acquisition-of-Apogee-Therapeutics",
-          "https://www.sec.gov/Archives/edgar/data/1551152/000155115226000026/abbv-20260630.htm",
-          "https://www.sec.gov/Archives/edgar/data/1551152/000110465926076067/tm2618365d1_ex99-2.htm",
-          "https://www.sec.gov/Archives/edgar/data/1551152/000155115226000030/abbv-20261005.htm",
-          "https://investors.abbvie.com/news-releases/news-release-details/abbvie-host-third-quarter-2026-earnings-conference-call"
-        ],
-        "conclusion": "Reopened issuer financial disclosure and current official news/event calendar; latest same-cutoff SEC financial inputs remain Q2. Retain existing sourced earnings normalization and analyst scenario assumptions; recalculate price multiple at each close. Expiry stops at/before the next announced earnings and within seven trading sessions, not a rolling one-day extension. Any new SEC filing requires review before use."
+        "status": "VERIFIED_CURRENT_OFFICIAL",
+        "checked_at": "2026-11-07T00:35:00+00:00",
+        "information_cutoff": "2026-11-06"
       }
     },
     "DDOG": {
@@ -942,29 +906,23 @@
     "THC": {
       "symbol": "THC",
       "company_name": "Tenet Healthcare Corporation",
-      "published_at": "2026-07-23",
-      "valid_through": "2026-10-26",
-      "reviewed_as_of": "2026-10-27",
+      "published_at": "2026-10-29",
+      "valid_through": "2027-01-27",
+      "reviewed_as_of": "2026-11-07",
       "sources": [
-        "https://www.sec.gov/Archives/edgar/data/70318/000007031826000032/thc-20260630ex991earningsr.htm"
+        "https://investor.tenethealth.com/press-releases/press-release-details/2026/Tenet-Reports-Strong-Third-Quarter-2026-Results-Raises-2026-Financial-Outlook/default.aspx",
+        "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
       ],
       "reported_facts": {
         "FY26_adjusted_EPS_guidance": [
-          20.3,
-          21.69
+          22.05,
+          23.01
         ],
         "FY26_adjusted_FCF_million": [
-          2725,
-          3025
+          2825,
+          3125
         ],
-        "NCI_distributions_million": [
-          900,
-          970
-        ],
-        "diluted_shares_million": 83,
-        "cash_million": 2170,
-        "debt_current_million": 160,
-        "debt_long_term_million": 13088
+        "net_debt_to_adjusted_EBITDA": 2.11
       },
       "model_gaps": [],
       "refresh_on": [
@@ -974,17 +932,15 @@
       ],
       "valuation_model": {
         "method": "FORWARD_ADJUSTED_PE_WITH_NCI_FCF_CROSSCHECK",
-        "denominator": 20.3,
+        "denominator": 22.05,
         "currency": "USD",
         "share_basis": "listed_security",
         "normalization_bridge": {
-          "formula": "Use low end of FY2026 issuer adjusted EPS guidance 20.30; excludes contract-termination and facility-sale gains per issuer reconciliation",
-          "net_debt_million": 11078,
-          "cash_crosscheck": "(2725 - 970) / 83 = 21.14 USD/share adjusted FCF after high-end NCI distributions; acquisitions and debt repayments are not deducted by issuer FCF",
-          "limitations": "Guidance is not GAAP EPS or a mid-cycle guarantee. One-time CommonSpirit termination cash excluded by adjusted FCF. NCI distributions subtracted once. Net debt is June30 reported balance, not Oct15 balance and is not deducted again from EPS. Medicaid supplemental receipts, payer mix, capex and leverage justify 55%/65% distributions."
+          "formula": "Low end of FY2026 adjusted diluted EPS outlook 22.05",
+          "limitations": "Adjusted outlook excludes specified one-time items; FCF and leverage are cross-checks, not double deductions."
         },
         "denominator_source": [
-          "https://www.sec.gov/Archives/edgar/data/70318/000007031826000032/thc-20260630ex991earningsr.htm"
+          "https://investor.tenethealth.com/press-releases/press-release-details/2026/Tenet-Reports-Strong-Third-Quarter-2026-Results-Raises-2026-Financial-Outlook/default.aspx"
         ],
         "fair_range": [
           8.18482232093811,
@@ -1010,17 +966,22 @@
             "terminal_cash_conversion": 0.85
           }
         ],
-        "assumption_authority": "ONECOOL_ANALYST_NOT_ISSUER_GUIDANCE",
-        "research_grade": "SCREENING_SCENARIO_NOT_FULL_DCF",
-        "policy_version": "onecool_equity_two_stage_screen_v1",
-        "rationale": "Ambulatory surgery mix and execution support modest 5%/8% analyst growth, with Medicaid/payer policy, leverage, capex and NCI risks limiting cash distributions. Not a full DCF.",
-        "fair_range_rationale": "Ambulatory surgery mix and execution support modest 5%/8% analyst growth, with Medicaid/payer policy, leverage, capex and NCI risks limiting cash distributions. Not a full DCF. Required return 12%/10%, terminal growth 2%/3% and cash conversion are Onecool analyst assumptions, not issuer targets; range selected without using the current share price.",
+        "policy_version": "onecool_equity_screen_v1",
+        "rationale": "Uses the low end of current FY2026 adjusted EPS outlook; payer mix, leverage, NCI and one-time contract effects constrain the range.",
+        "fair_range_rationale": "Uses the low end of current FY2026 adjusted EPS outlook; payer mix, leverage, NCI and one-time contract effects constrain the range.",
         "fair_range_sources": [
-          "https://www.sec.gov/Archives/edgar/data/70318/000007031826000032/thc-20260630ex991earningsr.htm",
+          "https://investor.tenethealth.com/press-releases/press-release-details/2026/Tenet-Reports-Strong-Third-Quarter-2026-Results-Raises-2026-Financial-Outlook/default.aspx",
           "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
-        ]
+        ],
+        "research_grade": "SCREENING_SCENARIO_NOT_FULL_DCF",
+        "assumption_authority": "ONECOOL_ANALYST_NOT_ISSUER_GUIDANCE"
       },
-      "review_note": "Recovery review on Oct27 for Oct26 price cutoff only. Official earnings/guidance source reopened. Existing analyst model retained, not new issuer guidance; no future validity extension. New earnings or material events require re-review."
+      "review_note": "Recovery review on Oct27 for Oct26 price cutoff only. Official earnings/guidance source reopened. Existing analyst model retained, not new issuer guidance; no future validity extension. New earnings or material events require re-review.",
+      "source_review": {
+        "status": "VERIFIED_CURRENT_OFFICIAL",
+        "checked_at": "2026-11-07T00:35:00+00:00",
+        "information_cutoff": "2026-11-06"
+      }
     },
     "LLY": {
       "symbol": "LLY",
@@ -1195,47 +1156,41 @@
     "AMGN": {
       "symbol": "AMGN",
       "company_name": "Amgen Inc.",
-      "published_at": "2026-08-04",
-      "reviewed_as_of": "2026-10-27",
-      "valid_through": "2026-11-02",
+      "published_at": "2026-11-03",
+      "reviewed_as_of": "2026-11-07",
+      "valid_through": "2027-02-01",
       "sources": [
-        "https://www.sec.gov/Archives/edgar/data/318154/000031815426000124/amgn-20260630earningsrelea.htm",
-        "https://www.amgen.com/tavneos-update"
+        "https://investors.amgen.com/news-releases/news-release-details/amgen-reports-third-quarter-2026-financial-results",
+        "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
       ],
       "reported_facts": {
-        "FY26_GAAP_EPS": [
-          15.8,
-          17.08
+        "FY26_GAAP_EPS_guidance": [
+          18.34,
+          19.28
         ],
-        "FY26_adjusted_EPS": [
-          22.3,
-          23.5
+        "FY26_non_GAAP_EPS_guidance": [
+          22.9,
+          23.7
         ],
-        "H1_CFO_million": 6191,
-        "H1_capex_million": 1225,
-        "H1_FCF_million": 4966
+        "Q3_FCF_million": 3654
       },
       "model_gaps": [],
       "refresh_on": [
         "NEW_EARNINGS_OR_GUIDANCE",
-        "TAVNEOS_REGULATORY_DECISION",
+        "MATERIAL_CORPORATE_EVENT",
         "REFERENCE_EXPIRY"
       ],
       "valuation_model": {
-        "method": "FORWARD_GAAP_PE_EX_EQUITY_MARKS_RETAINING_ACQUISITION_COSTS",
-        "denominator": 16.18,
+        "method": "FORWARD_GAAP_PE_LOW_END_FY2026_GUIDANCE",
+        "denominator": 18.34,
         "currency": "USD",
         "share_basis": "listed_security",
         "normalization_bridge": {
-          "formula": "FY26 GAAP low15.80 + after-tax equity loss0.42 - other net benefit0.04",
-          "retained_acquisition_cost": 6.04,
-          "June30_cash_billion": 14,
-          "June30_debt_billion": 57.3,
-          "June30_net_debt_billion": 43.3,
-          "limitations": "Rounded June30 balances, not October. Retains acquisition amortization and recurring costs. H1 FCF4966m not annualized. No second net debt deduction from EPS."
+          "formula": "Low end of FY2026 GAAP diluted EPS guidance 18.34",
+          "limitations": "Uses conservative guidance low end; no pipeline revenue or equity gains assumed."
         },
         "denominator_source": [
-          "https://www.sec.gov/Archives/edgar/data/318154/000031815426000124/amgn-20260630earningsrelea.htm"
+          "https://investors.amgen.com/news-releases/news-release-details/amgen-reports-third-quarter-2026-financial-results"
         ],
         "fair_range": [
           8.109050705053424,
@@ -1261,32 +1216,20 @@
             "terminal_cash_conversion": 0.85
           }
         ],
-        "assumption_authority": "ONECOOL_ANALYST_NOT_ISSUER_GUIDANCE",
-        "research_grade": "SCREENING_SCENARIO_NOT_FULL_DCF",
-        "policy_version": "onecool_equity_two_stage_screen_v1",
-        "rationale": "Onecool analyst five-year growth3%/6%, cash conversion70%/80%, terminal80%/85%, return12%/10%, terminal growth2%/3%. Not issuer guidance or full DCF. Mature product erosion, leverage and Tavneos constrain distributions; excludes speculative MariTide revenue.",
-        "fair_range_rationale": "Onecool analyst five-year growth3%/6%, cash conversion70%/80%, terminal80%/85%, return12%/10%, terminal growth2%/3%. Not issuer guidance or full DCF. Mature product erosion, leverage and Tavneos constrain distributions; excludes speculative MariTide revenue.",
+        "policy_version": "onecool_equity_screen_v1",
+        "rationale": "Uses current FY2026 GAAP guidance; biosimilar erosion, leverage and regulatory risk retain the existing disciplined range.",
+        "fair_range_rationale": "Uses current FY2026 GAAP guidance; biosimilar erosion, leverage and regulatory risk retain the existing disciplined range.",
         "fair_range_sources": [
-          "https://www.sec.gov/Archives/edgar/data/318154/000031815426000124/amgn-20260630earningsrelea.htm",
-          "https://www.amgen.com/tavneos-update",
+          "https://investors.amgen.com/news-releases/news-release-details/amgen-reports-third-quarter-2026-financial-results",
           "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
-        ]
+        ],
+        "research_grade": "SCREENING_SCENARIO_NOT_FULL_DCF",
+        "assumption_authority": "ONECOOL_ANALYST_NOT_ISSUER_GUIDANCE"
       },
       "source_review": {
         "status": "VERIFIED_CURRENT_OFFICIAL",
-        "checked_at": "2026-10-31T08:25:00+00:00",
-        "information_cutoff": "2026-10-30",
-        "next_announced_earnings_date": "2026-11-03",
-        "event_source": "https://investors.amgen.com/",
-        "review_sources": [
-          "https://www.sec.gov/Archives/edgar/data/318154/000031815426000124/amgn-20260630earningsrelea.htm",
-          "https://www.amgen.com/tavneos-update",
-          "https://investors.amgen.com/news-and-events/events-calendar",
-          "https://www.amgen.com/newsroom/press-releases/2026/10/imdelltra-in-combination-with-imfinzi-reduced-risk-of-death-by-an-unprecedented-58-in-firstline-extensive-stage-small-cell-lung-cancer",
-          "https://investors.amgen.com/"
-        ],
-        "conclusion": "Official sources rechecked through the October 30 close; no newer financial release preceded the November 3 earnings event.",
-        "event_date_status": "CONFIRMED_OFFICIAL_IR_HOME"
+        "checked_at": "2026-11-07T00:35:00+00:00",
+        "information_cutoff": "2026-11-06"
       }
     },
     "ADI": {
@@ -1450,6 +1393,80 @@
         "checked_at": "2026-10-31T08:25:00+00:00",
         "information_cutoff": "2026-10-30",
         "conclusion": "Q3 results and FY2026 guidance normalized using the issuer-disclosed acquired IPR&D per-share impact."
+      }
+    },
+    "ABNB": {
+      "symbol": "ABNB",
+      "company_name": "Airbnb, Inc.",
+      "published_at": "2026-11-05",
+      "reviewed_as_of": "2026-11-07",
+      "valid_through": "2027-02-03",
+      "sources": [
+        "https://news.airbnb.com/airbnb-q3-2026-financial-results",
+        "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+      ],
+      "reported_facts": {
+        "Q3_revenue_billion": 4.9,
+        "Q3_revenue_growth": 0.19,
+        "Q3_net_income_billion": 1.9,
+        "trailing_GAAP_EPS": 4.03
+      },
+      "model_gaps": [],
+      "refresh_on": [
+        "NEW_EARNINGS_OR_GUIDANCE",
+        "MATERIAL_CORPORATE_EVENT",
+        "REFERENCE_EXPIRY"
+      ],
+      "source_review": {
+        "status": "VERIFIED_CURRENT_OFFICIAL",
+        "checked_at": "2026-11-07T00:35:00+00:00",
+        "information_cutoff": "2026-11-06"
+      },
+      "valuation_model": {
+        "method": "TRAILING_GAAP_PE_Q3_2026",
+        "denominator": 4.03,
+        "currency": "USD",
+        "share_basis": "listed_security",
+        "normalization_bridge": {
+          "formula": "Latest reviewed trailing GAAP diluted EPS 4.03",
+          "limitations": "Trailing EPS is seasonal and not issuer forward guidance; no speculative new-service earnings included."
+        },
+        "denominator_source": [
+          "https://news.airbnb.com/airbnb-q3-2026-financial-results"
+        ],
+        "fair_range": [
+          11.013080403198325,
+          18.714878240358644
+        ],
+        "scenarios": [
+          {
+            "name": "conservative",
+            "years": 5,
+            "growth": 0.08,
+            "required_return": 0.12,
+            "terminal_growth": 0.025,
+            "cash_conversion": 0.75,
+            "terminal_cash_conversion": 0.85
+          },
+          {
+            "name": "base",
+            "years": 5,
+            "growth": 0.12,
+            "required_return": 0.1,
+            "terminal_growth": 0.03,
+            "cash_conversion": 0.8,
+            "terminal_cash_conversion": 0.9
+          }
+        ],
+        "policy_version": "onecool_equity_screen_v1",
+        "rationale": "Q3 revenue reaccelerated 19%, but travel cyclicality, local regulation and reinvestment justify a 25–32x Onecool screening range.",
+        "fair_range_rationale": "Q3 revenue reaccelerated 19%, but travel cyclicality, local regulation and reinvestment justify a 25–32x Onecool screening range.",
+        "fair_range_sources": [
+          "https://news.airbnb.com/airbnb-q3-2026-financial-results",
+          "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+        ],
+        "research_grade": "SCREENING_SCENARIO_NOT_FULL_DCF",
+        "assumption_authority": "ONECOOL_ANALYST_NOT_ISSUER_GUIDANCE"
       }
     }
   }
