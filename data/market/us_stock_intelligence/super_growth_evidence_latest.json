@@ -329,43 +329,15 @@
           ]
         },
         "valuation": {
-          "status": "FAIL",
+          "status": "UNKNOWN",
           "as_of": "2026-11-06",
-          "price_as_of": "2026-11-06",
-          "valid_through": "2026-11-16",
-          "method": "FORWARD_ADJUSTED_PE_FULL_YEAR_ACQUISITION_STRESS",
-          "rationale": "Uses the acquisition-stressed EPS bridge and current Q3 guidance; Humira erosion, leverage and IPR&D constrain the disciplined range.",
-          "sources": [
-            "https://news.abbvie.com/2026-10-30-AbbVie-Reports-Third-Quarter-2026-Financial-Results",
-            "https://finance.yahoo.com/quote/ABBV/history/"
-          ],
-          "price_source": {
-            "provider": "yahoo_finance_adjusted_batch",
-            "symbol": "ABBV",
-            "as_of": "2026-11-06",
-            "url": "https://finance.yahoo.com/quote/ABBV/history/"
-          },
-          "denominator_source": [
-            "https://news.abbvie.com/2026-10-30-AbbVie-Reports-Third-Quarter-2026-Financial-Results"
-          ],
-          "fair_range_rationale": "Uses the acquisition-stressed EPS bridge and current Q3 guidance; Humira erosion, leverage and IPR&D constrain the disciplined range.",
-          "fair_range_sources": [
-            "https://news.abbvie.com/2026-10-30-AbbVie-Reports-Third-Quarter-2026-Financial-Results",
-            "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
-          ],
-          "inputs": {
-            "price": 291.31,
-            "denominator": 13.44,
-            "multiple": 21.67,
-            "fair_range": [
-              8.55,
-              16.74
-            ]
-          }
+          "rationale": "CURRENT_DISCLOSURE_CHECK_UNAVAILABLE",
+          "sources": [],
+          "data_gap": "CURRENT_DISCLOSURE_CHECK_UNAVAILABLE"
         }
       },
       "valuation_input_collection": {
-        "as_of": "2026-11-05",
+        "as_of": "2026-11-06",
         "status": "PARTIAL",
         "gaps": [
           "OFFICIAL_REFERENCE_EXPIRED_OR_NOT_POINT_IN_TIME",
@@ -374,7 +346,7 @@
         ],
         "price_basis": "adjusted_close",
         "inputs": {
-          "adjusted_close": 288.239990234375
+          "adjusted_close": 291.30999755859375
         },
         "sources": [
           "https://data.sec.gov/api/xbrl/companyfacts/CIK0001551152.json"
@@ -383,19 +355,19 @@
         "price_source": {
           "provider": "yahoo_finance_adjusted_batch",
           "symbol": "ABBV",
-          "as_of": "2026-11-05",
+          "as_of": "2026-11-06",
           "url": "https://finance.yahoo.com/quote/ABBV/history/"
         },
         "price_observation": {
-          "date": "2026-11-05",
-          "adjusted_close": 288.239990234375,
-          "raw_close": 288.239990234375,
+          "date": "2026-11-06",
+          "adjusted_close": 291.30999755859375,
+          "raw_close": 291.30999755859375,
           "provider": "yahoo_finance_adjusted_batch"
         },
-        "price_sha256": "57003e6b25e343f4931ad22012a9d6b6e71a5ef04ee12e4b4ef4fd8cdd973878",
+        "price_sha256": "501bfaee498bd1b2d8c43c106de2edc2ad3afd66831717bf68f6024110a8d1f6",
         "official_reference_status": "REJECTED",
         "official_disclosure_watch": {
-          "as_of": "2026-11-05",
+          "as_of": "2026-11-06",
           "status": "FETCH_OR_VALIDATION_FAILED",
           "filings": [],
           "decision_authority": "RESEARCH_REFRESH_ONLY_NO_CTA_OR_SCORE_EFFECT",
@@ -2642,39 +2614,10 @@
           "data_gap": "PRE_TRADE_USER_CONFIRMATION_ONLY"
         },
         "valuation": {
-          "status": "PASS",
+          "status": "UNKNOWN",
           "as_of": "2026-11-06",
-          "price_as_of": "2026-11-06",
-          "valid_through": "2026-11-16",
-          "method": "FORWARD_ADJUSTED_PE_WITH_NCI_FCF_CROSSCHECK",
-          "rationale": "Uses the low end of current FY2026 adjusted EPS outlook with NCI and FCF cross-check; payer mix, leverage and one-time contract effects constrain the range.",
-          "sources": [
-            "https://investor.tenethealth.com/press-releases/press-release-details/2026/Tenet-Reports-Strong-Third-Quarter-2026-Results-Raises-2026-Financial-Outlook/default.aspx",
-            "https://finance.yahoo.com/quote/THC/history/"
-          ],
-          "price_source": {
-            "provider": "yahoo_finance_adjusted_batch",
-            "symbol": "THC",
-            "as_of": "2026-11-06",
-            "url": "https://finance.yahoo.com/quote/THC/history/"
-          },
-          "denominator_source": [
-            "https://investor.tenethealth.com/press-releases/press-release-details/2026/Tenet-Reports-Strong-Third-Quarter-2026-Results-Raises-2026-Financial-Outlook/default.aspx"
-          ],
-          "fair_range_rationale": "Uses the low end of current FY2026 adjusted EPS outlook with NCI and FCF cross-check; payer mix, leverage and one-time contract effects constrain the range.",
-          "fair_range_sources": [
-            "https://investor.tenethealth.com/press-releases/press-release-details/2026/Tenet-Reports-Strong-Third-Quarter-2026-Results-Raises-2026-Financial-Outlook/default.aspx",
-            "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
-          ],
-          "inputs": {
-            "price": 283.33,
-            "denominator": 22.05,
-            "multiple": 12.85,
-            "fair_range": [
-              8.18,
-              14.49
-            ]
-          }
+          "rationale": "Current-session valuation model not yet validated.",
+          "sources": []
         }
       },
       "business_model": "醫院及USPI門診手術設施服務收入，Conifer收入週期管理；收入由病例、acuity、給付者組合及收購驅動。",
@@ -2684,7 +2627,7 @@
         "source": "https://investor.tenethealth.com/home/default.aspx"
       },
       "valuation_input_collection": {
-        "as_of": "2026-11-05",
+        "as_of": "2026-11-06",
         "status": "PARTIAL",
         "gaps": [
           "OFFICIAL_REFERENCE_EXPIRED_OR_NOT_POINT_IN_TIME",
@@ -2692,7 +2635,7 @@
         ],
         "price_basis": "adjusted_close",
         "inputs": {
-          "adjusted_close": 286.4599914550781
+          "adjusted_close": 283.3299865722656
         },
         "sources": [
           "https://data.sec.gov/api/xbrl/companyfacts/CIK0000070318.json"
@@ -2701,16 +2644,16 @@
         "price_source": {
           "provider": "yahoo_finance_adjusted_batch",
           "symbol": "THC",
-          "as_of": "2026-11-05",
+          "as_of": "2026-11-06",
           "url": "https://finance.yahoo.com/quote/THC/history/"
         },
         "price_observation": {
-          "date": "2026-11-05",
-          "adjusted_close": 286.4599914550781,
-          "raw_close": 286.4599914550781,
+          "date": "2026-11-06",
+          "adjusted_close": 283.3299865722656,
+          "raw_close": 283.3299865722656,
           "provider": "yahoo_finance_adjusted_batch"
         },
-        "price_sha256": "c87449fdd2d8cbb3c5a170cef9e6398c1cbc2956480821eaffd8d794c253f9fc",
+        "price_sha256": "3d13e6aa0388ffd191fc57c68f29a768987fa85e31814e92733e9aacae31011a",
         "official_reference_status": "REJECTED",
         "fundamental_fetch_status": "FETCH_FAILED",
         "fetch_error_type": "HTTPError"
@@ -3055,12 +2998,12 @@
           "status": "FAIL",
           "as_of": "2026-11-06",
           "price_as_of": "2026-11-06",
-          "valid_through": "2026-11-16",
+          "valid_through": "2026-11-06",
           "method": "FORWARD_NORMALIZED_PE_EX_KNOWN_Q3_ACQUIRED_IPRD",
-          "rationale": "Uses current FY2026 normalized EPS bridge; high growth is offset by pricing, launch investment and acquisition execution risk.",
+          "rationale": "Mounjaro and Zepbound support high growth, while pricing, launch investment and acquisition execution constrain distributable earnings.",
           "sources": [
             "https://investor.lilly.com/news-releases/news-release-details/lilly-reports-third-quarter-2026-financial-results-raises-full",
-            "https://finance.yahoo.com/quote/LLY/history/"
+            "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
           ],
           "price_source": {
             "provider": "yahoo_finance_adjusted_batch",
@@ -3071,18 +3014,49 @@
           "denominator_source": [
             "https://investor.lilly.com/news-releases/news-release-details/lilly-reports-third-quarter-2026-financial-results-raises-full"
           ],
-          "fair_range_rationale": "Uses current FY2026 normalized EPS bridge; high growth is offset by pricing, launch investment and acquisition execution risk.",
+          "fair_range_rationale": "Five-year 12%/18% growth, 65%/75% interim cash conversion, 80%/90% terminal conversion, 12%/10% required return and 2.5%/3% terminal growth are Onecool analyst screening assumptions selected without using the current share price.",
           "fair_range_sources": [
             "https://investor.lilly.com/news-releases/news-release-details/lilly-reports-third-quarter-2026-financial-results-raises-full",
             "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
           ],
+          "normalization_bridge": {
+            "formula": "FY26 non-GAAP EPS guidance midpoint 35.50 + Q3 acquired IPR&D 4.57",
+            "inputs": [
+              35.5,
+              4.57
+            ],
+            "limitations": "Removes the disclosed Q3 acquired IPR&D charge only; does not assume unannounced transactions or pipeline revenue."
+          },
+          "policy_version": "onecool_equity_two_stage_screen_v1",
+          "assumption_authority": "ONECOOL_ANALYST_NOT_ISSUER_GUIDANCE",
+          "scenarios": [
+            {
+              "name": "conservative",
+              "years": 5,
+              "growth": 0.12,
+              "required_return": 0.12,
+              "terminal_growth": 0.025,
+              "cash_conversion": 0.65,
+              "terminal_cash_conversion": 0.8
+            },
+            {
+              "name": "base",
+              "years": 5,
+              "growth": 0.18,
+              "required_return": 0.1,
+              "terminal_growth": 0.03,
+              "cash_conversion": 0.75,
+              "terminal_cash_conversion": 0.9
+            }
+          ],
+          "research_grade": "SCREENING_SCENARIO_NOT_FULL_DCF",
           "inputs": {
             "price": 1354.0,
             "denominator": 40.07,
-            "multiple": 33.79,
+            "multiple": 33.79086598452708,
             "fair_range": [
-              11.88,
-              23.46
+              11.881578947368421,
+              23.463686944114407
             ]
           }
         },
@@ -3121,12 +3095,12 @@
         }
       },
       "valuation_input_collection": {
-        "as_of": "2026-11-05",
+        "as_of": "2026-11-06",
         "status": "COMPLETE",
         "gaps": [],
         "price_basis": "adjusted_close",
         "inputs": {
-          "adjusted_close": 1364.72998046875
+          "adjusted_close": 1354.0
         },
         "sources": [
           "https://investor.lilly.com/news-releases/news-release-details/lilly-reports-third-quarter-2026-financial-results-raises-full",
@@ -3136,16 +3110,16 @@
         "price_source": {
           "provider": "yahoo_finance_adjusted_batch",
           "symbol": "LLY",
-          "as_of": "2026-11-05",
+          "as_of": "2026-11-06",
           "url": "https://finance.yahoo.com/quote/LLY/history/"
         },
         "price_observation": {
-          "date": "2026-11-05",
-          "adjusted_close": 1364.72998046875,
-          "raw_close": 1364.72998046875,
+          "date": "2026-11-06",
+          "adjusted_close": 1354.0,
+          "raw_close": 1354.0,
           "provider": "yahoo_finance_adjusted_batch"
         },
-        "price_sha256": "bc904e1fcbc645ddbf5f90a77522e05aeed591266571c8700bd5723dabc5fa91",
+        "price_sha256": "87d31702c79e2366c23b382a1b03cbbc09935e098070eb807a7f538bcf2574ad",
         "official_reference_status": "VERIFIED",
         "fundamental_fetch_status": "REVIEWED_OFFICIAL_REFERENCE",
         "company_name": "Eli Lilly and Company",
@@ -3281,39 +3255,10 @@
           ]
         },
         "valuation": {
-          "status": "FAIL",
+          "status": "UNKNOWN",
           "as_of": "2026-11-06",
-          "price_as_of": "2026-11-06",
-          "valid_through": "2026-11-16",
-          "method": "FORWARD_GAAP_PE_LOW_END_FY2026_GUIDANCE",
-          "rationale": "Uses the low end of current FY2026 GAAP EPS guidance; mature-product erosion, leverage and regulatory risk retain the existing 8.11–13.98x discipline range.",
-          "sources": [
-            "https://investors.amgen.com/news-releases/news-release-details/amgen-reports-third-quarter-2026-financial-results",
-            "https://finance.yahoo.com/quote/AMGN/history/"
-          ],
-          "price_source": {
-            "provider": "yahoo_finance_adjusted_batch",
-            "symbol": "AMGN",
-            "as_of": "2026-11-06",
-            "url": "https://finance.yahoo.com/quote/AMGN/history/"
-          },
-          "denominator_source": [
-            "https://investors.amgen.com/news-releases/news-release-details/amgen-reports-third-quarter-2026-financial-results"
-          ],
-          "fair_range_rationale": "Uses the low end of current FY2026 GAAP EPS guidance; mature-product erosion, leverage and regulatory risk retain the existing 8.11–13.98x discipline range.",
-          "fair_range_sources": [
-            "https://investors.amgen.com/news-releases/news-release-details/amgen-reports-third-quarter-2026-financial-results",
-            "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
-          ],
-          "inputs": {
-            "price": 460.42,
-            "denominator": 18.34,
-            "multiple": 25.1,
-            "fair_range": [
-              8.11,
-              13.98
-            ]
-          }
+          "rationale": "Current-session valuation model not yet validated.",
+          "sources": []
         },
         "circle_of_competence": {
           "status": "UNKNOWN",
@@ -3326,7 +3271,7 @@
         }
       },
       "valuation_input_collection": {
-        "as_of": "2026-11-05",
+        "as_of": "2026-11-06",
         "status": "PARTIAL",
         "gaps": [
           "OFFICIAL_REFERENCE_EXPIRED_OR_NOT_POINT_IN_TIME",
@@ -3334,7 +3279,7 @@
         ],
         "price_basis": "adjusted_close",
         "inputs": {
-          "adjusted_close": 460.2799987792969
+          "adjusted_close": 460.4200134277344
         },
         "sources": [
           "https://data.sec.gov/api/xbrl/companyfacts/CIK0000318154.json"
@@ -3343,16 +3288,16 @@
         "price_source": {
           "provider": "yahoo_finance_adjusted_batch",
           "symbol": "AMGN",
-          "as_of": "2026-11-05",
+          "as_of": "2026-11-06",
           "url": "https://finance.yahoo.com/quote/AMGN/history/"
         },
         "price_observation": {
-          "date": "2026-11-05",
-          "adjusted_close": 460.2799987792969,
-          "raw_close": 460.2799987792969,
+          "date": "2026-11-06",
+          "adjusted_close": 460.4200134277344,
+          "raw_close": 460.4200134277344,
           "provider": "yahoo_finance_adjusted_batch"
         },
-        "price_sha256": "f152a3d05431dc35443057a4fdfaa698dca68c1ec74fc828198ef7247847ab4e",
+        "price_sha256": "35e59a6dae7819222b0d9348cf470e80763f5bd2ea35ccb1a9973e6f9a20d25a",
         "official_reference_status": "REJECTED",
         "fundamental_fetch_status": "FETCH_FAILED",
         "fetch_error_type": "HTTPError"
@@ -3736,40 +3681,41 @@
           "data_gap": "PRE_TRADE_USER_CONFIRMATION_ONLY"
         },
         "valuation": {
-          "status": "FAIL",
+          "status": "UNKNOWN",
           "as_of": "2026-11-06",
-          "price_as_of": "2026-11-06",
-          "valid_through": "2026-11-16",
-          "method": "TRAILING_GAAP_PE_Q3_2026",
-          "rationale": "Q3 revenue grew 19%, but the marketplace remains travel-cycle and regulation exposed; Onecool applies a 25–32x screening range to reported trailing GAAP EPS.",
-          "sources": [
-            "https://news.airbnb.com/airbnb-q3-2026-financial-results",
-            "https://finance.yahoo.com/quote/ABNB/history/"
-          ],
-          "price_source": {
-            "provider": "yahoo_finance_adjusted_batch",
-            "symbol": "ABNB",
-            "as_of": "2026-11-06",
-            "url": "https://finance.yahoo.com/quote/ABNB/history/"
-          },
-          "denominator_source": [
-            "https://news.airbnb.com/airbnb-q3-2026-financial-results"
-          ],
-          "fair_range_rationale": "Q3 revenue grew 19%, but the marketplace remains travel-cycle and regulation exposed; Onecool applies a 25–32x screening range to reported trailing GAAP EPS.",
-          "fair_range_sources": [
-            "https://news.airbnb.com/airbnb-q3-2026-financial-results",
-            "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
-          ],
-          "inputs": {
-            "price": 189.99,
-            "denominator": 4.03,
-            "multiple": 47.14,
-            "fair_range": [
-              25.0,
-              32.0
-            ]
-          }
+          "rationale": "Current-session valuation model not yet validated.",
+          "sources": []
         }
+      },
+      "valuation_input_collection": {
+        "as_of": "2026-11-06",
+        "status": "PARTIAL",
+        "gaps": [
+          "SEC_COMPANYFACTS_FETCH_OR_IDENTITY_VALIDATION_FAILED"
+        ],
+        "price_basis": "adjusted_close",
+        "inputs": {
+          "adjusted_close": 189.99000549316406
+        },
+        "sources": [
+          "https://data.sec.gov/api/xbrl/companyfacts/CIK0001559720.json"
+        ],
+        "decision_authority": "REFERENCE_INPUTS_ONLY_NOT_FAIR_VALUE",
+        "price_source": {
+          "provider": "yahoo_finance_adjusted_batch",
+          "symbol": "ABNB",
+          "as_of": "2026-11-06",
+          "url": "https://finance.yahoo.com/quote/ABNB/history/"
+        },
+        "price_observation": {
+          "date": "2026-11-06",
+          "adjusted_close": 189.99000549316406,
+          "raw_close": 189.99000549316406,
+          "provider": "yahoo_finance_adjusted_batch"
+        },
+        "price_sha256": "59fbbcd1e1e79b0baf10a693055699f16d9c309d5e45ead57aa2f4e2d1d47963",
+        "fundamental_fetch_status": "FETCH_FAILED",
+        "fetch_error_type": "HTTPError"
       }
     }
   ],
