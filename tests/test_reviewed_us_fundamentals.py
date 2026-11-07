@@ -22,6 +22,18 @@ def test_rh_official_inputs_reproduce_growth_without_stored_score():
     assert len(f.source_urls) == 2
 
 
+@pytest.mark.parametrize("cutoff", ["2026-11-06", "2026-11-12"])
+def test_csco_schedule_continuation_is_eligible_through_next_release_close(cutoff):
+    payload = json.loads(Path("data/market/us_stock_intelligence/reviewed_fundamentals.json").read_text())
+    metrics = load_reviewed_fundamentals(payload, cutoff)["CSCO"]
+    assert metrics.as_of == "2026-07-25"
+    assert metrics.quarterly_eps_growth == pytest.approx(0.97 / 0.64 - 1)
+    assert metrics.quarterly_revenue_growth == pytest.approx(17.3 / 14.7 - 1)
+    assert metrics.annual_eps_growth == pytest.approx(3.33 / 2.55 - 1)
+    assert metrics.valid_through == "2026-11-12"
+    assert "CSCO" not in load_reviewed_fundamentals(payload, "2026-11-13")
+
+
 @pytest.mark.parametrize("cutoff", ["2026-06-11", "2026-12-01"])
 def test_fallback_never_uses_unpublished_or_expired_evidence(cutoff):
     assert load_reviewed_fundamentals(evidence(), cutoff) == {}
