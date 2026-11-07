@@ -3,14 +3,31 @@
   "report_date": "2026-11-07",
   "generated_at": "2026-11-07T04:31:56.230Z",
   "delivery_status": "PREPARED",
-  "writeback_status": "UNKNOWN",
-  "heartbeat": "PARTIAL",
+  "writeback_status": "VERIFIED",
+  "heartbeat": "SUCCESS",
   "channels": {
     "conversation": {
       "status": "UNKNOWN"
     },
     "artifact": {
-      "status": "UNKNOWN"
+      "status": "DELIVERED",
+      "observed_at": "2026-11-07T04:34:19.710Z",
+      "evidence_sha256": "c64504c83a4a9bb091171a7735ba3e03cbbbdf56dbc9aafd4a4445e923997735"
     }
+  },
+  "data_as_of": {
+    "fund_min": "2026-11-05",
+    "fund_max": "2026-11-06",
+    "bitcoin": "2026-11-06"
+  },
+  "steps": {
+    "completed": [
+      "freshness_recovery",
+      "same_snapshot_validation",
+      "nine_period_regression",
+      "artifact_readback"
+    ],
+    "failed": [],
+    "next": "observe_conversation_delivery"
   }
 }
