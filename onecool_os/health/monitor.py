@@ -223,16 +223,19 @@ def build_health_report(root: str | Path, *, now: datetime | None = None) -> dic
     btc = btc_rows[0] if len(btc_rows) == 1 else {}
     utc_now = now.astimezone(timezone.utc)
     btc_expected = utc_now.date() - timedelta(days=1)
-    # Let the UTC daily bar close/publish before requiring it.
+    btc_earliest = btc_expected
+    # During publication grace, accept either completed day. A newly available
+    # closed bar must not become invalid just because it arrived before 00:30.
     if utc_now.hour == 0 and utc_now.minute < 30:
-        btc_expected -= timedelta(days=1)
+        btc_earliest -= timedelta(days=1)
     btc_observed = _date(btc.get("as_of"))
-    btc_ready = (len(btc_rows) == 1 and btc_observed == btc_expected
+    btc_ready = (len(btc_rows) == 1 and btc_observed is not None
+                 and btc_earliest <= btc_observed <= btc_expected
                  and btc.get("cta") in {"BUY", "HOLD", "WATCH", "SELL"})
     modules.append(_module(
         "bitcoin_daily", "Bitcoin completed UTC day", "morning", True,
         READY if btc_ready else BLOCKED,
-        "current" if btc_ready else f"BTC date/CTA missing or invalid; expected {btc_expected}",
+        "current" if btc_ready else f"BTC date/CTA missing or invalid; expected {btc_earliest} through {btc_expected}",
         btc_observed, "update-market-dashboard.yml", ["基金日報", "基金週報"],
     ))
     dashboard_as_of = dashboard.observed_as_of

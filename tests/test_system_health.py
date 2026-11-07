@@ -109,6 +109,26 @@ def test_bitcoin_utc_midnight_publication_grace(tmp_path):
     assert _module(build_health_report(tmp_path, now=after), "bitcoin_daily")["status"] == BLOCKED
 
 
+@pytest.mark.parametrize("clock,as_of,expected", [
+    ("2026-11-07T00:00:00+00:00", "2026-11-05", READY),
+    ("2026-11-07T00:00:00+00:00", "2026-11-06", READY),
+    ("2026-11-07T00:29:59+00:00", "2026-11-06", READY),
+    ("2026-11-07T08:27:00+08:00", "2026-11-06", READY),
+    ("2026-11-07T00:29:59+00:00", "2026-11-04", BLOCKED),
+    ("2026-11-07T00:29:59+00:00", "2026-11-07", BLOCKED),
+    ("2026-11-07T00:30:00+00:00", "2026-11-05", BLOCKED),
+    ("2026-11-07T00:30:00+00:00", "2026-11-06", READY),
+])
+def test_bitcoin_grace_accepts_early_completed_bar_only(tmp_path, clock, as_of, expected):
+    _seed_ready(tmp_path)
+    path = tmp_path / "data/market/dashboard/dashboard_latest.json"
+    payload = json.loads(path.read_text())
+    next(r for r in payload["results"] if r["symbol"] == "BTC")["as_of"] = as_of
+    path.write_text(json.dumps(payload))
+    report = build_health_report(tmp_path, now=datetime.fromisoformat(clock))
+    assert _module(report, "bitcoin_daily")["status"] == expected
+
+
 def test_all_ready_caches_produce_ready_health(tmp_path: Path) -> None:
     _seed_ready(tmp_path)
 
