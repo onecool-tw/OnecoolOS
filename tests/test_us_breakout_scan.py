@@ -122,6 +122,30 @@ def test_technical_confidence_requires_liquidity() -> None:
     assert "liquidity" in "; ".join(reasons)
 
 
+def test_technical_confidence_tolerates_only_minor_ohlc_rounding():
+    bars = _history()
+    last = bars[-1]
+    minor = DailyBar(**{
+        **last.__dict__,
+        "open": last.low - last.close * 0.0005,
+    })
+    score, reasons = technical_confidence(
+        [*bars[:-1], minor], minor.trading_date
+    )
+    assert score == 100
+    assert not reasons
+
+    bad = DailyBar(**{
+        **last.__dict__,
+        "open": last.low - last.close * 0.01,
+    })
+    score, reasons = technical_confidence(
+        [*bars[:-1], bad], bad.trading_date
+    )
+    assert score < 90
+    assert "invalid OHLCV" in "; ".join(reasons)
+
+
 @pytest.mark.parametrize("batch_missing", [False, True])
 def test_yahoo_input_loader_uses_batch_prices_and_shortlists_fundamentals(batch_missing) -> None:
     spy = _history(strength=0.1)

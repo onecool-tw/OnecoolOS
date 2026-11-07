@@ -29,3 +29,28 @@ def test_stale_duplicate_and_fetch_failure_are_isolated():
     for s in ['VIX','DXY','US10Y','SOX']:
         assert rows[s]['data_status']=='UNKNOWN' and rows[s]['value'] is None
     assert rows['US10Y']['error_type']=='TimeoutError'
+
+
+def test_context_accepts_only_minor_provider_ohlc_rounding_difference():
+    minor = DailyBar(
+        date.fromisoformat('2026-10-06'), 101.494, 102.358, 101.553,
+        102.279, 0, adjusted_close=102.279, source='yahoo_finance_raw',
+    )
+    histories = {s: [bar()] for s in RISK_SYMBOLS}
+    histories['DXY'] = [minor]
+    got = collect_us_risk_context('2026-10-06', histories, None)
+    row = next(item for item in got['results'] if item['symbol'] == 'DXY')
+    assert row['data_status'] == 'READY'
+    assert row['value'] == 102.279
+
+
+def test_context_rejects_material_ohlc_inconsistency():
+    bad = DailyBar(
+        date.fromisoformat('2026-10-06'), 100, 102, 101, 102,
+        0, adjusted_close=102, source='yahoo_finance_raw',
+    )
+    histories = {s: [bar()] for s in RISK_SYMBOLS}
+    histories['DXY'] = [bad]
+    got = collect_us_risk_context('2026-10-06', histories, None)
+    row = next(item for item in got['results'] if item['symbol'] == 'DXY')
+    assert row['data_status'] == 'UNKNOWN'

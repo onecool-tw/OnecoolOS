@@ -335,8 +335,9 @@ def test_changed_proxy_is_labeled_historical_recast_not_live_record() -> None:
     assert item["comparison_basis"] == "HISTORICAL_RECAST"
     assert item["decision_use"] == "CONTEXT_ONLY_UNTIL_MATURE"
     assert item["live_tracking_start"] == "2026-07-20"
+    # The 3m live record is now mature; longer windows remain immature.
     assert item["live_tracking_status"] == {
-        "3m": "IMMATURE",
+        "3m": "MATURE",
         "6m": "IMMATURE",
         "1y": "IMMATURE",
     }

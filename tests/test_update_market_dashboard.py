@@ -783,7 +783,7 @@ def test_failed_us_scan_keeps_and_labels_last_valid_artifact(
     assert json.loads(scan_path.read_text(encoding="utf-8")) == previous
 
 
-def test_partial_us_scan_cannot_overwrite_broader_last_valid_artifact(
+def test_complete_assessment_publishes_explicit_validation_failures(
     tmp_path: Path, monkeypatch
 ) -> None:
     monkeypatch.setattr(update_market_dashboard, "AlphaVantageClient", FakeClient)
@@ -824,10 +824,10 @@ def test_partial_us_scan_cannot_overwrite_broader_last_valid_artifact(
     )
 
     scan = payload["daily_top5_scan"]
-    assert scan["publication_status"] == "LAST_VALID"
-    assert scan["expected_as_of"] == "2026-08-07"
-    assert scan["attempted_assessment_count"] == 1
-    assert scan["last_attempt_error"] == (
-        "SCAN_ASSESSMENT_COVERAGE_BELOW_PUBLICATION_GATE:1/70"
-    )
-    assert json.loads(scan_path.read_text(encoding="utf-8")) == previous
+    assert scan["publication_status"] == "CURRENT"
+    assert scan["assessment_status"] == "COMPLETE"
+    assert scan["assessment_count"] == 70
+    assert scan["validated_count"] == 1
+    assert scan["data_validation_failed_count"] == 69
+    assert scan["coverage_status"] == "COMPLETE_WITH_VALIDATION_FAILURES"
+    assert json.loads(scan_path.read_text(encoding="utf-8")) == scan

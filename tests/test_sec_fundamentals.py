@@ -61,11 +61,14 @@ def test_verified_rule_exclusions_complete_assessment_without_inflating_validate
     assert scan['unassessed_count']==0
     scan={'validated_count':1,'universe_size':2,'exclusions':[{'symbol':'BA','technical_confidence':100,'reason':'fundamental validation unavailable'}]}
     annotate_reviewed_exclusions(scan,{'results':[row]},'2026-10-01')
-    assert scan['assessment_status']=='PARTIAL'
-    assert scan['coverage_status']=='PARTIAL'
+    # A terminal validation failure is still an assessed symbol.  It is kept
+    # out of ranking and reported separately from an unassessed symbol.
+    assert scan['assessment_status']=='COMPLETE'
+    assert scan['coverage_status']=='COMPLETE_WITH_VALIDATION_FAILURES'
+    assert scan['data_validation_failed_symbols']==['BA']
     assert scan['data_validation_failed_count']==1
     assert scan['data_validation_failed_symbols']==['BA']
-    assert scan['unassessed_count']==1
+    assert scan['unassessed_count']==0
 
 
 def test_rule_exclusion_and_live_fetch_failure_are_not_double_counted():
@@ -156,20 +159,22 @@ def test_transient_sec_failure_is_retried_once_before_exclusion():
     assert "BA" in fundamentals
 
 
-def test_october_issuer_review_classifies_six_without_scoring_them():
+def test_reviewed_issuer_exclusions_are_separate_from_expired_evidence():
     import json
     from pathlib import Path
     from onecool_os.market.sec_fundamentals import annotate_reviewed_exclusions
 
     reviewed = json.loads(Path("data/market/us_stock_intelligence/reviewed_exclusions.json").read_text())
     symbols = {row["symbol"] for row in reviewed["results"]}
-    assert symbols == {"BA", "CRWD", "SNDK", "SNOW", "SPOT", "SYM"}
-    scan = {"validated_count": 64, "universe_size": 70,
+    assert symbols == {
+        "BA", "CRWD", "MRVL", "PANW", "SNDK", "SNOW", "SPOT", "SYM"
+    }
+    scan = {"validated_count": 62, "universe_size": 70,
             "exclusions": [{"symbol": s, "technical_confidence": 100,
                             "reason": "fundamental validation unavailable"} for s in symbols]}
-    annotate_reviewed_exclusions(scan, reviewed, "2026-10-02")
+    annotate_reviewed_exclusions(scan, reviewed, "2026-11-06")
     assert (scan["assessment_count"], scan["validated_count"],
-            scan["rule_excluded_count"]) == (70, 64, 6)
-    assert scan["coverage_status"] == "COMPLETE"
-    assert all(row["assessment_status"] == "RULE_EXCLUDED" for row in scan["exclusions"])
+            scan["rule_excluded_count"]) == (70, 62, 7)
+    assert scan["coverage_status"] == "COMPLETE_WITH_VALIDATION_FAILURES"
+    assert scan["data_validation_failed_symbols"] == ["SPOT"]
     assert next(row for row in reviewed["results"] if row["symbol"] == "SNDK")["period_end"] == "2026-07-03"

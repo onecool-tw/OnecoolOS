@@ -891,12 +891,27 @@ def technical_confidence(
         score += 15
     else:
         reasons.append("duplicate or unsorted dates")
+    # Raw daily feeds occasionally publish a tiny OHLC rounding mismatch
+    # (for example an open a few basis points below the reported low).  Reject
+    # material inconsistencies, while accepting differences no larger than
+    # 0.10% of the close.  This preserves the integrity gate without turning a
+    # harmless vendor rounding artifact into a false validation failure.
+    def ohlc_consistent(bar):
+        tolerance = max(float(bar.close) * 0.001, 1e-8)
+        return (
+            float(bar.high) + tolerance >= max(
+                float(bar.open), float(bar.close), float(bar.low)
+            )
+            and float(bar.low) - tolerance <= min(
+                float(bar.open), float(bar.close)
+            )
+        )
+
     valid = bool(bars) and all(
         all(_optional_number(value) is not None and float(value) > 0 for value in (
             bar.open, bar.high, bar.low, bar.close, bar.adjusted_close
         )) and isfinite(bar.volume) and bar.volume >= 0
-        and bar.high >= max(bar.open, bar.close, bar.low)
-        and bar.low <= min(bar.open, bar.close)
+        and ohlc_consistent(bar)
         for bar in bars
     )
     if valid:

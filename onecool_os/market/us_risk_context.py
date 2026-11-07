@@ -28,9 +28,10 @@ def collect_us_risk_context(expected_as_of, histories, bootstrapper):
                 raise ValueError("SAME_CUTOFF_CLOSE_MISSING_OR_DUPLICATE")
             bar = observed[0]
             values = [bar.open, bar.high, bar.low, bar.close, bar.adjusted_close]
+            tolerance = max(float(bar.close) * 0.001, 1e-8)
             if (not bar.source or any(not isfinite(v) or v <= 0 for v in values)
-                    or bar.low > min(bar.open, bar.close)
-                    or bar.high < max(bar.open, bar.close)):
+                    or bar.low - tolerance > min(bar.open, bar.close)
+                    or bar.high + tolerance < max(bar.open, bar.close)):
                 raise ValueError("RISK_OHLC_OR_SOURCE_INVALID")
             snapshot = {"as_of": expected_as_of, "value": bar.adjusted_close,
                         "source": bar.source, "provider_symbol": provider_symbol}

@@ -8,7 +8,7 @@ from scripts.update_taiwan_stock_screen import fetch_dated_market, update
 def official_fetcher(valuation_day="20261015"):
     def fetch(url, **kwargs):
         assert kwargs["expected_type"] is dict
-        if "/exchangeReport/MI_INDEX?" in url:
+        if "/rwd/zh/afterTrading/MI_INDEX?" in url:
             return {"stat": "OK", "date": "20261015", "tables": [{
                 "fields": ["證券代號", "證券名稱", "收盤價", "成交金額"],
                 "data": [["2330", "台積電", "2500", "1000000"]],

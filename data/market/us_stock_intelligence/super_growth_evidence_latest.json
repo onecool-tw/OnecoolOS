@@ -3529,43 +3529,107 @@
     {
       "symbol": "V",
       "gates": {
-        "valuation": {
+        "competitive_advantage": {
+          "status": "PASS",
+          "as_of": "2026-10-27",
+          "rationale": "全球雙邊支付網路、廣泛金融機構與商戶連結、品牌及規模形成網路效應；跨境與資料服務進一步提高平台黏著度。",
+          "sources": [
+            "https://www.sec.gov/Archives/edgar/data/1403161/000140316126000126/q42026earningsrelease.htm",
+            "https://investor.visa.com/news/news-details/2026/Visa-Fiscal-Fourth-Quarter-and-Full-Year-2026-Financial-Results/default.aspx"
+          ]
+        },
+        "structural_growth_runway": {
+          "status": "PASS",
+          "as_of": "2026-10-27",
+          "rationale": "FY2026營收與GAAP EPS均維持雙位數成長，電子支付滲透、跨境交易與增值服務仍是可追溯成長來源。",
+          "sources": [
+            "https://www.sec.gov/Archives/edgar/data/1403161/000140316126000126/q42026earningsrelease.htm"
+          ]
+        },
+        "financial_quality": {
+          "status": "PASS",
+          "as_of": "2026-10-27",
+          "rationale": "FY2026 GAAP diluted EPS為12.32美元、年增約21%；高資本效率及持續現金產生能力支持財務品質。",
+          "sources": [
+            "https://www.sec.gov/Archives/edgar/data/1403161/000140316126000126/q42026earningsrelease.htm"
+          ]
+        },
+        "business_risk_and_governance": {
+          "status": "PASS",
+          "as_of": "2026-10-27",
+          "rationale": "監管、支付費率、訴訟、即時支付與替代網路競爭為主要風險；最新官方材料未顯示足以否決研究資格的治理事件。",
+          "sources": [
+            "https://www.sec.gov/Archives/edgar/data/1403161/000140316126000126/q42026earningsrelease.htm",
+            "https://investor.visa.com/news/news-details/2026/Visa-Fiscal-Fourth-Quarter-and-Full-Year-2026-Financial-Results/default.aspx"
+          ]
+        },
+        "circle_of_competence": {
           "status": "UNKNOWN",
-          "as_of": "2026-11-04",
-          "rationale": "Current-session valuation model not yet validated.",
-          "sources": []
+          "as_of": "2026-11-06",
+          "rationale": "正式建倉前確認支付網路經濟、監管與跨境收入驅動；此個人確認不阻擋研究排名。",
+          "sources": [
+            "https://www.sec.gov/Archives/edgar/data/1403161/000140316126000126/q42026earningsrelease.htm"
+          ],
+          "data_gap": "PRE_TRADE_USER_CONFIRMATION_ONLY"
+        },
+        "valuation": {
+          "status": "FAIL",
+          "as_of": "2026-11-06",
+          "price_as_of": "2026-11-06",
+          "valid_through": "2026-11-13",
+          "method": "TRAILING_GAAP_PE",
+          "rationale": "以同截止日調整後收盤價422.65美元除以FY2026 GAAP EPS 12.32美元，約34.31倍，高於Onecool成熟支付網路22至30倍紀律區間。",
+          "sources": [
+            "https://www.sec.gov/Archives/edgar/data/1403161/000140316126000126/q42026earningsrelease.htm",
+            "https://investor.visa.com/news/news-details/2026/Visa-Fiscal-Fourth-Quarter-and-Full-Year-2026-Financial-Results/default.aspx",
+            "https://finance.yahoo.com/quote/V/history/"
+          ],
+          "price_source": {
+            "provider": "yahoo_finance_adjusted_batch",
+            "symbol": "V",
+            "as_of": "2026-11-06",
+            "url": "https://finance.yahoo.com/quote/V/history/"
+          },
+          "denominator_source": [
+            "https://www.sec.gov/Archives/edgar/data/1403161/000140316126000126/q42026earningsrelease.htm"
+          ],
+          "fair_range_rationale": "Visa屬高品質成熟支付網路；22至30倍為Onecool研究篩選區間，反映雙位數成長與網路效應，同時保留監管、競爭及估值壓縮風險。",
+          "fair_range_sources": [
+            "https://www.sec.gov/Archives/edgar/data/1403161/000140316126000126/q42026earningsrelease.htm",
+            "https://investor.visa.com/news/news-details/2026/Visa-Fiscal-Fourth-Quarter-and-Full-Year-2026-Financial-Results/default.aspx"
+          ],
+          "inputs": {
+            "price": 422.65,
+            "denominator": 12.32,
+            "multiple": 34.3060064935,
+            "fair_range": [
+              22,
+              30
+            ]
+          }
         }
       },
       "valuation_input_collection": {
-        "as_of": "2026-11-04",
-        "status": "PARTIAL",
-        "gaps": [
-          "SEC_COMPANYFACTS_FETCH_OR_IDENTITY_VALIDATION_FAILED"
-        ],
+        "as_of": "2026-11-06",
+        "status": "COMPLETE",
+        "gaps": [],
         "price_basis": "adjusted_close",
         "inputs": {
-          "adjusted_close": 436.57000732421875
+          "adjusted_close": 422.65,
+          "FY2026_GAAP_EPS": 12.32
         },
         "sources": [
-          "https://data.sec.gov/api/xbrl/companyfacts/CIK0001403161.json"
+          "https://www.sec.gov/Archives/edgar/data/1403161/000140316126000126/q42026earningsrelease.htm",
+          "https://investor.visa.com/news/news-details/2026/Visa-Fiscal-Fourth-Quarter-and-Full-Year-2026-Financial-Results/default.aspx",
+          "https://finance.yahoo.com/quote/V/history/"
         ],
-        "decision_authority": "REFERENCE_INPUTS_ONLY_NOT_FAIR_VALUE",
-        "price_source": {
-          "provider": "yahoo_finance_adjusted_batch",
-          "symbol": "V",
-          "as_of": "2026-11-04",
-          "url": "https://finance.yahoo.com/quote/V/history/"
-        },
-        "price_observation": {
-          "date": "2026-11-04",
-          "adjusted_close": 436.57000732421875,
-          "raw_close": 436.57000732421875,
-          "provider": "yahoo_finance_adjusted_batch"
-        },
-        "price_sha256": "77a858786c67715937a7e69d1963ee63f267b74012674af1d87eca7adf477a64",
-        "fundamental_fetch_status": "FETCH_FAILED",
-        "fetch_error_type": "HTTPError"
-      }
+        "decision_authority": "REVIEWED_SOURCE_BACKED_VALUATION_MODEL"
+      },
+      "company_name": "Visa Inc.",
+      "sector": "Financial Services",
+      "industry": "Credit Services",
+      "as_of": "2026-11-06",
+      "business_model": "全球支付網路；收入由支付量、跨境交易、處理筆數及增值服務驅動，不承擔主要消費信貸風險。"
     }
   ],
   "valuation_models_reviewed_at": "2026-10-06"

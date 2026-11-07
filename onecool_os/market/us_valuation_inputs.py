@@ -42,13 +42,16 @@ def fetch_sec_json(url, user_agent):
     contact = user_agent.rsplit(" ", 1)[-1]
     if "@" in contact:
         headers["From"] = contact
-    for attempt in range(3):
+    # One retry for transient throttling/service errors.  A 403/404 is an
+    # access or identity problem and retrying it only multiplies the bounded
+    # request budget used by the daily report.
+    for attempt in range(2):
         _wait_for_sec_slot()
         try:
             with urlopen(Request(url, headers=headers), timeout=12) as response:
                 return json.load(response)
         except HTTPError as exc:
-            if attempt == 2 or exc.code not in {403, 429, 500, 502, 503, 504}:
+            if attempt == 1 or exc.code not in {429, 500, 502, 503, 504}:
                 exc.sec_retry_exhausted = True
                 raise
             try:
