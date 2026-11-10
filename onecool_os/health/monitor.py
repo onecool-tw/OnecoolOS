@@ -249,6 +249,31 @@ def build_health_report(root: str | Path, *, now: datetime | None = None) -> dic
             status_field="data_status", good_statuses={READY}, recovery="update-market-dashboard.yml",
             reports=["美股日報"],
         )
+        if module_id == "us_breakout_scan" and item.status == BLOCKED:
+            scan = _load(root, f"data/market/us_stock_intelligence/{filename}") or {}
+            scan_as_of = _date(scan.get("expected_as_of"))
+            # Completed assessment with rejected securities is a publishable
+            # verified subset, not an unfinished universe scan.
+            if (
+                scan.get("assessment_status") == "COMPLETE"
+                and str(scan.get("data_status", "")).upper() == PARTIAL
+                and scan_as_of is not None
+                and _business_lag(scan_as_of, today) <= 2
+            ):
+                assessed = int(scan.get("assessment_count", 0) or 0)
+                total = int(scan.get("universe_size", 0) or 0)
+                validated = int(scan.get("validated_count", 0) or 0)
+                excluded = int(scan.get("rule_excluded_count", 0) or 0)
+                failed = int(scan.get("data_validation_failed_count", 0) or 0)
+                if total > 0 and assessed == total:
+                    item = _module(
+                        module_id, label, "morning", True, PARTIAL,
+                        (f"assessment complete {assessed}/{total}; "
+                         f"validated {validated}, rule-excluded {excluded}, "
+                         f"validation-failed {failed}"),
+                        scan_as_of, "update-market-dashboard.yml", ["美股日報"],
+                        retryable=False,
+                    )
         if item.status == READY and dashboard_as_of and item.observed_as_of != dashboard_as_of:
             item = _module(module_id, label, "morning", True, BLOCKED, "date does not match Market Dashboard", _date(item.observed_as_of), "update-market-dashboard.yml", ["美股日報"])
         if module_id == "us_breakout_scan" and item.status == READY:
