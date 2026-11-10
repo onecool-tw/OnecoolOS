@@ -193,6 +193,31 @@ def test_missing_action_cache_is_blocked_and_recovery_is_deduplicated(tmp_path: 
     assert _module(report, "market_dashboard")["status"] == BLOCKED
 
 
+def test_complete_us_assessment_with_validation_failures_is_partial_not_blocked(tmp_path: Path) -> None:
+    _seed_ready(tmp_path)
+    _write(tmp_path, "data/market/us_stock_intelligence/breakout_scan_latest.json", {
+        "expected_as_of": "2026-08-28",
+        "data_status": PARTIAL,
+        "assessment_status": "COMPLETE",
+        "assessment_count": 70,
+        "universe_size": 70,
+        "validated_count": 49,
+        "rule_excluded_count": 3,
+        "data_validation_failed_count": 18,
+    })
+
+    report = build_health_report(tmp_path, now=NOW)
+
+    item = _module(report, "us_breakout_scan")
+    assert item["status"] == PARTIAL
+    assert item["retryable"] is False
+    assert item["reason"] == (
+        "assessment complete 70/70; validated 49, rule-excluded 3, validation-failed 18"
+    )
+    assert report["scope_status"]["morning"] == PARTIAL
+    assert report["action_readiness"] == "LIMITED"
+
+
 def test_ai_review_is_partial_manual_issue_not_failed_schedule(tmp_path: Path) -> None:
     _seed_ready(tmp_path)
     _write(tmp_path, "data/market/ai_revolution/ai_revolution_latest.json", {
