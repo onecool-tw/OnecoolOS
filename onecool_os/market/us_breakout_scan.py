@@ -16,6 +16,7 @@ from typing import Iterable
 from onecool_os.market.etf_cta import DailyBar
 from onecool_os.market.tiingo_eod import (
     TiingoEODError,
+    verified_adjusted_history,
     verified_missing_bar,
     verified_terminal_bar,
 )
@@ -673,6 +674,35 @@ def fetch_yahoo_breakout_inputs(
                     "status": "RECOVERED_FROM_TIINGO_ADJUSTED",
                     "recovered_date": day.isoformat(),
                 }
+    # A single-bar repair needs Yahoo anchors. If Yahoo returns no rows
+    # at all, use one independently validated window, without mixing feeds.
+    full_window_attempts = {}
+
+    def fetch_full_window(symbol: str) -> list[DailyBar]:
+        rows = tiingo_client.fetch_window(symbol, reference_dates[0], expected)
+        return verified_adjusted_history(rows, reference_dates)
+
+    if tiingo_client is not None:
+        with ThreadPoolExecutor(max_workers=4) as executor:
+            futures = {
+                executor.submit(fetch_full_window, symbol): symbol
+                for symbol in symbols if not best_observed[symbol]
+            }
+            for future in as_completed(futures):
+                symbol = futures[future]
+                try:
+                    recovered = future.result()
+                except TiingoEODError as exc:
+                    full_window_attempts[symbol] = str(exc)
+                except Exception:
+                    full_window_attempts[symbol] = "REQUEST_FAILED"
+                else:
+                    histories[symbol] = recovered
+                    price_details[symbol] = {
+                        "status": "RECOVERED_FROM_TIINGO_ADJUSTED_WINDOW",
+                        "observations": len(recovered),
+                        "last_date": expected_as_of,
+                    }
     for symbol in symbols:
         history = histories[symbol]
         if is_incomplete(history):
@@ -687,6 +717,9 @@ def fetch_yahoo_breakout_inputs(
                 "missing_day_retry_status": day_attempts.get(symbol, "NOT_ATTEMPTED"),
                 "raw_window_retry_status": raw_attempts.get(symbol, "NOT_ATTEMPTED"),
                 "tiingo_retry_status": tiingo_attempts.get(symbol, "NOT_ATTEMPTED"),
+                "tiingo_full_window_status": full_window_attempts.get(
+                    symbol, "NOT_CONFIGURED" if tiingo_client is None else "NOT_ATTEMPTED"
+                ),
             }
     leaders = []
     for symbol in ranking_symbols:
