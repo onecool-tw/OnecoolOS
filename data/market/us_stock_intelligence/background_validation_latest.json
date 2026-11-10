@@ -7,27 +7,19 @@
   "results": [
     {
       "symbol": "AMD",
-      "as_of": "2026-11-09",
+      "as_of": null,
       "expected_as_of": "2026-11-09",
       "price_basis": "adjusted_close",
-      "technical_confidence": 100,
-      "validation_errors": [],
-      "validation_status": "PASSED",
-      "observations": 252,
-      "adjusted_close": 508.58,
-      "moving_averages": {
-        "20": 523.015,
-        "50": 547.6737,
-        "150": 486.2283,
-        "200": 417.221875
-      },
-      "volume_average_50d": 24117464.78,
-      "high_52w_adjusted": 649.42,
-      "low_52w_adjusted": 190.95,
-      "relative_return_126d_to_SPY": 0.08331651985344557,
-      "source_url": "https://finance.yahoo.com/quote/AMD/history/",
-      "history_sha256": "d897711f49302fd9da404612c9dacc1d94dd7dc8da51932f5d83de11b1deb419",
-      "corporate_action_policy": "Own security adjusted history only; no ticker splice"
+      "technical_confidence": 10,
+      "validation_errors": [
+        "fewer than 252 observations",
+        "price cutoff mismatch",
+        "duplicate or unsorted dates",
+        "invalid OHLCV or adjusted close",
+        "liquidity cannot be calculated",
+        "trading calendar differs from SPY"
+      ],
+      "validation_status": "Technical Data Validation Failed"
     },
     {
       "symbol": "TSM",
