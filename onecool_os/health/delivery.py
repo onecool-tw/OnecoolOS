@@ -7,7 +7,7 @@ from zoneinfo import ZoneInfo
 # Local scheduled start, plus two hours to finish the report.
 SCHEDULES = {
     'taiwan': (set(range(5)), 18, 0),
-    'us': ({1, 2, 3, 4, 5}, 16, 0),
+    'us': ({1, 2, 3, 4, 5}, 11, 30),
     'fund': (set(range(6)), 11, 30),
     'cards': ({5}, 7, 0),
     'home': (set(range(7)), 8, 0),
