@@ -1,11 +1,11 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-11-10T02:24:11.589793+00:00",
+  "generated_at": "2026-11-10T02:27:42.301156+00:00",
   "taipei_date": "2026-11-10",
-  "status": "BLOCKED",
+  "status": "PARTIAL",
   "scope_status": {
-    "morning": "BLOCKED",
+    "morning": "PARTIAL",
     "asia": "READY",
     "weekly": "READY"
   },
@@ -77,11 +77,11 @@
     "policy": "Data readiness does not prove report delivery. Never infer email success from a generated draft."
   },
   "end_to_end_status": "NOT_FULLY_VERIFIED",
-  "action_readiness": "UNSAFE_FOR_AFFECTED_REPORTS",
+  "action_readiness": "LIMITED",
   "counts": {
     "ready": 19,
-    "partial": 0,
-    "blocked": 1
+    "partial": 1,
+    "blocked": 0
   },
   "modules": [
     {
@@ -119,11 +119,11 @@
       "label": "US Breakout Scan",
       "scope": "morning",
       "critical": true,
-      "status": "BLOCKED",
-      "reason": "data_status is not ready",
+      "status": "PARTIAL",
+      "reason": "assessment complete 70/70; validated 49, rule-excluded 3, validation-failed 18",
       "observed_as_of": "2026-11-09",
       "recovery_workflow": "update-market-dashboard.yml",
-      "retryable": true,
+      "retryable": false,
       "impacted_reports": [
         "美股日報"
       ]
@@ -376,19 +376,17 @@
       "label": "US Breakout Scan",
       "scope": "morning",
       "critical": true,
-      "status": "BLOCKED",
-      "reason": "data_status is not ready",
+      "status": "PARTIAL",
+      "reason": "assessment complete 70/70; validated 49, rule-excluded 3, validation-failed 18",
       "observed_as_of": "2026-11-09",
       "recovery_workflow": "update-market-dashboard.yml",
-      "retryable": true,
+      "retryable": false,
       "impacted_reports": [
         "美股日報"
       ]
     }
   ],
-  "recovery_workflows": [
-    "update-market-dashboard.yml"
-  ],
-  "issue_fingerprint": "1423fa708b52df162254c970521e5be2ad35da7709bdc316861d9ac486c0f128",
+  "recovery_workflows": [],
+  "issue_fingerprint": "b870575bf6b014aef8da49ec6ff1b09df06699b07045386a1f7808828ed20148",
   "policy": "Health monitoring only; never changes CTA, rankings, or investment decisions."
 }
