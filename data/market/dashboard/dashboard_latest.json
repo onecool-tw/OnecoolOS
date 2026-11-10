@@ -125,13 +125,14 @@
   ],
   "provider": "yahoo_finance_raw_primary",
   "provider_by_symbol": {
+    "1306": "yahoo_finance_raw",
+    "2330": "yahoo_finance_raw",
     "SPY": "yahoo_finance_raw",
     "QQQ": "yahoo_finance_raw",
     "RUSSELL_2000": "yahoo_finance_raw",
     "DIA": "yahoo_finance_raw",
     "SOXX": "yahoo_finance_raw+alpha_vantage_latest_session_repair",
     "NVDA": "yahoo_finance_raw",
-    "1306": "yahoo_finance_raw",
     "069500": "yahoo_finance_raw",
     "BABA": "yahoo_finance_raw",
     "XYZ": "yahoo_finance_raw",
@@ -140,7 +141,6 @@
     "UPBD": "yahoo_finance_raw",
     "TSLA": "yahoo_finance_raw",
     "0050": "yahoo_finance_raw",
-    "2330": "yahoo_finance_raw",
     "VIX": "yahoo_finance_raw",
     "DXY": "yahoo_finance_raw",
     "US30Y": "yahoo_finance_raw",
@@ -405,7 +405,7 @@
       "market": "KR",
       "theme": "broad_market",
       "as_of": "2026-11-09",
-      "current_price": 78490.0,
+      "current_price": 78490,
       "sma50": 100481.343007,
       "sma200": 101134.099904,
       "weekly_ma30": 110199.994107,
@@ -679,7 +679,7 @@
       "market": "TW",
       "theme": "semiconductor_ai",
       "as_of": "2026-11-09",
-      "current_price": 2235.0,
+      "current_price": 2235,
       "sma50": 2422.728595,
       "sma200": 2198.730658,
       "weekly_ma30": 2353.113376,
@@ -1116,22 +1116,22 @@
       "daily_membership_mutation": false,
       "change_control": "VERSION_BUMP_AND_AUDIT_RECORD_REQUIRED"
     },
-    "validated_count": 3,
+    "validated_count": 49,
     "coverage_status": "COMPLETE_WITH_VALIDATION_FAILURES",
-    "validated_coverage_pct": 4.29,
+    "validated_coverage_pct": 70,
     "research_scope": "FULL_UNIVERSE_ASSESSED_VALIDATED_SUBSET_RANKED",
     "minimum_technical_confidence": 90,
     "formal_breakout_count": 0,
     "top5": [
       {
-        "symbol": "XYZ",
+        "symbol": "AMGN",
         "price_as_of": "2026-11-09",
         "fundamentals_as_of": "2026-06-30",
         "fundamental_sources": [
-          "https://data.sec.gov/api/xbrl/companyfacts/CIK0001512673.json"
+          "https://data.sec.gov/api/xbrl/companyfacts/CIK0000318154.json"
         ],
         "fundamentals_published_as_of": "2026-08-05",
-        "liquidity_average_50d_usd": 395822069.09,
+        "liquidity_average_50d_usd": null,
         "liquidity_minimum_50d_usd": 20000000,
         "liquidity_status": "PASSED",
         "new_entry_eligible": true,
@@ -1145,38 +1145,1170 @@
         "technical_confidence": 100,
         "validation_status": "PASSED",
         "validation_errors": [],
-        "canslim_score": 35,
-        "minervini_score": 99,
-        "passes_dual_system": false,
-        "company_name": "Block, Inc.",
+        "canslim_score": 75,
+        "minervini_score": 100,
+        "passes_dual_system": true,
+        "company_name": "Amgen Inc.",
         "security_type": "COMMON_STOCK",
-        "rank_score": 65.3,
+        "rank_score": 83.75,
         "status": "WAIT",
         "trigger": "突破52週高點且成交量至少為50日均量1.5倍",
         "formal_breakout": false,
-        "super_growth_bucket": "EXISTING_POSITION",
-        "super_growth_reason": "EXISTING_PORTFOLIO_POLICY_PREVAILS",
-        "quality_gate_application": "NOT_APPLICABLE",
-        "action_eligibility": "FOLLOW_EXISTING_CTA_AND_THESIS_POLICY",
+        "super_growth_bucket": "B",
+        "super_growth_reason": "VALUATION_INPUTS_UNAVAILABLE_OR_STALE",
+        "quality_gate_status": {
+          "competitive_advantage": {
+            "status": "PASS",
+            "as_of": "2026-10-19",
+            "rationale": "專利藥、臨床資料、製造及商業化規模，多產品降低單藥依賴。",
+            "sources": [
+              "https://www.sec.gov/Archives/edgar/data/318154/000031815426000124/amgn-20260630earningsrelea.htm",
+              "https://www.amgen.com/tavneos-update"
+            ],
+            "data_gap": null,
+            "validation_errors": [],
+            "method": null,
+            "price_as_of": null,
+            "valid_through": null,
+            "inputs": {}
+          },
+          "structural_growth_runway": {
+            "status": "PASS",
+            "as_of": "2026-10-19",
+            "rationale": "六大來源Q2合計增26%；須抵銷Prolia/Xgeva競爭，不計入未核准藥收入。",
+            "sources": [
+              "https://www.sec.gov/Archives/edgar/data/318154/000031815426000124/amgn-20260630earningsrelea.htm",
+              "https://www.amgen.com/tavneos-update"
+            ],
+            "data_gap": null,
+            "validation_errors": [],
+            "method": null,
+            "price_as_of": null,
+            "valid_through": null,
+            "inputs": {}
+          },
+          "financial_quality": {
+            "status": "PASS",
+            "as_of": "2026-10-19",
+            "rationale": "H1 CFO6191m減capex1225m得FCF4966m；六月底淨負債約43.3bn，正現金流支持品質但槓桿限制配置。",
+            "sources": [
+              "https://www.sec.gov/Archives/edgar/data/318154/000031815426000124/amgn-20260630earningsrelea.htm",
+              "https://www.amgen.com/tavneos-update"
+            ],
+            "data_gap": null,
+            "validation_errors": [],
+            "method": null,
+            "price_as_of": null,
+            "valid_through": null,
+            "inputs": {}
+          },
+          "business_risk_and_governance": {
+            "status": "PASS",
+            "as_of": "2026-10-19",
+            "rationale": "FDA擬撤回Tavneos、藥價及負債風險已辨識；Tavneos季度150m相對集團10.1bn，列監管觀察，未單獨否決整體研究資格。",
+            "sources": [
+              "https://www.sec.gov/Archives/edgar/data/318154/000031815426000124/amgn-20260630earningsrelea.htm",
+              "https://www.amgen.com/tavneos-update"
+            ],
+            "data_gap": null,
+            "validation_errors": [],
+            "method": null,
+            "price_as_of": null,
+            "valid_through": null,
+            "inputs": {}
+          },
+          "circle_of_competence": {
+            "status": "UNKNOWN",
+            "as_of": "2026-10-19",
+            "rationale": "建倉前確認藥品生命週期與監管風險理解。",
+            "sources": [
+              "https://www.sec.gov/Archives/edgar/data/318154/000031815426000124/amgn-20260630earningsrelea.htm"
+            ],
+            "data_gap": "PRE_TRADE_USER_CONFIRMATION_ONLY",
+            "validation_errors": [],
+            "method": null,
+            "price_as_of": null,
+            "valid_through": null,
+            "inputs": {}
+          },
+          "valuation": {
+            "status": "UNKNOWN",
+            "as_of": "2026-11-06",
+            "rationale": "Uses current FY2026 GAAP guidance; biosimilar erosion, leverage and regulatory risk retain the existing disciplined range.",
+            "sources": [
+              "https://investors.amgen.com/news-releases/news-release-details/amgen-reports-third-quarter-2026-financial-results",
+              "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+            ],
+            "data_gap": "PRICE_CUTOFF_MISMATCH; VALUATION_EXPIRED",
+            "validation_errors": [
+              "PRICE_CUTOFF_MISMATCH",
+              "VALUATION_EXPIRED"
+            ],
+            "method": "FORWARD_GAAP_PE_LOW_END_FY2026_GUIDANCE",
+            "price_as_of": "2026-11-06",
+            "valid_through": "2026-11-06",
+            "inputs": {
+              "price": 460.4200134277344,
+              "denominator": 18.34,
+              "multiple": 25.10468993608148,
+              "fair_range": [
+                8.109050705053424,
+                13.976819907362085
+              ]
+            }
+          }
+        },
+        "evidence_coverage": "PARTIAL",
+        "missing_evidence": [
+          "circle_of_competence",
+          "valuation"
+        ],
+        "quality_data_gaps": {},
+        "valuation_posture": "UNRESOLVED_WITH_SPECIFIC_GAP",
+        "cyclical_review_required": false,
+        "evidence_as_of": "2026-11-06",
+        "manual_confirmation_required": [
+          "circle_of_competence"
+        ],
+        "circle_of_competence_policy": "PRE_TRADE_USER_CONFIRMATION_NOT_DAILY_RESEARCH_BLOCKER",
+        "decision_authority": "RESEARCH_QUALITY_ONLY",
+        "quality_gate_application": "FORMAL_NEW_CANDIDATE_RESEARCH_GATE",
+        "action_eligibility": "RESEARCH_ONLY_VALUATION_DATA_GAP",
         "lynch_research": {
           "version": "onecool_lynch_research_v1",
           "company_type": {
-            "status": "INSUFFICIENT_EVIDENCE",
-            "primary": "UNCLASSIFIED",
-            "candidates": [],
-            "evidence": [],
+            "status": "PROVISIONAL",
+            "primary": "FAST_GROWER",
+            "candidates": [
+              "FAST_GROWER"
+            ],
+            "evidence": [
+              {
+                "field": "verified_quality_gates",
+                "value": [
+                  "structural_growth_runway",
+                  "financial_quality"
+                ],
+                "interpretation": "FAST_GROWTH_CANDIDATE_NOT_DURABILITY_PROOF"
+              }
+            ],
             "unresolved_categories": [
               "SLOW_GROWER",
               "STALWART",
-              "FAST_GROWER",
               "CYCLICAL",
               "TURNAROUND",
               "ASSET_PLAY"
             ]
           },
           "investment_story": {
-            "status": "INSUFFICIENT_EVIDENCE",
-            "evidence": [],
+            "status": "EVIDENCE_ONLY",
+            "evidence": [
+              {
+                "field": "competitive_advantage",
+                "value": "PASS",
+                "as_of": "2026-10-19",
+                "rationale": "專利藥、臨床資料、製造及商業化規模，多產品降低單藥依賴。",
+                "sources": [
+                  "https://www.sec.gov/Archives/edgar/data/318154/000031815426000124/amgn-20260630earningsrelea.htm",
+                  "https://www.amgen.com/tavneos-update"
+                ]
+              },
+              {
+                "field": "structural_growth_runway",
+                "value": "PASS",
+                "as_of": "2026-10-19",
+                "rationale": "六大來源Q2合計增26%；須抵銷Prolia/Xgeva競爭，不計入未核准藥收入。",
+                "sources": [
+                  "https://www.sec.gov/Archives/edgar/data/318154/000031815426000124/amgn-20260630earningsrelea.htm",
+                  "https://www.amgen.com/tavneos-update"
+                ]
+              },
+              {
+                "field": "financial_quality",
+                "value": "PASS",
+                "as_of": "2026-10-19",
+                "rationale": "H1 CFO6191m減capex1225m得FCF4966m；六月底淨負債約43.3bn，正現金流支持品質但槓桿限制配置。",
+                "sources": [
+                  "https://www.sec.gov/Archives/edgar/data/318154/000031815426000124/amgn-20260630earningsrelea.htm",
+                  "https://www.amgen.com/tavneos-update"
+                ]
+              },
+              {
+                "field": "business_risk_and_governance",
+                "value": "PASS",
+                "as_of": "2026-10-19",
+                "rationale": "FDA擬撤回Tavneos、藥價及負債風險已辨識；Tavneos季度150m相對集團10.1bn，列監管觀察，未單獨否決整體研究資格。",
+                "sources": [
+                  "https://www.sec.gov/Archives/edgar/data/318154/000031815426000124/amgn-20260630earningsrelea.htm",
+                  "https://www.amgen.com/tavneos-update"
+                ]
+              }
+            ],
+            "required_manual_confirmation": [
+              "BUSINESS_DRIVER",
+              "DURABILITY",
+              "MANAGEMENT_EXECUTION"
+            ]
+          },
+          "story_break_conditions": [
+            {
+              "condition": "VERIFIED_COMPETITIVE_ADVANTAGE_FAILS",
+              "meaning": "Investment story requires review"
+            },
+            {
+              "condition": "VERIFIED_STRUCTURAL_GROWTH_RUNWAY_FAILS",
+              "meaning": "Growth story requires review"
+            },
+            {
+              "condition": "VERIFIED_FINANCIAL_QUALITY_OR_GOVERNANCE_FAILS",
+              "meaning": "Quality story requires review"
+            }
+          ],
+          "policy": {
+            "decision_authority": "NONE",
+            "ranking_effect": "NONE",
+            "score_effect": "NONE",
+            "cta_effect": "NONE",
+            "action_effect": "NONE",
+            "observation_is_research_lead_only": true,
+            "manual_confirmation_required": true
+          }
+        }
+      },
+      {
+        "symbol": "LLY",
+        "price_as_of": "2026-11-09",
+        "fundamentals_as_of": "2026-06-30",
+        "fundamental_sources": [
+          "https://data.sec.gov/api/xbrl/companyfacts/CIK0000059478.json"
+        ],
+        "fundamentals_published_as_of": "2026-08-05",
+        "liquidity_average_50d_usd": null,
+        "liquidity_minimum_50d_usd": 20000000,
+        "liquidity_status": "PASSED",
+        "new_entry_eligible": true,
+        "validation_warnings": [],
+        "price_basis": "adjusted_close",
+        "score_version": "onecool_us_dual_v2",
+        "thresholds": {
+          "canslim": 70,
+          "minervini": 80
+        },
+        "technical_confidence": 100,
+        "validation_status": "PASSED",
+        "validation_errors": [],
+        "canslim_score": 72,
+        "minervini_score": 100,
+        "passes_dual_system": true,
+        "company_name": "Eli Lilly and Company",
+        "security_type": "COMMON_STOCK",
+        "rank_score": 82.4,
+        "status": "WAIT",
+        "trigger": "突破52週高點且成交量至少為50日均量1.5倍",
+        "formal_breakout": false,
+        "super_growth_bucket": "B",
+        "super_growth_reason": "VALUATION_INPUTS_UNAVAILABLE_OR_STALE",
+        "quality_gate_status": {
+          "competitive_advantage": {
+            "status": "PASS",
+            "as_of": "2026-10-16",
+            "rationale": "Mounjaro及Zepbound專利產品、臨床資料及製造規模支持競爭優勢；需監測同類藥品競爭與降價。",
+            "sources": [
+              "https://investor.lilly.com/node/54781/pdf"
+            ],
+            "data_gap": null,
+            "validation_errors": [],
+            "method": null,
+            "price_as_of": null,
+            "valid_through": null,
+            "inputs": {}
+          },
+          "structural_growth_runway": {
+            "status": "PASS",
+            "as_of": "2026-10-16",
+            "rationale": "Q2營收年增48%，全球銷量成長60%；retatrutide第三期資料及產能投資提供成長來源，不將臨床或核准結果視為保證。",
+            "sources": [
+              "https://investor.lilly.com/node/54781/pdf"
+            ],
+            "data_gap": null,
+            "validation_errors": [],
+            "method": null,
+            "price_as_of": null,
+            "valid_through": null,
+            "inputs": {}
+          },
+          "financial_quality": {
+            "status": "PASS",
+            "as_of": "2026-10-16",
+            "rationale": "已核對Q2 10-Q：H1 CFO16023m、capex5259m、另有研發資產現金支出3486m與併購9805m；六月底淨負債45958m。營運現金支持財務品質，但資本配置壓力重大；九月新併購後的負債與獲利影響另列估值缺口，不將六月餘額冒充十月餘額。",
+            "sources": [
+              "https://www.sec.gov/Archives/edgar/data/59478/000005947826000081/lly-20260630.htm",
+              "https://investor.lilly.com/news-releases/news-release-details/lilly-completes-acquisition-ataibeckley-advance-therapies"
+            ],
+            "data_gap": null,
+            "validation_errors": [],
+            "method": null,
+            "price_as_of": null,
+            "valid_through": null,
+            "inputs": {}
+          },
+          "business_risk_and_governance": {
+            "status": "PASS",
+            "as_of": "2026-10-16",
+            "rationale": "實現價格下滑13%、藥品集中、監管／給付、臨床及多宗併購整合是主要風險；納入持續追蹤，目前材料不足以否決研究資格。",
+            "sources": [
+              "https://investor.lilly.com/node/54781/pdf"
+            ],
+            "data_gap": null,
+            "validation_errors": [],
+            "method": null,
+            "price_as_of": null,
+            "valid_through": null,
+            "inputs": {}
+          },
+          "circle_of_competence": {
+            "status": "UNKNOWN",
+            "as_of": null,
+            "rationale": null,
+            "sources": [],
+            "data_gap": "MISSING_SOURCE_BACKED_CIRCLE_OF_COMPETENCE_ASSESSMENT",
+            "validation_errors": [],
+            "method": null,
+            "price_as_of": null,
+            "valid_through": null,
+            "inputs": {}
+          },
+          "valuation": {
+            "status": "UNKNOWN",
+            "as_of": "2026-11-06",
+            "rationale": "Mounjaro and Zepbound support high growth, while pricing, launch investment and acquisition execution constrain distributable earnings.",
+            "sources": [
+              "https://investor.lilly.com/news-releases/news-release-details/lilly-reports-third-quarter-2026-financial-results-raises-full",
+              "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+            ],
+            "data_gap": "PRICE_CUTOFF_MISMATCH; VALUATION_EXPIRED",
+            "validation_errors": [
+              "PRICE_CUTOFF_MISMATCH",
+              "VALUATION_EXPIRED"
+            ],
+            "method": "FORWARD_NORMALIZED_PE_EX_KNOWN_Q3_ACQUIRED_IPRD",
+            "price_as_of": "2026-11-06",
+            "valid_through": "2026-11-06",
+            "inputs": {
+              "price": 1354,
+              "denominator": 40.07,
+              "multiple": 33.79086598452708,
+              "fair_range": [
+                11.881578947368421,
+                23.463686944114407
+              ]
+            }
+          }
+        },
+        "evidence_coverage": "PARTIAL",
+        "missing_evidence": [
+          "circle_of_competence",
+          "valuation"
+        ],
+        "quality_data_gaps": {},
+        "valuation_posture": "UNRESOLVED_WITH_SPECIFIC_GAP",
+        "cyclical_review_required": false,
+        "evidence_as_of": "2026-11-06",
+        "manual_confirmation_required": [
+          "circle_of_competence"
+        ],
+        "circle_of_competence_policy": "PRE_TRADE_USER_CONFIRMATION_NOT_DAILY_RESEARCH_BLOCKER",
+        "decision_authority": "RESEARCH_QUALITY_ONLY",
+        "quality_gate_application": "FORMAL_NEW_CANDIDATE_RESEARCH_GATE",
+        "action_eligibility": "RESEARCH_ONLY_VALUATION_DATA_GAP",
+        "lynch_research": {
+          "version": "onecool_lynch_research_v1",
+          "company_type": {
+            "status": "PROVISIONAL",
+            "primary": "FAST_GROWER",
+            "candidates": [
+              "FAST_GROWER"
+            ],
+            "evidence": [
+              {
+                "field": "verified_quality_gates",
+                "value": [
+                  "structural_growth_runway",
+                  "financial_quality"
+                ],
+                "interpretation": "FAST_GROWTH_CANDIDATE_NOT_DURABILITY_PROOF"
+              }
+            ],
+            "unresolved_categories": [
+              "SLOW_GROWER",
+              "STALWART",
+              "CYCLICAL",
+              "TURNAROUND",
+              "ASSET_PLAY"
+            ]
+          },
+          "investment_story": {
+            "status": "EVIDENCE_ONLY",
+            "evidence": [
+              {
+                "field": "competitive_advantage",
+                "value": "PASS",
+                "as_of": "2026-10-16",
+                "rationale": "Mounjaro及Zepbound專利產品、臨床資料及製造規模支持競爭優勢；需監測同類藥品競爭與降價。",
+                "sources": [
+                  "https://investor.lilly.com/node/54781/pdf"
+                ]
+              },
+              {
+                "field": "structural_growth_runway",
+                "value": "PASS",
+                "as_of": "2026-10-16",
+                "rationale": "Q2營收年增48%，全球銷量成長60%；retatrutide第三期資料及產能投資提供成長來源，不將臨床或核准結果視為保證。",
+                "sources": [
+                  "https://investor.lilly.com/node/54781/pdf"
+                ]
+              },
+              {
+                "field": "financial_quality",
+                "value": "PASS",
+                "as_of": "2026-10-16",
+                "rationale": "已核對Q2 10-Q：H1 CFO16023m、capex5259m、另有研發資產現金支出3486m與併購9805m；六月底淨負債45958m。營運現金支持財務品質，但資本配置壓力重大；九月新併購後的負債與獲利影響另列估值缺口，不將六月餘額冒充十月餘額。",
+                "sources": [
+                  "https://www.sec.gov/Archives/edgar/data/59478/000005947826000081/lly-20260630.htm",
+                  "https://investor.lilly.com/news-releases/news-release-details/lilly-completes-acquisition-ataibeckley-advance-therapies"
+                ]
+              },
+              {
+                "field": "business_risk_and_governance",
+                "value": "PASS",
+                "as_of": "2026-10-16",
+                "rationale": "實現價格下滑13%、藥品集中、監管／給付、臨床及多宗併購整合是主要風險；納入持續追蹤，目前材料不足以否決研究資格。",
+                "sources": [
+                  "https://investor.lilly.com/node/54781/pdf"
+                ]
+              }
+            ],
+            "required_manual_confirmation": [
+              "BUSINESS_DRIVER",
+              "DURABILITY",
+              "MANAGEMENT_EXECUTION"
+            ]
+          },
+          "story_break_conditions": [
+            {
+              "condition": "VERIFIED_COMPETITIVE_ADVANTAGE_FAILS",
+              "meaning": "Investment story requires review"
+            },
+            {
+              "condition": "VERIFIED_STRUCTURAL_GROWTH_RUNWAY_FAILS",
+              "meaning": "Growth story requires review"
+            },
+            {
+              "condition": "VERIFIED_FINANCIAL_QUALITY_OR_GOVERNANCE_FAILS",
+              "meaning": "Quality story requires review"
+            }
+          ],
+          "policy": {
+            "decision_authority": "NONE",
+            "ranking_effect": "NONE",
+            "score_effect": "NONE",
+            "cta_effect": "NONE",
+            "action_effect": "NONE",
+            "observation_is_research_lead_only": true,
+            "manual_confirmation_required": true
+          }
+        }
+      },
+      {
+        "symbol": "MSFT",
+        "price_as_of": "2026-11-09",
+        "fundamentals_as_of": "2026-09-30",
+        "fundamental_sources": [
+          "https://news.microsoft.com/source/2026/10/28/microsoft-announces-first-quarter-results-2"
+        ],
+        "fundamentals_published_as_of": "2026-10-28",
+        "liquidity_average_50d_usd": null,
+        "liquidity_minimum_50d_usd": 20000000,
+        "liquidity_status": "PASSED",
+        "new_entry_eligible": true,
+        "validation_warnings": [],
+        "price_basis": "adjusted_close",
+        "score_version": "onecool_us_dual_v2",
+        "thresholds": {
+          "canslim": 70,
+          "minervini": 80
+        },
+        "technical_confidence": 100,
+        "validation_status": "PASSED",
+        "validation_errors": [],
+        "canslim_score": 64,
+        "minervini_score": 96,
+        "passes_dual_system": false,
+        "company_name": "Microsoft Corporation",
+        "security_type": "COMMON_STOCK",
+        "rank_score": 77,
+        "status": "WAIT",
+        "trigger": "突破52週高點且成交量至少為50日均量1.5倍",
+        "formal_breakout": false,
+        "super_growth_bucket": "B",
+        "super_growth_reason": "VALUATION_INPUTS_UNAVAILABLE_OR_STALE",
+        "quality_gate_status": {
+          "competitive_advantage": {
+            "status": "PASS",
+            "as_of": "2026-07-29",
+            "rationale": "Microsoft365與Azure企業分銷、整合與轉換成本構成優勢；Azure年度收入超過1000億美元，Copilot付費席位逾3000萬。",
+            "sources": [
+              "https://www.microsoft.com/en-us/investor/earnings/fy-2026-q4/press-release-webcast"
+            ],
+            "data_gap": null,
+            "validation_errors": [],
+            "method": null,
+            "price_as_of": null,
+            "valid_through": null,
+            "inputs": {}
+          },
+          "structural_growth_runway": {
+            "status": "PASS",
+            "as_of": "2026-07-29",
+            "rationale": "季度Azure增43%、Cloud增27%；RPO增84%。大型合約、供給限制與AI投資回報仍須監測，未把RPO當保證營收。",
+            "sources": [
+              "https://www.microsoft.com/en-us/investor/earnings/fy-2026-q4/press-release-webcast"
+            ],
+            "data_gap": null,
+            "validation_errors": [],
+            "method": null,
+            "price_as_of": null,
+            "valid_through": null,
+            "inputs": {}
+          },
+          "financial_quality": {
+            "status": "PASS",
+            "as_of": "2026-07-29",
+            "rationale": "FY26 CFO182935m、現金capex115948m，FCF66987m；保留SBC及營運成本，AI資本強度侵蝕現金轉換。",
+            "sources": [
+              "https://www.microsoft.com/en-us/investor/earnings/fy-2026-q4/press-release-webcast"
+            ],
+            "data_gap": null,
+            "validation_errors": [],
+            "method": null,
+            "price_as_of": null,
+            "valid_through": null,
+            "inputs": {}
+          },
+          "business_risk_and_governance": {
+            "status": "PASS",
+            "as_of": "2026-07-29",
+            "rationale": "AI基建回收、模型競爭、資安與反壟斷風險需監測；目前未見官方材料足以否決研究資格的事件。",
+            "sources": [
+              "https://www.microsoft.com/en-us/investor/earnings/fy-2026-q4/press-release-webcast"
+            ],
+            "data_gap": null,
+            "validation_errors": [],
+            "method": null,
+            "price_as_of": null,
+            "valid_through": null,
+            "inputs": {}
+          },
+          "circle_of_competence": {
+            "status": "UNKNOWN",
+            "as_of": "2026-10-14",
+            "rationale": "建倉前確認雲端使用量、AI資本支出與投資回收理解；不阻擋排名。",
+            "sources": [
+              "https://www.microsoft.com/en-us/investor/earnings/fy-2026-q4/press-release-webcast"
+            ],
+            "data_gap": "PRE_TRADE_USER_CONFIRMATION_ONLY",
+            "validation_errors": [],
+            "method": null,
+            "price_as_of": null,
+            "valid_through": null,
+            "inputs": {}
+          },
+          "valuation": {
+            "status": "UNKNOWN",
+            "as_of": "2026-11-05",
+            "rationale": "Current-session valuation model not yet validated.",
+            "sources": [],
+            "data_gap": "MISSING_SOURCE_BACKED_VALUATION_ASSESSMENT",
+            "validation_errors": [],
+            "method": null,
+            "price_as_of": null,
+            "valid_through": null,
+            "inputs": {}
+          }
+        },
+        "evidence_coverage": "PARTIAL",
+        "missing_evidence": [
+          "circle_of_competence",
+          "valuation"
+        ],
+        "quality_data_gaps": {},
+        "valuation_posture": "UNRESOLVED_WITH_SPECIFIC_GAP",
+        "cyclical_review_required": false,
+        "evidence_as_of": "2026-10-14",
+        "manual_confirmation_required": [
+          "circle_of_competence"
+        ],
+        "circle_of_competence_policy": "PRE_TRADE_USER_CONFIRMATION_NOT_DAILY_RESEARCH_BLOCKER",
+        "decision_authority": "RESEARCH_QUALITY_ONLY",
+        "quality_gate_application": "FORMAL_NEW_CANDIDATE_RESEARCH_GATE",
+        "action_eligibility": "RESEARCH_ONLY_VALUATION_DATA_GAP",
+        "lynch_research": {
+          "version": "onecool_lynch_research_v1",
+          "company_type": {
+            "status": "PROVISIONAL",
+            "primary": "FAST_GROWER",
+            "candidates": [
+              "FAST_GROWER"
+            ],
+            "evidence": [
+              {
+                "field": "verified_quality_gates",
+                "value": [
+                  "structural_growth_runway",
+                  "financial_quality"
+                ],
+                "interpretation": "FAST_GROWTH_CANDIDATE_NOT_DURABILITY_PROOF"
+              }
+            ],
+            "unresolved_categories": [
+              "SLOW_GROWER",
+              "STALWART",
+              "CYCLICAL",
+              "TURNAROUND",
+              "ASSET_PLAY"
+            ]
+          },
+          "investment_story": {
+            "status": "EVIDENCE_ONLY",
+            "evidence": [
+              {
+                "field": "competitive_advantage",
+                "value": "PASS",
+                "as_of": "2026-07-29",
+                "rationale": "Microsoft365與Azure企業分銷、整合與轉換成本構成優勢；Azure年度收入超過1000億美元，Copilot付費席位逾3000萬。",
+                "sources": [
+                  "https://www.microsoft.com/en-us/investor/earnings/fy-2026-q4/press-release-webcast"
+                ]
+              },
+              {
+                "field": "structural_growth_runway",
+                "value": "PASS",
+                "as_of": "2026-07-29",
+                "rationale": "季度Azure增43%、Cloud增27%；RPO增84%。大型合約、供給限制與AI投資回報仍須監測，未把RPO當保證營收。",
+                "sources": [
+                  "https://www.microsoft.com/en-us/investor/earnings/fy-2026-q4/press-release-webcast"
+                ]
+              },
+              {
+                "field": "financial_quality",
+                "value": "PASS",
+                "as_of": "2026-07-29",
+                "rationale": "FY26 CFO182935m、現金capex115948m，FCF66987m；保留SBC及營運成本，AI資本強度侵蝕現金轉換。",
+                "sources": [
+                  "https://www.microsoft.com/en-us/investor/earnings/fy-2026-q4/press-release-webcast"
+                ]
+              },
+              {
+                "field": "business_risk_and_governance",
+                "value": "PASS",
+                "as_of": "2026-07-29",
+                "rationale": "AI基建回收、模型競爭、資安與反壟斷風險需監測；目前未見官方材料足以否決研究資格的事件。",
+                "sources": [
+                  "https://www.microsoft.com/en-us/investor/earnings/fy-2026-q4/press-release-webcast"
+                ]
+              }
+            ],
+            "required_manual_confirmation": [
+              "BUSINESS_DRIVER",
+              "DURABILITY",
+              "MANAGEMENT_EXECUTION"
+            ]
+          },
+          "story_break_conditions": [
+            {
+              "condition": "VERIFIED_COMPETITIVE_ADVANTAGE_FAILS",
+              "meaning": "Investment story requires review"
+            },
+            {
+              "condition": "VERIFIED_STRUCTURAL_GROWTH_RUNWAY_FAILS",
+              "meaning": "Growth story requires review"
+            },
+            {
+              "condition": "VERIFIED_FINANCIAL_QUALITY_OR_GOVERNANCE_FAILS",
+              "meaning": "Quality story requires review"
+            }
+          ],
+          "policy": {
+            "decision_authority": "NONE",
+            "ranking_effect": "NONE",
+            "score_effect": "NONE",
+            "cta_effect": "NONE",
+            "action_effect": "NONE",
+            "observation_is_research_lead_only": true,
+            "manual_confirmation_required": true
+          }
+        }
+      },
+      {
+        "symbol": "ABBV",
+        "price_as_of": "2026-11-09",
+        "fundamentals_as_of": "2026-06-30",
+        "fundamental_sources": [
+          "https://data.sec.gov/api/xbrl/companyfacts/CIK0001551152.json"
+        ],
+        "fundamentals_published_as_of": "2026-08-03",
+        "liquidity_average_50d_usd": null,
+        "liquidity_minimum_50d_usd": 20000000,
+        "liquidity_status": "PASSED",
+        "new_entry_eligible": true,
+        "validation_warnings": [],
+        "price_basis": "adjusted_close",
+        "score_version": "onecool_us_dual_v2",
+        "thresholds": {
+          "canslim": 70,
+          "minervini": 80
+        },
+        "technical_confidence": 100,
+        "validation_status": "PASSED",
+        "validation_errors": [],
+        "canslim_score": 60,
+        "minervini_score": 100,
+        "passes_dual_system": false,
+        "company_name": "AbbVie Inc.",
+        "security_type": "COMMON_STOCK",
+        "rank_score": 77,
+        "status": "WAIT",
+        "trigger": "突破52週高點且成交量至少為50日均量1.5倍",
+        "formal_breakout": false,
+        "super_growth_bucket": "B",
+        "super_growth_reason": "VALUATION_INPUTS_UNAVAILABLE_OR_STALE",
+        "quality_gate_status": {
+          "competitive_advantage": {
+            "status": "PASS",
+            "as_of": "2026-07-31",
+            "rationale": "Skyrizi與Rinvoq季度收入均約年增24%，神經科學組合年增20.3%，多個治療領域與研發管線降低單一產品依賴。",
+            "sources": [
+              "https://news.abbvie.com/2026-07-31-AbbVie-Reports-Second-Quarter-2026-Financial-Results"
+            ],
+            "data_gap": null,
+            "validation_errors": [],
+            "method": null,
+            "price_as_of": null,
+            "valid_through": null,
+            "inputs": {}
+          },
+          "structural_growth_runway": {
+            "status": "PASS",
+            "as_of": "2026-07-31",
+            "rationale": "免疫學與神經科學核心產品維持雙位數成長，並透過Apogee交易補強後期免疫學管線，支持Humira專利後的成長接續。",
+            "sources": [
+              "https://news.abbvie.com/2026-07-31-AbbVie-Reports-Second-Quarter-2026-Financial-Results"
+            ],
+            "data_gap": null,
+            "validation_errors": [],
+            "method": null,
+            "price_as_of": null,
+            "valid_through": null,
+            "inputs": {}
+          },
+          "financial_quality": {
+            "status": "PASS",
+            "as_of": "2026-07-31",
+            "rationale": "季度營收169.9億美元年增10.2%，調整後EPS年增22.9%，調整後營業利益率48.3%；成長與獲利能力均獲官方財報支持。",
+            "sources": [
+              "https://news.abbvie.com/2026-07-31-AbbVie-Reports-Second-Quarter-2026-Financial-Results"
+            ],
+            "data_gap": null,
+            "validation_errors": [],
+            "method": null,
+            "price_as_of": null,
+            "valid_through": null,
+            "inputs": {}
+          },
+          "business_risk_and_governance": {
+            "status": "PASS",
+            "as_of": "2026-07-31",
+            "rationale": "Humira收入年減35.9%、109億美元Apogee收購與IPR&D支出是明確風險，但目前由Skyrizi、Rinvoq及神經科學成長抵銷；未見足以否決候選資格的治理事件。",
+            "sources": [
+              "https://news.abbvie.com/2026-07-31-AbbVie-Reports-Second-Quarter-2026-Financial-Results",
+              "https://www.sec.gov/edgar/browse/?CIK=1551152&owner=exclude"
+            ],
+            "data_gap": null,
+            "validation_errors": [],
+            "method": null,
+            "price_as_of": null,
+            "valid_through": null,
+            "inputs": {}
+          },
+          "circle_of_competence": {
+            "status": "UNKNOWN",
+            "as_of": "2026-09-17",
+            "rationale": "藥品專利、臨床與監管判斷屬個人能力圈確認項，保留到正式建倉前，不阻擋研究排名。",
+            "sources": [
+              "https://news.abbvie.com/2026-07-31-AbbVie-Reports-Second-Quarter-2026-Financial-Results"
+            ],
+            "data_gap": "MISSING_SOURCE_BACKED_CIRCLE_OF_COMPETENCE_ASSESSMENT",
+            "validation_errors": [],
+            "method": null,
+            "price_as_of": null,
+            "valid_through": null,
+            "inputs": {}
+          },
+          "valuation": {
+            "status": "UNKNOWN",
+            "as_of": "2026-11-06",
+            "rationale": "Uses current Q3 guidance with the existing full-year acquisition dilution stress; Humira erosion, leverage and IPR&D constrain the range.",
+            "sources": [
+              "https://news.abbvie.com/2026-10-30-AbbVie-Reports-Third-Quarter-2026-Financial-Results",
+              "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+            ],
+            "data_gap": "PRICE_CUTOFF_MISMATCH; VALUATION_EXPIRED",
+            "validation_errors": [
+              "PRICE_CUTOFF_MISMATCH",
+              "VALUATION_EXPIRED"
+            ],
+            "method": "FORWARD_ADJUSTED_PE_FULL_YEAR_ACQUISITION_STRESS",
+            "price_as_of": "2026-11-06",
+            "valid_through": "2026-11-06",
+            "inputs": {
+              "price": 291.30999755859375,
+              "denominator": 13.44,
+              "multiple": 21.67485100882394,
+              "fair_range": [
+                8.554162502288818,
+                16.74285714285714
+              ]
+            }
+          }
+        },
+        "evidence_coverage": "PARTIAL",
+        "missing_evidence": [
+          "circle_of_competence",
+          "valuation"
+        ],
+        "quality_data_gaps": {},
+        "valuation_posture": "UNRESOLVED_WITH_SPECIFIC_GAP",
+        "cyclical_review_required": false,
+        "evidence_as_of": "2026-11-06",
+        "manual_confirmation_required": [
+          "circle_of_competence"
+        ],
+        "circle_of_competence_policy": "PRE_TRADE_USER_CONFIRMATION_NOT_DAILY_RESEARCH_BLOCKER",
+        "decision_authority": "RESEARCH_QUALITY_ONLY",
+        "quality_gate_application": "FORMAL_NEW_CANDIDATE_RESEARCH_GATE",
+        "action_eligibility": "RESEARCH_ONLY_VALUATION_DATA_GAP",
+        "lynch_research": {
+          "version": "onecool_lynch_research_v1",
+          "company_type": {
+            "status": "PROVISIONAL",
+            "primary": "FAST_GROWER",
+            "candidates": [
+              "FAST_GROWER"
+            ],
+            "evidence": [
+              {
+                "field": "verified_quality_gates",
+                "value": [
+                  "structural_growth_runway",
+                  "financial_quality"
+                ],
+                "interpretation": "FAST_GROWTH_CANDIDATE_NOT_DURABILITY_PROOF"
+              }
+            ],
+            "unresolved_categories": [
+              "SLOW_GROWER",
+              "STALWART",
+              "CYCLICAL",
+              "TURNAROUND",
+              "ASSET_PLAY"
+            ]
+          },
+          "investment_story": {
+            "status": "EVIDENCE_ONLY",
+            "evidence": [
+              {
+                "field": "competitive_advantage",
+                "value": "PASS",
+                "as_of": "2026-07-31",
+                "rationale": "Skyrizi與Rinvoq季度收入均約年增24%，神經科學組合年增20.3%，多個治療領域與研發管線降低單一產品依賴。",
+                "sources": [
+                  "https://news.abbvie.com/2026-07-31-AbbVie-Reports-Second-Quarter-2026-Financial-Results"
+                ]
+              },
+              {
+                "field": "structural_growth_runway",
+                "value": "PASS",
+                "as_of": "2026-07-31",
+                "rationale": "免疫學與神經科學核心產品維持雙位數成長，並透過Apogee交易補強後期免疫學管線，支持Humira專利後的成長接續。",
+                "sources": [
+                  "https://news.abbvie.com/2026-07-31-AbbVie-Reports-Second-Quarter-2026-Financial-Results"
+                ]
+              },
+              {
+                "field": "financial_quality",
+                "value": "PASS",
+                "as_of": "2026-07-31",
+                "rationale": "季度營收169.9億美元年增10.2%，調整後EPS年增22.9%，調整後營業利益率48.3%；成長與獲利能力均獲官方財報支持。",
+                "sources": [
+                  "https://news.abbvie.com/2026-07-31-AbbVie-Reports-Second-Quarter-2026-Financial-Results"
+                ]
+              },
+              {
+                "field": "business_risk_and_governance",
+                "value": "PASS",
+                "as_of": "2026-07-31",
+                "rationale": "Humira收入年減35.9%、109億美元Apogee收購與IPR&D支出是明確風險，但目前由Skyrizi、Rinvoq及神經科學成長抵銷；未見足以否決候選資格的治理事件。",
+                "sources": [
+                  "https://news.abbvie.com/2026-07-31-AbbVie-Reports-Second-Quarter-2026-Financial-Results",
+                  "https://www.sec.gov/edgar/browse/?CIK=1551152&owner=exclude"
+                ]
+              }
+            ],
+            "required_manual_confirmation": [
+              "BUSINESS_DRIVER",
+              "DURABILITY",
+              "MANAGEMENT_EXECUTION"
+            ]
+          },
+          "story_break_conditions": [
+            {
+              "condition": "VERIFIED_COMPETITIVE_ADVANTAGE_FAILS",
+              "meaning": "Investment story requires review"
+            },
+            {
+              "condition": "VERIFIED_STRUCTURAL_GROWTH_RUNWAY_FAILS",
+              "meaning": "Growth story requires review"
+            },
+            {
+              "condition": "VERIFIED_FINANCIAL_QUALITY_OR_GOVERNANCE_FAILS",
+              "meaning": "Quality story requires review"
+            }
+          ],
+          "policy": {
+            "decision_authority": "NONE",
+            "ranking_effect": "NONE",
+            "score_effect": "NONE",
+            "cta_effect": "NONE",
+            "action_effect": "NONE",
+            "observation_is_research_lead_only": true,
+            "manual_confirmation_required": true
+          }
+        }
+      },
+      {
+        "symbol": "ABNB",
+        "price_as_of": "2026-11-09",
+        "fundamentals_as_of": "2026-09-30",
+        "fundamental_sources": [
+          "https://news.airbnb.com/airbnb-q3-2026-financial-results",
+          "https://investors.airbnb.com/financials/default.aspx"
+        ],
+        "fundamentals_published_as_of": "2026-11-05",
+        "liquidity_average_50d_usd": null,
+        "liquidity_minimum_50d_usd": 20000000,
+        "liquidity_status": "PASSED",
+        "new_entry_eligible": true,
+        "validation_warnings": [],
+        "price_basis": "adjusted_close",
+        "score_version": "onecool_us_dual_v2",
+        "thresholds": {
+          "canslim": 70,
+          "minervini": 80
+        },
+        "technical_confidence": 100,
+        "validation_status": "PASSED",
+        "validation_errors": [],
+        "canslim_score": 59,
+        "minervini_score": 100,
+        "passes_dual_system": false,
+        "company_name": "Airbnb, Inc.",
+        "security_type": "COMMON_STOCK",
+        "rank_score": 76.55,
+        "status": "WAIT",
+        "trigger": "突破52週高點且成交量至少為50日均量1.5倍",
+        "formal_breakout": false,
+        "super_growth_bucket": "B",
+        "super_growth_reason": "VALUATION_INPUTS_UNAVAILABLE_OR_STALE",
+        "quality_gate_status": {
+          "competitive_advantage": {
+            "status": "PASS",
+            "as_of": "2026-11-05",
+            "rationale": "全球房源、旅客需求、品牌與雙邊評價形成網路效應；Q3所有區域住宿晚數均為雙位數成長。",
+            "sources": [
+              "https://news.airbnb.com/airbnb-q3-2026-financial-results"
+            ],
+            "data_gap": null,
+            "validation_errors": [],
+            "method": null,
+            "price_as_of": null,
+            "valid_through": null,
+            "inputs": {}
+          },
+          "structural_growth_runway": {
+            "status": "PASS",
+            "as_of": "2026-11-05",
+            "rationale": "Q3營收年增19%、GBV增21%、住宿與座位預訂增16%，並由核心與拓展市場共同加速。",
+            "sources": [
+              "https://news.airbnb.com/airbnb-q3-2026-financial-results"
+            ],
+            "data_gap": null,
+            "validation_errors": [],
+            "method": null,
+            "price_as_of": null,
+            "valid_through": null,
+            "inputs": {}
+          },
+          "financial_quality": {
+            "status": "PASS",
+            "as_of": "2026-11-05",
+            "rationale": "Q3淨利19億美元、調整後EBITDA 25億美元且利潤率52%；另核准新增120億美元庫藏股。",
+            "sources": [
+              "https://news.airbnb.com/airbnb-q3-2026-financial-results"
+            ],
+            "data_gap": null,
+            "validation_errors": [],
+            "method": null,
+            "price_as_of": null,
+            "valid_through": null,
+            "inputs": {}
+          },
+          "business_risk_and_governance": {
+            "status": "PASS",
+            "as_of": "2026-11-05",
+            "rationale": "旅遊景氣、地方短租監管、供給品質與新服務投資為主要風險；官方Q3資料未顯示足以否決研究資格的事件。",
+            "sources": [
+              "https://news.airbnb.com/airbnb-q3-2026-financial-results"
+            ],
+            "data_gap": null,
+            "validation_errors": [],
+            "method": null,
+            "price_as_of": null,
+            "valid_through": null,
+            "inputs": {}
+          },
+          "circle_of_competence": {
+            "status": "UNKNOWN",
+            "as_of": "2026-11-05",
+            "rationale": "正式建倉前確認對平台網路效應、旅遊循環與地方監管風險的理解。",
+            "sources": [
+              "https://news.airbnb.com/airbnb-q3-2026-financial-results"
+            ],
+            "data_gap": "PRE_TRADE_USER_CONFIRMATION_ONLY",
+            "validation_errors": [],
+            "method": null,
+            "price_as_of": null,
+            "valid_through": null,
+            "inputs": {}
+          },
+          "valuation": {
+            "status": "UNKNOWN",
+            "as_of": "2026-11-06",
+            "rationale": "Q3 revenue reaccelerated 19%, but travel cyclicality, local regulation and reinvestment justify a 25–32x Onecool screening range.",
+            "sources": [
+              "https://news.airbnb.com/airbnb-q3-2026-financial-results",
+              "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+            ],
+            "data_gap": "PRICE_CUTOFF_MISMATCH; VALUATION_EXPIRED",
+            "validation_errors": [
+              "PRICE_CUTOFF_MISMATCH",
+              "VALUATION_EXPIRED"
+            ],
+            "method": "TRAILING_GAAP_PE_Q3_2026",
+            "price_as_of": "2026-11-06",
+            "valid_through": "2026-11-06",
+            "inputs": {
+              "price": 189.99000549316406,
+              "denominator": 4.03,
+              "multiple": 47.1439219586015,
+              "fair_range": [
+                11.013080403198325,
+                18.714878240358644
+              ]
+            }
+          }
+        },
+        "evidence_coverage": "PARTIAL",
+        "missing_evidence": [
+          "circle_of_competence",
+          "valuation"
+        ],
+        "quality_data_gaps": {},
+        "valuation_posture": "UNRESOLVED_WITH_SPECIFIC_GAP",
+        "cyclical_review_required": false,
+        "evidence_as_of": "2026-11-06",
+        "manual_confirmation_required": [
+          "circle_of_competence"
+        ],
+        "circle_of_competence_policy": "PRE_TRADE_USER_CONFIRMATION_NOT_DAILY_RESEARCH_BLOCKER",
+        "decision_authority": "RESEARCH_QUALITY_ONLY",
+        "quality_gate_application": "FORMAL_NEW_CANDIDATE_RESEARCH_GATE",
+        "action_eligibility": "RESEARCH_ONLY_VALUATION_DATA_GAP",
+        "lynch_research": {
+          "version": "onecool_lynch_research_v1",
+          "company_type": {
+            "status": "PROVISIONAL",
+            "primary": "FAST_GROWER",
+            "candidates": [
+              "FAST_GROWER"
+            ],
+            "evidence": [
+              {
+                "field": "verified_quality_gates",
+                "value": [
+                  "structural_growth_runway",
+                  "financial_quality"
+                ],
+                "interpretation": "FAST_GROWTH_CANDIDATE_NOT_DURABILITY_PROOF"
+              }
+            ],
+            "unresolved_categories": [
+              "SLOW_GROWER",
+              "STALWART",
+              "CYCLICAL",
+              "TURNAROUND",
+              "ASSET_PLAY"
+            ]
+          },
+          "investment_story": {
+            "status": "EVIDENCE_ONLY",
+            "evidence": [
+              {
+                "field": "competitive_advantage",
+                "value": "PASS",
+                "as_of": "2026-11-05",
+                "rationale": "全球房源、旅客需求、品牌與雙邊評價形成網路效應；Q3所有區域住宿晚數均為雙位數成長。",
+                "sources": [
+                  "https://news.airbnb.com/airbnb-q3-2026-financial-results"
+                ]
+              },
+              {
+                "field": "structural_growth_runway",
+                "value": "PASS",
+                "as_of": "2026-11-05",
+                "rationale": "Q3營收年增19%、GBV增21%、住宿與座位預訂增16%，並由核心與拓展市場共同加速。",
+                "sources": [
+                  "https://news.airbnb.com/airbnb-q3-2026-financial-results"
+                ]
+              },
+              {
+                "field": "financial_quality",
+                "value": "PASS",
+                "as_of": "2026-11-05",
+                "rationale": "Q3淨利19億美元、調整後EBITDA 25億美元且利潤率52%；另核准新增120億美元庫藏股。",
+                "sources": [
+                  "https://news.airbnb.com/airbnb-q3-2026-financial-results"
+                ]
+              },
+              {
+                "field": "business_risk_and_governance",
+                "value": "PASS",
+                "as_of": "2026-11-05",
+                "rationale": "旅遊景氣、地方短租監管、供給品質與新服務投資為主要風險；官方Q3資料未顯示足以否決研究資格的事件。",
+                "sources": [
+                  "https://news.airbnb.com/airbnb-q3-2026-financial-results"
+                ]
+              }
+            ],
             "required_manual_confirmation": [
               "BUSINESS_DRIVER",
               "DURABILITY",
@@ -1211,304 +2343,85 @@
     ],
     "exclusions": [
       {
-        "symbol": "AAPL",
-        "technical_confidence": 10,
-        "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated",
-        "fundamental_fetch_status": "CACHED_POINT_IN_TIME_SEC_VERIFIED"
-      },
-      {
-        "symbol": "ABBV",
-        "technical_confidence": 10,
-        "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated",
-        "fundamental_fetch_status": "CACHED_POINT_IN_TIME_SEC_VERIFIED"
-      },
-      {
-        "symbol": "ABNB",
-        "technical_confidence": 10,
-        "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated",
-        "fundamental_fetch_status": "REVIEWED_OFFICIAL_REFERENCE"
-      },
-      {
-        "symbol": "ADBE",
-        "technical_confidence": 10,
-        "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated",
-        "fundamental_fetch_status": "CACHED_POINT_IN_TIME_SEC_VERIFIED"
-      },
-      {
-        "symbol": "ADI",
-        "technical_confidence": 10,
-        "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated",
-        "fundamental_fetch_status": "CACHED_POINT_IN_TIME_SEC_VERIFIED"
-      },
-      {
-        "symbol": "AMD",
-        "technical_confidence": 10,
-        "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated",
-        "fundamental_fetch_status": "CACHED_POINT_IN_TIME_SEC_VERIFIED"
-      },
-      {
-        "symbol": "AMAT",
-        "technical_confidence": 10,
-        "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated",
-        "fundamental_fetch_status": "CACHED_POINT_IN_TIME_SEC_VERIFIED"
-      },
-      {
-        "symbol": "AMGN",
-        "technical_confidence": 10,
-        "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated",
-        "fundamental_fetch_status": "CACHED_POINT_IN_TIME_SEC_VERIFIED"
-      },
-      {
-        "symbol": "AMZN",
-        "technical_confidence": 10,
-        "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated",
-        "fundamental_fetch_status": "CACHED_POINT_IN_TIME_SEC_VERIFIED"
-      },
-      {
-        "symbol": "ANET",
-        "technical_confidence": 10,
-        "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated",
-        "fundamental_fetch_status": "CACHED_POINT_IN_TIME_SEC_VERIFIED"
-      },
-      {
-        "symbol": "APP",
-        "technical_confidence": 10,
-        "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated",
-        "fundamental_fetch_status": "CACHED_POINT_IN_TIME_SEC_VERIFIED"
-      },
-      {
-        "symbol": "AVGO",
-        "technical_confidence": 10,
-        "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated",
-        "fundamental_fetch_status": "CACHED_POINT_IN_TIME_SEC_VERIFIED"
-      },
-      {
-        "symbol": "AXP",
-        "technical_confidence": 10,
-        "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated",
-        "fundamental_fetch_status": "CACHED_POINT_IN_TIME_SEC_VERIFIED"
-      },
-      {
         "symbol": "BA",
-        "technical_confidence": 10,
-        "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated; fundamental validation unavailable",
-        "fundamental_fetch_status": "NOT_REQUESTED"
-      },
-      {
-        "symbol": "BKNG",
-        "technical_confidence": 10,
-        "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated",
-        "fundamental_fetch_status": "CACHED_POINT_IN_TIME_SEC_VERIFIED"
-      },
-      {
-        "symbol": "CAT",
-        "technical_confidence": 10,
-        "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated",
-        "fundamental_fetch_status": "CACHED_POINT_IN_TIME_SEC_VERIFIED"
-      },
-      {
-        "symbol": "CEG",
-        "technical_confidence": 10,
-        "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated",
-        "fundamental_fetch_status": "CACHED_POINT_IN_TIME_SEC_VERIFIED"
-      },
-      {
-        "symbol": "CLS",
-        "technical_confidence": 10,
-        "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated",
-        "fundamental_fetch_status": "CACHED_POINT_IN_TIME_SEC_VERIFIED"
-      },
-      {
-        "symbol": "COIN",
-        "technical_confidence": 10,
-        "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated",
-        "fundamental_fetch_status": "CACHED_POINT_IN_TIME_SEC_VERIFIED"
+        "technical_confidence": 100,
+        "reason": "Reviewed nonpositive prior EPS; growth comparison is not meaningful under the existing rule",
+        "assessment_status": "RULE_EXCLUDED",
+        "reviewed_evidence": {
+          "symbol": "BA",
+          "status": "NONPOSITIVE_COMPARISON_BASE",
+          "review_status": "VERIFIED",
+          "period_end": "2026-09-30",
+          "prior_period_end": "2025-09-30",
+          "current_eps": -0.26,
+          "prior_eps": -7.14,
+          "published_as_of": "2026-10-27",
+          "valid_through": "2027-01-20",
+          "source_url": "https://investors.boeing.com/investors/news/press-release-details/2026/Boeing-Reports-Third-Quarter-Results/default.aspx",
+          "reviewed_as_of": "2026-10-30",
+          "accounting_basis": "us-gaap",
+          "currency": "USD",
+          "review_note": "Official Q3 2026 GAAP diluted EPS was -0.26 versus -7.14. The nonpositive current and prior bases make the growth comparison inapplicable; rule-excluded and never scored."
+        },
+        "fundamental_fetch_status": "RULE_EXCLUDED_REVIEWED",
+        "latest_fetch_attempt_status": "SEC_FETCH_FAILED",
+        "fundamental_validation_detail": "SEC_FETCH_FAILED"
       },
       {
         "symbol": "COST",
-        "technical_confidence": 10,
-        "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated; fundamental validation unavailable",
-        "fundamental_fetch_status": "SOURCE_REFRESH_REQUIRED"
-      },
-      {
-        "symbol": "CRDO",
-        "technical_confidence": 10,
-        "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated",
-        "fundamental_fetch_status": "CACHED_POINT_IN_TIME_SEC_VERIFIED"
+        "technical_confidence": 100,
+        "reason": "fundamental validation unavailable",
+        "fundamental_fetch_status": "SEC_FETCH_FAILED",
+        "fundamental_validation_detail": "SEC_FETCH_FAILED"
       },
       {
         "symbol": "CRWD",
-        "technical_confidence": 10,
-        "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated; fundamental validation unavailable",
-        "fundamental_fetch_status": "NOT_REQUESTED"
-      },
-      {
-        "symbol": "CSCO",
-        "technical_confidence": 10,
-        "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated",
-        "fundamental_fetch_status": "REVIEWED_OFFICIAL_REFERENCE"
-      },
-      {
-        "symbol": "CVX",
-        "technical_confidence": 10,
-        "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated",
-        "fundamental_fetch_status": "CACHED_POINT_IN_TIME_SEC_VERIFIED"
-      },
-      {
-        "symbol": "DDOG",
-        "technical_confidence": 10,
-        "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated",
-        "fundamental_fetch_status": "CACHED_POINT_IN_TIME_SEC_VERIFIED"
-      },
-      {
-        "symbol": "DE",
-        "technical_confidence": 10,
-        "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated",
-        "fundamental_fetch_status": "CACHED_POINT_IN_TIME_SEC_VERIFIED"
-      },
-      {
-        "symbol": "DELL",
-        "technical_confidence": 10,
-        "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated",
-        "fundamental_fetch_status": "CACHED_POINT_IN_TIME_SEC_VERIFIED"
-      },
-      {
-        "symbol": "DUOL",
-        "technical_confidence": 10,
-        "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated",
-        "fundamental_fetch_status": "CACHED_POINT_IN_TIME_SEC_VERIFIED"
-      },
-      {
-        "symbol": "ETN",
-        "technical_confidence": 10,
-        "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated",
-        "fundamental_fetch_status": "CACHED_POINT_IN_TIME_SEC_VERIFIED"
-      },
-      {
-        "symbol": "GE",
-        "technical_confidence": 10,
-        "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated",
-        "fundamental_fetch_status": "CACHED_POINT_IN_TIME_SEC_VERIFIED"
-      },
-      {
-        "symbol": "GEV",
-        "technical_confidence": 10,
-        "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated",
-        "fundamental_fetch_status": "CACHED_POINT_IN_TIME_SEC_VERIFIED"
-      },
-      {
-        "symbol": "GILD",
-        "technical_confidence": 10,
-        "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated",
-        "fundamental_fetch_status": "CACHED_POINT_IN_TIME_SEC_VERIFIED"
-      },
-      {
-        "symbol": "GOOGL",
-        "technical_confidence": 10,
-        "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated",
-        "fundamental_fetch_status": "CACHED_POINT_IN_TIME_SEC_VERIFIED"
-      },
-      {
-        "symbol": "GS",
-        "technical_confidence": 10,
-        "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated",
-        "fundamental_fetch_status": "CACHED_POINT_IN_TIME_SEC_VERIFIED"
-      },
-      {
-        "symbol": "HOOD",
-        "technical_confidence": 10,
-        "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated",
-        "fundamental_fetch_status": "CACHED_POINT_IN_TIME_SEC_VERIFIED"
-      },
-      {
-        "symbol": "IBM",
-        "technical_confidence": 10,
-        "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated",
-        "fundamental_fetch_status": "CACHED_POINT_IN_TIME_SEC_VERIFIED"
-      },
-      {
-        "symbol": "JPM",
-        "technical_confidence": 10,
-        "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated",
-        "fundamental_fetch_status": "CACHED_POINT_IN_TIME_SEC_VERIFIED"
-      },
-      {
-        "symbol": "KLAC",
-        "technical_confidence": 10,
-        "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated",
-        "fundamental_fetch_status": "REVIEWED_OFFICIAL_REFERENCE"
-      },
-      {
-        "symbol": "LLY",
-        "technical_confidence": 10,
-        "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated",
-        "fundamental_fetch_status": "CACHED_POINT_IN_TIME_SEC_VERIFIED"
-      },
-      {
-        "symbol": "LRCX",
-        "technical_confidence": 10,
-        "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated",
-        "fundamental_fetch_status": "CACHED_POINT_IN_TIME_SEC_VERIFIED"
-      },
-      {
-        "symbol": "MA",
-        "technical_confidence": 10,
-        "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated",
-        "fundamental_fetch_status": "CACHED_POINT_IN_TIME_SEC_VERIFIED"
-      },
-      {
-        "symbol": "META",
-        "technical_confidence": 10,
-        "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated",
-        "fundamental_fetch_status": "CACHED_POINT_IN_TIME_SEC_VERIFIED"
-      },
-      {
-        "symbol": "MPWR",
-        "technical_confidence": 10,
-        "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated",
-        "fundamental_fetch_status": "CACHED_POINT_IN_TIME_SEC_VERIFIED"
+        "technical_confidence": 100,
+        "reason": "Reviewed nonpositive prior EPS; growth comparison is not meaningful under the existing rule",
+        "assessment_status": "RULE_EXCLUDED",
+        "reviewed_evidence": {
+          "symbol": "CRWD",
+          "status": "NONPOSITIVE_COMPARISON_BASE",
+          "review_status": "VERIFIED",
+          "period_end": "2026-07-31",
+          "prior_period_end": "2025-07-31",
+          "current_eps": 0.01,
+          "prior_eps": -0.07,
+          "published_as_of": "2026-08-27",
+          "valid_through": "2026-11-20",
+          "source_url": "https://ir.crowdstrike.com/news-releases/news-release-details/crowdstrike-reports-second-quarter-fiscal-year-2027-financial/",
+          "reviewed_as_of": "2026-10-30",
+          "accounting_basis": "us-gaap",
+          "currency": "USD",
+          "review_note": "Official Q2 FY2027 GAAP diluted EPS was 0.01 versus -0.07. The negative comparison base makes EPS growth inapplicable; rule-excluded until superseded by newer official results."
+        },
+        "fundamental_fetch_status": "RULE_EXCLUDED_REVIEWED",
+        "latest_fetch_attempt_status": "SEC_FETCH_FAILED",
+        "fundamental_validation_detail": "SEC_FETCH_FAILED"
       },
       {
         "symbol": "MRVL",
-        "technical_confidence": 10,
-        "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated; fundamental validation unavailable",
-        "fundamental_fetch_status": "SOURCE_REFRESH_REQUIRED"
-      },
-      {
-        "symbol": "MS",
-        "technical_confidence": 10,
-        "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated",
-        "fundamental_fetch_status": "CACHED_POINT_IN_TIME_SEC_VERIFIED"
-      },
-      {
-        "symbol": "MSFT",
-        "technical_confidence": 10,
-        "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated",
-        "fundamental_fetch_status": "REVIEWED_OFFICIAL_REFERENCE"
-      },
-      {
-        "symbol": "MU",
-        "technical_confidence": 10,
-        "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated",
-        "fundamental_fetch_status": "CACHED_POINT_IN_TIME_SEC_VERIFIED"
-      },
-      {
-        "symbol": "NFLX",
-        "technical_confidence": 10,
-        "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated",
-        "fundamental_fetch_status": "CACHED_POINT_IN_TIME_SEC_VERIFIED"
-      },
-      {
-        "symbol": "NOW",
-        "technical_confidence": 10,
-        "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated",
-        "fundamental_fetch_status": "CACHED_POINT_IN_TIME_SEC_VERIFIED"
-      },
-      {
-        "symbol": "ORCL",
-        "technical_confidence": 10,
-        "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated",
-        "fundamental_fetch_status": "CACHED_POINT_IN_TIME_SEC_VERIFIED"
+        "technical_confidence": 100,
+        "reason": "Reviewed nonpositive prior EPS; growth comparison is not meaningful under the existing rule",
+        "assessment_status": "RULE_EXCLUDED",
+        "reviewed_evidence": {
+          "symbol": "MRVL",
+          "status": "NONPOSITIVE_COMPARISON_BASE",
+          "review_status": "VERIFIED",
+          "period_end": "2026-01-31",
+          "prior_period_end": "2025-02-01",
+          "current_eps": 3.07,
+          "prior_eps": -1.02,
+          "published_as_of": "2026-03-11",
+          "valid_through": "2027-03-01",
+          "source_url": "https://investor.marvell.com/sec-filings/all-sec-filings/content/0001835632-26-000006/q426_8kx1312026ex-991.htm",
+          "reviewed_as_of": "2026-10-30",
+          "review_note": "Official FY2026 GAAP diluted EPS was 3.07 versus FY2025 -1.02. The annual comparison base remains negative, so MRVL is rule-excluded and never scored.",
+          "comparison_scope": "annual_eps"
+        },
+        "fundamental_fetch_status": "RULE_EXCLUDED_REVIEWED",
+        "latest_fetch_attempt_status": "SEC_FETCH_FAILED",
+        "fundamental_validation_detail": "SEC_FETCH_FAILED"
       },
       {
         "symbol": "PANW",
@@ -1613,61 +2526,16 @@
         "fundamental_fetch_status": "REVIEWED_OFFICIAL_REFERENCE"
       }
     ],
-    "rule_excluded_count": 0,
-    "rule_excluded_symbols": [],
-    "data_validation_failed_count": 67,
-    "data_validation_failed_symbols": [
-      "AAPL",
-      "ABBV",
-      "ABNB",
-      "ADBE",
-      "ADI",
-      "AMAT",
-      "AMD",
-      "AMGN",
-      "AMZN",
-      "ANET",
-      "APP",
-      "AVGO",
-      "AXP",
+    "rule_excluded_count": 3,
+    "rule_excluded_symbols": [
       "BA",
-      "BKNG",
-      "CAT",
-      "CEG",
-      "CLS",
-      "COIN",
-      "COST",
-      "CRDO",
       "CRWD",
-      "CSCO",
-      "CVX",
-      "DDOG",
-      "DE",
-      "DELL",
-      "DUOL",
-      "ETN",
+      "MRVL"
+    ],
+    "data_validation_failed_count": 18,
+    "data_validation_failed_symbols": [
+      "COST",
       "GD",
-      "GE",
-      "GEV",
-      "GILD",
-      "GOOGL",
-      "GS",
-      "HOOD",
-      "IBM",
-      "JPM",
-      "KLAC",
-      "LLY",
-      "LRCX",
-      "MA",
-      "META",
-      "MPWR",
-      "MRVL",
-      "MS",
-      "MSFT",
-      "MU",
-      "NFLX",
-      "NOW",
-      "ORCL",
       "PANW",
       "PLTR",
       "QCOM",
@@ -1689,940 +2557,257 @@
     "unassessed_count": 0,
     "assessment_status": "COMPLETE",
     "price_fetch_diagnostics": {
-      "NVDA": {
-        "status": "REUSED_VALIDATED_DASHBOARD_HISTORY"
-      },
-      "TSLA": {
-        "status": "REUSED_VALIDATED_DASHBOARD_HISTORY"
-      },
-      "XYZ": {
-        "status": "REUSED_VALIDATED_DASHBOARD_HISTORY"
-      },
-      "BABA": {
-        "status": "REUSED_VALIDATED_DASHBOARD_HISTORY"
-      },
-      "SWKS": {
-        "status": "REUSED_VALIDATED_DASHBOARD_HISTORY"
-      },
-      "RH": {
-        "status": "REUSED_VALIDATED_DASHBOARD_HISTORY"
-      },
-      "UPBD": {
-        "status": "REUSED_VALIDATED_DASHBOARD_HISTORY"
-      },
-      "ADBE": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
+      "AAPL": {
+        "status": "RECOVERED_FROM_TIINGO_ADJUSTED_WINDOW",
+        "observations": 252,
+        "last_date": "2026-11-09"
       },
       "ABNB": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
-      },
-      "AAPL": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "alpha_full_window_status": "ALPHA_LIMIT_OR_ENTITLEMENT",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
-      },
-      "ADI": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
+        "status": "RECOVERED_FROM_TIINGO_ADJUSTED_WINDOW",
+        "observations": 252,
+        "last_date": "2026-11-09"
       },
       "ABBV": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
+        "status": "RECOVERED_FROM_TIINGO_ADJUSTED_WINDOW",
+        "observations": 252,
+        "last_date": "2026-11-09"
       },
-      "AMZN": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
-      },
-      "ANET": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
-      },
-      "APP": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
-      },
-      "AVGO": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
-      },
-      "AXP": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
-      },
-      "BA": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
-      },
-      "BKNG": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
-      },
-      "CAT": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
-      },
-      "CEG": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
-      },
-      "CLS": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
-      },
-      "AMAT": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
+      "ADBE": {
+        "status": "RECOVERED_FROM_TIINGO_ADJUSTED_WINDOW",
+        "observations": 252,
+        "last_date": "2026-11-09"
       },
       "AMD": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
+        "status": "RECOVERED_FROM_TIINGO_ADJUSTED_WINDOW",
+        "observations": 252,
+        "last_date": "2026-11-09"
       },
-      "COST": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
+      "ADI": {
+        "status": "RECOVERED_FROM_TIINGO_ADJUSTED_WINDOW",
+        "observations": 252,
+        "last_date": "2026-11-09"
       },
-      "COIN": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
-      },
-      "CRDO": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
-      },
-      "CRWD": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
+      "AMAT": {
+        "status": "RECOVERED_FROM_TIINGO_ADJUSTED_WINDOW",
+        "observations": 252,
+        "last_date": "2026-11-09"
       },
       "AMGN": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
+        "status": "RECOVERED_FROM_TIINGO_ADJUSTED_WINDOW",
+        "observations": 252,
+        "last_date": "2026-11-09"
+      },
+      "AMZN": {
+        "status": "RECOVERED_FROM_TIINGO_ADJUSTED_WINDOW",
+        "observations": 252,
+        "last_date": "2026-11-09"
+      },
+      "ANET": {
+        "status": "RECOVERED_FROM_TIINGO_ADJUSTED_WINDOW",
+        "observations": 252,
+        "last_date": "2026-11-09"
+      },
+      "AVGO": {
+        "status": "RECOVERED_FROM_TIINGO_ADJUSTED_WINDOW",
+        "observations": 252,
+        "last_date": "2026-11-09"
+      },
+      "APP": {
+        "status": "RECOVERED_FROM_TIINGO_ADJUSTED_WINDOW",
+        "observations": 252,
+        "last_date": "2026-11-09"
+      },
+      "BA": {
+        "status": "RECOVERED_FROM_TIINGO_ADJUSTED_WINDOW",
+        "observations": 252,
+        "last_date": "2026-11-09"
+      },
+      "AXP": {
+        "status": "RECOVERED_FROM_TIINGO_ADJUSTED_WINDOW",
+        "observations": 252,
+        "last_date": "2026-11-09"
+      },
+      "CAT": {
+        "status": "RECOVERED_FROM_TIINGO_ADJUSTED_WINDOW",
+        "observations": 252,
+        "last_date": "2026-11-09"
+      },
+      "CEG": {
+        "status": "RECOVERED_FROM_TIINGO_ADJUSTED_WINDOW",
+        "observations": 252,
+        "last_date": "2026-11-09"
+      },
+      "CLS": {
+        "status": "RECOVERED_FROM_TIINGO_ADJUSTED_WINDOW",
+        "observations": 252,
+        "last_date": "2026-11-09"
+      },
+      "COIN": {
+        "status": "RECOVERED_FROM_TIINGO_ADJUSTED_WINDOW",
+        "observations": 252,
+        "last_date": "2026-11-09"
+      },
+      "CRDO": {
+        "status": "RECOVERED_FROM_TIINGO_ADJUSTED_WINDOW",
+        "observations": 252,
+        "last_date": "2026-11-09"
+      },
+      "CRWD": {
+        "status": "RECOVERED_FROM_TIINGO_ADJUSTED_WINDOW",
+        "observations": 252,
+        "last_date": "2026-11-09"
       },
       "CSCO": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
-      },
-      "CVX": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
+        "status": "RECOVERED_FROM_TIINGO_ADJUSTED_WINDOW",
+        "observations": 252,
+        "last_date": "2026-11-09"
       },
       "DDOG": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
-      },
-      "DELL": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
+        "status": "RECOVERED_FROM_TIINGO_ADJUSTED_WINDOW",
+        "observations": 252,
+        "last_date": "2026-11-09"
       },
       "DE": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
+        "status": "RECOVERED_FROM_TIINGO_ADJUSTED_WINDOW",
+        "observations": 252,
+        "last_date": "2026-11-09"
+      },
+      "BKNG": {
+        "status": "RECOVERED_FROM_TIINGO_ADJUSTED_WINDOW",
+        "observations": 252,
+        "last_date": "2026-11-09"
+      },
+      "DELL": {
+        "status": "RECOVERED_FROM_TIINGO_ADJUSTED_WINDOW",
+        "observations": 252,
+        "last_date": "2026-11-09"
       },
       "DUOL": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
+        "status": "RECOVERED_FROM_TIINGO_ADJUSTED_WINDOW",
+        "observations": 252,
+        "last_date": "2026-11-09"
       },
       "ETN": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
+        "status": "RECOVERED_FROM_TIINGO_ADJUSTED_WINDOW",
+        "observations": 252,
+        "last_date": "2026-11-09"
       },
-      "GEV": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
-      },
-      "GILD": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
+      "COST": {
+        "status": "RECOVERED_FROM_TIINGO_ADJUSTED_WINDOW",
+        "observations": 252,
+        "last_date": "2026-11-09"
       },
       "GE": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
+        "status": "RECOVERED_FROM_TIINGO_ADJUSTED_WINDOW",
+        "observations": 252,
+        "last_date": "2026-11-09"
+      },
+      "GEV": {
+        "status": "RECOVERED_FROM_TIINGO_ADJUSTED_WINDOW",
+        "observations": 252,
+        "last_date": "2026-11-09"
       },
       "GOOGL": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
+        "status": "RECOVERED_FROM_TIINGO_ADJUSTED_WINDOW",
+        "observations": 252,
+        "last_date": "2026-11-09"
       },
-      "JPM": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
+      "CVX": {
+        "status": "RECOVERED_FROM_TIINGO_ADJUSTED_WINDOW",
+        "observations": 252,
+        "last_date": "2026-11-09"
       },
-      "IBM": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
+      "GILD": {
+        "status": "RECOVERED_FROM_TIINGO_ADJUSTED_WINDOW",
+        "observations": 252,
+        "last_date": "2026-11-09"
       },
       "GS": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
+        "status": "RECOVERED_FROM_TIINGO_ADJUSTED_WINDOW",
+        "observations": 252,
+        "last_date": "2026-11-09"
       },
       "HOOD": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
+        "status": "RECOVERED_FROM_TIINGO_ADJUSTED_WINDOW",
+        "observations": 252,
+        "last_date": "2026-11-09"
+      },
+      "JPM": {
+        "status": "RECOVERED_FROM_TIINGO_ADJUSTED_WINDOW",
+        "observations": 252,
+        "last_date": "2026-11-09"
+      },
+      "IBM": {
+        "status": "RECOVERED_FROM_TIINGO_ADJUSTED_WINDOW",
+        "observations": 252,
+        "last_date": "2026-11-09"
       },
       "KLAC": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
+        "status": "RECOVERED_FROM_TIINGO_ADJUSTED_WINDOW",
+        "observations": 252,
+        "last_date": "2026-11-09"
       },
       "LRCX": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
+        "status": "RECOVERED_FROM_TIINGO_ADJUSTED_WINDOW",
+        "observations": 252,
+        "last_date": "2026-11-09"
       },
       "LLY": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
+        "status": "RECOVERED_FROM_TIINGO_ADJUSTED_WINDOW",
+        "observations": 252,
+        "last_date": "2026-11-09"
       },
       "MA": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
-      },
-      "MPWR": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
-      },
-      "META": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
-      },
-      "MS": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
+        "status": "RECOVERED_FROM_TIINGO_ADJUSTED_WINDOW",
+        "observations": 252,
+        "last_date": "2026-11-09"
       },
       "MRVL": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
+        "status": "RECOVERED_FROM_TIINGO_ADJUSTED_WINDOW",
+        "observations": 252,
+        "last_date": "2026-11-09"
+      },
+      "META": {
+        "status": "RECOVERED_FROM_TIINGO_ADJUSTED_WINDOW",
+        "observations": 252,
+        "last_date": "2026-11-09"
+      },
+      "MPWR": {
+        "status": "RECOVERED_FROM_TIINGO_ADJUSTED_WINDOW",
+        "observations": 252,
+        "last_date": "2026-11-09"
+      },
+      "MS": {
+        "status": "RECOVERED_FROM_TIINGO_ADJUSTED_WINDOW",
+        "observations": 252,
+        "last_date": "2026-11-09"
       },
       "MU": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
-      },
-      "NFLX": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
+        "status": "RECOVERED_FROM_TIINGO_ADJUSTED_WINDOW",
+        "observations": 252,
+        "last_date": "2026-11-09"
       },
       "MSFT": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
+        "status": "RECOVERED_FROM_TIINGO_ADJUSTED_WINDOW",
+        "observations": 252,
+        "last_date": "2026-11-09"
+      },
+      "NFLX": {
+        "status": "RECOVERED_FROM_TIINGO_ADJUSTED_WINDOW",
+        "observations": 252,
+        "last_date": "2026-11-09"
       },
       "NOW": {
+        "status": "RECOVERED_FROM_TIINGO_ADJUSTED_WINDOW",
+        "observations": 252,
+        "last_date": "2026-11-09"
+      },
+      "ORCL": {
+        "status": "RECOVERED_FROM_TIINGO_ADJUSTED_WINDOW",
+        "observations": 252,
+        "last_date": "2026-11-09"
+      },
+      "NVDA": {
         "status": "TECHNICAL_DATA_VALIDATION_FAILED",
         "observations": 0,
         "last_date": null,
@@ -2637,9 +2822,7 @@
         "missing_day_retry_status": "NOT_ATTEMPTED",
         "raw_window_retry_status": "NOT_ATTEMPTED",
         "tiingo_retry_status": "NOT_REQUIRED",
-        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
+        "tiingo_full_window_status": "HTTP_429"
       },
       "PANW": {
         "status": "TECHNICAL_DATA_VALIDATION_FAILED",
@@ -2656,47 +2839,7 @@
         "missing_day_retry_status": "NOT_ATTEMPTED",
         "raw_window_retry_status": "NOT_ATTEMPTED",
         "tiingo_retry_status": "NOT_REQUIRED",
-        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
-      },
-      "PLTR": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
-      },
-      "ORCL": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
+        "tiingo_full_window_status": "HTTP_429"
       },
       "QCOM": {
         "status": "TECHNICAL_DATA_VALIDATION_FAILED",
@@ -2713,11 +2856,9 @@
         "missing_day_retry_status": "NOT_ATTEMPTED",
         "raw_window_retry_status": "NOT_ATTEMPTED",
         "tiingo_retry_status": "NOT_REQUIRED",
-        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
+        "tiingo_full_window_status": "HTTP_429"
       },
-      "SNDK": {
+      "PLTR": {
         "status": "TECHNICAL_DATA_VALIDATION_FAILED",
         "observations": 0,
         "last_date": null,
@@ -2732,47 +2873,7 @@
         "missing_day_retry_status": "NOT_ATTEMPTED",
         "raw_window_retry_status": "NOT_ATTEMPTED",
         "tiingo_retry_status": "NOT_REQUIRED",
-        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
-      },
-      "SNOW": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
-      },
-      "SPOT": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
+        "tiingo_full_window_status": "HTTP_429"
       },
       "RTX": {
         "status": "TECHNICAL_DATA_VALIDATION_FAILED",
@@ -2789,9 +2890,58 @@
         "missing_day_retry_status": "NOT_ATTEMPTED",
         "raw_window_retry_status": "NOT_ATTEMPTED",
         "tiingo_retry_status": "NOT_REQUIRED",
-        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
+        "tiingo_full_window_status": "HTTP_429"
+      },
+      "SNDK": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 0,
+        "last_date": null,
+        "missing_spy_sessions": 252,
+        "missing_spy_dates": [
+          "2025-11-07",
+          "2025-11-10",
+          "2025-11-11",
+          "2025-11-12",
+          "2025-11-13"
+        ],
+        "missing_day_retry_status": "NOT_ATTEMPTED",
+        "raw_window_retry_status": "NOT_ATTEMPTED",
+        "tiingo_retry_status": "NOT_REQUIRED",
+        "tiingo_full_window_status": "HTTP_429"
+      },
+      "SNOW": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 0,
+        "last_date": null,
+        "missing_spy_sessions": 252,
+        "missing_spy_dates": [
+          "2025-11-07",
+          "2025-11-10",
+          "2025-11-11",
+          "2025-11-12",
+          "2025-11-13"
+        ],
+        "missing_day_retry_status": "NOT_ATTEMPTED",
+        "raw_window_retry_status": "NOT_ATTEMPTED",
+        "tiingo_retry_status": "NOT_REQUIRED",
+        "tiingo_full_window_status": "HTTP_429"
+      },
+      "SPOT": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 0,
+        "last_date": null,
+        "missing_spy_sessions": 252,
+        "missing_spy_dates": [
+          "2025-11-07",
+          "2025-11-10",
+          "2025-11-11",
+          "2025-11-12",
+          "2025-11-13"
+        ],
+        "missing_day_retry_status": "NOT_ATTEMPTED",
+        "raw_window_retry_status": "NOT_ATTEMPTED",
+        "tiingo_retry_status": "NOT_REQUIRED",
+        "tiingo_full_window_status": "HTTP_429"
       },
       "SYM": {
         "status": "TECHNICAL_DATA_VALIDATION_FAILED",
@@ -2808,9 +2958,7 @@
         "missing_day_retry_status": "NOT_ATTEMPTED",
         "raw_window_retry_status": "NOT_ATTEMPTED",
         "tiingo_retry_status": "NOT_REQUIRED",
-        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
+        "tiingo_full_window_status": "HTTP_429"
       },
       "THC": {
         "status": "TECHNICAL_DATA_VALIDATION_FAILED",
@@ -2827,66 +2975,7 @@
         "missing_day_retry_status": "NOT_ATTEMPTED",
         "raw_window_retry_status": "NOT_ATTEMPTED",
         "tiingo_retry_status": "NOT_REQUIRED",
-        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
-      },
-      "UBER": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
-      },
-      "V": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
-      },
-      "VRT": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
+        "tiingo_full_window_status": "HTTP_429"
       },
       "TSM": {
         "status": "TECHNICAL_DATA_VALIDATION_FAILED",
@@ -2903,9 +2992,75 @@
         "missing_day_retry_status": "NOT_ATTEMPTED",
         "raw_window_retry_status": "NOT_ATTEMPTED",
         "tiingo_retry_status": "NOT_REQUIRED",
-        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
+        "tiingo_full_window_status": "HTTP_429"
+      },
+      "TSLA": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 0,
+        "last_date": null,
+        "missing_spy_sessions": 252,
+        "missing_spy_dates": [
+          "2025-11-07",
+          "2025-11-10",
+          "2025-11-11",
+          "2025-11-12",
+          "2025-11-13"
+        ],
+        "missing_day_retry_status": "NOT_ATTEMPTED",
+        "raw_window_retry_status": "NOT_ATTEMPTED",
+        "tiingo_retry_status": "NOT_REQUIRED",
+        "tiingo_full_window_status": "HTTP_429"
+      },
+      "UBER": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 0,
+        "last_date": null,
+        "missing_spy_sessions": 252,
+        "missing_spy_dates": [
+          "2025-11-07",
+          "2025-11-10",
+          "2025-11-11",
+          "2025-11-12",
+          "2025-11-13"
+        ],
+        "missing_day_retry_status": "NOT_ATTEMPTED",
+        "raw_window_retry_status": "NOT_ATTEMPTED",
+        "tiingo_retry_status": "NOT_REQUIRED",
+        "tiingo_full_window_status": "HTTP_429"
+      },
+      "V": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 0,
+        "last_date": null,
+        "missing_spy_sessions": 252,
+        "missing_spy_dates": [
+          "2025-11-07",
+          "2025-11-10",
+          "2025-11-11",
+          "2025-11-12",
+          "2025-11-13"
+        ],
+        "missing_day_retry_status": "NOT_ATTEMPTED",
+        "raw_window_retry_status": "NOT_ATTEMPTED",
+        "tiingo_retry_status": "NOT_REQUIRED",
+        "tiingo_full_window_status": "HTTP_429"
+      },
+      "VRT": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 0,
+        "last_date": null,
+        "missing_spy_sessions": 252,
+        "missing_spy_dates": [
+          "2025-11-07",
+          "2025-11-10",
+          "2025-11-11",
+          "2025-11-12",
+          "2025-11-13"
+        ],
+        "missing_day_retry_status": "NOT_ATTEMPTED",
+        "raw_window_retry_status": "NOT_ATTEMPTED",
+        "tiingo_retry_status": "NOT_REQUIRED",
+        "tiingo_full_window_status": "HTTP_429"
       },
       "WAB": {
         "status": "TECHNICAL_DATA_VALIDATION_FAILED",
@@ -2922,9 +3077,7 @@
         "missing_day_retry_status": "NOT_ATTEMPTED",
         "raw_window_retry_status": "NOT_ATTEMPTED",
         "tiingo_retry_status": "NOT_REQUIRED",
-        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
+        "tiingo_full_window_status": "HTTP_429"
       },
       "WDC": {
         "status": "TECHNICAL_DATA_VALIDATION_FAILED",
@@ -2941,28 +3094,7 @@
         "missing_day_retry_status": "NOT_ATTEMPTED",
         "raw_window_retry_status": "NOT_ATTEMPTED",
         "tiingo_retry_status": "NOT_REQUIRED",
-        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
-      },
-      "GD": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
+        "tiingo_full_window_status": "HTTP_429"
       },
       "WMT": {
         "status": "TECHNICAL_DATA_VALIDATION_FAILED",
@@ -2979,9 +3111,109 @@
         "missing_day_retry_status": "NOT_ATTEMPTED",
         "raw_window_retry_status": "NOT_ATTEMPTED",
         "tiingo_retry_status": "NOT_REQUIRED",
-        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
+        "tiingo_full_window_status": "HTTP_429"
+      },
+      "XYZ": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 0,
+        "last_date": null,
+        "missing_spy_sessions": 252,
+        "missing_spy_dates": [
+          "2025-11-07",
+          "2025-11-10",
+          "2025-11-11",
+          "2025-11-12",
+          "2025-11-13"
+        ],
+        "missing_day_retry_status": "NOT_ATTEMPTED",
+        "raw_window_retry_status": "NOT_ATTEMPTED",
+        "tiingo_retry_status": "NOT_REQUIRED",
+        "tiingo_full_window_status": "HTTP_429"
+      },
+      "BABA": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 0,
+        "last_date": null,
+        "missing_spy_sessions": 252,
+        "missing_spy_dates": [
+          "2025-11-07",
+          "2025-11-10",
+          "2025-11-11",
+          "2025-11-12",
+          "2025-11-13"
+        ],
+        "missing_day_retry_status": "NOT_ATTEMPTED",
+        "raw_window_retry_status": "NOT_ATTEMPTED",
+        "tiingo_retry_status": "NOT_ATTEMPTED",
+        "tiingo_full_window_status": "HTTP_429"
+      },
+      "SWKS": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 0,
+        "last_date": null,
+        "missing_spy_sessions": 252,
+        "missing_spy_dates": [
+          "2025-11-07",
+          "2025-11-10",
+          "2025-11-11",
+          "2025-11-12",
+          "2025-11-13"
+        ],
+        "missing_day_retry_status": "NOT_ATTEMPTED",
+        "raw_window_retry_status": "NOT_ATTEMPTED",
+        "tiingo_retry_status": "NOT_ATTEMPTED",
+        "tiingo_full_window_status": "HTTP_429"
+      },
+      "GD": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 0,
+        "last_date": null,
+        "missing_spy_sessions": 252,
+        "missing_spy_dates": [
+          "2025-11-07",
+          "2025-11-10",
+          "2025-11-11",
+          "2025-11-12",
+          "2025-11-13"
+        ],
+        "missing_day_retry_status": "NOT_ATTEMPTED",
+        "raw_window_retry_status": "NOT_ATTEMPTED",
+        "tiingo_retry_status": "NOT_REQUIRED",
+        "tiingo_full_window_status": "HTTP_429"
+      },
+      "RH": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 0,
+        "last_date": null,
+        "missing_spy_sessions": 252,
+        "missing_spy_dates": [
+          "2025-11-07",
+          "2025-11-10",
+          "2025-11-11",
+          "2025-11-12",
+          "2025-11-13"
+        ],
+        "missing_day_retry_status": "NOT_ATTEMPTED",
+        "raw_window_retry_status": "NOT_ATTEMPTED",
+        "tiingo_retry_status": "NOT_ATTEMPTED",
+        "tiingo_full_window_status": "HTTP_429"
+      },
+      "UPBD": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 0,
+        "last_date": null,
+        "missing_spy_sessions": 252,
+        "missing_spy_dates": [
+          "2025-11-07",
+          "2025-11-10",
+          "2025-11-11",
+          "2025-11-12",
+          "2025-11-13"
+        ],
+        "missing_day_retry_status": "NOT_ATTEMPTED",
+        "raw_window_retry_status": "NOT_ATTEMPTED",
+        "tiingo_retry_status": "NOT_ATTEMPTED",
+        "tiingo_full_window_status": "HTTP_429"
       }
     },
     "fundamental_fetch_status": {
@@ -3003,7 +3235,7 @@
       "CEG": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
       "CLS": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
       "COIN": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
-      "COST": "SOURCE_REFRESH_REQUIRED",
+      "COST": "SEC_FETCH_FAILED",
       "CRDO": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
       "CSCO": "REVIEWED_OFFICIAL_REFERENCE",
       "CVX": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
@@ -3026,7 +3258,7 @@
       "MA": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
       "META": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
       "MPWR": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
-      "MRVL": "SOURCE_REFRESH_REQUIRED",
+      "MRVL": "RULE_EXCLUDED_REVIEWED",
       "MS": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
       "MSFT": "REVIEWED_OFFICIAL_REFERENCE",
       "MU": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
@@ -3054,8 +3286,8 @@
       "SWKS": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
       "RH": "REVIEWED_OFFICIAL_REFERENCE",
       "UPBD": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
-      "BA": "NOT_REQUESTED",
-      "CRWD": "NOT_REQUESTED",
+      "BA": "RULE_EXCLUDED_REVIEWED",
+      "CRWD": "RULE_EXCLUDED_REVIEWED",
       "SNDK": "NOT_REQUESTED",
       "SNOW": "NOT_REQUESTED",
       "SYM": "NOT_REQUESTED"
@@ -3065,11 +3297,11 @@
       "scope": "NEW_US_STOCK_CANDIDATES_ONLY",
       "bucket_counts": {
         "A": 0,
-        "B": 0,
+        "B": 5,
         "C": 0,
         "REJECT": 0,
         "INNOVATION_OPTION": 0,
-        "EXISTING_POSITION": 1
+        "EXISTING_POSITION": 0
       },
       "ranking_policy": "ANNOTATE_ONLY; NEVER_REORDER_TECHNICAL_SCAN",
       "missing_evidence_policy": "UNKNOWN_NEVER_INFERRED",
