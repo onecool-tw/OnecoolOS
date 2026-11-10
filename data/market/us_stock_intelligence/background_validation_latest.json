@@ -1,80 +1,64 @@
 {
   "schema_version": "1.1",
-  "expected_as_of": "2026-11-06",
+  "expected_as_of": "2026-11-09",
   "price_basis": "adjusted_close",
-  "data_status": "READY",
+  "data_status": "PARTIAL",
   "decision_authority": "BACKGROUND_VALIDATION_ONLY_NO_CTA_OR_RANKING_OVERRIDE",
   "results": [
     {
       "symbol": "AMD",
-      "as_of": "2026-11-06",
-      "expected_as_of": "2026-11-06",
+      "as_of": null,
+      "expected_as_of": "2026-11-09",
       "price_basis": "adjusted_close",
-      "technical_confidence": 100,
-      "validation_errors": [],
-      "validation_status": "PASSED",
-      "observations": 499,
-      "adjusted_close": 449.0400085449219,
-      "moving_averages": {
-        "20": 527.2979965209961,
-        "50": 546.8137976074219,
-        "150": 484.31479990641276,
-        "200": 415.9774998474121
-      },
-      "volume_average_50d": 23408162.0,
-      "high_52w_adjusted": 649.4199829101562,
-      "low_52w_adjusted": 190.9499969482422,
-      "relative_return_126d_to_SPY": -0.015372784386519234,
-      "source_url": "https://finance.yahoo.com/quote/AMD/history/",
-      "history_sha256": "b115180b0272f984cb168db9e6da0247e4548643d6a727b61c467d185067823d",
-      "corporate_action_policy": "Own security adjusted history only; no ticker splice"
+      "technical_confidence": 10,
+      "validation_errors": [
+        "fewer than 252 observations",
+        "price cutoff mismatch",
+        "duplicate or unsorted dates",
+        "invalid OHLCV or adjusted close",
+        "liquidity cannot be calculated",
+        "trading calendar differs from SPY"
+      ],
+      "validation_status": "Technical Data Validation Failed"
     },
     {
       "symbol": "TSM",
-      "as_of": "2026-11-06",
-      "expected_as_of": "2026-11-06",
+      "as_of": null,
+      "expected_as_of": "2026-11-09",
       "price_basis": "adjusted_close",
-      "technical_confidence": 100,
-      "validation_errors": [],
-      "validation_status": "PASSED",
-      "observations": 499,
-      "adjusted_close": 375.44000244140625,
-      "moving_averages": {
-        "20": 416.4395004272461,
-        "50": 431.37139892578125,
-        "150": 417.99369181315103,
-        "200": 400.02916442871094
-      },
-      "volume_average_50d": 11691284.0,
-      "high_52w_adjusted": 485.79998779296875,
-      "low_52w_adjusted": 272.1793518066406,
-      "relative_return_126d_to_SPY": -0.08517150052364131,
-      "source_url": "https://finance.yahoo.com/quote/TSM/history/",
-      "history_sha256": "2fa38b130f4dbc1ab2d1375ef993929434a522e5a5648d237ba4aa8725995bd0",
-      "corporate_action_policy": "Own security adjusted history only; no ticker splice"
+      "technical_confidence": 10,
+      "validation_errors": [
+        "fewer than 252 observations",
+        "price cutoff mismatch",
+        "duplicate or unsorted dates",
+        "invalid OHLCV or adjusted close",
+        "liquidity cannot be calculated",
+        "trading calendar differs from SPY"
+      ],
+      "validation_status": "Technical Data Validation Failed"
     },
     {
       "symbol": "NVDA",
-      "as_of": "2026-11-06",
-      "expected_as_of": "2026-11-06",
+      "as_of": "2026-11-09",
+      "expected_as_of": "2026-11-09",
       "price_basis": "adjusted_close",
       "technical_confidence": 100,
       "validation_errors": [],
       "validation_status": "PASSED",
-      "observations": 1324,
-      "adjusted_close": 186.63999938964844,
+      "observations": 1325,
+      "adjusted_close": 178.67,
       "moving_averages": {
-        "20": 211.54700137309766,
-        "50": 219.77322223296957,
-        "150": 211.82647904377274,
-        "200": 204.39095069347928
+        "20": 209.1645,
+        "50": 219.00048487503912,
+        "150": 211.83298660649277,
+        "200": 204.348141198874
       },
-      "volume_average_50d": 115763136.88,
+      "volume_average_50d": 120983706.76,
       "high_52w_adjusted": 239.24,
       "low_52w_adjusted": 164.79331787490293,
-      "relative_return_126d_to_SPY": -0.13237203229997707,
+      "relative_return_126d_to_SPY": -0.2024876154784424,
       "source_url": "https://finance.yahoo.com/quote/NVDA/history/",
-      "history_sha256": "051c8c025701dda6d9505e549d2c7251f5e94119cdf395ccc517b790288f8915",
+      "history_sha256": "8c967b728040334905e2187f50510208f45353978afa23ccfb0621960d3bcdb4",
       "corporate_action_policy": "Own security adjusted history only; no ticker splice"
     }
   ]
