@@ -53,6 +53,18 @@ CORE_ALPHA_FALLBACK_SYMBOLS = {
 ADJUSTED_HISTORY_SOURCES = {
     "yahoo_finance_adjusted_fallback",
 }
+
+
+def _same_cutoff_validation_regression(previous: dict, current: dict) -> bool:
+    """Do not replace a verified subset with more failures for the same session."""
+    if previous.get("expected_as_of") != current.get("expected_as_of"):
+        return False
+    return (
+        int(current.get("data_validation_failed_count", 0))
+        > int(previous.get("data_validation_failed_count", 0))
+        or int(current.get("validated_count", 0))
+        < int(previous.get("validated_count", 0))
+    )
 DIVIDEND_ABS_TOLERANCE = 1e-3
 MINOR_DIVIDEND_ABS_TOLERANCE = 5e-3
 MINOR_DIVIDEND_REL_TOLERANCE = 1e-2
@@ -726,13 +738,10 @@ def update(
                     price_diagnostics=price_diagnostics,
                     price_history_cache=price_history_cache,
                     chart_fetcher=fetch_adjusted_chart,
-                    dashboard_histories=histories_by_symbol,
-                    alpha_window_fetcher=client.fetch_scan_adjusted_window if client else None,
                     fetch_snapshot_fundamentals=False,
                 )
                 for symbol, bars in scan_histories.items():
-                    if (not _same_trading_calendar(bars, histories_by_symbol["SPY"])
-                            or any(bar.source.endswith("_transient") for bar in bars[-252:])):
+                    if len(bars) < 252 or bars[-1].trading_date.isoformat() != payload["expected_as_of"]:
                         continue
                     price_history_cache[symbol] = [
                         {
@@ -780,10 +789,8 @@ def update(
                     if breakout_input_loader is None:
                         fetch_diagnostics[symbol] = "REVIEWED_OFFICIAL_REFERENCE"
             # Use the same adjusted bars as Dashboard for overlapping symbols.
-            if breakout_input_loader is not None:
-                scan_histories.update({s: h for s, h in histories_by_symbol.items()
-                                       if s in scan_histories and _same_trading_calendar(
-                                           h, histories_by_symbol["SPY"])})
+            scan_histories.update({s: h for s, h in histories_by_symbol.items()
+                                   if s in scan_histories})
             from onecool_os.market.us_background_validation import build_background_validation
             background = build_background_validation(
                 {**scan_histories, "SPY": histories_by_symbol["SPY"]}, payload["expected_as_of"])
@@ -827,7 +834,22 @@ def update(
                     == previous_scan.get("expected_as_of")
                     and current_count < previous_count
                 )
+                same_cutoff_quality_regression = _same_cutoff_validation_regression(
+                    previous_scan, breakout_scan
+                )
+                if same_cutoff_quality_regression and previous_count > 0:
+                    attempted = breakout_scan
+                    breakout_scan = previous_scan
+                    breakout_scan["publication_status"] = "LAST_VALID"
+                    breakout_scan["attempted_as_of"] = attempted.get("expected_as_of")
+                    breakout_scan["attempted_validated_count"] = attempted.get("validated_count")
+                    breakout_scan["attempted_data_validation_failed_count"] = attempted.get(
+                        "data_validation_failed_count"
+                    )
+                    breakout_scan["last_attempt_error"] = "SAME_CUTOFF_VALIDATION_REGRESSION"
                 if (
+                    not same_cutoff_quality_regression
+                    and
                     previous_scan.get("data_status") == "READY"
                     and previous_count > 0
                     and all(c.get("fundamental_sources") and c.get("fundamentals_published_as_of")
@@ -914,7 +936,7 @@ def update(
     payload["provider_fallback_policy"] = (
         "yahoo_finance_raw_primary; "
         "alpha_vantage_core_price_fallback; "
-        "tiingo_verified_gap_or_full_scan_repair; alpha_adjusted_window_after_tiingo_limit; "
+        "tiingo_parallel_verified_terminal_scan_repair; "
         "coinbase_verified_btc_completed_day_repair; "
         "partial_current_scan_only_with_explicit_validation_failures; "
         "last_successful_cache_on_failure"
