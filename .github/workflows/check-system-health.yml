@@ -35,12 +35,13 @@ on:
           - verify
         default: primary
   schedule:
-    # Daily report inputs: recover at 10:15 and run the final data gate at
-    # 15:30 Taipei, after the 14:00 US dashboard retry.
+    # Morning report inputs: recover at 10:15 and 11:05 after the 10:00 final
+    # US Dashboard retry, then enforce the pre-report data gate at 11:20.
     - cron: "15 2 * * 1-6"
     # Second pre-fund recovery if the first scheduled event was delayed/missed.
     - cron: "5 3 * * 1-6"
     - cron: "20 3 * * 1-6"
+    # Retain a late 15:30 verification for transient provider failures.
     - cron: "30 7 * * 1-6"
     # Taiwan close inputs: start recovery before the 18:00 report, verify it,
     # then retain a final recovery/verification pair for delayed providers.
