@@ -1,10 +1,10 @@
 {
   "schema_version": "1.9",
   "module": "Onecool Market Dashboard",
-  "generated_at": "2026-11-10T04:14:20.720624+00:00",
+  "generated_at": "2026-11-10T04:38:23.720190+00:00",
   "expected_as_of": "2026-11-09",
   "data_status": "READY",
-  "last_successful_update_at": "2026-11-10T04:14:20.720624+00:00",
+  "last_successful_update_at": "2026-11-10T04:38:23.720190+00:00",
   "index_cta_basis": {
     "method": "ETF/index proxies; shared CTA engine",
     "mappings": {
@@ -129,7 +129,7 @@
     "QQQ": "yahoo_finance_raw",
     "RUSSELL_2000": "yahoo_finance_raw",
     "DIA": "yahoo_finance_raw",
-    "SOXX": "yahoo_finance_raw_full_rebuild_after_split",
+    "SOXX": "yahoo_finance_raw",
     "NVDA": "yahoo_finance_raw",
     "1306": "yahoo_finance_raw",
     "069500": "yahoo_finance_raw",
@@ -747,11 +747,11 @@
       "market": "CONTEXT",
       "theme": "us_dollar",
       "as_of": "2026-11-09",
-      "current_price": 101.678001,
-      "sma50": 101.11774,
-      "sma200": 99.76594,
-      "weekly_ma30": 100.2934,
-      "weekly_ma50": 99.60384,
+      "current_price": 101.681999,
+      "sma50": 101.11782,
+      "sma200": 99.76596,
+      "weekly_ma30": 100.293533,
+      "weekly_ma50": 99.60392,
       "trend": "BULLISH",
       "cta": "BUY",
       "confidence": 100,
@@ -762,7 +762,7 @@
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2026-04-08",
         "periods_since_cross": 152,
-        "spread_pct": 1.354971,
+        "spread_pct": 1.355031,
         "phase": "AGING"
       },
       "weekly_cross": {
@@ -771,7 +771,7 @@
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2026-04-02",
         "periods_since_cross": 32,
-        "spread_pct": 0.692303,
+        "spread_pct": 0.692356,
         "phase": "ACTIVE"
       }
     },
@@ -876,13 +876,13 @@
         "expected_as_of": "2026-11-09",
         "as_of": "2026-11-09",
         "data_status": "READY",
-        "value": 101.6780014038086,
+        "value": 101.68199920654297,
         "unit": "index_points",
         "price_basis": "adjusted_close",
         "decision_authority": "SHORT_TERM_CONTEXT_ONLY",
         "source": "yahoo_finance_raw",
         "source_url": "https://finance.yahoo.com/quote/DX-Y.NYB/history/",
-        "observation_sha256": "0b90c7f658d27d579a77eb4dd32886dc04bcd1ad7eefdb13e9174e11c1fe451d"
+        "observation_sha256": "c882ae7de4da443ea973273025f15cc0245e65209a41ffe42232ad29251ee40e"
       },
       {
         "symbol": "US10Y",
@@ -2646,21 +2646,6 @@
     },
     "publication_status": "CURRENT"
   },
-  "corporate_action_validation": [
-    {
-      "symbol": "SOXX",
-      "status": "MATCHED",
-      "source_a": "yahoo_finance_raw",
-      "source_b": "alpha_vantage",
-      "as_of": "2026-11-09"
-    },
-    {
-      "symbol": "NVDA",
-      "status": "MATCHED",
-      "source_a": "yahoo_finance_raw",
-      "source_b": "alpha_vantage",
-      "as_of": "2026-11-09"
-    }
-  ],
+  "corporate_action_validation": [],
   "provider_fallback_policy": "yahoo_finance_raw_primary; alpha_vantage_core_price_fallback; tiingo_parallel_verified_terminal_scan_repair; coinbase_verified_btc_completed_day_repair; partial_current_scan_only_with_explicit_validation_failures; last_successful_cache_on_failure"
 }
