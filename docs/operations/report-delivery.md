@@ -33,7 +33,7 @@ Receipt write failure must be reported explicitly. Never fabricate old receipts.
 A digest provides an audit reference, not independent verification of the provider;
 the reporting task remains responsible for checking the underlying evidence.
 
-Current schedules: Taiwan Mon–Fri 18:00; US Tue–Sat 08:00; fund Mon–Sat 11:30;
+Current schedules: Taiwan Mon–Fri 18:00; US Tue–Sat 11:30; fund Mon–Sat 11:30;
 home days 2/12/22 08:00. Card ROI reports became manual-only on 2026-09-18;
 exclude them from scheduled-delivery expectations from that date, preserving
 older receipts and historical audits. The separate Ohtani MLB report is not the
