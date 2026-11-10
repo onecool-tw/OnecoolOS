@@ -36,13 +36,17 @@ def evaluate(records, *, fee_bps=0, minimum=252):
     invested={name:False for name in names}
     trades={name:0 for name in names}
     events=[]
+    cta_underlying=False
     for i in range(len(records)-2):
         state=records[i]
         if state.decision_at_utc.date()>=records[i+1].date:
             raise ValueError("decision must precede execution session")
         cta=invested["cta"] if state.cta in ("WATCH","HOLD") else state.cta=="BUY"
-        hybrid=invested["flow_cta"] if state.cta in ("WATCH","HOLD") else state.cta=="BUY"
-        targets={"buy_hold":True,"cta":cta,"flow":state.flow,"flow_cta":bool(hybrid and state.flow)}
+        if state.cta=="BUY":
+            cta_underlying=True
+        elif state.cta=="SELL":
+            cta_underlying=False
+        targets={"buy_hold":True,"cta":cta,"flow":state.flow,"flow_cta":bool(cta_underlying and state.flow)}
         growth=records[i+2].adjusted_open/records[i+1].adjusted_open
         for name in names:
             switching=invested[name]!=targets[name]
