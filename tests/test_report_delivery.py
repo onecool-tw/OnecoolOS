@@ -13,6 +13,15 @@ def test_missing_receipts_are_unknown_and_weekend_uses_last_window(tmp_path):
     assert all(r['status'] == 'UNKNOWN' for r in health['reports'])
 
 
+def test_us_delivery_window_uses_1130_taipei_schedule(tmp_path):
+    before_completion = datetime.fromisoformat('2026-11-10T13:29:59+08:00')
+    after_completion = datetime.fromisoformat('2026-11-10T13:30:00+08:00')
+    before = {r['report_id']: r for r in build_delivery_health(tmp_path, before_completion)['reports']}
+    after = {r['report_id']: r for r in build_delivery_health(tmp_path, after_completion)['reports']}
+    assert before['us']['expected_report_date'] == '2026-11-07'
+    assert after['us']['expected_report_date'] == '2026-11-10'
+
+
 def test_delivery_requires_receipt_evidence_and_verified_writeback(tmp_path):
     path = tmp_path / 'data/operations/report_delivery/taiwan/2026-09-11.json'
     path.parent.mkdir(parents=True)
