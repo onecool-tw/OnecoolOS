@@ -144,3 +144,29 @@ def verified_terminal_bar(rows: list[dict], missing: date,
     ) or abs(candidate.volume - before.volume) > max(1, before.volume * 0.01):
         return None, "ANCHOR_MISMATCH"
     return parsed[missing], "ROW_VALID"
+
+
+def verified_adjusted_history(rows: list[dict], sessions: list[date]) -> list[DailyBar]:
+    """Validate a complete independent window before using it for derived signals."""
+    if len(rows) != len(sessions) or not sessions:
+        raise TiingoEODError("INCOMPLETE_SESSION_WINDOW")
+    bars = []
+    for row, session in zip(rows, sessions, strict=True):
+        try:
+            day = date.fromisoformat(str(row["date"])[:10])
+            o, h, l, c = (float(row[k]) for k in ("adjOpen", "adjHigh", "adjLow", "adjClose"))
+            volume = float(row["volume"])
+            split, dividend = float(row["splitFactor"]), float(row["divCash"])
+        except (KeyError, ValueError, TypeError, OverflowError):
+            raise TiingoEODError("INVALID_ROW") from None
+        if day != session:
+            raise TiingoEODError("SESSION_MISMATCH")
+        if (not all(isfinite(v) for v in (o, h, l, c, volume, split, dividend))
+                or min(o, h, l, c) <= 0 or h < max(o, l, c) or l > min(o, c)
+                or not volume.is_integer() or volume < 0 or split <= 0 or dividend < 0):
+            raise TiingoEODError("INVALID_ROW")
+        bars.append(DailyBar(
+            trading_date=day, open=o, high=h, low=l, close=c, adjusted_close=c,
+            volume=int(volume), source="tiingo_eod_adjusted_transient",
+        ))
+    return bars

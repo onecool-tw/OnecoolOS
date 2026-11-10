@@ -787,3 +787,54 @@ def test_production_universe_governance_is_explicit_and_stable() -> None:
     assert governance["change_control"] == (
         "VERSION_BUMP_AND_AUDIT_RECORD_REQUIRED"
     )
+
+
+@pytest.mark.parametrize("defect", [None, "missing", "duplicate", "stale", "bad_price"])
+def test_tiingo_recovers_complete_window_when_yahoo_returns_no_rows(defect):
+    spy = _history()
+    expected = spy[-1].trading_date
+    sessions = [bar.trading_date for bar in spy[-252:]]
+
+    class EmptyYahoo:
+        @staticmethod
+        def download(*args, **kwargs):
+            return pd.DataFrame()
+
+        @staticmethod
+        def Ticker(symbol):
+            raise OSError("unavailable")
+
+    class Tiingo:
+        def fetch_window(self, symbol, start, end):
+            assert (symbol, start, end) == ("AAPL", sessions[0], expected)
+            rows = [
+                {"date": bar.trading_date.isoformat(), "adjOpen": bar.open,
+                 "adjHigh": bar.high, "adjLow": bar.low, "adjClose": bar.close,
+                 "volume": bar.volume, "splitFactor": 1, "divCash": 0}
+                for bar in spy[-252:]
+            ]
+            if defect == "missing":
+                rows.pop(15)
+            elif defect == "duplicate":
+                rows[15] = rows[14]
+            elif defect == "stale":
+                rows[-1]["date"] = sessions[-2].isoformat()
+            elif defect == "bad_price":
+                rows[15]["adjClose"] = float("nan")
+            return rows
+
+    diagnostics = {}
+    histories, _ = fetch_yahoo_breakout_inputs(
+        EmptyYahoo, expected_as_of=expected.isoformat(), spy_history=spy,
+        universe=("AAPL",), fundamental_shortlist_size=0,
+        tiingo_client=Tiingo(), price_diagnostics=diagnostics,
+    )
+    if defect is None:
+        assert [bar.trading_date for bar in histories["AAPL"]] == sessions
+        assert diagnostics["AAPL"]["status"] == "RECOVERED_FROM_TIINGO_ADJUSTED_WINDOW"
+    else:
+        assert not histories["AAPL"]
+        assert diagnostics["AAPL"]["tiingo_full_window_status"] == {
+            "missing": "INCOMPLETE_SESSION_WINDOW", "duplicate": "SESSION_MISMATCH",
+            "stale": "SESSION_MISMATCH", "bad_price": "INVALID_ROW",
+        }[defect]
