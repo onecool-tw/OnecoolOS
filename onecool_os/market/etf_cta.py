@@ -6,7 +6,7 @@ import csv
 import json
 import time
 from collections.abc import Callable, Iterable
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, replace
 from datetime import date
 from math import isfinite
 from pathlib import Path
@@ -137,6 +137,51 @@ class AlphaVantageClient:
         return parse_alpha_vantage_daily(
             self._query("TIME_SERIES_DAILY", symbol, outputsize=outputsize)
         )
+
+    def fetch_scan_adjusted_window(self, symbol: str, sessions: list[date]) -> list[DailyBar]:
+        """One entitlement-aware request; never retry a scan quota denial."""
+        if self._has_requested:
+            self._sleep(self.request_spacing_seconds)
+        self._has_requested = True
+        query = urlencode({"function": "TIME_SERIES_DAILY_ADJUSTED", "symbol": symbol,
+                           "outputsize": "full", "apikey": self.api_key})
+        try:
+            payload = json.loads(self._request(f"{self.endpoint}?{query}"))
+        except Exception:
+            raise ETFCTAError("ALPHA_REQUEST_FAILED") from None
+        if not isinstance(payload, dict):
+            raise ETFCTAError("ALPHA_INVALID_RESPONSE")
+        if payload.get("Note") or payload.get("Information"):
+            raise ETFCTAError("ALPHA_LIMIT_OR_ENTITLEMENT")
+        metadata = payload.get("Meta Data")
+        if not isinstance(metadata, dict) or metadata.get("2. Symbol") != symbol:
+            raise ETFCTAError("ALPHA_SYMBOL_MISMATCH")
+        try:
+            series = payload["Time Series (Daily)"]
+            rows = []
+            for day in sessions:
+                row = series[day.isoformat()]
+                close, adjusted = float(row["4. close"]), float(row["5. adjusted close"])
+                if close <= 0 or adjusted <= 0:
+                    raise ValueError("invalid close")
+                factor = adjusted / close
+                rows.append({
+                    "date": day.isoformat(), "adjOpen": float(row["1. open"]) * factor,
+                    "adjHigh": float(row["2. high"]) * factor,
+                    "adjLow": float(row["3. low"]) * factor, "adjClose": adjusted,
+                    "volume": row["6. volume"], "divCash": row["7. dividend amount"],
+                    "splitFactor": row["8. split coefficient"],
+                })
+        except (KeyError, TypeError, ValueError, ZeroDivisionError, OverflowError):
+            raise ETFCTAError("ALPHA_INCOMPLETE_OR_INVALID_WINDOW") from None
+        # Imported lazily because this shared validator also uses DailyBar.
+        from onecool_os.market.tiingo_eod import TiingoEODError, verified_adjusted_history
+
+        try:
+            return [replace(bar, source="alpha_vantage_adjusted_transient")
+                    for bar in verified_adjusted_history(rows, sessions)]
+        except TiingoEODError:
+            raise ETFCTAError("ALPHA_INCOMPLETE_OR_INVALID_WINDOW") from None
 
     def fetch_actions(self, symbol: str) -> dict[date, tuple[float, float]]:
         """Fetch complete dividends and splits with two API requests."""
