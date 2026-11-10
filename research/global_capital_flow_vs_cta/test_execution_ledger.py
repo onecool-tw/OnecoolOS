@@ -32,6 +32,27 @@ class TestExecutionLedger(unittest.TestCase):
         with self.assertRaises(ValueError): evaluate(rows)
     def test_short(self):
         with self.assertRaises(ValueError): evaluate(fake(100))
+    def test_flow_reentry_after_watch(self):
+        rows=fake()
+        for i in range(10,20):
+            r=rows[i]
+            rows[i]=Observation(r.date,r.adjusted_open,r.decision_at_utc,"WATCH",False)
+        for i in range(20,30):
+            r=rows[i]
+            rows[i]=Observation(r.date,r.adjusted_open,r.decision_at_utc,"WATCH",True)
+        result=evaluate(rows)
+        self.assertFalse(result["ledger"][15]["positions"]["flow_cta"])
+        self.assertTrue(result["ledger"][25]["positions"]["flow_cta"])
+        self.assertEqual(result["trades"]["flow_cta"],3)
+    def test_sell_resets_cta_stance(self):
+        rows=fake()
+        r=rows[10]
+        rows[10]=Observation(r.date,r.adjusted_open,r.decision_at_utc,"SELL",True)
+        for i in range(11,30):
+            r=rows[i]
+            rows[i]=Observation(r.date,r.adjusted_open,r.decision_at_utc,"WATCH",True)
+        result=evaluate(rows)
+        self.assertFalse(result["ledger"][25]["positions"]["flow_cta"])
     def test_fees(self):
         self.assertLess(evaluate(fake(),fee_bps=10)["strategies"]["cta"]["total_pct"],
                         evaluate(fake())["strategies"]["cta"]["total_pct"])
