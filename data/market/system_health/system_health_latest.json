@@ -1,11 +1,11 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-11-10T00:06:58.701533+00:00",
+  "generated_at": "2026-11-10T01:07:22.671495+00:00",
   "taipei_date": "2026-11-10",
-  "status": "READY",
+  "status": "BLOCKED",
   "scope_status": {
-    "morning": "READY",
+    "morning": "BLOCKED",
     "asia": "READY",
     "weekly": "READY"
   },
@@ -31,8 +31,17 @@
       {
         "report_id": "us",
         "expected_report_date": "2026-11-07",
-        "status": "UNKNOWN",
-        "reason": "Invalid or unverifiable receipt"
+        "status": "PARTIAL",
+        "channels": {
+          "conversation": "UNKNOWN",
+          "artifact": "DELIVERED"
+        },
+        "unverified_channels": [
+          "conversation"
+        ],
+        "failed_channels": [],
+        "next_action": "Observe actual delivered message acknowledgement; do not resend solely because acknowledgement is unknown",
+        "reason": "Missing acknowledgement is unverified, not proof of failed delivery"
       },
       {
         "report_id": "fund",
@@ -68,11 +77,11 @@
     "policy": "Data readiness does not prove report delivery. Never infer email success from a generated draft."
   },
   "end_to_end_status": "NOT_FULLY_VERIFIED",
-  "action_readiness": "SAFE",
+  "action_readiness": "UNSAFE_FOR_AFFECTED_REPORTS",
   "counts": {
-    "ready": 20,
+    "ready": 19,
     "partial": 0,
-    "blocked": 0
+    "blocked": 1
   },
   "modules": [
     {
@@ -95,8 +104,8 @@
       "label": "Bitcoin completed UTC day",
       "scope": "morning",
       "critical": true,
-      "status": "READY",
-      "reason": "current",
+      "status": "BLOCKED",
+      "reason": "BTC date/CTA missing or invalid; expected 2026-11-09 through 2026-11-09",
       "observed_as_of": "2026-11-08",
       "recovery_workflow": "update-market-dashboard.yml",
       "retryable": true,
@@ -361,8 +370,26 @@
       ]
     }
   ],
-  "issues": [],
-  "recovery_workflows": [],
-  "issue_fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+  "issues": [
+    {
+      "module_id": "bitcoin_daily",
+      "label": "Bitcoin completed UTC day",
+      "scope": "morning",
+      "critical": true,
+      "status": "BLOCKED",
+      "reason": "BTC date/CTA missing or invalid; expected 2026-11-09 through 2026-11-09",
+      "observed_as_of": "2026-11-08",
+      "recovery_workflow": "update-market-dashboard.yml",
+      "retryable": true,
+      "impacted_reports": [
+        "基金日報",
+        "基金週報"
+      ]
+    }
+  ],
+  "recovery_workflows": [
+    "update-market-dashboard.yml"
+  ],
+  "issue_fingerprint": "9703213f2f074555f8bf7263565c8bb72c018db625978e8fafa4b3a20a5f3c41",
   "policy": "Health monitoring only; never changes CTA, rankings, or investment decisions."
 }
