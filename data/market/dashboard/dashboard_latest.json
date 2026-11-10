@@ -1,10 +1,10 @@
 {
   "schema_version": "1.9",
   "module": "Onecool Market Dashboard",
-  "generated_at": "2026-11-10T02:16:29.619721+00:00",
+  "generated_at": "2026-11-10T02:20:07.167922+00:00",
   "expected_as_of": "2026-11-09",
   "data_status": "READY",
-  "last_successful_update_at": "2026-11-10T02:16:29.619721+00:00",
+  "last_successful_update_at": "2026-11-10T02:20:07.167922+00:00",
   "index_cta_basis": {
     "method": "ETF/index proxies; shared CTA engine",
     "mappings": {
@@ -747,11 +747,11 @@
       "market": "CONTEXT",
       "theme": "us_dollar",
       "as_of": "2026-11-09",
-      "current_price": 101.683998,
-      "sma50": 101.11786,
-      "sma200": 99.76597,
-      "weekly_ma30": 100.2936,
-      "weekly_ma50": 99.60396,
+      "current_price": 101.686996,
+      "sma50": 101.11792,
+      "sma200": 99.765985,
+      "weekly_ma30": 100.2937,
+      "weekly_ma50": 99.60402,
       "trend": "BULLISH",
       "cta": "BUY",
       "confidence": 100,
@@ -762,7 +762,7 @@
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2026-04-08",
         "periods_since_cross": 152,
-        "spread_pct": 1.355061,
+        "spread_pct": 1.355106,
         "phase": "AGING"
       },
       "weekly_cross": {
@@ -771,7 +771,7 @@
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2026-04-02",
         "periods_since_cross": 32,
-        "spread_pct": 0.692382,
+        "spread_pct": 0.692422,
         "phase": "ACTIVE"
       }
     },
@@ -876,13 +876,13 @@
         "expected_as_of": "2026-11-09",
         "as_of": "2026-11-09",
         "data_status": "READY",
-        "value": 101.68399810791016,
+        "value": 101.68699645996094,
         "unit": "index_points",
         "price_basis": "adjusted_close",
         "decision_authority": "SHORT_TERM_CONTEXT_ONLY",
         "source": "yahoo_finance_raw",
         "source_url": "https://finance.yahoo.com/quote/DX-Y.NYB/history/",
-        "observation_sha256": "05613a79a6f3f070c4325801b40a6da86017a8898c20d1f68daaa03b8ac985f4"
+        "observation_sha256": "a8bf133637e400f03a231d3e01ba2831aeafd034879b24a2f16495d6b3aab9f7"
       },
       {
         "symbol": "US10Y",
@@ -1689,6 +1689,46 @@
     "unassessed_count": 0,
     "assessment_status": "COMPLETE",
     "price_fetch_diagnostics": {
+      "NVDA": {
+        "status": "REUSED_VALIDATED_DASHBOARD_HISTORY"
+      },
+      "TSLA": {
+        "status": "REUSED_VALIDATED_DASHBOARD_HISTORY"
+      },
+      "XYZ": {
+        "status": "REUSED_VALIDATED_DASHBOARD_HISTORY"
+      },
+      "BABA": {
+        "status": "REUSED_VALIDATED_DASHBOARD_HISTORY"
+      },
+      "SWKS": {
+        "status": "REUSED_VALIDATED_DASHBOARD_HISTORY"
+      },
+      "RH": {
+        "status": "REUSED_VALIDATED_DASHBOARD_HISTORY"
+      },
+      "UPBD": {
+        "status": "REUSED_VALIDATED_DASHBOARD_HISTORY"
+      },
+      "ADBE": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 0,
+        "last_date": null,
+        "missing_spy_sessions": 252,
+        "missing_spy_dates": [
+          "2025-11-07",
+          "2025-11-10",
+          "2025-11-11",
+          "2025-11-12",
+          "2025-11-13"
+        ],
+        "missing_day_retry_status": "NOT_ATTEMPTED",
+        "raw_window_retry_status": "NOT_ATTEMPTED",
+        "tiingo_retry_status": "NOT_REQUIRED",
+        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
+        "tiingo_full_window_status": "HTTP_429",
+        "verified_history_cache_status": "NOT_AVAILABLE"
+      },
       "ABNB": {
         "status": "TECHNICAL_DATA_VALIDATION_FAILED",
         "observations": 0,
@@ -1704,24 +1744,7 @@
         "missing_day_retry_status": "NOT_ATTEMPTED",
         "raw_window_retry_status": "NOT_ATTEMPTED",
         "tiingo_retry_status": "NOT_REQUIRED",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
-      },
-      "ABBV": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
+        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
         "tiingo_full_window_status": "HTTP_429",
         "verified_history_cache_status": "NOT_AVAILABLE"
       },
@@ -1740,24 +1763,7 @@
         "missing_day_retry_status": "NOT_ATTEMPTED",
         "raw_window_retry_status": "NOT_ATTEMPTED",
         "tiingo_retry_status": "NOT_REQUIRED",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
-      },
-      "AMD": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
+        "alpha_full_window_status": "ALPHA_LIMIT_OR_ENTITLEMENT",
         "tiingo_full_window_status": "HTTP_429",
         "verified_history_cache_status": "NOT_AVAILABLE"
       },
@@ -1776,10 +1782,11 @@
         "missing_day_retry_status": "NOT_ATTEMPTED",
         "raw_window_retry_status": "NOT_ATTEMPTED",
         "tiingo_retry_status": "NOT_REQUIRED",
+        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
         "tiingo_full_window_status": "HTTP_429",
         "verified_history_cache_status": "NOT_AVAILABLE"
       },
-      "ADBE": {
+      "ABBV": {
         "status": "TECHNICAL_DATA_VALIDATION_FAILED",
         "observations": 0,
         "last_date": null,
@@ -1794,42 +1801,7 @@
         "missing_day_retry_status": "NOT_ATTEMPTED",
         "raw_window_retry_status": "NOT_ATTEMPTED",
         "tiingo_retry_status": "NOT_REQUIRED",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
-      },
-      "AMAT": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
-      },
-      "ANET": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
+        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
         "tiingo_full_window_status": "HTTP_429",
         "verified_history_cache_status": "NOT_AVAILABLE"
       },
@@ -1848,6 +1820,26 @@
         "missing_day_retry_status": "NOT_ATTEMPTED",
         "raw_window_retry_status": "NOT_ATTEMPTED",
         "tiingo_retry_status": "NOT_REQUIRED",
+        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
+        "tiingo_full_window_status": "HTTP_429",
+        "verified_history_cache_status": "NOT_AVAILABLE"
+      },
+      "ANET": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 0,
+        "last_date": null,
+        "missing_spy_sessions": 252,
+        "missing_spy_dates": [
+          "2025-11-07",
+          "2025-11-10",
+          "2025-11-11",
+          "2025-11-12",
+          "2025-11-13"
+        ],
+        "missing_day_retry_status": "NOT_ATTEMPTED",
+        "raw_window_retry_status": "NOT_ATTEMPTED",
+        "tiingo_retry_status": "NOT_REQUIRED",
+        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
         "tiingo_full_window_status": "HTTP_429",
         "verified_history_cache_status": "NOT_AVAILABLE"
       },
@@ -1866,24 +1858,7 @@
         "missing_day_retry_status": "NOT_ATTEMPTED",
         "raw_window_retry_status": "NOT_ATTEMPTED",
         "tiingo_retry_status": "NOT_REQUIRED",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
-      },
-      "AMGN": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
+        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
         "tiingo_full_window_status": "HTTP_429",
         "verified_history_cache_status": "NOT_AVAILABLE"
       },
@@ -1902,6 +1877,7 @@
         "missing_day_retry_status": "NOT_ATTEMPTED",
         "raw_window_retry_status": "NOT_ATTEMPTED",
         "tiingo_retry_status": "NOT_REQUIRED",
+        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
         "tiingo_full_window_status": "HTTP_429",
         "verified_history_cache_status": "NOT_AVAILABLE"
       },
@@ -1920,24 +1896,7 @@
         "missing_day_retry_status": "NOT_ATTEMPTED",
         "raw_window_retry_status": "NOT_ATTEMPTED",
         "tiingo_retry_status": "NOT_REQUIRED",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
-      },
-      "BKNG": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
+        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
         "tiingo_full_window_status": "HTTP_429",
         "verified_history_cache_status": "NOT_AVAILABLE"
       },
@@ -1956,10 +1915,11 @@
         "missing_day_retry_status": "NOT_ATTEMPTED",
         "raw_window_retry_status": "NOT_ATTEMPTED",
         "tiingo_retry_status": "NOT_REQUIRED",
+        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
         "tiingo_full_window_status": "HTTP_429",
         "verified_history_cache_status": "NOT_AVAILABLE"
       },
-      "CEG": {
+      "BKNG": {
         "status": "TECHNICAL_DATA_VALIDATION_FAILED",
         "observations": 0,
         "last_date": null,
@@ -1974,6 +1934,7 @@
         "missing_day_retry_status": "NOT_ATTEMPTED",
         "raw_window_retry_status": "NOT_ATTEMPTED",
         "tiingo_retry_status": "NOT_REQUIRED",
+        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
         "tiingo_full_window_status": "HTTP_429",
         "verified_history_cache_status": "NOT_AVAILABLE"
       },
@@ -1992,10 +1953,11 @@
         "missing_day_retry_status": "NOT_ATTEMPTED",
         "raw_window_retry_status": "NOT_ATTEMPTED",
         "tiingo_retry_status": "NOT_REQUIRED",
+        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
         "tiingo_full_window_status": "HTTP_429",
         "verified_history_cache_status": "NOT_AVAILABLE"
       },
-      "COIN": {
+      "CEG": {
         "status": "TECHNICAL_DATA_VALIDATION_FAILED",
         "observations": 0,
         "last_date": null,
@@ -2010,222 +1972,7 @@
         "missing_day_retry_status": "NOT_ATTEMPTED",
         "raw_window_retry_status": "NOT_ATTEMPTED",
         "tiingo_retry_status": "NOT_REQUIRED",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
-      },
-      "CRDO": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
-      },
-      "COST": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
-      },
-      "CRWD": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
-      },
-      "CSCO": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
-      },
-      "CVX": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
-      },
-      "DDOG": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
-      },
-      "DE": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
-      },
-      "DELL": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
-      },
-      "DUOL": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
-      },
-      "GE": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
-      },
-      "ETN": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
-      },
-      "GILD": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
+        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
         "tiingo_full_window_status": "HTTP_429",
         "verified_history_cache_status": "NOT_AVAILABLE"
       },
@@ -2244,10 +1991,11 @@
         "missing_day_retry_status": "NOT_ATTEMPTED",
         "raw_window_retry_status": "NOT_ATTEMPTED",
         "tiingo_retry_status": "NOT_REQUIRED",
+        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
         "tiingo_full_window_status": "HTTP_429",
         "verified_history_cache_status": "NOT_AVAILABLE"
       },
-      "HOOD": {
+      "AMAT": {
         "status": "TECHNICAL_DATA_VALIDATION_FAILED",
         "observations": 0,
         "last_date": null,
@@ -2262,10 +2010,11 @@
         "missing_day_retry_status": "NOT_ATTEMPTED",
         "raw_window_retry_status": "NOT_ATTEMPTED",
         "tiingo_retry_status": "NOT_REQUIRED",
+        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
         "tiingo_full_window_status": "HTTP_429",
         "verified_history_cache_status": "NOT_AVAILABLE"
       },
-      "IBM": {
+      "AMD": {
         "status": "TECHNICAL_DATA_VALIDATION_FAILED",
         "observations": 0,
         "last_date": null,
@@ -2280,10 +2029,11 @@
         "missing_day_retry_status": "NOT_ATTEMPTED",
         "raw_window_retry_status": "NOT_ATTEMPTED",
         "tiingo_retry_status": "NOT_REQUIRED",
+        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
         "tiingo_full_window_status": "HTTP_429",
         "verified_history_cache_status": "NOT_AVAILABLE"
       },
-      "JPM": {
+      "COST": {
         "status": "TECHNICAL_DATA_VALIDATION_FAILED",
         "observations": 0,
         "last_date": null,
@@ -2298,10 +2048,11 @@
         "missing_day_retry_status": "NOT_ATTEMPTED",
         "raw_window_retry_status": "NOT_ATTEMPTED",
         "tiingo_retry_status": "NOT_REQUIRED",
+        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
         "tiingo_full_window_status": "HTTP_429",
         "verified_history_cache_status": "NOT_AVAILABLE"
       },
-      "KLAC": {
+      "COIN": {
         "status": "TECHNICAL_DATA_VALIDATION_FAILED",
         "observations": 0,
         "last_date": null,
@@ -2316,6 +2067,197 @@
         "missing_day_retry_status": "NOT_ATTEMPTED",
         "raw_window_retry_status": "NOT_ATTEMPTED",
         "tiingo_retry_status": "NOT_REQUIRED",
+        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
+        "tiingo_full_window_status": "HTTP_429",
+        "verified_history_cache_status": "NOT_AVAILABLE"
+      },
+      "CRDO": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 0,
+        "last_date": null,
+        "missing_spy_sessions": 252,
+        "missing_spy_dates": [
+          "2025-11-07",
+          "2025-11-10",
+          "2025-11-11",
+          "2025-11-12",
+          "2025-11-13"
+        ],
+        "missing_day_retry_status": "NOT_ATTEMPTED",
+        "raw_window_retry_status": "NOT_ATTEMPTED",
+        "tiingo_retry_status": "NOT_REQUIRED",
+        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
+        "tiingo_full_window_status": "HTTP_429",
+        "verified_history_cache_status": "NOT_AVAILABLE"
+      },
+      "CRWD": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 0,
+        "last_date": null,
+        "missing_spy_sessions": 252,
+        "missing_spy_dates": [
+          "2025-11-07",
+          "2025-11-10",
+          "2025-11-11",
+          "2025-11-12",
+          "2025-11-13"
+        ],
+        "missing_day_retry_status": "NOT_ATTEMPTED",
+        "raw_window_retry_status": "NOT_ATTEMPTED",
+        "tiingo_retry_status": "NOT_REQUIRED",
+        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
+        "tiingo_full_window_status": "HTTP_429",
+        "verified_history_cache_status": "NOT_AVAILABLE"
+      },
+      "AMGN": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 0,
+        "last_date": null,
+        "missing_spy_sessions": 252,
+        "missing_spy_dates": [
+          "2025-11-07",
+          "2025-11-10",
+          "2025-11-11",
+          "2025-11-12",
+          "2025-11-13"
+        ],
+        "missing_day_retry_status": "NOT_ATTEMPTED",
+        "raw_window_retry_status": "NOT_ATTEMPTED",
+        "tiingo_retry_status": "NOT_REQUIRED",
+        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
+        "tiingo_full_window_status": "HTTP_429",
+        "verified_history_cache_status": "NOT_AVAILABLE"
+      },
+      "CSCO": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 0,
+        "last_date": null,
+        "missing_spy_sessions": 252,
+        "missing_spy_dates": [
+          "2025-11-07",
+          "2025-11-10",
+          "2025-11-11",
+          "2025-11-12",
+          "2025-11-13"
+        ],
+        "missing_day_retry_status": "NOT_ATTEMPTED",
+        "raw_window_retry_status": "NOT_ATTEMPTED",
+        "tiingo_retry_status": "NOT_REQUIRED",
+        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
+        "tiingo_full_window_status": "HTTP_429",
+        "verified_history_cache_status": "NOT_AVAILABLE"
+      },
+      "CVX": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 0,
+        "last_date": null,
+        "missing_spy_sessions": 252,
+        "missing_spy_dates": [
+          "2025-11-07",
+          "2025-11-10",
+          "2025-11-11",
+          "2025-11-12",
+          "2025-11-13"
+        ],
+        "missing_day_retry_status": "NOT_ATTEMPTED",
+        "raw_window_retry_status": "NOT_ATTEMPTED",
+        "tiingo_retry_status": "NOT_REQUIRED",
+        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
+        "tiingo_full_window_status": "HTTP_429",
+        "verified_history_cache_status": "NOT_AVAILABLE"
+      },
+      "DDOG": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 0,
+        "last_date": null,
+        "missing_spy_sessions": 252,
+        "missing_spy_dates": [
+          "2025-11-07",
+          "2025-11-10",
+          "2025-11-11",
+          "2025-11-12",
+          "2025-11-13"
+        ],
+        "missing_day_retry_status": "NOT_ATTEMPTED",
+        "raw_window_retry_status": "NOT_ATTEMPTED",
+        "tiingo_retry_status": "NOT_REQUIRED",
+        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
+        "tiingo_full_window_status": "HTTP_429",
+        "verified_history_cache_status": "NOT_AVAILABLE"
+      },
+      "DELL": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 0,
+        "last_date": null,
+        "missing_spy_sessions": 252,
+        "missing_spy_dates": [
+          "2025-11-07",
+          "2025-11-10",
+          "2025-11-11",
+          "2025-11-12",
+          "2025-11-13"
+        ],
+        "missing_day_retry_status": "NOT_ATTEMPTED",
+        "raw_window_retry_status": "NOT_ATTEMPTED",
+        "tiingo_retry_status": "NOT_REQUIRED",
+        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
+        "tiingo_full_window_status": "HTTP_429",
+        "verified_history_cache_status": "NOT_AVAILABLE"
+      },
+      "DE": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 0,
+        "last_date": null,
+        "missing_spy_sessions": 252,
+        "missing_spy_dates": [
+          "2025-11-07",
+          "2025-11-10",
+          "2025-11-11",
+          "2025-11-12",
+          "2025-11-13"
+        ],
+        "missing_day_retry_status": "NOT_ATTEMPTED",
+        "raw_window_retry_status": "NOT_ATTEMPTED",
+        "tiingo_retry_status": "NOT_REQUIRED",
+        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
+        "tiingo_full_window_status": "HTTP_429",
+        "verified_history_cache_status": "NOT_AVAILABLE"
+      },
+      "DUOL": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 0,
+        "last_date": null,
+        "missing_spy_sessions": 252,
+        "missing_spy_dates": [
+          "2025-11-07",
+          "2025-11-10",
+          "2025-11-11",
+          "2025-11-12",
+          "2025-11-13"
+        ],
+        "missing_day_retry_status": "NOT_ATTEMPTED",
+        "raw_window_retry_status": "NOT_ATTEMPTED",
+        "tiingo_retry_status": "NOT_REQUIRED",
+        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
+        "tiingo_full_window_status": "HTTP_429",
+        "verified_history_cache_status": "NOT_AVAILABLE"
+      },
+      "ETN": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 0,
+        "last_date": null,
+        "missing_spy_sessions": 252,
+        "missing_spy_dates": [
+          "2025-11-07",
+          "2025-11-10",
+          "2025-11-11",
+          "2025-11-12",
+          "2025-11-13"
+        ],
+        "missing_day_retry_status": "NOT_ATTEMPTED",
+        "raw_window_retry_status": "NOT_ATTEMPTED",
+        "tiingo_retry_status": "NOT_REQUIRED",
+        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
         "tiingo_full_window_status": "HTTP_429",
         "verified_history_cache_status": "NOT_AVAILABLE"
       },
@@ -2334,6 +2276,45 @@
         "missing_day_retry_status": "NOT_ATTEMPTED",
         "raw_window_retry_status": "NOT_ATTEMPTED",
         "tiingo_retry_status": "NOT_REQUIRED",
+        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
+        "tiingo_full_window_status": "HTTP_429",
+        "verified_history_cache_status": "NOT_AVAILABLE"
+      },
+      "GILD": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 0,
+        "last_date": null,
+        "missing_spy_sessions": 252,
+        "missing_spy_dates": [
+          "2025-11-07",
+          "2025-11-10",
+          "2025-11-11",
+          "2025-11-12",
+          "2025-11-13"
+        ],
+        "missing_day_retry_status": "NOT_ATTEMPTED",
+        "raw_window_retry_status": "NOT_ATTEMPTED",
+        "tiingo_retry_status": "NOT_REQUIRED",
+        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
+        "tiingo_full_window_status": "HTTP_429",
+        "verified_history_cache_status": "NOT_AVAILABLE"
+      },
+      "GE": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 0,
+        "last_date": null,
+        "missing_spy_sessions": 252,
+        "missing_spy_dates": [
+          "2025-11-07",
+          "2025-11-10",
+          "2025-11-11",
+          "2025-11-12",
+          "2025-11-13"
+        ],
+        "missing_day_retry_status": "NOT_ATTEMPTED",
+        "raw_window_retry_status": "NOT_ATTEMPTED",
+        "tiingo_retry_status": "NOT_REQUIRED",
+        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
         "tiingo_full_window_status": "HTTP_429",
         "verified_history_cache_status": "NOT_AVAILABLE"
       },
@@ -2352,10 +2333,11 @@
         "missing_day_retry_status": "NOT_ATTEMPTED",
         "raw_window_retry_status": "NOT_ATTEMPTED",
         "tiingo_retry_status": "NOT_REQUIRED",
+        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
         "tiingo_full_window_status": "HTTP_429",
         "verified_history_cache_status": "NOT_AVAILABLE"
       },
-      "LRCX": {
+      "JPM": {
         "status": "TECHNICAL_DATA_VALIDATION_FAILED",
         "observations": 0,
         "last_date": null,
@@ -2370,10 +2352,11 @@
         "missing_day_retry_status": "NOT_ATTEMPTED",
         "raw_window_retry_status": "NOT_ATTEMPTED",
         "tiingo_retry_status": "NOT_REQUIRED",
+        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
         "tiingo_full_window_status": "HTTP_429",
         "verified_history_cache_status": "NOT_AVAILABLE"
       },
-      "LLY": {
+      "IBM": {
         "status": "TECHNICAL_DATA_VALIDATION_FAILED",
         "observations": 0,
         "last_date": null,
@@ -2388,42 +2371,7 @@
         "missing_day_retry_status": "NOT_ATTEMPTED",
         "raw_window_retry_status": "NOT_ATTEMPTED",
         "tiingo_retry_status": "NOT_REQUIRED",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
-      },
-      "MA": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
-      },
-      "META": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
+        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
         "tiingo_full_window_status": "HTTP_429",
         "verified_history_cache_status": "NOT_AVAILABLE"
       },
@@ -2442,6 +2390,102 @@
         "missing_day_retry_status": "NOT_ATTEMPTED",
         "raw_window_retry_status": "NOT_ATTEMPTED",
         "tiingo_retry_status": "NOT_REQUIRED",
+        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
+        "tiingo_full_window_status": "HTTP_429",
+        "verified_history_cache_status": "NOT_AVAILABLE"
+      },
+      "HOOD": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 0,
+        "last_date": null,
+        "missing_spy_sessions": 252,
+        "missing_spy_dates": [
+          "2025-11-07",
+          "2025-11-10",
+          "2025-11-11",
+          "2025-11-12",
+          "2025-11-13"
+        ],
+        "missing_day_retry_status": "NOT_ATTEMPTED",
+        "raw_window_retry_status": "NOT_ATTEMPTED",
+        "tiingo_retry_status": "NOT_REQUIRED",
+        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
+        "tiingo_full_window_status": "HTTP_429",
+        "verified_history_cache_status": "NOT_AVAILABLE"
+      },
+      "KLAC": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 0,
+        "last_date": null,
+        "missing_spy_sessions": 252,
+        "missing_spy_dates": [
+          "2025-11-07",
+          "2025-11-10",
+          "2025-11-11",
+          "2025-11-12",
+          "2025-11-13"
+        ],
+        "missing_day_retry_status": "NOT_ATTEMPTED",
+        "raw_window_retry_status": "NOT_ATTEMPTED",
+        "tiingo_retry_status": "NOT_REQUIRED",
+        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
+        "tiingo_full_window_status": "HTTP_429",
+        "verified_history_cache_status": "NOT_AVAILABLE"
+      },
+      "LRCX": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 0,
+        "last_date": null,
+        "missing_spy_sessions": 252,
+        "missing_spy_dates": [
+          "2025-11-07",
+          "2025-11-10",
+          "2025-11-11",
+          "2025-11-12",
+          "2025-11-13"
+        ],
+        "missing_day_retry_status": "NOT_ATTEMPTED",
+        "raw_window_retry_status": "NOT_ATTEMPTED",
+        "tiingo_retry_status": "NOT_REQUIRED",
+        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
+        "tiingo_full_window_status": "HTTP_429",
+        "verified_history_cache_status": "NOT_AVAILABLE"
+      },
+      "LLY": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 0,
+        "last_date": null,
+        "missing_spy_sessions": 252,
+        "missing_spy_dates": [
+          "2025-11-07",
+          "2025-11-10",
+          "2025-11-11",
+          "2025-11-12",
+          "2025-11-13"
+        ],
+        "missing_day_retry_status": "NOT_ATTEMPTED",
+        "raw_window_retry_status": "NOT_ATTEMPTED",
+        "tiingo_retry_status": "NOT_REQUIRED",
+        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
+        "tiingo_full_window_status": "HTTP_429",
+        "verified_history_cache_status": "NOT_AVAILABLE"
+      },
+      "MA": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 0,
+        "last_date": null,
+        "missing_spy_sessions": 252,
+        "missing_spy_dates": [
+          "2025-11-07",
+          "2025-11-10",
+          "2025-11-11",
+          "2025-11-12",
+          "2025-11-13"
+        ],
+        "missing_day_retry_status": "NOT_ATTEMPTED",
+        "raw_window_retry_status": "NOT_ATTEMPTED",
+        "tiingo_retry_status": "NOT_REQUIRED",
+        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
         "tiingo_full_window_status": "HTTP_429",
         "verified_history_cache_status": "NOT_AVAILABLE"
       },
@@ -2460,10 +2504,11 @@
         "missing_day_retry_status": "NOT_ATTEMPTED",
         "raw_window_retry_status": "NOT_ATTEMPTED",
         "tiingo_retry_status": "NOT_REQUIRED",
+        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
         "tiingo_full_window_status": "HTTP_429",
         "verified_history_cache_status": "NOT_AVAILABLE"
       },
-      "MRVL": {
+      "META": {
         "status": "TECHNICAL_DATA_VALIDATION_FAILED",
         "observations": 0,
         "last_date": null,
@@ -2478,6 +2523,7 @@
         "missing_day_retry_status": "NOT_ATTEMPTED",
         "raw_window_retry_status": "NOT_ATTEMPTED",
         "tiingo_retry_status": "NOT_REQUIRED",
+        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
         "tiingo_full_window_status": "HTTP_429",
         "verified_history_cache_status": "NOT_AVAILABLE"
       },
@@ -2496,10 +2542,11 @@
         "missing_day_retry_status": "NOT_ATTEMPTED",
         "raw_window_retry_status": "NOT_ATTEMPTED",
         "tiingo_retry_status": "NOT_REQUIRED",
+        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
         "tiingo_full_window_status": "HTTP_429",
         "verified_history_cache_status": "NOT_AVAILABLE"
       },
-      "MSFT": {
+      "MRVL": {
         "status": "TECHNICAL_DATA_VALIDATION_FAILED",
         "observations": 0,
         "last_date": null,
@@ -2514,24 +2561,7 @@
         "missing_day_retry_status": "NOT_ATTEMPTED",
         "raw_window_retry_status": "NOT_ATTEMPTED",
         "tiingo_retry_status": "NOT_REQUIRED",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
-      },
-      "NFLX": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
+        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
         "tiingo_full_window_status": "HTTP_429",
         "verified_history_cache_status": "NOT_AVAILABLE"
       },
@@ -2550,6 +2580,45 @@
         "missing_day_retry_status": "NOT_ATTEMPTED",
         "raw_window_retry_status": "NOT_ATTEMPTED",
         "tiingo_retry_status": "NOT_REQUIRED",
+        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
+        "tiingo_full_window_status": "HTTP_429",
+        "verified_history_cache_status": "NOT_AVAILABLE"
+      },
+      "NFLX": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 0,
+        "last_date": null,
+        "missing_spy_sessions": 252,
+        "missing_spy_dates": [
+          "2025-11-07",
+          "2025-11-10",
+          "2025-11-11",
+          "2025-11-12",
+          "2025-11-13"
+        ],
+        "missing_day_retry_status": "NOT_ATTEMPTED",
+        "raw_window_retry_status": "NOT_ATTEMPTED",
+        "tiingo_retry_status": "NOT_REQUIRED",
+        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
+        "tiingo_full_window_status": "HTTP_429",
+        "verified_history_cache_status": "NOT_AVAILABLE"
+      },
+      "MSFT": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 0,
+        "last_date": null,
+        "missing_spy_sessions": 252,
+        "missing_spy_dates": [
+          "2025-11-07",
+          "2025-11-10",
+          "2025-11-11",
+          "2025-11-12",
+          "2025-11-13"
+        ],
+        "missing_day_retry_status": "NOT_ATTEMPTED",
+        "raw_window_retry_status": "NOT_ATTEMPTED",
+        "tiingo_retry_status": "NOT_REQUIRED",
+        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
         "tiingo_full_window_status": "HTTP_429",
         "verified_history_cache_status": "NOT_AVAILABLE"
       },
@@ -2568,24 +2637,7 @@
         "missing_day_retry_status": "NOT_ATTEMPTED",
         "raw_window_retry_status": "NOT_ATTEMPTED",
         "tiingo_retry_status": "NOT_REQUIRED",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
-      },
-      "NVDA": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
+        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
         "tiingo_full_window_status": "HTTP_429",
         "verified_history_cache_status": "NOT_AVAILABLE"
       },
@@ -2604,6 +2656,7 @@
         "missing_day_retry_status": "NOT_ATTEMPTED",
         "raw_window_retry_status": "NOT_ATTEMPTED",
         "tiingo_retry_status": "NOT_REQUIRED",
+        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
         "tiingo_full_window_status": "HTTP_429",
         "verified_history_cache_status": "NOT_AVAILABLE"
       },
@@ -2622,24 +2675,7 @@
         "missing_day_retry_status": "NOT_ATTEMPTED",
         "raw_window_retry_status": "NOT_ATTEMPTED",
         "tiingo_retry_status": "NOT_REQUIRED",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
-      },
-      "QCOM": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
+        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
         "tiingo_full_window_status": "HTTP_429",
         "verified_history_cache_status": "NOT_AVAILABLE"
       },
@@ -2658,6 +2694,26 @@
         "missing_day_retry_status": "NOT_ATTEMPTED",
         "raw_window_retry_status": "NOT_ATTEMPTED",
         "tiingo_retry_status": "NOT_REQUIRED",
+        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
+        "tiingo_full_window_status": "HTTP_429",
+        "verified_history_cache_status": "NOT_AVAILABLE"
+      },
+      "QCOM": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 0,
+        "last_date": null,
+        "missing_spy_sessions": 252,
+        "missing_spy_dates": [
+          "2025-11-07",
+          "2025-11-10",
+          "2025-11-11",
+          "2025-11-12",
+          "2025-11-13"
+        ],
+        "missing_day_retry_status": "NOT_ATTEMPTED",
+        "raw_window_retry_status": "NOT_ATTEMPTED",
+        "tiingo_retry_status": "NOT_REQUIRED",
+        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
         "tiingo_full_window_status": "HTTP_429",
         "verified_history_cache_status": "NOT_AVAILABLE"
       },
@@ -2676,6 +2732,7 @@
         "missing_day_retry_status": "NOT_ATTEMPTED",
         "raw_window_retry_status": "NOT_ATTEMPTED",
         "tiingo_retry_status": "NOT_REQUIRED",
+        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
         "tiingo_full_window_status": "HTTP_429",
         "verified_history_cache_status": "NOT_AVAILABLE"
       },
@@ -2694,6 +2751,7 @@
         "missing_day_retry_status": "NOT_ATTEMPTED",
         "raw_window_retry_status": "NOT_ATTEMPTED",
         "tiingo_retry_status": "NOT_REQUIRED",
+        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
         "tiingo_full_window_status": "HTTP_429",
         "verified_history_cache_status": "NOT_AVAILABLE"
       },
@@ -2712,6 +2770,7 @@
         "missing_day_retry_status": "NOT_ATTEMPTED",
         "raw_window_retry_status": "NOT_ATTEMPTED",
         "tiingo_retry_status": "NOT_REQUIRED",
+        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
         "tiingo_full_window_status": "HTTP_429",
         "verified_history_cache_status": "NOT_AVAILABLE"
       },
@@ -2730,6 +2789,7 @@
         "missing_day_retry_status": "NOT_ATTEMPTED",
         "raw_window_retry_status": "NOT_ATTEMPTED",
         "tiingo_retry_status": "NOT_REQUIRED",
+        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
         "tiingo_full_window_status": "HTTP_429",
         "verified_history_cache_status": "NOT_AVAILABLE"
       },
@@ -2748,60 +2808,7 @@
         "missing_day_retry_status": "NOT_ATTEMPTED",
         "raw_window_retry_status": "NOT_ATTEMPTED",
         "tiingo_retry_status": "NOT_REQUIRED",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
-      },
-      "TSLA": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
-      },
-      "TSM": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
-      },
-      "UBER": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
+        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
         "tiingo_full_window_status": "HTTP_429",
         "verified_history_cache_status": "NOT_AVAILABLE"
       },
@@ -2820,10 +2827,11 @@
         "missing_day_retry_status": "NOT_ATTEMPTED",
         "raw_window_retry_status": "NOT_ATTEMPTED",
         "tiingo_retry_status": "NOT_REQUIRED",
+        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
         "tiingo_full_window_status": "HTTP_429",
         "verified_history_cache_status": "NOT_AVAILABLE"
       },
-      "VRT": {
+      "UBER": {
         "status": "TECHNICAL_DATA_VALIDATION_FAILED",
         "observations": 0,
         "last_date": null,
@@ -2838,6 +2846,7 @@
         "missing_day_retry_status": "NOT_ATTEMPTED",
         "raw_window_retry_status": "NOT_ATTEMPTED",
         "tiingo_retry_status": "NOT_REQUIRED",
+        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
         "tiingo_full_window_status": "HTTP_429",
         "verified_history_cache_status": "NOT_AVAILABLE"
       },
@@ -2856,6 +2865,45 @@
         "missing_day_retry_status": "NOT_ATTEMPTED",
         "raw_window_retry_status": "NOT_ATTEMPTED",
         "tiingo_retry_status": "NOT_REQUIRED",
+        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
+        "tiingo_full_window_status": "HTTP_429",
+        "verified_history_cache_status": "NOT_AVAILABLE"
+      },
+      "VRT": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 0,
+        "last_date": null,
+        "missing_spy_sessions": 252,
+        "missing_spy_dates": [
+          "2025-11-07",
+          "2025-11-10",
+          "2025-11-11",
+          "2025-11-12",
+          "2025-11-13"
+        ],
+        "missing_day_retry_status": "NOT_ATTEMPTED",
+        "raw_window_retry_status": "NOT_ATTEMPTED",
+        "tiingo_retry_status": "NOT_REQUIRED",
+        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
+        "tiingo_full_window_status": "HTTP_429",
+        "verified_history_cache_status": "NOT_AVAILABLE"
+      },
+      "TSM": {
+        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+        "observations": 0,
+        "last_date": null,
+        "missing_spy_sessions": 252,
+        "missing_spy_dates": [
+          "2025-11-07",
+          "2025-11-10",
+          "2025-11-11",
+          "2025-11-12",
+          "2025-11-13"
+        ],
+        "missing_day_retry_status": "NOT_ATTEMPTED",
+        "raw_window_retry_status": "NOT_ATTEMPTED",
+        "tiingo_retry_status": "NOT_REQUIRED",
+        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
         "tiingo_full_window_status": "HTTP_429",
         "verified_history_cache_status": "NOT_AVAILABLE"
       },
@@ -2874,6 +2922,7 @@
         "missing_day_retry_status": "NOT_ATTEMPTED",
         "raw_window_retry_status": "NOT_ATTEMPTED",
         "tiingo_retry_status": "NOT_REQUIRED",
+        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
         "tiingo_full_window_status": "HTTP_429",
         "verified_history_cache_status": "NOT_AVAILABLE"
       },
@@ -2892,78 +2941,7 @@
         "missing_day_retry_status": "NOT_ATTEMPTED",
         "raw_window_retry_status": "NOT_ATTEMPTED",
         "tiingo_retry_status": "NOT_REQUIRED",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
-      },
-      "XYZ": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
-      },
-      "WMT": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_REQUIRED",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
-      },
-      "BABA": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_ATTEMPTED",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
-      },
-      "RH": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_ATTEMPTED",
+        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
         "tiingo_full_window_status": "HTTP_429",
         "verified_history_cache_status": "NOT_AVAILABLE"
       },
@@ -2982,10 +2960,11 @@
         "missing_day_retry_status": "NOT_ATTEMPTED",
         "raw_window_retry_status": "NOT_ATTEMPTED",
         "tiingo_retry_status": "NOT_REQUIRED",
+        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
         "tiingo_full_window_status": "HTTP_429",
         "verified_history_cache_status": "NOT_AVAILABLE"
       },
-      "SWKS": {
+      "WMT": {
         "status": "TECHNICAL_DATA_VALIDATION_FAILED",
         "observations": 0,
         "last_date": null,
@@ -2999,25 +2978,8 @@
         ],
         "missing_day_retry_status": "NOT_ATTEMPTED",
         "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_ATTEMPTED",
-        "tiingo_full_window_status": "HTTP_429",
-        "verified_history_cache_status": "NOT_AVAILABLE"
-      },
-      "UPBD": {
-        "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-        "observations": 0,
-        "last_date": null,
-        "missing_spy_sessions": 252,
-        "missing_spy_dates": [
-          "2025-11-07",
-          "2025-11-10",
-          "2025-11-11",
-          "2025-11-12",
-          "2025-11-13"
-        ],
-        "missing_day_retry_status": "NOT_ATTEMPTED",
-        "raw_window_retry_status": "NOT_ATTEMPTED",
-        "tiingo_retry_status": "NOT_ATTEMPTED",
+        "tiingo_retry_status": "NOT_REQUIRED",
+        "alpha_full_window_status": "ALPHA_SKIPPED_AFTER_LIMIT",
         "tiingo_full_window_status": "HTTP_429",
         "verified_history_cache_status": "NOT_AVAILABLE"
       }
@@ -3127,5 +3089,5 @@
     "publication_status": "CURRENT"
   },
   "corporate_action_validation": [],
-  "provider_fallback_policy": "yahoo_finance_raw_primary; alpha_vantage_core_price_fallback; tiingo_parallel_verified_terminal_scan_repair; coinbase_verified_btc_completed_day_repair; partial_current_scan_only_with_explicit_validation_failures; last_successful_cache_on_failure"
+  "provider_fallback_policy": "yahoo_finance_raw_primary; alpha_vantage_core_price_fallback; tiingo_verified_gap_or_full_scan_repair; alpha_adjusted_window_after_tiingo_limit; coinbase_verified_btc_completed_day_repair; partial_current_scan_only_with_explicit_validation_failures; last_successful_cache_on_failure"
 }
