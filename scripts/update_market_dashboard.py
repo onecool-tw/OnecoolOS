@@ -706,6 +706,13 @@ def update(
                     provider_cache = {}
                 fetch_diagnostics = {}
                 price_diagnostics = {}
+                price_cache_path = intelligence_dir / "adjusted_price_history_cache.json"
+                try:
+                    price_history_cache = json.loads(price_cache_path.read_text()) if price_cache_path.exists() else {}
+                    if not isinstance(price_history_cache, dict):
+                        price_history_cache = {}
+                except (OSError, ValueError):
+                    price_history_cache = {}
                 from onecool_os.market.yahoo_chart import fetch_adjusted_chart
                 scan_histories, scan_fundamentals = fetch_yahoo_breakout_inputs(
                     yfinance,
@@ -717,8 +724,25 @@ def update(
                     fundamental_cache=provider_cache,
                     fetch_diagnostics=fetch_diagnostics,
                     price_diagnostics=price_diagnostics,
+                    price_history_cache=price_history_cache,
                     chart_fetcher=fetch_adjusted_chart,
                     fetch_snapshot_fundamentals=False,
+                )
+                for symbol, bars in scan_histories.items():
+                    if len(bars) < 252 or bars[-1].trading_date.isoformat() != payload["expected_as_of"]:
+                        continue
+                    price_history_cache[symbol] = [
+                        {
+                            "date": bar.trading_date.isoformat(),
+                            "open": bar.open, "high": bar.high, "low": bar.low,
+                            "adjusted_close": bar.adjusted_close if bar.adjusted_close is not None else bar.close,
+                            "volume": bar.volume,
+                        }
+                        for bar in bars[-252:]
+                    ]
+                price_cache_path.write_text(
+                    json.dumps(price_history_cache, indent=2, allow_nan=False) + "\n",
+                    encoding="utf-8",
                 )
                 from onecool_os.market.ai_revolution import SecClient
                 from onecool_os.market.sec_fundamentals import fill_missing_fundamentals

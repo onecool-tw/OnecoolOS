@@ -383,6 +383,7 @@ def fetch_yahoo_breakout_inputs(
     fundamental_cache: dict | None = None,
     fetch_diagnostics: dict | None = None,
     price_diagnostics: dict | None = None,
+    price_history_cache: dict | None = None,
     tiingo_client=None,
     chart_fetcher=None,
     fetch_snapshot_fundamentals=True,
@@ -484,6 +485,58 @@ def fetch_yahoo_breakout_inputs(
                         price_details[symbol] = {"status": "RECOVERED_FROM_YAHOO_ADJUSTED_CHART"}
                 except Exception as exc:
                     price_details[symbol] = {"status": "YAHOO_CHART_REQUEST_OR_VALIDATION_FAILED", "error_type": type(exc).__name__}
+    # Reuse only a previously verified, session-aligned adjusted window.  A
+    # current cache is complete; a prior-session cache may provide the 251
+    # anchors needed to validate one new terminal bar from an independent feed.
+    # The cache never fills an interior gap and never carries a price forward.
+    cached_attempts = {}
+    cache = price_history_cache if isinstance(price_history_cache, dict) else {}
+    for symbol in symbols:
+        if not is_incomplete(histories[symbol]):
+            continue
+        raw = cache.get(symbol)
+        if not isinstance(raw, list):
+            cached_attempts[symbol] = "NOT_AVAILABLE"
+            continue
+        try:
+            cached = [
+                DailyBar(
+                    trading_date=date.fromisoformat(str(item["date"])),
+                    open=float(item["open"]), high=float(item["high"]),
+                    low=float(item["low"]), close=float(item["adjusted_close"]),
+                    adjusted_close=float(item["adjusted_close"]),
+                    volume=int(item["volume"]), source="verified_adjusted_history_cache",
+                )
+                for item in raw
+            ]
+        except (KeyError, TypeError, ValueError, OverflowError):
+            cached_attempts[symbol] = "INVALID_CACHE"
+            continue
+        cached = [bar for bar in cached if bar.trading_date in set(reference_dates)]
+        dates = [bar.trading_date for bar in cached]
+        allowed = (reference_dates, reference_dates[:-1])
+        if dates not in allowed or any(
+            not all(isfinite(value) for value in (
+                bar.open, bar.high, bar.low, bar.close,
+                bar.adjusted_close or 0, float(bar.volume),
+            ))
+            or min(bar.open, bar.high, bar.low, bar.close, bar.adjusted_close or 0) <= 0
+            or bar.high < max(bar.open, bar.low, bar.close)
+            or bar.low > min(bar.open, bar.close)
+            or bar.volume < 0
+            for bar in cached
+        ):
+            cached_attempts[symbol] = "SESSION_OR_OHLCV_MISMATCH"
+            continue
+        cached_attempts[symbol] = "CURRENT" if dates == reference_dates else "PRIOR_SESSION"
+        if len(cached) > len(best_observed[symbol]):
+            best_observed[symbol] = cached
+        if dates == reference_dates:
+            histories[symbol] = cached
+            price_details[symbol] = {
+                "status": "RECOVERED_FROM_VERIFIED_ADJUSTED_HISTORY_CACHE",
+                "observations": len(cached), "last_date": expected_as_of,
+            }
     # Some Yahoo long-range responses omit one otherwise ordinary US session.
     # Ask the same adjusted source for exactly that date, then recheck every
     # reference session before accepting the combined series. Never synthesize.
@@ -720,6 +773,7 @@ def fetch_yahoo_breakout_inputs(
                 "tiingo_full_window_status": full_window_attempts.get(
                     symbol, "NOT_CONFIGURED" if tiingo_client is None else "NOT_ATTEMPTED"
                 ),
+                "verified_history_cache_status": cached_attempts.get(symbol, "NOT_ATTEMPTED"),
             }
     leaders = []
     for symbol in ranking_symbols:

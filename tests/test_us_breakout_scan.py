@@ -838,3 +838,41 @@ def test_tiingo_recovers_complete_window_when_yahoo_returns_no_rows(defect):
             "missing": "INCOMPLETE_SESSION_WINDOW", "duplicate": "SESSION_MISMATCH",
             "stale": "SESSION_MISMATCH", "bad_price": "INVALID_ROW",
         }[defect]
+
+
+def test_verified_adjusted_history_cache_recovers_empty_provider_response():
+    spy = _history()
+    expected = spy[-1].trading_date
+
+    class EmptyYahoo:
+        @staticmethod
+        def download(*args, **kwargs):
+            return pd.DataFrame()
+
+        @staticmethod
+        def Ticker(symbol):
+            raise OSError("unavailable")
+
+    cached = {
+        "AAPL": [
+            {
+                "date": bar.trading_date.isoformat(), "open": bar.open,
+                "high": bar.high, "low": bar.low,
+                "adjusted_close": bar.adjusted_close or bar.close,
+                "volume": bar.volume,
+            }
+            for bar in spy[-252:]
+        ]
+    }
+    diagnostics = {}
+    histories, _ = fetch_yahoo_breakout_inputs(
+        EmptyYahoo, expected_as_of=expected.isoformat(), spy_history=spy,
+        universe=("AAPL",), fundamental_shortlist_size=0,
+        price_history_cache=cached, price_diagnostics=diagnostics,
+    )
+    assert [bar.trading_date for bar in histories["AAPL"]] == [
+        bar.trading_date for bar in spy[-252:]
+    ]
+    assert diagnostics["AAPL"]["status"] == (
+        "RECOVERED_FROM_VERIFIED_ADJUSTED_HISTORY_CACHE"
+    )
