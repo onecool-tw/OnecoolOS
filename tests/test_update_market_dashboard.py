@@ -831,3 +831,20 @@ def test_complete_assessment_publishes_explicit_validation_failures(
     assert scan["data_validation_failed_count"] == 69
     assert scan["coverage_status"] == "COMPLETE_WITH_VALIDATION_FAILURES"
     assert json.loads(scan_path.read_text(encoding="utf-8")) == scan
+
+
+def test_same_cutoff_scan_does_not_replace_better_verified_subset() -> None:
+    previous = {
+        "expected_as_of": "2026-11-09", "validated_count": 49,
+        "data_validation_failed_count": 18,
+    }
+    degraded = {
+        "expected_as_of": "2026-11-09", "validated_count": 3,
+        "data_validation_failed_count": 67,
+    }
+    assert update_market_dashboard._same_cutoff_validation_regression(
+        previous, degraded
+    )
+    assert not update_market_dashboard._same_cutoff_validation_regression(
+        previous, {**degraded, "expected_as_of": "2026-11-10"}
+    )
