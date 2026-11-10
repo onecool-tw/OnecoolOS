@@ -47,11 +47,14 @@ on:
     # Equities retain their latest completed trading session.
     - cron: "30 0 * * 1"
     # US close primary run: 06:30 Asia/Taipei, Tuesday-Saturday.
-    # This runs after the completed regular session and before the 08:00 report.
+    # This runs after the completed regular session.
     - cron: "30 22 * * 1-5"
-    # US close retry: 07:15 Asia/Taipei, Tuesday-Saturday. This preserves a
-    # recovery window before the 08:00 report without mixing intraday prices.
+    # US close retry: 07:15 Asia/Taipei, Tuesday-Saturday.
     - cron: "15 23 * * 1-5"
+    # Final US close recovery: 10:00 Asia/Taipei, Tuesday-Saturday. The later
+    # retry absorbs delayed GitHub schedules and upstream close-data latency,
+    # while leaving time for health recovery and the 11:30 report.
+    - cron: "0 2 * * 2-6"
     - cron: "30 1 * * 1"
     # Asia close primary, mid-window retry, and final retry. The Taiwan screen
     # follows each successful Dashboard run; pre-report health owns recovery.
