@@ -13,7 +13,7 @@ from datetime import date, datetime, timedelta, timezone
 from math import isfinite
 from typing import Iterable
 
-from onecool_os.market.etf_cta import DailyBar
+from onecool_os.market.etf_cta import DailyBar, ETFCTAError
 from onecool_os.market.tiingo_eod import (
     TiingoEODError,
     verified_adjusted_history,
@@ -386,6 +386,8 @@ def fetch_yahoo_breakout_inputs(
     price_history_cache: dict | None = None,
     tiingo_client=None,
     chart_fetcher=None,
+    dashboard_histories=None,
+    alpha_window_fetcher=None,
     fetch_snapshot_fundamentals=True,
 ) -> tuple[dict[str, list[DailyBar]], dict[str, FundamentalMetrics]]:
     """Batch-download prices and cover every eligible missing fundamental.
@@ -409,8 +411,16 @@ def fetch_yahoo_breakout_inputs(
     histories = {}
     best_observed = {}
     price_details = price_diagnostics if price_diagnostics is not None else {}
-    for offset in range(0, len(symbols), 15):
-        group = symbols[offset:offset + 15]
+    for symbol in symbols:
+        history = (dashboard_histories or {}).get(symbol, [])
+        if ([bar.trading_date for bar in history[-252:]] == reference_dates
+                and technical_confidence(history, expected, enforce_minimum_liquidity=False)[0]
+                >= MIN_TECHNICAL_CONFIDENCE):
+            histories[symbol] = best_observed[symbol] = history
+            price_details[symbol] = {"status": "REUSED_VALIDATED_DASHBOARD_HISTORY"}
+    uncovered_symbols = [symbol for symbol in symbols if symbol not in histories]
+    for offset in range(0, len(uncovered_symbols), 15):
+        group = uncovered_symbols[offset:offset + 15]
         try:
             frame = yfinance_module.download(
                 list(group), period="2y", interval="1d", auto_adjust=True,
@@ -756,6 +766,35 @@ def fetch_yahoo_breakout_inputs(
                         "observations": len(recovered),
                         "last_date": expected_as_of,
                     }
+    alpha_attempts = {}
+    if alpha_window_fetcher is not None:
+        # Dashboard and the scan share one paced client. Stop on the first
+        # provider-wide quota or entitlement rejection; never retry it.
+        denied = False
+        attempts = 0
+        for symbol in symbols:
+            if full_window_attempts.get(symbol) != "HTTP_429":
+                continue
+            if denied:
+                alpha_attempts[symbol] = "ALPHA_SKIPPED_AFTER_LIMIT"
+                continue
+            if attempts >= 24:
+                alpha_attempts[symbol] = "ALPHA_SCAN_BUDGET_EXHAUSTED"
+                continue
+            attempts += 1
+            try:
+                recovered = alpha_window_fetcher(symbol, reference_dates)
+            except ETFCTAError as exc:
+                status = str(exc)
+                alpha_attempts[symbol] = status if status.startswith("ALPHA_") else "ALPHA_REQUEST_FAILED"
+                denied = status in {"ALPHA_LIMIT_OR_ENTITLEMENT", "ALPHA_REQUEST_FAILED"}
+                continue
+            if not is_incomplete(recovered):
+                histories[symbol] = recovered
+                price_details[symbol] = {"status": "RECOVERED_FROM_ALPHA_ADJUSTED_WINDOW",
+                                         "observations": len(recovered), "last_date": expected_as_of}
+            else:
+                alpha_attempts[symbol] = "ALPHA_INCOMPLETE_OR_INVALID_WINDOW"
     for symbol in symbols:
         history = histories[symbol]
         if is_incomplete(history):
@@ -770,6 +809,7 @@ def fetch_yahoo_breakout_inputs(
                 "missing_day_retry_status": day_attempts.get(symbol, "NOT_ATTEMPTED"),
                 "raw_window_retry_status": raw_attempts.get(symbol, "NOT_ATTEMPTED"),
                 "tiingo_retry_status": tiingo_attempts.get(symbol, "NOT_ATTEMPTED"),
+                "alpha_full_window_status": alpha_attempts.get(symbol, "NOT_ATTEMPTED"),
                 "tiingo_full_window_status": full_window_attempts.get(
                     symbol, "NOT_CONFIGURED" if tiingo_client is None else "NOT_ATTEMPTED"
                 ),

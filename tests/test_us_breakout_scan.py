@@ -876,3 +876,90 @@ def test_verified_adjusted_history_cache_recovers_empty_provider_response():
     assert diagnostics["AAPL"]["status"] == (
         "RECOVERED_FROM_VERIFIED_ADJUSTED_HISTORY_CACHE"
     )
+
+
+
+def test_scan_reuses_valid_dashboard_and_stops_after_alpha_quota_rejection():
+    from onecool_os.market.etf_cta import ETFCTAError
+    from onecool_os.market.tiingo_eod import TiingoEODError
+
+    spy = _history()
+    cutoff = spy[-1].trading_date.isoformat()
+    calls = []
+
+    class EmptyYahoo:
+        @staticmethod
+        def download(symbols, **kwargs):
+            assert "NVDA" not in symbols
+            return pd.DataFrame()
+
+        @staticmethod
+        def Ticker(symbol):
+            raise OSError("unavailable")
+
+    class LimitedTiingo:
+        def fetch_window(self, symbol, start, end):
+            assert symbol != "NVDA"
+            raise TiingoEODError("HTTP_429")
+
+    def alpha(symbol, sessions):
+        calls.append(symbol)
+        if symbol == "AMZN":
+            raise ETFCTAError("ALPHA_LIMIT_OR_ENTITLEMENT")
+        return spy[-252:]
+
+    details = {}
+    histories, _ = fetch_yahoo_breakout_inputs(
+        EmptyYahoo, expected_as_of=cutoff, spy_history=spy,
+        universe=("NVDA", "AAPL", "AMZN", "MSFT"),
+        dashboard_histories={"NVDA": spy, "AAPL": spy[:-1]},
+        alpha_window_fetcher=alpha, tiingo_client=LimitedTiingo(),
+        price_diagnostics=details, fundamental_shortlist_size=0,
+    )
+    assert calls == ["AAPL", "AMZN"]
+    assert histories["NVDA"] == spy
+    assert details["NVDA"]["status"] == "REUSED_VALIDATED_DASHBOARD_HISTORY"
+    assert histories["AAPL"] == spy[-252:]
+    assert details["AAPL"]["status"] == "RECOVERED_FROM_ALPHA_ADJUSTED_WINDOW"
+    assert not histories["AMZN"] and not histories["MSFT"]
+    assert details["AMZN"]["alpha_full_window_status"] == "ALPHA_LIMIT_OR_ENTITLEMENT"
+    assert details["MSFT"]["alpha_full_window_status"] == "ALPHA_SKIPPED_AFTER_LIMIT"
+
+
+@pytest.mark.parametrize("defect", [None, "missing", "wrong_symbol", "denied"])
+def test_alpha_adjusted_scan_window_validates_provider_evidence(defect):
+    import json
+    from onecool_os.market.etf_cta import AlphaVantageClient, ETFCTAError
+
+    sessions = [bar.trading_date for bar in _history()[-252:]]
+    payload = {
+        "Meta Data": {"2. Symbol": "AAPL"},
+        "Time Series (Daily)": {
+            day.isoformat(): {"1. open": "100", "2. high": "102", "3. low": "98",
+                              "4. close": "100", "5. adjusted close": "50",
+                              "6. volume": "1234", "7. dividend amount": "0",
+                              "8. split coefficient": "1"}
+            for day in sessions
+        },
+    }
+    if defect == "missing":
+        del payload["Time Series (Daily)"][sessions[-1].isoformat()]
+    if defect == "wrong_symbol":
+        payload["Meta Data"]["2. Symbol"] = "MSFT"
+    if defect == "denied":
+        payload = {"Information": "API key not entitled"}
+    requests = []
+    def request(url):
+        requests.append(url)
+        return json.dumps(payload).encode()
+    client = AlphaVantageClient("test-key", request=request)
+    if defect:
+        with pytest.raises(ETFCTAError, match="^ALPHA_"):
+            client.fetch_scan_adjusted_window("AAPL", sessions)
+    else:
+        result = client.fetch_scan_adjusted_window("AAPL", sessions)
+        assert [bar.trading_date for bar in result] == sessions
+        assert (result[0].low, result[0].close, result[0].high) == (49, 50, 51)
+        assert result[0].source == "alpha_vantage_adjusted_transient"
+    assert len(requests) == 1
+    assert "function=TIME_SERIES_DAILY_ADJUSTED" in requests[0] and "outputsize=full" in requests[0]
