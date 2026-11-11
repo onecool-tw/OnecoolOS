@@ -8,7 +8,7 @@
   },
   "classification": "Onecool proxy scores; not IBD official ratings",
   "expected_as_of": "2026-11-10",
-  "data_status": "PARTIAL",
+  "data_status": "READY",
   "price_basis": "adjusted_close",
   "universe_size": 70,
   "universe_governance": {
@@ -28,9 +28,9 @@
     "daily_membership_mutation": false,
     "change_control": "VERSION_BUMP_AND_AUDIT_RECORD_REQUIRED"
   },
-  "validated_count": 45,
-  "coverage_status": "COMPLETE_WITH_VALIDATION_FAILURES",
-  "validated_coverage_pct": 64.29,
+  "validated_count": 63,
+  "coverage_status": "COMPLETE",
+  "validated_coverage_pct": 90.0,
   "research_scope": "FULL_UNIVERSE_ASSESSED_VALIDATED_SUBSET_RANKED",
   "minimum_technical_confidence": 90,
   "formal_breakout_count": 0,
@@ -67,7 +67,7 @@
       "trigger": "突破52週高點且成交量至少為50日均量1.5倍",
       "formal_breakout": false,
       "super_growth_bucket": "B",
-      "super_growth_reason": "VALUATION_INPUTS_UNAVAILABLE_OR_STALE",
+      "super_growth_reason": "VALUATION_ABOVE_DISCIPLINED_RANGE",
       "quality_gate_status": {
         "competitive_advantage": {
           "status": "PASS",
@@ -144,21 +144,18 @@
           "inputs": {}
         },
         "valuation": {
-          "status": "UNKNOWN",
-          "as_of": "2026-11-09",
+          "status": "FAIL",
+          "as_of": "2026-11-10",
           "rationale": "Uses current FY2026 GAAP guidance; biosimilar erosion, leverage and regulatory risk retain the existing disciplined range.",
           "sources": [
             "https://investors.amgen.com/news-releases/news-release-details/amgen-reports-third-quarter-2026-financial-results",
             "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
           ],
-          "data_gap": "PRICE_CUTOFF_MISMATCH; VALUATION_EXPIRED",
-          "validation_errors": [
-            "PRICE_CUTOFF_MISMATCH",
-            "VALUATION_EXPIRED"
-          ],
+          "data_gap": null,
+          "validation_errors": [],
           "method": "FORWARD_GAAP_PE_LOW_END_FY2026_GUIDANCE",
-          "price_as_of": "2026-11-09",
-          "valid_through": "2026-11-09",
+          "price_as_of": "2026-11-10",
+          "valid_through": "2026-11-10",
           "inputs": {
             "price": 465.2300109863281,
             "denominator": 18.34,
@@ -172,11 +169,10 @@
       },
       "evidence_coverage": "PARTIAL",
       "missing_evidence": [
-        "circle_of_competence",
-        "valuation"
+        "circle_of_competence"
       ],
       "quality_data_gaps": {},
-      "valuation_posture": "UNRESOLVED_WITH_SPECIFIC_GAP",
+      "valuation_posture": "ABOVE_DISCIPLINED_RANGE",
       "cyclical_review_required": false,
       "evidence_as_of": "2026-11-06",
       "manual_confirmation_required": [
@@ -185,7 +181,116 @@
       "circle_of_competence_policy": "PRE_TRADE_USER_CONFIRMATION_NOT_DAILY_RESEARCH_BLOCKER",
       "decision_authority": "RESEARCH_QUALITY_ONLY",
       "quality_gate_application": "FORMAL_NEW_CANDIDATE_RESEARCH_GATE",
-      "action_eligibility": "RESEARCH_ONLY_VALUATION_DATA_GAP",
+      "action_eligibility": "RESEARCH_ONLY_VALUATION_TOO_HIGH",
+      "valuation_input_collection": {
+        "as_of": "2026-11-10",
+        "status": "COMPLETE",
+        "gaps": [],
+        "price_basis": "adjusted_close",
+        "inputs": {
+          "adjusted_close": 465.2300109863281
+        },
+        "sources": [
+          "https://investors.amgen.com/news-releases/news-release-details/amgen-reports-third-quarter-2026-financial-results",
+          "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+        ],
+        "decision_authority": "REVIEWED_SOURCE_BACKED_VALUATION_MODEL",
+        "price_source": {
+          "provider": "yahoo_finance_adjusted_batch",
+          "symbol": "AMGN",
+          "as_of": "2026-11-10",
+          "url": "https://finance.yahoo.com/quote/AMGN/history/"
+        },
+        "price_observation": {
+          "date": "2026-11-10",
+          "adjusted_close": 465.2300109863281,
+          "raw_close": 465.2300109863281,
+          "provider": "yahoo_finance_adjusted_batch"
+        },
+        "price_sha256": "c89263ce60437ffcf1f755df01430a99561c978a4b6039e4a5613d92cbf8d7fd",
+        "official_reference_status": "VERIFIED",
+        "fundamental_fetch_status": "REVIEWED_OFFICIAL_REFERENCE",
+        "company_name": "Amgen Inc.",
+        "official_reference": {
+          "symbol": "AMGN",
+          "company_name": "Amgen Inc.",
+          "published_at": "2026-11-03",
+          "reviewed_as_of": "2026-11-07",
+          "valid_through": "2027-02-01",
+          "sources": [
+            "https://investors.amgen.com/news-releases/news-release-details/amgen-reports-third-quarter-2026-financial-results",
+            "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+          ],
+          "reported_facts": {
+            "FY26_GAAP_EPS_guidance": [
+              18.34,
+              19.28
+            ],
+            "FY26_non_GAAP_EPS_guidance": [
+              22.9,
+              23.7
+            ],
+            "Q3_FCF_million": 3654
+          },
+          "model_gaps": [],
+          "refresh_on": [
+            "NEW_EARNINGS_OR_GUIDANCE",
+            "MATERIAL_CORPORATE_EVENT",
+            "REFERENCE_EXPIRY"
+          ],
+          "valuation_model": {
+            "method": "FORWARD_GAAP_PE_LOW_END_FY2026_GUIDANCE",
+            "denominator": 18.34,
+            "currency": "USD",
+            "share_basis": "listed_security",
+            "normalization_bridge": {
+              "formula": "Low end of FY2026 GAAP diluted EPS guidance 18.34",
+              "limitations": "Uses conservative guidance low end; no pipeline revenue or equity gains assumed."
+            },
+            "denominator_source": [
+              "https://investors.amgen.com/news-releases/news-release-details/amgen-reports-third-quarter-2026-financial-results"
+            ],
+            "fair_range": [
+              8.109050705053424,
+              13.976819907362085
+            ],
+            "scenarios": [
+              {
+                "name": "conservative",
+                "years": 5,
+                "growth": 0.03,
+                "required_return": 0.12,
+                "terminal_growth": 0.02,
+                "cash_conversion": 0.7,
+                "terminal_cash_conversion": 0.8
+              },
+              {
+                "name": "base",
+                "years": 5,
+                "growth": 0.06,
+                "required_return": 0.1,
+                "terminal_growth": 0.03,
+                "cash_conversion": 0.8,
+                "terminal_cash_conversion": 0.85
+              }
+            ],
+            "policy_version": "onecool_equity_screen_v1",
+            "rationale": "Uses current FY2026 GAAP guidance; biosimilar erosion, leverage and regulatory risk retain the existing disciplined range.",
+            "fair_range_rationale": "Uses current FY2026 GAAP guidance; biosimilar erosion, leverage and regulatory risk retain the existing disciplined range.",
+            "fair_range_sources": [
+              "https://investors.amgen.com/news-releases/news-release-details/amgen-reports-third-quarter-2026-financial-results",
+              "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+            ],
+            "research_grade": "SCREENING_SCENARIO_NOT_FULL_DCF",
+            "assumption_authority": "ONECOOL_ANALYST_NOT_ISSUER_GUIDANCE"
+          },
+          "source_review": {
+            "status": "VERIFIED_CURRENT_OFFICIAL",
+            "checked_at": "2026-11-07T00:35:00+00:00",
+            "information_cutoff": "2026-11-06"
+          }
+        }
+      },
       "lynch_research": {
         "version": "onecool_lynch_research_v1",
         "company_type": {
@@ -254,6 +359,16 @@
                 "https://www.sec.gov/Archives/edgar/data/318154/000031815426000124/amgn-20260630earningsrelea.htm",
                 "https://www.amgen.com/tavneos-update"
               ]
+            },
+            {
+              "field": "valuation",
+              "value": "FAIL",
+              "as_of": "2026-11-10",
+              "rationale": "Uses current FY2026 GAAP guidance; biosimilar erosion, leverage and regulatory risk retain the existing disciplined range.",
+              "sources": [
+                "https://investors.amgen.com/news-releases/news-release-details/amgen-reports-third-quarter-2026-financial-results",
+                "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+              ]
             }
           ],
           "required_manual_confirmation": [
@@ -319,7 +434,7 @@
       "trigger": "突破52週高點且成交量至少為50日均量1.5倍",
       "formal_breakout": false,
       "super_growth_bucket": "B",
-      "super_growth_reason": "VALUATION_INPUTS_UNAVAILABLE_OR_STALE",
+      "super_growth_reason": "VALUATION_ABOVE_DISCIPLINED_RANGE",
       "quality_gate_status": {
         "competitive_advantage": {
           "status": "PASS",
@@ -391,25 +506,22 @@
           "inputs": {}
         },
         "valuation": {
-          "status": "UNKNOWN",
-          "as_of": "2026-11-09",
+          "status": "FAIL",
+          "as_of": "2026-11-10",
           "rationale": "Mounjaro and Zepbound support high growth, while pricing, launch investment and acquisition execution constrain distributable earnings.",
           "sources": [
             "https://investor.lilly.com/news-releases/news-release-details/lilly-reports-third-quarter-2026-financial-results-raises-full",
             "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
           ],
-          "data_gap": "PRICE_CUTOFF_MISMATCH; VALUATION_EXPIRED",
-          "validation_errors": [
-            "PRICE_CUTOFF_MISMATCH",
-            "VALUATION_EXPIRED"
-          ],
+          "data_gap": null,
+          "validation_errors": [],
           "method": "FORWARD_NORMALIZED_PE_EX_KNOWN_Q3_ACQUIRED_IPRD",
-          "price_as_of": "2026-11-09",
-          "valid_through": "2026-11-09",
+          "price_as_of": "2026-11-10",
+          "valid_through": "2026-11-10",
           "inputs": {
-            "price": 1411.949951171875,
+            "price": 1432.2900390625,
             "denominator": 40.07,
-            "multiple": 35.237083882502496,
+            "multiple": 35.74469775549039,
             "fair_range": [
               11.881578947368421,
               23.463686944114407
@@ -419,11 +531,10 @@
       },
       "evidence_coverage": "PARTIAL",
       "missing_evidence": [
-        "circle_of_competence",
-        "valuation"
+        "circle_of_competence"
       ],
       "quality_data_gaps": {},
-      "valuation_posture": "UNRESOLVED_WITH_SPECIFIC_GAP",
+      "valuation_posture": "ABOVE_DISCIPLINED_RANGE",
       "cyclical_review_required": false,
       "evidence_as_of": "2026-11-06",
       "manual_confirmation_required": [
@@ -432,7 +543,121 @@
       "circle_of_competence_policy": "PRE_TRADE_USER_CONFIRMATION_NOT_DAILY_RESEARCH_BLOCKER",
       "decision_authority": "RESEARCH_QUALITY_ONLY",
       "quality_gate_application": "FORMAL_NEW_CANDIDATE_RESEARCH_GATE",
-      "action_eligibility": "RESEARCH_ONLY_VALUATION_DATA_GAP",
+      "action_eligibility": "RESEARCH_ONLY_VALUATION_TOO_HIGH",
+      "valuation_input_collection": {
+        "as_of": "2026-11-10",
+        "status": "COMPLETE",
+        "gaps": [],
+        "price_basis": "adjusted_close",
+        "inputs": {
+          "adjusted_close": 1432.2900390625
+        },
+        "sources": [
+          "https://investor.lilly.com/news-releases/news-release-details/lilly-reports-third-quarter-2026-financial-results-raises-full",
+          "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+        ],
+        "decision_authority": "REVIEWED_SOURCE_BACKED_VALUATION_MODEL",
+        "price_source": {
+          "provider": "yahoo_finance_adjusted_batch",
+          "symbol": "LLY",
+          "as_of": "2026-11-10",
+          "url": "https://finance.yahoo.com/quote/LLY/history/"
+        },
+        "price_observation": {
+          "date": "2026-11-10",
+          "adjusted_close": 1432.2900390625,
+          "raw_close": 1432.2900390625,
+          "provider": "yahoo_finance_adjusted_batch"
+        },
+        "price_sha256": "f788677c622e4e34c561f239c60c89a5d501518cc52bb9d9482afdc8a872390d",
+        "official_reference_status": "VERIFIED",
+        "fundamental_fetch_status": "REVIEWED_OFFICIAL_REFERENCE",
+        "company_name": "Eli Lilly and Company",
+        "official_reference": {
+          "symbol": "LLY",
+          "company_name": "Eli Lilly and Company",
+          "published_at": "2026-10-29",
+          "reviewed_as_of": "2026-10-31",
+          "valid_through": "2027-01-25",
+          "sources": [
+            "https://investor.lilly.com/news-releases/news-release-details/lilly-reports-third-quarter-2026-financial-results-raises-full",
+            "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+          ],
+          "reported_facts": {
+            "period": "Q3_2026",
+            "revenue_million": 24397,
+            "reported_eps": 7.22,
+            "non_gaap_eps": 7.48,
+            "FY26_non_gaap_eps_guidance": [
+              35,
+              36
+            ],
+            "Q3_acquired_IPRD_per_share": 4.57
+          },
+          "model_gaps": [],
+          "refresh_on": [
+            "NEW_EARNINGS_OR_GUIDANCE",
+            "MATERIAL_ACQUISITION",
+            "REFERENCE_EXPIRY"
+          ],
+          "valuation_model": {
+            "method": "FORWARD_NORMALIZED_PE_EX_KNOWN_Q3_ACQUIRED_IPRD",
+            "denominator": 40.07,
+            "currency": "USD",
+            "share_basis": "listed_security",
+            "normalization_bridge": {
+              "formula": "FY26 non-GAAP EPS guidance midpoint 35.50 + Q3 acquired IPR&D 4.57",
+              "inputs": [
+                35.5,
+                4.57
+              ],
+              "limitations": "Removes the disclosed Q3 acquired IPR&D charge only; does not assume unannounced transactions or pipeline revenue."
+            },
+            "denominator_source": [
+              "https://investor.lilly.com/news-releases/news-release-details/lilly-reports-third-quarter-2026-financial-results-raises-full"
+            ],
+            "fair_range": [
+              11.881578947368421,
+              23.463686944114407
+            ],
+            "scenarios": [
+              {
+                "name": "conservative",
+                "years": 5,
+                "growth": 0.12,
+                "required_return": 0.12,
+                "terminal_growth": 0.025,
+                "cash_conversion": 0.65,
+                "terminal_cash_conversion": 0.8
+              },
+              {
+                "name": "base",
+                "years": 5,
+                "growth": 0.18,
+                "required_return": 0.1,
+                "terminal_growth": 0.03,
+                "cash_conversion": 0.75,
+                "terminal_cash_conversion": 0.9
+              }
+            ],
+            "assumption_authority": "ONECOOL_ANALYST_NOT_ISSUER_GUIDANCE",
+            "research_grade": "SCREENING_SCENARIO_NOT_FULL_DCF",
+            "policy_version": "onecool_equity_two_stage_screen_v1",
+            "rationale": "Mounjaro and Zepbound support high growth, while pricing, launch investment and acquisition execution constrain distributable earnings.",
+            "fair_range_rationale": "Five-year 12%/18% growth, 65%/75% interim cash conversion, 80%/90% terminal conversion, 12%/10% required return and 2.5%/3% terminal growth are Onecool analyst screening assumptions selected without using the current share price.",
+            "fair_range_sources": [
+              "https://investor.lilly.com/news-releases/news-release-details/lilly-reports-third-quarter-2026-financial-results-raises-full",
+              "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+            ]
+          },
+          "source_review": {
+            "status": "VERIFIED_CURRENT_OFFICIAL",
+            "checked_at": "2026-10-31T08:25:00+00:00",
+            "information_cutoff": "2026-10-30",
+            "conclusion": "Q3 results and updated FY2026 guidance normalized using the issuer-disclosed Q3 acquired IPR&D charge."
+          }
+        }
+      },
       "lynch_research": {
         "version": "onecool_lynch_research_v1",
         "company_type": {
@@ -497,6 +722,375 @@
               "rationale": "實現價格下滑13%、藥品集中、監管／給付、臨床及多宗併購整合是主要風險；納入持續追蹤，目前材料不足以否決研究資格。",
               "sources": [
                 "https://investor.lilly.com/node/54781/pdf"
+              ]
+            },
+            {
+              "field": "valuation",
+              "value": "FAIL",
+              "as_of": "2026-11-10",
+              "rationale": "Mounjaro and Zepbound support high growth, while pricing, launch investment and acquisition execution constrain distributable earnings.",
+              "sources": [
+                "https://investor.lilly.com/news-releases/news-release-details/lilly-reports-third-quarter-2026-financial-results-raises-full",
+                "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+              ]
+            }
+          ],
+          "required_manual_confirmation": [
+            "BUSINESS_DRIVER",
+            "DURABILITY",
+            "MANAGEMENT_EXECUTION"
+          ]
+        },
+        "story_break_conditions": [
+          {
+            "condition": "VERIFIED_COMPETITIVE_ADVANTAGE_FAILS",
+            "meaning": "Investment story requires review"
+          },
+          {
+            "condition": "VERIFIED_STRUCTURAL_GROWTH_RUNWAY_FAILS",
+            "meaning": "Growth story requires review"
+          },
+          {
+            "condition": "VERIFIED_FINANCIAL_QUALITY_OR_GOVERNANCE_FAILS",
+            "meaning": "Quality story requires review"
+          }
+        ],
+        "policy": {
+          "decision_authority": "NONE",
+          "ranking_effect": "NONE",
+          "score_effect": "NONE",
+          "cta_effect": "NONE",
+          "action_effect": "NONE",
+          "observation_is_research_lead_only": true,
+          "manual_confirmation_required": true
+        }
+      }
+    },
+    {
+      "symbol": "ABBV",
+      "price_as_of": "2026-11-10",
+      "fundamentals_as_of": "2026-06-30",
+      "fundamental_sources": [
+        "https://data.sec.gov/api/xbrl/companyfacts/CIK0001551152.json"
+      ],
+      "fundamentals_published_as_of": "2026-08-03",
+      "liquidity_average_50d_usd": 1354534520.12,
+      "liquidity_minimum_50d_usd": 20000000,
+      "liquidity_status": "PASSED",
+      "new_entry_eligible": true,
+      "validation_warnings": [],
+      "price_basis": "adjusted_close",
+      "score_version": "onecool_us_dual_v2",
+      "thresholds": {
+        "canslim": 70,
+        "minervini": 80
+      },
+      "technical_confidence": 100,
+      "validation_status": "PASSED",
+      "validation_errors": [],
+      "canslim_score": 60,
+      "minervini_score": 100,
+      "passes_dual_system": false,
+      "company_name": "AbbVie Inc.",
+      "security_type": "COMMON_STOCK",
+      "rank_score": 77.0,
+      "status": "WAIT",
+      "trigger": "突破52週高點且成交量至少為50日均量1.5倍",
+      "formal_breakout": false,
+      "super_growth_bucket": "B",
+      "super_growth_reason": "VALUATION_ABOVE_DISCIPLINED_RANGE",
+      "quality_gate_status": {
+        "competitive_advantage": {
+          "status": "PASS",
+          "as_of": "2026-07-31",
+          "rationale": "Skyrizi與Rinvoq季度收入均約年增24%，神經科學組合年增20.3%，多個治療領域與研發管線降低單一產品依賴。",
+          "sources": [
+            "https://news.abbvie.com/2026-07-31-AbbVie-Reports-Second-Quarter-2026-Financial-Results"
+          ],
+          "data_gap": null,
+          "validation_errors": [],
+          "method": null,
+          "price_as_of": null,
+          "valid_through": null,
+          "inputs": {}
+        },
+        "structural_growth_runway": {
+          "status": "PASS",
+          "as_of": "2026-07-31",
+          "rationale": "免疫學與神經科學核心產品維持雙位數成長，並透過Apogee交易補強後期免疫學管線，支持Humira專利後的成長接續。",
+          "sources": [
+            "https://news.abbvie.com/2026-07-31-AbbVie-Reports-Second-Quarter-2026-Financial-Results"
+          ],
+          "data_gap": null,
+          "validation_errors": [],
+          "method": null,
+          "price_as_of": null,
+          "valid_through": null,
+          "inputs": {}
+        },
+        "financial_quality": {
+          "status": "PASS",
+          "as_of": "2026-07-31",
+          "rationale": "季度營收169.9億美元年增10.2%，調整後EPS年增22.9%，調整後營業利益率48.3%；成長與獲利能力均獲官方財報支持。",
+          "sources": [
+            "https://news.abbvie.com/2026-07-31-AbbVie-Reports-Second-Quarter-2026-Financial-Results"
+          ],
+          "data_gap": null,
+          "validation_errors": [],
+          "method": null,
+          "price_as_of": null,
+          "valid_through": null,
+          "inputs": {}
+        },
+        "business_risk_and_governance": {
+          "status": "PASS",
+          "as_of": "2026-07-31",
+          "rationale": "Humira收入年減35.9%、109億美元Apogee收購與IPR&D支出是明確風險，但目前由Skyrizi、Rinvoq及神經科學成長抵銷；未見足以否決候選資格的治理事件。",
+          "sources": [
+            "https://news.abbvie.com/2026-07-31-AbbVie-Reports-Second-Quarter-2026-Financial-Results",
+            "https://www.sec.gov/edgar/browse/?CIK=1551152&owner=exclude"
+          ],
+          "data_gap": null,
+          "validation_errors": [],
+          "method": null,
+          "price_as_of": null,
+          "valid_through": null,
+          "inputs": {}
+        },
+        "circle_of_competence": {
+          "status": "UNKNOWN",
+          "as_of": "2026-09-17",
+          "rationale": "藥品專利、臨床與監管判斷屬個人能力圈確認項，保留到正式建倉前，不阻擋研究排名。",
+          "sources": [
+            "https://news.abbvie.com/2026-07-31-AbbVie-Reports-Second-Quarter-2026-Financial-Results"
+          ],
+          "data_gap": "MISSING_SOURCE_BACKED_CIRCLE_OF_COMPETENCE_ASSESSMENT",
+          "validation_errors": [],
+          "method": null,
+          "price_as_of": null,
+          "valid_through": null,
+          "inputs": {}
+        },
+        "valuation": {
+          "status": "FAIL",
+          "as_of": "2026-11-10",
+          "rationale": "Uses current Q3 guidance with the existing full-year acquisition dilution stress; Humira erosion, leverage and IPR&D constrain the range.",
+          "sources": [
+            "https://news.abbvie.com/2026-10-30-AbbVie-Reports-Third-Quarter-2026-Financial-Results",
+            "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+          ],
+          "data_gap": null,
+          "validation_errors": [],
+          "method": "FORWARD_ADJUSTED_PE_FULL_YEAR_ACQUISITION_STRESS",
+          "price_as_of": "2026-11-10",
+          "valid_through": "2026-11-10",
+          "inputs": {
+            "price": 293.8900146484375,
+            "denominator": 13.44,
+            "multiple": 21.86681656610398,
+            "fair_range": [
+              8.554162502288818,
+              16.74285714285714
+            ]
+          }
+        }
+      },
+      "evidence_coverage": "PARTIAL",
+      "missing_evidence": [
+        "circle_of_competence"
+      ],
+      "quality_data_gaps": {},
+      "valuation_posture": "ABOVE_DISCIPLINED_RANGE",
+      "cyclical_review_required": false,
+      "evidence_as_of": "2026-11-06",
+      "manual_confirmation_required": [
+        "circle_of_competence"
+      ],
+      "circle_of_competence_policy": "PRE_TRADE_USER_CONFIRMATION_NOT_DAILY_RESEARCH_BLOCKER",
+      "decision_authority": "RESEARCH_QUALITY_ONLY",
+      "quality_gate_application": "FORMAL_NEW_CANDIDATE_RESEARCH_GATE",
+      "action_eligibility": "RESEARCH_ONLY_VALUATION_TOO_HIGH",
+      "valuation_input_collection": {
+        "as_of": "2026-11-10",
+        "status": "COMPLETE",
+        "gaps": [],
+        "price_basis": "adjusted_close",
+        "inputs": {
+          "adjusted_close": 293.8900146484375
+        },
+        "sources": [
+          "https://news.abbvie.com/2026-10-30-AbbVie-Reports-Third-Quarter-2026-Financial-Results",
+          "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+        ],
+        "decision_authority": "REVIEWED_SOURCE_BACKED_VALUATION_MODEL",
+        "price_source": {
+          "provider": "yahoo_finance_adjusted_batch",
+          "symbol": "ABBV",
+          "as_of": "2026-11-10",
+          "url": "https://finance.yahoo.com/quote/ABBV/history/"
+        },
+        "price_observation": {
+          "date": "2026-11-10",
+          "adjusted_close": 293.8900146484375,
+          "raw_close": 293.8900146484375,
+          "provider": "yahoo_finance_adjusted_batch"
+        },
+        "price_sha256": "1c63e91a37eea4fdd14bec6acd8fc19394f00e8570788f71e3167c9bb0683e6f",
+        "official_reference_status": "VERIFIED",
+        "fundamental_fetch_status": "REVIEWED_OFFICIAL_REFERENCE",
+        "company_name": "AbbVie Inc.",
+        "official_reference": {
+          "symbol": "ABBV",
+          "company_name": "AbbVie Inc.",
+          "published_at": "2026-10-30",
+          "valid_through": "2027-01-28",
+          "sources": [
+            "https://news.abbvie.com/2026-10-30-AbbVie-Reports-Third-Quarter-2026-Financial-Results",
+            "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+          ],
+          "reported_facts": {
+            "FY26_adjusted_EPS_guidance": [
+              13.95,
+              13.99
+            ],
+            "Q3_revenue_billion": 17.404,
+            "Q3_adjusted_EPS": 3.82
+          },
+          "model_gaps": [],
+          "refresh_on": [
+            "NEW_EARNINGS_OR_GUIDANCE",
+            "MATERIAL_CORPORATE_EVENT",
+            "REFERENCE_EXPIRY"
+          ],
+          "valuation_model": {
+            "method": "FORWARD_ADJUSTED_PE_FULL_YEAR_ACQUISITION_STRESS",
+            "denominator": 13.44,
+            "currency": "USD",
+            "share_basis": "listed_security",
+            "normalization_bridge": {
+              "formula": "Current FY26 adjusted EPS guidance stressed for full-year acquisition dilution; retained denominator 13.44",
+              "limitations": "Stress case is Onecool normalization, not issuer FY2027 guidance."
+            },
+            "denominator_source": [
+              "https://news.abbvie.com/2026-10-30-AbbVie-Reports-Third-Quarter-2026-Financial-Results"
+            ],
+            "fair_range": [
+              8.554162502288818,
+              16.74285714285714
+            ],
+            "scenarios": [
+              {
+                "name": "conservative",
+                "years": 5,
+                "growth": 0.05,
+                "required_return": 0.12,
+                "terminal_growth": 0.02,
+                "cash_conversion": 0.55,
+                "terminal_cash_conversion": 0.85
+              },
+              {
+                "name": "base",
+                "years": 5,
+                "growth": 0.1,
+                "required_return": 0.1,
+                "terminal_growth": 0.03,
+                "cash_conversion": 0.7,
+                "terminal_cash_conversion": 0.9
+              }
+            ],
+            "policy_version": "onecool_equity_screen_v1",
+            "rationale": "Uses current Q3 guidance with the existing full-year acquisition dilution stress; Humira erosion, leverage and IPR&D constrain the range.",
+            "fair_range_rationale": "Uses current Q3 guidance with the existing full-year acquisition dilution stress; Humira erosion, leverage and IPR&D constrain the range.",
+            "fair_range_sources": [
+              "https://news.abbvie.com/2026-10-30-AbbVie-Reports-Third-Quarter-2026-Financial-Results",
+              "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+            ],
+            "research_grade": "SCREENING_SCENARIO_NOT_FULL_DCF",
+            "assumption_authority": "ONECOOL_ANALYST_NOT_ISSUER_GUIDANCE"
+          },
+          "reviewed_as_of": "2026-11-07",
+          "review_note": "Recovery review on Oct27 for Oct26 price cutoff only. Official earnings/guidance source reopened. Existing analyst model retained, not new issuer guidance; no future validity extension. New earnings or material events require re-review.",
+          "source_review": {
+            "status": "VERIFIED_CURRENT_OFFICIAL",
+            "checked_at": "2026-11-07T00:35:00+00:00",
+            "information_cutoff": "2026-11-06"
+          }
+        }
+      },
+      "lynch_research": {
+        "version": "onecool_lynch_research_v1",
+        "company_type": {
+          "status": "PROVISIONAL",
+          "primary": "FAST_GROWER",
+          "candidates": [
+            "FAST_GROWER"
+          ],
+          "evidence": [
+            {
+              "field": "verified_quality_gates",
+              "value": [
+                "structural_growth_runway",
+                "financial_quality"
+              ],
+              "interpretation": "FAST_GROWTH_CANDIDATE_NOT_DURABILITY_PROOF"
+            }
+          ],
+          "unresolved_categories": [
+            "SLOW_GROWER",
+            "STALWART",
+            "CYCLICAL",
+            "TURNAROUND",
+            "ASSET_PLAY"
+          ]
+        },
+        "investment_story": {
+          "status": "EVIDENCE_ONLY",
+          "evidence": [
+            {
+              "field": "competitive_advantage",
+              "value": "PASS",
+              "as_of": "2026-07-31",
+              "rationale": "Skyrizi與Rinvoq季度收入均約年增24%，神經科學組合年增20.3%，多個治療領域與研發管線降低單一產品依賴。",
+              "sources": [
+                "https://news.abbvie.com/2026-07-31-AbbVie-Reports-Second-Quarter-2026-Financial-Results"
+              ]
+            },
+            {
+              "field": "structural_growth_runway",
+              "value": "PASS",
+              "as_of": "2026-07-31",
+              "rationale": "免疫學與神經科學核心產品維持雙位數成長，並透過Apogee交易補強後期免疫學管線，支持Humira專利後的成長接續。",
+              "sources": [
+                "https://news.abbvie.com/2026-07-31-AbbVie-Reports-Second-Quarter-2026-Financial-Results"
+              ]
+            },
+            {
+              "field": "financial_quality",
+              "value": "PASS",
+              "as_of": "2026-07-31",
+              "rationale": "季度營收169.9億美元年增10.2%，調整後EPS年增22.9%，調整後營業利益率48.3%；成長與獲利能力均獲官方財報支持。",
+              "sources": [
+                "https://news.abbvie.com/2026-07-31-AbbVie-Reports-Second-Quarter-2026-Financial-Results"
+              ]
+            },
+            {
+              "field": "business_risk_and_governance",
+              "value": "PASS",
+              "as_of": "2026-07-31",
+              "rationale": "Humira收入年減35.9%、109億美元Apogee收購與IPR&D支出是明確風險，但目前由Skyrizi、Rinvoq及神經科學成長抵銷；未見足以否決候選資格的治理事件。",
+              "sources": [
+                "https://news.abbvie.com/2026-07-31-AbbVie-Reports-Second-Quarter-2026-Financial-Results",
+                "https://www.sec.gov/edgar/browse/?CIK=1551152&owner=exclude"
+              ]
+            },
+            {
+              "field": "valuation",
+              "value": "FAIL",
+              "as_of": "2026-11-10",
+              "rationale": "Uses current Q3 guidance with the existing full-year acquisition dilution stress; Humira erosion, leverage and IPR&D constrain the range.",
+              "sources": [
+                "https://news.abbvie.com/2026-10-30-AbbVie-Reports-Third-Quarter-2026-Financial-Results",
+                "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
               ]
             }
           ],
@@ -637,7 +1231,7 @@
         },
         "valuation": {
           "status": "UNKNOWN",
-          "as_of": "2026-11-09",
+          "as_of": "2026-11-10",
           "rationale": "Current-session valuation model not yet validated.",
           "sources": [],
           "data_gap": "MISSING_SOURCE_BACKED_VALUATION_ASSESSMENT",
@@ -664,6 +1258,38 @@
       "decision_authority": "RESEARCH_QUALITY_ONLY",
       "quality_gate_application": "FORMAL_NEW_CANDIDATE_RESEARCH_GATE",
       "action_eligibility": "RESEARCH_ONLY_VALUATION_DATA_GAP",
+      "valuation_input_collection": {
+        "as_of": "2026-11-10",
+        "status": "PARTIAL",
+        "gaps": [
+          "OFFICIAL_REFERENCE_EXPIRED_OR_NOT_POINT_IN_TIME",
+          "SEC_COMPANYFACTS_FETCH_OR_IDENTITY_VALIDATION_FAILED"
+        ],
+        "price_basis": "adjusted_close",
+        "inputs": {
+          "adjusted_close": 533.1599731445312
+        },
+        "sources": [
+          "https://data.sec.gov/api/xbrl/companyfacts/CIK0000789019.json"
+        ],
+        "decision_authority": "REFERENCE_INPUTS_ONLY_NOT_FAIR_VALUE",
+        "price_source": {
+          "provider": "yahoo_finance_adjusted_batch",
+          "symbol": "MSFT",
+          "as_of": "2026-11-10",
+          "url": "https://finance.yahoo.com/quote/MSFT/history/"
+        },
+        "price_observation": {
+          "date": "2026-11-10",
+          "adjusted_close": 533.1599731445312,
+          "raw_close": 533.1599731445312,
+          "provider": "yahoo_finance_adjusted_batch"
+        },
+        "price_sha256": "d690bc16fdf5a96b18d751d91f86cb2f9b7a2882a779e58d828dc08c16b8d992",
+        "official_reference_status": "REJECTED",
+        "fundamental_fetch_status": "FETCH_FAILED",
+        "fetch_error_type": "HTTPError"
+      },
       "lynch_research": {
         "version": "onecool_lynch_research_v1",
         "company_type": {
@@ -762,14 +1388,15 @@
       }
     },
     {
-      "symbol": "THC",
+      "symbol": "ABNB",
       "price_as_of": "2026-11-10",
-      "fundamentals_as_of": "2026-06-30",
+      "fundamentals_as_of": "2026-09-30",
       "fundamental_sources": [
-        "https://data.sec.gov/api/xbrl/companyfacts/CIK0000070318.json"
+        "https://news.airbnb.com/airbnb-q3-2026-financial-results",
+        "https://investors.airbnb.com/financials/default.aspx"
       ],
-      "fundamentals_published_as_of": "2026-07-29",
-      "liquidity_average_50d_usd": 214187185.25,
+      "fundamentals_published_as_of": "2026-11-05",
+      "liquidity_average_50d_usd": 762928159.75,
       "liquidity_minimum_50d_usd": 20000000,
       "liquidity_status": "PASSED",
       "new_entry_eligible": true,
@@ -783,24 +1410,24 @@
       "technical_confidence": 100,
       "validation_status": "PASSED",
       "validation_errors": [],
-      "canslim_score": 58,
+      "canslim_score": 59,
       "minervini_score": 100,
       "passes_dual_system": false,
-      "company_name": "Tenet Healthcare Corporation",
+      "company_name": "Airbnb, Inc.",
       "security_type": "COMMON_STOCK",
-      "rank_score": 76.1,
+      "rank_score": 76.55,
       "status": "WAIT",
       "trigger": "突破52週高點且成交量至少為50日均量1.5倍",
       "formal_breakout": false,
       "super_growth_bucket": "B",
-      "super_growth_reason": "VALUATION_INPUTS_UNAVAILABLE_OR_STALE",
+      "super_growth_reason": "VALUATION_ABOVE_DISCIPLINED_RANGE",
       "quality_gate_status": {
         "competitive_advantage": {
           "status": "PASS",
-          "as_of": "2026-07-23",
-          "rationale": "USPI為美國最大門診手術平台；地方設施、醫師合作與醫院網絡構成規模優勢，並非不可取代壟斷。",
+          "as_of": "2026-11-05",
+          "rationale": "全球房源、旅客需求、品牌與雙邊評價形成網路效應；Q3所有區域住宿晚數均為雙位數成長。",
           "sources": [
-            "https://investor.tenethealth.com/press-releases/press-release-details/2026/Tenet-Reports-Strong-Second-Quarter-2026-Results-Raises-2026-Financial-Outlook/default.aspx"
+            "https://news.airbnb.com/airbnb-q3-2026-financial-results"
           ],
           "data_gap": null,
           "validation_errors": [],
@@ -811,10 +1438,10 @@
         },
         "structural_growth_runway": {
           "status": "PASS",
-          "as_of": "2026-07-23",
-          "rationale": "門診同設施收入年增5%，服務組合與高複雜度提升；病例下降1.2%限制純量成長，不能把收購與價格成長視為持續高增長保證。",
+          "as_of": "2026-11-05",
+          "rationale": "Q3營收年增19%、GBV增21%、住宿與座位預訂增16%，並由核心與拓展市場共同加速。",
           "sources": [
-            "https://investor.tenethealth.com/press-releases/press-release-details/2026/Tenet-Reports-Strong-Second-Quarter-2026-Results-Raises-2026-Financial-Outlook/default.aspx"
+            "https://news.airbnb.com/airbnb-q3-2026-financial-results"
           ],
           "data_gap": null,
           "validation_errors": [],
@@ -825,10 +1452,10 @@
         },
         "financial_quality": {
           "status": "PASS",
-          "as_of": "2026-07-23",
-          "rationale": "H1 CFO 22.26億、capex 3.48億；NCI分配3.98億。正現金流支持品質，但19億美元合約終止與Medicaid前期補收入須排除，不能用GAAP EPS直接估值。",
+          "as_of": "2026-11-05",
+          "rationale": "Q3淨利19億美元、調整後EBITDA 25億美元且利潤率52%；另核准新增120億美元庫藏股。",
           "sources": [
-            "https://investor.tenethealth.com/press-releases/press-release-details/2026/Tenet-Reports-Strong-Second-Quarter-2026-Results-Raises-2026-Financial-Outlook/default.aspx"
+            "https://news.airbnb.com/airbnb-q3-2026-financial-results"
           ],
           "data_gap": null,
           "validation_errors": [],
@@ -839,10 +1466,10 @@
         },
         "business_risk_and_governance": {
           "status": "PASS",
-          "as_of": "2026-07-23",
-          "rationale": "監管給付、Medicaid、payer mix、勞動成本、槓桿與少數股權為主要風險；材料未見否決研究資格的治理事件。PASS不是無風險。",
+          "as_of": "2026-11-05",
+          "rationale": "旅遊景氣、地方短租監管、供給品質與新服務投資為主要風險；官方Q3資料未顯示足以否決研究資格的事件。",
           "sources": [
-            "https://investor.tenethealth.com/press-releases/press-release-details/2026/Tenet-Reports-Strong-Second-Quarter-2026-Results-Raises-2026-Financial-Outlook/default.aspx"
+            "https://news.airbnb.com/airbnb-q3-2026-financial-results"
           ],
           "data_gap": null,
           "validation_errors": [],
@@ -853,10 +1480,10 @@
         },
         "circle_of_competence": {
           "status": "UNKNOWN",
-          "as_of": "2026-10-13",
-          "rationale": "正式建倉前確認醫療給付、NCI與營運驅動，不阻擋研究排名。",
+          "as_of": "2026-11-05",
+          "rationale": "正式建倉前確認對平台網路效應、旅遊循環與地方監管風險的理解。",
           "sources": [
-            "https://investor.tenethealth.com/press-releases/press-release-details/2026/Tenet-Reports-Strong-Second-Quarter-2026-Results-Raises-2026-Financial-Outlook/default.aspx"
+            "https://news.airbnb.com/airbnb-q3-2026-financial-results"
           ],
           "data_gap": "PRE_TRADE_USER_CONFIRMATION_ONLY",
           "validation_errors": [],
@@ -866,39 +1493,35 @@
           "inputs": {}
         },
         "valuation": {
-          "status": "UNKNOWN",
-          "as_of": "2026-11-06",
-          "rationale": "Uses the low end of current FY2026 adjusted EPS outlook; payer mix, leverage, NCI and one-time contract effects constrain the range.",
+          "status": "FAIL",
+          "as_of": "2026-11-10",
+          "rationale": "Q3 revenue reaccelerated 19%, but travel cyclicality, local regulation and reinvestment justify a 25–32x Onecool screening range.",
           "sources": [
-            "https://investor.tenethealth.com/press-releases/press-release-details/2026/Tenet-Reports-Strong-Third-Quarter-2026-Results-Raises-2026-Financial-Outlook/default.aspx",
+            "https://news.airbnb.com/airbnb-q3-2026-financial-results",
             "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
           ],
-          "data_gap": "PRICE_CUTOFF_MISMATCH; VALUATION_EXPIRED",
-          "validation_errors": [
-            "PRICE_CUTOFF_MISMATCH",
-            "VALUATION_EXPIRED"
-          ],
-          "method": "FORWARD_ADJUSTED_PE_WITH_NCI_FCF_CROSSCHECK",
-          "price_as_of": "2026-11-06",
-          "valid_through": "2026-11-06",
+          "data_gap": null,
+          "validation_errors": [],
+          "method": "TRAILING_GAAP_PE_Q3_2026",
+          "price_as_of": "2026-11-10",
+          "valid_through": "2026-11-10",
           "inputs": {
-            "price": 283.3299865722656,
-            "denominator": 22.05,
-            "multiple": 12.849432497608419,
+            "price": 186.89999389648438,
+            "denominator": 4.03,
+            "multiple": 46.377169701360884,
             "fair_range": [
-              8.18482232093811,
-              14.487697477735976
+              11.013080403198325,
+              18.714878240358644
             ]
           }
         }
       },
       "evidence_coverage": "PARTIAL",
       "missing_evidence": [
-        "circle_of_competence",
-        "valuation"
+        "circle_of_competence"
       ],
       "quality_data_gaps": {},
-      "valuation_posture": "UNRESOLVED_WITH_SPECIFIC_GAP",
+      "valuation_posture": "ABOVE_DISCIPLINED_RANGE",
       "cyclical_review_required": false,
       "evidence_as_of": "2026-11-06",
       "manual_confirmation_required": [
@@ -907,261 +1530,111 @@
       "circle_of_competence_policy": "PRE_TRADE_USER_CONFIRMATION_NOT_DAILY_RESEARCH_BLOCKER",
       "decision_authority": "RESEARCH_QUALITY_ONLY",
       "quality_gate_application": "FORMAL_NEW_CANDIDATE_RESEARCH_GATE",
-      "action_eligibility": "RESEARCH_ONLY_VALUATION_DATA_GAP",
-      "lynch_research": {
-        "version": "onecool_lynch_research_v1",
-        "company_type": {
-          "status": "PROVISIONAL",
-          "primary": "FAST_GROWER",
-          "candidates": [
-            "FAST_GROWER"
-          ],
-          "evidence": [
-            {
-              "field": "verified_quality_gates",
-              "value": [
-                "structural_growth_runway",
-                "financial_quality"
-              ],
-              "interpretation": "FAST_GROWTH_CANDIDATE_NOT_DURABILITY_PROOF"
-            }
-          ],
-          "unresolved_categories": [
-            "SLOW_GROWER",
-            "STALWART",
-            "CYCLICAL",
-            "TURNAROUND",
-            "ASSET_PLAY"
-          ]
+      "action_eligibility": "RESEARCH_ONLY_VALUATION_TOO_HIGH",
+      "valuation_input_collection": {
+        "as_of": "2026-11-10",
+        "status": "COMPLETE",
+        "gaps": [],
+        "price_basis": "adjusted_close",
+        "inputs": {
+          "adjusted_close": 186.89999389648438
         },
-        "investment_story": {
-          "status": "EVIDENCE_ONLY",
-          "evidence": [
-            {
-              "field": "competitive_advantage",
-              "value": "PASS",
-              "as_of": "2026-07-23",
-              "rationale": "USPI為美國最大門診手術平台；地方設施、醫師合作與醫院網絡構成規模優勢，並非不可取代壟斷。",
-              "sources": [
-                "https://investor.tenethealth.com/press-releases/press-release-details/2026/Tenet-Reports-Strong-Second-Quarter-2026-Results-Raises-2026-Financial-Outlook/default.aspx"
-              ]
-            },
-            {
-              "field": "structural_growth_runway",
-              "value": "PASS",
-              "as_of": "2026-07-23",
-              "rationale": "門診同設施收入年增5%，服務組合與高複雜度提升；病例下降1.2%限制純量成長，不能把收購與價格成長視為持續高增長保證。",
-              "sources": [
-                "https://investor.tenethealth.com/press-releases/press-release-details/2026/Tenet-Reports-Strong-Second-Quarter-2026-Results-Raises-2026-Financial-Outlook/default.aspx"
-              ]
-            },
-            {
-              "field": "financial_quality",
-              "value": "PASS",
-              "as_of": "2026-07-23",
-              "rationale": "H1 CFO 22.26億、capex 3.48億；NCI分配3.98億。正現金流支持品質，但19億美元合約終止與Medicaid前期補收入須排除，不能用GAAP EPS直接估值。",
-              "sources": [
-                "https://investor.tenethealth.com/press-releases/press-release-details/2026/Tenet-Reports-Strong-Second-Quarter-2026-Results-Raises-2026-Financial-Outlook/default.aspx"
-              ]
-            },
-            {
-              "field": "business_risk_and_governance",
-              "value": "PASS",
-              "as_of": "2026-07-23",
-              "rationale": "監管給付、Medicaid、payer mix、勞動成本、槓桿與少數股權為主要風險；材料未見否決研究資格的治理事件。PASS不是無風險。",
-              "sources": [
-                "https://investor.tenethealth.com/press-releases/press-release-details/2026/Tenet-Reports-Strong-Second-Quarter-2026-Results-Raises-2026-Financial-Outlook/default.aspx"
-              ]
-            }
-          ],
-          "required_manual_confirmation": [
-            "BUSINESS_DRIVER",
-            "DURABILITY",
-            "MANAGEMENT_EXECUTION"
-          ]
-        },
-        "story_break_conditions": [
-          {
-            "condition": "VERIFIED_COMPETITIVE_ADVANTAGE_FAILS",
-            "meaning": "Investment story requires review"
-          },
-          {
-            "condition": "VERIFIED_STRUCTURAL_GROWTH_RUNWAY_FAILS",
-            "meaning": "Growth story requires review"
-          },
-          {
-            "condition": "VERIFIED_FINANCIAL_QUALITY_OR_GOVERNANCE_FAILS",
-            "meaning": "Quality story requires review"
-          }
+        "sources": [
+          "https://news.airbnb.com/airbnb-q3-2026-financial-results",
+          "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
         ],
-        "policy": {
-          "decision_authority": "NONE",
-          "ranking_effect": "NONE",
-          "score_effect": "NONE",
-          "cta_effect": "NONE",
-          "action_effect": "NONE",
-          "observation_is_research_lead_only": true,
-          "manual_confirmation_required": true
-        }
-      }
-    },
-    {
-      "symbol": "MA",
-      "price_as_of": "2026-11-10",
-      "fundamentals_as_of": "2026-06-30",
-      "fundamental_sources": [
-        "https://data.sec.gov/api/xbrl/companyfacts/CIK0001141391.json"
-      ],
-      "fundamentals_published_as_of": "2026-07-30",
-      "liquidity_average_50d_usd": 1822616610.26,
-      "liquidity_minimum_50d_usd": 20000000,
-      "liquidity_status": "PASSED",
-      "new_entry_eligible": true,
-      "validation_warnings": [],
-      "price_basis": "adjusted_close",
-      "score_version": "onecool_us_dual_v2",
-      "thresholds": {
-        "canslim": 70,
-        "minervini": 80
-      },
-      "technical_confidence": 100,
-      "validation_status": "PASSED",
-      "validation_errors": [],
-      "canslim_score": 56,
-      "minervini_score": 100,
-      "passes_dual_system": false,
-      "company_name": "Mastercard Incorporated",
-      "security_type": "COMMON_STOCK",
-      "rank_score": 75.2,
-      "status": "WAIT",
-      "trigger": "突破52週高點且成交量至少為50日均量1.5倍",
-      "formal_breakout": false,
-      "super_growth_bucket": "B",
-      "super_growth_reason": "VALUATION_INPUTS_UNAVAILABLE_OR_STALE",
-      "quality_gate_status": {
-        "competitive_advantage": {
-          "status": "PASS",
-          "as_of": "2026-10-15",
-          "rationale": "全球支付網路、發卡／收單連結與服務整合形成規模及網路效應；Q2支付網路收入成長10%，此為Onecool根據官方業務資料的判斷，並非單靠股價推論。",
-          "sources": [
-            "https://www.sec.gov/Archives/edgar/data/1141391/000114139126000003/ma12312025-exx991xearnings.htm",
-            "https://www.sec.gov/Archives/edgar/data/1141391/000114139126000081/ma06302026-exx991xearnings.htm",
-            "https://www.sec.gov/Archives/edgar/data/1141391/000114139126000083/ma-20260630.htm"
-          ],
-          "data_gap": null,
-          "validation_errors": [],
-          "method": null,
-          "price_as_of": null,
-          "valid_through": null,
-          "inputs": {}
+        "decision_authority": "REVIEWED_SOURCE_BACKED_VALUATION_MODEL",
+        "price_source": {
+          "provider": "yahoo_finance_adjusted_batch",
+          "symbol": "ABNB",
+          "as_of": "2026-11-10",
+          "url": "https://finance.yahoo.com/quote/ABNB/history/"
         },
-        "structural_growth_runway": {
-          "status": "PASS",
-          "as_of": "2026-10-15",
-          "rationale": "Q2跨境交易量成長12%、刷卡處理交易成長9%，支付電子化與加值服務提供成長來源；不將目前增速無限外推。",
-          "sources": [
-            "https://www.sec.gov/Archives/edgar/data/1141391/000114139126000003/ma12312025-exx991xearnings.htm",
-            "https://www.sec.gov/Archives/edgar/data/1141391/000114139126000081/ma06302026-exx991xearnings.htm",
-            "https://www.sec.gov/Archives/edgar/data/1141391/000114139126000083/ma-20260630.htm"
-          ],
-          "data_gap": null,
-          "validation_errors": [],
-          "method": null,
-          "price_as_of": null,
-          "valid_through": null,
-          "inputs": {}
+        "price_observation": {
+          "date": "2026-11-10",
+          "adjusted_close": 186.89999389648438,
+          "raw_close": 186.89999389648438,
+          "provider": "yahoo_finance_adjusted_batch"
         },
-        "financial_quality": {
-          "status": "PASS",
-          "as_of": "2026-10-15",
-          "rationale": "Q2營收93億美元年增14%、GAAP營業利益率60.2%；H1營運現金67.72億，扣資本支出與資本化軟體後59.59億，低於GAAP淨利82.70億，現金轉換列入估值壓力。",
+        "price_sha256": "797708c8cddc062567753d4d2afedb0011f7b4ec4f4f272f50c9350d7e738673",
+        "official_reference_status": "VERIFIED",
+        "fundamental_fetch_status": "REVIEWED_OFFICIAL_REFERENCE",
+        "company_name": "Airbnb, Inc.",
+        "official_reference": {
+          "symbol": "ABNB",
+          "company_name": "Airbnb, Inc.",
+          "published_at": "2026-11-05",
+          "reviewed_as_of": "2026-11-07",
+          "valid_through": "2027-02-03",
           "sources": [
-            "https://www.sec.gov/Archives/edgar/data/1141391/000114139126000003/ma12312025-exx991xearnings.htm",
-            "https://www.sec.gov/Archives/edgar/data/1141391/000114139126000081/ma06302026-exx991xearnings.htm",
-            "https://www.sec.gov/Archives/edgar/data/1141391/000114139126000083/ma-20260630.htm"
-          ],
-          "data_gap": null,
-          "validation_errors": [],
-          "method": null,
-          "price_as_of": null,
-          "valid_through": null,
-          "inputs": {}
-        },
-        "business_risk_and_governance": {
-          "status": "PASS",
-          "as_of": "2026-10-15",
-          "rationale": "監管費率、商戶訴訟、客戶獎勵支出及資安為重大風險；Q2及10-Q已有訴訟及現金轉換揭露，目前未見足以否決研究資格的證據。PASS表示風險已辨識可追蹤，不表示無風險。",
-          "sources": [
-            "https://www.sec.gov/Archives/edgar/data/1141391/000114139126000003/ma12312025-exx991xearnings.htm",
-            "https://www.sec.gov/Archives/edgar/data/1141391/000114139126000081/ma06302026-exx991xearnings.htm",
-            "https://www.sec.gov/Archives/edgar/data/1141391/000114139126000083/ma-20260630.htm"
-          ],
-          "data_gap": null,
-          "validation_errors": [],
-          "method": null,
-          "price_as_of": null,
-          "valid_through": null,
-          "inputs": {}
-        },
-        "circle_of_competence": {
-          "status": "UNKNOWN",
-          "as_of": "2026-10-15",
-          "rationale": "正式建倉前確認支付網路商業模式、費率監管及訴訟風險理解；不阻擋研究排名。",
-          "sources": [
-            "https://www.sec.gov/Archives/edgar/data/1141391/000114139126000003/ma12312025-exx991xearnings.htm",
-            "https://www.sec.gov/Archives/edgar/data/1141391/000114139126000081/ma06302026-exx991xearnings.htm",
-            "https://www.sec.gov/Archives/edgar/data/1141391/000114139126000083/ma-20260630.htm"
-          ],
-          "data_gap": "MISSING_SOURCE_BACKED_CIRCLE_OF_COMPETENCE_ASSESSMENT",
-          "validation_errors": [],
-          "method": null,
-          "price_as_of": null,
-          "valid_through": null,
-          "inputs": {}
-        },
-        "valuation": {
-          "status": "UNKNOWN",
-          "as_of": "2026-10-30",
-          "rationale": "Payment network and services growth support 8%/12% five-year analyst scenarios fading to terminal growth; legal/regulatory cost, incentives and weaker interim cash conversion justify conservative distributions. Not a full DCF.",
-          "sources": [
-            "https://investor.mastercard.com/files/content_files/3Q26-Mastercard-Earnings-Release.pdf",
+            "https://news.airbnb.com/airbnb-q3-2026-financial-results",
             "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
           ],
-          "data_gap": "PRICE_CUTOFF_MISMATCH; VALUATION_EXPIRED",
-          "validation_errors": [
-            "PRICE_CUTOFF_MISMATCH",
-            "VALUATION_EXPIRED"
+          "reported_facts": {
+            "Q3_revenue_billion": 4.9,
+            "Q3_revenue_growth": 0.19,
+            "Q3_net_income_billion": 1.9,
+            "trailing_GAAP_EPS": 4.03
+          },
+          "model_gaps": [],
+          "refresh_on": [
+            "NEW_EARNINGS_OR_GUIDANCE",
+            "MATERIAL_CORPORATE_EVENT",
+            "REFERENCE_EXPIRY"
           ],
-          "method": "TTM_ADJUSTED_PE_WITH_CASH_CONVERSION_STRESS",
-          "price_as_of": "2026-10-30",
-          "valid_through": "2026-10-30",
-          "inputs": {
-            "price": 638.010009765625,
-            "denominator": 19.7,
-            "multiple": 32.38629491196066,
+          "source_review": {
+            "status": "VERIFIED_CURRENT_OFFICIAL",
+            "checked_at": "2026-11-07T00:35:00+00:00",
+            "information_cutoff": "2026-11-06"
+          },
+          "valuation_model": {
+            "method": "TRAILING_GAAP_PE_Q3_2026",
+            "denominator": 4.03,
+            "currency": "USD",
+            "share_basis": "listed_security",
+            "normalization_bridge": {
+              "formula": "Latest reviewed trailing GAAP diluted EPS 4.03",
+              "limitations": "Trailing EPS is seasonal and not issuer forward guidance; no speculative new-service earnings included."
+            },
+            "denominator_source": [
+              "https://news.airbnb.com/airbnb-q3-2026-financial-results"
+            ],
             "fair_range": [
-              10.146422449537393,
-              18.450906757437085
-            ]
+              11.013080403198325,
+              18.714878240358644
+            ],
+            "scenarios": [
+              {
+                "name": "conservative",
+                "years": 5,
+                "growth": 0.08,
+                "required_return": 0.12,
+                "terminal_growth": 0.025,
+                "cash_conversion": 0.75,
+                "terminal_cash_conversion": 0.85
+              },
+              {
+                "name": "base",
+                "years": 5,
+                "growth": 0.12,
+                "required_return": 0.1,
+                "terminal_growth": 0.03,
+                "cash_conversion": 0.8,
+                "terminal_cash_conversion": 0.9
+              }
+            ],
+            "policy_version": "onecool_equity_screen_v1",
+            "rationale": "Q3 revenue reaccelerated 19%, but travel cyclicality, local regulation and reinvestment justify a 25–32x Onecool screening range.",
+            "fair_range_rationale": "Q3 revenue reaccelerated 19%, but travel cyclicality, local regulation and reinvestment justify a 25–32x Onecool screening range.",
+            "fair_range_sources": [
+              "https://news.airbnb.com/airbnb-q3-2026-financial-results",
+              "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+            ],
+            "research_grade": "SCREENING_SCENARIO_NOT_FULL_DCF",
+            "assumption_authority": "ONECOOL_ANALYST_NOT_ISSUER_GUIDANCE"
           }
         }
       },
-      "evidence_coverage": "PARTIAL",
-      "missing_evidence": [
-        "circle_of_competence",
-        "valuation"
-      ],
-      "quality_data_gaps": {},
-      "valuation_posture": "UNRESOLVED_WITH_SPECIFIC_GAP",
-      "cyclical_review_required": false,
-      "evidence_as_of": "2026-10-15",
-      "manual_confirmation_required": [
-        "circle_of_competence"
-      ],
-      "circle_of_competence_policy": "PRE_TRADE_USER_CONFIRMATION_NOT_DAILY_RESEARCH_BLOCKER",
-      "decision_authority": "RESEARCH_QUALITY_ONLY",
-      "quality_gate_application": "FORMAL_NEW_CANDIDATE_RESEARCH_GATE",
-      "action_eligibility": "RESEARCH_ONLY_VALUATION_DATA_GAP",
       "lynch_research": {
         "version": "onecool_lynch_research_v1",
         "company_type": {
@@ -1194,45 +1667,47 @@
             {
               "field": "competitive_advantage",
               "value": "PASS",
-              "as_of": "2026-10-15",
-              "rationale": "全球支付網路、發卡／收單連結與服務整合形成規模及網路效應；Q2支付網路收入成長10%，此為Onecool根據官方業務資料的判斷，並非單靠股價推論。",
+              "as_of": "2026-11-05",
+              "rationale": "全球房源、旅客需求、品牌與雙邊評價形成網路效應；Q3所有區域住宿晚數均為雙位數成長。",
               "sources": [
-                "https://www.sec.gov/Archives/edgar/data/1141391/000114139126000003/ma12312025-exx991xearnings.htm",
-                "https://www.sec.gov/Archives/edgar/data/1141391/000114139126000081/ma06302026-exx991xearnings.htm",
-                "https://www.sec.gov/Archives/edgar/data/1141391/000114139126000083/ma-20260630.htm"
+                "https://news.airbnb.com/airbnb-q3-2026-financial-results"
               ]
             },
             {
               "field": "structural_growth_runway",
               "value": "PASS",
-              "as_of": "2026-10-15",
-              "rationale": "Q2跨境交易量成長12%、刷卡處理交易成長9%，支付電子化與加值服務提供成長來源；不將目前增速無限外推。",
+              "as_of": "2026-11-05",
+              "rationale": "Q3營收年增19%、GBV增21%、住宿與座位預訂增16%，並由核心與拓展市場共同加速。",
               "sources": [
-                "https://www.sec.gov/Archives/edgar/data/1141391/000114139126000003/ma12312025-exx991xearnings.htm",
-                "https://www.sec.gov/Archives/edgar/data/1141391/000114139126000081/ma06302026-exx991xearnings.htm",
-                "https://www.sec.gov/Archives/edgar/data/1141391/000114139126000083/ma-20260630.htm"
+                "https://news.airbnb.com/airbnb-q3-2026-financial-results"
               ]
             },
             {
               "field": "financial_quality",
               "value": "PASS",
-              "as_of": "2026-10-15",
-              "rationale": "Q2營收93億美元年增14%、GAAP營業利益率60.2%；H1營運現金67.72億，扣資本支出與資本化軟體後59.59億，低於GAAP淨利82.70億，現金轉換列入估值壓力。",
+              "as_of": "2026-11-05",
+              "rationale": "Q3淨利19億美元、調整後EBITDA 25億美元且利潤率52%；另核准新增120億美元庫藏股。",
               "sources": [
-                "https://www.sec.gov/Archives/edgar/data/1141391/000114139126000003/ma12312025-exx991xearnings.htm",
-                "https://www.sec.gov/Archives/edgar/data/1141391/000114139126000081/ma06302026-exx991xearnings.htm",
-                "https://www.sec.gov/Archives/edgar/data/1141391/000114139126000083/ma-20260630.htm"
+                "https://news.airbnb.com/airbnb-q3-2026-financial-results"
               ]
             },
             {
               "field": "business_risk_and_governance",
               "value": "PASS",
-              "as_of": "2026-10-15",
-              "rationale": "監管費率、商戶訴訟、客戶獎勵支出及資安為重大風險；Q2及10-Q已有訴訟及現金轉換揭露，目前未見足以否決研究資格的證據。PASS表示風險已辨識可追蹤，不表示無風險。",
+              "as_of": "2026-11-05",
+              "rationale": "旅遊景氣、地方短租監管、供給品質與新服務投資為主要風險；官方Q3資料未顯示足以否決研究資格的事件。",
               "sources": [
-                "https://www.sec.gov/Archives/edgar/data/1141391/000114139126000003/ma12312025-exx991xearnings.htm",
-                "https://www.sec.gov/Archives/edgar/data/1141391/000114139126000081/ma06302026-exx991xearnings.htm",
-                "https://www.sec.gov/Archives/edgar/data/1141391/000114139126000083/ma-20260630.htm"
+                "https://news.airbnb.com/airbnb-q3-2026-financial-results"
+              ]
+            },
+            {
+              "field": "valuation",
+              "value": "FAIL",
+              "as_of": "2026-11-10",
+              "rationale": "Q3 revenue reaccelerated 19%, but travel cyclicality, local regulation and reinvestment justify a 25–32x Onecool screening range.",
+              "sources": [
+                "https://news.airbnb.com/airbnb-q3-2026-financial-results",
+                "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
               ]
             }
           ],
@@ -1270,30 +1745,6 @@
   ],
   "exclusions": [
     {
-      "symbol": "ABBV",
-      "technical_confidence": 10,
-      "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated",
-      "fundamental_fetch_status": "CACHED_POINT_IN_TIME_SEC_VERIFIED"
-    },
-    {
-      "symbol": "ABNB",
-      "technical_confidence": 10,
-      "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated",
-      "fundamental_fetch_status": "REVIEWED_OFFICIAL_REFERENCE"
-    },
-    {
-      "symbol": "ANET",
-      "technical_confidence": 10,
-      "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated",
-      "fundamental_fetch_status": "CACHED_POINT_IN_TIME_SEC_VERIFIED"
-    },
-    {
-      "symbol": "APP",
-      "technical_confidence": 10,
-      "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated",
-      "fundamental_fetch_status": "CACHED_POINT_IN_TIME_SEC_VERIFIED"
-    },
-    {
       "symbol": "BA",
       "technical_confidence": 100,
       "reason": "Reviewed nonpositive prior EPS; growth comparison is not meaningful under the existing rule",
@@ -1319,64 +1770,29 @@
       "fundamental_validation_detail": "SEC_FETCH_FAILED"
     },
     {
-      "symbol": "CEG",
-      "technical_confidence": 10,
-      "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated",
-      "fundamental_fetch_status": "CACHED_POINT_IN_TIME_SEC_VERIFIED"
-    },
-    {
-      "symbol": "COIN",
-      "technical_confidence": 10,
-      "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated",
-      "fundamental_fetch_status": "CACHED_POINT_IN_TIME_SEC_VERIFIED"
-    },
-    {
-      "symbol": "CRDO",
-      "technical_confidence": 10,
-      "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated",
-      "fundamental_fetch_status": "CACHED_POINT_IN_TIME_SEC_VERIFIED"
-    },
-    {
       "symbol": "CRWD",
-      "technical_confidence": 10,
-      "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated; fundamental validation unavailable",
-      "fundamental_fetch_status": "NOT_REQUESTED"
-    },
-    {
-      "symbol": "DDOG",
-      "technical_confidence": 10,
-      "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated",
-      "fundamental_fetch_status": "CACHED_POINT_IN_TIME_SEC_VERIFIED"
-    },
-    {
-      "symbol": "DELL",
-      "technical_confidence": 10,
-      "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated",
-      "fundamental_fetch_status": "CACHED_POINT_IN_TIME_SEC_VERIFIED"
-    },
-    {
-      "symbol": "DUOL",
-      "technical_confidence": 10,
-      "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated",
-      "fundamental_fetch_status": "CACHED_POINT_IN_TIME_SEC_VERIFIED"
-    },
-    {
-      "symbol": "GEV",
-      "technical_confidence": 10,
-      "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated",
-      "fundamental_fetch_status": "CACHED_POINT_IN_TIME_SEC_VERIFIED"
-    },
-    {
-      "symbol": "HOOD",
-      "technical_confidence": 10,
-      "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated",
-      "fundamental_fetch_status": "CACHED_POINT_IN_TIME_SEC_VERIFIED"
-    },
-    {
-      "symbol": "META",
-      "technical_confidence": 10,
-      "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated",
-      "fundamental_fetch_status": "CACHED_POINT_IN_TIME_SEC_VERIFIED"
+      "technical_confidence": 100,
+      "reason": "Reviewed nonpositive prior EPS; growth comparison is not meaningful under the existing rule",
+      "assessment_status": "RULE_EXCLUDED",
+      "reviewed_evidence": {
+        "symbol": "CRWD",
+        "status": "NONPOSITIVE_COMPARISON_BASE",
+        "review_status": "VERIFIED",
+        "period_end": "2026-07-31",
+        "prior_period_end": "2025-07-31",
+        "current_eps": 0.01,
+        "prior_eps": -0.07,
+        "published_as_of": "2026-08-27",
+        "valid_through": "2026-11-20",
+        "source_url": "https://ir.crowdstrike.com/news-releases/news-release-details/crowdstrike-reports-second-quarter-fiscal-year-2027-financial/",
+        "reviewed_as_of": "2026-10-30",
+        "accounting_basis": "us-gaap",
+        "currency": "USD",
+        "review_note": "Official Q2 FY2027 GAAP diluted EPS was 0.01 versus -0.07. The negative comparison base makes EPS growth inapplicable; rule-excluded until superseded by newer official results."
+      },
+      "fundamental_fetch_status": "RULE_EXCLUDED_REVIEWED",
+      "latest_fetch_attempt_status": "SEC_FETCH_FAILED",
+      "fundamental_validation_detail": "SEC_FETCH_FAILED"
     },
     {
       "symbol": "MRVL",
@@ -1403,486 +1819,122 @@
       "fundamental_validation_detail": "SEC_FETCH_FAILED"
     },
     {
-      "symbol": "NOW",
-      "technical_confidence": 10,
-      "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated",
-      "fundamental_fetch_status": "CACHED_POINT_IN_TIME_SEC_VERIFIED"
-    },
-    {
       "symbol": "PANW",
-      "technical_confidence": 10,
-      "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated; fundamental validation unavailable",
-      "fundamental_fetch_status": "SOURCE_REFRESH_REQUIRED"
-    },
-    {
-      "symbol": "PLTR",
-      "technical_confidence": 10,
-      "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated",
-      "fundamental_fetch_status": "CACHED_POINT_IN_TIME_SEC_VERIFIED"
+      "technical_confidence": 100,
+      "reason": "Reviewed nonpositive prior EPS; growth comparison is not meaningful under the existing rule",
+      "assessment_status": "RULE_EXCLUDED",
+      "reviewed_evidence": {
+        "symbol": "PANW",
+        "status": "NONPOSITIVE_COMPARISON_BASE",
+        "comparison_scope": "quarterly_eps",
+        "review_status": "VERIFIED",
+        "period_end": "2026-07-31",
+        "prior_period_end": "2025-07-31",
+        "current_eps": -0.35,
+        "prior_eps": 0.36,
+        "published_as_of": "2026-09-01",
+        "valid_through": "2026-11-30",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1327567/000132756726000019/ex991q426earningsrelease.htm",
+        "reviewed_as_of": "2026-10-30",
+        "review_note": "Fiscal Q4 2026 GAAP diluted EPS was -0.35 versus 0.36; the nonpositive current base makes the growth comparison inapplicable, so PANW is rule-excluded and never scored."
+      },
+      "fundamental_fetch_status": "RULE_EXCLUDED_REVIEWED",
+      "latest_fetch_attempt_status": "SEC_FETCH_FAILED",
+      "fundamental_validation_detail": "SEC_FETCH_FAILED"
     },
     {
       "symbol": "SNDK",
-      "technical_confidence": 10,
-      "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated; fundamental validation unavailable",
-      "fundamental_fetch_status": "NOT_REQUESTED"
+      "technical_confidence": 100,
+      "reason": "Reviewed nonpositive prior EPS; growth comparison is not meaningful under the existing rule",
+      "assessment_status": "RULE_EXCLUDED",
+      "reviewed_evidence": {
+        "symbol": "SNDK",
+        "status": "NONPOSITIVE_COMPARISON_BASE",
+        "review_status": "VERIFIED",
+        "period_end": "2026-07-03",
+        "prior_period_end": "2025-06-27",
+        "current_eps": 73.76,
+        "prior_eps": -11.32,
+        "published_as_of": "2026-08-05",
+        "valid_through": "2027-01-25",
+        "source_url": "https://investor.sandisk.com/news-releases/news-release-details/sandisk-reports-fiscal-fourth-quarter-2026-financial-results",
+        "reviewed_as_of": "2026-10-31",
+        "review_note": "Official FY2026 GAAP diluted EPS was 73.76 versus FY2025 -11.32. The annual comparison base remains negative after the Q1 FY2027 release, so EPS growth is inapplicable and SNDK remains rule-excluded.",
+        "next_earnings_source": "https://www.sandisk.com/company/newsroom/press-releases/2026/2026-09-29-sandisk-to-report-first-quarter-fiscal-year-2027-results-on-october-29-2026",
+        "comparison_scope": "annual_eps"
+      },
+      "fundamental_fetch_status": "RULE_EXCLUDED_REVIEWED",
+      "latest_fetch_attempt_status": "SEC_FETCH_FAILED",
+      "fundamental_validation_detail": "SEC_FETCH_FAILED"
     },
     {
       "symbol": "SNOW",
-      "technical_confidence": 10,
-      "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated; fundamental validation unavailable",
-      "fundamental_fetch_status": "NOT_REQUESTED"
-    },
-    {
-      "symbol": "SPOT",
-      "technical_confidence": 10,
-      "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated",
-      "fundamental_fetch_status": "REVIEWED_OFFICIAL_REFERENCE"
+      "technical_confidence": 100,
+      "reason": "Reviewed nonpositive prior EPS; growth comparison is not meaningful under the existing rule",
+      "assessment_status": "RULE_EXCLUDED",
+      "reviewed_evidence": {
+        "symbol": "SNOW",
+        "status": "NONPOSITIVE_COMPARISON_BASE",
+        "review_status": "VERIFIED",
+        "period_end": "2026-07-31",
+        "prior_period_end": "2025-07-31",
+        "current_eps": -0.55,
+        "prior_eps": -0.89,
+        "published_as_of": "2026-09-04",
+        "valid_through": "2026-11-20",
+        "source_url": "https://investors.snowflake.com/financials/quarterly-results/default.aspx",
+        "reviewed_as_of": "2026-10-30",
+        "accounting_basis": "us-gaap",
+        "currency": "USD",
+        "review_note": "Official comparative GAAP EPS remained negative in the latest available quarter. The nonpositive comparison base makes EPS growth inapplicable; rule-excluded until superseded by newer official results."
+      },
+      "fundamental_fetch_status": "RULE_EXCLUDED_REVIEWED",
+      "latest_fetch_attempt_status": "SEC_FETCH_FAILED",
+      "fundamental_validation_detail": "SEC_FETCH_FAILED"
     },
     {
       "symbol": "SYM",
-      "technical_confidence": 10,
-      "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated; fundamental validation unavailable",
-      "fundamental_fetch_status": "NOT_REQUESTED"
-    },
-    {
-      "symbol": "UBER",
-      "technical_confidence": 10,
-      "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated",
-      "fundamental_fetch_status": "CACHED_POINT_IN_TIME_SEC_VERIFIED"
-    },
-    {
-      "symbol": "VRT",
-      "technical_confidence": 10,
-      "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated",
-      "fundamental_fetch_status": "CACHED_POINT_IN_TIME_SEC_VERIFIED"
+      "technical_confidence": 100,
+      "reason": "Reviewed nonpositive prior EPS; growth comparison is not meaningful under the existing rule",
+      "assessment_status": "RULE_EXCLUDED",
+      "reviewed_evidence": {
+        "symbol": "SYM",
+        "status": "NONPOSITIVE_COMPARISON_BASE",
+        "review_status": "VERIFIED",
+        "period_end": "2026-06-27",
+        "prior_period_end": "2025-06-28",
+        "current_eps": 0.09,
+        "prior_eps": -0.04,
+        "published_as_of": "2026-08-05",
+        "valid_through": "2026-11-22",
+        "source_url": "https://ir.symbotic.com/news-releases/news-release-details/symbotic-reports-third-quarter-fiscal-year-2026-results",
+        "reviewed_as_of": "2026-11-07",
+        "accounting_basis": "us-gaap",
+        "currency": "USD",
+        "review_note": "Official Q3 FY2026 GAAP diluted EPS was 0.09 versus -0.04. The negative comparison base makes EPS growth inapplicable; rule-excluded through the November 22 close and superseded by the November 23 results.",
+        "next_earnings_source": "https://ir.symbotic.com/news-releases/news-release-details/symbotic-announces-date-reporting-fourth-quarter-and-fiscal-3"
+      },
+      "fundamental_fetch_status": "RULE_EXCLUDED_REVIEWED",
+      "latest_fetch_attempt_status": "SEC_FETCH_FAILED",
+      "fundamental_validation_detail": "SEC_FETCH_FAILED"
     }
   ],
-  "rule_excluded_count": 2,
+  "rule_excluded_count": 7,
   "rule_excluded_symbols": [
     "BA",
-    "MRVL"
-  ],
-  "data_validation_failed_count": 23,
-  "data_validation_failed_symbols": [
-    "ABBV",
-    "ABNB",
-    "ANET",
-    "APP",
-    "CEG",
-    "COIN",
-    "CRDO",
     "CRWD",
-    "DDOG",
-    "DELL",
-    "DUOL",
-    "GEV",
-    "HOOD",
-    "META",
-    "NOW",
+    "MRVL",
     "PANW",
-    "PLTR",
     "SNDK",
     "SNOW",
-    "SPOT",
-    "SYM",
-    "UBER",
-    "VRT"
+    "SYM"
   ],
+  "data_validation_failed_count": 0,
+  "data_validation_failed_symbols": [],
   "assessment_count": 70,
   "unassessed_count": 0,
   "assessment_status": "COMPLETE",
-  "price_fetch_diagnostics": {
-    "ANET": {
-      "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-      "observations": 251,
-      "last_date": "2026-11-09",
-      "missing_spy_sessions": 1,
-      "missing_spy_dates": [
-        "2026-11-10"
-      ],
-      "missing_day_retry_status": "NOT_ATTEMPTED",
-      "raw_window_retry_status": "NOT_ATTEMPTED",
-      "tiingo_retry_status": "NOT_REQUIRED",
-      "alpha_full_window_status": "NOT_ATTEMPTED",
-      "tiingo_full_window_status": "NOT_ATTEMPTED",
-      "verified_history_cache_status": "PRIOR_SESSION"
-    },
-    "APP": {
-      "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-      "observations": 251,
-      "last_date": "2026-11-09",
-      "missing_spy_sessions": 1,
-      "missing_spy_dates": [
-        "2026-11-10"
-      ],
-      "missing_day_retry_status": "NOT_ATTEMPTED",
-      "raw_window_retry_status": "NOT_ATTEMPTED",
-      "tiingo_retry_status": "NOT_REQUIRED",
-      "alpha_full_window_status": "NOT_ATTEMPTED",
-      "tiingo_full_window_status": "NOT_ATTEMPTED",
-      "verified_history_cache_status": "PRIOR_SESSION"
-    },
-    "ABNB": {
-      "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-      "observations": 251,
-      "last_date": "2026-11-09",
-      "missing_spy_sessions": 1,
-      "missing_spy_dates": [
-        "2026-11-10"
-      ],
-      "missing_day_retry_status": "NOT_ATTEMPTED",
-      "raw_window_retry_status": "NOT_ATTEMPTED",
-      "tiingo_retry_status": "NOT_REQUIRED",
-      "alpha_full_window_status": "NOT_ATTEMPTED",
-      "tiingo_full_window_status": "NOT_ATTEMPTED",
-      "verified_history_cache_status": "PRIOR_SESSION"
-    },
-    "ABBV": {
-      "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-      "observations": 251,
-      "last_date": "2026-11-09",
-      "missing_spy_sessions": 1,
-      "missing_spy_dates": [
-        "2026-11-10"
-      ],
-      "missing_day_retry_status": "NOT_ATTEMPTED",
-      "raw_window_retry_status": "NOT_ATTEMPTED",
-      "tiingo_retry_status": "NOT_REQUIRED",
-      "alpha_full_window_status": "NOT_ATTEMPTED",
-      "tiingo_full_window_status": "NOT_ATTEMPTED",
-      "verified_history_cache_status": "PRIOR_SESSION"
-    },
-    "CEG": {
-      "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-      "observations": 251,
-      "last_date": "2026-11-09",
-      "missing_spy_sessions": 1,
-      "missing_spy_dates": [
-        "2026-11-10"
-      ],
-      "missing_day_retry_status": "NOT_ATTEMPTED",
-      "raw_window_retry_status": "NOT_ATTEMPTED",
-      "tiingo_retry_status": "NOT_REQUIRED",
-      "alpha_full_window_status": "NOT_ATTEMPTED",
-      "tiingo_full_window_status": "NOT_ATTEMPTED",
-      "verified_history_cache_status": "PRIOR_SESSION"
-    },
-    "COIN": {
-      "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-      "observations": 251,
-      "last_date": "2026-11-09",
-      "missing_spy_sessions": 1,
-      "missing_spy_dates": [
-        "2026-11-10"
-      ],
-      "missing_day_retry_status": "NOT_ATTEMPTED",
-      "raw_window_retry_status": "NOT_ATTEMPTED",
-      "tiingo_retry_status": "NOT_REQUIRED",
-      "alpha_full_window_status": "NOT_ATTEMPTED",
-      "tiingo_full_window_status": "NOT_ATTEMPTED",
-      "verified_history_cache_status": "PRIOR_SESSION"
-    },
-    "CRDO": {
-      "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-      "observations": 251,
-      "last_date": "2026-11-09",
-      "missing_spy_sessions": 1,
-      "missing_spy_dates": [
-        "2026-11-10"
-      ],
-      "missing_day_retry_status": "NOT_ATTEMPTED",
-      "raw_window_retry_status": "NOT_ATTEMPTED",
-      "tiingo_retry_status": "NOT_REQUIRED",
-      "alpha_full_window_status": "NOT_ATTEMPTED",
-      "tiingo_full_window_status": "NOT_ATTEMPTED",
-      "verified_history_cache_status": "PRIOR_SESSION"
-    },
-    "DDOG": {
-      "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-      "observations": 251,
-      "last_date": "2026-11-09",
-      "missing_spy_sessions": 1,
-      "missing_spy_dates": [
-        "2026-11-10"
-      ],
-      "missing_day_retry_status": "NOT_ATTEMPTED",
-      "raw_window_retry_status": "NOT_ATTEMPTED",
-      "tiingo_retry_status": "NOT_REQUIRED",
-      "alpha_full_window_status": "NOT_ATTEMPTED",
-      "tiingo_full_window_status": "NOT_ATTEMPTED",
-      "verified_history_cache_status": "PRIOR_SESSION"
-    },
-    "CRWD": {
-      "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-      "observations": 251,
-      "last_date": "2026-11-09",
-      "missing_spy_sessions": 1,
-      "missing_spy_dates": [
-        "2026-11-10"
-      ],
-      "missing_day_retry_status": "NOT_ATTEMPTED",
-      "raw_window_retry_status": "NOT_ATTEMPTED",
-      "tiingo_retry_status": "NOT_REQUIRED",
-      "alpha_full_window_status": "NOT_ATTEMPTED",
-      "tiingo_full_window_status": "NOT_ATTEMPTED",
-      "verified_history_cache_status": "PRIOR_SESSION"
-    },
-    "DELL": {
-      "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-      "observations": 251,
-      "last_date": "2026-11-09",
-      "missing_spy_sessions": 1,
-      "missing_spy_dates": [
-        "2026-11-10"
-      ],
-      "missing_day_retry_status": "NOT_ATTEMPTED",
-      "raw_window_retry_status": "NOT_ATTEMPTED",
-      "tiingo_retry_status": "NOT_REQUIRED",
-      "alpha_full_window_status": "NOT_ATTEMPTED",
-      "tiingo_full_window_status": "NOT_ATTEMPTED",
-      "verified_history_cache_status": "PRIOR_SESSION"
-    },
-    "DUOL": {
-      "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-      "observations": 251,
-      "last_date": "2026-11-09",
-      "missing_spy_sessions": 1,
-      "missing_spy_dates": [
-        "2026-11-10"
-      ],
-      "missing_day_retry_status": "NOT_ATTEMPTED",
-      "raw_window_retry_status": "NOT_ATTEMPTED",
-      "tiingo_retry_status": "NOT_REQUIRED",
-      "alpha_full_window_status": "NOT_ATTEMPTED",
-      "tiingo_full_window_status": "NOT_ATTEMPTED",
-      "verified_history_cache_status": "PRIOR_SESSION"
-    },
-    "GEV": {
-      "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-      "observations": 251,
-      "last_date": "2026-11-09",
-      "missing_spy_sessions": 1,
-      "missing_spy_dates": [
-        "2026-11-10"
-      ],
-      "missing_day_retry_status": "NOT_ATTEMPTED",
-      "raw_window_retry_status": "NOT_ATTEMPTED",
-      "tiingo_retry_status": "NOT_REQUIRED",
-      "alpha_full_window_status": "NOT_ATTEMPTED",
-      "tiingo_full_window_status": "NOT_ATTEMPTED",
-      "verified_history_cache_status": "PRIOR_SESSION"
-    },
-    "HOOD": {
-      "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-      "observations": 251,
-      "last_date": "2026-11-09",
-      "missing_spy_sessions": 1,
-      "missing_spy_dates": [
-        "2026-11-10"
-      ],
-      "missing_day_retry_status": "NOT_ATTEMPTED",
-      "raw_window_retry_status": "NOT_ATTEMPTED",
-      "tiingo_retry_status": "NOT_REQUIRED",
-      "alpha_full_window_status": "NOT_ATTEMPTED",
-      "tiingo_full_window_status": "NOT_ATTEMPTED",
-      "verified_history_cache_status": "PRIOR_SESSION"
-    },
-    "META": {
-      "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-      "observations": 251,
-      "last_date": "2026-11-09",
-      "missing_spy_sessions": 1,
-      "missing_spy_dates": [
-        "2026-11-10"
-      ],
-      "missing_day_retry_status": "NOT_ATTEMPTED",
-      "raw_window_retry_status": "NOT_ATTEMPTED",
-      "tiingo_retry_status": "NOT_REQUIRED",
-      "alpha_full_window_status": "NOT_ATTEMPTED",
-      "tiingo_full_window_status": "NOT_ATTEMPTED",
-      "verified_history_cache_status": "PRIOR_SESSION"
-    },
-    "NOW": {
-      "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-      "observations": 251,
-      "last_date": "2026-11-09",
-      "missing_spy_sessions": 1,
-      "missing_spy_dates": [
-        "2026-11-10"
-      ],
-      "missing_day_retry_status": "NOT_ATTEMPTED",
-      "raw_window_retry_status": "NOT_ATTEMPTED",
-      "tiingo_retry_status": "NOT_REQUIRED",
-      "alpha_full_window_status": "NOT_ATTEMPTED",
-      "tiingo_full_window_status": "NOT_ATTEMPTED",
-      "verified_history_cache_status": "PRIOR_SESSION"
-    },
-    "PLTR": {
-      "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-      "observations": 251,
-      "last_date": "2026-11-09",
-      "missing_spy_sessions": 1,
-      "missing_spy_dates": [
-        "2026-11-10"
-      ],
-      "missing_day_retry_status": "NOT_ATTEMPTED",
-      "raw_window_retry_status": "NOT_ATTEMPTED",
-      "tiingo_retry_status": "NOT_REQUIRED",
-      "alpha_full_window_status": "NOT_ATTEMPTED",
-      "tiingo_full_window_status": "NOT_ATTEMPTED",
-      "verified_history_cache_status": "PRIOR_SESSION"
-    },
-    "SNDK": {
-      "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-      "observations": 251,
-      "last_date": "2026-11-09",
-      "missing_spy_sessions": 1,
-      "missing_spy_dates": [
-        "2026-11-10"
-      ],
-      "missing_day_retry_status": "NOT_ATTEMPTED",
-      "raw_window_retry_status": "NOT_ATTEMPTED",
-      "tiingo_retry_status": "NOT_REQUIRED",
-      "alpha_full_window_status": "NOT_ATTEMPTED",
-      "tiingo_full_window_status": "NOT_ATTEMPTED",
-      "verified_history_cache_status": "PRIOR_SESSION"
-    },
-    "SPOT": {
-      "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-      "observations": 251,
-      "last_date": "2026-11-09",
-      "missing_spy_sessions": 1,
-      "missing_spy_dates": [
-        "2026-11-10"
-      ],
-      "missing_day_retry_status": "NOT_ATTEMPTED",
-      "raw_window_retry_status": "NOT_ATTEMPTED",
-      "tiingo_retry_status": "NOT_REQUIRED",
-      "alpha_full_window_status": "NOT_ATTEMPTED",
-      "tiingo_full_window_status": "NOT_ATTEMPTED",
-      "verified_history_cache_status": "PRIOR_SESSION"
-    },
-    "PANW": {
-      "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-      "observations": 251,
-      "last_date": "2026-11-09",
-      "missing_spy_sessions": 1,
-      "missing_spy_dates": [
-        "2026-11-10"
-      ],
-      "missing_day_retry_status": "NOT_ATTEMPTED",
-      "raw_window_retry_status": "NOT_ATTEMPTED",
-      "tiingo_retry_status": "NOT_REQUIRED",
-      "alpha_full_window_status": "NOT_ATTEMPTED",
-      "tiingo_full_window_status": "NOT_ATTEMPTED",
-      "verified_history_cache_status": "PRIOR_SESSION"
-    },
-    "SYM": {
-      "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-      "observations": 251,
-      "last_date": "2026-11-09",
-      "missing_spy_sessions": 1,
-      "missing_spy_dates": [
-        "2026-11-10"
-      ],
-      "missing_day_retry_status": "NOT_ATTEMPTED",
-      "raw_window_retry_status": "NOT_ATTEMPTED",
-      "tiingo_retry_status": "NOT_REQUIRED",
-      "alpha_full_window_status": "NOT_ATTEMPTED",
-      "tiingo_full_window_status": "NOT_ATTEMPTED",
-      "verified_history_cache_status": "PRIOR_SESSION"
-    },
-    "SNOW": {
-      "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-      "observations": 251,
-      "last_date": "2026-11-09",
-      "missing_spy_sessions": 1,
-      "missing_spy_dates": [
-        "2026-11-10"
-      ],
-      "missing_day_retry_status": "NOT_ATTEMPTED",
-      "raw_window_retry_status": "NOT_ATTEMPTED",
-      "tiingo_retry_status": "NOT_REQUIRED",
-      "alpha_full_window_status": "NOT_ATTEMPTED",
-      "tiingo_full_window_status": "NOT_ATTEMPTED",
-      "verified_history_cache_status": "PRIOR_SESSION"
-    },
-    "VRT": {
-      "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-      "observations": 251,
-      "last_date": "2026-11-09",
-      "missing_spy_sessions": 1,
-      "missing_spy_dates": [
-        "2026-11-10"
-      ],
-      "missing_day_retry_status": "NOT_ATTEMPTED",
-      "raw_window_retry_status": "NOT_ATTEMPTED",
-      "tiingo_retry_status": "NOT_REQUIRED",
-      "alpha_full_window_status": "NOT_ATTEMPTED",
-      "tiingo_full_window_status": "NOT_ATTEMPTED",
-      "verified_history_cache_status": "PRIOR_SESSION"
-    },
-    "UBER": {
-      "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-      "observations": 251,
-      "last_date": "2026-11-09",
-      "missing_spy_sessions": 1,
-      "missing_spy_dates": [
-        "2026-11-10"
-      ],
-      "missing_day_retry_status": "NOT_ATTEMPTED",
-      "raw_window_retry_status": "NOT_ATTEMPTED",
-      "tiingo_retry_status": "NOT_REQUIRED",
-      "alpha_full_window_status": "NOT_ATTEMPTED",
-      "tiingo_full_window_status": "NOT_ATTEMPTED",
-      "verified_history_cache_status": "PRIOR_SESSION"
-    },
-    "BABA": {
-      "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-      "observations": 251,
-      "last_date": "2026-11-09",
-      "missing_spy_sessions": 1,
-      "missing_spy_dates": [
-        "2026-11-10"
-      ],
-      "missing_day_retry_status": "NOT_ATTEMPTED",
-      "raw_window_retry_status": "NOT_ATTEMPTED",
-      "tiingo_retry_status": "NOT_ATTEMPTED",
-      "alpha_full_window_status": "NOT_ATTEMPTED",
-      "tiingo_full_window_status": "NOT_ATTEMPTED",
-      "verified_history_cache_status": "PRIOR_SESSION"
-    },
-    "XYZ": {
-      "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-      "observations": 251,
-      "last_date": "2026-11-09",
-      "missing_spy_sessions": 1,
-      "missing_spy_dates": [
-        "2026-11-10"
-      ],
-      "missing_day_retry_status": "NOT_ATTEMPTED",
-      "raw_window_retry_status": "NOT_ATTEMPTED",
-      "tiingo_retry_status": "NOT_REQUIRED",
-      "alpha_full_window_status": "NOT_ATTEMPTED",
-      "tiingo_full_window_status": "NOT_ATTEMPTED",
-      "verified_history_cache_status": "PRIOR_SESSION"
-    },
-    "RH": {
-      "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-      "observations": 251,
-      "last_date": "2026-11-09",
-      "missing_spy_sessions": 1,
-      "missing_spy_dates": [
-        "2026-11-10"
-      ],
-      "missing_day_retry_status": "NOT_ATTEMPTED",
-      "raw_window_retry_status": "NOT_ATTEMPTED",
-      "tiingo_retry_status": "NOT_ATTEMPTED",
-      "alpha_full_window_status": "NOT_ATTEMPTED",
-      "tiingo_full_window_status": "NOT_ATTEMPTED",
-      "verified_history_cache_status": "PRIOR_SESSION"
-    }
-  },
+  "price_fetch_diagnostics": {},
   "fundamental_fetch_status": {
     "AAPL": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
     "ABBV": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
@@ -1933,7 +1985,7 @@
     "NOW": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
     "NVDA": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
     "ORCL": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
-    "PANW": "SOURCE_REFRESH_REQUIRED",
+    "PANW": "RULE_EXCLUDED_REVIEWED",
     "PLTR": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
     "QCOM": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
     "RTX": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
@@ -1954,11 +2006,12 @@
     "RH": "REVIEWED_OFFICIAL_REFERENCE",
     "UPBD": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
     "BA": "RULE_EXCLUDED_REVIEWED",
-    "CRWD": "NOT_REQUESTED",
-    "SNDK": "NOT_REQUESTED",
-    "SNOW": "NOT_REQUESTED",
-    "SYM": "NOT_REQUESTED"
+    "CRWD": "RULE_EXCLUDED_REVIEWED",
+    "SNDK": "RULE_EXCLUDED_REVIEWED",
+    "SNOW": "RULE_EXCLUDED_REVIEWED",
+    "SYM": "RULE_EXCLUDED_REVIEWED"
   },
+  "valuation_input_refresh_status": "COMPLETED_WITH_PER_SYMBOL_STATUS",
   "super_growth_quality_gate": {
     "framework": "LIN_TZU_YANG_QUALITY_PLUS_ONECOOL_CTA_TIMING",
     "scope": "NEW_US_STOCK_CANDIDATES_ONLY",
