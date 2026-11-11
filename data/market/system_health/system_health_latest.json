@@ -1,12 +1,12 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-11-11T03:38:52.399225+00:00",
+  "generated_at": "2026-11-11T06:54:50.161270+00:00",
   "taipei_date": "2026-11-11",
-  "status": "READY",
+  "status": "BLOCKED",
   "scope_status": {
     "morning": "READY",
-    "asia": "READY",
+    "asia": "BLOCKED",
     "weekly": "READY"
   },
   "report_delivery": {
@@ -30,7 +30,7 @@
       },
       {
         "report_id": "us",
-        "expected_report_date": "2026-11-10",
+        "expected_report_date": "2026-11-11",
         "status": "PARTIAL",
         "channels": {
           "conversation": "UNKNOWN",
@@ -45,18 +45,9 @@
       },
       {
         "report_id": "fund",
-        "expected_report_date": "2026-11-10",
-        "status": "PARTIAL",
-        "channels": {
-          "conversation": "UNKNOWN",
-          "artifact": "DELIVERED"
-        },
-        "unverified_channels": [
-          "conversation"
-        ],
-        "failed_channels": [],
-        "next_action": "Observe actual delivered message acknowledgement; do not resend solely because acknowledgement is unknown",
-        "reason": "Missing acknowledgement is unverified, not proof of failed delivery"
+        "expected_report_date": "2026-11-11",
+        "status": "UNKNOWN",
+        "reason": "Invalid or unverifiable receipt"
       },
       {
         "report_id": "home",
@@ -77,11 +68,11 @@
     "policy": "Data readiness does not prove report delivery. Never infer email success from a generated draft."
   },
   "end_to_end_status": "NOT_FULLY_VERIFIED",
-  "action_readiness": "SAFE",
+  "action_readiness": "UNSAFE_FOR_AFFECTED_REPORTS",
   "counts": {
-    "ready": 20,
+    "ready": 19,
     "partial": 0,
-    "blocked": 0
+    "blocked": 1
   },
   "modules": [
     {
@@ -247,8 +238,8 @@
       "label": "Japan/Korea CTA freshness",
       "scope": "asia",
       "critical": true,
-      "status": "READY",
-      "reason": "both local-market CTAs current",
+      "status": "BLOCKED",
+      "reason": "1306 CURRENT as_of 2026-11-10 expected 2026-11-11; 069500 CURRENT as_of 2026-11-10 expected 2026-11-11",
       "observed_as_of": "2026-11-10",
       "recovery_workflow": "update-market-dashboard.yml",
       "retryable": true,
@@ -370,8 +361,26 @@
       ]
     }
   ],
-  "issues": [],
-  "recovery_workflows": [],
-  "issue_fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+  "issues": [
+    {
+      "module_id": "asia_country_cta",
+      "label": "Japan/Korea CTA freshness",
+      "scope": "asia",
+      "critical": true,
+      "status": "BLOCKED",
+      "reason": "1306 CURRENT as_of 2026-11-10 expected 2026-11-11; 069500 CURRENT as_of 2026-11-10 expected 2026-11-11",
+      "observed_as_of": "2026-11-10",
+      "recovery_workflow": "update-market-dashboard.yml",
+      "retryable": true,
+      "impacted_reports": [
+        "台股日報",
+        "基金週報"
+      ]
+    }
+  ],
+  "recovery_workflows": [
+    "update-market-dashboard.yml"
+  ],
+  "issue_fingerprint": "da6947f9b47844b32325f90f35bde27a8129554de3ed99f6f441749c142aa004",
   "policy": "Health monitoring only; never changes CTA, rankings, or investment decisions."
 }
