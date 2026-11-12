@@ -1,0 +1,42 @@
+{
+  "report_id": "home",
+  "report_date": "2026-11-12",
+  "generated_at": "2026-11-12T08:07:29+08:00",
+  "delivery_status": "UNKNOWN",
+  "writeback_status": "VERIFIED",
+  "delivery_evidence_sha256": null,
+  "channels": {
+    "conversation": {
+      "status": "UNKNOWN",
+      "observed_at": null,
+      "evidence_sha256": null
+    },
+    "artifact": {
+      "status": "DELIVERED",
+      "observed_at": "2026-11-12T08:07:19+08:00",
+      "evidence_sha256": "031b53ca2d9925b8a17929eda1c4b85977b579dd6c39f919c6b2cc81aa959636"
+    }
+  },
+  "run_heartbeat": {
+    "status": "SUCCESS",
+    "data_date": "2026-11-11",
+    "completed_steps": [
+      "prior_period_readback",
+      "golden_baseline_readback",
+      "source_validation",
+      "transaction_deduplication",
+      "parking_and_special_transaction_checks",
+      "cross_period_reconciliation",
+      "supply_entity_deduplication",
+      "market_index_freshness_check",
+      "artifact_writeback_readback"
+    ],
+    "failed_steps": [],
+    "next_step": "next_scheduled_refresh"
+  },
+  "regression": {
+    "status": "PASS",
+    "baseline_sha256": "65ad2c7f0b432e53e5eda1eccd27fa5359c6e4c35efc2813be966de0dd4a469e"
+  },
+  "validation_flags": []
+}
