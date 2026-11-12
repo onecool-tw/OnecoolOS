@@ -101,6 +101,8 @@ def select_income_period(data_dir, prices, valuations, revenues, income):
     pending_year, pending_quarter = map(int, current["fundamentals_as_of"].split("Q"))
     previous_period = (f"{pending_year}Q{pending_quarter - 1}" if pending_quarter > 1
                        else f"{pending_year - 1}Q4")
+    verified_rows = {}
+    sources = []
     for path in sorted((data_dir / "snapshots").glob("*.json"), reverse=True):
         raw = path.read_bytes()
         prior = json.loads(raw)
@@ -112,11 +114,21 @@ def select_income_period(data_dir, prices, valuations, revenues, income):
             continue
         period = prior["fundamentals_as_of"]
         year, quarter = period.split("Q")
-        rows = [{"公司代號": x["symbol"], "年度": year, "季別": quarter,
-                 "基本每股盈餘（元）": x["eps"]}
-                for x in prior["rankings"]
-                if x.get("fundamentals_as_of") == period]
-        fallback = build_taiwan_stock_screen_payload(prices, valuations, revenues, rows)
+        additions = {
+            row["symbol"]: {
+                "公司代號": row["symbol"], "年度": year, "季別": quarter,
+                "基本每股盈餘（元）": row["eps"],
+            }
+            for row in prior["rankings"]
+            if row.get("fundamentals_as_of") == period and row["symbol"] not in verified_rows
+        }
+        if not additions:
+            continue
+        verified_rows.update(additions)
+        sources.append({"path": path.as_posix(), "sha256": hashlib.sha256(raw).hexdigest()})
+        fallback = build_taiwan_stock_screen_payload(
+            prices, valuations, revenues, list(verified_rows.values())
+        )
         missing_fallback = sum("missing quarterly income statement" in x["reason"]
                                for x in fallback["exclusions"])
         if missing_fallback / fallback["universe_size"] > 0.20:
@@ -126,8 +138,9 @@ def select_income_period(data_dir, prices, valuations, revenues, income):
             "selected_period": period,
             "pending_period": current["fundamentals_as_of"],
             "pending_missing_income_count": missing,
-            "source_snapshot": path.as_posix(),
-            "source_sha256": hashlib.sha256(raw).hexdigest(),
+            "source_snapshot": sources[0]["path"],
+            "source_sha256": sources[0]["sha256"],
+            "source_snapshots": sources,
             "carried_fields": ["eps"],
             "estimated_values_used": False,
             "policy": "MINIMUM_80_PERCENT_COMMON_INCOME_COVERAGE",
