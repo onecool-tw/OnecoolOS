@@ -1,11 +1,11 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-11-12T00:08:13.671100+00:00",
+  "generated_at": "2026-11-12T03:13:23.802134+00:00",
   "taipei_date": "2026-11-12",
-  "status": "READY",
+  "status": "BLOCKED",
   "scope_status": {
-    "morning": "READY",
+    "morning": "BLOCKED",
     "asia": "READY",
     "weekly": "READY"
   },
@@ -51,7 +51,7 @@
       },
       {
         "report_id": "home",
-        "expected_report_date": "2026-11-02",
+        "expected_report_date": "2026-11-12",
         "status": "PARTIAL",
         "channels": {
           "conversation": "UNKNOWN",
@@ -68,11 +68,11 @@
     "policy": "Data readiness does not prove report delivery. Never infer email success from a generated draft."
   },
   "end_to_end_status": "NOT_FULLY_VERIFIED",
-  "action_readiness": "SAFE",
+  "action_readiness": "UNSAFE_FOR_AFFECTED_REPORTS",
   "counts": {
-    "ready": 20,
+    "ready": 19,
     "partial": 0,
-    "blocked": 0
+    "blocked": 1
   },
   "modules": [
     {
@@ -82,7 +82,7 @@
       "critical": true,
       "status": "READY",
       "reason": "current",
-      "observed_as_of": "2026-11-10",
+      "observed_as_of": "2026-11-11",
       "recovery_workflow": "update-market-dashboard.yml",
       "retryable": true,
       "impacted_reports": [
@@ -97,7 +97,7 @@
       "critical": true,
       "status": "READY",
       "reason": "current",
-      "observed_as_of": "2026-11-10",
+      "observed_as_of": "2026-11-11",
       "recovery_workflow": "update-market-dashboard.yml",
       "retryable": true,
       "impacted_reports": [
@@ -112,7 +112,7 @@
       "critical": true,
       "status": "READY",
       "reason": "current",
-      "observed_as_of": "2026-11-10",
+      "observed_as_of": "2026-11-11",
       "recovery_workflow": "update-market-dashboard.yml",
       "retryable": true,
       "impacted_reports": [
@@ -126,7 +126,7 @@
       "critical": true,
       "status": "READY",
       "reason": "current",
-      "observed_as_of": "2026-11-10",
+      "observed_as_of": "2026-11-11",
       "recovery_workflow": "update-market-dashboard.yml",
       "retryable": true,
       "impacted_reports": [
@@ -153,11 +153,11 @@
       "label": "Fund NAV CTA",
       "scope": "morning",
       "critical": true,
-      "status": "READY",
-      "reason": "current",
-      "observed_as_of": "2026-11-10",
+      "status": "BLOCKED",
+      "reason": "generation timestamp missing, invalid or older than scheduled date 2026-11-12",
+      "observed_as_of": "2026-11-11",
       "recovery_workflow": "update-fund-nav-cta.yml",
-      "retryable": false,
+      "retryable": true,
       "impacted_reports": [
         "基金日報",
         "基金週報"
@@ -361,8 +361,26 @@
       ]
     }
   ],
-  "issues": [],
-  "recovery_workflows": [],
-  "issue_fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+  "issues": [
+    {
+      "module_id": "fund_nav_cta",
+      "label": "Fund NAV CTA",
+      "scope": "morning",
+      "critical": true,
+      "status": "BLOCKED",
+      "reason": "generation timestamp missing, invalid or older than scheduled date 2026-11-12",
+      "observed_as_of": "2026-11-11",
+      "recovery_workflow": "update-fund-nav-cta.yml",
+      "retryable": true,
+      "impacted_reports": [
+        "基金日報",
+        "基金週報"
+      ]
+    }
+  ],
+  "recovery_workflows": [
+    "update-fund-nav-cta.yml"
+  ],
+  "issue_fingerprint": "6f270613f1adeccb6bf24641cd45888733d1786ce483dc409664c502b772117e",
   "policy": "Health monitoring only; never changes CTA, rankings, or investment decisions."
 }
