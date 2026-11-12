@@ -18,7 +18,7 @@ def enforce_gate(event, producer, conclusion, now):
             or (
                 producer == "Update Taiwan Stock Screen"
                 and local.weekday() < 5
-                and (local.hour, local.minute) < (16, 30)
+                and (local.hour, local.minute) < (18, 32)
             )
         )
     )
