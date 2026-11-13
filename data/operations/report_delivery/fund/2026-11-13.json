@@ -1,1 +1,32 @@
-{"report_id":"fund","report_date":"2026-11-13","generated_at":"2026-11-13T03:29:05.188Z","delivery_status":"PREPARED","writeback_status":"UNKNOWN","heartbeat":"PARTIAL","channels":{"conversation":{"status":"UNKNOWN"},"artifact":{"status":"UNKNOWN"}}}
+{
+  "report_id": "fund",
+  "report_date": "2026-11-13",
+  "generated_at": "2026-11-13T03:29:05.188Z",
+  "delivery_status": "PREPARED",
+  "writeback_status": "VERIFIED",
+  "heartbeat": "SUCCESS",
+  "channels": {
+    "conversation": {
+      "status": "UNKNOWN"
+    },
+    "artifact": {
+      "status": "DELIVERED",
+      "observed_at": "2026-11-13T03:31:00.712Z",
+      "evidence_sha256": "c09588a1b208019ec41e243fd7a4b5aea319fa0c16e328d126a2a46647f1a408"
+    }
+  },
+  "data_as_of": {
+    "fund_min": "2026-11-11",
+    "fund_max": "2026-11-12",
+    "bitcoin": "2026-11-12"
+  },
+  "steps": {
+    "completed": [
+      "freshness",
+      "historical_validation",
+      "artifact_readback"
+    ],
+    "failed": [],
+    "next": "observe_conversation"
+  }
+}
