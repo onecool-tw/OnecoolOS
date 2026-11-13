@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-11-13T11:15:49.108246+00:00",
+  "generated_at": "2026-11-13T15:16:24.833156+00:00",
   "taipei_date": "2026-11-13",
   "status": "READY",
   "scope_status": {
@@ -14,9 +14,20 @@
     "reports": [
       {
         "report_id": "taiwan",
-        "expected_report_date": "2026-11-12",
-        "status": "UNKNOWN",
-        "reason": "No verifiable receipt for the latest completed reporting window"
+        "expected_report_date": "2026-11-13",
+        "status": "PARTIAL",
+        "channels": {
+          "conversation": "UNKNOWN",
+          "email": "UNKNOWN",
+          "artifact": "DELIVERED"
+        },
+        "unverified_channels": [
+          "conversation",
+          "email"
+        ],
+        "failed_channels": [],
+        "next_action": "Verify missing channel evidence and artifact writeback",
+        "reason": "Missing acknowledgement is unverified, not proof of failed delivery"
       },
       {
         "report_id": "us",
