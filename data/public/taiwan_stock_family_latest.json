@@ -13,26 +13,26 @@
   "sources": {
     "dashboard": {
       "path": "data/market/dashboard/dashboard_latest.json",
-      "sha256": "c0db27f0a342a8bab0629e4d1201b447ad2bf94417c363ee60dfda612eeebd1e"
+      "sha256": "a9982540c30da4c4346556542e21488bf0aff0bb66d0de142a5d0708248ae37f"
     },
     "screen": {
       "path": "data/market/taiwan_stock_intelligence/screen_latest.json",
-      "sha256": "f7cca8002e6f2e5e41b16c90374e20627f71390448458960dd85badcd3adfcac"
+      "sha256": "4026fa1ff72188d42ffe629dd6456885fb5e1b56f12f237615991f5ec37c9697"
     },
     "cta": {
       "path": "data/market/taiwan_stock_intelligence/cta/cta_latest.json",
-      "sha256": "6b085d9b7d99477a641f0353020a461eeebb96d41dbd9256d2e6a28af22002b4"
+      "sha256": "7a93b7df4f4aca86fbc70ef8f94e7f1bc7555c95cab3ed6faf41fb972ebd5e90"
     },
     "context": {
       "path": "data/market/taiwan_stock_intelligence/daily_context_latest.json",
-      "sha256": "99f563468dfbf57d33219c681045865195465e1bdf5eba2d3f5d181ca802ba7e"
+      "sha256": "a1b94be94ec48b268c34e3b6a707f878f3986750150c3d5ec1129b0812828ca0"
     }
   },
   "source_generated_at": {
-    "dashboard": "2026-11-12T09:24:01.926012+00:00",
+    "dashboard": "2026-11-12T17:40:21.302568+00:00",
     "screen": null,
-    "cta": "2026-11-12T15:58:03.294501+00:00",
-    "context": "2026-11-12T15:58:08.547598+00:00"
+    "cta": "2026-11-12T18:33:15.487506+00:00",
+    "context": "2026-11-12T18:33:18.919770+00:00"
   },
   "screen_as_of": "2026-11-12",
   "display_status": "CURRENT",
@@ -56,13 +56,13 @@
   },
   "candidate_action_gate": "REQUIRES_INDIVIDUAL_CTA_AND_PRESSURE_GREEN",
   "market_pressure": {
-    "as_of": "2026-11-11",
+    "as_of": "2026-11-12",
     "status": "CURRENT",
     "light": "RED",
     "action": "PAUSE_NEW_EXPOSURE",
     "reason": [
-      "Retain RED: foreign TX net shorts rose to 104271 from 103473 and closing basis deteriorated to -166.15 from -88.92; derivatives improvement condition not met.",
-      "TAIEX 44257.15 +3.62%; TX last 44091 settle 44136; PCR 107.08/65.17; VIX 38.34; institutional net buy TWD 20.256bn; verified margin date 2026-11-10"
+      "Retain RED: volatility rose from 38.34 to 40.28 and the index fell 2.63% to 43091.87; the required improvement for RED release was not met.",
+      "TAIEX turnover TWD 1013.293bn; November TX closing 43178, basis +86.13; foreign TX net shorts 99573; TAIFEX PCR volume 98.17%, open interest 66.69%; institutional net buy TWD 5.160bn cross-checked via CNA and China Times; margin verified 2026-11-11 on the original reporting cutoff."
     ],
     "confirmed_inputs": {
       "spot": true,
@@ -74,13 +74,13 @@
       "foreign_futures_oi": true
     },
     "input_data_as_of": {
-      "spot": "2026-11-11",
-      "futures": "2026-11-11",
-      "pcr": "2026-11-11",
-      "volatility": "2026-11-11",
-      "institutional_flow": "2026-11-11",
-      "margin": "2026-11-10",
-      "foreign_futures_oi": "2026-11-11"
+      "spot": "2026-11-12",
+      "futures": "2026-11-12",
+      "pcr": "2026-11-12",
+      "volatility": "2026-11-12",
+      "institutional_flow": "2026-11-12",
+      "margin": "2026-11-11",
+      "foreign_futures_oi": "2026-11-12"
     },
     "previous_light": "RED",
     "changed": false,
@@ -89,17 +89,15 @@
   },
   "market_pressure_freshness": {
     "expected_as_of": "2026-11-12",
-    "as_of": "2026-11-11",
+    "as_of": "2026-11-12",
     "source_status": "CURRENT",
-    "status": "STALE_LAST_KNOWN",
-    "same_day_current": false,
+    "status": "CURRENT",
+    "same_day_current": true,
     "consumer_action": "PAUSE_NEW_EXPOSURE"
   },
   "final_delivery_readiness": {
-    "status": "UPDATE_INCOMPLETE",
-    "issues": [
-      "MARKET_PRESSURE_AS_OF_MISMATCH"
-    ],
+    "status": "READY",
+    "issues": [],
     "rule": "EMAIL_REQUIRES_CURRENT_MARKET_PRESSURE_AND_CURRENT_LOCAL_MARKET_ASIA_CTA"
   },
   "asia_cta_readiness": {
@@ -125,7 +123,7 @@
   "market_pressure_inputs": {
     "schema_version": "1.0",
     "module": "Onecool Taiwan Official Market Pressure Inputs",
-    "generated_at": "2026-11-12T15:57:46.767323+00:00",
+    "generated_at": "2026-11-12T18:33:01.415490+00:00",
     "requested_as_of": "2026-11-12",
     "status": "READY",
     "attempts_used": 1,
