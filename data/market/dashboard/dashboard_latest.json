@@ -1,10 +1,10 @@
 {
   "schema_version": "1.9",
   "module": "Onecool Market Dashboard",
-  "generated_at": "2026-11-14T03:16:10.969072+00:00",
+  "generated_at": "2026-11-14T04:39:34.335593+00:00",
   "expected_as_of": "2026-11-13",
   "data_status": "READY",
-  "last_successful_update_at": "2026-11-14T03:16:10.969072+00:00",
+  "last_successful_update_at": "2026-11-14T04:39:34.335593+00:00",
   "index_cta_basis": {
     "method": "ETF/index proxies; shared CTA engine",
     "mappings": {
@@ -1096,7 +1096,7 @@
     },
     "classification": "Onecool proxy scores; not IBD official ratings",
     "expected_as_of": "2026-11-13",
-    "data_status": "PARTIAL",
+    "data_status": "READY",
     "price_basis": "adjusted_close",
     "universe_size": 70,
     "universe_governance": {
@@ -1116,9 +1116,9 @@
       "daily_membership_mutation": false,
       "change_control": "VERSION_BUMP_AND_AUDIT_RECORD_REQUIRED"
     },
-    "validated_count": 62,
-    "coverage_status": "COMPLETE_WITH_VALIDATION_FAILURES",
-    "validated_coverage_pct": 88.57,
+    "validated_count": 63,
+    "coverage_status": "COMPLETE",
+    "validated_coverage_pct": 90.0,
     "research_scope": "FULL_UNIVERSE_ASSESSED_VALIDATED_SUBSET_RANKED",
     "minimum_technical_confidence": 90,
     "formal_breakout_count": 0,
@@ -1155,7 +1155,7 @@
         "trigger": "突破52週高點且成交量至少為50日均量1.5倍",
         "formal_breakout": false,
         "super_growth_bucket": "B",
-        "super_growth_reason": "VALUATION_INPUTS_UNAVAILABLE_OR_STALE",
+        "super_growth_reason": "VALUATION_ABOVE_DISCIPLINED_RANGE",
         "quality_gate_status": {
           "competitive_advantage": {
             "status": "PASS",
@@ -1232,25 +1232,22 @@
             "inputs": {}
           },
           "valuation": {
-            "status": "UNKNOWN",
-            "as_of": "2026-11-12",
+            "status": "FAIL",
+            "as_of": "2026-11-13",
             "rationale": "Uses current FY2026 GAAP guidance; biosimilar erosion, leverage and regulatory risk retain the existing disciplined range.",
             "sources": [
               "https://investors.amgen.com/news-releases/news-release-details/amgen-reports-third-quarter-2026-financial-results",
               "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
             ],
-            "data_gap": "PRICE_CUTOFF_MISMATCH; VALUATION_EXPIRED",
-            "validation_errors": [
-              "PRICE_CUTOFF_MISMATCH",
-              "VALUATION_EXPIRED"
-            ],
+            "data_gap": null,
+            "validation_errors": [],
             "method": "FORWARD_GAAP_PE_LOW_END_FY2026_GUIDANCE",
-            "price_as_of": "2026-11-12",
-            "valid_through": "2026-11-12",
+            "price_as_of": "2026-11-13",
+            "valid_through": "2026-11-13",
             "inputs": {
-              "price": 467.05999755859375,
+              "price": 465.6700134277344,
               "denominator": 18.34,
-              "multiple": 25.46673923438352,
+              "multiple": 25.390949478066215,
               "fair_range": [
                 8.109050705053424,
                 13.976819907362085
@@ -1260,11 +1257,10 @@
         },
         "evidence_coverage": "PARTIAL",
         "missing_evidence": [
-          "circle_of_competence",
-          "valuation"
+          "circle_of_competence"
         ],
         "quality_data_gaps": {},
-        "valuation_posture": "UNRESOLVED_WITH_SPECIFIC_GAP",
+        "valuation_posture": "ABOVE_DISCIPLINED_RANGE",
         "cyclical_review_required": false,
         "evidence_as_of": "2026-11-06",
         "manual_confirmation_required": [
@@ -1273,7 +1269,116 @@
         "circle_of_competence_policy": "PRE_TRADE_USER_CONFIRMATION_NOT_DAILY_RESEARCH_BLOCKER",
         "decision_authority": "RESEARCH_QUALITY_ONLY",
         "quality_gate_application": "FORMAL_NEW_CANDIDATE_RESEARCH_GATE",
-        "action_eligibility": "RESEARCH_ONLY_VALUATION_DATA_GAP",
+        "action_eligibility": "RESEARCH_ONLY_VALUATION_TOO_HIGH",
+        "valuation_input_collection": {
+          "as_of": "2026-11-13",
+          "status": "COMPLETE",
+          "gaps": [],
+          "price_basis": "adjusted_close",
+          "inputs": {
+            "adjusted_close": 465.6700134277344
+          },
+          "sources": [
+            "https://investors.amgen.com/news-releases/news-release-details/amgen-reports-third-quarter-2026-financial-results",
+            "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+          ],
+          "decision_authority": "REVIEWED_SOURCE_BACKED_VALUATION_MODEL",
+          "price_source": {
+            "provider": "yahoo_finance_adjusted_batch",
+            "symbol": "AMGN",
+            "as_of": "2026-11-13",
+            "url": "https://finance.yahoo.com/quote/AMGN/history/"
+          },
+          "price_observation": {
+            "date": "2026-11-13",
+            "adjusted_close": 465.6700134277344,
+            "raw_close": 465.6700134277344,
+            "provider": "yahoo_finance_adjusted_batch"
+          },
+          "price_sha256": "2c363304a7c60dd7bd733b7843b4aa792cbac96e1dd22f0597fc4d71d45188fb",
+          "official_reference_status": "VERIFIED",
+          "fundamental_fetch_status": "REVIEWED_OFFICIAL_REFERENCE",
+          "company_name": "Amgen Inc.",
+          "official_reference": {
+            "symbol": "AMGN",
+            "company_name": "Amgen Inc.",
+            "published_at": "2026-11-03",
+            "reviewed_as_of": "2026-11-07",
+            "valid_through": "2027-02-01",
+            "sources": [
+              "https://investors.amgen.com/news-releases/news-release-details/amgen-reports-third-quarter-2026-financial-results",
+              "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+            ],
+            "reported_facts": {
+              "FY26_GAAP_EPS_guidance": [
+                18.34,
+                19.28
+              ],
+              "FY26_non_GAAP_EPS_guidance": [
+                22.9,
+                23.7
+              ],
+              "Q3_FCF_million": 3654
+            },
+            "model_gaps": [],
+            "refresh_on": [
+              "NEW_EARNINGS_OR_GUIDANCE",
+              "MATERIAL_CORPORATE_EVENT",
+              "REFERENCE_EXPIRY"
+            ],
+            "valuation_model": {
+              "method": "FORWARD_GAAP_PE_LOW_END_FY2026_GUIDANCE",
+              "denominator": 18.34,
+              "currency": "USD",
+              "share_basis": "listed_security",
+              "normalization_bridge": {
+                "formula": "Low end of FY2026 GAAP diluted EPS guidance 18.34",
+                "limitations": "Uses conservative guidance low end; no pipeline revenue or equity gains assumed."
+              },
+              "denominator_source": [
+                "https://investors.amgen.com/news-releases/news-release-details/amgen-reports-third-quarter-2026-financial-results"
+              ],
+              "fair_range": [
+                8.109050705053424,
+                13.976819907362085
+              ],
+              "scenarios": [
+                {
+                  "name": "conservative",
+                  "years": 5,
+                  "growth": 0.03,
+                  "required_return": 0.12,
+                  "terminal_growth": 0.02,
+                  "cash_conversion": 0.7,
+                  "terminal_cash_conversion": 0.8
+                },
+                {
+                  "name": "base",
+                  "years": 5,
+                  "growth": 0.06,
+                  "required_return": 0.1,
+                  "terminal_growth": 0.03,
+                  "cash_conversion": 0.8,
+                  "terminal_cash_conversion": 0.85
+                }
+              ],
+              "policy_version": "onecool_equity_screen_v1",
+              "rationale": "Uses current FY2026 GAAP guidance; biosimilar erosion, leverage and regulatory risk retain the existing disciplined range.",
+              "fair_range_rationale": "Uses current FY2026 GAAP guidance; biosimilar erosion, leverage and regulatory risk retain the existing disciplined range.",
+              "fair_range_sources": [
+                "https://investors.amgen.com/news-releases/news-release-details/amgen-reports-third-quarter-2026-financial-results",
+                "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+              ],
+              "research_grade": "SCREENING_SCENARIO_NOT_FULL_DCF",
+              "assumption_authority": "ONECOOL_ANALYST_NOT_ISSUER_GUIDANCE"
+            },
+            "source_review": {
+              "status": "VERIFIED_CURRENT_OFFICIAL",
+              "checked_at": "2026-11-07T00:35:00+00:00",
+              "information_cutoff": "2026-11-06"
+            }
+          }
+        },
         "lynch_research": {
           "version": "onecool_lynch_research_v1",
           "company_type": {
@@ -1342,6 +1447,16 @@
                   "https://www.sec.gov/Archives/edgar/data/318154/000031815426000124/amgn-20260630earningsrelea.htm",
                   "https://www.amgen.com/tavneos-update"
                 ]
+              },
+              {
+                "field": "valuation",
+                "value": "FAIL",
+                "as_of": "2026-11-13",
+                "rationale": "Uses current FY2026 GAAP guidance; biosimilar erosion, leverage and regulatory risk retain the existing disciplined range.",
+                "sources": [
+                  "https://investors.amgen.com/news-releases/news-release-details/amgen-reports-third-quarter-2026-financial-results",
+                  "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+                ]
               }
             ],
             "required_manual_confirmation": [
@@ -1407,7 +1522,7 @@
         "trigger": "突破52週高點且成交量至少為50日均量1.5倍",
         "formal_breakout": false,
         "super_growth_bucket": "B",
-        "super_growth_reason": "VALUATION_INPUTS_UNAVAILABLE_OR_STALE",
+        "super_growth_reason": "VALUATION_ABOVE_DISCIPLINED_RANGE",
         "quality_gate_status": {
           "competitive_advantage": {
             "status": "PASS",
@@ -1479,25 +1594,22 @@
             "inputs": {}
           },
           "valuation": {
-            "status": "UNKNOWN",
-            "as_of": "2026-11-12",
+            "status": "FAIL",
+            "as_of": "2026-11-13",
             "rationale": "Mounjaro and Zepbound support high growth, while pricing, launch investment and acquisition execution constrain distributable earnings.",
             "sources": [
               "https://investor.lilly.com/news-releases/news-release-details/lilly-reports-third-quarter-2026-financial-results-raises-full",
               "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
             ],
-            "data_gap": "PRICE_CUTOFF_MISMATCH; VALUATION_EXPIRED",
-            "validation_errors": [
-              "PRICE_CUTOFF_MISMATCH",
-              "VALUATION_EXPIRED"
-            ],
+            "data_gap": null,
+            "validation_errors": [],
             "method": "FORWARD_NORMALIZED_PE_EX_KNOWN_Q3_ACQUIRED_IPRD",
-            "price_as_of": "2026-11-12",
-            "valid_through": "2026-11-12",
+            "price_as_of": "2026-11-13",
+            "valid_through": "2026-11-13",
             "inputs": {
-              "price": 1427.280029296875,
+              "price": 1443.5,
               "denominator": 40.07,
-              "multiple": 35.61966631636823,
+              "multiple": 36.024457199900176,
               "fair_range": [
                 11.881578947368421,
                 23.463686944114407
@@ -1507,11 +1619,10 @@
         },
         "evidence_coverage": "PARTIAL",
         "missing_evidence": [
-          "circle_of_competence",
-          "valuation"
+          "circle_of_competence"
         ],
         "quality_data_gaps": {},
-        "valuation_posture": "UNRESOLVED_WITH_SPECIFIC_GAP",
+        "valuation_posture": "ABOVE_DISCIPLINED_RANGE",
         "cyclical_review_required": false,
         "evidence_as_of": "2026-11-06",
         "manual_confirmation_required": [
@@ -1520,7 +1631,121 @@
         "circle_of_competence_policy": "PRE_TRADE_USER_CONFIRMATION_NOT_DAILY_RESEARCH_BLOCKER",
         "decision_authority": "RESEARCH_QUALITY_ONLY",
         "quality_gate_application": "FORMAL_NEW_CANDIDATE_RESEARCH_GATE",
-        "action_eligibility": "RESEARCH_ONLY_VALUATION_DATA_GAP",
+        "action_eligibility": "RESEARCH_ONLY_VALUATION_TOO_HIGH",
+        "valuation_input_collection": {
+          "as_of": "2026-11-13",
+          "status": "COMPLETE",
+          "gaps": [],
+          "price_basis": "adjusted_close",
+          "inputs": {
+            "adjusted_close": 1443.5
+          },
+          "sources": [
+            "https://investor.lilly.com/news-releases/news-release-details/lilly-reports-third-quarter-2026-financial-results-raises-full",
+            "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+          ],
+          "decision_authority": "REVIEWED_SOURCE_BACKED_VALUATION_MODEL",
+          "price_source": {
+            "provider": "yahoo_finance_adjusted_batch",
+            "symbol": "LLY",
+            "as_of": "2026-11-13",
+            "url": "https://finance.yahoo.com/quote/LLY/history/"
+          },
+          "price_observation": {
+            "date": "2026-11-13",
+            "adjusted_close": 1443.5,
+            "raw_close": 1443.5,
+            "provider": "yahoo_finance_adjusted_batch"
+          },
+          "price_sha256": "a3325996112f279f037b6728b786f30ebf609233ef71d2d88b1ed02509297304",
+          "official_reference_status": "VERIFIED",
+          "fundamental_fetch_status": "REVIEWED_OFFICIAL_REFERENCE",
+          "company_name": "Eli Lilly and Company",
+          "official_reference": {
+            "symbol": "LLY",
+            "company_name": "Eli Lilly and Company",
+            "published_at": "2026-10-29",
+            "reviewed_as_of": "2026-10-31",
+            "valid_through": "2027-01-25",
+            "sources": [
+              "https://investor.lilly.com/news-releases/news-release-details/lilly-reports-third-quarter-2026-financial-results-raises-full",
+              "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+            ],
+            "reported_facts": {
+              "period": "Q3_2026",
+              "revenue_million": 24397,
+              "reported_eps": 7.22,
+              "non_gaap_eps": 7.48,
+              "FY26_non_gaap_eps_guidance": [
+                35,
+                36
+              ],
+              "Q3_acquired_IPRD_per_share": 4.57
+            },
+            "model_gaps": [],
+            "refresh_on": [
+              "NEW_EARNINGS_OR_GUIDANCE",
+              "MATERIAL_ACQUISITION",
+              "REFERENCE_EXPIRY"
+            ],
+            "valuation_model": {
+              "method": "FORWARD_NORMALIZED_PE_EX_KNOWN_Q3_ACQUIRED_IPRD",
+              "denominator": 40.07,
+              "currency": "USD",
+              "share_basis": "listed_security",
+              "normalization_bridge": {
+                "formula": "FY26 non-GAAP EPS guidance midpoint 35.50 + Q3 acquired IPR&D 4.57",
+                "inputs": [
+                  35.5,
+                  4.57
+                ],
+                "limitations": "Removes the disclosed Q3 acquired IPR&D charge only; does not assume unannounced transactions or pipeline revenue."
+              },
+              "denominator_source": [
+                "https://investor.lilly.com/news-releases/news-release-details/lilly-reports-third-quarter-2026-financial-results-raises-full"
+              ],
+              "fair_range": [
+                11.881578947368421,
+                23.463686944114407
+              ],
+              "scenarios": [
+                {
+                  "name": "conservative",
+                  "years": 5,
+                  "growth": 0.12,
+                  "required_return": 0.12,
+                  "terminal_growth": 0.025,
+                  "cash_conversion": 0.65,
+                  "terminal_cash_conversion": 0.8
+                },
+                {
+                  "name": "base",
+                  "years": 5,
+                  "growth": 0.18,
+                  "required_return": 0.1,
+                  "terminal_growth": 0.03,
+                  "cash_conversion": 0.75,
+                  "terminal_cash_conversion": 0.9
+                }
+              ],
+              "assumption_authority": "ONECOOL_ANALYST_NOT_ISSUER_GUIDANCE",
+              "research_grade": "SCREENING_SCENARIO_NOT_FULL_DCF",
+              "policy_version": "onecool_equity_two_stage_screen_v1",
+              "rationale": "Mounjaro and Zepbound support high growth, while pricing, launch investment and acquisition execution constrain distributable earnings.",
+              "fair_range_rationale": "Five-year 12%/18% growth, 65%/75% interim cash conversion, 80%/90% terminal conversion, 12%/10% required return and 2.5%/3% terminal growth are Onecool analyst screening assumptions selected without using the current share price.",
+              "fair_range_sources": [
+                "https://investor.lilly.com/news-releases/news-release-details/lilly-reports-third-quarter-2026-financial-results-raises-full",
+                "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+              ]
+            },
+            "source_review": {
+              "status": "VERIFIED_CURRENT_OFFICIAL",
+              "checked_at": "2026-10-31T08:25:00+00:00",
+              "information_cutoff": "2026-10-30",
+              "conclusion": "Q3 results and updated FY2026 guidance normalized using the issuer-disclosed Q3 acquired IPR&D charge."
+            }
+          }
+        },
         "lynch_research": {
           "version": "onecool_lynch_research_v1",
           "company_type": {
@@ -1585,6 +1810,16 @@
                 "rationale": "實現價格下滑13%、藥品集中、監管／給付、臨床及多宗併購整合是主要風險；納入持續追蹤，目前材料不足以否決研究資格。",
                 "sources": [
                   "https://investor.lilly.com/node/54781/pdf"
+                ]
+              },
+              {
+                "field": "valuation",
+                "value": "FAIL",
+                "as_of": "2026-11-13",
+                "rationale": "Mounjaro and Zepbound support high growth, while pricing, launch investment and acquisition execution constrain distributable earnings.",
+                "sources": [
+                  "https://investor.lilly.com/news-releases/news-release-details/lilly-reports-third-quarter-2026-financial-results-raises-full",
+                  "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
                 ]
               }
             ],
@@ -1651,7 +1886,7 @@
         "trigger": "突破52週高點且成交量至少為50日均量1.5倍",
         "formal_breakout": false,
         "super_growth_bucket": "B",
-        "super_growth_reason": "VALUATION_INPUTS_UNAVAILABLE_OR_STALE",
+        "super_growth_reason": "VALUATION_ABOVE_DISCIPLINED_RANGE",
         "quality_gate_status": {
           "competitive_advantage": {
             "status": "PASS",
@@ -1725,25 +1960,22 @@
             "inputs": {}
           },
           "valuation": {
-            "status": "UNKNOWN",
-            "as_of": "2026-11-12",
+            "status": "FAIL",
+            "as_of": "2026-11-13",
             "rationale": "Uses current Q3 guidance with the existing full-year acquisition dilution stress; Humira erosion, leverage and IPR&D constrain the range.",
             "sources": [
               "https://news.abbvie.com/2026-10-30-AbbVie-Reports-Third-Quarter-2026-Financial-Results",
               "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
             ],
-            "data_gap": "PRICE_CUTOFF_MISMATCH; VALUATION_EXPIRED",
-            "validation_errors": [
-              "PRICE_CUTOFF_MISMATCH",
-              "VALUATION_EXPIRED"
-            ],
+            "data_gap": null,
+            "validation_errors": [],
             "method": "FORWARD_ADJUSTED_PE_FULL_YEAR_ACQUISITION_STRESS",
-            "price_as_of": "2026-11-12",
-            "valid_through": "2026-11-12",
+            "price_as_of": "2026-11-13",
+            "valid_through": "2026-11-13",
             "inputs": {
-              "price": 294.45001220703125,
+              "price": 295.0299987792969,
               "denominator": 13.44,
-              "multiple": 21.9084830511184,
+              "multiple": 21.95163681393578,
               "fair_range": [
                 8.554162502288818,
                 16.74285714285714
@@ -1753,11 +1985,10 @@
         },
         "evidence_coverage": "PARTIAL",
         "missing_evidence": [
-          "circle_of_competence",
-          "valuation"
+          "circle_of_competence"
         ],
         "quality_data_gaps": {},
-        "valuation_posture": "UNRESOLVED_WITH_SPECIFIC_GAP",
+        "valuation_posture": "ABOVE_DISCIPLINED_RANGE",
         "cyclical_review_required": false,
         "evidence_as_of": "2026-11-06",
         "manual_confirmation_required": [
@@ -1766,7 +1997,114 @@
         "circle_of_competence_policy": "PRE_TRADE_USER_CONFIRMATION_NOT_DAILY_RESEARCH_BLOCKER",
         "decision_authority": "RESEARCH_QUALITY_ONLY",
         "quality_gate_application": "FORMAL_NEW_CANDIDATE_RESEARCH_GATE",
-        "action_eligibility": "RESEARCH_ONLY_VALUATION_DATA_GAP",
+        "action_eligibility": "RESEARCH_ONLY_VALUATION_TOO_HIGH",
+        "valuation_input_collection": {
+          "as_of": "2026-11-13",
+          "status": "COMPLETE",
+          "gaps": [],
+          "price_basis": "adjusted_close",
+          "inputs": {
+            "adjusted_close": 295.0299987792969
+          },
+          "sources": [
+            "https://news.abbvie.com/2026-10-30-AbbVie-Reports-Third-Quarter-2026-Financial-Results",
+            "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+          ],
+          "decision_authority": "REVIEWED_SOURCE_BACKED_VALUATION_MODEL",
+          "price_source": {
+            "provider": "yahoo_finance_adjusted_batch",
+            "symbol": "ABBV",
+            "as_of": "2026-11-13",
+            "url": "https://finance.yahoo.com/quote/ABBV/history/"
+          },
+          "price_observation": {
+            "date": "2026-11-13",
+            "adjusted_close": 295.0299987792969,
+            "raw_close": 295.0299987792969,
+            "provider": "yahoo_finance_adjusted_batch"
+          },
+          "price_sha256": "180694914dd0ad4d08e9ea2447241f0ae1d143fd98912aa28cef696584698638",
+          "official_reference_status": "VERIFIED",
+          "fundamental_fetch_status": "REVIEWED_OFFICIAL_REFERENCE",
+          "company_name": "AbbVie Inc.",
+          "official_reference": {
+            "symbol": "ABBV",
+            "company_name": "AbbVie Inc.",
+            "published_at": "2026-10-30",
+            "valid_through": "2027-01-28",
+            "sources": [
+              "https://news.abbvie.com/2026-10-30-AbbVie-Reports-Third-Quarter-2026-Financial-Results",
+              "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+            ],
+            "reported_facts": {
+              "FY26_adjusted_EPS_guidance": [
+                13.95,
+                13.99
+              ],
+              "Q3_revenue_billion": 17.404,
+              "Q3_adjusted_EPS": 3.82
+            },
+            "model_gaps": [],
+            "refresh_on": [
+              "NEW_EARNINGS_OR_GUIDANCE",
+              "MATERIAL_CORPORATE_EVENT",
+              "REFERENCE_EXPIRY"
+            ],
+            "valuation_model": {
+              "method": "FORWARD_ADJUSTED_PE_FULL_YEAR_ACQUISITION_STRESS",
+              "denominator": 13.44,
+              "currency": "USD",
+              "share_basis": "listed_security",
+              "normalization_bridge": {
+                "formula": "Current FY26 adjusted EPS guidance stressed for full-year acquisition dilution; retained denominator 13.44",
+                "limitations": "Stress case is Onecool normalization, not issuer FY2027 guidance."
+              },
+              "denominator_source": [
+                "https://news.abbvie.com/2026-10-30-AbbVie-Reports-Third-Quarter-2026-Financial-Results"
+              ],
+              "fair_range": [
+                8.554162502288818,
+                16.74285714285714
+              ],
+              "scenarios": [
+                {
+                  "name": "conservative",
+                  "years": 5,
+                  "growth": 0.05,
+                  "required_return": 0.12,
+                  "terminal_growth": 0.02,
+                  "cash_conversion": 0.55,
+                  "terminal_cash_conversion": 0.85
+                },
+                {
+                  "name": "base",
+                  "years": 5,
+                  "growth": 0.1,
+                  "required_return": 0.1,
+                  "terminal_growth": 0.03,
+                  "cash_conversion": 0.7,
+                  "terminal_cash_conversion": 0.9
+                }
+              ],
+              "policy_version": "onecool_equity_screen_v1",
+              "rationale": "Uses current Q3 guidance with the existing full-year acquisition dilution stress; Humira erosion, leverage and IPR&D constrain the range.",
+              "fair_range_rationale": "Uses current Q3 guidance with the existing full-year acquisition dilution stress; Humira erosion, leverage and IPR&D constrain the range.",
+              "fair_range_sources": [
+                "https://news.abbvie.com/2026-10-30-AbbVie-Reports-Third-Quarter-2026-Financial-Results",
+                "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+              ],
+              "research_grade": "SCREENING_SCENARIO_NOT_FULL_DCF",
+              "assumption_authority": "ONECOOL_ANALYST_NOT_ISSUER_GUIDANCE"
+            },
+            "reviewed_as_of": "2026-11-07",
+            "review_note": "Recovery review on Oct27 for Oct26 price cutoff only. Official earnings/guidance source reopened. Existing analyst model retained, not new issuer guidance; no future validity extension. New earnings or material events require re-review.",
+            "source_review": {
+              "status": "VERIFIED_CURRENT_OFFICIAL",
+              "checked_at": "2026-11-07T00:35:00+00:00",
+              "information_cutoff": "2026-11-06"
+            }
+          }
+        },
         "lynch_research": {
           "version": "onecool_lynch_research_v1",
           "company_type": {
@@ -1832,6 +2170,16 @@
                   "https://news.abbvie.com/2026-07-31-AbbVie-Reports-Second-Quarter-2026-Financial-Results",
                   "https://www.sec.gov/edgar/browse/?CIK=1551152&owner=exclude"
                 ]
+              },
+              {
+                "field": "valuation",
+                "value": "FAIL",
+                "as_of": "2026-11-13",
+                "rationale": "Uses current Q3 guidance with the existing full-year acquisition dilution stress; Humira erosion, leverage and IPR&D constrain the range.",
+                "sources": [
+                  "https://news.abbvie.com/2026-10-30-AbbVie-Reports-Third-Quarter-2026-Financial-Results",
+                  "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+                ]
               }
             ],
             "required_manual_confirmation": [
@@ -1896,8 +2244,8 @@
         "status": "WAIT",
         "trigger": "突破52週高點且成交量至少為50日均量1.5倍",
         "formal_breakout": false,
-        "super_growth_bucket": "B",
-        "super_growth_reason": "VALUATION_INPUTS_UNAVAILABLE_OR_STALE",
+        "super_growth_bucket": "A",
+        "super_growth_reason": "SUPER_GROWTH_QUALIFIED",
         "quality_gate_status": {
           "competitive_advantage": {
             "status": "PASS",
@@ -1970,25 +2318,22 @@
             "inputs": {}
           },
           "valuation": {
-            "status": "UNKNOWN",
-            "as_of": "2026-11-12",
+            "status": "PASS",
+            "as_of": "2026-11-13",
             "rationale": "Uses the low end of current FY2026 adjusted EPS outlook; payer mix, leverage, NCI and one-time contract effects constrain the range.",
             "sources": [
               "https://investor.tenethealth.com/press-releases/press-release-details/2026/Tenet-Reports-Strong-Third-Quarter-2026-Results-Raises-2026-Financial-Outlook/default.aspx",
               "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
             ],
-            "data_gap": "PRICE_CUTOFF_MISMATCH; VALUATION_EXPIRED",
-            "validation_errors": [
-              "PRICE_CUTOFF_MISMATCH",
-              "VALUATION_EXPIRED"
-            ],
+            "data_gap": null,
+            "validation_errors": [],
             "method": "FORWARD_ADJUSTED_PE_WITH_NCI_FCF_CROSSCHECK",
-            "price_as_of": "2026-11-12",
-            "valid_through": "2026-11-12",
+            "price_as_of": "2026-11-13",
+            "valid_through": "2026-11-13",
             "inputs": {
-              "price": 286.8599853515625,
+              "price": 286.0299987792969,
               "denominator": 22.05,
-              "multiple": 13.009523145195578,
+              "multiple": 12.971882030807114,
               "fair_range": [
                 8.18482232093811,
                 14.487697477735976
@@ -1998,11 +2343,10 @@
         },
         "evidence_coverage": "PARTIAL",
         "missing_evidence": [
-          "circle_of_competence",
-          "valuation"
+          "circle_of_competence"
         ],
         "quality_data_gaps": {},
-        "valuation_posture": "UNRESOLVED_WITH_SPECIFIC_GAP",
+        "valuation_posture": "ATTRACTIVE_OR_FAIR",
         "cyclical_review_required": false,
         "evidence_as_of": "2026-11-06",
         "manual_confirmation_required": [
@@ -2011,7 +2355,117 @@
         "circle_of_competence_policy": "PRE_TRADE_USER_CONFIRMATION_NOT_DAILY_RESEARCH_BLOCKER",
         "decision_authority": "RESEARCH_QUALITY_ONLY",
         "quality_gate_application": "FORMAL_NEW_CANDIDATE_RESEARCH_GATE",
-        "action_eligibility": "RESEARCH_ONLY_VALUATION_DATA_GAP",
+        "action_eligibility": "WATCH_FOR_TECHNICAL_TRIGGER",
+        "valuation_input_collection": {
+          "as_of": "2026-11-13",
+          "status": "COMPLETE",
+          "gaps": [],
+          "price_basis": "adjusted_close",
+          "inputs": {
+            "adjusted_close": 286.0299987792969
+          },
+          "sources": [
+            "https://investor.tenethealth.com/press-releases/press-release-details/2026/Tenet-Reports-Strong-Third-Quarter-2026-Results-Raises-2026-Financial-Outlook/default.aspx",
+            "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+          ],
+          "decision_authority": "REVIEWED_SOURCE_BACKED_VALUATION_MODEL",
+          "price_source": {
+            "provider": "yahoo_finance_adjusted_batch",
+            "symbol": "THC",
+            "as_of": "2026-11-13",
+            "url": "https://finance.yahoo.com/quote/THC/history/"
+          },
+          "price_observation": {
+            "date": "2026-11-13",
+            "adjusted_close": 286.0299987792969,
+            "raw_close": 286.0299987792969,
+            "provider": "yahoo_finance_adjusted_batch"
+          },
+          "price_sha256": "d5ab355c323bbe0b6ff3917b6fc81a77002af14c4ee4b31c69a1a4d2e71caf17",
+          "official_reference_status": "VERIFIED",
+          "fundamental_fetch_status": "REVIEWED_OFFICIAL_REFERENCE",
+          "company_name": "Tenet Healthcare Corporation",
+          "official_reference": {
+            "symbol": "THC",
+            "company_name": "Tenet Healthcare Corporation",
+            "published_at": "2026-10-29",
+            "valid_through": "2027-01-27",
+            "reviewed_as_of": "2026-11-07",
+            "sources": [
+              "https://investor.tenethealth.com/press-releases/press-release-details/2026/Tenet-Reports-Strong-Third-Quarter-2026-Results-Raises-2026-Financial-Outlook/default.aspx",
+              "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+            ],
+            "reported_facts": {
+              "FY26_adjusted_EPS_guidance": [
+                22.05,
+                23.01
+              ],
+              "FY26_adjusted_FCF_million": [
+                2825,
+                3125
+              ],
+              "net_debt_to_adjusted_EBITDA": 2.11
+            },
+            "model_gaps": [],
+            "refresh_on": [
+              "NEW_EARNINGS_OR_GUIDANCE",
+              "MATERIAL_CORPORATE_EVENT",
+              "REFERENCE_EXPIRY"
+            ],
+            "valuation_model": {
+              "method": "FORWARD_ADJUSTED_PE_WITH_NCI_FCF_CROSSCHECK",
+              "denominator": 22.05,
+              "currency": "USD",
+              "share_basis": "listed_security",
+              "normalization_bridge": {
+                "formula": "Low end of FY2026 adjusted diluted EPS outlook 22.05",
+                "limitations": "Adjusted outlook excludes specified one-time items; FCF and leverage are cross-checks, not double deductions."
+              },
+              "denominator_source": [
+                "https://investor.tenethealth.com/press-releases/press-release-details/2026/Tenet-Reports-Strong-Third-Quarter-2026-Results-Raises-2026-Financial-Outlook/default.aspx"
+              ],
+              "fair_range": [
+                8.18482232093811,
+                14.487697477735976
+              ],
+              "scenarios": [
+                {
+                  "name": "conservative",
+                  "years": 5,
+                  "growth": 0.05,
+                  "required_return": 0.12,
+                  "terminal_growth": 0.02,
+                  "cash_conversion": 0.55,
+                  "terminal_cash_conversion": 0.8
+                },
+                {
+                  "name": "base",
+                  "years": 5,
+                  "growth": 0.08,
+                  "required_return": 0.1,
+                  "terminal_growth": 0.03,
+                  "cash_conversion": 0.65,
+                  "terminal_cash_conversion": 0.85
+                }
+              ],
+              "policy_version": "onecool_equity_screen_v1",
+              "rationale": "Uses the low end of current FY2026 adjusted EPS outlook; payer mix, leverage, NCI and one-time contract effects constrain the range.",
+              "fair_range_rationale": "Uses the low end of current FY2026 adjusted EPS outlook; payer mix, leverage, NCI and one-time contract effects constrain the range.",
+              "fair_range_sources": [
+                "https://investor.tenethealth.com/press-releases/press-release-details/2026/Tenet-Reports-Strong-Third-Quarter-2026-Results-Raises-2026-Financial-Outlook/default.aspx",
+                "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+              ],
+              "research_grade": "SCREENING_SCENARIO_NOT_FULL_DCF",
+              "assumption_authority": "ONECOOL_ANALYST_NOT_ISSUER_GUIDANCE"
+            },
+            "review_note": "Recovery review on Oct27 for Oct26 price cutoff only. Official earnings/guidance source reopened. Existing analyst model retained, not new issuer guidance; no future validity extension. New earnings or material events require re-review.",
+            "source_review": {
+              "status": "VERIFIED_CURRENT_OFFICIAL",
+              "checked_at": "2026-11-07T00:35:00+00:00",
+              "information_cutoff": "2026-11-06"
+            }
+          }
+        },
         "lynch_research": {
           "version": "onecool_lynch_research_v1",
           "company_type": {
@@ -2075,6 +2529,16 @@
                 "rationale": "監管給付、Medicaid、payer mix、勞動成本、槓桿與少數股權為主要風險；材料未見否決研究資格的治理事件。PASS不是無風險。",
                 "sources": [
                   "https://investor.tenethealth.com/press-releases/press-release-details/2026/Tenet-Reports-Strong-Second-Quarter-2026-Results-Raises-2026-Financial-Outlook/default.aspx"
+                ]
+              },
+              {
+                "field": "valuation",
+                "value": "PASS",
+                "as_of": "2026-11-13",
+                "rationale": "Uses the low end of current FY2026 adjusted EPS outlook; payer mix, leverage, NCI and one-time contract effects constrain the range.",
+                "sources": [
+                  "https://investor.tenethealth.com/press-releases/press-release-details/2026/Tenet-Reports-Strong-Third-Quarter-2026-Results-Raises-2026-Financial-Outlook/default.aspx",
+                  "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
                 ]
               }
             ],
@@ -2141,7 +2605,7 @@
         "trigger": "突破52週高點且成交量至少為50日均量1.5倍",
         "formal_breakout": false,
         "super_growth_bucket": "B",
-        "super_growth_reason": "VALUATION_INPUTS_UNAVAILABLE_OR_STALE",
+        "super_growth_reason": "VALUATION_ABOVE_DISCIPLINED_RANGE",
         "quality_gate_status": {
           "competitive_advantage": {
             "status": "PASS",
@@ -2224,25 +2688,22 @@
             "inputs": {}
           },
           "valuation": {
-            "status": "UNKNOWN",
-            "as_of": "2026-10-30",
+            "status": "FAIL",
+            "as_of": "2026-11-13",
             "rationale": "Payment network and services growth support 8%/12% five-year analyst scenarios fading to terminal growth; legal/regulatory cost, incentives and weaker interim cash conversion justify conservative distributions. Not a full DCF.",
             "sources": [
               "https://investor.mastercard.com/files/content_files/3Q26-Mastercard-Earnings-Release.pdf",
               "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
             ],
-            "data_gap": "PRICE_CUTOFF_MISMATCH; VALUATION_EXPIRED",
-            "validation_errors": [
-              "PRICE_CUTOFF_MISMATCH",
-              "VALUATION_EXPIRED"
-            ],
+            "data_gap": null,
+            "validation_errors": [],
             "method": "TTM_ADJUSTED_PE_WITH_CASH_CONVERSION_STRESS",
-            "price_as_of": "2026-10-30",
-            "valid_through": "2026-10-30",
+            "price_as_of": "2026-11-13",
+            "valid_through": "2026-11-13",
             "inputs": {
-              "price": 638.010009765625,
+              "price": 661.1900024414062,
               "denominator": 19.7,
-              "multiple": 32.38629491196066,
+              "multiple": 33.5629442863658,
               "fair_range": [
                 10.146422449537393,
                 18.450906757437085
@@ -2252,11 +2713,10 @@
         },
         "evidence_coverage": "PARTIAL",
         "missing_evidence": [
-          "circle_of_competence",
-          "valuation"
+          "circle_of_competence"
         ],
         "quality_data_gaps": {},
-        "valuation_posture": "UNRESOLVED_WITH_SPECIFIC_GAP",
+        "valuation_posture": "ABOVE_DISCIPLINED_RANGE",
         "cyclical_review_required": false,
         "evidence_as_of": "2026-10-15",
         "manual_confirmation_required": [
@@ -2265,7 +2725,118 @@
         "circle_of_competence_policy": "PRE_TRADE_USER_CONFIRMATION_NOT_DAILY_RESEARCH_BLOCKER",
         "decision_authority": "RESEARCH_QUALITY_ONLY",
         "quality_gate_application": "FORMAL_NEW_CANDIDATE_RESEARCH_GATE",
-        "action_eligibility": "RESEARCH_ONLY_VALUATION_DATA_GAP",
+        "action_eligibility": "RESEARCH_ONLY_VALUATION_TOO_HIGH",
+        "valuation_input_collection": {
+          "as_of": "2026-11-13",
+          "status": "COMPLETE",
+          "gaps": [],
+          "price_basis": "adjusted_close",
+          "inputs": {
+            "adjusted_close": 661.1900024414062
+          },
+          "sources": [
+            "https://investor.mastercard.com/files/content_files/3Q26-Mastercard-Earnings-Release.pdf",
+            "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+          ],
+          "decision_authority": "REVIEWED_SOURCE_BACKED_VALUATION_MODEL",
+          "price_source": {
+            "provider": "yahoo_finance_adjusted_batch",
+            "symbol": "MA",
+            "as_of": "2026-11-13",
+            "url": "https://finance.yahoo.com/quote/MA/history/"
+          },
+          "price_observation": {
+            "date": "2026-11-13",
+            "adjusted_close": 661.1900024414062,
+            "raw_close": 661.1900024414062,
+            "provider": "yahoo_finance_adjusted_batch"
+          },
+          "price_sha256": "761d9331411fe8bf7d22f7407da0d921840485e9f720c39068c9e3084f119bb2",
+          "official_reference_status": "VERIFIED",
+          "fundamental_fetch_status": "REVIEWED_OFFICIAL_REFERENCE",
+          "company_name": "Mastercard Incorporated",
+          "official_reference": {
+            "symbol": "MA",
+            "company_name": "Mastercard Incorporated",
+            "published_at": "2026-10-29",
+            "valid_through": "2027-01-25",
+            "reviewed_as_of": "2026-10-31",
+            "sources": [
+              "https://investor.mastercard.com/files/content_files/3Q26-Mastercard-Earnings-Release.pdf",
+              "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+            ],
+            "reported_facts": {
+              "FY25_adjusted_EPS": 17.01,
+              "YTD26_adjusted_EPS": 14.94,
+              "YTD25_adjusted_EPS": 12.25,
+              "Q3_2026_adjusted_EPS": 5.31,
+              "Q3_2026_net_revenue_billion": 9.8
+            },
+            "model_gaps": [],
+            "refresh_on": [
+              "NEW_EARNINGS_OR_GUIDANCE",
+              "MATERIAL_CORPORATE_EVENT",
+              "REFERENCE_EXPIRY"
+            ],
+            "valuation_model": {
+              "method": "TTM_ADJUSTED_PE_WITH_CASH_CONVERSION_STRESS",
+              "denominator": 19.7,
+              "currency": "USD",
+              "share_basis": "listed_security",
+              "normalization_bridge": {
+                "formula": "FY25 adjusted EPS 17.01 + YTD26 adjusted EPS 14.94 - YTD25 adjusted EPS 12.25",
+                "inputs": [
+                  17.01,
+                  14.94,
+                  12.25
+                ],
+                "limitations": "Issuer-adjusted rolling EPS proxy; legal, incentive and acquisition costs can recur. No debt subtraction from an equity EPS denominator."
+              },
+              "denominator_source": [
+                "https://investor.mastercard.com/files/content_files/3Q26-Mastercard-Earnings-Release.pdf"
+              ],
+              "fair_range": [
+                10.146422449537393,
+                18.450906757437085
+              ],
+              "scenarios": [
+                {
+                  "name": "conservative",
+                  "years": 5,
+                  "growth": 0.08,
+                  "required_return": 0.12,
+                  "terminal_growth": 0.02,
+                  "cash_conversion": 0.65,
+                  "terminal_cash_conversion": 0.85
+                },
+                {
+                  "name": "base",
+                  "years": 5,
+                  "growth": 0.12,
+                  "required_return": 0.1,
+                  "terminal_growth": 0.03,
+                  "cash_conversion": 0.75,
+                  "terminal_cash_conversion": 0.9
+                }
+              ],
+              "assumption_authority": "ONECOOL_ANALYST_NOT_ISSUER_GUIDANCE",
+              "research_grade": "SCREENING_SCENARIO_NOT_FULL_DCF",
+              "policy_version": "onecool_equity_two_stage_screen_v1",
+              "rationale": "Payment network and services growth support 8%/12% five-year analyst scenarios fading to terminal growth; legal/regulatory cost, incentives and weaker interim cash conversion justify conservative distributions. Not a full DCF.",
+              "fair_range_rationale": "Payment network and services growth support 8%/12% five-year analyst scenarios fading to terminal growth; legal/regulatory cost, incentives and weaker interim cash conversion justify conservative distributions. Not a full DCF. Required return 12%/10%, terminal growth 2%/3% and cash conversion are Onecool analyst assumptions, not issuer targets; range selected without using the current share price.",
+              "fair_range_sources": [
+                "https://investor.mastercard.com/files/content_files/3Q26-Mastercard-Earnings-Release.pdf",
+                "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+              ]
+            },
+            "source_review": {
+              "status": "VERIFIED_CURRENT_OFFICIAL",
+              "checked_at": "2026-10-31T08:25:00+00:00",
+              "information_cutoff": "2026-10-30",
+              "conclusion": "Q3 and year-to-date adjusted EPS refreshed from Mastercard's official release."
+            }
+          }
+        },
         "lynch_research": {
           "version": "onecool_lynch_research_v1",
           "company_type": {
@@ -2337,6 +2908,16 @@
                   "https://www.sec.gov/Archives/edgar/data/1141391/000114139126000003/ma12312025-exx991xearnings.htm",
                   "https://www.sec.gov/Archives/edgar/data/1141391/000114139126000081/ma06302026-exx991xearnings.htm",
                   "https://www.sec.gov/Archives/edgar/data/1141391/000114139126000083/ma-20260630.htm"
+                ]
+              },
+              {
+                "field": "valuation",
+                "value": "FAIL",
+                "as_of": "2026-11-13",
+                "rationale": "Payment network and services growth support 8%/12% five-year analyst scenarios fading to terminal growth; legal/regulatory cost, incentives and weaker interim cash conversion justify conservative distributions. Not a full DCF.",
+                "sources": [
+                  "https://investor.mastercard.com/files/content_files/3Q26-Mastercard-Earnings-Release.pdf",
+                  "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
                 ]
               }
             ],
@@ -2421,13 +3002,6 @@
         },
         "fundamental_fetch_status": "RULE_EXCLUDED_REVIEWED",
         "latest_fetch_attempt_status": "SEC_FETCH_FAILED",
-        "fundamental_validation_detail": "SEC_FETCH_FAILED"
-      },
-      {
-        "symbol": "CSCO",
-        "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
-        "fundamental_fetch_status": "SEC_FETCH_FAILED",
         "fundamental_validation_detail": "SEC_FETCH_FAILED"
       },
       {
@@ -2565,10 +3139,8 @@
       "SNOW",
       "SYM"
     ],
-    "data_validation_failed_count": 1,
-    "data_validation_failed_symbols": [
-      "CSCO"
-    ],
+    "data_validation_failed_count": 0,
+    "data_validation_failed_symbols": [],
     "assessment_count": 70,
     "unassessed_count": 0,
     "assessment_status": "COMPLETE",
@@ -2594,7 +3166,7 @@
       "COIN": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
       "COST": "REVIEWED_OFFICIAL_REFERENCE",
       "CRDO": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
-      "CSCO": "SEC_FETCH_FAILED",
+      "CSCO": "REVIEWED_OFFICIAL_REFERENCE",
       "CVX": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
       "DDOG": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
       "DE": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
@@ -2649,12 +3221,13 @@
       "SNOW": "RULE_EXCLUDED_REVIEWED",
       "SYM": "RULE_EXCLUDED_REVIEWED"
     },
+    "valuation_input_refresh_status": "COMPLETED_WITH_PER_SYMBOL_STATUS",
     "super_growth_quality_gate": {
       "framework": "LIN_TZU_YANG_QUALITY_PLUS_ONECOOL_CTA_TIMING",
       "scope": "NEW_US_STOCK_CANDIDATES_ONLY",
       "bucket_counts": {
-        "A": 0,
-        "B": 5,
+        "A": 1,
+        "B": 4,
         "C": 0,
         "REJECT": 0,
         "INNOVATION_OPTION": 0,
