@@ -31,7 +31,11 @@ def test_csco_schedule_continuation_is_eligible_through_next_release_close(cutof
     assert metrics.quarterly_revenue_growth == pytest.approx(17.3 / 14.7 - 1)
     assert metrics.annual_eps_growth == pytest.approx(3.33 / 2.55 - 1)
     assert metrics.valid_through == "2026-11-12"
-    assert "CSCO" not in load_reviewed_fundamentals(payload, "2026-11-13")
+    refreshed = load_reviewed_fundamentals(payload, "2026-11-13")["CSCO"]
+    assert refreshed.as_of == "2026-10-24"
+    assert refreshed.quarterly_eps_growth == pytest.approx(1.14 / 0.72 - 1)
+    assert refreshed.quarterly_revenue_growth == pytest.approx(18.5 / 14.9 - 1)
+    assert refreshed.valid_through == "2027-02-10"
 
 
 @pytest.mark.parametrize("cutoff", ["2026-06-11", "2026-12-01"])

@@ -905,7 +905,8 @@ def update(
         # Never fetch against LAST_VALID scans or mismatched cutoffs.
         if (refresh_us_scan and breakout_input_loader is None
                 and breakout_scan.get("publication_status") != "LAST_VALID"
-                and breakout_scan.get("data_status") == "READY"
+                and breakout_scan.get("data_status") in {"READY", "PARTIAL"}
+                and breakout_scan.get("assessment_status") == "COMPLETE"
                 and breakout_scan.get("expected_as_of") == payload["expected_as_of"]):
             try:
                 from onecool_os.market.us_valuation_inputs import collect_valuation_inputs, fetch_sec_json

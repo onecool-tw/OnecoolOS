@@ -82,6 +82,22 @@ def test_stale_scan_rejected():
     except ValueError: return
     raise AssertionError("stale scan accepted")
 
+def test_complete_partial_scan_refreshes_validated_top5_valuation():
+    scan,bars,client=fixture()
+    scan.update(data_status="PARTIAL", assessment_status="COMPLETE",
+                data_validation_failed_count=1)
+    got=collect_valuation_inputs(scan,bars,None,client,{"TEST":"1"},complete_model())
+    gate=got["results"][0]["gates"]["valuation"]
+    assert gate["price_as_of"] == scan["expected_as_of"]
+    assert gate["status"] == "PASS"
+
+def test_incomplete_partial_scan_remains_rejected():
+    scan,bars,client=fixture()
+    scan.update(data_status="PARTIAL", assessment_status="PARTIAL")
+    try: collect_valuation_inputs(scan,bars,None,client,{"TEST":"1"},complete_model())
+    except ValueError: return
+    raise AssertionError("incomplete partial scan accepted")
+
 def reviewed_fixture():
     return {"results": {"TEST": {
         "symbol": "TEST", "company_name": "Test Inc.",
