@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-11-14T04:42:49.159548+00:00",
+  "generated_at": "2026-11-14T06:52:15.554699+00:00",
   "taipei_date": "2026-11-14",
   "status": "READY",
   "scope_status": {
@@ -31,7 +31,7 @@
       },
       {
         "report_id": "us",
-        "expected_report_date": "2026-11-13",
+        "expected_report_date": "2026-11-14",
         "status": "PARTIAL",
         "channels": {
           "conversation": "UNKNOWN",
@@ -46,9 +46,18 @@
       },
       {
         "report_id": "fund",
-        "expected_report_date": "2026-11-13",
-        "status": "UNKNOWN",
-        "reason": "Invalid or unverifiable receipt"
+        "expected_report_date": "2026-11-14",
+        "status": "PARTIAL",
+        "channels": {
+          "conversation": "UNKNOWN",
+          "artifact": "DELIVERED"
+        },
+        "unverified_channels": [
+          "conversation"
+        ],
+        "failed_channels": [],
+        "next_action": "Observe actual delivered message acknowledgement; do not resend solely because acknowledgement is unknown",
+        "reason": "Missing acknowledgement is unverified, not proof of failed delivery"
       },
       {
         "report_id": "home",
