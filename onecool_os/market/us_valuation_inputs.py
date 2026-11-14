@@ -167,7 +167,19 @@ def collect_valuation_inputs(scan, histories, evidence, client, registry=None, r
     """
     result = deepcopy(evidence or {"schema_version": "1.0", "results": []})
     cutoff = date.fromisoformat(scan["expected_as_of"])
-    if scan.get("data_status") != "READY" or scan.get("price_basis") != "adjusted_close":
+    scan_usable = (
+        scan.get("data_status") == "READY"
+        or (
+            scan.get("data_status") == "PARTIAL"
+            and scan.get("assessment_status") == "COMPLETE"
+            and all(
+                row.get("validation_status") == "PASSED"
+                and row.get("technical_confidence", 0) >= 90
+                for row in scan.get("top5", [])
+            )
+        )
+    )
+    if not scan_usable or scan.get("price_basis") != "adjusted_close":
         raise ValueError("VALUATION_SCAN_NOT_READY_OR_WRONG_PRICE_BASIS")
     records = {r["symbol"]: r for r in result.setdefault("results", [])}
     mapping = dict(registry or {})
