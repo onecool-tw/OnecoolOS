@@ -1,11 +1,11 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-11-13T18:01:06.336204+00:00",
+  "generated_at": "2026-11-14T02:35:03.698509+00:00",
   "taipei_date": "2026-11-14",
-  "status": "READY",
+  "status": "BLOCKED",
   "scope_status": {
-    "morning": "READY",
+    "morning": "BLOCKED",
     "asia": "READY",
     "weekly": "READY"
   },
@@ -69,11 +69,11 @@
     "policy": "Data readiness does not prove report delivery. Never infer email success from a generated draft."
   },
   "end_to_end_status": "NOT_FULLY_VERIFIED",
-  "action_readiness": "SAFE",
+  "action_readiness": "UNSAFE_FOR_AFFECTED_REPORTS",
   "counts": {
-    "ready": 20,
-    "partial": 0,
-    "blocked": 0
+    "ready": 18,
+    "partial": 1,
+    "blocked": 1
   },
   "modules": [
     {
@@ -83,7 +83,7 @@
       "critical": true,
       "status": "READY",
       "reason": "current",
-      "observed_as_of": "2026-11-12",
+      "observed_as_of": "2026-11-13",
       "recovery_workflow": "update-market-dashboard.yml",
       "retryable": true,
       "impacted_reports": [
@@ -98,7 +98,7 @@
       "critical": true,
       "status": "READY",
       "reason": "current",
-      "observed_as_of": "2026-11-12",
+      "observed_as_of": "2026-11-13",
       "recovery_workflow": "update-market-dashboard.yml",
       "retryable": true,
       "impacted_reports": [
@@ -111,11 +111,11 @@
       "label": "US Breakout Scan",
       "scope": "morning",
       "critical": true,
-      "status": "READY",
-      "reason": "current",
-      "observed_as_of": "2026-11-12",
+      "status": "PARTIAL",
+      "reason": "assessment complete 70/70; validated 62, rule-excluded 7, validation-failed 1",
+      "observed_as_of": "2026-11-13",
       "recovery_workflow": "update-market-dashboard.yml",
-      "retryable": true,
+      "retryable": false,
       "impacted_reports": [
         "美股日報"
       ]
@@ -127,7 +127,7 @@
       "critical": true,
       "status": "READY",
       "reason": "current",
-      "observed_as_of": "2026-11-12",
+      "observed_as_of": "2026-11-13",
       "recovery_workflow": "update-market-dashboard.yml",
       "retryable": true,
       "impacted_reports": [
@@ -141,7 +141,7 @@
       "critical": true,
       "status": "READY",
       "reason": "all symbols current",
-      "observed_as_of": "2026-11-12",
+      "observed_as_of": "2026-11-13",
       "recovery_workflow": "update-etf-cta.yml",
       "retryable": true,
       "impacted_reports": [
@@ -154,11 +154,11 @@
       "label": "Fund NAV CTA",
       "scope": "morning",
       "critical": true,
-      "status": "READY",
-      "reason": "current",
-      "observed_as_of": "2026-11-12",
+      "status": "BLOCKED",
+      "reason": "generation timestamp missing, invalid or older than scheduled date 2026-11-14",
+      "observed_as_of": "2026-11-13",
       "recovery_workflow": "update-fund-nav-cta.yml",
-      "retryable": false,
+      "retryable": true,
       "impacted_reports": [
         "基金日報",
         "基金週報"
@@ -362,8 +362,40 @@
       ]
     }
   ],
-  "issues": [],
-  "recovery_workflows": [],
-  "issue_fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+  "issues": [
+    {
+      "module_id": "us_breakout_scan",
+      "label": "US Breakout Scan",
+      "scope": "morning",
+      "critical": true,
+      "status": "PARTIAL",
+      "reason": "assessment complete 70/70; validated 62, rule-excluded 7, validation-failed 1",
+      "observed_as_of": "2026-11-13",
+      "recovery_workflow": "update-market-dashboard.yml",
+      "retryable": false,
+      "impacted_reports": [
+        "美股日報"
+      ]
+    },
+    {
+      "module_id": "fund_nav_cta",
+      "label": "Fund NAV CTA",
+      "scope": "morning",
+      "critical": true,
+      "status": "BLOCKED",
+      "reason": "generation timestamp missing, invalid or older than scheduled date 2026-11-14",
+      "observed_as_of": "2026-11-13",
+      "recovery_workflow": "update-fund-nav-cta.yml",
+      "retryable": true,
+      "impacted_reports": [
+        "基金日報",
+        "基金週報"
+      ]
+    }
+  ],
+  "recovery_workflows": [
+    "update-fund-nav-cta.yml"
+  ],
+  "issue_fingerprint": "86510f3ee48f033590271a32ae963521dabbfcce3e65bc59815360c9b2b6d6d3",
   "policy": "Health monitoring only; never changes CTA, rankings, or investment decisions."
 }
