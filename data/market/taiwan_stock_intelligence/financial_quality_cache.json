@@ -3330,5 +3330,340 @@
       "working_capital_growth_min_pct": 20,
       "growth_gap_pp": 20
     }
+  },
+  "2376:2026Q3": {
+    "version": "onecool_tw_financial_quality_v2",
+    "status": "REVIEW",
+    "label": "需留意",
+    "as_of": "2026Q3",
+    "observed_at": "2026-11-14T02:36:06.532981+00:00",
+    "source_url": "https://mopsov.twse.com.tw/server-java/t164sb01?step=1&CO_ID=2376&SYEAR=2026&SSEASON=3&REPORT_ID=C",
+    "source_sha256": "e27a1ea579362459d41e3d2303506f7f57631dbfa2b767c53d7eb8bb310c9bb5",
+    "scope": "CONSOLIDATED_THREE_STATEMENTS",
+    "period_basis": "YEAR_TO_DATE",
+    "ranking_effect": "NONE",
+    "point_in_time_backtest_eligible": false,
+    "evidence": {
+      "profit": {
+        "concept": "ifrs-full:ProfitLoss",
+        "start": "2026-01-01",
+        "end": "2026-09-30",
+        "value": 22852084000.0,
+        "unit": "TWD",
+        "context_id": "From20260101To20260930"
+      },
+      "revenue": {
+        "concept": "ifrs-full:Revenue",
+        "start": "2026-01-01",
+        "end": "2026-09-30",
+        "value": 403983007000.0,
+        "unit": "TWD",
+        "context_id": "From20260101To20260930"
+      },
+      "operating_profit": {
+        "concept": "ifrs-full:ProfitLossFromOperatingActivities",
+        "start": "2026-01-01",
+        "end": "2026-09-30",
+        "value": 28372187000.0,
+        "unit": "TWD",
+        "context_id": "From20260101To20260930"
+      },
+      "nonoperating_profit": {
+        "concept": "tifrs-bsci-ci:NonoperatingIncomeAndExpenses",
+        "start": "2026-01-01",
+        "end": "2026-09-30",
+        "value": 471917000.0,
+        "unit": "TWD",
+        "context_id": "From20260101To20260930"
+      },
+      "pretax_profit": {
+        "concept": "ifrs-full:ProfitLossBeforeTax",
+        "start": "2026-01-01",
+        "end": "2026-09-30",
+        "value": 28844104000.0,
+        "unit": "TWD",
+        "context_id": "From20260101To20260930"
+      },
+      "cashflow": {
+        "concept": "ifrs-full:CashFlowsFromUsedInOperatingActivities",
+        "start": "2026-01-01",
+        "end": "2026-09-30",
+        "value": -84036018000.0,
+        "unit": "TWD",
+        "context_id": "From20260101To20260930"
+      },
+      "prior_revenue": {
+        "concept": "ifrs-full:Revenue",
+        "start": "2025-01-01",
+        "end": "2025-09-30",
+        "value": 247587020000.0,
+        "unit": "TWD",
+        "context_id": "From20250101To20250930"
+      },
+      "assets": {
+        "concept": "ifrs-full:Assets",
+        "start": "",
+        "end": "2026-09-30",
+        "value": 371418941000.0,
+        "unit": "TWD",
+        "context_id": "AsOf20260930"
+      },
+      "opening_assets": {
+        "concept": "ifrs-full:Assets",
+        "start": "",
+        "end": "2025-12-31",
+        "value": 156125596000.0,
+        "unit": "TWD",
+        "context_id": "AsOf20251231"
+      },
+      "equity": {
+        "concept": "ifrs-full:Equity",
+        "start": "",
+        "end": "2026-09-30",
+        "value": 77692298000.0,
+        "unit": "TWD",
+        "context_id": "AsOf20260930"
+      },
+      "opening_equity": {
+        "concept": "ifrs-full:Equity",
+        "start": "",
+        "end": "2025-12-31",
+        "value": 61199203000.0,
+        "unit": "TWD",
+        "context_id": "AsOf20251231"
+      },
+      "liabilities": {
+        "concept": "ifrs-full:Liabilities",
+        "start": "",
+        "end": "2026-09-30",
+        "value": 293726643000.0,
+        "unit": "TWD",
+        "context_id": "AsOf20260930"
+      },
+      "inventory": {
+        "concept": "ifrs-full:Inventories",
+        "start": "",
+        "end": "2026-09-30",
+        "value": 213416986000.0,
+        "unit": "TWD",
+        "context_id": "AsOf20260930"
+      },
+      "prior_inventory": {
+        "concept": "ifrs-full:Inventories",
+        "start": "",
+        "end": "2025-09-30",
+        "value": 57765296000.0,
+        "unit": "TWD",
+        "context_id": "AsOf20250930"
+      },
+      "receivables": {
+        "concept": "tifrs-bsci-ci:AccountsReceivableNet",
+        "start": "",
+        "end": "2026-09-30",
+        "value": 69936070000.0,
+        "unit": "TWD",
+        "context_id": "AsOf20260930"
+      },
+      "prior_receivables": {
+        "concept": "tifrs-bsci-ci:AccountsReceivableNet",
+        "start": "",
+        "end": "2025-09-30",
+        "value": 26013809000.0,
+        "unit": "TWD",
+        "context_id": "AsOf20250930"
+      }
+    },
+    "missing_checks": [],
+    "flags": [
+      "NEGATIVE_OPERATING_CASHFLOW",
+      "HIGH_EQUITY_MULTIPLIER",
+      "INVENTORY_GROWTH",
+      "RECEIVABLES_GROWTH"
+    ],
+    "metrics": {
+      "operating_cashflow_twd": -84036018000.0,
+      "cashflow_to_profit": -3.6773896857722037,
+      "consolidated_roe_ytd_pct": 32.90638208309088,
+      "consolidated_roa_ytd_pct": 8.663565783451569,
+      "average_equity_multiplier": 3.7982492319670444,
+      "liabilities_to_assets_pct": 79.0823004904319,
+      "revenue_yoy_pct": 63.16808813321473,
+      "inventory_yoy_pct": 269.4553664193117,
+      "trade_receivables_ex_related_yoy_pct": 168.84209844087036
+    },
+    "policy": "Research warnings only; normal means no configured warning, not an audit opinion.",
+    "reason": "營業現金流為負，需核對資金占用；平均資產／權益達3倍，ROE有明顯槓桿效果；存貨年增逾20%，且高於營收年增20個百分點；應收帳款年增逾20%，且高於營收年增20個百分點",
+    "thresholds": {
+      "cashflow_to_profit_min": 0.5,
+      "equity_multiplier_max": 3,
+      "working_capital_growth_min_pct": 20,
+      "growth_gap_pp": 20
+    }
+  },
+  "2317:2026Q3": {
+    "version": "onecool_tw_financial_quality_v2",
+    "status": "REVIEW",
+    "label": "需留意",
+    "as_of": "2026Q3",
+    "observed_at": "2026-11-14T02:36:06.532981+00:00",
+    "source_url": "https://mopsov.twse.com.tw/server-java/t164sb01?step=1&CO_ID=2317&SYEAR=2026&SSEASON=3&REPORT_ID=C",
+    "source_sha256": "e36c31ebf16711b7e002489bf8d2c6f16211dfb208a50bb790c29293e7a0e1c4",
+    "scope": "CONSOLIDATED_THREE_STATEMENTS",
+    "period_basis": "YEAR_TO_DATE",
+    "ranking_effect": "NONE",
+    "point_in_time_backtest_eligible": false,
+    "evidence": {
+      "profit": {
+        "concept": "ifrs-full:ProfitLoss",
+        "start": "2026-01-01",
+        "end": "2026-09-30",
+        "value": 217913014000.0,
+        "unit": "TWD",
+        "context_id": "From20260101To20260930"
+      },
+      "revenue": {
+        "concept": "ifrs-full:Revenue",
+        "start": "2026-01-01",
+        "end": "2026-09-30",
+        "value": 7661061739000.0,
+        "unit": "TWD",
+        "context_id": "From20260101To20260930"
+      },
+      "operating_profit": {
+        "concept": "ifrs-full:ProfitLossFromOperatingActivities",
+        "start": "2026-01-01",
+        "end": "2026-09-30",
+        "value": 285802170000.0,
+        "unit": "TWD",
+        "context_id": "From20260101To20260930"
+      },
+      "nonoperating_profit": {
+        "concept": "tifrs-bsci-ci:NonoperatingIncomeAndExpenses",
+        "start": "2026-01-01",
+        "end": "2026-09-30",
+        "value": 1807472000.0,
+        "unit": "TWD",
+        "context_id": "From20260101To20260930"
+      },
+      "pretax_profit": {
+        "concept": "ifrs-full:ProfitLossBeforeTax",
+        "start": "2026-01-01",
+        "end": "2026-09-30",
+        "value": 287609642000.0,
+        "unit": "TWD",
+        "context_id": "From20260101To20260930"
+      },
+      "cashflow": {
+        "concept": "ifrs-full:CashFlowsFromUsedInOperatingActivities",
+        "start": "2026-01-01",
+        "end": "2026-09-30",
+        "value": -125723025000.0,
+        "unit": "TWD",
+        "context_id": "From20260101To20260930"
+      },
+      "prior_revenue": {
+        "concept": "ifrs-full:Revenue",
+        "start": "2025-01-01",
+        "end": "2025-09-30",
+        "value": 5496732736000.0,
+        "unit": "TWD",
+        "context_id": "From20250101To20250930"
+      },
+      "assets": {
+        "concept": "ifrs-full:Assets",
+        "start": "",
+        "end": "2026-09-30",
+        "value": 6194099176000.0,
+        "unit": "TWD",
+        "context_id": "AsOf20260930"
+      },
+      "opening_assets": {
+        "concept": "ifrs-full:Assets",
+        "start": "",
+        "end": "2025-12-31",
+        "value": 5104672223000.0,
+        "unit": "TWD",
+        "context_id": "AsOf20251231"
+      },
+      "equity": {
+        "concept": "ifrs-full:Equity",
+        "start": "",
+        "end": "2026-09-30",
+        "value": 2202798040000.0,
+        "unit": "TWD",
+        "context_id": "AsOf20260930"
+      },
+      "opening_equity": {
+        "concept": "ifrs-full:Equity",
+        "start": "",
+        "end": "2025-12-31",
+        "value": 1970763355000.0,
+        "unit": "TWD",
+        "context_id": "AsOf20251231"
+      },
+      "liabilities": {
+        "concept": "ifrs-full:Liabilities",
+        "start": "",
+        "end": "2026-09-30",
+        "value": 3991301136000.0,
+        "unit": "TWD",
+        "context_id": "AsOf20260930"
+      },
+      "inventory": {
+        "concept": "ifrs-full:Inventories",
+        "start": "",
+        "end": "2026-09-30",
+        "value": 1507485125000.0,
+        "unit": "TWD",
+        "context_id": "AsOf20260930"
+      },
+      "prior_inventory": {
+        "concept": "ifrs-full:Inventories",
+        "start": "",
+        "end": "2025-09-30",
+        "value": 1185675170000.0,
+        "unit": "TWD",
+        "context_id": "AsOf20250930"
+      },
+      "receivables": {
+        "concept": "tifrs-bsci-ci:AccountsReceivableNet",
+        "start": "",
+        "end": "2026-09-30",
+        "value": 1784062451000.0,
+        "unit": "TWD",
+        "context_id": "AsOf20260930"
+      },
+      "prior_receivables": {
+        "concept": "tifrs-bsci-ci:AccountsReceivableNet",
+        "start": "",
+        "end": "2025-09-30",
+        "value": 1223155211000.0,
+        "unit": "TWD",
+        "context_id": "AsOf20250930"
+      }
+    },
+    "missing_checks": [],
+    "flags": [
+      "NEGATIVE_OPERATING_CASHFLOW"
+    ],
+    "metrics": {
+      "operating_cashflow_twd": -125723025000.0,
+      "cashflow_to_profit": -0.5769413340315691,
+      "consolidated_roe_ytd_pct": 10.442545029339385,
+      "consolidated_roa_ytd_pct": 3.8572868908434845,
+      "average_equity_multiplier": 2.707225395686314,
+      "liabilities_to_assets_pct": 64.43715256392595,
+      "revenue_yoy_pct": 39.37482695538501,
+      "inventory_yoy_pct": 27.141493989454133,
+      "trade_receivables_ex_related_yoy_pct": 45.85740509100442
+    },
+    "policy": "Research warnings only; normal means no configured warning, not an audit opinion.",
+    "reason": "營業現金流為負，需核對資金占用",
+    "thresholds": {
+      "cashflow_to_profit_min": 0.5,
+      "equity_multiplier_max": 3,
+      "working_capital_growth_min_pct": 20,
+      "growth_gap_pp": 20
+    }
   }
 }
