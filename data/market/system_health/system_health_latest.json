@@ -1,11 +1,11 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-11-14T03:37:39.803249+00:00",
+  "generated_at": "2026-11-14T04:41:21.868415+00:00",
   "taipei_date": "2026-11-14",
-  "status": "PARTIAL",
+  "status": "READY",
   "scope_status": {
-    "morning": "PARTIAL",
+    "morning": "READY",
     "asia": "READY",
     "weekly": "READY"
   },
@@ -69,10 +69,10 @@
     "policy": "Data readiness does not prove report delivery. Never infer email success from a generated draft."
   },
   "end_to_end_status": "NOT_FULLY_VERIFIED",
-  "action_readiness": "LIMITED",
+  "action_readiness": "SAFE",
   "counts": {
-    "ready": 19,
-    "partial": 1,
+    "ready": 20,
+    "partial": 0,
     "blocked": 0
   },
   "modules": [
@@ -111,11 +111,11 @@
       "label": "US Breakout Scan",
       "scope": "morning",
       "critical": true,
-      "status": "PARTIAL",
-      "reason": "assessment complete 70/70; validated 62, rule-excluded 7, validation-failed 1",
+      "status": "READY",
+      "reason": "current",
       "observed_as_of": "2026-11-13",
       "recovery_workflow": "update-market-dashboard.yml",
-      "retryable": false,
+      "retryable": true,
       "impacted_reports": [
         "美股日報"
       ]
@@ -362,23 +362,8 @@
       ]
     }
   ],
-  "issues": [
-    {
-      "module_id": "us_breakout_scan",
-      "label": "US Breakout Scan",
-      "scope": "morning",
-      "critical": true,
-      "status": "PARTIAL",
-      "reason": "assessment complete 70/70; validated 62, rule-excluded 7, validation-failed 1",
-      "observed_as_of": "2026-11-13",
-      "recovery_workflow": "update-market-dashboard.yml",
-      "retryable": false,
-      "impacted_reports": [
-        "美股日報"
-      ]
-    }
-  ],
+  "issues": [],
   "recovery_workflows": [],
-  "issue_fingerprint": "376d10be138cae1c9e077389283f75d5c17fbceb206393f95eac4cab0d6f3c84",
+  "issue_fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
   "policy": "Health monitoring only; never changes CTA, rankings, or investment decisions."
 }
