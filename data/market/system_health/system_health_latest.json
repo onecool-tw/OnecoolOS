@@ -1,8 +1,8 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-11-15T15:26:06.154101+00:00",
-  "taipei_date": "2026-11-15",
+  "generated_at": "2026-11-16T03:20:43.295875+00:00",
+  "taipei_date": "2026-11-16",
   "status": "BLOCKED",
   "scope_status": {
     "morning": "BLOCKED",
@@ -18,15 +18,14 @@
         "status": "PARTIAL",
         "channels": {
           "conversation": "UNKNOWN",
-          "email": "UNKNOWN",
+          "email": "DELIVERED",
           "artifact": "DELIVERED"
         },
         "unverified_channels": [
-          "conversation",
-          "email"
+          "conversation"
         ],
         "failed_channels": [],
-        "next_action": "Verify missing channel evidence and artifact writeback",
+        "next_action": "Observe actual delivered message acknowledgement; do not resend solely because acknowledgement is unknown",
         "reason": "Missing acknowledgement is unverified, not proof of failed delivery"
       },
       {
@@ -80,9 +79,9 @@
   "end_to_end_status": "NOT_FULLY_VERIFIED",
   "action_readiness": "UNSAFE_FOR_AFFECTED_REPORTS",
   "counts": {
-    "ready": 19,
+    "ready": 18,
     "partial": 0,
-    "blocked": 1
+    "blocked": 2
   },
   "modules": [
     {
@@ -106,7 +105,7 @@
       "scope": "morning",
       "critical": true,
       "status": "BLOCKED",
-      "reason": "BTC date/CTA missing or invalid; expected 2026-11-14 through 2026-11-14",
+      "reason": "BTC date/CTA missing or invalid; expected 2026-11-15 through 2026-11-15",
       "observed_as_of": "2026-11-13",
       "recovery_workflow": "update-market-dashboard.yml",
       "retryable": true,
@@ -163,11 +162,11 @@
       "label": "Fund NAV CTA",
       "scope": "morning",
       "critical": true,
-      "status": "READY",
-      "reason": "current",
-      "observed_as_of": "2026-11-13",
+      "status": "BLOCKED",
+      "reason": "generation timestamp missing, invalid or older than scheduled date 2026-11-16",
+      "observed_as_of": "2026-11-14",
       "recovery_workflow": "update-fund-nav-cta.yml",
-      "retryable": false,
+      "retryable": true,
       "impacted_reports": [
         "基金日報",
         "基金週報"
@@ -378,9 +377,24 @@
       "scope": "morning",
       "critical": true,
       "status": "BLOCKED",
-      "reason": "BTC date/CTA missing or invalid; expected 2026-11-14 through 2026-11-14",
+      "reason": "BTC date/CTA missing or invalid; expected 2026-11-15 through 2026-11-15",
       "observed_as_of": "2026-11-13",
       "recovery_workflow": "update-market-dashboard.yml",
+      "retryable": true,
+      "impacted_reports": [
+        "基金日報",
+        "基金週報"
+      ]
+    },
+    {
+      "module_id": "fund_nav_cta",
+      "label": "Fund NAV CTA",
+      "scope": "morning",
+      "critical": true,
+      "status": "BLOCKED",
+      "reason": "generation timestamp missing, invalid or older than scheduled date 2026-11-16",
+      "observed_as_of": "2026-11-14",
+      "recovery_workflow": "update-fund-nav-cta.yml",
       "retryable": true,
       "impacted_reports": [
         "基金日報",
@@ -389,8 +403,9 @@
     }
   ],
   "recovery_workflows": [
+    "update-fund-nav-cta.yml",
     "update-market-dashboard.yml"
   ],
-  "issue_fingerprint": "489f8fc3ee0bea4d067495e5cc2b077bab685f4c30c15c7ed34bc7180a88be83",
+  "issue_fingerprint": "3d3b2a1e884b59c8f15a672a1c1760b58eafca930ce723b3b01b6dea2628bbd9",
   "policy": "Health monitoring only; never changes CTA, rankings, or investment decisions."
 }
