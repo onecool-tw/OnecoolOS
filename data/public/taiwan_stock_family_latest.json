@@ -13,55 +13,48 @@
   "sources": {
     "dashboard": {
       "path": "data/market/dashboard/dashboard_latest.json",
-      "sha256": "e6b6cb124f6bb584f87352082c069e61e4d83a750e752c189c8fc01a63c931a7"
+      "sha256": "2b88a91e8aef6f475e407f32660d1dd5f53edd24ceeba4f1910bfd439748e355"
     },
     "screen": {
       "path": "data/market/taiwan_stock_intelligence/screen_latest.json",
-      "sha256": "0b7e557edc590510e57ff461b7e556fddae302c75219660388aa3aaf70d0e639"
+      "sha256": "58093dea5d1a2331ab7d314fceb5be159e6728f0649946ed28b272700c80c132"
     },
     "cta": {
       "path": "data/market/taiwan_stock_intelligence/cta/cta_latest.json",
-      "sha256": "b8b82cfe77ab9fbee7f58907d0c7c34ca46f1b3efbfef69a00de549f0b133fec"
+      "sha256": "2cf9ff90cde8d375de8d4695231055db2cbb1a67191fb3a19de263fda82b091d"
     },
     "context": {
       "path": "data/market/taiwan_stock_intelligence/daily_context_latest.json",
-      "sha256": "09285a52f188385bcfb939a9bf6d2456781586dba836737d9e399a45f8a4dd37"
+      "sha256": "ddc832b662caf42dd1582f83c334ea52eecab6ca96f8ce6ffd0411356c9ecee0"
     }
   },
   "source_generated_at": {
-    "dashboard": "2026-11-16T07:03:55.984998+00:00",
+    "dashboard": "2026-11-16T08:06:46.197500+00:00",
     "screen": null,
-    "cta": "2026-11-16T07:05:49.569566+00:00",
-    "context": "2026-11-16T07:09:27.643047+00:00"
+    "cta": "2026-11-16T11:18:01.071917+00:00",
+    "context": "2026-11-16T11:18:06.128909+00:00"
   },
-  "screen_as_of": "2026-11-13",
-  "display_status": "STALE",
+  "screen_as_of": "2026-11-16",
+  "display_status": "CURRENT",
   "report_readiness": {
-    "status": "UPDATE_INCOMPLETE",
+    "status": "READY",
     "expected_as_of": "2026-11-16",
-    "screen_as_of": "2026-11-13",
+    "screen_as_of": "2026-11-16",
     "taiwan_cta_dates": {
       "0050": "2026-11-16",
       "2330": "2026-11-16",
       "2408": "2026-11-16",
+      "2317": "2026-11-16",
       "2344": "2026-11-16",
       "2376": "2026-11-16",
-      "2603": "2026-11-16",
-      "2317": "2026-11-16"
+      "2603": "2026-11-16"
     },
-    "issues": [
-      "screen_not_current",
-      "2408_price_not_current",
-      "2344_price_not_current",
-      "2376_price_not_current",
-      "2603_price_not_current",
-      "2317_price_not_current"
-    ],
+    "issues": [],
     "scope": "TAIWAN_PRICE_VALUATION_AND_CTA_ONLY",
     "consumer_rule": "INCOMPLETE_MEANS_NO_NEW_EXPOSURE_AND_NO_UNCHANGED_RANKING_CLAIM",
     "asia_and_margin_policy": "KEEP_ACTUAL_LOCAL_SOURCE_DATES"
   },
-  "candidate_action_gate": "WATCH_ONLY_STALE_OR_MISSING_SCREEN",
+  "candidate_action_gate": "REQUIRES_INDIVIDUAL_CTA_AND_PRESSURE_GREEN",
   "market_pressure": {
     "as_of": "2026-11-13",
     "status": "CURRENT",
@@ -105,9 +98,7 @@
   "final_delivery_readiness": {
     "status": "UPDATE_INCOMPLETE",
     "issues": [
-      "SCREEN_EXPECTED_AS_OF_MISMATCH",
-      "MARKET_PRESSURE_AS_OF_MISMATCH",
-      "REPORT_READINESS_NOT_READY"
+      "MARKET_PRESSURE_AS_OF_MISMATCH"
     ],
     "rule": "EMAIL_REQUIRES_CURRENT_MARKET_PRESSURE_AND_CURRENT_LOCAL_MARKET_ASIA_CTA"
   },
@@ -134,7 +125,7 @@
   "market_pressure_inputs": {
     "schema_version": "1.0",
     "module": "Onecool Taiwan Official Market Pressure Inputs",
-    "generated_at": "2026-11-16T07:05:37.499964+00:00",
+    "generated_at": "2026-11-16T11:17:44.278645+00:00",
     "requested_as_of": "2026-11-16",
     "status": "READY",
     "attempts_used": 1,
@@ -213,15 +204,15 @@
       "symbol": "2408",
       "company_name": "南亞科",
       "industry": "半導體業",
-      "score": 96.46,
-      "pe": 7.43,
-      "pb": 3.17,
-      "price_as_of": "2026-11-13",
+      "score": 97.25,
+      "pe": 6.7,
+      "pb": 2.86,
+      "price_as_of": "2026-11-16",
       "fundamentals_as_of": "2026Q3",
       "monthly_revenue_as_of": "2026-10",
       "price_basis": "official_unadjusted_close",
       "selection_status": "FORMAL",
-      "action_eligibility": "WATCH_ONLY_STALE_OR_MISSING_SCREEN",
+      "action_eligibility": "ELIGIBLE_IF_0050_BULLISH_AND_PRESSURE_GREEN",
       "financial_quality": {
         "version": "onecool_tw_financial_quality_v2",
         "status": "NORMAL",
@@ -438,13 +429,13 @@
             },
             {
               "field": "pe",
-              "value": 7.43,
-              "as_of": "2026-11-13"
+              "value": 6.7,
+              "as_of": "2026-11-16"
             },
             {
               "field": "pb",
-              "value": 3.17,
-              "as_of": "2026-11-13"
+              "value": 2.86,
+              "as_of": "2026-11-16"
             }
           ],
           "required_manual_confirmation": [
@@ -490,18 +481,295 @@
       }
     },
     {
-      "symbol": "2344",
-      "company_name": "華邦電",
-      "industry": "半導體業",
-      "score": 95.32,
-      "pe": 8.05,
-      "pb": 2.72,
-      "price_as_of": "2026-11-13",
+      "symbol": "2317",
+      "company_name": "鴻海",
+      "industry": "其他電子業",
+      "score": 96.62,
+      "pe": 13.22,
+      "pb": 1.55,
+      "price_as_of": "2026-11-16",
       "fundamentals_as_of": "2026Q3",
       "monthly_revenue_as_of": "2026-10",
       "price_basis": "official_unadjusted_close",
       "selection_status": "FORMAL",
-      "action_eligibility": "WATCH_ONLY_STALE_OR_MISSING_SCREEN",
+      "action_eligibility": "ELIGIBLE_IF_0050_BULLISH_AND_PRESSURE_GREEN",
+      "financial_quality": {
+        "version": "onecool_tw_financial_quality_v2",
+        "status": "REVIEW",
+        "label": "需留意",
+        "as_of": "2026Q3",
+        "observed_at": "2026-11-16T07:05:53.777064+00:00",
+        "source_url": "https://mopsov.twse.com.tw/server-java/t164sb01?step=1&CO_ID=2317&SYEAR=2026&SSEASON=3&REPORT_ID=C",
+        "source_sha256": "e36c31ebf16711b7e002489bf8d2c6f16211dfb208a50bb790c29293e7a0e1c4",
+        "scope": "CONSOLIDATED_THREE_STATEMENTS",
+        "period_basis": "YEAR_TO_DATE",
+        "ranking_effect": "NONE",
+        "point_in_time_backtest_eligible": false,
+        "evidence": {
+          "profit": {
+            "concept": "ifrs-full:ProfitLoss",
+            "start": "2026-01-01",
+            "end": "2026-09-30",
+            "value": 217913014000.0,
+            "unit": "TWD",
+            "context_id": "From20260101To20260930"
+          },
+          "revenue": {
+            "concept": "ifrs-full:Revenue",
+            "start": "2026-01-01",
+            "end": "2026-09-30",
+            "value": 7661061739000.0,
+            "unit": "TWD",
+            "context_id": "From20260101To20260930"
+          },
+          "operating_profit": {
+            "concept": "ifrs-full:ProfitLossFromOperatingActivities",
+            "start": "2026-01-01",
+            "end": "2026-09-30",
+            "value": 285802170000.0,
+            "unit": "TWD",
+            "context_id": "From20260101To20260930"
+          },
+          "nonoperating_profit": {
+            "concept": "tifrs-bsci-ci:NonoperatingIncomeAndExpenses",
+            "start": "2026-01-01",
+            "end": "2026-09-30",
+            "value": 1807472000.0,
+            "unit": "TWD",
+            "context_id": "From20260101To20260930"
+          },
+          "pretax_profit": {
+            "concept": "ifrs-full:ProfitLossBeforeTax",
+            "start": "2026-01-01",
+            "end": "2026-09-30",
+            "value": 287609642000.0,
+            "unit": "TWD",
+            "context_id": "From20260101To20260930"
+          },
+          "cashflow": {
+            "concept": "ifrs-full:CashFlowsFromUsedInOperatingActivities",
+            "start": "2026-01-01",
+            "end": "2026-09-30",
+            "value": -125723025000.0,
+            "unit": "TWD",
+            "context_id": "From20260101To20260930"
+          },
+          "prior_revenue": {
+            "concept": "ifrs-full:Revenue",
+            "start": "2025-01-01",
+            "end": "2025-09-30",
+            "value": 5496732736000.0,
+            "unit": "TWD",
+            "context_id": "From20250101To20250930"
+          },
+          "assets": {
+            "concept": "ifrs-full:Assets",
+            "start": "",
+            "end": "2026-09-30",
+            "value": 6194099176000.0,
+            "unit": "TWD",
+            "context_id": "AsOf20260930"
+          },
+          "opening_assets": {
+            "concept": "ifrs-full:Assets",
+            "start": "",
+            "end": "2025-12-31",
+            "value": 5104672223000.0,
+            "unit": "TWD",
+            "context_id": "AsOf20251231"
+          },
+          "equity": {
+            "concept": "ifrs-full:Equity",
+            "start": "",
+            "end": "2026-09-30",
+            "value": 2202798040000.0,
+            "unit": "TWD",
+            "context_id": "AsOf20260930"
+          },
+          "opening_equity": {
+            "concept": "ifrs-full:Equity",
+            "start": "",
+            "end": "2025-12-31",
+            "value": 1970763355000.0,
+            "unit": "TWD",
+            "context_id": "AsOf20251231"
+          },
+          "liabilities": {
+            "concept": "ifrs-full:Liabilities",
+            "start": "",
+            "end": "2026-09-30",
+            "value": 3991301136000.0,
+            "unit": "TWD",
+            "context_id": "AsOf20260930"
+          },
+          "inventory": {
+            "concept": "ifrs-full:Inventories",
+            "start": "",
+            "end": "2026-09-30",
+            "value": 1507485125000.0,
+            "unit": "TWD",
+            "context_id": "AsOf20260930"
+          },
+          "prior_inventory": {
+            "concept": "ifrs-full:Inventories",
+            "start": "",
+            "end": "2025-09-30",
+            "value": 1185675170000.0,
+            "unit": "TWD",
+            "context_id": "AsOf20250930"
+          },
+          "receivables": {
+            "concept": "tifrs-bsci-ci:AccountsReceivableNet",
+            "start": "",
+            "end": "2026-09-30",
+            "value": 1784062451000.0,
+            "unit": "TWD",
+            "context_id": "AsOf20260930"
+          },
+          "prior_receivables": {
+            "concept": "tifrs-bsci-ci:AccountsReceivableNet",
+            "start": "",
+            "end": "2025-09-30",
+            "value": 1223155211000.0,
+            "unit": "TWD",
+            "context_id": "AsOf20250930"
+          }
+        },
+        "missing_checks": [],
+        "flags": [
+          "NEGATIVE_OPERATING_CASHFLOW"
+        ],
+        "metrics": {
+          "operating_cashflow_twd": -125723025000.0,
+          "cashflow_to_profit": -0.5769413340315691,
+          "consolidated_roe_ytd_pct": 10.442545029339385,
+          "consolidated_roa_ytd_pct": 3.8572868908434845,
+          "average_equity_multiplier": 2.707225395686314,
+          "liabilities_to_assets_pct": 64.43715256392595,
+          "revenue_yoy_pct": 39.37482695538501,
+          "inventory_yoy_pct": 27.141493989454133,
+          "trade_receivables_ex_related_yoy_pct": 45.85740509100442
+        },
+        "policy": "Research warnings only; normal means no configured warning, not an audit opinion.",
+        "reason": "營業現金流為負，需核對資金占用",
+        "thresholds": {
+          "cashflow_to_profit_min": 0.5,
+          "equity_multiplier_max": 3,
+          "working_capital_growth_min_pct": 20,
+          "growth_gap_pp": 20
+        }
+      },
+      "lynch_research": {
+        "version": "onecool_lynch_research_v1",
+        "company_type": {
+          "status": "PROVISIONAL",
+          "primary": "FAST_GROWER",
+          "candidates": [
+            "FAST_GROWER"
+          ],
+          "evidence": [
+            {
+              "field": "revenue_and_eps_snapshot",
+              "value": {
+                "monthly_revenue_yoy": 45.730399518079835,
+                "cumulative_revenue_yoy": 40.39653744470115,
+                "eps": 13.35
+              },
+              "interpretation": "FAST_GROWTH_CANDIDATE_NOT_DURABILITY_PROOF"
+            }
+          ],
+          "unresolved_categories": [
+            "SLOW_GROWER",
+            "STALWART",
+            "CYCLICAL",
+            "TURNAROUND",
+            "ASSET_PLAY"
+          ]
+        },
+        "investment_story": {
+          "status": "EVIDENCE_ONLY",
+          "evidence": [
+            {
+              "field": "monthly_revenue_yoy",
+              "value": 45.730399518079835,
+              "as_of": "2026-10"
+            },
+            {
+              "field": "cumulative_revenue_yoy",
+              "value": 40.39653744470115,
+              "as_of": "2026-10"
+            },
+            {
+              "field": "eps",
+              "value": 13.35,
+              "as_of": "2026Q3"
+            },
+            {
+              "field": "pe",
+              "value": 13.22,
+              "as_of": "2026-11-16"
+            },
+            {
+              "field": "pb",
+              "value": 1.55,
+              "as_of": "2026-11-16"
+            }
+          ],
+          "required_manual_confirmation": [
+            "BUSINESS_DRIVER",
+            "DURABILITY",
+            "MANAGEMENT_EXECUTION"
+          ]
+        },
+        "story_break_conditions": [
+          {
+            "condition": "CUMULATIVE_REVENUE_YOY_NONPOSITIVE",
+            "meaning": "Growth story requires fundamental review"
+          },
+          {
+            "condition": "EPS_NONPOSITIVE",
+            "meaning": "Profitability story requires fundamental review"
+          },
+          {
+            "condition": "FINANCIAL_QUALITY_EVIDENCE_DETERIORATES",
+            "meaning": "Cash flow, leverage, inventory or receivables require review"
+          }
+        ],
+        "policy": {
+          "decision_authority": "NONE",
+          "ranking_effect": "NONE",
+          "score_effect": "NONE",
+          "cta_effect": "NONE",
+          "action_effect": "NONE",
+          "observation_is_research_lead_only": true,
+          "manual_confirmation_required": true
+        }
+      },
+      "individual_cta": {
+        "symbol": "2317",
+        "as_of": "2026-11-16",
+        "cta": "HOLD",
+        "state": "WEEKLY_BULLISH_DAILY_BULLISH",
+        "update_status": "CURRENT",
+        "price_basis": "locally_adjusted_close",
+        "weekly_data_as_of": "2026-11-13",
+        "source_data_as_of": "2026-11-16",
+        "error": null
+      }
+    },
+    {
+      "symbol": "2344",
+      "company_name": "華邦電",
+      "industry": "半導體業",
+      "score": 96.31,
+      "pe": 7.28,
+      "pb": 2.45,
+      "price_as_of": "2026-11-16",
+      "fundamentals_as_of": "2026Q3",
+      "monthly_revenue_as_of": "2026-10",
+      "price_basis": "official_unadjusted_close",
+      "selection_status": "FORMAL",
+      "action_eligibility": "ELIGIBLE_IF_0050_BULLISH_AND_PRESSURE_GREEN",
       "financial_quality": {
         "version": "onecool_tw_financial_quality_v2",
         "status": "REVIEW",
@@ -720,13 +988,13 @@
             },
             {
               "field": "pe",
-              "value": 8.05,
-              "as_of": "2026-11-13"
+              "value": 7.28,
+              "as_of": "2026-11-16"
             },
             {
               "field": "pb",
-              "value": 2.72,
-              "as_of": "2026-11-13"
+              "value": 2.45,
+              "as_of": "2026-11-16"
             }
           ],
           "required_manual_confirmation": [
@@ -775,15 +1043,15 @@
       "symbol": "2376",
       "company_name": "技嘉",
       "industry": "電腦及週邊設備業",
-      "score": 94.79,
-      "pe": 8.13,
-      "pb": 2.58,
-      "price_as_of": "2026-11-13",
+      "score": 94.72,
+      "pe": 7.94,
+      "pb": 2.52,
+      "price_as_of": "2026-11-16",
       "fundamentals_as_of": "2026Q3",
       "monthly_revenue_as_of": "2026-10",
       "price_basis": "official_unadjusted_close",
       "selection_status": "FORMAL",
-      "action_eligibility": "WATCH_ONLY_STALE_OR_MISSING_SCREEN",
+      "action_eligibility": "ELIGIBLE_IF_0050_BULLISH_AND_PRESSURE_GREEN",
       "financial_quality": {
         "version": "onecool_tw_financial_quality_v2",
         "status": "REVIEW",
@@ -1000,13 +1268,13 @@
             },
             {
               "field": "pe",
-              "value": 8.13,
-              "as_of": "2026-11-13"
+              "value": 7.94,
+              "as_of": "2026-11-16"
             },
             {
               "field": "pb",
-              "value": 2.58,
-              "as_of": "2026-11-13"
+              "value": 2.52,
+              "as_of": "2026-11-16"
             }
           ],
           "required_manual_confirmation": [
@@ -1055,15 +1323,15 @@
       "symbol": "2603",
       "company_name": "長榮",
       "industry": "航運業",
-      "score": 93.45,
-      "pe": 7.01,
-      "pb": 0.92,
-      "price_as_of": "2026-11-13",
+      "score": 94.06,
+      "pe": 7.0,
+      "pb": 0.91,
+      "price_as_of": "2026-11-16",
       "fundamentals_as_of": "2026Q3",
       "monthly_revenue_as_of": "2026-10",
       "price_basis": "official_unadjusted_close",
       "selection_status": "FORMAL",
-      "action_eligibility": "WATCH_ONLY_STALE_OR_MISSING_SCREEN",
+      "action_eligibility": "ELIGIBLE_IF_0050_BULLISH_AND_PRESSURE_GREEN",
       "financial_quality": {
         "version": "onecool_tw_financial_quality_v2",
         "status": "REVIEW",
@@ -1283,13 +1551,13 @@
             },
             {
               "field": "pe",
-              "value": 7.01,
-              "as_of": "2026-11-13"
+              "value": 7.0,
+              "as_of": "2026-11-16"
             },
             {
               "field": "pb",
-              "value": 0.92,
-              "as_of": "2026-11-13"
+              "value": 0.91,
+              "as_of": "2026-11-16"
             }
           ],
           "required_manual_confirmation": [
@@ -1326,283 +1594,6 @@
         "symbol": "2603",
         "as_of": "2026-11-16",
         "cta": "BUY",
-        "state": "WEEKLY_BULLISH_DAILY_BULLISH",
-        "update_status": "CURRENT",
-        "price_basis": "locally_adjusted_close",
-        "weekly_data_as_of": "2026-11-13",
-        "source_data_as_of": "2026-11-16",
-        "error": null
-      }
-    },
-    {
-      "symbol": "2317",
-      "company_name": "鴻海",
-      "industry": "其他電子業",
-      "score": 93.21,
-      "pe": 15.89,
-      "pb": 1.77,
-      "price_as_of": "2026-11-13",
-      "fundamentals_as_of": "2026Q3",
-      "monthly_revenue_as_of": "2026-10",
-      "price_basis": "official_unadjusted_close",
-      "selection_status": "FORMAL",
-      "action_eligibility": "WATCH_ONLY_STALE_OR_MISSING_SCREEN",
-      "financial_quality": {
-        "version": "onecool_tw_financial_quality_v2",
-        "status": "REVIEW",
-        "label": "需留意",
-        "as_of": "2026Q3",
-        "observed_at": "2026-11-16T07:05:53.777064+00:00",
-        "source_url": "https://mopsov.twse.com.tw/server-java/t164sb01?step=1&CO_ID=2317&SYEAR=2026&SSEASON=3&REPORT_ID=C",
-        "source_sha256": "e36c31ebf16711b7e002489bf8d2c6f16211dfb208a50bb790c29293e7a0e1c4",
-        "scope": "CONSOLIDATED_THREE_STATEMENTS",
-        "period_basis": "YEAR_TO_DATE",
-        "ranking_effect": "NONE",
-        "point_in_time_backtest_eligible": false,
-        "evidence": {
-          "profit": {
-            "concept": "ifrs-full:ProfitLoss",
-            "start": "2026-01-01",
-            "end": "2026-09-30",
-            "value": 217913014000.0,
-            "unit": "TWD",
-            "context_id": "From20260101To20260930"
-          },
-          "revenue": {
-            "concept": "ifrs-full:Revenue",
-            "start": "2026-01-01",
-            "end": "2026-09-30",
-            "value": 7661061739000.0,
-            "unit": "TWD",
-            "context_id": "From20260101To20260930"
-          },
-          "operating_profit": {
-            "concept": "ifrs-full:ProfitLossFromOperatingActivities",
-            "start": "2026-01-01",
-            "end": "2026-09-30",
-            "value": 285802170000.0,
-            "unit": "TWD",
-            "context_id": "From20260101To20260930"
-          },
-          "nonoperating_profit": {
-            "concept": "tifrs-bsci-ci:NonoperatingIncomeAndExpenses",
-            "start": "2026-01-01",
-            "end": "2026-09-30",
-            "value": 1807472000.0,
-            "unit": "TWD",
-            "context_id": "From20260101To20260930"
-          },
-          "pretax_profit": {
-            "concept": "ifrs-full:ProfitLossBeforeTax",
-            "start": "2026-01-01",
-            "end": "2026-09-30",
-            "value": 287609642000.0,
-            "unit": "TWD",
-            "context_id": "From20260101To20260930"
-          },
-          "cashflow": {
-            "concept": "ifrs-full:CashFlowsFromUsedInOperatingActivities",
-            "start": "2026-01-01",
-            "end": "2026-09-30",
-            "value": -125723025000.0,
-            "unit": "TWD",
-            "context_id": "From20260101To20260930"
-          },
-          "prior_revenue": {
-            "concept": "ifrs-full:Revenue",
-            "start": "2025-01-01",
-            "end": "2025-09-30",
-            "value": 5496732736000.0,
-            "unit": "TWD",
-            "context_id": "From20250101To20250930"
-          },
-          "assets": {
-            "concept": "ifrs-full:Assets",
-            "start": "",
-            "end": "2026-09-30",
-            "value": 6194099176000.0,
-            "unit": "TWD",
-            "context_id": "AsOf20260930"
-          },
-          "opening_assets": {
-            "concept": "ifrs-full:Assets",
-            "start": "",
-            "end": "2025-12-31",
-            "value": 5104672223000.0,
-            "unit": "TWD",
-            "context_id": "AsOf20251231"
-          },
-          "equity": {
-            "concept": "ifrs-full:Equity",
-            "start": "",
-            "end": "2026-09-30",
-            "value": 2202798040000.0,
-            "unit": "TWD",
-            "context_id": "AsOf20260930"
-          },
-          "opening_equity": {
-            "concept": "ifrs-full:Equity",
-            "start": "",
-            "end": "2025-12-31",
-            "value": 1970763355000.0,
-            "unit": "TWD",
-            "context_id": "AsOf20251231"
-          },
-          "liabilities": {
-            "concept": "ifrs-full:Liabilities",
-            "start": "",
-            "end": "2026-09-30",
-            "value": 3991301136000.0,
-            "unit": "TWD",
-            "context_id": "AsOf20260930"
-          },
-          "inventory": {
-            "concept": "ifrs-full:Inventories",
-            "start": "",
-            "end": "2026-09-30",
-            "value": 1507485125000.0,
-            "unit": "TWD",
-            "context_id": "AsOf20260930"
-          },
-          "prior_inventory": {
-            "concept": "ifrs-full:Inventories",
-            "start": "",
-            "end": "2025-09-30",
-            "value": 1185675170000.0,
-            "unit": "TWD",
-            "context_id": "AsOf20250930"
-          },
-          "receivables": {
-            "concept": "tifrs-bsci-ci:AccountsReceivableNet",
-            "start": "",
-            "end": "2026-09-30",
-            "value": 1784062451000.0,
-            "unit": "TWD",
-            "context_id": "AsOf20260930"
-          },
-          "prior_receivables": {
-            "concept": "tifrs-bsci-ci:AccountsReceivableNet",
-            "start": "",
-            "end": "2025-09-30",
-            "value": 1223155211000.0,
-            "unit": "TWD",
-            "context_id": "AsOf20250930"
-          }
-        },
-        "missing_checks": [],
-        "flags": [
-          "NEGATIVE_OPERATING_CASHFLOW"
-        ],
-        "metrics": {
-          "operating_cashflow_twd": -125723025000.0,
-          "cashflow_to_profit": -0.5769413340315691,
-          "consolidated_roe_ytd_pct": 10.442545029339385,
-          "consolidated_roa_ytd_pct": 3.8572868908434845,
-          "average_equity_multiplier": 2.707225395686314,
-          "liabilities_to_assets_pct": 64.43715256392595,
-          "revenue_yoy_pct": 39.37482695538501,
-          "inventory_yoy_pct": 27.141493989454133,
-          "trade_receivables_ex_related_yoy_pct": 45.85740509100442
-        },
-        "policy": "Research warnings only; normal means no configured warning, not an audit opinion.",
-        "reason": "營業現金流為負，需核對資金占用",
-        "thresholds": {
-          "cashflow_to_profit_min": 0.5,
-          "equity_multiplier_max": 3,
-          "working_capital_growth_min_pct": 20,
-          "growth_gap_pp": 20
-        }
-      },
-      "lynch_research": {
-        "version": "onecool_lynch_research_v1",
-        "company_type": {
-          "status": "PROVISIONAL",
-          "primary": "FAST_GROWER",
-          "candidates": [
-            "FAST_GROWER"
-          ],
-          "evidence": [
-            {
-              "field": "revenue_and_eps_snapshot",
-              "value": {
-                "monthly_revenue_yoy": 45.730399518079835,
-                "cumulative_revenue_yoy": 40.39653744470115,
-                "eps": 13.35
-              },
-              "interpretation": "FAST_GROWTH_CANDIDATE_NOT_DURABILITY_PROOF"
-            }
-          ],
-          "unresolved_categories": [
-            "SLOW_GROWER",
-            "STALWART",
-            "CYCLICAL",
-            "TURNAROUND",
-            "ASSET_PLAY"
-          ]
-        },
-        "investment_story": {
-          "status": "EVIDENCE_ONLY",
-          "evidence": [
-            {
-              "field": "monthly_revenue_yoy",
-              "value": 45.730399518079835,
-              "as_of": "2026-10"
-            },
-            {
-              "field": "cumulative_revenue_yoy",
-              "value": 40.39653744470115,
-              "as_of": "2026-10"
-            },
-            {
-              "field": "eps",
-              "value": 13.35,
-              "as_of": "2026Q3"
-            },
-            {
-              "field": "pe",
-              "value": 15.89,
-              "as_of": "2026-11-13"
-            },
-            {
-              "field": "pb",
-              "value": 1.77,
-              "as_of": "2026-11-13"
-            }
-          ],
-          "required_manual_confirmation": [
-            "BUSINESS_DRIVER",
-            "DURABILITY",
-            "MANAGEMENT_EXECUTION"
-          ]
-        },
-        "story_break_conditions": [
-          {
-            "condition": "CUMULATIVE_REVENUE_YOY_NONPOSITIVE",
-            "meaning": "Growth story requires fundamental review"
-          },
-          {
-            "condition": "EPS_NONPOSITIVE",
-            "meaning": "Profitability story requires fundamental review"
-          },
-          {
-            "condition": "FINANCIAL_QUALITY_EVIDENCE_DETERIORATES",
-            "meaning": "Cash flow, leverage, inventory or receivables require review"
-          }
-        ],
-        "policy": {
-          "decision_authority": "NONE",
-          "ranking_effect": "NONE",
-          "score_effect": "NONE",
-          "cta_effect": "NONE",
-          "action_effect": "NONE",
-          "observation_is_research_lead_only": true,
-          "manual_confirmation_required": true
-        }
-      },
-      "individual_cta": {
-        "symbol": "2317",
-        "as_of": "2026-11-16",
-        "cta": "HOLD",
         "state": "WEEKLY_BULLISH_DAILY_BULLISH",
         "update_status": "CURRENT",
         "price_basis": "locally_adjusted_close",
