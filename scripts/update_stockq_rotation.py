@@ -62,6 +62,8 @@ TWD_SERIES = {
     "英國": ("^FTSE", "GBPTWD=X"),
     "瑞士": ("^SSMI", "CHFTWD=X"),
     "瑞士股市": ("^SSMI", "CHFTWD=X"),
+    "杜拜股市": ("DFMGI", "AEDTWD=X"),
+    "紐西蘭": ("NZSE50FG", "NZDTWD=X"),
     "比利時": ("^BFX", "EURTWD=X"),
     "德國DAX": ("^GDAXI", "EURTWD=X"),
     "德國": ("^GDAXI", "EURTWD=X"),
@@ -127,6 +129,8 @@ def _fetch_stooq_daily(symbol: str) -> list[DailyBar]:
 
 
 STOCKQ_EXACT_INDEX_CHARTS = {
+    "DFMGI": ("DFMGI", "杜拜指數"),
+    "NZSE50FG": ("NZSE50FG", "紐西蘭指數"),
     "^SPBLPGPT": ("IGBVL", "秘魯指數"),
     "^COLCAP": ("COLCAP", "哥倫比亞指數"),
 }
@@ -177,6 +181,8 @@ def _fetch_stockq_exact_index(symbol: str) -> list[DailyBar]:
 
 
 def _fetch_local_market(symbol: str, bootstrapper: YahooHistoryBootstrapper):
+    if symbol in {"DFMGI", "NZSE50FG"}:
+        return _fetch_stockq_exact_index(symbol), "STOCKQ_EXACT_INDEX_CHART_PUBLISHED_PRECISION"
     try:
         return bootstrapper.fetch_adjusted_daily(symbol), "YAHOO"
     except Exception as yahoo_error:
@@ -223,6 +229,8 @@ def _fetch_tencent_shanghai_b() -> list[DailyBar]:
 # Yahoo does not consistently publish every direct TWD cross.  These pairs
 # produce TWD per unit of local currency through a same-date USD bridge.
 TRIANGULAR_TWD_FX = {
+    "AEDTWD=X": (("USDAED=X", "USDTWD=X", True),),
+    "NZDTWD=X": (("NZDUSD=X", "USDTWD=X", False),),
     "BRLTWD=X": (
         ("USDBRL=X", "USDTWD=X", True),
         ("BRLUSD=X", "USDTWD=X", False),
@@ -243,6 +251,7 @@ TRIANGULAR_TWD_FX = {
 }
 
 REQUIRED_TWD_FX_SYMBOLS = {
+    "AEDTWD=X", "NZDTWD=X",
     "PLNTWD=X", "USDTWD=X", "EURTWD=X", "GBPTWD=X",
     "AUDTWD=X", "CADTWD=X", "CHFTWD=X", "INRTWD=X",
     "IDRTWD=X", "MYRTWD=X", "PHPTWD=X",
