@@ -6,10 +6,10 @@ import argparse
 import json
 from collections.abc import Callable
 from dataclasses import asdict
-from datetime import UTC, datetime
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 
-from onecool_os.market.session_cutoff import completed_daily_bars
+from onecool_os.market.session_cutoff import completed_daily_bars, latest_completed_market_session
 
 from onecool_os.market.etf_cta import (
     CTAResult,
@@ -28,14 +28,13 @@ TAIWAN_CTA_SYMBOLS = {
 }
 
 
-def fetch_yahoo_daily(symbol: str, *, period: str = "10d") -> list[DailyBar]:
+def fetch_yahoo_daily(symbol: str, *, period: str = "10d", start=None, end=None) -> list[DailyBar]:
     """Fetch raw Yahoo daily bars for a Taiwan-listed symbol."""
 
     import yfinance as yf
 
-    frame = yf.Ticker(symbol).history(
-        period=period, auto_adjust=False, actions=True
-    )
+    window = {"period": period} if start is None else {"start": start, "end": end}
+    frame = yf.Ticker(symbol).history(auto_adjust=False, actions=True, **window)
     if frame.empty:
         raise ETFCTAError(f"Yahoo returned no history for {symbol}.")
     bars = []
@@ -68,8 +67,9 @@ def update(
     """Update both Taiwan symbols with one shared CTA implementation."""
 
     results: list[dict] = []
-    dates: set[str] = set()
+    histories = {}
     now = reference_time or datetime.now(UTC)
+    expected = latest_completed_market_session("TW", now)
     for symbol, provider_symbol in TAIWAN_CTA_SYMBOLS.items():
         path = data_dir / "history" / f"{symbol}.csv"
         existing = read_history(path)
@@ -84,20 +84,26 @@ def update(
             completed_daily_bars(existing, "TW", now),
             completed_daily_bars(incoming, "TW", now),
         )
+        if history[-1].trading_date < expected and fetcher is fetch_yahoo_daily:
+            dated = fetcher(
+                provider_symbol, start=expected - timedelta(days=14),
+                end=expected + timedelta(days=1),
+            )
+            history = merge_and_adjust(history, completed_daily_bars(dated, "TW", now))
+        if history[-1].trading_date != expected:
+            raise ETFCTAError(
+                f"{symbol}: expected completed TWSE session {expected}, "
+                f"received {history[-1].trading_date}"
+            )
         result: CTAResult = calculate_cta(symbol, history)
-        write_history(path, history)
-        dates.add(result.as_of)
+        histories[path] = history
         item = asdict(result)
         item["provider_symbol"] = provider_symbol
         results.append(item)
 
-    if len(dates) != 1:
-        raise ETFCTAError(
-            "0050 and 2330 do not share one complete trading-date cutoff: "
-            + ", ".join(sorted(dates))
-        )
-
-    as_of = dates.pop()
+    as_of = expected.isoformat()
+    for path, history in histories.items():
+        write_history(path, history)
     payload = {
         "schema_version": "1.0",
         "metric": "Onecool Taiwan CTA",
