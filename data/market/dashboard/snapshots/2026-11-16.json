@@ -1,10 +1,10 @@
 {
   "schema_version": "1.9",
   "module": "Onecool Market Dashboard",
-  "generated_at": "2026-11-17T04:40:31.116735+00:00",
+  "generated_at": "2026-11-17T05:05:55.809190+00:00",
   "expected_as_of": "2026-11-16",
   "data_status": "READY",
-  "last_successful_update_at": "2026-11-17T04:40:31.116735+00:00",
+  "last_successful_update_at": "2026-11-17T05:05:55.809190+00:00",
   "index_cta_basis": {
     "method": "ETF/index proxies; shared CTA engine",
     "mappings": {
@@ -233,11 +233,11 @@
       "market": "US",
       "theme": "small_cap",
       "as_of": "2026-11-16",
-      "current_price": 2742.941162,
-      "sma50": 2819.79001,
-      "sma200": 2812.498105,
-      "weekly_ma30": 2890.931388,
-      "weekly_ma50": 2773.349434,
+      "current_price": 2742.939941,
+      "sma50": 2819.789985,
+      "sma200": 2812.498099,
+      "weekly_ma30": 2890.931348,
+      "weekly_ma50": 2773.349409,
       "trend": "BULLISH",
       "cta": "HOLD",
       "confidence": 50,
@@ -248,7 +248,7 @@
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2025-08-06",
         "periods_since_cross": 322,
-        "spread_pct": 0.259268,
+        "spread_pct": 0.259267,
         "phase": "AGING"
       },
       "weekly_cross": {
@@ -747,11 +747,11 @@
       "market": "CONTEXT",
       "theme": "us_dollar",
       "as_of": "2026-11-16",
-      "current_price": 103.490997,
-      "sma50": 101.50002,
-      "sma200": 99.912155,
-      "weekly_ma30": 100.517167,
-      "weekly_ma50": 99.7285,
+      "current_price": 103.550003,
+      "sma50": 101.5012,
+      "sma200": 99.91245,
+      "weekly_ma30": 100.519134,
+      "weekly_ma50": 99.72968,
       "trend": "BULLISH",
       "cta": "BUY",
       "confidence": 100,
@@ -762,7 +762,7 @@
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2026-04-08",
         "periods_since_cross": 157,
-        "spread_pct": 1.589261,
+        "spread_pct": 1.590142,
         "phase": "AGING"
       },
       "weekly_cross": {
@@ -771,7 +771,7 @@
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2026-04-02",
         "periods_since_cross": 33,
-        "spread_pct": 0.790814,
+        "spread_pct": 0.791593,
         "phase": "ACTIVE"
       }
     },
@@ -848,7 +848,7 @@
     }
   ],
   "us_session_cutoff_policy": "exclude_current_New_York_daily_bar_until_16:15_America/New_York",
-  "excluded_incomplete_us_session": null,
+  "excluded_incomplete_us_session": "2026-11-17",
   "us_short_term_risk_context": {
     "schema_version": "1.0",
     "expected_as_of": "2026-11-16",
@@ -876,13 +876,13 @@
         "expected_as_of": "2026-11-16",
         "as_of": "2026-11-16",
         "data_status": "READY",
-        "value": 103.49099731445312,
+        "value": 103.55000305175781,
         "unit": "index_points",
         "price_basis": "adjusted_close",
         "decision_authority": "SHORT_TERM_CONTEXT_ONLY",
         "source": "yahoo_finance_raw",
         "source_url": "https://finance.yahoo.com/quote/DX-Y.NYB/history/",
-        "observation_sha256": "2f8a96b7dd902b50a46bbd69c9427edc27b7c7b8b35893cb12f0efd8f741fc3f"
+        "observation_sha256": "5dfec6573c22e843fc347228d06bf7c5ae65c015cf30f4e0e42cd26e81e737a0"
       },
       {
         "symbol": "US10Y",
@@ -918,13 +918,13 @@
         "expected_as_of": "2026-11-16",
         "as_of": "2026-11-16",
         "data_status": "READY",
-        "value": 9610.65234375,
+        "value": 9610.650390625,
         "unit": "index_points",
         "price_basis": "adjusted_close",
         "decision_authority": "SHORT_TERM_CONTEXT_ONLY",
         "source": "yahoo_finance_raw",
         "source_url": "https://finance.yahoo.com/quote/^SOX/history/",
-        "observation_sha256": "cb1f1ad9a405f30576c2f538352aa9c5c15b53d8322191c0db698aad04edd68e"
+        "observation_sha256": "fc0cd1fbcb991ff2ef824ecae9d57744aca9bef547e341948d3920ea93b79866"
       }
     ]
   },
@@ -3084,21 +3084,6 @@
     },
     "publication_status": "CURRENT"
   },
-  "corporate_action_validation": [
-    {
-      "symbol": "SOXX",
-      "status": "MATCHED",
-      "source_a": "yahoo_finance_raw",
-      "source_b": "alpha_vantage",
-      "as_of": "2026-11-16"
-    },
-    {
-      "symbol": "NVDA",
-      "status": "MATCHED",
-      "source_a": "yahoo_finance_raw",
-      "source_b": "alpha_vantage",
-      "as_of": "2026-11-16"
-    }
-  ],
+  "corporate_action_validation": [],
   "provider_fallback_policy": "yahoo_finance_raw_primary; alpha_vantage_core_price_fallback; tiingo_parallel_verified_terminal_scan_repair; coinbase_verified_btc_completed_day_repair; partial_current_scan_only_with_explicit_validation_failures; last_successful_cache_on_failure"
 }
