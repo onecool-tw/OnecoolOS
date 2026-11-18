@@ -7,19 +7,21 @@
   "writeback_status": "VERIFIED",
   "actual_data_as_of": "2026-11-17",
   "expected_as_of": "2026-11-17",
-  "market_pressure_status": "WRITE_FAILED",
+  "market_pressure_status": "CURRENT",
   "channels": {
     "conversation": {
       "status": "UNKNOWN"
     },
     "email": {
-      "status": "UNKNOWN"
+      "status": "DELIVERED",
+      "observed_at": "2026-11-18T01:07:18.695Z",
+      "evidence_sha256": "2fa355659d1c1aaf6dcaf8441b4f98cf911bb75819fcb1ab484b788060f88720"
     },
     "artifact": {
       "status": "DELIVERED",
-      "observed_at": "2026-11-17T11:02:54.127Z",
-      "evidence_sha256": "14af322ca7277e28134a50951c27a89115f4e4f178c6dda13f0412d7d40fd255"
+      "observed_at": "2026-11-18T01:07:18.695Z",
+      "evidence_sha256": "295d6ef377ec2f0e3ec46a2be70d93eb17843256d8d81930d4a91085cb6e105a"
     }
   },
-  "next_action": "Retry official 2026-11-17 TAIFEX closing volatility; validate same-day pressure and final Snapshot before email. Last formal pressure date 2026-11-16."
+  "next_action": "Email and artifact verified; conversation acknowledgement unobserved."
 }
