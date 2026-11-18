@@ -1,11 +1,11 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-11-18T01:08:51.143341+00:00",
+  "generated_at": "2026-11-18T01:12:24.409130+00:00",
   "taipei_date": "2026-11-18",
-  "status": "BLOCKED",
+  "status": "PARTIAL",
   "scope_status": {
-    "morning": "BLOCKED",
+    "morning": "PARTIAL",
     "asia": "READY",
     "weekly": "READY"
   },
@@ -77,11 +77,11 @@
     "policy": "Data readiness does not prove report delivery. Never infer email success from a generated draft."
   },
   "end_to_end_status": "NOT_FULLY_VERIFIED",
-  "action_readiness": "UNSAFE_FOR_AFFECTED_REPORTS",
+  "action_readiness": "LIMITED",
   "counts": {
-    "ready": 19,
-    "partial": 0,
-    "blocked": 1
+    "ready": 20,
+    "partial": 1,
+    "blocked": 0
   },
   "modules": [
     {
@@ -91,7 +91,7 @@
       "critical": true,
       "status": "READY",
       "reason": "current",
-      "observed_as_of": "2026-11-16",
+      "observed_as_of": "2026-11-17",
       "recovery_workflow": "update-market-dashboard.yml",
       "retryable": true,
       "impacted_reports": [
@@ -104,9 +104,9 @@
       "label": "Bitcoin completed UTC day",
       "scope": "morning",
       "critical": true,
-      "status": "BLOCKED",
-      "reason": "BTC date/CTA missing or invalid; expected 2026-11-17 through 2026-11-17",
-      "observed_as_of": "2026-11-16",
+      "status": "READY",
+      "reason": "current",
+      "observed_as_of": "2026-11-17",
       "recovery_workflow": "update-market-dashboard.yml",
       "retryable": true,
       "impacted_reports": [
@@ -119,11 +119,11 @@
       "label": "US Breakout Scan",
       "scope": "morning",
       "critical": true,
-      "status": "READY",
-      "reason": "current",
-      "observed_as_of": "2026-11-16",
+      "status": "PARTIAL",
+      "reason": "assessment complete 70/70; validated 3, rule-excluded 0, validation-failed 67",
+      "observed_as_of": "2026-11-17",
       "recovery_workflow": "update-market-dashboard.yml",
-      "retryable": true,
+      "retryable": false,
       "impacted_reports": [
         "美股日報"
       ]
@@ -135,7 +135,7 @@
       "critical": true,
       "status": "READY",
       "reason": "current",
-      "observed_as_of": "2026-11-16",
+      "observed_as_of": "2026-11-17",
       "recovery_workflow": "update-market-dashboard.yml",
       "retryable": true,
       "impacted_reports": [
@@ -185,6 +185,18 @@
       "impacted_reports": [
         "台股日報"
       ]
+    },
+    {
+      "module_id": "taiwan_standalone_cta",
+      "label": "Standalone Taiwan 0050/2330 CTA",
+      "scope": "asia",
+      "critical": true,
+      "status": "READY",
+      "reason": "current standalone CTA cache",
+      "observed_as_of": "2026-11-17",
+      "recovery_workflow": "update-taiwan-cta.yml",
+      "retryable": true,
+      "impacted_reports": []
     },
     {
       "module_id": "taiwan_stock_screen",
@@ -372,24 +384,21 @@
   ],
   "issues": [
     {
-      "module_id": "bitcoin_daily",
-      "label": "Bitcoin completed UTC day",
+      "module_id": "us_breakout_scan",
+      "label": "US Breakout Scan",
       "scope": "morning",
       "critical": true,
-      "status": "BLOCKED",
-      "reason": "BTC date/CTA missing or invalid; expected 2026-11-17 through 2026-11-17",
-      "observed_as_of": "2026-11-16",
+      "status": "PARTIAL",
+      "reason": "assessment complete 70/70; validated 3, rule-excluded 0, validation-failed 67",
+      "observed_as_of": "2026-11-17",
       "recovery_workflow": "update-market-dashboard.yml",
-      "retryable": true,
+      "retryable": false,
       "impacted_reports": [
-        "基金日報",
-        "基金週報"
+        "美股日報"
       ]
     }
   ],
-  "recovery_workflows": [
-    "update-market-dashboard.yml"
-  ],
-  "issue_fingerprint": "787bd6ec492d4c716cd68497df7ba309e6e439723eb58e4c03eb0f5fbc9edb48",
+  "recovery_workflows": [],
+  "issue_fingerprint": "515c36529edb469846fc2fa50fd2bf0850044b7ea8d9ed31cc946c75bd0f0216",
   "policy": "Health monitoring only; never changes CTA, rankings, or investment decisions."
 }
