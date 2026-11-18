@@ -340,7 +340,8 @@ def build_health_report(root: str | Path, *, now: datetime | None = None) -> dic
     standalone_rows = standalone_cta.get("results")
     expected_cta_date = latest_completed_market_session("TW", taipei_now)
     standalone_ready = (
-        standalone_date == expected_cta_date
+        standalone_date is not None
+        and expected_asia_session <= standalone_date <= expected_cta_date
         and isinstance(standalone_rows, list)
         and len(standalone_rows) == 2
         and sorted(
@@ -353,7 +354,7 @@ def build_health_report(root: str | Path, *, now: datetime | None = None) -> dic
         "taiwan_standalone_cta", "Standalone Taiwan 0050/2330 CTA", "asia", True,
         READY if standalone_ready else BLOCKED,
         "current standalone CTA cache" if standalone_ready else
-        f"standalone cutoff {standalone_date}; expected both symbols at {expected_cta_date}",
+        f"standalone cutoff {standalone_date}; expected matching symbols in {expected_asia_session} to {expected_cta_date}",
         standalone_date, "update-taiwan-cta.yml", [],
     ))
     modules.append(_daily_check(
