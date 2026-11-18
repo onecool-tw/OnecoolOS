@@ -351,7 +351,7 @@ def build_health_report(root: str | Path, *, now: datetime | None = None) -> dic
         ) == ["0050", "2330"]
     )
     modules.append(_module(
-        "taiwan_standalone_cta", "Standalone Taiwan 0050/2330 CTA", "asia", True,
+        "taiwan_standalone_cta", "Standalone Taiwan 0050/2330 CTA", "asia", False,
         READY if standalone_ready else BLOCKED,
         "current standalone CTA cache" if standalone_ready else
         f"standalone cutoff {standalone_date}; expected matching symbols in {expected_asia_session} to {expected_cta_date}",
