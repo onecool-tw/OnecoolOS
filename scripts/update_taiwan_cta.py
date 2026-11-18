@@ -8,6 +8,10 @@ from collections.abc import Callable
 from dataclasses import asdict
 from datetime import UTC, datetime, timedelta
 from pathlib import Path
+from decimal import Decimal
+from urllib.request import urlopen
+
+from onecool_os.market.taiwan_calendar import latest_twse_session
 
 from onecool_os.market.session_cutoff import completed_daily_bars, latest_completed_market_session
 
@@ -57,6 +61,38 @@ def fetch_yahoo_daily(symbol: str, *, period: str = "10d", start=None, end=None)
     return bars
 
 
+def fetch_twse_missing_session(symbol, expected, previous):
+    """Append one official bar only when the exchange reference reconciles."""
+    if previous.trading_date != latest_twse_session(expected - timedelta(days=1)):
+        raise ETFCTAError(f"{symbol}: TWSE fallback requires an adjacent cached session")
+    url = (
+        "https://www.twse.com.tw/rwd/zh/afterTrading/STOCK_DAY"
+        f"?response=json&date={expected:%Y%m%d}&stockNo={symbol}"
+    )
+    with urlopen(url, timeout=30) as response:
+        payload = json.load(response)
+    day = f"{expected.year - 1911}/{expected:%m/%d}"
+    fields = payload.get("fields", [])
+    rows = [dict(zip(fields, row, strict=True)) for row in payload.get("data", [])
+            if row and row[0] == day]
+    if payload.get("stat") != "OK" or len(rows) != 1:
+        raise ETFCTAError(f"{symbol}: TWSE bar unavailable for {expected}")
+    row = rows[0]
+    try:
+        close = Decimal(row["收盤價"].replace(",", ""))
+        change = Decimal(row["漲跌價差"].replace(",", ""))
+        if abs(close - change - Decimal(str(previous.close))) > Decimal("0.001"):
+            raise ValueError("reference price differs from previous close")
+        return DailyBar(
+            trading_date=expected, open=float(row["開盤價"].replace(",", "")),
+            high=float(row["最高價"].replace(",", "")),
+            low=float(row["最低價"].replace(",", "")), close=float(close),
+            volume=int(row["成交股數"].replace(",", "")), source="twse_stock_day",
+        )
+    except (ArithmeticError, KeyError, ValueError) as exc:
+        raise ETFCTAError(f"{symbol}: TWSE fallback could not verify {expected}: {exc}") from exc
+
+
 def update(
     data_dir: Path,
     *,
@@ -90,6 +126,9 @@ def update(
                 end=expected + timedelta(days=1),
             )
             history = merge_and_adjust(history, completed_daily_bars(dated, "TW", now))
+        if history[-1].trading_date < expected and fetcher is fetch_yahoo_daily:
+            official = fetch_twse_missing_session(symbol, expected, history[-1])
+            history = merge_and_adjust(history, [official])
         if history[-1].trading_date != expected:
             raise ETFCTAError(
                 f"{symbol}: expected completed TWSE session {expected}, "
@@ -107,7 +146,7 @@ def update(
     payload = {
         "schema_version": "1.0",
         "metric": "Onecool Taiwan CTA",
-        "source": "Yahoo Finance daily history",
+        "source": "Yahoo Finance daily history with verified TWSE session fallback",
         "engine": "shared_onecool_cta_engine",
         "data_cutoff": as_of,
         "price_basis": "locally_adjusted_close",
