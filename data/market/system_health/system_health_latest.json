@@ -1,11 +1,11 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-11-18T01:12:24.409130+00:00",
+  "generated_at": "2026-11-18T02:22:50.901931+00:00",
   "taipei_date": "2026-11-18",
-  "status": "PARTIAL",
+  "status": "BLOCKED",
   "scope_status": {
-    "morning": "PARTIAL",
+    "morning": "BLOCKED",
     "asia": "READY",
     "weekly": "READY"
   },
@@ -77,11 +77,11 @@
     "policy": "Data readiness does not prove report delivery. Never infer email success from a generated draft."
   },
   "end_to_end_status": "NOT_FULLY_VERIFIED",
-  "action_readiness": "LIMITED",
+  "action_readiness": "UNSAFE_FOR_AFFECTED_REPORTS",
   "counts": {
-    "ready": 20,
+    "ready": 19,
     "partial": 1,
-    "blocked": 0
+    "blocked": 1
   },
   "modules": [
     {
@@ -162,11 +162,11 @@
       "label": "Fund NAV CTA",
       "scope": "morning",
       "critical": true,
-      "status": "READY",
-      "reason": "current",
-      "observed_as_of": "2026-11-16",
+      "status": "BLOCKED",
+      "reason": "generation timestamp missing, invalid or older than scheduled date 2026-11-18",
+      "observed_as_of": "2026-11-17",
       "recovery_workflow": "update-fund-nav-cta.yml",
-      "retryable": false,
+      "retryable": true,
       "impacted_reports": [
         "基金日報",
         "基金週報"
@@ -396,9 +396,26 @@
       "impacted_reports": [
         "美股日報"
       ]
+    },
+    {
+      "module_id": "fund_nav_cta",
+      "label": "Fund NAV CTA",
+      "scope": "morning",
+      "critical": true,
+      "status": "BLOCKED",
+      "reason": "generation timestamp missing, invalid or older than scheduled date 2026-11-18",
+      "observed_as_of": "2026-11-17",
+      "recovery_workflow": "update-fund-nav-cta.yml",
+      "retryable": true,
+      "impacted_reports": [
+        "基金日報",
+        "基金週報"
+      ]
     }
   ],
-  "recovery_workflows": [],
-  "issue_fingerprint": "515c36529edb469846fc2fa50fd2bf0850044b7ea8d9ed31cc946c75bd0f0216",
+  "recovery_workflows": [
+    "update-fund-nav-cta.yml"
+  ],
+  "issue_fingerprint": "69a7627599f492698a5f804a60e7a4803ea0e35b77318a7628aa3d17b673465a",
   "policy": "Health monitoring only; never changes CTA, rankings, or investment decisions."
 }
