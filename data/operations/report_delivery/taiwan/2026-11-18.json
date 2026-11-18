@@ -1,10 +1,10 @@
 {
   "report_id": "taiwan",
   "report_date": "2026-11-18",
-  "generated_at": "2026-11-18T10:01:50.630Z",
+  "generated_at": "2026-11-18T11:05:46.511Z",
   "execution_status": "PARTIAL",
-  "delivery_status": "UNKNOWN",
-  "writeback_status": "UNKNOWN",
+  "delivery_status": "PREPARED",
+  "writeback_status": "VERIFIED",
   "actual_data_as_of": "2026-11-18",
   "expected_as_of": "2026-11-18",
   "market_pressure_status": "CURRENT",
@@ -16,8 +16,10 @@
       "status": "UNKNOWN"
     },
     "artifact": {
-      "status": "UNKNOWN"
+      "status": "DELIVERED",
+      "observed_at": "2026-11-18T11:05:46.511Z",
+      "evidence_sha256": "d54417a701edcd74955f9bd1310f01fc0295e4d1405e692e40b26fcec55a908d"
     }
   },
-  "next_action": "Verify Dashboard and Screen/200-stock CTA workflow steps and Asia health; prepare and read back artifact, then validate final snapshot before dedup and email."
+  "next_action": "Asia scope BLOCKED by stale standalone CTA health item; verify aggregate scope recovery and actual Dashboard and Screen/background CTA workflow successes before final Snapshot validation and email."
 }
