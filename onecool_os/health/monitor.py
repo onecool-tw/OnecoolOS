@@ -312,9 +312,7 @@ def build_health_report(root: str | Path, *, now: datetime | None = None) -> dic
         status = PARTIAL if refresh_status not in {"READY", "CURRENT", "COMPLETE"} else READY
         modules.append(_module("fund_nav_cta", "Fund NAV CTA", "morning", True, status, "current" if status == READY else f"NAV refresh {refresh_status}", fund_date, "update-fund-nav-cta.yml", ["基金日報", "基金週報"], retryable=False))
 
-    # The report's only 0050/2330 authority is Market Dashboard. A separate
-    # legacy CTA cache must neither block current Dashboard results nor make
-    # missing/invalid Dashboard rows appear ready.
+    # Market Dashboard remains the report's only 0050/2330 authority.
     tw_rows = (btc_payload.get("results") or [])
     tw_issues = []
     tw_dates = []
@@ -335,6 +333,28 @@ def build_health_report(root: str | Path, *, now: datetime | None = None) -> dic
         "; ".join(tw_issues) if tw_issues else "current Dashboard authority",
         min(tw_dates) if all(tw_dates) else None,
         "update-market-dashboard.yml", ["台股日報"],
+    ))
+    # Track the standalone workflow independently of the report authority.
+    standalone_cta = _load(root, "data/market/taiwan_cta/cta_latest.json") or {}
+    standalone_date = _date(standalone_cta.get("data_cutoff"))
+    standalone_rows = standalone_cta.get("results")
+    expected_cta_date = latest_completed_market_session("TW", taipei_now)
+    standalone_ready = (
+        standalone_date == expected_cta_date
+        and isinstance(standalone_rows, list)
+        and len(standalone_rows) == 2
+        and sorted(
+            row["symbol"] for row in standalone_rows
+            if isinstance(row, dict) and row.get("symbol") in ("0050", "2330")
+            and _date(row.get("as_of")) == standalone_date
+        ) == ["0050", "2330"]
+    )
+    modules.append(_module(
+        "taiwan_standalone_cta", "Standalone Taiwan 0050/2330 CTA", "asia", True,
+        READY if standalone_ready else BLOCKED,
+        "current standalone CTA cache" if standalone_ready else
+        f"standalone cutoff {standalone_date}; expected both symbols at {expected_cta_date}",
+        standalone_date, "update-taiwan-cta.yml", [],
     ))
     modules.append(_daily_check(
         root, expected_asia_session, module_id="taiwan_stock_screen", label="Taiwan Stock Screen", scope="asia",
