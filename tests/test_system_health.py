@@ -27,7 +27,11 @@ def _write(root: Path, relative: str, payload: dict) -> None:
         current = json.loads(dashboard.read_text()) if dashboard.exists() else {}
         current["results"] = [r for r in current.get("results", []) if r["symbol"] not in {"0050", "2330"}]
         current["results"] += [{"symbol": s, "as_of": payload["data_cutoff"], "cta": "HOLD"} for s in ("0050", "2330")]
-        relative, payload = "data/market/dashboard/dashboard_latest.json", current
+        _write(root, "data/market/dashboard/dashboard_latest.json", current)
+        payload = {**payload, "results": [
+            {"symbol": symbol, "as_of": payload["data_cutoff"]}
+            for symbol in ("0050", "2330")
+        ]}
     elif relative == "data/market/dashboard/dashboard_latest.json":
         existing = root / relative
         if existing.exists():
@@ -519,3 +523,20 @@ def test_pressure_input_health_accepts_verified_official_margin_lag(tmp_path):
     inputs["sources"]["margin"]["status"] = "FETCH_FAILED"
     _write(tmp_path, path, inputs)
     assert _module(build_health_report(tmp_path, now=NOW), "taiwan_pressure_inputs")["status"] == BLOCKED
+
+
+def test_stale_standalone_taiwan_cta_is_blocked_with_current_dashboard(tmp_path):
+    _seed_ready(tmp_path)
+    path = tmp_path / "data/market/taiwan_cta/cta_latest.json"
+    payload = json.loads(path.read_text())
+    payload["data_cutoff"] = "2026-08-27"
+    for row in payload["results"]:
+        row["as_of"] = payload["data_cutoff"]
+    path.write_text(json.dumps(payload), encoding="utf-8")
+
+    report = build_health_report(tmp_path, now=NOW)
+
+    assert _module(report, "taiwan_market_cta")["status"] == READY
+    standalone = _module(report, "taiwan_standalone_cta")
+    assert standalone["status"] == BLOCKED
+    assert standalone["recovery_workflow"] == "update-taiwan-cta.yml"
