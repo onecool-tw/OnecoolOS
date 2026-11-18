@@ -581,6 +581,59 @@ def test_missing_session_is_recovered_only_from_real_adjusted_day_bar() -> None:
     assert diagnostics["BBB"]["missing_day_retry_status"] == "EMPTY_RESPONSE"
 
 
+def test_terminal_session_latency_triggers_real_day_recovery() -> None:
+    spy = _history(days=320)
+    dates = pd.to_datetime([bar.trading_date for bar in spy])
+    frame = pd.DataFrame({
+        "Open": [bar.open for bar in spy],
+        "High": [bar.high for bar in spy],
+        "Low": [bar.low for bar in spy],
+        "Close": [bar.close for bar in spy],
+        "Volume": [bar.volume for bar in spy],
+    }, index=dates)
+    terminal = dates[-1]
+
+    class FakeTicker:
+        info = {}
+
+        def __init__(self, symbol):
+            self.symbol = symbol
+
+        def history(self, **kwargs):
+            if "start" in kwargs:
+                return frame.loc[[terminal]] if self.symbol == "AAA" else pd.DataFrame()
+            return frame.iloc[:-1]
+
+    class FakeYahoo:
+        Ticker = FakeTicker
+
+        @staticmethod
+        def download(requested, **kwargs):
+            return frame.iloc[:-1]
+
+    diagnostics = {}
+    histories, _ = fetch_yahoo_breakout_inputs(
+        FakeYahoo,
+        expected_as_of=spy[-1].trading_date.isoformat(),
+        spy_history=spy,
+        universe=("AAA", "BBB"),
+        fundamental_shortlist_size=0,
+        price_diagnostics=diagnostics,
+    )
+
+    assert [bar.trading_date for bar in histories["AAA"][-252:]] == [
+        bar.trading_date for bar in spy[-252:]
+    ]
+    assert terminal.date() not in {
+        bar.trading_date for bar in histories["BBB"]
+    }
+    assert diagnostics["BBB"]["last_date"] == spy[-2].trading_date.isoformat()
+    assert diagnostics["BBB"]["missing_spy_dates"] == [
+        spy[-1].trading_date.isoformat()
+    ]
+    assert diagnostics["BBB"]["missing_day_retry_status"] == "EMPTY_RESPONSE"
+
+
 def test_raw_yahoo_window_repairs_one_day_only_with_adjustment_and_matching_anchors() -> None:
     spy = _history(days=320)
     dates = pd.to_datetime([bar.trading_date for bar in spy])
