@@ -552,11 +552,25 @@ def fetch_yahoo_breakout_inputs(
     # reference session before accepting the combined series. Never synthesize.
     def missing_day(symbol: str) -> date | None:
         observed_history = best_observed[symbol]
-        if len(observed_history) < 251 or observed_history[-1].trading_date != expected:
+        if len(observed_history) < 251:
             return None
-        observed = {bar.trading_date for bar in observed_history}
+        observed_dates = [bar.trading_date for bar in observed_history]
+        observed = set(observed_dates)
         missing = [day for day in reference_dates if day not in observed]
-        return missing[0] if len(missing) == 1 else None
+        if len(missing) != 1:
+            return None
+        missing_date = missing[0]
+        # Accept both an interior omission and the common provider-latency
+        # case where the only absent bar is the newly completed terminal
+        # session.  The old terminal-date requirement made every recovery
+        # path unreachable when Yahoo's long-range response stopped one day
+        # behind SPY, so diagnostics misleadingly reported NOT_ATTEMPTED for
+        # the whole universe.  Require the remaining observations to align
+        # exactly with the reference calendar before requesting the real bar;
+        # no value is carried forward or synthesized.
+        expected_observed = [day for day in reference_dates if day != missing_date]
+        aligned_observed = [day for day in observed_dates if day in set(reference_dates)]
+        return missing_date if aligned_observed == expected_observed else None
 
     def retry_day(symbol: str, day: date) -> tuple[list[DailyBar], str]:
         frame = yfinance_module.Ticker(symbol).history(
