@@ -330,9 +330,9 @@
         },
         "valuation": {
           "status": "FAIL",
-          "as_of": "2026-11-17",
-          "price_as_of": "2026-11-17",
-          "valid_through": "2026-11-17",
+          "as_of": "2026-11-18",
+          "price_as_of": "2026-11-18",
+          "valid_through": "2026-11-18",
           "method": "FORWARD_ADJUSTED_PE_FULL_YEAR_ACQUISITION_STRESS",
           "rationale": "Uses current Q3 guidance with the existing full-year acquisition dilution stress; Humira erosion, leverage and IPR&D constrain the range.",
           "sources": [
@@ -342,7 +342,7 @@
           "price_source": {
             "provider": "yahoo_finance_adjusted_batch",
             "symbol": "ABBV",
-            "as_of": "2026-11-17",
+            "as_of": "2026-11-18",
             "url": "https://finance.yahoo.com/quote/ABBV/history/"
           },
           "denominator_source": [
@@ -381,9 +381,9 @@
           ],
           "research_grade": "SCREENING_SCENARIO_NOT_FULL_DCF",
           "inputs": {
-            "price": 292.82000732421875,
+            "price": 286.010009765625,
             "denominator": 13.44,
-            "multiple": 21.787202925909135,
+            "multiple": 21.280506678989955,
             "fair_range": [
               8.554162502288818,
               16.74285714285714
@@ -392,12 +392,12 @@
         }
       },
       "valuation_input_collection": {
-        "as_of": "2026-11-17",
+        "as_of": "2026-11-18",
         "status": "COMPLETE",
         "gaps": [],
         "price_basis": "adjusted_close",
         "inputs": {
-          "adjusted_close": 292.82000732421875
+          "adjusted_close": 286.010009765625
         },
         "sources": [
           "https://news.abbvie.com/2026-10-30-AbbVie-Reports-Third-Quarter-2026-Financial-Results",
@@ -407,16 +407,16 @@
         "price_source": {
           "provider": "yahoo_finance_adjusted_batch",
           "symbol": "ABBV",
-          "as_of": "2026-11-17",
+          "as_of": "2026-11-18",
           "url": "https://finance.yahoo.com/quote/ABBV/history/"
         },
         "price_observation": {
-          "date": "2026-11-17",
-          "adjusted_close": 292.82000732421875,
-          "raw_close": 292.82000732421875,
+          "date": "2026-11-18",
+          "adjusted_close": 286.010009765625,
+          "raw_close": 286.010009765625,
           "provider": "yahoo_finance_adjusted_batch"
         },
-        "price_sha256": "dc02889a872350ae1e0a3c72bc17fd1294c3fa1b06488acaa315358375c25a1c",
+        "price_sha256": "ca753e2d03d0acb3c25b8f68f7b8340c8ce3b72e5e58b1ddcd8b617288397c0d",
         "official_reference_status": "VERIFIED",
         "fundamental_fetch_status": "REVIEWED_OFFICIAL_REFERENCE",
         "company_name": "AbbVie Inc.",
@@ -549,35 +549,20 @@
         },
         "valuation": {
           "status": "UNKNOWN",
-          "as_of": "2026-09-17",
-          "rationale": "撤回先前估值判定：先前價格由即時報價與漲跌額倒推，不能確認為同截止日調整後正式收盤；合理倍數区間亦缺可追溯比較依據。",
-          "method": "TRAILING_NORMALIZED_PE",
-          "price_as_of": null,
-          "valid_through": null,
-          "inputs": {
-            "price": null,
-            "denominator": null,
-            "multiple": null,
-            "fair_range": null
-          },
-          "sources": [
-            "https://www.apple.com/newsroom/2026/07/apple-reports-third-quarter-results/",
-            "https://finance.yahoo.com/quote/AAPL/"
-          ],
-          "data_gap": "未取得2026-09-17調整後正式收盤的直接證據；須由系統補抓歷史價格，並完成盈餘口徑與估值區間驗證後重算。",
-          "review_status": "REQUIRES_SOURCE_REVALIDATION",
-          "next_step": "系統重取同截止日歷史價格及公司財報，建立具來源的估值模型；不得以UNKNOWN作為使用者人工研究要求。"
+          "as_of": "2026-11-18",
+          "rationale": "Current-session valuation model not yet validated.",
+          "sources": []
         }
       },
       "valuation_input_collection": {
-        "as_of": "2026-09-24",
+        "as_of": "2026-11-18",
         "status": "PARTIAL",
         "gaps": [
           "SEC_COMPANYFACTS_FETCH_OR_IDENTITY_VALIDATION_FAILED"
         ],
         "price_basis": "adjusted_close",
         "inputs": {
-          "adjusted_close": 335.9200134277344
+          "adjusted_close": 352.45001220703125
         },
         "sources": [
           "https://data.sec.gov/api/xbrl/companyfacts/CIK0000320193.json"
@@ -586,16 +571,16 @@
         "price_source": {
           "provider": "yahoo_finance_adjusted_batch",
           "symbol": "AAPL",
-          "as_of": "2026-09-24",
+          "as_of": "2026-11-18",
           "url": "https://finance.yahoo.com/quote/AAPL/history/"
         },
         "price_observation": {
-          "date": "2026-09-24",
-          "adjusted_close": 335.9200134277344,
-          "raw_close": 335.9200134277344,
+          "date": "2026-11-18",
+          "adjusted_close": 352.45001220703125,
+          "raw_close": 352.45001220703125,
           "provider": "yahoo_finance_adjusted_batch"
         },
-        "price_sha256": "08660d78bcb9e4c41e62e1a5619459a5b96105d0faea1abd574b81554f0a9b45",
+        "price_sha256": "c0842221d8323d999c8f67554ce6c09f0678ea3fdbc51a17d5059579b255315d",
         "fundamental_fetch_status": "FETCH_FAILED",
         "fetch_error_type": "HTTPError"
       }
@@ -2863,9 +2848,9 @@
       "gates": {
         "valuation": {
           "status": "FAIL",
-          "as_of": "2026-11-17",
-          "price_as_of": "2026-11-17",
-          "valid_through": "2026-11-17",
+          "as_of": "2026-11-18",
+          "price_as_of": "2026-11-18",
+          "valid_through": "2026-11-18",
           "method": "TTM_ADJUSTED_PE_WITH_CASH_CONVERSION_STRESS",
           "rationale": "Payment network and services growth support 8%/12% five-year analyst scenarios fading to terminal growth; legal/regulatory cost, incentives and weaker interim cash conversion justify conservative distributions. Not a full DCF.",
           "sources": [
@@ -2875,7 +2860,7 @@
           "price_source": {
             "provider": "yahoo_finance_adjusted_batch",
             "symbol": "MA",
-            "as_of": "2026-11-17",
+            "as_of": "2026-11-18",
             "url": "https://finance.yahoo.com/quote/MA/history/"
           },
           "denominator_source": [
@@ -2919,9 +2904,9 @@
           ],
           "research_grade": "SCREENING_SCENARIO_NOT_FULL_DCF",
           "inputs": {
-            "price": 645.72998046875,
+            "price": 643.3699951171875,
             "denominator": 19.7,
-            "multiple": 32.778171597398476,
+            "multiple": 32.658375386659266,
             "fair_range": [
               10.146422449537393,
               18.450906757437085
@@ -2980,12 +2965,12 @@
         }
       },
       "valuation_input_collection": {
-        "as_of": "2026-11-17",
+        "as_of": "2026-11-18",
         "status": "COMPLETE",
         "gaps": [],
         "price_basis": "adjusted_close",
         "inputs": {
-          "adjusted_close": 645.72998046875
+          "adjusted_close": 643.3699951171875
         },
         "sources": [
           "https://investor.mastercard.com/files/content_files/3Q26-Mastercard-Earnings-Release.pdf",
@@ -2995,16 +2980,16 @@
         "price_source": {
           "provider": "yahoo_finance_adjusted_batch",
           "symbol": "MA",
-          "as_of": "2026-11-17",
+          "as_of": "2026-11-18",
           "url": "https://finance.yahoo.com/quote/MA/history/"
         },
         "price_observation": {
-          "date": "2026-11-17",
-          "adjusted_close": 645.72998046875,
-          "raw_close": 645.72998046875,
+          "date": "2026-11-18",
+          "adjusted_close": 643.3699951171875,
+          "raw_close": 643.3699951171875,
           "provider": "yahoo_finance_adjusted_batch"
         },
-        "price_sha256": "7a3cdaa61583462e0f533958d4c33dbd1ffe3450c0ea5e7761f04003027f6180",
+        "price_sha256": "008223bc57977e2258c1f1476684a50f70d88cfdc8185d788d5c38b0a06ee752",
         "official_reference_status": "VERIFIED",
         "fundamental_fetch_status": "REVIEWED_OFFICIAL_REFERENCE",
         "company_name": "Mastercard Incorporated",
@@ -3108,9 +3093,9 @@
       "gates": {
         "valuation": {
           "status": "FAIL",
-          "as_of": "2026-11-17",
-          "price_as_of": "2026-11-17",
-          "valid_through": "2026-11-17",
+          "as_of": "2026-11-18",
+          "price_as_of": "2026-11-18",
+          "valid_through": "2026-11-18",
           "method": "FORWARD_NORMALIZED_PE_EX_KNOWN_Q3_ACQUIRED_IPRD",
           "rationale": "Mounjaro and Zepbound support high growth, while pricing, launch investment and acquisition execution constrain distributable earnings.",
           "sources": [
@@ -3120,7 +3105,7 @@
           "price_source": {
             "provider": "yahoo_finance_adjusted_batch",
             "symbol": "LLY",
-            "as_of": "2026-11-17",
+            "as_of": "2026-11-18",
             "url": "https://finance.yahoo.com/quote/LLY/history/"
           },
           "denominator_source": [
@@ -3163,9 +3148,9 @@
           ],
           "research_grade": "SCREENING_SCENARIO_NOT_FULL_DCF",
           "inputs": {
-            "price": 1415.550048828125,
+            "price": 1382.75,
             "denominator": 40.07,
-            "multiple": 35.326929094787246,
+            "multiple": 34.50836036935363,
             "fair_range": [
               11.881578947368421,
               23.463686944114407
@@ -3207,12 +3192,12 @@
         }
       },
       "valuation_input_collection": {
-        "as_of": "2026-11-17",
+        "as_of": "2026-11-18",
         "status": "COMPLETE",
         "gaps": [],
         "price_basis": "adjusted_close",
         "inputs": {
-          "adjusted_close": 1415.550048828125
+          "adjusted_close": 1382.75
         },
         "sources": [
           "https://investor.lilly.com/news-releases/news-release-details/lilly-reports-third-quarter-2026-financial-results-raises-full",
@@ -3222,16 +3207,16 @@
         "price_source": {
           "provider": "yahoo_finance_adjusted_batch",
           "symbol": "LLY",
-          "as_of": "2026-11-17",
+          "as_of": "2026-11-18",
           "url": "https://finance.yahoo.com/quote/LLY/history/"
         },
         "price_observation": {
-          "date": "2026-11-17",
-          "adjusted_close": 1415.550048828125,
-          "raw_close": 1415.550048828125,
+          "date": "2026-11-18",
+          "adjusted_close": 1382.75,
+          "raw_close": 1382.75,
           "provider": "yahoo_finance_adjusted_batch"
         },
-        "price_sha256": "0639ab9a2d284c0075e7d60b339c6b8a1a11f48a74e8e484efdbcf852e06e3ea",
+        "price_sha256": "271ec1bb298e7e99010ba61c71692847390a5f07735420b2d7b68bcf3d0ca808",
         "official_reference_status": "VERIFIED",
         "fundamental_fetch_status": "REVIEWED_OFFICIAL_REFERENCE",
         "company_name": "Eli Lilly and Company",
@@ -4082,20 +4067,20 @@
       "gates": {
         "valuation": {
           "status": "UNKNOWN",
-          "as_of": "2026-11-16",
+          "as_of": "2026-11-18",
           "rationale": "Current-session valuation model not yet validated.",
           "sources": []
         }
       },
       "valuation_input_collection": {
-        "as_of": "2026-11-16",
+        "as_of": "2026-11-18",
         "status": "PARTIAL",
         "gaps": [
           "SEC_COMPANYFACTS_FETCH_OR_IDENTITY_VALIDATION_FAILED"
         ],
         "price_basis": "adjusted_close",
         "inputs": {
-          "adjusted_close": 611.72998046875
+          "adjusted_close": 605.8400268554688
         },
         "sources": [
           "https://data.sec.gov/api/xbrl/companyfacts/CIK0001639920.json"
@@ -4104,16 +4089,16 @@
         "price_source": {
           "provider": "yahoo_finance_adjusted_batch",
           "symbol": "SPOT",
-          "as_of": "2026-11-16",
+          "as_of": "2026-11-18",
           "url": "https://finance.yahoo.com/quote/SPOT/history/"
         },
         "price_observation": {
-          "date": "2026-11-16",
-          "adjusted_close": 611.72998046875,
-          "raw_close": 611.72998046875,
+          "date": "2026-11-18",
+          "adjusted_close": 605.8400268554688,
+          "raw_close": 605.8400268554688,
           "provider": "yahoo_finance_adjusted_batch"
         },
-        "price_sha256": "f51ffcdece83a0760e5b5322d6051d3315112dd23621a3bf3446323856e12998",
+        "price_sha256": "2d8894653a6d25e38a0b8b4424b04460b53389ca1b6154e19837903c7df6f522",
         "fundamental_fetch_status": "FETCH_FAILED",
         "fetch_error_type": "HTTPError"
       }
