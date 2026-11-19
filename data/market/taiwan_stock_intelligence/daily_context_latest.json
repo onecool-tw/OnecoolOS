@@ -25,7 +25,7 @@
     "consumer_rule": "FINAL_EMAIL_REQUIRES_READY; MARGIN_MAY_USE_VERIFIED_OFFICIAL_LAG_BEFORE_21:30; NEVER_RECOMPUTE_PRESSURE_LIGHT"
   },
   "module": "Onecool Taiwan Stock Daily Context",
-  "generated_at": "2026-11-19T10:49:20.174769+00:00",
+  "generated_at": "2026-11-19T16:32:23.289023+00:00",
   "source_policy": "LATEST_SUCCESSFUL_SCREEN_WITH_EXPLICIT_DATE",
   "screen_as_of": "2026-11-19",
   "screen_business_day_lag": 0,
@@ -68,7 +68,7 @@
   "market_pressure_inputs": {
     "schema_version": "1.0",
     "module": "Onecool Taiwan Official Market Pressure Inputs",
-    "generated_at": "2026-11-19T10:49:04.927233+00:00",
+    "generated_at": "2026-11-19T16:31:53.204789+00:00",
     "requested_as_of": "2026-11-19",
     "status": "READY",
     "attempts_used": 1,
@@ -76,29 +76,26 @@
     "sources": {
       "margin": {
         "status": "VERIFIED",
-        "as_of": "2026-11-18",
+        "as_of": "2026-11-19",
         "metrics": {
           "融資(交易單位)": {
-            "previous": 8986680.0,
-            "current": 9092268.0,
-            "change": 105588.0
+            "previous": 9092265.0,
+            "current": 8947619.0,
+            "change": -144646.0
           },
           "融券(交易單位)": {
-            "previous": 207959.0,
-            "current": 193544.0,
-            "change": -14415.0
+            "previous": 193544.0,
+            "current": 209819.0,
+            "change": 16275.0
           },
           "融資金額(仟元)": {
-            "previous": 508721448.0,
-            "current": 508026570.0,
-            "change": -694878.0
+            "previous": 508026642.0,
+            "current": 484368330.0,
+            "change": -23658312.0
           }
         },
         "error": null,
-        "official_lag_accepted": true,
-        "availability_basis": "LATEST_OFFICIAL_BEFORE_SAME_DAY_PUBLICATION",
-        "requested_as_of": "2026-11-19",
-        "source_url": "https://www.twse.com.tw/rwd/zh/marginTrading/MI_MARGN?date=20261118&selectType=MS&response=json"
+        "source_url": "https://www.twse.com.tw/rwd/zh/marginTrading/MI_MARGN?date=20261119&selectType=MS&response=json"
       },
       "volatility": {
         "status": "VERIFIED",
@@ -115,7 +112,7 @@
   "candidate_action_gate": "REQUIRES_INDIVIDUAL_CTA_AND_PRESSURE_GREEN",
   "candidate_cta_cache": {
     "screen_as_of": "2026-11-19",
-    "generated_at": "2026-11-19T10:49:16.579417+00:00",
+    "generated_at": "2026-11-19T16:32:14.874747+00:00",
     "requested_count": 200,
     "coverage": {
       "current": 200,
@@ -156,7 +153,7 @@
         "status": "NORMAL",
         "label": "正常",
         "as_of": "2026Q3",
-        "observed_at": "2026-11-18T16:26:11.127957+00:00",
+        "observed_at": "2026-11-19T16:32:19.920011+00:00",
         "source_url": "https://mopsov.twse.com.tw/server-java/t164sb01?step=1&CO_ID=2408&SYEAR=2026&SSEASON=3&REPORT_ID=C",
         "source_sha256": "61d1e7b93cade308b71e45ef02278857f8b3bc27c1586fadac4329f999a32e4e",
         "scope": "CONSOLIDATED_THREE_STATEMENTS",
@@ -452,7 +449,7 @@
           "spread_pct": 22.6958,
           "phase": "AGING"
         },
-        "last_attempt_at": "2026-11-19T10:49:16.579417+00:00",
+        "last_attempt_at": "2026-11-19T16:32:14.874747+00:00",
         "error": null
       },
       "action_eligibility": "ELIGIBLE_IF_0050_BULLISH_AND_PRESSURE_GREEN"
@@ -772,7 +769,7 @@
           "spread_pct": 19.412835,
           "phase": "AGING"
         },
-        "last_attempt_at": "2026-11-19T10:49:16.579417+00:00",
+        "last_attempt_at": "2026-11-19T16:32:14.874747+00:00",
         "error": null
       },
       "action_eligibility": "ELIGIBLE_IF_0050_BULLISH_AND_PRESSURE_GREEN"
@@ -796,7 +793,7 @@
         "status": "REVIEW",
         "label": "需留意",
         "as_of": "2026Q3",
-        "observed_at": "2026-11-18T16:26:11.127957+00:00",
+        "observed_at": "2026-11-19T16:32:19.920011+00:00",
         "source_url": "https://mopsov.twse.com.tw/server-java/t164sb01?step=1&CO_ID=2317&SYEAR=2026&SSEASON=3&REPORT_ID=C",
         "source_sha256": "e36c31ebf16711b7e002489bf8d2c6f16211dfb208a50bb790c29293e7a0e1c4",
         "scope": "CONSOLIDATED_THREE_STATEMENTS",
@@ -1087,7 +1084,7 @@
           "spread_pct": 5.738163,
           "phase": "AGING"
         },
-        "last_attempt_at": "2026-11-19T10:49:16.579417+00:00",
+        "last_attempt_at": "2026-11-19T16:32:14.874747+00:00",
         "error": null
       },
       "action_eligibility": "ELIGIBLE_IF_0050_BULLISH_AND_PRESSURE_GREEN"
@@ -1403,7 +1400,7 @@
           "spread_pct": 16.821132,
           "phase": "ACTIVE"
         },
-        "last_attempt_at": "2026-11-19T10:49:16.579417+00:00",
+        "last_attempt_at": "2026-11-19T16:32:14.874747+00:00",
         "error": null
       },
       "action_eligibility": "ELIGIBLE_IF_0050_BULLISH_AND_PRESSURE_GREEN"
@@ -1724,7 +1721,7 @@
           "spread_pct": 7.791615,
           "phase": "ACTIVE"
         },
-        "last_attempt_at": "2026-11-19T10:49:16.579417+00:00",
+        "last_attempt_at": "2026-11-19T16:32:14.874747+00:00",
         "error": null
       },
       "action_eligibility": "ELIGIBLE_IF_0050_BULLISH_AND_PRESSURE_GREEN"
