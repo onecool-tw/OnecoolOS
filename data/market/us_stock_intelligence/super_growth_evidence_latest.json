@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "module": "Onecool US Super Growth Evidence",
-  "generated_at": "2026-11-07T00:35:00+00:00",
+  "generated_at": "2026-11-19T04:00:00+00:00",
   "decision_authority": "NEW_CANDIDATE_RESEARCH_GATE_ONLY",
   "evidence_policy": "PASS_OR_FAIL_REQUIRES_DATED_RATIONALE_AND_SOURCE",
   "valuation_freshness_policy": "VALUATION_OLDER_THAN_7_TRADING_DAYS_MUST_BE_REFRESHED_OR_UNKNOWN",
@@ -548,26 +548,87 @@
           ]
         },
         "valuation": {
-          "status": "UNKNOWN",
+          "status": "FAIL",
           "as_of": "2026-11-18",
-          "rationale": "Current-session valuation model not yet validated.",
-          "sources": []
+          "price_as_of": "2026-11-18",
+          "valid_through": "2026-11-18",
+          "method": "FY26_GAAP_DILUTED_PE_WITH_CASH_CONVERSION_STRESS",
+          "rationale": "Installed-base loyalty, Services growth and buybacks support durable cash generation; hardware cycles, regulation, tariffs and AI execution justify 7%/11% five-year analyst growth scenarios and stressed cash conversion.",
+          "sources": [
+            "https://www.apple.com/newsroom/2026/11/apple-reports-fourth-quarter-results/",
+            "https://www.apple.com/newsroom/pdfs/fy2026q4/FY26_Q4_Consolidated_Financial_Statements.pdf",
+            "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+          ],
+          "price_source": {
+            "provider": "yahoo_finance_adjusted_batch",
+            "symbol": "AAPL",
+            "as_of": "2026-11-18",
+            "url": "https://finance.yahoo.com/quote/AAPL/history/"
+          },
+          "denominator_source": [
+            "https://www.apple.com/newsroom/pdfs/fy2026q4/FY26_Q4_Consolidated_Financial_Statements.pdf"
+          ],
+          "fair_range_rationale": "Five-year 7%/11% growth, 75%/85% interim cash conversion, 85%/90% terminal conversion, 12%/10% required return and 2%/3% terminal growth are Onecool screening assumptions selected without using current price.",
+          "fair_range_sources": [
+            "https://www.apple.com/newsroom/2026/11/apple-reports-fourth-quarter-results/",
+            "https://www.apple.com/newsroom/pdfs/fy2026q4/FY26_Q4_Consolidated_Financial_Statements.pdf",
+            "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+          ],
+          "normalization_bridge": {
+            "formula": "FY2026 reported diluted EPS",
+            "inputs": [
+              8.98
+            ],
+            "limitations": "Uses audited-year GAAP diluted EPS; does not assume unissued FY2027 guidance or add cash to the equity denominator. Q4 included a disclosed $0.05 tariff-refund benefit."
+          },
+          "policy_version": "onecool_equity_two_stage_screen_v1",
+          "assumption_authority": "ONECOOL_ANALYST_NOT_ISSUER_GUIDANCE",
+          "scenarios": [
+            {
+              "name": "conservative",
+              "years": 5,
+              "growth": 0.07,
+              "required_return": 0.12,
+              "terminal_growth": 0.02,
+              "cash_conversion": 0.75,
+              "terminal_cash_conversion": 0.85
+            },
+            {
+              "name": "base",
+              "years": 5,
+              "growth": 0.11,
+              "required_return": 0.1,
+              "terminal_growth": 0.03,
+              "cash_conversion": 0.85,
+              "terminal_cash_conversion": 0.9
+            }
+          ],
+          "research_grade": "SCREENING_SCENARIO_NOT_FULL_DCF",
+          "inputs": {
+            "price": 352.45001220703125,
+            "denominator": 8.98,
+            "multiple": 39.248330980738444,
+            "fair_range": [
+              10.176660073220697,
+              18.223173317198103
+            ]
+          }
         }
       },
       "valuation_input_collection": {
         "as_of": "2026-11-18",
-        "status": "PARTIAL",
-        "gaps": [
-          "SEC_COMPANYFACTS_FETCH_OR_IDENTITY_VALIDATION_FAILED"
-        ],
+        "status": "COMPLETE",
+        "gaps": [],
         "price_basis": "adjusted_close",
         "inputs": {
           "adjusted_close": 352.45001220703125
         },
         "sources": [
-          "https://data.sec.gov/api/xbrl/companyfacts/CIK0000320193.json"
+          "https://www.apple.com/newsroom/2026/11/apple-reports-fourth-quarter-results/",
+          "https://www.apple.com/newsroom/pdfs/fy2026q4/FY26_Q4_Consolidated_Financial_Statements.pdf",
+          "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
         ],
-        "decision_authority": "REFERENCE_INPUTS_ONLY_NOT_FAIR_VALUE",
+        "decision_authority": "REVIEWED_SOURCE_BACKED_VALUATION_MODEL",
         "price_source": {
           "provider": "yahoo_finance_adjusted_batch",
           "symbol": "AAPL",
@@ -581,8 +642,92 @@
           "provider": "yahoo_finance_adjusted_batch"
         },
         "price_sha256": "c0842221d8323d999c8f67554ce6c09f0678ea3fdbc51a17d5059579b255315d",
-        "fundamental_fetch_status": "FETCH_FAILED",
-        "fetch_error_type": "HTTPError"
+        "official_reference_status": "VERIFIED",
+        "fundamental_fetch_status": "REVIEWED_OFFICIAL_REFERENCE",
+        "company_name": "Apple Inc.",
+        "official_reference": {
+          "symbol": "AAPL",
+          "company_name": "Apple Inc.",
+          "published_at": "2026-11-02",
+          "reviewed_as_of": "2026-11-19",
+          "valid_through": "2027-01-31",
+          "sources": [
+            "https://www.apple.com/newsroom/2026/11/apple-reports-fourth-quarter-results/",
+            "https://www.apple.com/newsroom/pdfs/fy2026q4/FY26_Q4_Consolidated_Financial_Statements.pdf",
+            "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+          ],
+          "reported_facts": {
+            "period": "FY2026",
+            "revenue_million": 478834,
+            "diluted_eps": 8.98,
+            "operating_cash_flow_million": null,
+            "Q4_revenue_million": 114477,
+            "Q4_diluted_eps": 2.1,
+            "active_device_installed_base": "RECORD"
+          },
+          "model_gaps": [],
+          "refresh_on": [
+            "NEW_EARNINGS_OR_GUIDANCE",
+            "MATERIAL_CORPORATE_EVENT",
+            "REFERENCE_EXPIRY"
+          ],
+          "valuation_model": {
+            "method": "FY26_GAAP_DILUTED_PE_WITH_CASH_CONVERSION_STRESS",
+            "denominator": 8.98,
+            "currency": "USD",
+            "share_basis": "listed_security",
+            "normalization_bridge": {
+              "formula": "FY2026 reported diluted EPS",
+              "inputs": [
+                8.98
+              ],
+              "limitations": "Uses audited-year GAAP diluted EPS; does not assume unissued FY2027 guidance or add cash to the equity denominator. Q4 included a disclosed $0.05 tariff-refund benefit."
+            },
+            "denominator_source": [
+              "https://www.apple.com/newsroom/pdfs/fy2026q4/FY26_Q4_Consolidated_Financial_Statements.pdf"
+            ],
+            "fair_range": [
+              10.176660073220697,
+              18.223173317198103
+            ],
+            "scenarios": [
+              {
+                "name": "conservative",
+                "years": 5,
+                "growth": 0.07,
+                "required_return": 0.12,
+                "terminal_growth": 0.02,
+                "cash_conversion": 0.75,
+                "terminal_cash_conversion": 0.85
+              },
+              {
+                "name": "base",
+                "years": 5,
+                "growth": 0.11,
+                "required_return": 0.1,
+                "terminal_growth": 0.03,
+                "cash_conversion": 0.85,
+                "terminal_cash_conversion": 0.9
+              }
+            ],
+            "assumption_authority": "ONECOOL_ANALYST_NOT_ISSUER_GUIDANCE",
+            "research_grade": "SCREENING_SCENARIO_NOT_FULL_DCF",
+            "policy_version": "onecool_equity_two_stage_screen_v1",
+            "rationale": "Installed-base loyalty, Services growth and buybacks support durable cash generation; hardware cycles, regulation, tariffs and AI execution justify 7%/11% five-year analyst growth scenarios and stressed cash conversion.",
+            "fair_range_rationale": "Five-year 7%/11% growth, 75%/85% interim cash conversion, 85%/90% terminal conversion, 12%/10% required return and 2%/3% terminal growth are Onecool screening assumptions selected without using current price.",
+            "fair_range_sources": [
+              "https://www.apple.com/newsroom/2026/11/apple-reports-fourth-quarter-results/",
+              "https://www.apple.com/newsroom/pdfs/fy2026q4/FY26_Q4_Consolidated_Financial_Statements.pdf",
+              "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+            ]
+          },
+          "source_review": {
+            "status": "VERIFIED_CURRENT_OFFICIAL",
+            "checked_at": "2026-11-19T04:00:00+00:00",
+            "information_cutoff": "2026-11-18",
+            "conclusion": "FY2026 official results replace the failed live Companyfacts request and provide a current reproducible denominator."
+          }
+        }
       }
     },
     {
@@ -4066,26 +4211,136 @@
       "symbol": "SPOT",
       "gates": {
         "valuation": {
-          "status": "UNKNOWN",
+          "status": "FAIL",
           "as_of": "2026-11-18",
-          "rationale": "Current-session valuation model not yet validated.",
-          "sources": []
+          "price_as_of": "2026-11-18",
+          "valid_through": "2026-11-18",
+          "method": "TTM_IFRS_DILUTED_PE_WITH_DISCLOSED_USD_EUR_TRANSLATION",
+          "rationale": "Subscriber and MAU growth, improving operating income and free cash flow support growth; royalty economics, advertising cyclicality, competition, FX and SBC justify 8%/13% analyst growth scenarios and conservative cash conversion.",
+          "sources": [
+            "https://www.sec.gov/Archives/edgar/data/1639920/000162828026066889/spot-20260930x6xk.htm",
+            "https://investors.spotify.com/home/",
+            "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+          ],
+          "price_source": {
+            "provider": "yahoo_finance_adjusted_batch",
+            "symbol": "SPOT",
+            "as_of": "2026-11-18",
+            "url": "https://finance.yahoo.com/quote/SPOT/history/"
+          },
+          "denominator_source": [
+            "https://www.sec.gov/Archives/edgar/data/1639920/000162828026066889/spot-20260930x6xk.htm"
+          ],
+          "fair_range_rationale": "Five-year 8%/13% growth, 65%/75% interim cash conversion, 80%/90% terminal conversion, 13%/11% required return and 2%/3% terminal growth are Onecool screening assumptions selected without using current price.",
+          "fair_range_sources": [
+            "https://www.sec.gov/Archives/edgar/data/1639920/000162828026066889/spot-20260930x6xk.htm",
+            "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+          ],
+          "normalization_bridge": {
+            "formula": "(FY25 diluted EPS EUR 10.51 + 9M26 diluted EPS EUR 8.54 - 9M25 diluted EPS EUR 4.93) × disclosed Q3 repurchase USD/EUR conversion (367/318)",
+            "inputs": [
+              10.51,
+              8.54,
+              4.93,
+              367,
+              318
+            ],
+            "limitations": "Translation uses the issuer-disclosed Q3 share-repurchase conversion as a reproducible approximation, not a spot FX quote; IFRS EPS includes finance and tax volatility. No cash addition to the equity denominator."
+          },
+          "policy_version": "onecool_equity_two_stage_screen_v1",
+          "assumption_authority": "ONECOOL_ANALYST_NOT_ISSUER_GUIDANCE",
+          "scenarios": [
+            {
+              "name": "conservative",
+              "years": 5,
+              "growth": 0.08,
+              "required_return": 0.13,
+              "terminal_growth": 0.02,
+              "cash_conversion": 0.65,
+              "terminal_cash_conversion": 0.8
+            },
+            {
+              "name": "base",
+              "years": 5,
+              "growth": 0.13,
+              "required_return": 0.11,
+              "terminal_growth": 0.03,
+              "cash_conversion": 0.75,
+              "terminal_cash_conversion": 0.9
+            }
+          ],
+          "research_grade": "SCREENING_SCENARIO_NOT_FULL_DCF",
+          "inputs": {
+            "price": 605.8400268554688,
+            "denominator": 16.29572327044025,
+            "multiple": 37.17785438553911,
+            "fair_range": [
+              8.759150240223505,
+              16.627360281788604
+            ]
+          }
+        },
+        "competitive_advantage": {
+          "status": "PASS",
+          "as_of": "2026-10-22",
+          "rationale": "788 million MAUs and 306 million Premium subscribers, plus personalization and discovery capabilities, support scale, engagement and a two-sided creator/listener platform advantage.",
+          "sources": [
+            "https://www.sec.gov/Archives/edgar/data/1639920/000162828026066889/spot-20260930x6xk.htm",
+            "https://investors.spotify.com/home/"
+          ]
+        },
+        "structural_growth_runway": {
+          "status": "PASS",
+          "as_of": "2026-10-22",
+          "rationale": "MAUs grew 11% and Premium subscribers 9% year over year; product expansion, pricing and creator monetization provide additional runway, subject to competition and execution.",
+          "sources": [
+            "https://www.sec.gov/Archives/edgar/data/1639920/000162828026066889/spot-20260930x6xk.htm",
+            "https://investors.spotify.com/home/"
+          ]
+        },
+        "financial_quality": {
+          "status": "PASS",
+          "as_of": "2026-10-22",
+          "rationale": "Nine-month operating income reached EUR 2.042 billion and free cash flow EUR 2.356 billion; cash plus short-term investments were EUR 9.888 billion after settlement of the exchangeable notes.",
+          "sources": [
+            "https://www.sec.gov/Archives/edgar/data/1639920/000162828026066889/spot-20260930x6xk.htm",
+            "https://investors.spotify.com/home/"
+          ]
+        },
+        "business_risk_and_governance": {
+          "status": "PASS",
+          "as_of": "2026-10-22",
+          "rationale": "Royalty and licensing economics, advertising cyclicality, FX, competition, content regulation and share-based compensation remain material risks; current official filings show adequate liquidity and no evidence that invalidates research eligibility.",
+          "sources": [
+            "https://www.sec.gov/Archives/edgar/data/1639920/000162828026066889/spot-20260930x6xk.htm",
+            "https://investors.spotify.com/home/"
+          ]
+        },
+        "circle_of_competence": {
+          "status": "UNKNOWN",
+          "as_of": "2026-11-19",
+          "rationale": "User confirmation of streaming royalty economics and platform competition remains a pre-trade layer and does not block daily research ranking.",
+          "sources": [
+            "https://www.sec.gov/Archives/edgar/data/1639920/000162828026066889/spot-20260930x6xk.htm",
+            "https://investors.spotify.com/home/"
+          ],
+          "data_gap": "PRE_TRADE_USER_CONFIRMATION_REQUIRED"
         }
       },
       "valuation_input_collection": {
         "as_of": "2026-11-18",
-        "status": "PARTIAL",
-        "gaps": [
-          "SEC_COMPANYFACTS_FETCH_OR_IDENTITY_VALIDATION_FAILED"
-        ],
+        "status": "COMPLETE",
+        "gaps": [],
         "price_basis": "adjusted_close",
         "inputs": {
           "adjusted_close": 605.8400268554688
         },
         "sources": [
-          "https://data.sec.gov/api/xbrl/companyfacts/CIK0001639920.json"
+          "https://www.sec.gov/Archives/edgar/data/1639920/000162828026066889/spot-20260930x6xk.htm",
+          "https://investors.spotify.com/home/",
+          "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
         ],
-        "decision_authority": "REFERENCE_INPUTS_ONLY_NOT_FAIR_VALUE",
+        "decision_authority": "REVIEWED_SOURCE_BACKED_VALUATION_MODEL",
         "price_source": {
           "provider": "yahoo_finance_adjusted_batch",
           "symbol": "SPOT",
@@ -4099,9 +4354,105 @@
           "provider": "yahoo_finance_adjusted_batch"
         },
         "price_sha256": "2d8894653a6d25e38a0b8b4424b04460b53389ca1b6154e19837903c7df6f522",
-        "fundamental_fetch_status": "FETCH_FAILED",
-        "fetch_error_type": "HTTPError"
-      }
+        "official_reference_status": "VERIFIED",
+        "fundamental_fetch_status": "REVIEWED_OFFICIAL_REFERENCE",
+        "company_name": "Spotify Technology S.A.",
+        "official_reference": {
+          "symbol": "SPOT",
+          "company_name": "Spotify Technology S.A.",
+          "published_at": "2026-10-22",
+          "reviewed_as_of": "2026-11-19",
+          "valid_through": "2027-01-20",
+          "sources": [
+            "https://www.sec.gov/Archives/edgar/data/1639920/000162828026066889/spot-20260930x6xk.htm",
+            "https://investors.spotify.com/home/",
+            "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+          ],
+          "reported_facts": {
+            "period": "Q3_2026",
+            "Q3_revenue_million_eur": 4969,
+            "Q3_operating_income_million_eur": 672,
+            "Q3_diluted_eps_eur": 2.48,
+            "nine_month_fcf_million_eur": 2356,
+            "cash_and_short_investments_million_eur": 9888,
+            "premium_subscribers_million": 306,
+            "MAU_million": 788,
+            "FY25_diluted_eps_eur": 10.51,
+            "nine_month_2026_diluted_eps_eur": 8.54,
+            "nine_month_2025_diluted_eps_eur": 4.93,
+            "disclosed_USD_EUR_conversion": 1.1540880503144655
+          },
+          "model_gaps": [],
+          "refresh_on": [
+            "NEW_EARNINGS_OR_GUIDANCE",
+            "MATERIAL_CORPORATE_EVENT",
+            "REFERENCE_EXPIRY"
+          ],
+          "valuation_model": {
+            "method": "TTM_IFRS_DILUTED_PE_WITH_DISCLOSED_USD_EUR_TRANSLATION",
+            "denominator": 16.29572327044025,
+            "currency": "USD",
+            "share_basis": "listed_security",
+            "normalization_bridge": {
+              "formula": "(FY25 diluted EPS EUR 10.51 + 9M26 diluted EPS EUR 8.54 - 9M25 diluted EPS EUR 4.93) × disclosed Q3 repurchase USD/EUR conversion (367/318)",
+              "inputs": [
+                10.51,
+                8.54,
+                4.93,
+                367,
+                318
+              ],
+              "limitations": "Translation uses the issuer-disclosed Q3 share-repurchase conversion as a reproducible approximation, not a spot FX quote; IFRS EPS includes finance and tax volatility. No cash addition to the equity denominator."
+            },
+            "denominator_source": [
+              "https://www.sec.gov/Archives/edgar/data/1639920/000162828026066889/spot-20260930x6xk.htm"
+            ],
+            "fair_range": [
+              8.759150240223505,
+              16.627360281788604
+            ],
+            "scenarios": [
+              {
+                "name": "conservative",
+                "years": 5,
+                "growth": 0.08,
+                "required_return": 0.13,
+                "terminal_growth": 0.02,
+                "cash_conversion": 0.65,
+                "terminal_cash_conversion": 0.8
+              },
+              {
+                "name": "base",
+                "years": 5,
+                "growth": 0.13,
+                "required_return": 0.11,
+                "terminal_growth": 0.03,
+                "cash_conversion": 0.75,
+                "terminal_cash_conversion": 0.9
+              }
+            ],
+            "assumption_authority": "ONECOOL_ANALYST_NOT_ISSUER_GUIDANCE",
+            "research_grade": "SCREENING_SCENARIO_NOT_FULL_DCF",
+            "policy_version": "onecool_equity_two_stage_screen_v1",
+            "rationale": "Subscriber and MAU growth, improving operating income and free cash flow support growth; royalty economics, advertising cyclicality, competition, FX and SBC justify 8%/13% analyst growth scenarios and conservative cash conversion.",
+            "fair_range_rationale": "Five-year 8%/13% growth, 65%/75% interim cash conversion, 80%/90% terminal conversion, 13%/11% required return and 2%/3% terminal growth are Onecool screening assumptions selected without using current price.",
+            "fair_range_sources": [
+              "https://www.sec.gov/Archives/edgar/data/1639920/000162828026066889/spot-20260930x6xk.htm",
+              "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+            ]
+          },
+          "source_review": {
+            "status": "VERIFIED_CURRENT_OFFICIAL",
+            "checked_at": "2026-11-19T04:00:00+00:00",
+            "information_cutoff": "2026-11-18",
+            "conclusion": "Q3 2026 6-K and issuer IR establish current quality, cash-flow and TTM EPS inputs."
+          }
+        }
+      },
+      "company_name": "Spotify Technology S.A.",
+      "sector": "Communication Services",
+      "industry": "Audio streaming",
+      "as_of": "2026-10-22"
     }
   ],
   "valuation_models_reviewed_at": "2026-11-07T00:35:00+00:00"
