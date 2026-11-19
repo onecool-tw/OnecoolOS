@@ -1,23 +1,45 @@
 {
   "report_id": "taiwan",
   "report_date": "2026-11-19",
-  "generated_at": "2026-11-19T09:59:04.329Z",
-  "execution_status": "PARTIAL",
-  "delivery_status": "UNKNOWN",
-  "writeback_status": "UNKNOWN",
+  "generated_at": "2026-11-19T11:03:17Z",
+  "execution_status": "SUCCESS",
+  "delivery_status": "PREPARED",
+  "writeback_status": "VERIFIED",
   "expected_as_of": "2026-11-19",
-  "actual_data_as_of": "2026-11-18",
-  "market_pressure_status": "WRITE_FAILED",
+  "actual_data_as_of": "2026-11-19",
+  "market_pressure_status": "CURRENT",
+  "snapshot_sha256": "17b6617ac4e1b95f27e425473f405e55e78bfc4b5c965d5b5b99a4b316691162",
   "channels": {
     "conversation": {
-      "status": "UNKNOWN"
+      "status": "UNKNOWN",
+      "observed_at": null,
+      "evidence_sha256": null
     },
     "email": {
-      "status": "UNKNOWN"
+      "status": "DELIVERED",
+      "observed_at": "2026-11-19T11:03:17Z",
+      "evidence_sha256": "1202f9e5d27fc63eb381498256a1860f3dbb4667c511a726983902101915b6ca",
+      "snapshot_sha256": "17b6617ac4e1b95f27e425473f405e55e78bfc4b5c965d5b5b99a4b316691162",
+      "recipient_count": 1,
+      "success_count": 1
     },
     "artifact": {
-      "status": "UNKNOWN"
+      "status": "DELIVERED",
+      "observed_at": "2026-11-19T11:03:17Z",
+      "evidence_sha256": "36f269098e2e81befd176793ad075c38813870491e039f36adf0f79aa7735f87",
+      "snapshot_sha256": "17b6617ac4e1b95f27e425473f405e55e78bfc4b5c965d5b5b99a4b316691162"
     }
   },
-  "next_action": "Resume first missing step: read back November 19 Dashboard, Screen, candidate CTA and official pressure input cache after existing recovery workflows. Current snapshots and official volatility are November 18, so no same-day pressure assessment is possible. Preserve last formal RED without relabelling it current. No email or conversation report sent in preliminary window."
+  "private_evidence_sha256": "732918fa46b0193f41b058465e86627a910293600be518e45a34c715f0c3da90",
+  "completed_steps": [
+    "screen_cta_workflows_verified",
+    "official_pressure_inputs_verified",
+    "pressure_mailbox_persisted_readback_verified",
+    "snapshot_final_verified",
+    "artifact_full_readback_verified",
+    "email_version_dedup_checked",
+    "email_provider_acknowledged"
+  ],
+  "failed_steps": [],
+  "next_action": "Observe conversation delivery acknowledgement; do not resend verified email."
 }
