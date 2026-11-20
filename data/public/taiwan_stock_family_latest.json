@@ -25,7 +25,7 @@
     },
     "context": {
       "path": "data/market/taiwan_stock_intelligence/daily_context_latest.json",
-      "sha256": "cb0e23aa4a29e5ea8f36742cab26561e82b066994c4bd199bdf084e02877d6c9"
+      "sha256": "b497aacb07acd142b919b115af4ee482df30973302dc5a79fac7d74e9395b0c2"
     }
   },
   "source_generated_at": {
@@ -56,13 +56,13 @@
   },
   "candidate_action_gate": "REQUIRES_INDIVIDUAL_CTA_AND_PRESSURE_GREEN",
   "market_pressure": {
-    "as_of": "2026-11-19",
+    "as_of": "2026-11-20",
     "status": "CURRENT",
     "light": "RED",
     "action": "PAUSE_NEW_EXPOSURE",
     "reason": [
-      "Retain RED: TAIEX closed 38426.89 (-1768.02), a new closing low versus the prior decline; official FMTQIK turnover TWD 942.989bn. Same-day VERIFIED LAST_1_MIN_AVG volatility rose to 49.27 from 45.86. The required two sessions without retrigger and no new closing low are not satisfied.",
-      "December TX close 38649, basis +222.11; foreign TX OI net -99219 contracts; TXO volume/OI PCR 73.38/41.00%. Institutions net sold TWD 46.103bn (CNA). Official margin 11/18 accepted lag: financing TWD 508.027bn, change -0.695bn. Positive basis or small short-covering cannot override the failed red-release conditions."
+      "Retain RED: TAIEX 36033.29 (-2393.60, -6.23%) makes a new closing low after 11/19. TWSE FMTQIK volume 17086212904 and turnover TWD 935.310bn; VERIFIED same-day LAST_1_MIN_AVG volatility 52.20 versus 49.27. No two-session non-retrigger/no-new-low release condition is satisfied.",
+      "December TX regular close 35875 versus spot 36033.29 gives basis -158.29; foreign TX OI net -97863 (long 16303, short 114166); TXO PCR volume/OI 78.96/30.05%. Institutions net sold TWD 52.246bn (CNA); official margin 11/19 accepted lag financing TWD 484.368bn, change -23.658bn. Small foreign short-covering does not offset new lows, higher volatility and negative basis."
     ],
     "confirmed_inputs": {
       "spot": true,
@@ -74,13 +74,13 @@
       "foreign_futures_oi": true
     },
     "input_data_as_of": {
-      "spot": "2026-11-19",
-      "futures": "2026-11-19",
-      "pcr": "2026-11-19",
-      "volatility": "2026-11-19",
-      "institutional_flow": "2026-11-19",
-      "margin": "2026-11-18",
-      "foreign_futures_oi": "2026-11-19"
+      "spot": "2026-11-20",
+      "futures": "2026-11-20",
+      "pcr": "2026-11-20",
+      "volatility": "2026-11-20",
+      "institutional_flow": "2026-11-20",
+      "margin": "2026-11-19",
+      "foreign_futures_oi": "2026-11-20"
     },
     "previous_light": "RED",
     "changed": false,
@@ -89,17 +89,15 @@
   },
   "market_pressure_freshness": {
     "expected_as_of": "2026-11-20",
-    "as_of": "2026-11-19",
+    "as_of": "2026-11-20",
     "source_status": "CURRENT",
-    "status": "STALE_LAST_KNOWN",
-    "same_day_current": false,
+    "status": "CURRENT",
+    "same_day_current": true,
     "consumer_action": "PAUSE_NEW_EXPOSURE"
   },
   "final_delivery_readiness": {
-    "status": "UPDATE_INCOMPLETE",
-    "issues": [
-      "MARKET_PRESSURE_AS_OF_MISMATCH"
-    ],
+    "status": "READY",
+    "issues": [],
     "rule": "EMAIL_REQUIRES_CURRENT_MARKET_PRESSURE_AND_CURRENT_LOCAL_MARKET_ASIA_CTA"
   },
   "asia_cta_readiness": {
