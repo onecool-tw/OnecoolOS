@@ -32,8 +32,11 @@ jobs:
     timeout-minutes: 10
     permissions:
       contents: read
+      actions: read
       pages: write
       id-token: write
+    env:
+      PAGES_ARTIFACT: github-pages-${{ github.run_attempt }}
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -52,10 +55,26 @@ jobs:
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
+          name: ${{ env.PAGES_ARTIFACT }}
           path: ${{ runner.temp }}/family-pages
+      - name: Wait for uploaded Pages artifact to become visible
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          for attempt in {1..12}; do
+            if count=$(gh api "repos/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID/artifacts?name=$PAGES_ARTIFACT" \
+              --jq '[.artifacts[] | select(.expired == false)] | length') && [[ "$count" == 1 ]]; then
+              exit 0
+            fi
+            sleep 5
+          done
+          echo "::error::Expected one live Pages artifact named $PAGES_ARTIFACT"
+          exit 1
       - name: Deploy snapshot
         id: deployment
         uses: actions/deploy-pages@v4
+        with:
+          artifact_name: ${{ env.PAGES_ARTIFACT }}
       - name: Verify public HTTPS snapshot against this checkout
         env:
           PAGE_URL: ${{ steps.deployment.outputs.page_url }}
