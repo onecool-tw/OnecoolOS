@@ -1,0 +1,49 @@
+{
+  "report_id": "taiwan",
+  "report_date": "2026-11-20",
+  "generated_at": "2026-11-20T09:58:31Z",
+  "execution_slot": "18:00",
+  "execution_status": "PARTIAL",
+  "delivery_status": "PREPARED",
+  "writeback_status": "UNKNOWN",
+  "expected_as_of": "2026-11-20",
+  "actual_data_as_of": "2026-11-20",
+  "market_pressure_status": "CURRENT",
+  "market_pressure_readback_status": "VERIFIED",
+  "persistence_workflow_completion_status": "UNKNOWN",
+  "snapshot_status": "VERIFIED",
+  "snapshot_sha256": "a2029122c620d3aef046e55f67a69a6f7225a4bc7151a6b464f7ea562faa2437",
+  "private_evidence_sha256": "67d289f7cca64f6ddf53eeecc1493c7ba5a5f812cf1d0d588dc8f6e9ac585226",
+  "channels": {
+    "conversation": {
+      "status": "UNKNOWN",
+      "observed_at": null,
+      "evidence_sha256": null
+    },
+    "email": {
+      "status": "UNKNOWN",
+      "observed_at": null,
+      "evidence_sha256": null
+    },
+    "artifact": {
+      "status": "UNKNOWN",
+      "observed_at": null,
+      "evidence_sha256": null
+    }
+  },
+  "completed_steps": [
+    "Read main health and daily context; asia and report readiness READY",
+    "Official spot/futures/foreign OI/PCR/institutional data checked for November 20; volatility VERIFIED LAST_1_MIN_AVG 52.2; margin November 19 accepted LAGGED",
+    "Formal RED evaluated once and mailbox written",
+    "SSOT pressure readback matched as_of/status/light/action",
+    "Final Snapshot READY and pressure/market CTA/individual CTA/Top5 score/valuation joins verified; 200/200 current CTA",
+    "Private continuation evidence saved"
+  ],
+  "pending_steps": [
+    "Required producer workflow job completion evidence, including Maintain background CTA and persistence completion",
+    "Final report artifact save and complete readback",
+    "19:00 final Snapshot hash/dedup/Gmail send and conversation report"
+  ],
+  "failed_steps": [],
+  "next_action": "At 19:00 verify workflow completion evidence first; reuse November 20 CURRENT pressure without recomputing or rewriting. Revalidate current Snapshot, save/read back final report, then deduplicate and send only final version. No email or conversation report sent in 18:00 slot."
+}
