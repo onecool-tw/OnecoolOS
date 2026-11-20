@@ -193,18 +193,18 @@
         ],
         "decision_authority": "REVIEWED_SOURCE_BACKED_VALUATION_MODEL",
         "price_source": {
-          "provider": "yahoo_finance_adjusted_batch",
+          "provider": "verified_adjusted_history_cache",
           "symbol": "ABBV",
           "as_of": "2026-11-19",
-          "url": "https://finance.yahoo.com/quote/ABBV/history/"
+          "url": null
         },
         "price_observation": {
           "date": "2026-11-19",
           "adjusted_close": 283.5400085449219,
           "raw_close": 283.5400085449219,
-          "provider": "yahoo_finance_adjusted_batch"
+          "provider": "verified_adjusted_history_cache"
         },
-        "price_sha256": "c0d70104c310cff729ed09c0fcba1faf80442a0d33a6da6dce68a16a592e514e",
+        "price_sha256": "c2303b115561d35bc7c109a68197815f3563e3b21b78887c95011019ee2fe3fb",
         "official_reference_status": "VERIFIED",
         "fundamental_fetch_status": "REVIEWED_OFFICIAL_REFERENCE",
         "company_name": "AbbVie Inc.",
@@ -1301,105 +1301,130 @@
   "unassessed_count": 0,
   "assessment_status": "COMPLETE",
   "price_fetch_diagnostics": {
+    "ABNB": {
+      "status": "RECOVERED_FROM_VERIFIED_ADJUSTED_HISTORY_CACHE",
+      "observations": 252,
+      "last_date": "2026-11-19"
+    },
     "APP": {
-      "status": "YAHOO_CHART_REQUEST_OR_VALIDATION_FAILED",
-      "error_type": "ValueError"
+      "status": "RECOVERED_FROM_VERIFIED_ADJUSTED_HISTORY_CACHE",
+      "observations": 252,
+      "last_date": "2026-11-19"
     },
     "ANET": {
-      "status": "YAHOO_CHART_REQUEST_OR_VALIDATION_FAILED",
-      "error_type": "ValueError"
+      "status": "RECOVERED_FROM_VERIFIED_ADJUSTED_HISTORY_CACHE",
+      "observations": 252,
+      "last_date": "2026-11-19"
     },
     "ABBV": {
-      "status": "YAHOO_CHART_REQUEST_OR_VALIDATION_FAILED",
-      "error_type": "ValueError"
-    },
-    "ABNB": {
-      "status": "YAHOO_CHART_REQUEST_OR_VALIDATION_FAILED",
-      "error_type": "ValueError"
-    },
-    "CEG": {
-      "status": "YAHOO_CHART_REQUEST_OR_VALIDATION_FAILED",
-      "error_type": "ValueError"
-    },
-    "COIN": {
-      "status": "YAHOO_CHART_REQUEST_OR_VALIDATION_FAILED",
-      "error_type": "ValueError"
+      "status": "RECOVERED_FROM_VERIFIED_ADJUSTED_HISTORY_CACHE",
+      "observations": 252,
+      "last_date": "2026-11-19"
     },
     "CRDO": {
-      "status": "YAHOO_CHART_REQUEST_OR_VALIDATION_FAILED",
-      "error_type": "ValueError"
+      "status": "RECOVERED_FROM_VERIFIED_ADJUSTED_HISTORY_CACHE",
+      "observations": 252,
+      "last_date": "2026-11-19"
     },
-    "CRWD": {
-      "status": "YAHOO_CHART_REQUEST_OR_VALIDATION_FAILED",
-      "error_type": "ValueError"
+    "CEG": {
+      "status": "RECOVERED_FROM_VERIFIED_ADJUSTED_HISTORY_CACHE",
+      "observations": 252,
+      "last_date": "2026-11-19"
     },
-    "DDOG": {
-      "status": "YAHOO_CHART_REQUEST_OR_VALIDATION_FAILED",
-      "error_type": "ValueError"
-    },
-    "GEV": {
-      "status": "YAHOO_CHART_REQUEST_OR_VALIDATION_FAILED",
-      "error_type": "ValueError"
-    },
-    "DELL": {
-      "status": "YAHOO_CHART_REQUEST_OR_VALIDATION_FAILED",
-      "error_type": "ValueError"
+    "COIN": {
+      "status": "RECOVERED_FROM_VERIFIED_ADJUSTED_HISTORY_CACHE",
+      "observations": 252,
+      "last_date": "2026-11-19"
     },
     "DUOL": {
-      "status": "YAHOO_CHART_REQUEST_OR_VALIDATION_FAILED",
-      "error_type": "ValueError"
+      "status": "RECOVERED_FROM_VERIFIED_ADJUSTED_HISTORY_CACHE",
+      "observations": 252,
+      "last_date": "2026-11-19"
+    },
+    "DDOG": {
+      "status": "RECOVERED_FROM_VERIFIED_ADJUSTED_HISTORY_CACHE",
+      "observations": 252,
+      "last_date": "2026-11-19"
+    },
+    "DELL": {
+      "status": "RECOVERED_FROM_VERIFIED_ADJUSTED_HISTORY_CACHE",
+      "observations": 252,
+      "last_date": "2026-11-19"
+    },
+    "CRWD": {
+      "status": "RECOVERED_FROM_VERIFIED_ADJUSTED_HISTORY_CACHE",
+      "observations": 252,
+      "last_date": "2026-11-19"
     },
     "HOOD": {
-      "status": "YAHOO_CHART_REQUEST_OR_VALIDATION_FAILED",
-      "error_type": "ValueError"
+      "status": "RECOVERED_FROM_VERIFIED_ADJUSTED_HISTORY_CACHE",
+      "observations": 252,
+      "last_date": "2026-11-19"
     },
-    "NOW": {
-      "status": "YAHOO_CHART_REQUEST_OR_VALIDATION_FAILED",
-      "error_type": "ValueError"
-    },
-    "PANW": {
-      "status": "YAHOO_CHART_REQUEST_OR_VALIDATION_FAILED",
-      "error_type": "ValueError"
+    "GEV": {
+      "status": "RECOVERED_FROM_VERIFIED_ADJUSTED_HISTORY_CACHE",
+      "observations": 252,
+      "last_date": "2026-11-19"
     },
     "META": {
-      "status": "YAHOO_CHART_REQUEST_OR_VALIDATION_FAILED",
-      "error_type": "ValueError"
+      "status": "RECOVERED_FROM_VERIFIED_ADJUSTED_HISTORY_CACHE",
+      "observations": 252,
+      "last_date": "2026-11-19"
+    },
+    "NOW": {
+      "status": "RECOVERED_FROM_VERIFIED_ADJUSTED_HISTORY_CACHE",
+      "observations": 252,
+      "last_date": "2026-11-19"
+    },
+    "PANW": {
+      "status": "RECOVERED_FROM_VERIFIED_ADJUSTED_HISTORY_CACHE",
+      "observations": 252,
+      "last_date": "2026-11-19"
     },
     "PLTR": {
-      "status": "YAHOO_CHART_REQUEST_OR_VALIDATION_FAILED",
-      "error_type": "ValueError"
+      "status": "RECOVERED_FROM_VERIFIED_ADJUSTED_HISTORY_CACHE",
+      "observations": 252,
+      "last_date": "2026-11-19"
     },
     "SNOW": {
-      "status": "YAHOO_CHART_REQUEST_OR_VALIDATION_FAILED",
-      "error_type": "ValueError"
-    },
-    "UBER": {
-      "status": "YAHOO_CHART_REQUEST_OR_VALIDATION_FAILED",
-      "error_type": "ValueError"
+      "status": "RECOVERED_FROM_VERIFIED_ADJUSTED_HISTORY_CACHE",
+      "observations": 252,
+      "last_date": "2026-11-19"
     },
     "SPOT": {
-      "status": "YAHOO_CHART_REQUEST_OR_VALIDATION_FAILED",
-      "error_type": "ValueError"
+      "status": "RECOVERED_FROM_VERIFIED_ADJUSTED_HISTORY_CACHE",
+      "observations": 252,
+      "last_date": "2026-11-19"
     },
     "SYM": {
-      "status": "YAHOO_CHART_REQUEST_OR_VALIDATION_FAILED",
-      "error_type": "ValueError"
+      "status": "RECOVERED_FROM_VERIFIED_ADJUSTED_HISTORY_CACHE",
+      "observations": 252,
+      "last_date": "2026-11-19"
     },
-    "BABA": {
-      "status": "YAHOO_CHART_REQUEST_OR_VALIDATION_FAILED",
-      "error_type": "ValueError"
-    },
-    "XYZ": {
-      "status": "YAHOO_CHART_REQUEST_OR_VALIDATION_FAILED",
-      "error_type": "ValueError"
+    "UBER": {
+      "status": "RECOVERED_FROM_VERIFIED_ADJUSTED_HISTORY_CACHE",
+      "observations": 252,
+      "last_date": "2026-11-19"
     },
     "VRT": {
-      "status": "YAHOO_CHART_REQUEST_OR_VALIDATION_FAILED",
-      "error_type": "ValueError"
+      "status": "RECOVERED_FROM_VERIFIED_ADJUSTED_HISTORY_CACHE",
+      "observations": 252,
+      "last_date": "2026-11-19"
+    },
+    "XYZ": {
+      "status": "RECOVERED_FROM_VERIFIED_ADJUSTED_HISTORY_CACHE",
+      "observations": 252,
+      "last_date": "2026-11-19"
+    },
+    "BABA": {
+      "status": "RECOVERED_FROM_VERIFIED_ADJUSTED_HISTORY_CACHE",
+      "observations": 252,
+      "last_date": "2026-11-19"
     },
     "RH": {
-      "status": "YAHOO_CHART_REQUEST_OR_VALIDATION_FAILED",
-      "error_type": "ValueError"
+      "status": "RECOVERED_FROM_VERIFIED_ADJUSTED_HISTORY_CACHE",
+      "observations": 252,
+      "last_date": "2026-11-19"
     }
   },
   "fundamental_fetch_status": {
