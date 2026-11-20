@@ -1,19 +1,19 @@
 {
   "report_id": "taiwan",
   "report_date": "2026-11-20",
-  "generated_at": "2026-11-20T09:58:31Z",
-  "execution_slot": "18:00",
-  "execution_status": "PARTIAL",
+  "generated_at": "2026-11-20T11:00:15Z",
+  "execution_slot": "19:00",
+  "execution_status": "SUCCESS",
   "delivery_status": "PREPARED",
-  "writeback_status": "UNKNOWN",
+  "writeback_status": "VERIFIED",
   "expected_as_of": "2026-11-20",
   "actual_data_as_of": "2026-11-20",
   "market_pressure_status": "CURRENT",
   "market_pressure_readback_status": "VERIFIED",
-  "persistence_workflow_completion_status": "UNKNOWN",
+  "persistence_workflow_completion_status": "VERIFIED",
   "snapshot_status": "VERIFIED",
-  "snapshot_sha256": "a2029122c620d3aef046e55f67a69a6f7225a4bc7151a6b464f7ea562faa2437",
-  "private_evidence_sha256": "67d289f7cca64f6ddf53eeecc1493c7ba5a5f812cf1d0d588dc8f6e9ac585226",
+  "snapshot_sha256": "7bd19f32527352f8808f2d5cbe034b50be612a1d346fbf663d3381dd419a76a3",
+  "private_evidence_sha256": "57d2227ee671e47a6d8bbd60e8e1375cbe856032ca35ff9fd0c2a3a2a2368652",
   "channels": {
     "conversation": {
       "status": "UNKNOWN",
@@ -21,29 +21,30 @@
       "evidence_sha256": null
     },
     "email": {
-      "status": "UNKNOWN",
-      "observed_at": null,
-      "evidence_sha256": null
+      "status": "DELIVERED",
+      "observed_at": "2026-11-20T11:00:15Z",
+      "evidence_sha256": "1d8388881f35c65120e830690e667b1658c25955b826e0c9bab4ec7cdbdfb2b2",
+      "snapshot_sha256": "7bd19f32527352f8808f2d5cbe034b50be612a1d346fbf663d3381dd419a76a3",
+      "recipient_count": 1,
+      "success_count": 1
     },
     "artifact": {
-      "status": "UNKNOWN",
-      "observed_at": null,
-      "evidence_sha256": null
+      "status": "DELIVERED",
+      "observed_at": "2026-11-20T11:00:15Z",
+      "evidence_sha256": "c62cde79ee4141142c8b8babd1bd092c5712854b0dae5f99dbfb347b83b01c03",
+      "snapshot_sha256": "7bd19f32527352f8808f2d5cbe034b50be612a1d346fbf663d3381dd419a76a3"
     }
   },
   "completed_steps": [
-    "Read main health and daily context; asia and report readiness READY",
-    "Official spot/futures/foreign OI/PCR/institutional data checked for November 20; volatility VERIFIED LAST_1_MIN_AVG 52.2; margin November 19 accepted LAGGED",
-    "Formal RED evaluated once and mailbox written",
-    "SSOT pressure readback matched as_of/status/light/action",
-    "Final Snapshot READY and pressure/market CTA/individual CTA/Top5 score/valuation joins verified; 200/200 current CTA",
-    "Private continuation evidence saved"
-  ],
-  "pending_steps": [
-    "Required producer workflow job completion evidence, including Maintain background CTA and persistence completion",
-    "Final report artifact save and complete readback",
-    "19:00 final Snapshot hash/dedup/Gmail send and conversation report"
+    "Required producer workflows completed successfully including full 200-stock CTA step",
+    "Reused same-day CURRENT pressure without recomputation or rewrite; persistence job verified",
+    "Final SSOT/Snapshot and CTA/Top5 score/valuation joins verified",
+    "Complete report saved and fully read back",
+    "Final Snapshot exact-version dedup completed; email success acknowledged"
   ],
   "failed_steps": [],
-  "next_action": "At 19:00 verify workflow completion evidence first; reuse November 20 CURRENT pressure without recomputing or rewriting. Revalidate current Snapshot, save/read back final report, then deduplicate and send only final version. No email or conversation report sent in 18:00 slot."
+  "pending_steps": [
+    "Observe conversation delivery acknowledgement"
+  ],
+  "next_action": "Do not resend verified email or recreate artifact; conversation acknowledgement requires independent observation."
 }
