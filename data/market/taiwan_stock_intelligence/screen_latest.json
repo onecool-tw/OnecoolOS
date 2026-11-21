@@ -1212,11 +1212,11 @@
       "provider_symbol": "3305.TW"
     }
   ],
-  "validated_count": 180,
+  "validated_count": 182,
   "formal_threshold": 80.0,
   "watch_threshold": 75.0,
   "industry_limit": 2,
-  "formal_candidate_count": 64,
+  "formal_candidate_count": 63,
   "top5": [
     {
       "symbol": "2344",
@@ -1405,9 +1405,9 @@
         "eps": 30.0,
         "pe": 10.0,
         "pb": 4.0,
-        "liquidity": 13.83
+        "liquidity": 13.84
       },
-      "score": 97.83,
+      "score": 97.84,
       "confidence": "HIGH",
       "selection_status": "FORMAL"
     },
@@ -1793,9 +1793,9 @@
         "eps": 30.0,
         "pe": 10.0,
         "pb": 4.0,
-        "liquidity": 13.41
+        "liquidity": 13.43
       },
-      "score": 97.41,
+      "score": 97.43,
       "confidence": "HIGH",
       "selection_status": "FORMAL"
     },
@@ -1987,9 +1987,9 @@
         "eps": 30.0,
         "pe": 10.0,
         "pb": 4.0,
-        "liquidity": 12.57
+        "liquidity": 12.51
       },
-      "score": 96.57,
+      "score": 96.51,
       "confidence": "HIGH",
       "selection_status": "FORMAL"
     },
@@ -2180,14 +2180,73 @@
         "eps": 30.0,
         "pe": 8.0,
         "pb": 4.0,
-        "liquidity": 14.41
+        "liquidity": 14.42
       },
-      "score": 96.41,
+      "score": 96.42,
       "confidence": "HIGH",
       "selection_status": "FORMAL"
     }
   ],
   "watchlist": [
+    {
+      "symbol": "6239",
+      "company_name": "力成",
+      "industry": "半導體業",
+      "price_as_of": "2026-11-20",
+      "fundamentals_as_of": "2026Q3",
+      "monthly_revenue_as_of": "2026-10",
+      "price_basis": "official_unadjusted_close",
+      "liquidity_rank": 57,
+      "monthly_revenue_yoy": 25.197285864121913,
+      "cumulative_revenue_yoy": 29.75283948884192,
+      "eps": 9.05,
+      "pe": 15.49,
+      "pb": 2.32,
+      "financial_quality": {
+        "version": "onecool_tw_financial_quality_v1",
+        "status": "INSUFFICIENT_DATA",
+        "label": "資料不足",
+        "as_of": "2026Q3",
+        "source_snapshot_date": "1151121",
+        "scope": "INCOME_STATEMENT_ONLY",
+        "period_basis": "SOURCE_REPORTED_CUMULATIVE",
+        "ranking_effect": "NONE",
+        "missing_checks": [
+          "營業現金流與獲利核對",
+          "ROE與財務槓桿拆解",
+          "存貨及應收帳款同期變化"
+        ],
+        "flags": [],
+        "evidence": {
+          "operating_profit": {
+            "field": "營業利益（損失）",
+            "value": 10763300.0
+          },
+          "non_operating_profit": {
+            "field": "營業外收入及支出",
+            "value": 612390.0
+          },
+          "pretax_profit": {
+            "field": "稅前淨利（淨損）",
+            "value": 11375690.0
+          }
+        },
+        "source_url": "https://openapi.twse.com.tw/v1/opendata/t187ap06_L_ci",
+        "reason": "本業／業外初檢未見上述警示；現金流、槓桿及周轉資料不足"
+      },
+      "outlier_flags": [],
+      "score_components": {
+        "monthly_revenue_yoy": 18.0,
+        "cumulative_revenue_yoy": 18.0,
+        "eps": 24.0,
+        "pe": 6.0,
+        "pb": 3.0,
+        "liquidity": 10.94
+      },
+      "score": 79.94,
+      "confidence": "HIGH",
+      "selection_status": "WATCH"
+    },
     {
       "symbol": "6781",
       "company_name": "AES-KY",
@@ -2207,7 +2266,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -2241,68 +2300,9 @@
         "eps": 30.0,
         "pe": 8.0,
         "pb": 3.0,
-        "liquidity": 2.93
+        "liquidity": 2.9
       },
-      "score": 79.93,
-      "confidence": "HIGH",
-      "selection_status": "WATCH"
-    },
-    {
-      "symbol": "2027",
-      "company_name": "大成鋼",
-      "industry": "鋼鐵工業",
-      "price_as_of": "2026-11-20",
-      "fundamentals_as_of": "2026Q3",
-      "monthly_revenue_as_of": "2026-10",
-      "price_basis": "official_unadjusted_close",
-      "liquidity_rank": 73,
-      "monthly_revenue_yoy": 44.79713250731559,
-      "cumulative_revenue_yoy": 36.04117866925641,
-      "eps": 4.69,
-      "pe": 7.37,
-      "pb": 1.19,
-      "financial_quality": {
-        "version": "onecool_tw_financial_quality_v1",
-        "status": "INSUFFICIENT_DATA",
-        "label": "資料不足",
-        "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
-        "scope": "INCOME_STATEMENT_ONLY",
-        "period_basis": "SOURCE_REPORTED_CUMULATIVE",
-        "ranking_effect": "NONE",
-        "missing_checks": [
-          "營業現金流與獲利核對",
-          "ROE與財務槓桿拆解",
-          "存貨及應收帳款同期變化"
-        ],
-        "flags": [],
-        "evidence": {
-          "operating_profit": {
-            "field": "營業利益（損失）",
-            "value": 19729833.0
-          },
-          "non_operating_profit": {
-            "field": "營業外收入及支出",
-            "value": -971829.0
-          },
-          "pretax_profit": {
-            "field": "稅前淨利（淨損）",
-            "value": 18758004.0
-          }
-        },
-        "source_url": "https://openapi.twse.com.tw/v1/opendata/t187ap06_L_ci",
-        "reason": "本業／業外初檢未見上述警示；現金流、槓桿及周轉資料不足"
-      },
-      "outlier_flags": [],
-      "score_components": {
-        "monthly_revenue_yoy": 20.0,
-        "cumulative_revenue_yoy": 18.0,
-        "eps": 18.0,
-        "pe": 10.0,
-        "pb": 4.0,
-        "liquidity": 9.8
-      },
-      "score": 79.8,
+      "score": 79.9,
       "confidence": "HIGH",
       "selection_status": "WATCH"
     },
@@ -2325,7 +2325,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -2366,6 +2366,65 @@
       "selection_status": "WATCH"
     },
     {
+      "symbol": "2027",
+      "company_name": "大成鋼",
+      "industry": "鋼鐵工業",
+      "price_as_of": "2026-11-20",
+      "fundamentals_as_of": "2026Q3",
+      "monthly_revenue_as_of": "2026-10",
+      "price_basis": "official_unadjusted_close",
+      "liquidity_rank": 73,
+      "monthly_revenue_yoy": 44.79713250731559,
+      "cumulative_revenue_yoy": 36.04117866925641,
+      "eps": 4.69,
+      "pe": 7.37,
+      "pb": 1.19,
+      "financial_quality": {
+        "version": "onecool_tw_financial_quality_v1",
+        "status": "INSUFFICIENT_DATA",
+        "label": "資料不足",
+        "as_of": "2026Q3",
+        "source_snapshot_date": "1151121",
+        "scope": "INCOME_STATEMENT_ONLY",
+        "period_basis": "SOURCE_REPORTED_CUMULATIVE",
+        "ranking_effect": "NONE",
+        "missing_checks": [
+          "營業現金流與獲利核對",
+          "ROE與財務槓桿拆解",
+          "存貨及應收帳款同期變化"
+        ],
+        "flags": [],
+        "evidence": {
+          "operating_profit": {
+            "field": "營業利益（損失）",
+            "value": 19729833.0
+          },
+          "non_operating_profit": {
+            "field": "營業外收入及支出",
+            "value": -971829.0
+          },
+          "pretax_profit": {
+            "field": "稅前淨利（淨損）",
+            "value": 18758004.0
+          }
+        },
+        "source_url": "https://openapi.twse.com.tw/v1/opendata/t187ap06_L_ci",
+        "reason": "本業／業外初檢未見上述警示；現金流、槓桿及周轉資料不足"
+      },
+      "outlier_flags": [],
+      "score_components": {
+        "monthly_revenue_yoy": 20.0,
+        "cumulative_revenue_yoy": 18.0,
+        "eps": 18.0,
+        "pe": 10.0,
+        "pb": 4.0,
+        "liquidity": 9.7
+      },
+      "score": 79.7,
+      "confidence": "HIGH",
+      "selection_status": "WATCH"
+    },
+    {
       "symbol": "8016",
       "company_name": "矽創",
       "industry": "半導體業",
@@ -2384,7 +2443,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -2418,9 +2477,9 @@
         "eps": 30.0,
         "pe": 8.0,
         "pb": 3.0,
-        "liquidity": 5.53
+        "liquidity": 5.47
       },
-      "score": 79.53,
+      "score": 79.47,
       "confidence": "HIGH",
       "selection_status": "WATCH"
     },
@@ -2443,7 +2502,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -2477,9 +2536,9 @@
         "eps": 30.0,
         "pe": 6.0,
         "pb": 2.0,
-        "liquidity": 1.26
+        "liquidity": 1.24
       },
-      "score": 79.26,
+      "score": 79.24,
       "confidence": "HIGH",
       "selection_status": "WATCH"
     },
@@ -2502,7 +2561,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -2536,68 +2595,9 @@
         "eps": 30.0,
         "pe": 4.0,
         "pb": 1.0,
-        "liquidity": 11.23
+        "liquidity": 11.1
       },
-      "score": 79.23,
-      "confidence": "HIGH",
-      "selection_status": "WATCH"
-    },
-    {
-      "symbol": "6415",
-      "company_name": "矽力*-KY",
-      "industry": "半導體業",
-      "price_as_of": "2026-11-20",
-      "fundamentals_as_of": "2026Q3",
-      "monthly_revenue_as_of": "2026-10",
-      "price_basis": "official_unadjusted_close",
-      "liquidity_rank": 70,
-      "monthly_revenue_yoy": 47.1695168965706,
-      "cumulative_revenue_yoy": 36.39558104188714,
-      "eps": 8.36,
-      "pe": 27.23,
-      "pb": 2.65,
-      "financial_quality": {
-        "version": "onecool_tw_financial_quality_v1",
-        "status": "INSUFFICIENT_DATA",
-        "label": "資料不足",
-        "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
-        "scope": "INCOME_STATEMENT_ONLY",
-        "period_basis": "SOURCE_REPORTED_CUMULATIVE",
-        "ranking_effect": "NONE",
-        "missing_checks": [
-          "營業現金流與獲利核對",
-          "ROE與財務槓桿拆解",
-          "存貨及應收帳款同期變化"
-        ],
-        "flags": [],
-        "evidence": {
-          "operating_profit": {
-            "field": "營業利益（損失）",
-            "value": 2097360.0
-          },
-          "non_operating_profit": {
-            "field": "營業外收入及支出",
-            "value": 1344901.0
-          },
-          "pretax_profit": {
-            "field": "稅前淨利（淨損）",
-            "value": 3442261.0
-          }
-        },
-        "source_url": "https://openapi.twse.com.tw/v1/opendata/t187ap06_L_ci",
-        "reason": "本業／業外初檢未見上述警示；現金流、槓桿及周轉資料不足"
-      },
-      "outlier_flags": [],
-      "score_components": {
-        "monthly_revenue_yoy": 20.0,
-        "cumulative_revenue_yoy": 18.0,
-        "eps": 24.0,
-        "pe": 4.0,
-        "pb": 3.0,
-        "liquidity": 10.06
-      },
-      "score": 79.06,
+      "score": 79.1,
       "confidence": "HIGH",
       "selection_status": "WATCH"
     },
@@ -2620,7 +2620,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -2654,9 +2654,68 @@
         "eps": 30.0,
         "pe": 4.0,
         "pb": 2.0,
-        "liquidity": 7.04
+        "liquidity": 6.96
       },
-      "score": 79.04,
+      "score": 78.96,
+      "confidence": "HIGH",
+      "selection_status": "WATCH"
+    },
+    {
+      "symbol": "6415",
+      "company_name": "矽力*-KY",
+      "industry": "半導體業",
+      "price_as_of": "2026-11-20",
+      "fundamentals_as_of": "2026Q3",
+      "monthly_revenue_as_of": "2026-10",
+      "price_basis": "official_unadjusted_close",
+      "liquidity_rank": 70,
+      "monthly_revenue_yoy": 47.1695168965706,
+      "cumulative_revenue_yoy": 36.39558104188714,
+      "eps": 8.36,
+      "pe": 27.23,
+      "pb": 2.65,
+      "financial_quality": {
+        "version": "onecool_tw_financial_quality_v1",
+        "status": "INSUFFICIENT_DATA",
+        "label": "資料不足",
+        "as_of": "2026Q3",
+        "source_snapshot_date": "1151121",
+        "scope": "INCOME_STATEMENT_ONLY",
+        "period_basis": "SOURCE_REPORTED_CUMULATIVE",
+        "ranking_effect": "NONE",
+        "missing_checks": [
+          "營業現金流與獲利核對",
+          "ROE與財務槓桿拆解",
+          "存貨及應收帳款同期變化"
+        ],
+        "flags": [],
+        "evidence": {
+          "operating_profit": {
+            "field": "營業利益（損失）",
+            "value": 2097360.0
+          },
+          "non_operating_profit": {
+            "field": "營業外收入及支出",
+            "value": 1344901.0
+          },
+          "pretax_profit": {
+            "field": "稅前淨利（淨損）",
+            "value": 3442261.0
+          }
+        },
+        "source_url": "https://openapi.twse.com.tw/v1/opendata/t187ap06_L_ci",
+        "reason": "本業／業外初檢未見上述警示；現金流、槓桿及周轉資料不足"
+      },
+      "outlier_flags": [],
+      "score_components": {
+        "monthly_revenue_yoy": 20.0,
+        "cumulative_revenue_yoy": 18.0,
+        "eps": 24.0,
+        "pe": 4.0,
+        "pb": 3.0,
+        "liquidity": 9.94
+      },
+      "score": 78.94,
       "confidence": "HIGH",
       "selection_status": "WATCH"
     },
@@ -2679,7 +2738,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -2713,68 +2772,9 @@
         "eps": 30.0,
         "pe": 10.0,
         "pb": 4.0,
-        "liquidity": 1.84
+        "liquidity": 1.82
       },
-      "score": 78.84,
-      "confidence": "HIGH",
-      "selection_status": "WATCH"
-    },
-    {
-      "symbol": "6515",
-      "company_name": "穎崴",
-      "industry": "半導體業",
-      "price_as_of": "2026-11-20",
-      "fundamentals_as_of": "2026Q3",
-      "monthly_revenue_as_of": "2026-10",
-      "price_basis": "official_unadjusted_close",
-      "liquidity_rank": 114,
-      "monthly_revenue_yoy": 62.62345388703381,
-      "cumulative_revenue_yoy": 92.9991571938887,
-      "eps": 66.85,
-      "pe": 36.44,
-      "pb": 10.76,
-      "financial_quality": {
-        "version": "onecool_tw_financial_quality_v1",
-        "status": "INSUFFICIENT_DATA",
-        "label": "資料不足",
-        "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
-        "scope": "INCOME_STATEMENT_ONLY",
-        "period_basis": "SOURCE_REPORTED_CUMULATIVE",
-        "ranking_effect": "NONE",
-        "missing_checks": [
-          "營業現金流與獲利核對",
-          "ROE與財務槓桿拆解",
-          "存貨及應收帳款同期變化"
-        ],
-        "flags": [],
-        "evidence": {
-          "operating_profit": {
-            "field": "營業利益（損失）",
-            "value": 2841047.0
-          },
-          "non_operating_profit": {
-            "field": "營業外收入及支出",
-            "value": 162515.0
-          },
-          "pretax_profit": {
-            "field": "稅前淨利（淨損）",
-            "value": 3003562.0
-          }
-        },
-        "source_url": "https://openapi.twse.com.tw/v1/opendata/t187ap06_L_ci",
-        "reason": "本業／業外初檢未見上述警示；現金流、槓桿及周轉資料不足"
-      },
-      "outlier_flags": [],
-      "score_components": {
-        "monthly_revenue_yoy": 20.0,
-        "cumulative_revenue_yoy": 20.0,
-        "eps": 30.0,
-        "pe": 2.0,
-        "pb": 0.0,
-        "liquidity": 6.62
-      },
-      "score": 78.62,
+      "score": 78.82,
       "confidence": "HIGH",
       "selection_status": "WATCH"
     }
@@ -2967,9 +2967,9 @@
         "eps": 30.0,
         "pe": 10.0,
         "pb": 4.0,
-        "liquidity": 13.83
+        "liquidity": 13.84
       },
-      "score": 97.83,
+      "score": 97.84,
       "confidence": "HIGH",
       "selection_status": "FORMAL"
     },
@@ -3355,9 +3355,9 @@
         "eps": 30.0,
         "pe": 10.0,
         "pb": 4.0,
-        "liquidity": 13.41
+        "liquidity": 13.43
       },
-      "score": 97.41,
+      "score": 97.43,
       "confidence": "HIGH",
       "selection_status": "FORMAL"
     },
@@ -3380,7 +3380,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -3414,9 +3414,9 @@
         "eps": 30.0,
         "pe": 10.0,
         "pb": 4.0,
-        "liquidity": 12.74
+        "liquidity": 12.68
       },
-      "score": 96.74,
+      "score": 96.68,
       "confidence": "HIGH",
       "selection_status": "FORMAL"
     },
@@ -3608,9 +3608,9 @@
         "eps": 30.0,
         "pe": 10.0,
         "pb": 4.0,
-        "liquidity": 12.57
+        "liquidity": 12.51
       },
-      "score": 96.57,
+      "score": 96.51,
       "confidence": "HIGH",
       "selection_status": "FORMAL"
     },
@@ -3801,9 +3801,9 @@
         "eps": 30.0,
         "pe": 8.0,
         "pb": 4.0,
-        "liquidity": 14.41
+        "liquidity": 14.42
       },
-      "score": 96.41,
+      "score": 96.42,
       "confidence": "HIGH",
       "selection_status": "FORMAL"
     },
@@ -3826,7 +3826,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -3860,9 +3860,9 @@
         "eps": 30.0,
         "pe": 10.0,
         "pb": 5.0,
-        "liquidity": 12.82
+        "liquidity": 12.76
       },
-      "score": 95.82,
+      "score": 95.76,
       "confidence": "HIGH",
       "selection_status": "FORMAL"
     },
@@ -3885,7 +3885,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -3919,9 +3919,9 @@
         "eps": 30.0,
         "pe": 10.0,
         "pb": 3.0,
-        "liquidity": 12.4
+        "liquidity": 12.35
       },
-      "score": 95.4,
+      "score": 95.35,
       "confidence": "HIGH",
       "selection_status": "FORMAL"
     },
@@ -3944,7 +3944,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -3978,9 +3978,9 @@
         "eps": 30.0,
         "pe": 10.0,
         "pb": 4.0,
-        "liquidity": 11.15
+        "liquidity": 11.02
       },
-      "score": 95.15,
+      "score": 95.02,
       "confidence": "HIGH",
       "selection_status": "FORMAL"
     },
@@ -4003,7 +4003,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -4037,9 +4037,9 @@
         "eps": 30.0,
         "pe": 10.0,
         "pb": 4.0,
-        "liquidity": 10.56
+        "liquidity": 10.44
       },
-      "score": 94.56,
+      "score": 94.44,
       "confidence": "HIGH",
       "selection_status": "FORMAL"
     },
@@ -4062,7 +4062,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -4096,9 +4096,9 @@
         "eps": 30.0,
         "pe": 10.0,
         "pb": 4.0,
-        "liquidity": 10.31
+        "liquidity": 10.19
       },
-      "score": 94.31,
+      "score": 94.19,
       "confidence": "HIGH",
       "selection_status": "FORMAL"
     },
@@ -4121,7 +4121,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -4155,68 +4155,9 @@
         "eps": 30.0,
         "pe": 8.0,
         "pb": 3.0,
-        "liquidity": 12.99
+        "liquidity": 12.93
       },
-      "score": 93.99,
-      "confidence": "HIGH",
-      "selection_status": "FORMAL"
-    },
-    {
-      "symbol": "2615",
-      "company_name": "萬海",
-      "industry": "航運業",
-      "price_as_of": "2026-11-20",
-      "fundamentals_as_of": "2026Q3",
-      "monthly_revenue_as_of": "2026-10",
-      "price_basis": "official_unadjusted_close",
-      "liquidity_rank": 58,
-      "monthly_revenue_yoy": 124.36480644917681,
-      "cumulative_revenue_yoy": 35.92088925621068,
-      "eps": 14.61,
-      "pe": 5.23,
-      "pb": 0.86,
-      "financial_quality": {
-        "version": "onecool_tw_financial_quality_v1",
-        "status": "INSUFFICIENT_DATA",
-        "label": "資料不足",
-        "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
-        "scope": "INCOME_STATEMENT_ONLY",
-        "period_basis": "SOURCE_REPORTED_CUMULATIVE",
-        "ranking_effect": "NONE",
-        "missing_checks": [
-          "營業現金流與獲利核對",
-          "ROE與財務槓桿拆解",
-          "存貨及應收帳款同期變化"
-        ],
-        "flags": [],
-        "evidence": {
-          "operating_profit": {
-            "field": "營業利益（損失）",
-            "value": 43290296.0
-          },
-          "non_operating_profit": {
-            "field": "營業外收入及支出",
-            "value": 10800201.0
-          },
-          "pretax_profit": {
-            "field": "稅前淨利（淨損）",
-            "value": 54090497.0
-          }
-        },
-        "source_url": "https://openapi.twse.com.tw/v1/opendata/t187ap06_L_ci",
-        "reason": "本業／業外初檢未見上述警示；現金流、槓桿及周轉資料不足"
-      },
-      "outlier_flags": [],
-      "score_components": {
-        "monthly_revenue_yoy": 20.0,
-        "cumulative_revenue_yoy": 18.0,
-        "eps": 30.0,
-        "pe": 10.0,
-        "pb": 5.0,
-        "liquidity": 10.98
-      },
-      "score": 93.98,
+      "score": 93.93,
       "confidence": "HIGH",
       "selection_status": "FORMAL"
     },
@@ -4239,7 +4180,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -4273,9 +4214,68 @@
         "eps": 30.0,
         "pe": 8.0,
         "pb": 2.0,
-        "liquidity": 13.91
+        "liquidity": 13.92
       },
-      "score": 93.91,
+      "score": 93.92,
+      "confidence": "HIGH",
+      "selection_status": "FORMAL"
+    },
+    {
+      "symbol": "2615",
+      "company_name": "萬海",
+      "industry": "航運業",
+      "price_as_of": "2026-11-20",
+      "fundamentals_as_of": "2026Q3",
+      "monthly_revenue_as_of": "2026-10",
+      "price_basis": "official_unadjusted_close",
+      "liquidity_rank": 58,
+      "monthly_revenue_yoy": 124.36480644917681,
+      "cumulative_revenue_yoy": 35.92088925621068,
+      "eps": 14.61,
+      "pe": 5.23,
+      "pb": 0.86,
+      "financial_quality": {
+        "version": "onecool_tw_financial_quality_v1",
+        "status": "INSUFFICIENT_DATA",
+        "label": "資料不足",
+        "as_of": "2026Q3",
+        "source_snapshot_date": "1151121",
+        "scope": "INCOME_STATEMENT_ONLY",
+        "period_basis": "SOURCE_REPORTED_CUMULATIVE",
+        "ranking_effect": "NONE",
+        "missing_checks": [
+          "營業現金流與獲利核對",
+          "ROE與財務槓桿拆解",
+          "存貨及應收帳款同期變化"
+        ],
+        "flags": [],
+        "evidence": {
+          "operating_profit": {
+            "field": "營業利益（損失）",
+            "value": 43290296.0
+          },
+          "non_operating_profit": {
+            "field": "營業外收入及支出",
+            "value": 10800201.0
+          },
+          "pretax_profit": {
+            "field": "稅前淨利（淨損）",
+            "value": 54090497.0
+          }
+        },
+        "source_url": "https://openapi.twse.com.tw/v1/opendata/t187ap06_L_ci",
+        "reason": "本業／業外初檢未見上述警示；現金流、槓桿及周轉資料不足"
+      },
+      "outlier_flags": [],
+      "score_components": {
+        "monthly_revenue_yoy": 20.0,
+        "cumulative_revenue_yoy": 18.0,
+        "eps": 30.0,
+        "pe": 10.0,
+        "pb": 5.0,
+        "liquidity": 10.86
+      },
+      "score": 93.86,
       "confidence": "HIGH",
       "selection_status": "FORMAL"
     },
@@ -4298,7 +4298,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -4332,9 +4332,9 @@
         "eps": 30.0,
         "pe": 10.0,
         "pb": 4.0,
-        "liquidity": 9.13
+        "liquidity": 9.03
       },
-      "score": 93.13,
+      "score": 93.03,
       "confidence": "HIGH",
       "selection_status": "FORMAL"
     },
@@ -4357,7 +4357,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -4391,9 +4391,9 @@
         "eps": 30.0,
         "pe": 10.0,
         "pb": 2.0,
-        "liquidity": 10.81
+        "liquidity": 10.69
       },
-      "score": 92.81,
+      "score": 92.69,
       "confidence": "HIGH",
       "selection_status": "FORMAL"
     },
@@ -4416,7 +4416,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -4450,9 +4450,9 @@
         "eps": 30.0,
         "pe": 8.0,
         "pb": 3.0,
-        "liquidity": 11.73
+        "liquidity": 11.6
       },
-      "score": 92.73,
+      "score": 92.6,
       "confidence": "HIGH",
       "selection_status": "FORMAL"
     },
@@ -4475,7 +4475,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -4509,9 +4509,9 @@
         "eps": 30.0,
         "pe": 8.0,
         "pb": 2.0,
-        "liquidity": 12.07
+        "liquidity": 12.02
       },
-      "score": 92.07,
+      "score": 92.02,
       "confidence": "HIGH",
       "selection_status": "FORMAL"
     },
@@ -4534,7 +4534,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -4568,9 +4568,9 @@
         "eps": 30.0,
         "pe": 10.0,
         "pb": 4.0,
-        "liquidity": 7.46
+        "liquidity": 7.38
       },
-      "score": 91.46,
+      "score": 91.38,
       "confidence": "HIGH",
       "selection_status": "FORMAL"
     },
@@ -4593,7 +4593,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -4627,9 +4627,9 @@
         "eps": 24.0,
         "pe": 10.0,
         "pb": 4.0,
-        "liquidity": 13.07
+        "liquidity": 13.01
       },
-      "score": 91.07,
+      "score": 91.01,
       "confidence": "HIGH",
       "selection_status": "FORMAL"
     },
@@ -4652,7 +4652,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -4711,7 +4711,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -4745,9 +4745,9 @@
         "eps": 30.0,
         "pe": 8.0,
         "pb": 1.0,
-        "liquidity": 11.31
+        "liquidity": 11.19
       },
-      "score": 90.31,
+      "score": 90.19,
       "confidence": "HIGH",
       "selection_status": "FORMAL"
     },
@@ -4770,7 +4770,7 @@
         "status": "REVIEW",
         "label": "需留意",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -4806,9 +4806,68 @@
         "eps": 30.0,
         "pe": 6.0,
         "pb": 2.0,
-        "liquidity": 14.16
+        "liquidity": 14.17
       },
-      "score": 90.16,
+      "score": 90.17,
+      "confidence": "HIGH",
+      "selection_status": "FORMAL"
+    },
+    {
+      "symbol": "2345",
+      "company_name": "智邦",
+      "industry": "通信網路業",
+      "price_as_of": "2026-11-20",
+      "fundamentals_as_of": "2026Q3",
+      "monthly_revenue_as_of": "2026-10",
+      "price_basis": "official_unadjusted_close",
+      "liquidity_rank": 13,
+      "monthly_revenue_yoy": 91.15506140307477,
+      "cumulative_revenue_yoy": 65.80885180817718,
+      "eps": 58.09,
+      "pe": 16.84,
+      "pb": 8.38,
+      "financial_quality": {
+        "version": "onecool_tw_financial_quality_v1",
+        "status": "INSUFFICIENT_DATA",
+        "label": "資料不足",
+        "as_of": "2026Q3",
+        "source_snapshot_date": "1151121",
+        "scope": "INCOME_STATEMENT_ONLY",
+        "period_basis": "SOURCE_REPORTED_CUMULATIVE",
+        "ranking_effect": "NONE",
+        "missing_checks": [
+          "營業現金流與獲利核對",
+          "ROE與財務槓桿拆解",
+          "存貨及應收帳款同期變化"
+        ],
+        "flags": [],
+        "evidence": {
+          "operating_profit": {
+            "field": "營業利益（損失）",
+            "value": 40501942.0
+          },
+          "non_operating_profit": {
+            "field": "營業外收入及支出",
+            "value": 643878.0
+          },
+          "pretax_profit": {
+            "field": "稅前淨利（淨損）",
+            "value": 41145820.0
+          }
+        },
+        "source_url": "https://openapi.twse.com.tw/v1/opendata/t187ap06_L_ci",
+        "reason": "本業／業外初檢未見上述警示；現金流、槓桿及周轉資料不足"
+      },
+      "outlier_flags": [],
+      "score_components": {
+        "monthly_revenue_yoy": 20.0,
+        "cumulative_revenue_yoy": 20.0,
+        "eps": 30.0,
+        "pe": 6.0,
+        "pb": 0.0,
+        "liquidity": 14.01
+      },
+      "score": 90.01,
       "confidence": "HIGH",
       "selection_status": "FORMAL"
     },
@@ -4831,7 +4890,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -4872,65 +4931,6 @@
       "selection_status": "FORMAL"
     },
     {
-      "symbol": "2345",
-      "company_name": "智邦",
-      "industry": "通信網路業",
-      "price_as_of": "2026-11-20",
-      "fundamentals_as_of": "2026Q3",
-      "monthly_revenue_as_of": "2026-10",
-      "price_basis": "official_unadjusted_close",
-      "liquidity_rank": 13,
-      "monthly_revenue_yoy": 91.15506140307477,
-      "cumulative_revenue_yoy": 65.80885180817718,
-      "eps": 58.09,
-      "pe": 16.84,
-      "pb": 8.38,
-      "financial_quality": {
-        "version": "onecool_tw_financial_quality_v1",
-        "status": "INSUFFICIENT_DATA",
-        "label": "資料不足",
-        "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
-        "scope": "INCOME_STATEMENT_ONLY",
-        "period_basis": "SOURCE_REPORTED_CUMULATIVE",
-        "ranking_effect": "NONE",
-        "missing_checks": [
-          "營業現金流與獲利核對",
-          "ROE與財務槓桿拆解",
-          "存貨及應收帳款同期變化"
-        ],
-        "flags": [],
-        "evidence": {
-          "operating_profit": {
-            "field": "營業利益（損失）",
-            "value": 40501942.0
-          },
-          "non_operating_profit": {
-            "field": "營業外收入及支出",
-            "value": 643878.0
-          },
-          "pretax_profit": {
-            "field": "稅前淨利（淨損）",
-            "value": 41145820.0
-          }
-        },
-        "source_url": "https://openapi.twse.com.tw/v1/opendata/t187ap06_L_ci",
-        "reason": "本業／業外初檢未見上述警示；現金流、槓桿及周轉資料不足"
-      },
-      "outlier_flags": [],
-      "score_components": {
-        "monthly_revenue_yoy": 20.0,
-        "cumulative_revenue_yoy": 20.0,
-        "eps": 30.0,
-        "pe": 6.0,
-        "pb": 0.0,
-        "liquidity": 13.99
-      },
-      "score": 89.99,
-      "confidence": "HIGH",
-      "selection_status": "FORMAL"
-    },
-    {
       "symbol": "3037",
       "company_name": "欣興",
       "industry": "電子零組件業",
@@ -4949,7 +4949,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -4983,9 +4983,9 @@
         "eps": 30.0,
         "pe": 4.0,
         "pb": 2.0,
-        "liquidity": 13.24
+        "liquidity": 13.18
       },
-      "score": 89.24,
+      "score": 89.18,
       "confidence": "HIGH",
       "selection_status": "FORMAL"
     },
@@ -5008,7 +5008,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -5042,9 +5042,9 @@
         "eps": 30.0,
         "pe": 4.0,
         "pb": 2.0,
-        "liquidity": 12.91
+        "liquidity": 12.85
       },
-      "score": 88.91,
+      "score": 88.85,
       "confidence": "HIGH",
       "selection_status": "FORMAL"
     },
@@ -5067,7 +5067,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -5101,9 +5101,9 @@
         "eps": 30.0,
         "pe": 6.0,
         "pb": 0.0,
-        "liquidity": 12.65
+        "liquidity": 12.6
       },
-      "score": 88.65,
+      "score": 88.6,
       "confidence": "HIGH",
       "selection_status": "FORMAL"
     },
@@ -5126,7 +5126,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -5160,68 +5160,9 @@
         "eps": 30.0,
         "pe": 4.0,
         "pb": 2.0,
-        "liquidity": 14.58
+        "liquidity": 14.59
       },
-      "score": 88.58,
-      "confidence": "HIGH",
-      "selection_status": "FORMAL"
-    },
-    {
-      "symbol": "8112",
-      "company_name": "至上",
-      "industry": "電子通路業",
-      "price_as_of": "2026-11-20",
-      "fundamentals_as_of": "2026Q3",
-      "monthly_revenue_as_of": "2026-10",
-      "price_basis": "official_unadjusted_close",
-      "liquidity_rank": 145,
-      "monthly_revenue_yoy": 204.31218121391805,
-      "cumulative_revenue_yoy": 186.54219945762853,
-      "eps": 17.45,
-      "pe": 3.73,
-      "pb": 1.39,
-      "financial_quality": {
-        "version": "onecool_tw_financial_quality_v1",
-        "status": "INSUFFICIENT_DATA",
-        "label": "資料不足",
-        "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
-        "scope": "INCOME_STATEMENT_ONLY",
-        "period_basis": "SOURCE_REPORTED_CUMULATIVE",
-        "ranking_effect": "NONE",
-        "missing_checks": [
-          "營業現金流與獲利核對",
-          "ROE與財務槓桿拆解",
-          "存貨及應收帳款同期變化"
-        ],
-        "flags": [],
-        "evidence": {
-          "operating_profit": {
-            "field": "營業利益（損失）",
-            "value": 15067491.0
-          },
-          "non_operating_profit": {
-            "field": "營業外收入及支出",
-            "value": -2507152.0
-          },
-          "pretax_profit": {
-            "field": "稅前淨利（淨損）",
-            "value": 12560339.0
-          }
-        },
-        "source_url": "https://openapi.twse.com.tw/v1/opendata/t187ap06_L_ci",
-        "reason": "本業／業外初檢未見上述警示；現金流、槓桿及周轉資料不足"
-      },
-      "outlier_flags": [],
-      "score_components": {
-        "monthly_revenue_yoy": 20.0,
-        "cumulative_revenue_yoy": 20.0,
-        "eps": 30.0,
-        "pe": 10.0,
-        "pb": 4.0,
-        "liquidity": 4.27
-      },
-      "score": 88.27,
+      "score": 88.59,
       "confidence": "HIGH",
       "selection_status": "FORMAL"
     },
@@ -5244,7 +5185,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -5287,6 +5228,65 @@
       "selection_status": "FORMAL"
     },
     {
+      "symbol": "8112",
+      "company_name": "至上",
+      "industry": "電子通路業",
+      "price_as_of": "2026-11-20",
+      "fundamentals_as_of": "2026Q3",
+      "monthly_revenue_as_of": "2026-10",
+      "price_basis": "official_unadjusted_close",
+      "liquidity_rank": 145,
+      "monthly_revenue_yoy": 204.31218121391805,
+      "cumulative_revenue_yoy": 186.54219945762853,
+      "eps": 17.45,
+      "pe": 3.73,
+      "pb": 1.39,
+      "financial_quality": {
+        "version": "onecool_tw_financial_quality_v1",
+        "status": "INSUFFICIENT_DATA",
+        "label": "資料不足",
+        "as_of": "2026Q3",
+        "source_snapshot_date": "1151121",
+        "scope": "INCOME_STATEMENT_ONLY",
+        "period_basis": "SOURCE_REPORTED_CUMULATIVE",
+        "ranking_effect": "NONE",
+        "missing_checks": [
+          "營業現金流與獲利核對",
+          "ROE與財務槓桿拆解",
+          "存貨及應收帳款同期變化"
+        ],
+        "flags": [],
+        "evidence": {
+          "operating_profit": {
+            "field": "營業利益（損失）",
+            "value": 15067491.0
+          },
+          "non_operating_profit": {
+            "field": "營業外收入及支出",
+            "value": -2507152.0
+          },
+          "pretax_profit": {
+            "field": "稅前淨利（淨損）",
+            "value": 12560339.0
+          }
+        },
+        "source_url": "https://openapi.twse.com.tw/v1/opendata/t187ap06_L_ci",
+        "reason": "本業／業外初檢未見上述警示；現金流、槓桿及周轉資料不足"
+      },
+      "outlier_flags": [],
+      "score_components": {
+        "monthly_revenue_yoy": 20.0,
+        "cumulative_revenue_yoy": 20.0,
+        "eps": 30.0,
+        "pe": 10.0,
+        "pb": 4.0,
+        "liquidity": 4.23
+      },
+      "score": 88.23,
+      "confidence": "HIGH",
+      "selection_status": "FORMAL"
+    },
+    {
       "symbol": "6672",
       "company_name": "騰輝電子-KY",
       "industry": "電子零組件業",
@@ -5305,7 +5305,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -5339,9 +5339,9 @@
         "eps": 30.0,
         "pe": 4.0,
         "pb": 1.0,
-        "liquidity": 13.16
+        "liquidity": 13.09
       },
-      "score": 88.16,
+      "score": 88.09,
       "confidence": "HIGH",
       "selection_status": "FORMAL"
     },
@@ -5364,7 +5364,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -5398,9 +5398,9 @@
         "eps": 30.0,
         "pe": 4.0,
         "pb": 1.0,
-        "liquidity": 11.82
+        "liquidity": 11.77
       },
-      "score": 86.82,
+      "score": 86.77,
       "confidence": "HIGH",
       "selection_status": "FORMAL"
     },
@@ -5423,7 +5423,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -5457,9 +5457,9 @@
         "eps": 30.0,
         "pe": 10.0,
         "pb": 4.0,
-        "liquidity": 2.6
+        "liquidity": 2.57
       },
-      "score": 86.6,
+      "score": 86.57,
       "confidence": "HIGH",
       "selection_status": "FORMAL"
     },
@@ -5482,7 +5482,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -5516,9 +5516,9 @@
         "eps": 30.0,
         "pe": 2.0,
         "pb": 0.0,
-        "liquidity": 14.08
+        "liquidity": 14.09
       },
-      "score": 86.08,
+      "score": 86.09,
       "confidence": "HIGH",
       "selection_status": "FORMAL"
     },
@@ -5541,7 +5541,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -5575,9 +5575,9 @@
         "eps": 30.0,
         "pe": 10.0,
         "pb": 2.0,
-        "liquidity": 3.94
+        "liquidity": 3.9
       },
-      "score": 85.94,
+      "score": 85.9,
       "confidence": "HIGH",
       "selection_status": "FORMAL"
     },
@@ -5600,7 +5600,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -5634,9 +5634,9 @@
         "eps": 30.0,
         "pe": 4.0,
         "pb": 0.0,
-        "liquidity": 11.9
+        "liquidity": 11.85
       },
-      "score": 85.9,
+      "score": 85.85,
       "confidence": "HIGH",
       "selection_status": "FORMAL"
     },
@@ -5659,7 +5659,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -5693,9 +5693,9 @@
         "eps": 30.0,
         "pe": 4.0,
         "pb": 1.0,
-        "liquidity": 14.66
+        "liquidity": 14.67
       },
-      "score": 85.66,
+      "score": 85.67,
       "confidence": "HIGH",
       "selection_status": "FORMAL"
     },
@@ -5718,7 +5718,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -5752,9 +5752,9 @@
         "eps": 24.0,
         "pe": 10.0,
         "pb": 5.0,
-        "liquidity": 8.13
+        "liquidity": 8.04
       },
-      "score": 85.13,
+      "score": 85.04,
       "confidence": "HIGH",
       "selection_status": "FORMAL"
     },
@@ -5777,7 +5777,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -5811,9 +5811,9 @@
         "eps": 30.0,
         "pe": 4.0,
         "pb": 1.0,
-        "liquidity": 9.55
+        "liquidity": 9.45
       },
-      "score": 84.55,
+      "score": 84.45,
       "confidence": "HIGH",
       "selection_status": "FORMAL"
     },
@@ -5836,7 +5836,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -5870,9 +5870,9 @@
         "eps": 30.0,
         "pe": 8.0,
         "pb": 2.0,
-        "liquidity": 4.36
+        "liquidity": 4.31
       },
-      "score": 84.36,
+      "score": 84.31,
       "confidence": "HIGH",
       "selection_status": "FORMAL"
     },
@@ -5895,7 +5895,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -5929,9 +5929,9 @@
         "eps": 30.0,
         "pe": 4.0,
         "pb": 0.0,
-        "liquidity": 12.32
+        "liquidity": 12.27
       },
-      "score": 84.32,
+      "score": 84.27,
       "confidence": "HIGH",
       "selection_status": "FORMAL"
     },
@@ -5954,7 +5954,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -5988,9 +5988,9 @@
         "eps": 30.0,
         "pe": 4.0,
         "pb": 0.0,
-        "liquidity": 10.14
+        "liquidity": 10.03
       },
-      "score": 84.14,
+      "score": 84.03,
       "confidence": "HIGH",
       "selection_status": "FORMAL"
     },
@@ -6013,7 +6013,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -6047,68 +6047,9 @@
         "eps": 30.0,
         "pe": 8.0,
         "pb": 1.0,
-        "liquidity": 4.94
+        "liquidity": 4.89
       },
-      "score": 83.94,
-      "confidence": "HIGH",
-      "selection_status": "FORMAL"
-    },
-    {
-      "symbol": "5434",
-      "company_name": "崇越",
-      "industry": "電子通路業",
-      "price_as_of": "2026-11-20",
-      "fundamentals_as_of": "2026Q3",
-      "monthly_revenue_as_of": "2026-10",
-      "price_basis": "official_unadjusted_close",
-      "liquidity_rank": 127,
-      "monthly_revenue_yoy": 61.18395962005585,
-      "cumulative_revenue_yoy": 28.631480395500695,
-      "eps": 25.19,
-      "pe": 12.39,
-      "pb": 3.18,
-      "financial_quality": {
-        "version": "onecool_tw_financial_quality_v1",
-        "status": "INSUFFICIENT_DATA",
-        "label": "資料不足",
-        "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
-        "scope": "INCOME_STATEMENT_ONLY",
-        "period_basis": "SOURCE_REPORTED_CUMULATIVE",
-        "ranking_effect": "NONE",
-        "missing_checks": [
-          "營業現金流與獲利核對",
-          "ROE與財務槓桿拆解",
-          "存貨及應收帳款同期變化"
-        ],
-        "flags": [],
-        "evidence": {
-          "operating_profit": {
-            "field": "營業利益（損失）",
-            "value": 4547737.0
-          },
-          "non_operating_profit": {
-            "field": "營業外收入及支出",
-            "value": 1779757.0
-          },
-          "pretax_profit": {
-            "field": "稅前淨利（淨損）",
-            "value": 6327494.0
-          }
-        },
-        "source_url": "https://openapi.twse.com.tw/v1/opendata/t187ap06_L_ci",
-        "reason": "本業／業外初檢未見上述警示；現金流、槓桿及周轉資料不足"
-      },
-      "outlier_flags": [],
-      "score_components": {
-        "monthly_revenue_yoy": 20.0,
-        "cumulative_revenue_yoy": 18.0,
-        "eps": 30.0,
-        "pe": 8.0,
-        "pb": 2.0,
-        "liquidity": 5.61
-      },
-      "score": 83.61,
+      "score": 83.89,
       "confidence": "HIGH",
       "selection_status": "FORMAL"
     },
@@ -6131,7 +6072,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -6165,9 +6106,68 @@
         "eps": 30.0,
         "pe": 0.0,
         "pb": 0.0,
-        "liquidity": 13.58
+        "liquidity": 13.59
       },
-      "score": 83.58,
+      "score": 83.59,
+      "confidence": "HIGH",
+      "selection_status": "FORMAL"
+    },
+    {
+      "symbol": "5434",
+      "company_name": "崇越",
+      "industry": "電子通路業",
+      "price_as_of": "2026-11-20",
+      "fundamentals_as_of": "2026Q3",
+      "monthly_revenue_as_of": "2026-10",
+      "price_basis": "official_unadjusted_close",
+      "liquidity_rank": 127,
+      "monthly_revenue_yoy": 61.18395962005585,
+      "cumulative_revenue_yoy": 28.631480395500695,
+      "eps": 25.19,
+      "pe": 12.39,
+      "pb": 3.18,
+      "financial_quality": {
+        "version": "onecool_tw_financial_quality_v1",
+        "status": "INSUFFICIENT_DATA",
+        "label": "資料不足",
+        "as_of": "2026Q3",
+        "source_snapshot_date": "1151121",
+        "scope": "INCOME_STATEMENT_ONLY",
+        "period_basis": "SOURCE_REPORTED_CUMULATIVE",
+        "ranking_effect": "NONE",
+        "missing_checks": [
+          "營業現金流與獲利核對",
+          "ROE與財務槓桿拆解",
+          "存貨及應收帳款同期變化"
+        ],
+        "flags": [],
+        "evidence": {
+          "operating_profit": {
+            "field": "營業利益（損失）",
+            "value": 4547737.0
+          },
+          "non_operating_profit": {
+            "field": "營業外收入及支出",
+            "value": 1779757.0
+          },
+          "pretax_profit": {
+            "field": "稅前淨利（淨損）",
+            "value": 6327494.0
+          }
+        },
+        "source_url": "https://openapi.twse.com.tw/v1/opendata/t187ap06_L_ci",
+        "reason": "本業／業外初檢未見上述警示；現金流、槓桿及周轉資料不足"
+      },
+      "outlier_flags": [],
+      "score_components": {
+        "monthly_revenue_yoy": 20.0,
+        "cumulative_revenue_yoy": 18.0,
+        "eps": 30.0,
+        "pe": 8.0,
+        "pb": 2.0,
+        "liquidity": 5.55
+      },
+      "score": 83.55,
       "confidence": "HIGH",
       "selection_status": "FORMAL"
     },
@@ -6190,7 +6190,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -6224,9 +6224,9 @@
         "eps": 24.0,
         "pe": 8.0,
         "pb": 4.0,
-        "liquidity": 9.47
+        "liquidity": 9.36
       },
-      "score": 83.47,
+      "score": 83.36,
       "confidence": "HIGH",
       "selection_status": "FORMAL"
     },
@@ -6249,7 +6249,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -6283,9 +6283,9 @@
         "eps": 30.0,
         "pe": 8.0,
         "pb": 2.0,
-        "liquidity": 5.28
+        "liquidity": 5.22
       },
-      "score": 83.28,
+      "score": 83.22,
       "confidence": "HIGH",
       "selection_status": "FORMAL"
     },
@@ -6308,7 +6308,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -6342,9 +6342,9 @@
         "eps": 24.0,
         "pe": 6.0,
         "pb": 4.0,
-        "liquidity": 10.89
+        "liquidity": 10.77
       },
-      "score": 82.89,
+      "score": 82.77,
       "confidence": "HIGH",
       "selection_status": "FORMAL"
     },
@@ -6367,7 +6367,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -6401,9 +6401,9 @@
         "eps": 30.0,
         "pe": 4.0,
         "pb": 0.0,
-        "liquidity": 8.8
+        "liquidity": 8.7
       },
-      "score": 82.8,
+      "score": 82.7,
       "confidence": "HIGH",
       "selection_status": "FORMAL"
     },
@@ -6426,7 +6426,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -6460,9 +6460,9 @@
         "eps": 30.0,
         "pe": 0.0,
         "pb": 1.0,
-        "liquidity": 11.65
+        "liquidity": 11.52
       },
-      "score": 82.65,
+      "score": 82.52,
       "confidence": "HIGH",
       "selection_status": "FORMAL"
     },
@@ -6485,7 +6485,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -6519,9 +6519,9 @@
         "eps": 30.0,
         "pe": 4.0,
         "pb": 2.0,
-        "liquidity": 6.28
+        "liquidity": 6.22
       },
-      "score": 82.28,
+      "score": 82.22,
       "confidence": "HIGH",
       "selection_status": "FORMAL"
     },
@@ -6544,7 +6544,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -6578,9 +6578,9 @@
         "eps": 30.0,
         "pe": 8.0,
         "pb": 2.0,
-        "liquidity": 2.01
+        "liquidity": 1.99
       },
-      "score": 82.01,
+      "score": 81.99,
       "confidence": "HIGH",
       "selection_status": "FORMAL"
     },
@@ -6603,7 +6603,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -6637,9 +6637,9 @@
         "eps": 30.0,
         "pe": 0.0,
         "pb": 0.0,
-        "liquidity": 11.98
+        "liquidity": 11.93
       },
-      "score": 81.98,
+      "score": 81.93,
       "confidence": "HIGH",
       "selection_status": "FORMAL"
     },
@@ -6662,7 +6662,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -6696,68 +6696,9 @@
         "eps": 30.0,
         "pe": 6.0,
         "pb": 2.0,
-        "liquidity": 5.95
+        "liquidity": 5.88
       },
-      "score": 81.95,
-      "confidence": "HIGH",
-      "selection_status": "FORMAL"
-    },
-    {
-      "symbol": "6531",
-      "company_name": "愛普*",
-      "industry": "半導體業",
-      "price_as_of": "2026-11-20",
-      "fundamentals_as_of": "2026Q3",
-      "monthly_revenue_as_of": "2026-10",
-      "price_basis": "official_unadjusted_close",
-      "liquidity_rank": 110,
-      "monthly_revenue_yoy": 155.8579322164111,
-      "cumulative_revenue_yoy": 111.89161169851586,
-      "eps": 15.54,
-      "pe": 23.87,
-      "pb": 5.69,
-      "financial_quality": {
-        "version": "onecool_tw_financial_quality_v1",
-        "status": "INSUFFICIENT_DATA",
-        "label": "資料不足",
-        "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
-        "scope": "INCOME_STATEMENT_ONLY",
-        "period_basis": "SOURCE_REPORTED_CUMULATIVE",
-        "ranking_effect": "NONE",
-        "missing_checks": [
-          "營業現金流與獲利核對",
-          "ROE與財務槓桿拆解",
-          "存貨及應收帳款同期變化"
-        ],
-        "flags": [],
-        "evidence": {
-          "operating_profit": {
-            "field": "營業利益（損失）",
-            "value": 2669053.0
-          },
-          "non_operating_profit": {
-            "field": "營業外收入及支出",
-            "value": 458711.0
-          },
-          "pretax_profit": {
-            "field": "稅前淨利（淨損）",
-            "value": 3127764.0
-          }
-        },
-        "source_url": "https://openapi.twse.com.tw/v1/opendata/t187ap06_L_ci",
-        "reason": "本業／業外初檢未見上述警示；現金流、槓桿及周轉資料不足"
-      },
-      "outlier_flags": [],
-      "score_components": {
-        "monthly_revenue_yoy": 20.0,
-        "cumulative_revenue_yoy": 20.0,
-        "eps": 30.0,
-        "pe": 4.0,
-        "pb": 1.0,
-        "liquidity": 6.79
-      },
-      "score": 81.79,
+      "score": 81.88,
       "confidence": "HIGH",
       "selection_status": "FORMAL"
     },
@@ -6780,7 +6721,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -6814,9 +6755,68 @@
         "eps": 24.0,
         "pe": 10.0,
         "pb": 4.0,
-        "liquidity": 3.77
+        "liquidity": 3.73
       },
-      "score": 81.77,
+      "score": 81.73,
+      "confidence": "HIGH",
+      "selection_status": "FORMAL"
+    },
+    {
+      "symbol": "6531",
+      "company_name": "愛普*",
+      "industry": "半導體業",
+      "price_as_of": "2026-11-20",
+      "fundamentals_as_of": "2026Q3",
+      "monthly_revenue_as_of": "2026-10",
+      "price_basis": "official_unadjusted_close",
+      "liquidity_rank": 110,
+      "monthly_revenue_yoy": 155.8579322164111,
+      "cumulative_revenue_yoy": 111.89161169851586,
+      "eps": 15.54,
+      "pe": 23.87,
+      "pb": 5.69,
+      "financial_quality": {
+        "version": "onecool_tw_financial_quality_v1",
+        "status": "INSUFFICIENT_DATA",
+        "label": "資料不足",
+        "as_of": "2026Q3",
+        "source_snapshot_date": "1151121",
+        "scope": "INCOME_STATEMENT_ONLY",
+        "period_basis": "SOURCE_REPORTED_CUMULATIVE",
+        "ranking_effect": "NONE",
+        "missing_checks": [
+          "營業現金流與獲利核對",
+          "ROE與財務槓桿拆解",
+          "存貨及應收帳款同期變化"
+        ],
+        "flags": [],
+        "evidence": {
+          "operating_profit": {
+            "field": "營業利益（損失）",
+            "value": 2669053.0
+          },
+          "non_operating_profit": {
+            "field": "營業外收入及支出",
+            "value": 458711.0
+          },
+          "pretax_profit": {
+            "field": "稅前淨利（淨損）",
+            "value": 3127764.0
+          }
+        },
+        "source_url": "https://openapi.twse.com.tw/v1/opendata/t187ap06_L_ci",
+        "reason": "本業／業外初檢未見上述警示；現金流、槓桿及周轉資料不足"
+      },
+      "outlier_flags": [],
+      "score_components": {
+        "monthly_revenue_yoy": 20.0,
+        "cumulative_revenue_yoy": 20.0,
+        "eps": 30.0,
+        "pe": 4.0,
+        "pb": 1.0,
+        "liquidity": 6.71
+      },
+      "score": 81.71,
       "confidence": "HIGH",
       "selection_status": "FORMAL"
     },
@@ -6839,7 +6839,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -6873,9 +6873,9 @@
         "eps": 24.0,
         "pe": 6.0,
         "pb": 3.0,
-        "liquidity": 8.55
+        "liquidity": 8.45
       },
-      "score": 81.55,
+      "score": 81.45,
       "confidence": "HIGH",
       "selection_status": "FORMAL"
     },
@@ -6898,7 +6898,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -6932,9 +6932,9 @@
         "eps": 30.0,
         "pe": 8.0,
         "pb": 2.0,
-        "liquidity": 6.45
+        "liquidity": 6.38
       },
-      "score": 81.45,
+      "score": 81.38,
       "confidence": "HIGH",
       "selection_status": "FORMAL"
     },
@@ -6957,7 +6957,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -6991,9 +6991,9 @@
         "eps": 30.0,
         "pe": 4.0,
         "pb": 2.0,
-        "liquidity": 4.78
+        "liquidity": 4.72
       },
-      "score": 80.78,
+      "score": 80.72,
       "confidence": "HIGH",
       "selection_status": "FORMAL"
     },
@@ -7016,7 +7016,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -7050,9 +7050,9 @@
         "eps": 30.0,
         "pe": 6.0,
         "pb": 2.0,
-        "liquidity": 6.54
+        "liquidity": 6.46
       },
-      "score": 80.54,
+      "score": 80.46,
       "confidence": "HIGH",
       "selection_status": "FORMAL"
     },
@@ -7075,7 +7075,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -7109,9 +7109,9 @@
         "eps": 24.0,
         "pe": 6.0,
         "pb": 2.0,
-        "liquidity": 12.15
+        "liquidity": 12.1
       },
-      "score": 80.15,
+      "score": 80.1,
       "confidence": "HIGH",
       "selection_status": "FORMAL"
     },
@@ -7134,7 +7134,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -7168,9 +7168,9 @@
         "eps": 30.0,
         "pe": 8.0,
         "pb": 4.0,
-        "liquidity": 2.09
+        "liquidity": 2.07
       },
-      "score": 80.09,
+      "score": 80.07,
       "confidence": "HIGH",
       "selection_status": "FORMAL"
     },
@@ -7193,7 +7193,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -7227,11 +7227,11 @@
         "eps": 24.0,
         "pe": 6.0,
         "pb": 3.0,
-        "liquidity": 11.06
+        "liquidity": 10.94
       },
-      "score": 80.06,
+      "score": 79.94,
       "confidence": "HIGH",
-      "selection_status": "FORMAL"
+      "selection_status": "WATCH"
     },
     {
       "symbol": "6781",
@@ -7252,7 +7252,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -7286,68 +7286,9 @@
         "eps": 30.0,
         "pe": 8.0,
         "pb": 3.0,
-        "liquidity": 2.93
+        "liquidity": 2.9
       },
-      "score": 79.93,
-      "confidence": "HIGH",
-      "selection_status": "WATCH"
-    },
-    {
-      "symbol": "2027",
-      "company_name": "大成鋼",
-      "industry": "鋼鐵工業",
-      "price_as_of": "2026-11-20",
-      "fundamentals_as_of": "2026Q3",
-      "monthly_revenue_as_of": "2026-10",
-      "price_basis": "official_unadjusted_close",
-      "liquidity_rank": 73,
-      "monthly_revenue_yoy": 44.79713250731559,
-      "cumulative_revenue_yoy": 36.04117866925641,
-      "eps": 4.69,
-      "pe": 7.37,
-      "pb": 1.19,
-      "financial_quality": {
-        "version": "onecool_tw_financial_quality_v1",
-        "status": "INSUFFICIENT_DATA",
-        "label": "資料不足",
-        "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
-        "scope": "INCOME_STATEMENT_ONLY",
-        "period_basis": "SOURCE_REPORTED_CUMULATIVE",
-        "ranking_effect": "NONE",
-        "missing_checks": [
-          "營業現金流與獲利核對",
-          "ROE與財務槓桿拆解",
-          "存貨及應收帳款同期變化"
-        ],
-        "flags": [],
-        "evidence": {
-          "operating_profit": {
-            "field": "營業利益（損失）",
-            "value": 19729833.0
-          },
-          "non_operating_profit": {
-            "field": "營業外收入及支出",
-            "value": -971829.0
-          },
-          "pretax_profit": {
-            "field": "稅前淨利（淨損）",
-            "value": 18758004.0
-          }
-        },
-        "source_url": "https://openapi.twse.com.tw/v1/opendata/t187ap06_L_ci",
-        "reason": "本業／業外初檢未見上述警示；現金流、槓桿及周轉資料不足"
-      },
-      "outlier_flags": [],
-      "score_components": {
-        "monthly_revenue_yoy": 20.0,
-        "cumulative_revenue_yoy": 18.0,
-        "eps": 18.0,
-        "pe": 10.0,
-        "pb": 4.0,
-        "liquidity": 9.8
-      },
-      "score": 79.8,
+      "score": 79.9,
       "confidence": "HIGH",
       "selection_status": "WATCH"
     },
@@ -7370,7 +7311,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -7411,6 +7352,65 @@
       "selection_status": "WATCH"
     },
     {
+      "symbol": "2027",
+      "company_name": "大成鋼",
+      "industry": "鋼鐵工業",
+      "price_as_of": "2026-11-20",
+      "fundamentals_as_of": "2026Q3",
+      "monthly_revenue_as_of": "2026-10",
+      "price_basis": "official_unadjusted_close",
+      "liquidity_rank": 73,
+      "monthly_revenue_yoy": 44.79713250731559,
+      "cumulative_revenue_yoy": 36.04117866925641,
+      "eps": 4.69,
+      "pe": 7.37,
+      "pb": 1.19,
+      "financial_quality": {
+        "version": "onecool_tw_financial_quality_v1",
+        "status": "INSUFFICIENT_DATA",
+        "label": "資料不足",
+        "as_of": "2026Q3",
+        "source_snapshot_date": "1151121",
+        "scope": "INCOME_STATEMENT_ONLY",
+        "period_basis": "SOURCE_REPORTED_CUMULATIVE",
+        "ranking_effect": "NONE",
+        "missing_checks": [
+          "營業現金流與獲利核對",
+          "ROE與財務槓桿拆解",
+          "存貨及應收帳款同期變化"
+        ],
+        "flags": [],
+        "evidence": {
+          "operating_profit": {
+            "field": "營業利益（損失）",
+            "value": 19729833.0
+          },
+          "non_operating_profit": {
+            "field": "營業外收入及支出",
+            "value": -971829.0
+          },
+          "pretax_profit": {
+            "field": "稅前淨利（淨損）",
+            "value": 18758004.0
+          }
+        },
+        "source_url": "https://openapi.twse.com.tw/v1/opendata/t187ap06_L_ci",
+        "reason": "本業／業外初檢未見上述警示；現金流、槓桿及周轉資料不足"
+      },
+      "outlier_flags": [],
+      "score_components": {
+        "monthly_revenue_yoy": 20.0,
+        "cumulative_revenue_yoy": 18.0,
+        "eps": 18.0,
+        "pe": 10.0,
+        "pb": 4.0,
+        "liquidity": 9.7
+      },
+      "score": 79.7,
+      "confidence": "HIGH",
+      "selection_status": "WATCH"
+    },
+    {
       "symbol": "8016",
       "company_name": "矽創",
       "industry": "半導體業",
@@ -7429,7 +7429,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -7463,9 +7463,9 @@
         "eps": 30.0,
         "pe": 8.0,
         "pb": 3.0,
-        "liquidity": 5.53
+        "liquidity": 5.47
       },
-      "score": 79.53,
+      "score": 79.47,
       "confidence": "HIGH",
       "selection_status": "WATCH"
     },
@@ -7488,7 +7488,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -7522,9 +7522,9 @@
         "eps": 30.0,
         "pe": 6.0,
         "pb": 2.0,
-        "liquidity": 1.26
+        "liquidity": 1.24
       },
-      "score": 79.26,
+      "score": 79.24,
       "confidence": "HIGH",
       "selection_status": "WATCH"
     },
@@ -7547,7 +7547,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -7581,68 +7581,9 @@
         "eps": 30.0,
         "pe": 4.0,
         "pb": 1.0,
-        "liquidity": 11.23
+        "liquidity": 11.1
       },
-      "score": 79.23,
-      "confidence": "HIGH",
-      "selection_status": "WATCH"
-    },
-    {
-      "symbol": "6415",
-      "company_name": "矽力*-KY",
-      "industry": "半導體業",
-      "price_as_of": "2026-11-20",
-      "fundamentals_as_of": "2026Q3",
-      "monthly_revenue_as_of": "2026-10",
-      "price_basis": "official_unadjusted_close",
-      "liquidity_rank": 70,
-      "monthly_revenue_yoy": 47.1695168965706,
-      "cumulative_revenue_yoy": 36.39558104188714,
-      "eps": 8.36,
-      "pe": 27.23,
-      "pb": 2.65,
-      "financial_quality": {
-        "version": "onecool_tw_financial_quality_v1",
-        "status": "INSUFFICIENT_DATA",
-        "label": "資料不足",
-        "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
-        "scope": "INCOME_STATEMENT_ONLY",
-        "period_basis": "SOURCE_REPORTED_CUMULATIVE",
-        "ranking_effect": "NONE",
-        "missing_checks": [
-          "營業現金流與獲利核對",
-          "ROE與財務槓桿拆解",
-          "存貨及應收帳款同期變化"
-        ],
-        "flags": [],
-        "evidence": {
-          "operating_profit": {
-            "field": "營業利益（損失）",
-            "value": 2097360.0
-          },
-          "non_operating_profit": {
-            "field": "營業外收入及支出",
-            "value": 1344901.0
-          },
-          "pretax_profit": {
-            "field": "稅前淨利（淨損）",
-            "value": 3442261.0
-          }
-        },
-        "source_url": "https://openapi.twse.com.tw/v1/opendata/t187ap06_L_ci",
-        "reason": "本業／業外初檢未見上述警示；現金流、槓桿及周轉資料不足"
-      },
-      "outlier_flags": [],
-      "score_components": {
-        "monthly_revenue_yoy": 20.0,
-        "cumulative_revenue_yoy": 18.0,
-        "eps": 24.0,
-        "pe": 4.0,
-        "pb": 3.0,
-        "liquidity": 10.06
-      },
-      "score": 79.06,
+      "score": 79.1,
       "confidence": "HIGH",
       "selection_status": "WATCH"
     },
@@ -7665,7 +7606,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -7699,9 +7640,68 @@
         "eps": 30.0,
         "pe": 4.0,
         "pb": 2.0,
-        "liquidity": 7.04
+        "liquidity": 6.96
       },
-      "score": 79.04,
+      "score": 78.96,
+      "confidence": "HIGH",
+      "selection_status": "WATCH"
+    },
+    {
+      "symbol": "6415",
+      "company_name": "矽力*-KY",
+      "industry": "半導體業",
+      "price_as_of": "2026-11-20",
+      "fundamentals_as_of": "2026Q3",
+      "monthly_revenue_as_of": "2026-10",
+      "price_basis": "official_unadjusted_close",
+      "liquidity_rank": 70,
+      "monthly_revenue_yoy": 47.1695168965706,
+      "cumulative_revenue_yoy": 36.39558104188714,
+      "eps": 8.36,
+      "pe": 27.23,
+      "pb": 2.65,
+      "financial_quality": {
+        "version": "onecool_tw_financial_quality_v1",
+        "status": "INSUFFICIENT_DATA",
+        "label": "資料不足",
+        "as_of": "2026Q3",
+        "source_snapshot_date": "1151121",
+        "scope": "INCOME_STATEMENT_ONLY",
+        "period_basis": "SOURCE_REPORTED_CUMULATIVE",
+        "ranking_effect": "NONE",
+        "missing_checks": [
+          "營業現金流與獲利核對",
+          "ROE與財務槓桿拆解",
+          "存貨及應收帳款同期變化"
+        ],
+        "flags": [],
+        "evidence": {
+          "operating_profit": {
+            "field": "營業利益（損失）",
+            "value": 2097360.0
+          },
+          "non_operating_profit": {
+            "field": "營業外收入及支出",
+            "value": 1344901.0
+          },
+          "pretax_profit": {
+            "field": "稅前淨利（淨損）",
+            "value": 3442261.0
+          }
+        },
+        "source_url": "https://openapi.twse.com.tw/v1/opendata/t187ap06_L_ci",
+        "reason": "本業／業外初檢未見上述警示；現金流、槓桿及周轉資料不足"
+      },
+      "outlier_flags": [],
+      "score_components": {
+        "monthly_revenue_yoy": 20.0,
+        "cumulative_revenue_yoy": 18.0,
+        "eps": 24.0,
+        "pe": 4.0,
+        "pb": 3.0,
+        "liquidity": 9.94
+      },
+      "score": 78.94,
       "confidence": "HIGH",
       "selection_status": "WATCH"
     },
@@ -7724,7 +7724,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -7758,9 +7758,9 @@
         "eps": 30.0,
         "pe": 10.0,
         "pb": 4.0,
-        "liquidity": 1.84
+        "liquidity": 1.82
       },
-      "score": 78.84,
+      "score": 78.82,
       "confidence": "HIGH",
       "selection_status": "WATCH"
     },
@@ -7783,7 +7783,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -7817,9 +7817,9 @@
         "eps": 30.0,
         "pe": 2.0,
         "pb": 0.0,
-        "liquidity": 6.62
+        "liquidity": 6.55
       },
-      "score": 78.62,
+      "score": 78.55,
       "confidence": "HIGH",
       "selection_status": "WATCH"
     },
@@ -7842,7 +7842,7 @@
         "status": "REVIEW",
         "label": "需留意",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -7878,9 +7878,9 @@
         "eps": 24.0,
         "pe": 8.0,
         "pb": 3.0,
-        "liquidity": 3.44
+        "liquidity": 3.4
       },
-      "score": 78.44,
+      "score": 78.4,
       "confidence": "HIGH",
       "selection_status": "WATCH"
     },
@@ -7903,7 +7903,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -7937,9 +7937,9 @@
         "eps": 18.0,
         "pe": 8.0,
         "pb": 4.0,
-        "liquidity": 8.38
+        "liquidity": 8.29
       },
-      "score": 78.38,
+      "score": 78.29,
       "confidence": "HIGH",
       "selection_status": "WATCH"
     },
@@ -7962,7 +7962,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -7996,9 +7996,9 @@
         "eps": 24.0,
         "pe": 2.0,
         "pb": 3.0,
-        "liquidity": 13.32
+        "liquidity": 13.26
       },
-      "score": 78.32,
+      "score": 78.26,
       "confidence": "HIGH",
       "selection_status": "WATCH"
     },
@@ -8021,7 +8021,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -8055,9 +8055,9 @@
         "eps": 30.0,
         "pe": 8.0,
         "pb": 2.0,
-        "liquidity": 9.72
+        "liquidity": 9.61
       },
-      "score": 77.72,
+      "score": 77.61,
       "confidence": "HIGH",
       "selection_status": "WATCH"
     },
@@ -8080,7 +8080,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -8114,9 +8114,9 @@
         "eps": 30.0,
         "pe": 0.0,
         "pb": 0.0,
-        "liquidity": 7.54
+        "liquidity": 7.46
       },
-      "score": 77.54,
+      "score": 77.46,
       "confidence": "HIGH",
       "selection_status": "WATCH"
     },
@@ -8139,7 +8139,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -8173,68 +8173,9 @@
         "eps": 24.0,
         "pe": 4.0,
         "pb": 2.0,
-        "liquidity": 11.48
+        "liquidity": 11.35
       },
-      "score": 77.48,
-      "confidence": "HIGH",
-      "selection_status": "WATCH"
-    },
-    {
-      "symbol": "6526",
-      "company_name": "達發",
-      "industry": "半導體業",
-      "price_as_of": "2026-11-20",
-      "fundamentals_as_of": "2026Q3",
-      "monthly_revenue_as_of": "2026-10",
-      "price_basis": "official_unadjusted_close",
-      "liquidity_rank": 119,
-      "monthly_revenue_yoy": 55.96287417055299,
-      "cumulative_revenue_yoy": 17.639650156596854,
-      "eps": 15.87,
-      "pe": 28.78,
-      "pb": 4.64,
-      "financial_quality": {
-        "version": "onecool_tw_financial_quality_v1",
-        "status": "INSUFFICIENT_DATA",
-        "label": "資料不足",
-        "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
-        "scope": "INCOME_STATEMENT_ONLY",
-        "period_basis": "SOURCE_REPORTED_CUMULATIVE",
-        "ranking_effect": "NONE",
-        "missing_checks": [
-          "營業現金流與獲利核對",
-          "ROE與財務槓桿拆解",
-          "存貨及應收帳款同期變化"
-        ],
-        "flags": [],
-        "evidence": {
-          "operating_profit": {
-            "field": "營業利益（損失）",
-            "value": 2893092.0
-          },
-          "non_operating_profit": {
-            "field": "營業外收入及支出",
-            "value": 243417.0
-          },
-          "pretax_profit": {
-            "field": "稅前淨利（淨損）",
-            "value": 3136509.0
-          }
-        },
-        "source_url": "https://openapi.twse.com.tw/v1/opendata/t187ap06_L_ci",
-        "reason": "本業／業外初檢未見上述警示；現金流、槓桿及周轉資料不足"
-      },
-      "outlier_flags": [],
-      "score_components": {
-        "monthly_revenue_yoy": 20.0,
-        "cumulative_revenue_yoy": 15.0,
-        "eps": 30.0,
-        "pe": 4.0,
-        "pb": 2.0,
-        "liquidity": 6.2
-      },
-      "score": 77.2,
+      "score": 77.35,
       "confidence": "HIGH",
       "selection_status": "WATCH"
     },
@@ -8257,7 +8198,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -8298,6 +8239,65 @@
       "selection_status": "WATCH"
     },
     {
+      "symbol": "6526",
+      "company_name": "達發",
+      "industry": "半導體業",
+      "price_as_of": "2026-11-20",
+      "fundamentals_as_of": "2026Q3",
+      "monthly_revenue_as_of": "2026-10",
+      "price_basis": "official_unadjusted_close",
+      "liquidity_rank": 119,
+      "monthly_revenue_yoy": 55.96287417055299,
+      "cumulative_revenue_yoy": 17.639650156596854,
+      "eps": 15.87,
+      "pe": 28.78,
+      "pb": 4.64,
+      "financial_quality": {
+        "version": "onecool_tw_financial_quality_v1",
+        "status": "INSUFFICIENT_DATA",
+        "label": "資料不足",
+        "as_of": "2026Q3",
+        "source_snapshot_date": "1151121",
+        "scope": "INCOME_STATEMENT_ONLY",
+        "period_basis": "SOURCE_REPORTED_CUMULATIVE",
+        "ranking_effect": "NONE",
+        "missing_checks": [
+          "營業現金流與獲利核對",
+          "ROE與財務槓桿拆解",
+          "存貨及應收帳款同期變化"
+        ],
+        "flags": [],
+        "evidence": {
+          "operating_profit": {
+            "field": "營業利益（損失）",
+            "value": 2893092.0
+          },
+          "non_operating_profit": {
+            "field": "營業外收入及支出",
+            "value": 243417.0
+          },
+          "pretax_profit": {
+            "field": "稅前淨利（淨損）",
+            "value": 3136509.0
+          }
+        },
+        "source_url": "https://openapi.twse.com.tw/v1/opendata/t187ap06_L_ci",
+        "reason": "本業／業外初檢未見上述警示；現金流、槓桿及周轉資料不足"
+      },
+      "outlier_flags": [],
+      "score_components": {
+        "monthly_revenue_yoy": 20.0,
+        "cumulative_revenue_yoy": 15.0,
+        "eps": 30.0,
+        "pe": 4.0,
+        "pb": 2.0,
+        "liquidity": 6.13
+      },
+      "score": 77.13,
+      "confidence": "HIGH",
+      "selection_status": "WATCH"
+    },
+    {
       "symbol": "3090",
       "company_name": "日電貿",
       "industry": "電子零組件業",
@@ -8316,7 +8316,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -8350,9 +8350,9 @@
         "eps": 24.0,
         "pe": 8.0,
         "pb": 4.0,
-        "liquidity": 3.1
+        "liquidity": 3.07
       },
-      "score": 77.1,
+      "score": 77.07,
       "confidence": "HIGH",
       "selection_status": "WATCH"
     },
@@ -8375,7 +8375,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -8409,9 +8409,9 @@
         "eps": 24.0,
         "pe": 8.0,
         "pb": 2.0,
-        "liquidity": 5.03
+        "liquidity": 4.97
       },
-      "score": 77.03,
+      "score": 76.97,
       "confidence": "HIGH",
       "selection_status": "WATCH"
     },
@@ -8434,7 +8434,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -8468,9 +8468,9 @@
         "eps": 24.0,
         "pe": 10.0,
         "pb": 4.0,
-        "liquidity": 0.84
+        "liquidity": 0.83
       },
-      "score": 76.84,
+      "score": 76.83,
       "confidence": "HIGH",
       "selection_status": "WATCH"
     },
@@ -8493,7 +8493,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -8527,9 +8527,9 @@
         "eps": 24.0,
         "pe": 8.0,
         "pb": 3.0,
-        "liquidity": 5.7
+        "liquidity": 5.64
       },
-      "score": 76.7,
+      "score": 76.64,
       "confidence": "HIGH",
       "selection_status": "WATCH"
     },
@@ -8552,7 +8552,7 @@
         "status": "REVIEW",
         "label": "需留意",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -8588,68 +8588,9 @@
         "eps": 18.0,
         "pe": 6.0,
         "pb": 5.0,
-        "liquidity": 9.64
+        "liquidity": 9.53
       },
-      "score": 76.64,
-      "confidence": "HIGH",
-      "selection_status": "WATCH"
-    },
-    {
-      "symbol": "3533",
-      "company_name": "嘉澤",
-      "industry": "電子零組件業",
-      "price_as_of": "2026-11-20",
-      "fundamentals_as_of": "2026Q3",
-      "monthly_revenue_as_of": "2026-10",
-      "price_basis": "official_unadjusted_close",
-      "liquidity_rank": 89,
-      "monthly_revenue_yoy": 12.464972984688742,
-      "cumulative_revenue_yoy": 16.994226438741638,
-      "eps": 56.11,
-      "pe": 18.35,
-      "pb": 3.73,
-      "financial_quality": {
-        "version": "onecool_tw_financial_quality_v1",
-        "status": "INSUFFICIENT_DATA",
-        "label": "資料不足",
-        "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
-        "scope": "INCOME_STATEMENT_ONLY",
-        "period_basis": "SOURCE_REPORTED_CUMULATIVE",
-        "ranking_effect": "NONE",
-        "missing_checks": [
-          "營業現金流與獲利核對",
-          "ROE與財務槓桿拆解",
-          "存貨及應收帳款同期變化"
-        ],
-        "flags": [],
-        "evidence": {
-          "operating_profit": {
-            "field": "營業利益（損失）",
-            "value": 7094560.0
-          },
-          "non_operating_profit": {
-            "field": "營業外收入及支出",
-            "value": 885082.0
-          },
-          "pretax_profit": {
-            "field": "稅前淨利（淨損）",
-            "value": 7979642.0
-          }
-        },
-        "source_url": "https://openapi.twse.com.tw/v1/opendata/t187ap06_L_ci",
-        "reason": "本業／業外初檢未見上述警示；現金流、槓桿及周轉資料不足"
-      },
-      "outlier_flags": [],
-      "score_components": {
-        "monthly_revenue_yoy": 15.0,
-        "cumulative_revenue_yoy": 15.0,
-        "eps": 30.0,
-        "pe": 6.0,
-        "pb": 2.0,
-        "liquidity": 8.46
-      },
-      "score": 76.46,
+      "score": 76.53,
       "confidence": "HIGH",
       "selection_status": "WATCH"
     },
@@ -8672,7 +8613,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -8706,9 +8647,68 @@
         "eps": 24.0,
         "pe": 8.0,
         "pb": 4.0,
-        "liquidity": 4.44
+        "liquidity": 4.39
       },
-      "score": 76.44,
+      "score": 76.39,
+      "confidence": "HIGH",
+      "selection_status": "WATCH"
+    },
+    {
+      "symbol": "3533",
+      "company_name": "嘉澤",
+      "industry": "電子零組件業",
+      "price_as_of": "2026-11-20",
+      "fundamentals_as_of": "2026Q3",
+      "monthly_revenue_as_of": "2026-10",
+      "price_basis": "official_unadjusted_close",
+      "liquidity_rank": 89,
+      "monthly_revenue_yoy": 12.464972984688742,
+      "cumulative_revenue_yoy": 16.994226438741638,
+      "eps": 56.11,
+      "pe": 18.35,
+      "pb": 3.73,
+      "financial_quality": {
+        "version": "onecool_tw_financial_quality_v1",
+        "status": "INSUFFICIENT_DATA",
+        "label": "資料不足",
+        "as_of": "2026Q3",
+        "source_snapshot_date": "1151121",
+        "scope": "INCOME_STATEMENT_ONLY",
+        "period_basis": "SOURCE_REPORTED_CUMULATIVE",
+        "ranking_effect": "NONE",
+        "missing_checks": [
+          "營業現金流與獲利核對",
+          "ROE與財務槓桿拆解",
+          "存貨及應收帳款同期變化"
+        ],
+        "flags": [],
+        "evidence": {
+          "operating_profit": {
+            "field": "營業利益（損失）",
+            "value": 7094560.0
+          },
+          "non_operating_profit": {
+            "field": "營業外收入及支出",
+            "value": 885082.0
+          },
+          "pretax_profit": {
+            "field": "稅前淨利（淨損）",
+            "value": 7979642.0
+          }
+        },
+        "source_url": "https://openapi.twse.com.tw/v1/opendata/t187ap06_L_ci",
+        "reason": "本業／業外初檢未見上述警示；現金流、槓桿及周轉資料不足"
+      },
+      "outlier_flags": [],
+      "score_components": {
+        "monthly_revenue_yoy": 15.0,
+        "cumulative_revenue_yoy": 15.0,
+        "eps": 30.0,
+        "pe": 6.0,
+        "pb": 2.0,
+        "liquidity": 8.37
+      },
+      "score": 76.37,
       "confidence": "HIGH",
       "selection_status": "WATCH"
     },
@@ -8731,7 +8731,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -8790,7 +8790,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -8824,9 +8824,9 @@
         "eps": 30.0,
         "pe": 2.0,
         "pb": 1.0,
-        "liquidity": 6.7
+        "liquidity": 6.63
       },
-      "score": 75.7,
+      "score": 75.63,
       "confidence": "HIGH",
       "selection_status": "WATCH"
     },
@@ -8849,7 +8849,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -8883,9 +8883,9 @@
         "eps": 18.0,
         "pe": 8.0,
         "pb": 5.0,
-        "liquidity": 6.37
+        "liquidity": 6.3
       },
-      "score": 75.37,
+      "score": 75.3,
       "confidence": "HIGH",
       "selection_status": "WATCH"
     },
@@ -8908,7 +8908,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -8942,9 +8942,9 @@
         "eps": 18.0,
         "pe": 10.0,
         "pb": 4.0,
-        "liquidity": 9.89
+        "liquidity": 9.78
       },
-      "score": 74.89,
+      "score": 74.78,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -8967,7 +8967,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -9001,9 +9001,9 @@
         "eps": 30.0,
         "pe": 6.0,
         "pb": 2.0,
-        "liquidity": 3.35
+        "liquidity": 3.31
       },
-      "score": 74.35,
+      "score": 74.31,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -9026,7 +9026,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -9060,9 +9060,9 @@
         "eps": 24.0,
         "pe": 4.0,
         "pb": 3.0,
-        "liquidity": 7.29
+        "liquidity": 7.21
       },
-      "score": 74.29,
+      "score": 74.21,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -9085,7 +9085,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -9119,9 +9119,9 @@
         "eps": 30.0,
         "pe": 8.0,
         "pb": 2.0,
-        "liquidity": 9.22
+        "liquidity": 9.12
       },
-      "score": 74.22,
+      "score": 74.12,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -9144,7 +9144,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -9178,9 +9178,9 @@
         "eps": 18.0,
         "pe": 8.0,
         "pb": 5.0,
-        "liquidity": 7.79
+        "liquidity": 7.71
       },
-      "score": 73.79,
+      "score": 73.71,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -9203,7 +9203,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -9237,9 +9237,9 @@
         "eps": 24.0,
         "pe": 0.0,
         "pb": 1.0,
-        "liquidity": 10.64
+        "liquidity": 10.52
       },
-      "score": 73.64,
+      "score": 73.52,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -9262,7 +9262,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -9296,9 +9296,9 @@
         "eps": 24.0,
         "pe": 4.0,
         "pb": 1.0,
-        "liquidity": 11.56
+        "liquidity": 11.44
       },
-      "score": 73.56,
+      "score": 73.44,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -9321,7 +9321,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -9355,9 +9355,9 @@
         "eps": 18.0,
         "pe": 8.0,
         "pb": 4.0,
-        "liquidity": 7.37
+        "liquidity": 7.29
       },
-      "score": 73.37,
+      "score": 73.29,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -9380,7 +9380,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -9414,9 +9414,9 @@
         "eps": 18.0,
         "pe": 8.0,
         "pb": 4.0,
-        "liquidity": 3.27
+        "liquidity": 3.23
       },
-      "score": 73.27,
+      "score": 73.23,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -9439,7 +9439,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -9473,9 +9473,9 @@
         "eps": 24.0,
         "pe": 6.0,
         "pb": 4.0,
-        "liquidity": 5.2
+        "liquidity": 5.14
       },
-      "score": 72.2,
+      "score": 72.14,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -9498,7 +9498,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -9532,9 +9532,9 @@
         "eps": 24.0,
         "pe": 8.0,
         "pb": 3.0,
-        "liquidity": 0.59
+        "liquidity": 0.58
       },
-      "score": 71.59,
+      "score": 71.58,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -9557,7 +9557,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -9591,9 +9591,9 @@
         "eps": 18.0,
         "pe": 10.0,
         "pb": 4.0,
-        "liquidity": 1.51
+        "liquidity": 1.49
       },
-      "score": 71.51,
+      "score": 71.49,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -9616,7 +9616,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -9650,68 +9650,9 @@
         "eps": 18.0,
         "pe": 8.0,
         "pb": 5.0,
-        "liquidity": 1.34
+        "liquidity": 1.33
       },
-      "score": 70.34,
-      "confidence": "HIGH",
-      "selection_status": "BELOW_THRESHOLD"
-    },
-    {
-      "symbol": "2324",
-      "company_name": "仁寶",
-      "industry": "電腦及週邊設備業",
-      "price_as_of": "2026-11-20",
-      "fundamentals_as_of": "2026Q3",
-      "monthly_revenue_as_of": "2026-10",
-      "price_basis": "official_unadjusted_close",
-      "liquidity_rank": 79,
-      "monthly_revenue_yoy": 40.748869953607574,
-      "cumulative_revenue_yoy": 22.422959848194616,
-      "eps": 1.78,
-      "pe": 12.08,
-      "pb": 0.79,
-      "financial_quality": {
-        "version": "onecool_tw_financial_quality_v1",
-        "status": "INSUFFICIENT_DATA",
-        "label": "資料不足",
-        "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
-        "scope": "INCOME_STATEMENT_ONLY",
-        "period_basis": "SOURCE_REPORTED_CUMULATIVE",
-        "ranking_effect": "NONE",
-        "missing_checks": [
-          "營業現金流與獲利核對",
-          "ROE與財務槓桿拆解",
-          "存貨及應收帳款同期變化"
-        ],
-        "flags": [],
-        "evidence": {
-          "operating_profit": {
-            "field": "營業利益（損失）",
-            "value": 7746823.0
-          },
-          "non_operating_profit": {
-            "field": "營業外收入及支出",
-            "value": 3904636.0
-          },
-          "pretax_profit": {
-            "field": "稅前淨利（淨損）",
-            "value": 11651459.0
-          }
-        },
-        "source_url": "https://openapi.twse.com.tw/v1/opendata/t187ap06_L_ci",
-        "reason": "本業／業外初檢未見上述警示；現金流、槓桿及周轉資料不足"
-      },
-      "outlier_flags": [],
-      "score_components": {
-        "monthly_revenue_yoy": 20.0,
-        "cumulative_revenue_yoy": 18.0,
-        "eps": 10.0,
-        "pe": 8.0,
-        "pb": 5.0,
-        "liquidity": 9.3
-      },
-      "score": 70.3,
+      "score": 70.33,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -9734,7 +9675,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -9775,6 +9716,65 @@
       "selection_status": "BELOW_THRESHOLD"
     },
     {
+      "symbol": "2324",
+      "company_name": "仁寶",
+      "industry": "電腦及週邊設備業",
+      "price_as_of": "2026-11-20",
+      "fundamentals_as_of": "2026Q3",
+      "monthly_revenue_as_of": "2026-10",
+      "price_basis": "official_unadjusted_close",
+      "liquidity_rank": 79,
+      "monthly_revenue_yoy": 40.748869953607574,
+      "cumulative_revenue_yoy": 22.422959848194616,
+      "eps": 1.78,
+      "pe": 12.08,
+      "pb": 0.79,
+      "financial_quality": {
+        "version": "onecool_tw_financial_quality_v1",
+        "status": "INSUFFICIENT_DATA",
+        "label": "資料不足",
+        "as_of": "2026Q3",
+        "source_snapshot_date": "1151121",
+        "scope": "INCOME_STATEMENT_ONLY",
+        "period_basis": "SOURCE_REPORTED_CUMULATIVE",
+        "ranking_effect": "NONE",
+        "missing_checks": [
+          "營業現金流與獲利核對",
+          "ROE與財務槓桿拆解",
+          "存貨及應收帳款同期變化"
+        ],
+        "flags": [],
+        "evidence": {
+          "operating_profit": {
+            "field": "營業利益（損失）",
+            "value": 7746823.0
+          },
+          "non_operating_profit": {
+            "field": "營業外收入及支出",
+            "value": 3904636.0
+          },
+          "pretax_profit": {
+            "field": "稅前淨利（淨損）",
+            "value": 11651459.0
+          }
+        },
+        "source_url": "https://openapi.twse.com.tw/v1/opendata/t187ap06_L_ci",
+        "reason": "本業／業外初檢未見上述警示；現金流、槓桿及周轉資料不足"
+      },
+      "outlier_flags": [],
+      "score_components": {
+        "monthly_revenue_yoy": 20.0,
+        "cumulative_revenue_yoy": 18.0,
+        "eps": 10.0,
+        "pe": 8.0,
+        "pb": 5.0,
+        "liquidity": 9.2
+      },
+      "score": 70.2,
+      "confidence": "HIGH",
+      "selection_status": "BELOW_THRESHOLD"
+    },
+    {
       "symbol": "2481",
       "company_name": "強茂",
       "industry": "半導體業",
@@ -9793,7 +9793,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -9827,9 +9827,9 @@
         "eps": 18.0,
         "pe": 6.0,
         "pb": 3.0,
-        "liquidity": 7.12
+        "liquidity": 7.04
       },
-      "score": 70.12,
+      "score": 70.04,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -9852,7 +9852,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -9886,9 +9886,9 @@
         "eps": 24.0,
         "pe": 2.0,
         "pb": 1.0,
-        "liquidity": 3.02
+        "liquidity": 2.98
       },
-      "score": 70.02,
+      "score": 69.98,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -9911,7 +9911,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -9945,9 +9945,9 @@
         "eps": 18.0,
         "pe": 6.0,
         "pb": 4.0,
-        "liquidity": 8.72
+        "liquidity": 8.62
       },
-      "score": 69.72,
+      "score": 69.62,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -9970,7 +9970,7 @@
         "status": "REVIEW",
         "label": "需留意",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -10006,9 +10006,9 @@
         "eps": 18.0,
         "pe": 2.0,
         "pb": 2.0,
-        "liquidity": 6.87
+        "liquidity": 6.8
       },
-      "score": 68.87,
+      "score": 68.8,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -10031,7 +10031,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -10065,9 +10065,9 @@
         "eps": 24.0,
         "pe": 6.0,
         "pb": 3.0,
-        "liquidity": 2.35
+        "liquidity": 2.32
       },
-      "score": 68.35,
+      "score": 68.32,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -10090,7 +10090,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -10124,9 +10124,9 @@
         "eps": 30.0,
         "pe": 8.0,
         "pb": 2.0,
-        "liquidity": 7.88
+        "liquidity": 7.79
       },
-      "score": 67.88,
+      "score": 67.79,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -10149,7 +10149,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -10183,68 +10183,9 @@
         "eps": 18.0,
         "pe": 4.0,
         "pb": 2.0,
-        "liquidity": 13.74
+        "liquidity": 13.76
       },
-      "score": 67.74,
-      "confidence": "HIGH",
-      "selection_status": "BELOW_THRESHOLD"
-    },
-    {
-      "symbol": "2313",
-      "company_name": "華通",
-      "industry": "電子零組件業",
-      "price_as_of": "2026-11-20",
-      "fundamentals_as_of": "2026Q3",
-      "monthly_revenue_as_of": "2026-10",
-      "price_basis": "official_unadjusted_close",
-      "liquidity_rank": 61,
-      "monthly_revenue_yoy": 24.738637062458253,
-      "cumulative_revenue_yoy": 14.32914089101179,
-      "eps": 4.31,
-      "pe": 25.25,
-      "pb": 3.15,
-      "financial_quality": {
-        "version": "onecool_tw_financial_quality_v1",
-        "status": "INSUFFICIENT_DATA",
-        "label": "資料不足",
-        "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
-        "scope": "INCOME_STATEMENT_ONLY",
-        "period_basis": "SOURCE_REPORTED_CUMULATIVE",
-        "ranking_effect": "NONE",
-        "missing_checks": [
-          "營業現金流與獲利核對",
-          "ROE與財務槓桿拆解",
-          "存貨及應收帳款同期變化"
-        ],
-        "flags": [],
-        "evidence": {
-          "operating_profit": {
-            "field": "營業利益（損失）",
-            "value": 6689954.0
-          },
-          "non_operating_profit": {
-            "field": "營業外收入及支出",
-            "value": -480813.0
-          },
-          "pretax_profit": {
-            "field": "稅前淨利（淨損）",
-            "value": 6209141.0
-          }
-        },
-        "source_url": "https://openapi.twse.com.tw/v1/opendata/t187ap06_L_ci",
-        "reason": "本業／業外初檢未見上述警示；現金流、槓桿及周轉資料不足"
-      },
-      "outlier_flags": [],
-      "score_components": {
-        "monthly_revenue_yoy": 18.0,
-        "cumulative_revenue_yoy": 15.0,
-        "eps": 18.0,
-        "pe": 4.0,
-        "pb": 2.0,
-        "liquidity": 10.73
-      },
-      "score": 67.73,
+      "score": 67.76,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -10267,7 +10208,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -10301,9 +10242,68 @@
         "eps": 24.0,
         "pe": 2.0,
         "pb": 1.0,
-        "liquidity": 0.67
+        "liquidity": 0.66
       },
-      "score": 67.67,
+      "score": 67.66,
+      "confidence": "HIGH",
+      "selection_status": "BELOW_THRESHOLD"
+    },
+    {
+      "symbol": "2313",
+      "company_name": "華通",
+      "industry": "電子零組件業",
+      "price_as_of": "2026-11-20",
+      "fundamentals_as_of": "2026Q3",
+      "monthly_revenue_as_of": "2026-10",
+      "price_basis": "official_unadjusted_close",
+      "liquidity_rank": 61,
+      "monthly_revenue_yoy": 24.738637062458253,
+      "cumulative_revenue_yoy": 14.32914089101179,
+      "eps": 4.31,
+      "pe": 25.25,
+      "pb": 3.15,
+      "financial_quality": {
+        "version": "onecool_tw_financial_quality_v1",
+        "status": "INSUFFICIENT_DATA",
+        "label": "資料不足",
+        "as_of": "2026Q3",
+        "source_snapshot_date": "1151121",
+        "scope": "INCOME_STATEMENT_ONLY",
+        "period_basis": "SOURCE_REPORTED_CUMULATIVE",
+        "ranking_effect": "NONE",
+        "missing_checks": [
+          "營業現金流與獲利核對",
+          "ROE與財務槓桿拆解",
+          "存貨及應收帳款同期變化"
+        ],
+        "flags": [],
+        "evidence": {
+          "operating_profit": {
+            "field": "營業利益（損失）",
+            "value": 6689954.0
+          },
+          "non_operating_profit": {
+            "field": "營業外收入及支出",
+            "value": -480813.0
+          },
+          "pretax_profit": {
+            "field": "稅前淨利（淨損）",
+            "value": 6209141.0
+          }
+        },
+        "source_url": "https://openapi.twse.com.tw/v1/opendata/t187ap06_L_ci",
+        "reason": "本業／業外初檢未見上述警示；現金流、槓桿及周轉資料不足"
+      },
+      "outlier_flags": [],
+      "score_components": {
+        "monthly_revenue_yoy": 18.0,
+        "cumulative_revenue_yoy": 15.0,
+        "eps": 18.0,
+        "pe": 4.0,
+        "pb": 2.0,
+        "liquidity": 10.61
+      },
+      "score": 67.61,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -10326,7 +10326,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -10360,9 +10360,9 @@
         "eps": 10.0,
         "pe": 10.0,
         "pb": 4.0,
-        "liquidity": 7.63
+        "liquidity": 7.54
       },
-      "score": 67.63,
+      "score": 67.54,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -10385,7 +10385,7 @@
         "status": "REVIEW",
         "label": "需留意",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -10421,9 +10421,9 @@
         "eps": 18.0,
         "pe": 8.0,
         "pb": 5.0,
-        "liquidity": 2.77
+        "liquidity": 2.73
       },
-      "score": 66.77,
+      "score": 66.73,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -10446,7 +10446,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -10480,9 +10480,54 @@
         "eps": 24.0,
         "pe": 6.0,
         "pb": 3.0,
-        "liquidity": 0.42
+        "liquidity": 0.41
       },
-      "score": 66.42,
+      "score": 66.41,
+      "confidence": "HIGH",
+      "selection_status": "BELOW_THRESHOLD"
+    },
+    {
+      "symbol": "2885",
+      "company_name": "元大金",
+      "industry": "金融保險業",
+      "price_as_of": "2026-11-20",
+      "fundamentals_as_of": "2026Q3",
+      "monthly_revenue_as_of": "2026-10",
+      "price_basis": "official_unadjusted_close",
+      "liquidity_rank": 46,
+      "monthly_revenue_yoy": 3.02677613029855,
+      "cumulative_revenue_yoy": 90.55996018216327,
+      "eps": 3.96,
+      "pe": 12.7,
+      "pb": 2.01,
+      "financial_quality": {
+        "version": "onecool_tw_financial_quality_v1",
+        "status": "INSUFFICIENT_DATA",
+        "label": "資料不足",
+        "as_of": "2026Q3",
+        "source_snapshot_date": "1151121",
+        "scope": "SECTOR_SPECIFIC_REVIEW_REQUIRED",
+        "period_basis": "SOURCE_REPORTED_CUMULATIVE",
+        "ranking_effect": "NONE",
+        "missing_checks": [
+          "營業現金流與獲利核對",
+          "ROE與財務槓桿拆解",
+          "存貨及應收帳款同期變化"
+        ],
+        "flags": [],
+        "evidence": {},
+        "reason": "金融業須用專屬財報檢核，目前資料不足"
+      },
+      "outlier_flags": [],
+      "score_components": {
+        "monthly_revenue_yoy": 5.0,
+        "cumulative_revenue_yoy": 20.0,
+        "eps": 18.0,
+        "pe": 8.0,
+        "pb": 3.0,
+        "liquidity": 11.69
+      },
+      "score": 65.69,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -10505,7 +10550,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -10539,9 +10584,9 @@
         "eps": 10.0,
         "pe": 2.0,
         "pb": 3.0,
-        "liquidity": 12.49
+        "liquidity": 12.43
       },
-      "score": 65.49,
+      "score": 65.43,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -10564,7 +10609,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -10598,9 +10643,9 @@
         "eps": 24.0,
         "pe": 4.0,
         "pb": 3.0,
-        "liquidity": 4.11
+        "liquidity": 4.06
       },
-      "score": 65.11,
+      "score": 65.06,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -10623,7 +10668,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -10657,9 +10702,9 @@
         "eps": 24.0,
         "pe": 6.0,
         "pb": 4.0,
-        "liquidity": 1.01
+        "liquidity": 0.99
       },
-      "score": 65.01,
+      "score": 64.99,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -10682,7 +10727,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -10723,65 +10768,6 @@
       "selection_status": "BELOW_THRESHOLD"
     },
     {
-      "symbol": "2353",
-      "company_name": "宏碁",
-      "industry": "電腦及週邊設備業",
-      "price_as_of": "2026-11-20",
-      "fundamentals_as_of": "2026Q3",
-      "monthly_revenue_as_of": "2026-10",
-      "price_basis": "official_unadjusted_close",
-      "liquidity_rank": 124,
-      "monthly_revenue_yoy": 24.299217412109577,
-      "cumulative_revenue_yoy": 24.01728147663083,
-      "eps": 1.67,
-      "pe": 13.19,
-      "pb": 1.0,
-      "financial_quality": {
-        "version": "onecool_tw_financial_quality_v1",
-        "status": "INSUFFICIENT_DATA",
-        "label": "資料不足",
-        "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
-        "scope": "INCOME_STATEMENT_ONLY",
-        "period_basis": "SOURCE_REPORTED_CUMULATIVE",
-        "ranking_effect": "NONE",
-        "missing_checks": [
-          "營業現金流與獲利核對",
-          "ROE與財務槓桿拆解",
-          "存貨及應收帳款同期變化"
-        ],
-        "flags": [],
-        "evidence": {
-          "operating_profit": {
-            "field": "營業利益（損失）",
-            "value": 5607075.0
-          },
-          "non_operating_profit": {
-            "field": "營業外收入及支出",
-            "value": 3962676.0
-          },
-          "pretax_profit": {
-            "field": "稅前淨利（淨損）",
-            "value": 9569751.0
-          }
-        },
-        "source_url": "https://openapi.twse.com.tw/v1/opendata/t187ap06_L_ci",
-        "reason": "本業／業外初檢未見上述警示；現金流、槓桿及周轉資料不足"
-      },
-      "outlier_flags": [],
-      "score_components": {
-        "monthly_revenue_yoy": 18.0,
-        "cumulative_revenue_yoy": 18.0,
-        "eps": 10.0,
-        "pe": 8.0,
-        "pb": 5.0,
-        "liquidity": 5.87
-      },
-      "score": 64.87,
-      "confidence": "HIGH",
-      "selection_status": "BELOW_THRESHOLD"
-    },
-    {
       "symbol": "3005",
       "company_name": "神基",
       "industry": "電腦及週邊設備業",
@@ -10800,7 +10786,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -10834,32 +10820,32 @@
         "eps": 24.0,
         "pe": 8.0,
         "pb": 3.0,
-        "liquidity": 4.86
+        "liquidity": 4.81
       },
-      "score": 64.86,
+      "score": 64.81,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
     {
-      "symbol": "1513",
-      "company_name": "中興電",
-      "industry": "電機機械",
+      "symbol": "2353",
+      "company_name": "宏碁",
+      "industry": "電腦及週邊設備業",
       "price_as_of": "2026-11-20",
       "fundamentals_as_of": "2026Q3",
       "monthly_revenue_as_of": "2026-10",
       "price_basis": "official_unadjusted_close",
-      "liquidity_rank": 142,
-      "monthly_revenue_yoy": 18.207281018680714,
-      "cumulative_revenue_yoy": 6.269147992855745,
-      "eps": 7.11,
-      "pe": 13.86,
-      "pb": 2.88,
+      "liquidity_rank": 124,
+      "monthly_revenue_yoy": 24.299217412109577,
+      "cumulative_revenue_yoy": 24.01728147663083,
+      "eps": 1.67,
+      "pe": 13.19,
+      "pb": 1.0,
       "financial_quality": {
         "version": "onecool_tw_financial_quality_v1",
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -10872,15 +10858,15 @@
         "evidence": {
           "operating_profit": {
             "field": "營業利益（損失）",
-            "value": 4075800.0
+            "value": 5607075.0
           },
           "non_operating_profit": {
             "field": "營業外收入及支出",
-            "value": 305455.0
+            "value": 3962676.0
           },
           "pretax_profit": {
             "field": "稅前淨利（淨損）",
-            "value": 4381255.0
+            "value": 9569751.0
           }
         },
         "source_url": "https://openapi.twse.com.tw/v1/opendata/t187ap06_L_ci",
@@ -10888,14 +10874,14 @@
       },
       "outlier_flags": [],
       "score_components": {
-        "monthly_revenue_yoy": 15.0,
-        "cumulative_revenue_yoy": 10.0,
-        "eps": 24.0,
+        "monthly_revenue_yoy": 18.0,
+        "cumulative_revenue_yoy": 18.0,
+        "eps": 10.0,
         "pe": 8.0,
-        "pb": 3.0,
-        "liquidity": 4.53
+        "pb": 5.0,
+        "liquidity": 5.8
       },
-      "score": 64.53,
+      "score": 64.8,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -10918,7 +10904,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -10959,6 +10945,65 @@
       "selection_status": "BELOW_THRESHOLD"
     },
     {
+      "symbol": "1513",
+      "company_name": "中興電",
+      "industry": "電機機械",
+      "price_as_of": "2026-11-20",
+      "fundamentals_as_of": "2026Q3",
+      "monthly_revenue_as_of": "2026-10",
+      "price_basis": "official_unadjusted_close",
+      "liquidity_rank": 142,
+      "monthly_revenue_yoy": 18.207281018680714,
+      "cumulative_revenue_yoy": 6.269147992855745,
+      "eps": 7.11,
+      "pe": 13.86,
+      "pb": 2.88,
+      "financial_quality": {
+        "version": "onecool_tw_financial_quality_v1",
+        "status": "INSUFFICIENT_DATA",
+        "label": "資料不足",
+        "as_of": "2026Q3",
+        "source_snapshot_date": "1151121",
+        "scope": "INCOME_STATEMENT_ONLY",
+        "period_basis": "SOURCE_REPORTED_CUMULATIVE",
+        "ranking_effect": "NONE",
+        "missing_checks": [
+          "營業現金流與獲利核對",
+          "ROE與財務槓桿拆解",
+          "存貨及應收帳款同期變化"
+        ],
+        "flags": [],
+        "evidence": {
+          "operating_profit": {
+            "field": "營業利益（損失）",
+            "value": 4075800.0
+          },
+          "non_operating_profit": {
+            "field": "營業外收入及支出",
+            "value": 305455.0
+          },
+          "pretax_profit": {
+            "field": "稅前淨利（淨損）",
+            "value": 4381255.0
+          }
+        },
+        "source_url": "https://openapi.twse.com.tw/v1/opendata/t187ap06_L_ci",
+        "reason": "本業／業外初檢未見上述警示；現金流、槓桿及周轉資料不足"
+      },
+      "outlier_flags": [],
+      "score_components": {
+        "monthly_revenue_yoy": 15.0,
+        "cumulative_revenue_yoy": 10.0,
+        "eps": 24.0,
+        "pe": 8.0,
+        "pb": 3.0,
+        "liquidity": 4.48
+      },
+      "score": 64.48,
+      "confidence": "HIGH",
+      "selection_status": "BELOW_THRESHOLD"
+    },
+    {
       "symbol": "8070",
       "company_name": "長華*",
       "industry": "電子通路業",
@@ -10977,7 +11022,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -11011,9 +11056,9 @@
         "eps": 18.0,
         "pe": 4.0,
         "pb": 5.0,
-        "liquidity": 0.34
+        "liquidity": 0.33
       },
-      "score": 63.34,
+      "score": 63.33,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -11036,7 +11081,7 @@
         "status": "REVIEW",
         "label": "需留意",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -11072,9 +11117,9 @@
         "eps": 18.0,
         "pe": 2.0,
         "pb": 3.0,
-        "liquidity": 1.93
+        "liquidity": 1.91
       },
-      "score": 62.93,
+      "score": 62.91,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -11097,7 +11142,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "SECTOR_SPECIFIC_REVIEW_REQUIRED",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -11117,9 +11162,9 @@
         "eps": 30.0,
         "pe": 8.0,
         "pb": 2.0,
-        "liquidity": 1.17
+        "liquidity": 1.16
       },
-      "score": 61.17,
+      "score": 61.16,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -11142,7 +11187,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -11176,9 +11221,9 @@
         "eps": 18.0,
         "pe": 10.0,
         "pb": 4.0,
-        "liquidity": 8.97
+        "liquidity": 8.87
       },
-      "score": 60.97,
+      "score": 60.87,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -11201,7 +11246,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -11235,9 +11280,9 @@
         "eps": 24.0,
         "pe": 8.0,
         "pb": 4.0,
-        "liquidity": 4.69
+        "liquidity": 4.64
       },
-      "score": 60.69,
+      "score": 60.64,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -11260,7 +11305,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "SECTOR_SPECIFIC_REVIEW_REQUIRED",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -11280,9 +11325,54 @@
         "eps": 10.0,
         "pe": 8.0,
         "pb": 4.0,
-        "liquidity": 8.3
+        "liquidity": 8.2
       },
-      "score": 60.3,
+      "score": 60.2,
+      "confidence": "HIGH",
+      "selection_status": "BELOW_THRESHOLD"
+    },
+    {
+      "symbol": "2891",
+      "company_name": "中信金",
+      "industry": "金融保險業",
+      "price_as_of": "2026-11-20",
+      "fundamentals_as_of": "2026Q3",
+      "monthly_revenue_as_of": "2026-10",
+      "price_basis": "official_unadjusted_close",
+      "liquidity_rank": 22,
+      "monthly_revenue_yoy": -35.41036572201124,
+      "cumulative_revenue_yoy": 21.81471684744816,
+      "eps": 3.18,
+      "pe": 16.5,
+      "pb": 1.88,
+      "financial_quality": {
+        "version": "onecool_tw_financial_quality_v1",
+        "status": "INSUFFICIENT_DATA",
+        "label": "資料不足",
+        "as_of": "2026Q3",
+        "source_snapshot_date": "1151121",
+        "scope": "SECTOR_SPECIFIC_REVIEW_REQUIRED",
+        "period_basis": "SOURCE_REPORTED_CUMULATIVE",
+        "ranking_effect": "NONE",
+        "missing_checks": [
+          "營業現金流與獲利核對",
+          "ROE與財務槓桿拆解",
+          "存貨及應收帳款同期變化"
+        ],
+        "flags": [],
+        "evidence": {},
+        "reason": "金融業須用專屬財報檢核，目前資料不足"
+      },
+      "outlier_flags": [],
+      "score_components": {
+        "monthly_revenue_yoy": 0.0,
+        "cumulative_revenue_yoy": 18.0,
+        "eps": 18.0,
+        "pe": 6.0,
+        "pb": 4.0,
+        "liquidity": 13.34
+      },
+      "score": 59.34,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -11305,7 +11395,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -11339,9 +11429,9 @@
         "eps": 30.0,
         "pe": 6.0,
         "pb": 3.0,
-        "liquidity": 10.22
+        "liquidity": 10.11
       },
-      "score": 59.22,
+      "score": 59.11,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -11364,7 +11454,7 @@
         "status": "REVIEW",
         "label": "需留意",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -11400,9 +11490,9 @@
         "eps": 18.0,
         "pe": 10.0,
         "pb": 5.0,
-        "liquidity": 6.12
+        "liquidity": 6.05
       },
-      "score": 59.12,
+      "score": 59.05,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -11425,7 +11515,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -11459,9 +11549,9 @@
         "eps": 24.0,
         "pe": 6.0,
         "pb": 2.0,
-        "liquidity": 6.96
+        "liquidity": 6.88
       },
-      "score": 58.96,
+      "score": 58.88,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -11484,7 +11574,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -11518,9 +11608,9 @@
         "eps": 18.0,
         "pe": 4.0,
         "pb": 2.0,
-        "liquidity": 9.39
+        "liquidity": 9.28
       },
-      "score": 58.39,
+      "score": 58.28,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -11543,7 +11633,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -11602,7 +11692,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -11636,9 +11726,9 @@
         "eps": 18.0,
         "pe": 6.0,
         "pb": 4.0,
-        "liquidity": 4.61
+        "liquidity": 4.56
       },
-      "score": 57.61,
+      "score": 57.56,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -11661,7 +11751,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -11695,9 +11785,9 @@
         "eps": 18.0,
         "pe": 0.0,
         "pb": 0.0,
-        "liquidity": 3.6
+        "liquidity": 3.56
       },
-      "score": 57.6,
+      "score": 57.56,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -11720,7 +11810,7 @@
         "status": "REVIEW",
         "label": "需留意",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -11756,68 +11846,9 @@
         "eps": 18.0,
         "pe": 4.0,
         "pb": 5.0,
-        "liquidity": 10.47
+        "liquidity": 10.36
       },
-      "score": 57.47,
-      "confidence": "HIGH",
-      "selection_status": "BELOW_THRESHOLD"
-    },
-    {
-      "symbol": "2471",
-      "company_name": "資通",
-      "industry": "資訊服務業",
-      "price_as_of": "2026-11-20",
-      "fundamentals_as_of": "2026Q3",
-      "monthly_revenue_as_of": "2026-10",
-      "price_basis": "official_unadjusted_close",
-      "liquidity_rank": 84,
-      "monthly_revenue_yoy": 5.313689587047656,
-      "cumulative_revenue_yoy": 6.859367589344814,
-      "eps": 3.08,
-      "pe": 12.56,
-      "pb": 3.17,
-      "financial_quality": {
-        "version": "onecool_tw_financial_quality_v1",
-        "status": "INSUFFICIENT_DATA",
-        "label": "資料不足",
-        "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
-        "scope": "INCOME_STATEMENT_ONLY",
-        "period_basis": "SOURCE_REPORTED_CUMULATIVE",
-        "ranking_effect": "NONE",
-        "missing_checks": [
-          "營業現金流與獲利核對",
-          "ROE與財務槓桿拆解",
-          "存貨及應收帳款同期變化"
-        ],
-        "flags": [],
-        "evidence": {
-          "operating_profit": {
-            "field": "營業利益（損失）",
-            "value": 127216.0
-          },
-          "non_operating_profit": {
-            "field": "營業外收入及支出",
-            "value": 38813.0
-          },
-          "pretax_profit": {
-            "field": "稅前淨利（淨損）",
-            "value": 166029.0
-          }
-        },
-        "source_url": "https://openapi.twse.com.tw/v1/opendata/t187ap06_L_ci",
-        "reason": "本業／業外初檢未見上述警示；現金流、槓桿及周轉資料不足"
-      },
-      "outlier_flags": [],
-      "score_components": {
-        "monthly_revenue_yoy": 10.0,
-        "cumulative_revenue_yoy": 10.0,
-        "eps": 18.0,
-        "pe": 8.0,
-        "pb": 2.0,
-        "liquidity": 8.88
-      },
-      "score": 56.88,
+      "score": 57.36,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -11840,7 +11871,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -11874,9 +11905,68 @@
         "eps": 18.0,
         "pe": 0.0,
         "pb": 2.0,
-        "liquidity": 3.85
+        "liquidity": 3.81
       },
-      "score": 56.85,
+      "score": 56.81,
+      "confidence": "HIGH",
+      "selection_status": "BELOW_THRESHOLD"
+    },
+    {
+      "symbol": "2471",
+      "company_name": "資通",
+      "industry": "資訊服務業",
+      "price_as_of": "2026-11-20",
+      "fundamentals_as_of": "2026Q3",
+      "monthly_revenue_as_of": "2026-10",
+      "price_basis": "official_unadjusted_close",
+      "liquidity_rank": 84,
+      "monthly_revenue_yoy": 5.313689587047656,
+      "cumulative_revenue_yoy": 6.859367589344814,
+      "eps": 3.08,
+      "pe": 12.56,
+      "pb": 3.17,
+      "financial_quality": {
+        "version": "onecool_tw_financial_quality_v1",
+        "status": "INSUFFICIENT_DATA",
+        "label": "資料不足",
+        "as_of": "2026Q3",
+        "source_snapshot_date": "1151121",
+        "scope": "INCOME_STATEMENT_ONLY",
+        "period_basis": "SOURCE_REPORTED_CUMULATIVE",
+        "ranking_effect": "NONE",
+        "missing_checks": [
+          "營業現金流與獲利核對",
+          "ROE與財務槓桿拆解",
+          "存貨及應收帳款同期變化"
+        ],
+        "flags": [],
+        "evidence": {
+          "operating_profit": {
+            "field": "營業利益（損失）",
+            "value": 127216.0
+          },
+          "non_operating_profit": {
+            "field": "營業外收入及支出",
+            "value": 38813.0
+          },
+          "pretax_profit": {
+            "field": "稅前淨利（淨損）",
+            "value": 166029.0
+          }
+        },
+        "source_url": "https://openapi.twse.com.tw/v1/opendata/t187ap06_L_ci",
+        "reason": "本業／業外初檢未見上述警示；現金流、槓桿及周轉資料不足"
+      },
+      "outlier_flags": [],
+      "score_components": {
+        "monthly_revenue_yoy": 10.0,
+        "cumulative_revenue_yoy": 10.0,
+        "eps": 18.0,
+        "pe": 8.0,
+        "pb": 2.0,
+        "liquidity": 8.78
+      },
+      "score": 56.78,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -11899,7 +11989,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -11958,7 +12048,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -11992,9 +12082,9 @@
         "eps": 30.0,
         "pe": 4.0,
         "pb": 3.0,
-        "liquidity": 14.33
+        "liquidity": 14.34
       },
-      "score": 56.33,
+      "score": 56.34,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -12017,7 +12107,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -12051,9 +12141,9 @@
         "eps": 10.0,
         "pe": 6.0,
         "pb": 4.0,
-        "liquidity": 2.51
+        "liquidity": 2.49
       },
-      "score": 55.51,
+      "score": 55.49,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -12076,7 +12166,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -12110,9 +12200,9 @@
         "eps": 18.0,
         "pe": 4.0,
         "pb": 2.0,
-        "liquidity": 11.4
+        "liquidity": 11.27
       },
-      "score": 55.4,
+      "score": 55.27,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -12135,7 +12225,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "SECTOR_SPECIFIC_REVIEW_REQUIRED",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -12155,9 +12245,9 @@
         "eps": 18.0,
         "pe": 6.0,
         "pb": 4.0,
-        "liquidity": 12.23
+        "liquidity": 12.18
       },
-      "score": 55.23,
+      "score": 55.18,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -12180,7 +12270,7 @@
         "status": "REVIEW",
         "label": "需留意",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -12216,9 +12306,9 @@
         "eps": 18.0,
         "pe": 6.0,
         "pb": 5.0,
-        "liquidity": 0.92
+        "liquidity": 0.91
       },
-      "score": 54.92,
+      "score": 54.91,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -12241,7 +12331,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "SECTOR_SPECIFIC_REVIEW_REQUIRED",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -12261,9 +12351,9 @@
         "eps": 18.0,
         "pe": 10.0,
         "pb": 5.0,
-        "liquidity": 1.76
+        "liquidity": 1.74
       },
-      "score": 54.76,
+      "score": 54.74,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -12286,7 +12376,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -12320,9 +12410,9 @@
         "eps": 10.0,
         "pe": 4.0,
         "pb": 4.0,
-        "liquidity": 3.52
+        "liquidity": 3.48
       },
-      "score": 54.52,
+      "score": 54.48,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -12345,7 +12435,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -12379,9 +12469,9 @@
         "eps": 24.0,
         "pe": 10.0,
         "pb": 5.0,
-        "liquidity": 9.97
+        "liquidity": 9.86
       },
-      "score": 53.97,
+      "score": 53.86,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -12404,7 +12494,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -12438,9 +12528,9 @@
         "eps": 18.0,
         "pe": 8.0,
         "pb": 4.0,
-        "liquidity": 2.68
+        "liquidity": 2.65
       },
-      "score": 52.68,
+      "score": 52.65,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -12463,7 +12553,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -12497,9 +12587,9 @@
         "eps": 18.0,
         "pe": 6.0,
         "pb": 3.0,
-        "liquidity": 10.39
+        "liquidity": 10.28
       },
-      "score": 52.39,
+      "score": 52.28,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -12522,7 +12612,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -12556,68 +12646,9 @@
         "eps": 30.0,
         "pe": 10.0,
         "pb": 4.0,
-        "liquidity": 7.71
+        "liquidity": 7.62
       },
-      "score": 51.71,
-      "confidence": "HIGH",
-      "selection_status": "BELOW_THRESHOLD"
-    },
-    {
-      "symbol": "3035",
-      "company_name": "智原",
-      "industry": "半導體業",
-      "price_as_of": "2026-11-20",
-      "fundamentals_as_of": "2026Q3",
-      "monthly_revenue_as_of": "2026-10",
-      "price_basis": "official_unadjusted_close",
-      "liquidity_rank": 92,
-      "monthly_revenue_yoy": 48.89082705395843,
-      "cumulative_revenue_yoy": -32.53268685141401,
-      "eps": 2.23,
-      "pe": 51.49,
-      "pb": 2.26,
-      "financial_quality": {
-        "version": "onecool_tw_financial_quality_v1",
-        "status": "INSUFFICIENT_DATA",
-        "label": "資料不足",
-        "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
-        "scope": "INCOME_STATEMENT_ONLY",
-        "period_basis": "SOURCE_REPORTED_CUMULATIVE",
-        "ranking_effect": "NONE",
-        "missing_checks": [
-          "營業現金流與獲利核對",
-          "ROE與財務槓桿拆解",
-          "存貨及應收帳款同期變化"
-        ],
-        "flags": [],
-        "evidence": {
-          "operating_profit": {
-            "field": "營業利益（損失）",
-            "value": 580838.0
-          },
-          "non_operating_profit": {
-            "field": "營業外收入及支出",
-            "value": 459727.0
-          },
-          "pretax_profit": {
-            "field": "稅前淨利（淨損）",
-            "value": 1040565.0
-          }
-        },
-        "source_url": "https://openapi.twse.com.tw/v1/opendata/t187ap06_L_ci",
-        "reason": "本業／業外初檢未見上述警示；現金流、槓桿及周轉資料不足"
-      },
-      "outlier_flags": [],
-      "score_components": {
-        "monthly_revenue_yoy": 20.0,
-        "cumulative_revenue_yoy": 0.0,
-        "eps": 18.0,
-        "pe": 0.0,
-        "pb": 3.0,
-        "liquidity": 8.21
-      },
-      "score": 49.21,
+      "score": 51.62,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -12640,7 +12671,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -12674,9 +12705,68 @@
         "eps": 10.0,
         "pe": 6.0,
         "pb": 5.0,
-        "liquidity": 3.18
+        "liquidity": 3.15
       },
-      "score": 49.18,
+      "score": 49.15,
+      "confidence": "HIGH",
+      "selection_status": "BELOW_THRESHOLD"
+    },
+    {
+      "symbol": "3035",
+      "company_name": "智原",
+      "industry": "半導體業",
+      "price_as_of": "2026-11-20",
+      "fundamentals_as_of": "2026Q3",
+      "monthly_revenue_as_of": "2026-10",
+      "price_basis": "official_unadjusted_close",
+      "liquidity_rank": 92,
+      "monthly_revenue_yoy": 48.89082705395843,
+      "cumulative_revenue_yoy": -32.53268685141401,
+      "eps": 2.23,
+      "pe": 51.49,
+      "pb": 2.26,
+      "financial_quality": {
+        "version": "onecool_tw_financial_quality_v1",
+        "status": "INSUFFICIENT_DATA",
+        "label": "資料不足",
+        "as_of": "2026Q3",
+        "source_snapshot_date": "1151121",
+        "scope": "INCOME_STATEMENT_ONLY",
+        "period_basis": "SOURCE_REPORTED_CUMULATIVE",
+        "ranking_effect": "NONE",
+        "missing_checks": [
+          "營業現金流與獲利核對",
+          "ROE與財務槓桿拆解",
+          "存貨及應收帳款同期變化"
+        ],
+        "flags": [],
+        "evidence": {
+          "operating_profit": {
+            "field": "營業利益（損失）",
+            "value": 580838.0
+          },
+          "non_operating_profit": {
+            "field": "營業外收入及支出",
+            "value": 459727.0
+          },
+          "pretax_profit": {
+            "field": "稅前淨利（淨損）",
+            "value": 1040565.0
+          }
+        },
+        "source_url": "https://openapi.twse.com.tw/v1/opendata/t187ap06_L_ci",
+        "reason": "本業／業外初檢未見上述警示；現金流、槓桿及周轉資料不足"
+      },
+      "outlier_flags": [],
+      "score_components": {
+        "monthly_revenue_yoy": 20.0,
+        "cumulative_revenue_yoy": 0.0,
+        "eps": 18.0,
+        "pe": 0.0,
+        "pb": 3.0,
+        "liquidity": 8.12
+      },
+      "score": 49.12,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -12699,7 +12789,7 @@
         "status": "REVIEW",
         "label": "需留意",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -12735,9 +12825,9 @@
         "eps": 10.0,
         "pe": 6.0,
         "pb": 4.0,
-        "liquidity": 13.66
+        "liquidity": 13.67
       },
-      "score": 48.66,
+      "score": 48.67,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -12760,7 +12850,7 @@
         "status": "REVIEW",
         "label": "需留意",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -12796,9 +12886,9 @@
         "eps": 30.0,
         "pe": 8.0,
         "pb": 3.0,
-        "liquidity": 7.21
+        "liquidity": 7.13
       },
-      "score": 48.21,
+      "score": 48.13,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -12821,7 +12911,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -12855,9 +12945,9 @@
         "eps": 5.0,
         "pe": 0.0,
         "pb": 5.0,
-        "liquidity": 8.63
+        "liquidity": 8.54
       },
-      "score": 46.63,
+      "score": 46.54,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -12880,7 +12970,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -12914,9 +13004,9 @@
         "eps": 10.0,
         "pe": 8.0,
         "pb": 5.0,
-        "liquidity": 2.18
+        "liquidity": 2.15
       },
-      "score": 45.18,
+      "score": 45.15,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -12939,7 +13029,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "SECTOR_SPECIFIC_REVIEW_REQUIRED",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -12959,9 +13049,9 @@
         "eps": 10.0,
         "pe": 8.0,
         "pb": 4.0,
-        "liquidity": 8.04
+        "liquidity": 7.96
       },
-      "score": 45.04,
+      "score": 44.96,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -12984,7 +13074,7 @@
         "status": "REVIEW",
         "label": "需留意",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -13020,9 +13110,9 @@
         "eps": 18.0,
         "pe": 10.0,
         "pb": 5.0,
-        "liquidity": 5.78
+        "liquidity": 5.72
       },
-      "score": 43.78,
+      "score": 43.72,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -13045,7 +13135,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -13079,9 +13169,9 @@
         "eps": 10.0,
         "pe": 8.0,
         "pb": 4.0,
-        "liquidity": 3.69
+        "liquidity": 3.65
       },
-      "score": 43.69,
+      "score": 43.65,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -13104,7 +13194,7 @@
         "status": "REVIEW",
         "label": "需留意",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -13140,9 +13230,9 @@
         "eps": 24.0,
         "pe": 6.0,
         "pb": 5.0,
-        "liquidity": 7.96
+        "liquidity": 7.87
       },
-      "score": 42.96,
+      "score": 42.87,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -13165,7 +13255,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -13199,9 +13289,9 @@
         "eps": 10.0,
         "pe": 6.0,
         "pb": 4.0,
-        "liquidity": 1.42
+        "liquidity": 1.41
       },
-      "score": 41.42,
+      "score": 41.41,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -13224,7 +13314,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "SECTOR_SPECIFIC_REVIEW_REQUIRED",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -13244,9 +13334,9 @@
         "eps": 18.0,
         "pe": 8.0,
         "pb": 4.0,
-        "liquidity": 6.03
+        "liquidity": 5.97
       },
-      "score": 41.03,
+      "score": 40.97,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -13269,7 +13359,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -13303,9 +13393,9 @@
         "eps": 24.0,
         "pe": 8.0,
         "pb": 4.0,
-        "liquidity": 4.19
+        "liquidity": 4.14
       },
-      "score": 40.19,
+      "score": 40.14,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -13328,7 +13418,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "SECTOR_SPECIFIC_REVIEW_REQUIRED",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -13348,9 +13438,9 @@
         "eps": 10.0,
         "pe": 8.0,
         "pb": 4.0,
-        "liquidity": 2.43
+        "liquidity": 2.4
       },
-      "score": 39.43,
+      "score": 39.4,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -13373,7 +13463,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -13407,9 +13497,9 @@
         "eps": 30.0,
         "pe": 4.0,
         "pb": 0.0,
-        "liquidity": 5.11
+        "liquidity": 5.06
       },
-      "score": 39.11,
+      "score": 39.06,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -13432,7 +13522,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -13466,9 +13556,9 @@
         "eps": 5.0,
         "pe": 0.0,
         "pb": 5.0,
-        "liquidity": 9.05
+        "liquidity": 8.95
       },
-      "score": 39.05,
+      "score": 38.95,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -13491,7 +13581,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -13525,9 +13615,9 @@
         "eps": 5.0,
         "pe": 0.0,
         "pb": 2.0,
-        "liquidity": 13.49
+        "liquidity": 13.51
       },
-      "score": 38.49,
+      "score": 38.51,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -13550,7 +13640,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -13584,9 +13674,9 @@
         "eps": 10.0,
         "pe": 6.0,
         "pb": 3.0,
-        "liquidity": 4.02
+        "liquidity": 3.98
       },
-      "score": 38.02,
+      "score": 37.98,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -13609,7 +13699,7 @@
         "status": "REVIEW",
         "label": "需留意",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -13645,9 +13735,9 @@
         "eps": 5.0,
         "pe": 0.0,
         "pb": 1.0,
-        "liquidity": 5.45
+        "liquidity": 5.39
       },
-      "score": 36.45,
+      "score": 36.39,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -13670,7 +13760,7 @@
         "status": "REVIEW",
         "label": "需留意",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -13706,9 +13796,9 @@
         "eps": 18.0,
         "pe": 8.0,
         "pb": 5.0,
-        "liquidity": 2.85
+        "liquidity": 2.82
       },
-      "score": 33.85,
+      "score": 33.82,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -13731,7 +13821,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -13765,9 +13855,9 @@
         "eps": 5.0,
         "pe": 0.0,
         "pb": 4.0,
-        "liquidity": 5.36
+        "liquidity": 5.3
       },
-      "score": 32.36,
+      "score": 32.3,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -13790,7 +13880,7 @@
         "status": "INSUFFICIENT_DATA",
         "label": "資料不足",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -13824,9 +13914,9 @@
         "eps": 18.0,
         "pe": 0.0,
         "pb": 2.0,
-        "liquidity": 1.59
+        "liquidity": 1.57
       },
-      "score": 21.59,
+      "score": 21.57,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -13849,7 +13939,7 @@
         "status": "REVIEW",
         "label": "需留意",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -13885,9 +13975,9 @@
         "eps": 10.0,
         "pe": 4.0,
         "pb": 5.0,
-        "liquidity": 2.26
+        "liquidity": 2.24
       },
-      "score": 21.26,
+      "score": 21.24,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -13910,7 +14000,7 @@
         "status": "REVIEW",
         "label": "需留意",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -13946,9 +14036,9 @@
         "eps": 10.0,
         "pe": 0.0,
         "pb": 3.0,
-        "liquidity": 1.09
+        "liquidity": 1.08
       },
-      "score": 19.09,
+      "score": 19.08,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     },
@@ -13971,7 +14061,7 @@
         "status": "REVIEW",
         "label": "需留意",
         "as_of": "2026Q3",
-        "source_snapshot_date": "1151120",
+        "source_snapshot_date": "1151121",
         "scope": "INCOME_STATEMENT_ONLY",
         "period_basis": "SOURCE_REPORTED_CUMULATIVE",
         "ranking_effect": "NONE",
@@ -14007,22 +14097,18 @@
         "eps": 5.0,
         "pe": 0.0,
         "pb": 5.0,
-        "liquidity": 1.68
+        "liquidity": 1.66
       },
-      "score": 11.68,
+      "score": 11.66,
       "confidence": "HIGH",
       "selection_status": "BELOW_THRESHOLD"
     }
   ],
-  "exclusion_count": 20,
+  "exclusion_count": 18,
   "exclusions": [
     {
       "symbol": "2409",
       "reason": "invalid or unavailable eps_non_positive"
-    },
-    {
-      "symbol": "2891",
-      "reason": "missing quarterly income statement"
     },
     {
       "symbol": "2881",
@@ -14038,10 +14124,6 @@
     },
     {
       "symbol": "2890",
-      "reason": "missing quarterly income statement"
-    },
-    {
-      "symbol": "2885",
       "reason": "missing quarterly income statement"
     },
     {
