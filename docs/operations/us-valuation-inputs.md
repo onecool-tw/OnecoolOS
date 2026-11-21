@@ -22,6 +22,7 @@ Both scenarios use analyst required returns 12%/10% and terminal growth 2%/3%; t
 | TSM ADR | 8%/15% | 40%/50% | 80%/85% | Historical two-year ADR earnings anchor; substantial capital spending limits cash distributions. |
 | NVDA | 15%/25% | 60%/70% | 85%/90% | AI growth tempered by customer concentration, reinvestment and growth fade. |
 | DELL | 5%/10% | 35%/50% | 60%/70% | Hardware cyclicality, financing receivables, working capital and leverage; interim conversion below observed H1 FCF/earnings. |
+| COST | 7%/11% | 70%/85% | 85%/90% | Membership economics and warehouse growth support durability; retail margins, wages, merchandise costs and reinvestment constrain distribution. |
 
 DELL uses FY27 GAAP EPS guidance 24.37 less the disclosed investment gain EPS 1.08, yielding a conservative 23.29 stress denominator. No unsupported gain-specific tax benefit is added back; SBC and recurring costs remain included. H1 unadjusted FCF is 6,306 - 2,202 = 4,104 million dollars, not the 11,314 million adjusted FCF. Q2 unadjusted FCF is 986 million versus adjusted FCF 8,149 million, which includes 6,667 million financing-receivables and 496 million leased-equipment addbacks. Net debt is 8,481 + 25,985 - 11,569 = 22,897 million as of July 31; it is not deducted again from equity EPS. Weighted diluted shares are only an EV sensitivity input, not an exact closing share count. The six-month FCF is not annualized or labelled TTM. The range is 5.88–12.80 times under the policy scenarios, with explicit terminal conversion recovery assumptions.
 
