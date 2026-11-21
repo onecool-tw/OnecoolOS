@@ -32,6 +32,8 @@ def test_reviewed_denominators_and_scenarios_are_reproducible():
     # the old 13.55 reference. Do not weaken this to an arbitrary positive EPS.
     assert abs(r['ABBV']['valuation_model']['denominator'] - 13.44)<1e-10
     assert abs(r['TSM']['valuation_model']['denominator'] - 8.845)<1e-10
+    # FY26 reported EPS less the issuer-disclosed non-recurring tariff refund.
+    assert abs(r['COST']['valuation_model']['denominator'] - (20.76-.15))<1e-10
     for row in r.values():
         m=row.get('valuation_model')
         if m is None:
