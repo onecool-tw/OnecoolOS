@@ -1,10 +1,10 @@
 {
   "schema_version": "1.9",
   "module": "Onecool Market Dashboard",
-  "generated_at": "2026-11-21T03:19:58.874285+00:00",
+  "generated_at": "2026-11-21T03:52:31.209555+00:00",
   "expected_as_of": "2026-11-20",
   "data_status": "READY",
-  "last_successful_update_at": "2026-11-21T03:19:58.874285+00:00",
+  "last_successful_update_at": "2026-11-21T03:52:31.209555+00:00",
   "index_cta_basis": {
     "method": "ETF/index proxies; shared CTA engine",
     "mappings": {
@@ -2371,6 +2371,7 @@
             "raw_close": 1102.1500244140625,
             "provider": "yahoo_finance_adjusted_batch"
           },
+          "price_sha256": "d20c9bd50b8f88ad6cd1c8d0d2dff3b9f02ece5f8031837bdfcc6c3719efd2e9",
           "official_reference_status": "VERIFIED",
           "fundamental_fetch_status": "REVIEWED_OFFICIAL_REFERENCE",
           "company_name": "Costco Wholesale Corporation",
@@ -2767,8 +2768,9 @@
     "assessment_status": "COMPLETE",
     "price_fetch_diagnostics": {
       "SNDK": {
-        "status": "YAHOO_CHART_REQUEST_OR_VALIDATION_FAILED",
-        "error_type": "ValueError"
+        "status": "RECOVERED_FROM_VERIFIED_ADJUSTED_HISTORY_CACHE",
+        "observations": 252,
+        "last_date": "2026-11-20"
       }
     },
     "fundamental_fetch_status": {
