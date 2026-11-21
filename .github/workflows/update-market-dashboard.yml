@@ -121,20 +121,25 @@ jobs:
           elif [[ "${{ github.event_name }}" == "schedule" ]]; then
             args+=(--refresh-us-scan)
           fi
-          python scripts/update_market_dashboard.py "${args[@]}"
-      - name: Commit only a complete dashboard update
-        run: |
-          # Fund validation is published by the serialized fund/StockQ writers;
-          # overlapping timestamp-only validation writes cause rebase conflicts.
-          git add data/market/dashboard data/market/us_stock_intelligence
-          if git diff --cached --quiet; then
-            echo "No new Market Dashboard data."
-            exit 0
-          fi
           git config user.name "onecool-os-bot"
           git config user.email "actions@users.noreply.github.com"
-          git commit -m "Update Market Dashboard"
-          bash scripts/push_cache_commit.sh
+          for attempt in 1 2 3; do
+            echo "Dashboard compute and publish attempt $attempt/3"
+            git fetch origin main
+            git reset --hard origin/main
+            python scripts/update_market_dashboard.py "${args[@]}"
+            git add data/market/dashboard data/market/us_stock_intelligence
+            if git diff --cached --quiet; then
+              echo "No new Market Dashboard data."
+              exit 0
+            fi
+            git commit -m "Update Market Dashboard"
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+          done
+          echo "::error::Dashboard publication failed after three recomputations."
+          exit 1
       # Check after publication so one delayed module does not discard valid
       # equity updates, but a stale BTC cache cannot produce a green run.
       - name: Verify published Bitcoin completed-day freshness

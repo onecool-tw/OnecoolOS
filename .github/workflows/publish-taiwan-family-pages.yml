@@ -39,7 +39,7 @@ jobs:
       PAGES_ARTIFACT: github-pages-${{ github.run_attempt }}
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      url: ${{ steps.deploy_1.outputs.page_url || steps.deploy_2.outputs.page_url || steps.deploy_3.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -71,13 +71,33 @@ jobs:
           echo "::error::Expected one live Pages artifact named $PAGES_ARTIFACT"
           exit 1
       - name: Deploy snapshot
-        id: deployment
+        id: deploy_1
+        continue-on-error: true
+        uses: actions/deploy-pages@v4
+        with:
+          artifact_name: ${{ env.PAGES_ARTIFACT }}
+      - name: Wait before deployment retry 1
+        if: steps.deploy_1.outcome == 'failure'
+        run: sleep 10
+      - name: Retry deploy snapshot (1)
+        id: deploy_2
+        if: steps.deploy_1.outcome == 'failure'
+        continue-on-error: true
+        uses: actions/deploy-pages@v4
+        with:
+          artifact_name: ${{ env.PAGES_ARTIFACT }}
+      - name: Wait before deployment retry 2
+        if: steps.deploy_2.outcome == 'failure'
+        run: sleep 20
+      - name: Retry deploy snapshot (2)
+        id: deploy_3
+        if: steps.deploy_2.outcome == 'failure'
         uses: actions/deploy-pages@v4
         with:
           artifact_name: ${{ env.PAGES_ARTIFACT }}
       - name: Verify public HTTPS snapshot against this checkout
         env:
-          PAGE_URL: ${{ steps.deployment.outputs.page_url }}
+          PAGE_URL: ${{ steps.deploy_1.outputs.page_url || steps.deploy_2.outputs.page_url || steps.deploy_3.outputs.page_url }}
         run: |
           python scripts/verify_taiwan_family_pages.py "${PAGE_URL%/}/taiwan_stock_family_latest.json" --attempts 12 --delay 10
 
