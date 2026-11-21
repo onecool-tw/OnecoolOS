@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "module": "Onecool US Super Growth Evidence",
-  "generated_at": "2026-11-19T04:00:00+00:00",
+  "generated_at": "2026-11-21T04:05:00+00:00",
   "decision_authority": "NEW_CANDIDATE_RESEARCH_GATE_ONLY",
   "evidence_policy": "PASS_OR_FAIL_REQUIRES_DATED_RATIONALE_AND_SOURCE",
   "valuation_freshness_policy": "VALUATION_OLDER_THAN_7_TRADING_DAYS_MUST_BE_REFRESHED_OR_UNKNOWN",
@@ -4458,26 +4458,134 @@
       "symbol": "COST",
       "gates": {
         "valuation": {
+          "status": "FAIL",
+          "as_of": "2026-11-20",
+          "price_as_of": "2026-11-20",
+          "valid_through": "2026-11-20",
+          "method": "FY26_NORMALIZED_GAAP_DILUTED_PE_WITH_CASH_CONVERSION_STRESS",
+          "rationale": "Membership renewal economics, warehouse expansion and recurring fee income support durable growth; retail margin sensitivity, wage and merchandise costs, international execution and reinvestment justify 7%/11% growth and stressed cash conversion scenarios.",
+          "sources": [
+            "https://investor.costco.com/news/news-details/2026/Costco-Wholesale-Corporation-Reports-Fourth-Quarter-and-Fiscal-Year-2026-Operating-Results/",
+            "https://www.sec.gov/Archives/edgar/data/909832/000090983226000093/cost-20260830.htm",
+            "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+          ],
+          "price_source": {
+            "provider": "yahoo_finance_adjusted_batch",
+            "symbol": "COST",
+            "as_of": "2026-11-20",
+            "url": "https://finance.yahoo.com/quote/COST/history/"
+          },
+          "denominator_source": [
+            "https://investor.costco.com/news/news-details/2026/Costco-Wholesale-Corporation-Reports-Fourth-Quarter-and-Fiscal-Year-2026-Operating-Results/",
+            "https://www.sec.gov/Archives/edgar/data/909832/000090983226000093/cost-20260830.htm"
+          ],
+          "fair_range_rationale": "Five-year 7%/11% growth, 70%/85% interim cash conversion, 85%/90% terminal conversion, 12%/10% required return and 2%/3% terminal growth are Onecool screening assumptions selected without reference to the current share price.",
+          "fair_range_sources": [
+            "https://investor.costco.com/news/news-details/2026/Costco-Wholesale-Corporation-Reports-Fourth-Quarter-and-Fiscal-Year-2026-Operating-Results/",
+            "https://www.sec.gov/Archives/edgar/data/909832/000090983226000093/cost-20260830.htm",
+            "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+          ],
+          "normalization_bridge": {
+            "formula": "FY2026 reported diluted EPS 20.76 less disclosed non-recurring tariff-refund benefit 0.15",
+            "inputs": [
+              20.76,
+              -0.15
+            ],
+            "limitations": "Historical normalized EPS, not issuer FY2027 guidance; the tariff adjustment is the only disclosed non-recurring EPS item removed."
+          },
+          "policy_version": "onecool_equity_two_stage_screen_v1",
+          "assumption_authority": "ONECOOL_ANALYST_NOT_ISSUER_GUIDANCE",
+          "scenarios": [
+            {
+              "name": "conservative",
+              "years": 5,
+              "growth": 0.07,
+              "required_return": 0.12,
+              "terminal_growth": 0.02,
+              "cash_conversion": 0.7,
+              "terminal_cash_conversion": 0.85
+            },
+            {
+              "name": "base",
+              "years": 5,
+              "growth": 0.11,
+              "required_return": 0.1,
+              "terminal_growth": 0.03,
+              "cash_conversion": 0.85,
+              "terminal_cash_conversion": 0.9
+            }
+          ],
+          "research_grade": "SCREENING_SCENARIO_NOT_FULL_DCF",
+          "inputs": {
+            "price": 1102.1500244140625,
+            "denominator": 20.61,
+            "multiple": 53.47646891868329,
+            "fair_range": [
+              9.958214778051842,
+              18.223173317198103
+            ]
+          }
+        },
+        "competitive_advantage": {
+          "status": "PASS",
+          "as_of": "2026-10-07",
+          "rationale": "Membership-fee economics, purchasing scale and a 939-warehouse network support recurring traffic, customer retention and price leadership.",
+          "sources": [
+            "https://investor.costco.com/news/news-details/2026/Costco-Wholesale-Corporation-Reports-Fourth-Quarter-and-Fiscal-Year-2026-Operating-Results/",
+            "https://www.sec.gov/Archives/edgar/data/909832/000090983226000093/cost-20260830.htm"
+          ]
+        },
+        "structural_growth_runway": {
+          "status": "PASS",
+          "as_of": "2026-10-07",
+          "rationale": "FY2026 net sales rose 10.1%, membership fees rose 11.0%, digitally enabled sales rose 20.9%, and the warehouse base expanded to 939, supporting a source-backed growth runway.",
+          "sources": [
+            "https://investor.costco.com/news/news-details/2026/Costco-Wholesale-Corporation-Reports-Fourth-Quarter-and-Fiscal-Year-2026-Operating-Results/",
+            "https://www.sec.gov/Archives/edgar/data/909832/000090983226000093/cost-20260830.htm"
+          ]
+        },
+        "financial_quality": {
+          "status": "PASS",
+          "as_of": "2026-10-07",
+          "rationale": "FY2026 revenue was $303.154 billion, net income $9.226 billion and diluted EPS $20.76; the 10-K received an unqualified audit opinion and reported effective internal control.",
+          "sources": [
+            "https://investor.costco.com/news/news-details/2026/Costco-Wholesale-Corporation-Reports-Fourth-Quarter-and-Fiscal-Year-2026-Operating-Results/",
+            "https://www.sec.gov/Archives/edgar/data/909832/000090983226000093/cost-20260830.htm"
+          ]
+        },
+        "business_risk_and_governance": {
+          "status": "PASS",
+          "as_of": "2026-10-07",
+          "rationale": "The 10-K identifies merchandise, wage, supply-chain, cybersecurity, international and regulatory risks; the audit and internal-control opinions disclose no current issue that invalidates research eligibility.",
+          "sources": [
+            "https://www.sec.gov/Archives/edgar/data/909832/000090983226000093/cost-20260830.htm"
+          ]
+        },
+        "circle_of_competence": {
           "status": "UNKNOWN",
           "as_of": "2026-11-20",
-          "rationale": "Current-session valuation model not yet validated.",
-          "sources": []
+          "rationale": "Understanding membership economics, retail margins and international execution remains a user confirmation before a new position and does not block ranking.",
+          "sources": [
+            "https://investor.costco.com/news/news-details/2026/Costco-Wholesale-Corporation-Reports-Fourth-Quarter-and-Fiscal-Year-2026-Operating-Results/",
+            "https://www.sec.gov/Archives/edgar/data/909832/000090983226000093/cost-20260830.htm"
+          ],
+          "data_gap": "PRE_TRADE_USER_CONFIRMATION_ONLY"
         }
       },
       "valuation_input_collection": {
         "as_of": "2026-11-20",
-        "status": "PARTIAL",
-        "gaps": [
-          "SEC_COMPANYFACTS_FETCH_OR_IDENTITY_VALIDATION_FAILED"
-        ],
+        "status": "COMPLETE",
+        "gaps": [],
         "price_basis": "adjusted_close",
         "inputs": {
           "adjusted_close": 1102.1500244140625
         },
         "sources": [
-          "https://data.sec.gov/api/xbrl/companyfacts/CIK0000909832.json"
+          "https://investor.costco.com/news/news-details/2026/Costco-Wholesale-Corporation-Reports-Fourth-Quarter-and-Fiscal-Year-2026-Operating-Results/",
+          "https://www.sec.gov/Archives/edgar/data/909832/000090983226000093/cost-20260830.htm",
+          "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
         ],
-        "decision_authority": "REFERENCE_INPUTS_ONLY_NOT_FAIR_VALUE",
+        "decision_authority": "REVIEWED_SOURCE_BACKED_VALUATION_MODEL",
         "price_source": {
           "provider": "yahoo_finance_adjusted_batch",
           "symbol": "COST",
@@ -4490,11 +4598,102 @@
           "raw_close": 1102.1500244140625,
           "provider": "yahoo_finance_adjusted_batch"
         },
-        "price_sha256": "d20c9bd50b8f88ad6cd1c8d0d2dff3b9f02ece5f8031837bdfcc6c3719efd2e9",
-        "fundamental_fetch_status": "FETCH_FAILED",
-        "fetch_error_type": "HTTPError"
-      }
+        "official_reference_status": "VERIFIED",
+        "fundamental_fetch_status": "REVIEWED_OFFICIAL_REFERENCE",
+        "company_name": "Costco Wholesale Corporation",
+        "official_reference": {
+          "symbol": "COST",
+          "company_name": "Costco Wholesale Corporation",
+          "published_at": "2026-10-07",
+          "reviewed_as_of": "2026-11-21",
+          "valid_through": "2027-01-05",
+          "sources": [
+            "https://investor.costco.com/news/news-details/2026/Costco-Wholesale-Corporation-Reports-Fourth-Quarter-and-Fiscal-Year-2026-Operating-Results/",
+            "https://www.sec.gov/Archives/edgar/data/909832/000090983226000093/cost-20260830.htm",
+            "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+          ],
+          "reported_facts": {
+            "period": "FY2026",
+            "revenue_million": 303154,
+            "net_sales_million": 297247,
+            "membership_fees_million": 5907,
+            "net_income_million": 9226,
+            "reported_diluted_eps": 20.76,
+            "tariff_refund_benefit_eps": 0.15,
+            "normalized_diluted_eps": 20.61,
+            "warehouses": 939
+          },
+          "model_gaps": [],
+          "refresh_on": [
+            "NEW_EARNINGS_OR_GUIDANCE",
+            "MATERIAL_CORPORATE_EVENT",
+            "REFERENCE_EXPIRY"
+          ],
+          "valuation_model": {
+            "method": "FY26_NORMALIZED_GAAP_DILUTED_PE_WITH_CASH_CONVERSION_STRESS",
+            "denominator": 20.61,
+            "currency": "USD",
+            "share_basis": "listed_security",
+            "normalization_bridge": {
+              "formula": "FY2026 reported diluted EPS 20.76 less disclosed non-recurring tariff-refund benefit 0.15",
+              "inputs": [
+                20.76,
+                -0.15
+              ],
+              "limitations": "Historical normalized EPS, not issuer FY2027 guidance; the tariff adjustment is the only disclosed non-recurring EPS item removed."
+            },
+            "denominator_source": [
+              "https://investor.costco.com/news/news-details/2026/Costco-Wholesale-Corporation-Reports-Fourth-Quarter-and-Fiscal-Year-2026-Operating-Results/",
+              "https://www.sec.gov/Archives/edgar/data/909832/000090983226000093/cost-20260830.htm"
+            ],
+            "fair_range": [
+              9.958214778051842,
+              18.223173317198103
+            ],
+            "scenarios": [
+              {
+                "name": "conservative",
+                "years": 5,
+                "growth": 0.07,
+                "required_return": 0.12,
+                "terminal_growth": 0.02,
+                "cash_conversion": 0.7,
+                "terminal_cash_conversion": 0.85
+              },
+              {
+                "name": "base",
+                "years": 5,
+                "growth": 0.11,
+                "required_return": 0.1,
+                "terminal_growth": 0.03,
+                "cash_conversion": 0.85,
+                "terminal_cash_conversion": 0.9
+              }
+            ],
+            "assumption_authority": "ONECOOL_ANALYST_NOT_ISSUER_GUIDANCE",
+            "research_grade": "SCREENING_SCENARIO_NOT_FULL_DCF",
+            "policy_version": "onecool_equity_two_stage_screen_v1",
+            "rationale": "Membership renewal economics, warehouse expansion and recurring fee income support durable growth; retail margin sensitivity, wage and merchandise costs, international execution and reinvestment justify 7%/11% growth and stressed cash conversion scenarios.",
+            "fair_range_rationale": "Five-year 7%/11% growth, 70%/85% interim cash conversion, 85%/90% terminal conversion, 12%/10% required return and 2%/3% terminal growth are Onecool screening assumptions selected without reference to the current share price.",
+            "fair_range_sources": [
+              "https://investor.costco.com/news/news-details/2026/Costco-Wholesale-Corporation-Reports-Fourth-Quarter-and-Fiscal-Year-2026-Operating-Results/",
+              "https://www.sec.gov/Archives/edgar/data/909832/000090983226000093/cost-20260830.htm",
+              "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
+            ]
+          },
+          "source_review": {
+            "status": "VERIFIED_CURRENT_OFFICIAL",
+            "checked_at": "2026-11-21T04:05:00+00:00",
+            "information_cutoff": "2026-11-20",
+            "conclusion": "FY2026 10-K and issuer results replace the failed live Company Facts request and provide a current reproducible denominator."
+          }
+        }
+      },
+      "company_name": "Costco Wholesale Corporation",
+      "sector": "Consumer Defensive",
+      "industry": "Discount Stores",
+      "as_of": "2026-11-20"
     }
   ],
-  "valuation_models_reviewed_at": "2026-11-07T00:35:00+00:00"
+  "valuation_models_reviewed_at": "2026-11-21T04:05:00+00:00"
 }
