@@ -1,0 +1,48 @@
+{
+  "report_id": "taiwan",
+  "report_date": "2026-11-23",
+  "generated_at": "2026-11-23T18:02:28.318970+08:00",
+  "execution_slot": "18:00",
+  "execution_status": "PARTIAL",
+  "delivery_status": "PREPARED",
+  "writeback_status": "UNKNOWN",
+  "expected_as_of": "2026-11-23",
+  "actual_data_as_of": "2026-11-23",
+  "market_pressure_status": "CURRENT",
+  "market_pressure_readback_status": "VERIFIED",
+  "persistence_workflow_completion_status": "UNKNOWN",
+  "snapshot_status": "VERIFIED",
+  "snapshot_sha256": "5e8143dc9d0cb096677331170669c4764ff84acdd2731b134ec54fbcaf6cce9c",
+  "private_evidence_sha256": "03d3d4d4c7d6fb35ab27d46828caaa8a589bf348c2707dab8d9dbfc7211a95d7",
+  "channels": {
+    "conversation": {
+      "status": "UNKNOWN",
+      "observed_at": null,
+      "evidence_sha256": null
+    },
+    "email": {
+      "status": "UNKNOWN",
+      "observed_at": null,
+      "evidence_sha256": null
+    },
+    "artifact": {
+      "status": "UNKNOWN",
+      "observed_at": null,
+      "evidence_sha256": null
+    }
+  },
+  "completed_steps": [
+    "Main health Asia and daily report readiness READY",
+    "Official pressure inputs checked; volatility November 23 VERIFIED LAST_1_MIN_AVG 55.47; margin November 20 accepted LAGGED",
+    "Formal RED evaluated once, mailbox written and SSOT as_of/status/light/action read back consistent",
+    "Snapshot final readiness READY; formal pressure and CTA/score/rank/valuation joins verified; 200 current stock CTA",
+    "Private continuation evidence saved; eligible rank5/6 gap 0.09 flagged ranking sensitivity"
+  ],
+  "pending_steps": [
+    "Required producer workflow job success evidence including Maintain background CTA and persistence completion",
+    "Final report artifact save and complete readback",
+    "19:00 final Snapshot version dedup and email; conversation report"
+  ],
+  "failed_steps": [],
+  "next_action": "At 19:00 start with workflow evidence, reuse same-day CURRENT pressure without recomputing or rewriting; verify current Snapshot and report artifact before final-version dedup and email. Japanese CTA actual date November 20 retained for local holiday. No report or email delivered at 18:00."
+}
