@@ -1,11 +1,11 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-11-23T21:31:27.782168+00:00",
+  "generated_at": "2026-11-23T21:37:39.869434+00:00",
   "taipei_date": "2026-11-24",
-  "status": "READY",
+  "status": "BLOCKED",
   "scope_status": {
-    "morning": "READY",
+    "morning": "BLOCKED",
     "asia": "READY",
     "weekly": "READY"
   },
@@ -77,11 +77,11 @@
     "policy": "Data readiness does not prove report delivery. Never infer email success from a generated draft."
   },
   "end_to_end_status": "NOT_FULLY_VERIFIED",
-  "action_readiness": "SAFE",
+  "action_readiness": "UNSAFE_FOR_AFFECTED_REPORTS",
   "counts": {
-    "ready": 21,
-    "partial": 0,
-    "blocked": 0
+    "ready": 19,
+    "partial": 1,
+    "blocked": 1
   },
   "modules": [
     {
@@ -91,7 +91,7 @@
       "critical": true,
       "status": "READY",
       "reason": "current",
-      "observed_as_of": "2026-11-20",
+      "observed_as_of": "2026-11-23",
       "recovery_workflow": "update-market-dashboard.yml",
       "retryable": true,
       "impacted_reports": [
@@ -119,11 +119,11 @@
       "label": "US Breakout Scan",
       "scope": "morning",
       "critical": true,
-      "status": "READY",
-      "reason": "current",
-      "observed_as_of": "2026-11-20",
+      "status": "PARTIAL",
+      "reason": "assessment complete 70/70; validated 59, rule-excluded 3, validation-failed 8",
+      "observed_as_of": "2026-11-23",
       "recovery_workflow": "update-market-dashboard.yml",
-      "retryable": true,
+      "retryable": false,
       "impacted_reports": [
         "美股日報"
       ]
@@ -133,9 +133,9 @@
       "label": "US Portfolio Scores",
       "scope": "morning",
       "critical": true,
-      "status": "READY",
-      "reason": "current",
-      "observed_as_of": "2026-11-20",
+      "status": "BLOCKED",
+      "reason": "data_status is not ready",
+      "observed_as_of": "2026-11-23",
       "recovery_workflow": "update-market-dashboard.yml",
       "retryable": true,
       "impacted_reports": [
@@ -382,8 +382,39 @@
       ]
     }
   ],
-  "issues": [],
-  "recovery_workflows": [],
-  "issue_fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+  "issues": [
+    {
+      "module_id": "us_breakout_scan",
+      "label": "US Breakout Scan",
+      "scope": "morning",
+      "critical": true,
+      "status": "PARTIAL",
+      "reason": "assessment complete 70/70; validated 59, rule-excluded 3, validation-failed 8",
+      "observed_as_of": "2026-11-23",
+      "recovery_workflow": "update-market-dashboard.yml",
+      "retryable": false,
+      "impacted_reports": [
+        "美股日報"
+      ]
+    },
+    {
+      "module_id": "us_portfolio_scores",
+      "label": "US Portfolio Scores",
+      "scope": "morning",
+      "critical": true,
+      "status": "BLOCKED",
+      "reason": "data_status is not ready",
+      "observed_as_of": "2026-11-23",
+      "recovery_workflow": "update-market-dashboard.yml",
+      "retryable": true,
+      "impacted_reports": [
+        "美股日報"
+      ]
+    }
+  ],
+  "recovery_workflows": [
+    "update-market-dashboard.yml"
+  ],
+  "issue_fingerprint": "43e8226537a8833881635af9b9bb88cdb40e1a88eeeaf6a8f74990a0feb235a9",
   "policy": "Health monitoring only; never changes CTA, rankings, or investment decisions."
 }
