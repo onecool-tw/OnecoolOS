@@ -64,6 +64,7 @@ TWD_SERIES = {
     "瑞士股市": ("^SSMI", "CHFTWD=X"),
     "杜拜股市": ("DFMGI", "AEDTWD=X"),
     "紐西蘭": ("NZSE50FG", "NZDTWD=X"),
+    "智利股市": ("IPSA", "CLPTWD=X"),
     "比利時": ("^BFX", "EURTWD=X"),
     "德國DAX": ("^GDAXI", "EURTWD=X"),
     "德國": ("^GDAXI", "EURTWD=X"),
@@ -130,6 +131,7 @@ def _fetch_stooq_daily(symbol: str) -> list[DailyBar]:
 
 STOCKQ_EXACT_INDEX_CHARTS = {
     "DFMGI": ("DFMGI", "杜拜指數"),
+    "IPSA": ("IPSA", "智利指數"),
     "NZSE50FG": ("NZSE50FG", "紐西蘭指數"),
     "^SPBLPGPT": ("IGBVL", "秘魯指數"),
     "^COLCAP": ("COLCAP", "哥倫比亞指數"),
@@ -140,7 +142,9 @@ def _parse_stockq_index_chart(text: str, symbol: str) -> list[DailyBar]:
     """Read published Price observations only; never interpolate chart gaps."""
     if symbol not in STOCKQ_EXACT_INDEX_CHARTS:
         raise ETFCTAError("Unapproved StockQ exact-index identity")
-    if not re.search(r"\['Time',\s*'Price',\s*'MA20'", text):
+    if not (re.search(r"\['Time',\s*'Price',\s*'MA20'", text) or re.search(
+        r"\[\{label:'Time',type:'date'\},\s*\{label:'Price',type:'number'\},\s*\{label:'MA20',type:'number'\}", text
+    )):
         raise ETFCTAError("StockQ chart price-column identity unavailable")
     pattern = r"\[new Date\('([A-Za-z]{3} \d{1,2}, \d{4})'\),\s*([^,\]]+)"
     rows = re.findall(pattern, text)
@@ -181,7 +185,7 @@ def _fetch_stockq_exact_index(symbol: str) -> list[DailyBar]:
 
 
 def _fetch_local_market(symbol: str, bootstrapper: YahooHistoryBootstrapper):
-    if symbol in {"DFMGI", "NZSE50FG"}:
+    if symbol in {"DFMGI", "NZSE50FG", "IPSA"}:
         return _fetch_stockq_exact_index(symbol), "STOCKQ_EXACT_INDEX_CHART_PUBLISHED_PRECISION"
     try:
         return bootstrapper.fetch_adjusted_daily(symbol), "YAHOO"
@@ -229,6 +233,7 @@ def _fetch_tencent_shanghai_b() -> list[DailyBar]:
 # Yahoo does not consistently publish every direct TWD cross.  These pairs
 # produce TWD per unit of local currency through a same-date USD bridge.
 TRIANGULAR_TWD_FX = {
+    "CLPTWD=X": (("USDCLP=X", "USDTWD=X", True),),
     "AEDTWD=X": (("USDAED=X", "USDTWD=X", True),),
     "NZDTWD=X": (("NZDUSD=X", "USDTWD=X", False),),
     "BRLTWD=X": (
