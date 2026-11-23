@@ -1,19 +1,19 @@
 {
   "report_id": "taiwan",
   "report_date": "2026-11-23",
-  "generated_at": "2026-11-23T18:02:28.318970+08:00",
-  "execution_slot": "18:00",
-  "execution_status": "PARTIAL",
+  "generated_at": "2026-11-23T19:02:29+08:00",
+  "execution_slot": "19:00",
+  "execution_status": "SUCCESS",
   "delivery_status": "PREPARED",
-  "writeback_status": "UNKNOWN",
+  "writeback_status": "VERIFIED",
   "expected_as_of": "2026-11-23",
   "actual_data_as_of": "2026-11-23",
   "market_pressure_status": "CURRENT",
   "market_pressure_readback_status": "VERIFIED",
-  "persistence_workflow_completion_status": "UNKNOWN",
+  "persistence_workflow_completion_status": "VERIFIED",
   "snapshot_status": "VERIFIED",
   "snapshot_sha256": "5e8143dc9d0cb096677331170669c4764ff84acdd2731b134ec54fbcaf6cce9c",
-  "private_evidence_sha256": "03d3d4d4c7d6fb35ab27d46828caaa8a589bf348c2707dab8d9dbfc7211a95d7",
+  "private_evidence_sha256": "74e4f653f2c42858532cfea2d4ca1cb43d9553c0ba0beea266c32f7cdeae991f",
   "channels": {
     "conversation": {
       "status": "UNKNOWN",
@@ -21,14 +21,18 @@
       "evidence_sha256": null
     },
     "email": {
-      "status": "UNKNOWN",
-      "observed_at": null,
-      "evidence_sha256": null
+      "status": "DELIVERED",
+      "observed_at": "2026-11-23T19:02:29+08:00",
+      "evidence_sha256": "d973cedb0873a54d3bec52c0b20281ccd6c1058d920787b79decd268940ec650",
+      "snapshot_sha256": "5e8143dc9d0cb096677331170669c4764ff84acdd2731b134ec54fbcaf6cce9c",
+      "recipient_count": 1,
+      "successful_recipient_count": 1
     },
     "artifact": {
-      "status": "UNKNOWN",
-      "observed_at": null,
-      "evidence_sha256": null
+      "status": "DELIVERED",
+      "observed_at": "2026-11-23T19:01:35+08:00",
+      "evidence_sha256": "5fb3b174879c456a84e349349cfa07bbec2c054929e47b698c7c6c9d9f72da54",
+      "snapshot_sha256": "5e8143dc9d0cb096677331170669c4764ff84acdd2731b134ec54fbcaf6cce9c"
     }
   },
   "completed_steps": [
@@ -36,13 +40,15 @@
     "Official pressure inputs checked; volatility November 23 VERIFIED LAST_1_MIN_AVG 55.47; margin November 20 accepted LAGGED",
     "Formal RED evaluated once, mailbox written and SSOT as_of/status/light/action read back consistent",
     "Snapshot final readiness READY; formal pressure and CTA/score/rank/valuation joins verified; 200 current stock CTA",
-    "Private continuation evidence saved; eligible rank5/6 gap 0.09 flagged ranking sensitivity"
+    "Private continuation evidence saved; eligible rank5/6 gap 0.09 flagged ranking sensitivity",
+    "Verified required producer jobs and 200-stock Maintain background CTA success; verified persistence and Snapshot export jobs",
+    "Final health, context, source joins and unchanged Snapshot version verified",
+    "Final report persisted privately and fully read back; content SHA-256 verified",
+    "Final-version dedup found no prior sent message; all authorized recipients received provider successful send acknowledgement"
   ],
   "pending_steps": [
-    "Required producer workflow job success evidence including Maintain background CTA and persistence completion",
-    "Final report artifact save and complete readback",
-    "19:00 final Snapshot version dedup and email; conversation report"
+    "Conversation acknowledgement remains UNKNOWN until independently observed"
   ],
   "failed_steps": [],
-  "next_action": "At 19:00 start with workflow evidence, reuse same-day CURRENT pressure without recomputing or rewriting; verify current Snapshot and report artifact before final-version dedup and email. Japanese CTA actual date November 20 retained for local holiday. No report or email delivered at 18:00."
+  "next_action": "Observe final conversation delivery only; do not resend verified final-version email or recalculate/rewrite same-day CURRENT pressure."
 }
