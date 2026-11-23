@@ -85,12 +85,27 @@ class CnyesPeerRankingClient:
     def fetch(self, fund_code: str) -> PeerRanking:
         page_code, page_name = CNYES_FUND_PAGES[fund_code]
         url = cnyes_fund_url(page_code, page_name)
-        return parse_cnyes_peer_ranking(
+        result = parse_cnyes_peer_ranking(
             self._request(url),
             fund_code=fund_code,
             source_url=url,
             page_name=page_name,
         )
+
+        if result.category is not None or fund_code != "B16019":
+            return result
+        profile_url = url + "/document"
+        try:
+            parser = _VisibleText()
+            parser.feed(self._request(profile_url).decode("utf-8"))
+            visible = " ".join(parser.parts)
+            match = re.search(r"晨星組別\s+(.{2,80}?)\s+ISIN\s+LU0052864419\b", visible)
+        except (OSError, ValueError):
+            return result
+        if match is None:
+            return result
+        return replace(result, category=match.group(1).strip(),
+                       reason=f"Morningstar category confirmed in same-share-class profile: {profile_url}; ranking cohort not independently verified.")
 
 
 def cnyes_fund_url(fund_code: str, fund_name: str) -> str:
