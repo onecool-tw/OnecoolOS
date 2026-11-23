@@ -7,8 +7,8 @@
     "minervini": 80
   },
   "classification": "Onecool proxy scores; not IBD official ratings",
-  "expected_as_of": "2026-11-20",
-  "data_status": "READY",
+  "expected_as_of": "2026-11-23",
+  "data_status": "PARTIAL",
   "price_basis": "adjusted_close",
   "universe_size": 70,
   "universe_governance": {
@@ -28,22 +28,22 @@
     "daily_membership_mutation": false,
     "change_control": "VERSION_BUMP_AND_AUDIT_RECORD_REQUIRED"
   },
-  "validated_count": 63,
-  "coverage_status": "COMPLETE",
-  "validated_coverage_pct": 90.0,
+  "validated_count": 59,
+  "coverage_status": "COMPLETE_WITH_VALIDATION_FAILURES",
+  "validated_coverage_pct": 84.29,
   "research_scope": "FULL_UNIVERSE_ASSESSED_VALIDATED_SUBSET_RANKED",
   "minimum_technical_confidence": 90,
   "formal_breakout_count": 0,
   "top5": [
     {
       "symbol": "ABBV",
-      "price_as_of": "2026-11-20",
+      "price_as_of": "2026-11-23",
       "fundamentals_as_of": "2026-06-30",
       "fundamental_sources": [
         "https://data.sec.gov/api/xbrl/companyfacts/CIK0001551152.json"
       ],
       "fundamentals_published_as_of": "2026-08-03",
-      "liquidity_average_50d_usd": 1411234443.86,
+      "liquidity_average_50d_usd": 1426167783.93,
       "liquidity_minimum_50d_usd": 20000000,
       "liquidity_status": "PASSED",
       "new_entry_eligible": true,
@@ -57,12 +57,12 @@
       "technical_confidence": 100,
       "validation_status": "PASSED",
       "validation_errors": [],
-      "canslim_score": 52,
-      "minervini_score": 92,
+      "canslim_score": 53,
+      "minervini_score": 96,
       "passes_dual_system": false,
       "company_name": "AbbVie Inc.",
       "security_type": "COMMON_STOCK",
-      "rank_score": 69.8,
+      "rank_score": 72.05,
       "status": "WAIT",
       "trigger": "突破52週高點且成交量至少為50日均量1.5倍",
       "formal_breakout": false,
@@ -142,7 +142,7 @@
         },
         "valuation": {
           "status": "FAIL",
-          "as_of": "2026-11-20",
+          "as_of": "2026-11-23",
           "rationale": "Uses current Q3 guidance with the existing full-year acquisition dilution stress; Humira erosion, leverage and IPR&D constrain the range.",
           "sources": [
             "https://news.abbvie.com/2026-10-30-AbbVie-Reports-Third-Quarter-2026-Financial-Results",
@@ -151,12 +151,12 @@
           "data_gap": null,
           "validation_errors": [],
           "method": "FORWARD_ADJUSTED_PE_FULL_YEAR_ACQUISITION_STRESS",
-          "price_as_of": "2026-11-20",
-          "valid_through": "2026-11-20",
+          "price_as_of": "2026-11-23",
+          "valid_through": "2026-11-23",
           "inputs": {
-            "price": 286.20001220703125,
+            "price": 288.45001220703125,
             "denominator": 13.44,
-            "multiple": 21.29464376540411,
+            "multiple": 21.462054479689826,
             "fair_range": [
               8.554162502288818,
               16.74285714285714
@@ -180,12 +180,12 @@
       "quality_gate_application": "FORMAL_NEW_CANDIDATE_RESEARCH_GATE",
       "action_eligibility": "RESEARCH_ONLY_VALUATION_TOO_HIGH",
       "valuation_input_collection": {
-        "as_of": "2026-11-20",
+        "as_of": "2026-11-23",
         "status": "COMPLETE",
         "gaps": [],
         "price_basis": "adjusted_close",
         "inputs": {
-          "adjusted_close": 286.20001220703125
+          "adjusted_close": 288.45001220703125
         },
         "sources": [
           "https://news.abbvie.com/2026-10-30-AbbVie-Reports-Third-Quarter-2026-Financial-Results",
@@ -195,16 +195,16 @@
         "price_source": {
           "provider": "yahoo_finance_adjusted_batch",
           "symbol": "ABBV",
-          "as_of": "2026-11-20",
+          "as_of": "2026-11-23",
           "url": "https://finance.yahoo.com/quote/ABBV/history/"
         },
         "price_observation": {
-          "date": "2026-11-20",
-          "adjusted_close": 286.20001220703125,
-          "raw_close": 286.20001220703125,
+          "date": "2026-11-23",
+          "adjusted_close": 288.45001220703125,
+          "raw_close": 288.45001220703125,
           "provider": "yahoo_finance_adjusted_batch"
         },
-        "price_sha256": "8527f411a91f594517e4a5407d87f21d5f2c66b1757692ea791c6f01674835f1",
+        "price_sha256": "4f1a3e64525d90b4c57533210ffb822837a706db3d8e9f92b7d19b9426cb7011",
         "official_reference_status": "VERIFIED",
         "fundamental_fetch_status": "REVIEWED_OFFICIAL_REFERENCE",
         "company_name": "AbbVie Inc.",
@@ -355,7 +355,7 @@
             {
               "field": "valuation",
               "value": "FAIL",
-              "as_of": "2026-11-20",
+              "as_of": "2026-11-23",
               "rationale": "Uses current Q3 guidance with the existing full-year acquisition dilution stress; Humira erosion, leverage and IPR&D constrain the range.",
               "sources": [
                 "https://news.abbvie.com/2026-10-30-AbbVie-Reports-Third-Quarter-2026-Financial-Results",
@@ -396,13 +396,13 @@
     },
     {
       "symbol": "AAPL",
-      "price_as_of": "2026-11-20",
+      "price_as_of": "2026-11-23",
       "fundamentals_as_of": "2026-06-27",
       "fundamental_sources": [
         "https://data.sec.gov/api/xbrl/companyfacts/CIK0000320193.json"
       ],
       "fundamentals_published_as_of": "2026-07-31",
-      "liquidity_average_50d_usd": 14749645443.12,
+      "liquidity_average_50d_usd": 14885360365.73,
       "liquidity_minimum_50d_usd": 20000000,
       "liquidity_status": "PASSED",
       "new_entry_eligible": true,
@@ -417,11 +417,11 @@
       "validation_status": "PASSED",
       "validation_errors": [],
       "canslim_score": 49,
-      "minervini_score": 92,
+      "minervini_score": 95,
       "passes_dual_system": false,
       "company_name": "Apple Inc.",
       "security_type": "COMMON_STOCK",
-      "rank_score": 68.45,
+      "rank_score": 69.8,
       "status": "WAIT",
       "trigger": "突破52週高點且成交量至少為50日均量1.5倍",
       "formal_breakout": false,
@@ -501,7 +501,7 @@
         },
         "valuation": {
           "status": "FAIL",
-          "as_of": "2026-11-20",
+          "as_of": "2026-11-23",
           "rationale": "Installed-base loyalty, Services growth and buybacks support durable cash generation; hardware cycles, regulation, tariffs and AI execution justify 7%/11% five-year analyst growth scenarios and stressed cash conversion.",
           "sources": [
             "https://www.apple.com/newsroom/2026/11/apple-reports-fourth-quarter-results/",
@@ -511,12 +511,12 @@
           "data_gap": null,
           "validation_errors": [],
           "method": "FY26_GAAP_DILUTED_PE_WITH_CASH_CONVERSION_STRESS",
-          "price_as_of": "2026-11-20",
-          "valid_through": "2026-11-20",
+          "price_as_of": "2026-11-23",
+          "valid_through": "2026-11-23",
           "inputs": {
-            "price": 342.55999755859375,
+            "price": 349.0799865722656,
             "denominator": 8.98,
-            "multiple": 38.146993046614,
+            "multiple": 38.87304972965096,
             "fair_range": [
               10.176660073220697,
               18.223173317198103
@@ -540,12 +540,12 @@
       "quality_gate_application": "FORMAL_NEW_CANDIDATE_RESEARCH_GATE",
       "action_eligibility": "RESEARCH_ONLY_VALUATION_TOO_HIGH",
       "valuation_input_collection": {
-        "as_of": "2026-11-20",
+        "as_of": "2026-11-23",
         "status": "COMPLETE",
         "gaps": [],
         "price_basis": "adjusted_close",
         "inputs": {
-          "adjusted_close": 342.55999755859375
+          "adjusted_close": 349.0799865722656
         },
         "sources": [
           "https://www.apple.com/newsroom/2026/11/apple-reports-fourth-quarter-results/",
@@ -556,16 +556,16 @@
         "price_source": {
           "provider": "yahoo_finance_adjusted_batch",
           "symbol": "AAPL",
-          "as_of": "2026-11-20",
+          "as_of": "2026-11-23",
           "url": "https://finance.yahoo.com/quote/AAPL/history/"
         },
         "price_observation": {
-          "date": "2026-11-20",
-          "adjusted_close": 342.55999755859375,
-          "raw_close": 342.55999755859375,
+          "date": "2026-11-23",
+          "adjusted_close": 349.0799865722656,
+          "raw_close": 349.0799865722656,
           "provider": "yahoo_finance_adjusted_batch"
         },
-        "price_sha256": "398a5793b71e4ae293d37d38f3fe72661eabf2baa981c03812aeed3017bbcd10",
+        "price_sha256": "a979a7e8b6ade65146fd6164a15b1e998ee85d1b2ba4174b493477b5b357a4e1",
         "official_reference_status": "VERIFIED",
         "fundamental_fetch_status": "REVIEWED_OFFICIAL_REFERENCE",
         "company_name": "Apple Inc.",
@@ -722,7 +722,7 @@
             {
               "field": "valuation",
               "value": "FAIL",
-              "as_of": "2026-11-20",
+              "as_of": "2026-11-23",
               "rationale": "Installed-base loyalty, Services growth and buybacks support durable cash generation; hardware cycles, regulation, tariffs and AI execution justify 7%/11% five-year analyst growth scenarios and stressed cash conversion.",
               "sources": [
                 "https://www.apple.com/newsroom/2026/11/apple-reports-fourth-quarter-results/",
@@ -764,13 +764,13 @@
     },
     {
       "symbol": "GILD",
-      "price_as_of": "2026-11-20",
+      "price_as_of": "2026-11-23",
       "fundamentals_as_of": "2026-06-30",
       "fundamental_sources": [
         "https://data.sec.gov/api/xbrl/companyfacts/CIK0000882095.json"
       ],
       "fundamentals_published_as_of": "2026-08-06",
-      "liquidity_average_50d_usd": 977783155.93,
+      "liquidity_average_50d_usd": 985602649.76,
       "liquidity_minimum_50d_usd": 20000000,
       "liquidity_status": "PASSED",
       "new_entry_eligible": true,
@@ -785,11 +785,11 @@
       "validation_status": "PASSED",
       "validation_errors": [],
       "canslim_score": 46,
-      "minervini_score": 84,
+      "minervini_score": 88,
       "passes_dual_system": false,
       "company_name": "Gilead Sciences, Inc.",
       "security_type": "COMMON_STOCK",
-      "rank_score": 63.5,
+      "rank_score": 65.3,
       "status": "WAIT",
       "trigger": "突破52週高點且成交量至少為50日均量1.5倍",
       "formal_breakout": false,
@@ -869,7 +869,7 @@
         },
         "valuation": {
           "status": "FAIL",
-          "as_of": "2026-11-20",
+          "as_of": "2026-11-23",
           "rationale": "HIV franchise growth and improving gross margin support modest growth; acquisition integration, oncology competition and leverage constrain distributions.",
           "sources": [
             "https://investors.gilead.com/news/news-details/2026/Gilead-Sciences-Announces-Third-Quarter-2026-Financial-Results/default.aspx",
@@ -878,12 +878,12 @@
           "data_gap": null,
           "validation_errors": [],
           "method": "FORWARD_NORMALIZED_PE_EX_DISCLOSED_ACQUIRED_IPRD",
-          "price_as_of": "2026-11-20",
-          "valid_through": "2026-11-20",
+          "price_as_of": "2026-11-23",
+          "valid_through": "2026-11-23",
           "inputs": {
-            "price": 166.42999267578125,
+            "price": 170.58999633789062,
             "denominator": 8.855,
-            "multiple": 18.795030228772585,
+            "multiple": 19.264821720823335,
             "fair_range": [
               8.640342947717663,
               14.81216308103289
@@ -912,12 +912,12 @@
       "quality_gate_application": "FORMAL_NEW_CANDIDATE_RESEARCH_GATE",
       "action_eligibility": "RESEARCH_ONLY_QUALITY_EVIDENCE_INCOMPLETE",
       "valuation_input_collection": {
-        "as_of": "2026-11-20",
+        "as_of": "2026-11-23",
         "status": "COMPLETE",
         "gaps": [],
         "price_basis": "adjusted_close",
         "inputs": {
-          "adjusted_close": 166.42999267578125
+          "adjusted_close": 170.58999633789062
         },
         "sources": [
           "https://investors.gilead.com/news/news-details/2026/Gilead-Sciences-Announces-Third-Quarter-2026-Financial-Results/default.aspx",
@@ -927,16 +927,16 @@
         "price_source": {
           "provider": "yahoo_finance_adjusted_batch",
           "symbol": "GILD",
-          "as_of": "2026-11-20",
+          "as_of": "2026-11-23",
           "url": "https://finance.yahoo.com/quote/GILD/history/"
         },
         "price_observation": {
-          "date": "2026-11-20",
-          "adjusted_close": 166.42999267578125,
-          "raw_close": 166.42999267578125,
+          "date": "2026-11-23",
+          "adjusted_close": 170.58999633789062,
+          "raw_close": 170.58999633789062,
           "provider": "yahoo_finance_adjusted_batch"
         },
-        "price_sha256": "4856c94e0f835c79c839dbba664f38490622b31cacff526a8d871b615981283d",
+        "price_sha256": "55e21ec60fad1ca852316638d3a31c421623d771456e2916bc8745d07ed64646",
         "official_reference_status": "VERIFIED",
         "fundamental_fetch_status": "REVIEWED_OFFICIAL_REFERENCE",
         "company_name": "Gilead Sciences, Inc.",
@@ -1069,388 +1069,10 @@
             {
               "field": "valuation",
               "value": "FAIL",
-              "as_of": "2026-11-20",
+              "as_of": "2026-11-23",
               "rationale": "HIV franchise growth and improving gross margin support modest growth; acquisition integration, oncology competition and leverage constrain distributions.",
               "sources": [
                 "https://investors.gilead.com/news/news-details/2026/Gilead-Sciences-Announces-Third-Quarter-2026-Financial-Results/default.aspx",
-                "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
-              ]
-            }
-          ],
-          "required_manual_confirmation": [
-            "BUSINESS_DRIVER",
-            "DURABILITY",
-            "MANAGEMENT_EXECUTION"
-          ]
-        },
-        "story_break_conditions": [
-          {
-            "condition": "VERIFIED_COMPETITIVE_ADVANTAGE_FAILS",
-            "meaning": "Investment story requires review"
-          },
-          {
-            "condition": "VERIFIED_STRUCTURAL_GROWTH_RUNWAY_FAILS",
-            "meaning": "Growth story requires review"
-          },
-          {
-            "condition": "VERIFIED_FINANCIAL_QUALITY_OR_GOVERNANCE_FAILS",
-            "meaning": "Quality story requires review"
-          }
-        ],
-        "policy": {
-          "decision_authority": "NONE",
-          "ranking_effect": "NONE",
-          "score_effect": "NONE",
-          "cta_effect": "NONE",
-          "action_effect": "NONE",
-          "observation_is_research_lead_only": true,
-          "manual_confirmation_required": true
-        }
-      }
-    },
-    {
-      "symbol": "COST",
-      "price_as_of": "2026-11-20",
-      "fundamentals_as_of": "2026-08-30",
-      "fundamental_sources": [
-        "https://www.sec.gov/Archives/edgar/data/909832/000090983226000084/costex9918-k92426.htm",
-        "https://www.sec.gov/Archives/edgar/data/909832/000090983226000093/cost-20260830.htm"
-      ],
-      "fundamentals_published_as_of": "2026-10-07",
-      "liquidity_average_50d_usd": 2386000502.56,
-      "liquidity_minimum_50d_usd": 20000000,
-      "liquidity_status": "PASSED",
-      "new_entry_eligible": true,
-      "validation_warnings": [],
-      "price_basis": "adjusted_close",
-      "score_version": "onecool_us_dual_v2",
-      "thresholds": {
-        "canslim": 70,
-        "minervini": 80
-      },
-      "technical_confidence": 100,
-      "validation_status": "PASSED",
-      "validation_errors": [],
-      "canslim_score": 40,
-      "minervini_score": 90,
-      "passes_dual_system": false,
-      "company_name": "Costco Wholesale Corporation",
-      "security_type": "COMMON_STOCK",
-      "rank_score": 63.5,
-      "status": "WAIT",
-      "trigger": "突破52週高點且成交量至少為50日均量1.5倍",
-      "formal_breakout": false,
-      "super_growth_bucket": "B",
-      "super_growth_reason": "VALUATION_ABOVE_DISCIPLINED_RANGE",
-      "quality_gate_status": {
-        "competitive_advantage": {
-          "status": "PASS",
-          "as_of": "2026-10-07",
-          "rationale": "Membership-fee economics, purchasing scale and a 939-warehouse network support recurring traffic, customer retention and price leadership.",
-          "sources": [
-            "https://investor.costco.com/news/news-details/2026/Costco-Wholesale-Corporation-Reports-Fourth-Quarter-and-Fiscal-Year-2026-Operating-Results/",
-            "https://www.sec.gov/Archives/edgar/data/909832/000090983226000093/cost-20260830.htm"
-          ],
-          "data_gap": null,
-          "validation_errors": [],
-          "method": null,
-          "price_as_of": null,
-          "valid_through": null,
-          "inputs": {}
-        },
-        "structural_growth_runway": {
-          "status": "PASS",
-          "as_of": "2026-10-07",
-          "rationale": "FY2026 net sales rose 10.1%, membership fees rose 11.0%, digitally enabled sales rose 20.9%, and the warehouse base expanded to 939, supporting a source-backed growth runway.",
-          "sources": [
-            "https://investor.costco.com/news/news-details/2026/Costco-Wholesale-Corporation-Reports-Fourth-Quarter-and-Fiscal-Year-2026-Operating-Results/",
-            "https://www.sec.gov/Archives/edgar/data/909832/000090983226000093/cost-20260830.htm"
-          ],
-          "data_gap": null,
-          "validation_errors": [],
-          "method": null,
-          "price_as_of": null,
-          "valid_through": null,
-          "inputs": {}
-        },
-        "financial_quality": {
-          "status": "PASS",
-          "as_of": "2026-10-07",
-          "rationale": "FY2026 revenue was $303.154 billion, net income $9.226 billion and diluted EPS $20.76; the 10-K received an unqualified audit opinion and reported effective internal control.",
-          "sources": [
-            "https://investor.costco.com/news/news-details/2026/Costco-Wholesale-Corporation-Reports-Fourth-Quarter-and-Fiscal-Year-2026-Operating-Results/",
-            "https://www.sec.gov/Archives/edgar/data/909832/000090983226000093/cost-20260830.htm"
-          ],
-          "data_gap": null,
-          "validation_errors": [],
-          "method": null,
-          "price_as_of": null,
-          "valid_through": null,
-          "inputs": {}
-        },
-        "business_risk_and_governance": {
-          "status": "PASS",
-          "as_of": "2026-10-07",
-          "rationale": "The 10-K identifies merchandise, wage, supply-chain, cybersecurity, international and regulatory risks; the audit and internal-control opinions disclose no current issue that invalidates research eligibility.",
-          "sources": [
-            "https://www.sec.gov/Archives/edgar/data/909832/000090983226000093/cost-20260830.htm"
-          ],
-          "data_gap": null,
-          "validation_errors": [],
-          "method": null,
-          "price_as_of": null,
-          "valid_through": null,
-          "inputs": {}
-        },
-        "circle_of_competence": {
-          "status": "UNKNOWN",
-          "as_of": "2026-11-20",
-          "rationale": "Understanding membership economics, retail margins and international execution remains a user confirmation before a new position and does not block ranking.",
-          "sources": [
-            "https://investor.costco.com/news/news-details/2026/Costco-Wholesale-Corporation-Reports-Fourth-Quarter-and-Fiscal-Year-2026-Operating-Results/",
-            "https://www.sec.gov/Archives/edgar/data/909832/000090983226000093/cost-20260830.htm"
-          ],
-          "data_gap": "PRE_TRADE_USER_CONFIRMATION_ONLY",
-          "validation_errors": [],
-          "method": null,
-          "price_as_of": null,
-          "valid_through": null,
-          "inputs": {}
-        },
-        "valuation": {
-          "status": "FAIL",
-          "as_of": "2026-11-20",
-          "rationale": "Membership renewal economics, warehouse expansion and recurring fee income support durable growth; retail margin sensitivity, wage and merchandise costs, international execution and reinvestment justify 7%/11% growth and stressed cash conversion scenarios.",
-          "sources": [
-            "https://investor.costco.com/news/news-details/2026/Costco-Wholesale-Corporation-Reports-Fourth-Quarter-and-Fiscal-Year-2026-Operating-Results/",
-            "https://www.sec.gov/Archives/edgar/data/909832/000090983226000093/cost-20260830.htm",
-            "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
-          ],
-          "data_gap": null,
-          "validation_errors": [],
-          "method": "FY26_NORMALIZED_GAAP_DILUTED_PE_WITH_CASH_CONVERSION_STRESS",
-          "price_as_of": "2026-11-20",
-          "valid_through": "2026-11-20",
-          "inputs": {
-            "price": 1102.1500244140625,
-            "denominator": 20.61,
-            "multiple": 53.47646891868329,
-            "fair_range": [
-              9.958214778051842,
-              18.223173317198103
-            ]
-          }
-        }
-      },
-      "evidence_coverage": "PARTIAL",
-      "missing_evidence": [
-        "circle_of_competence"
-      ],
-      "quality_data_gaps": {},
-      "valuation_posture": "ABOVE_DISCIPLINED_RANGE",
-      "cyclical_review_required": false,
-      "evidence_as_of": "2026-11-20",
-      "manual_confirmation_required": [
-        "circle_of_competence"
-      ],
-      "circle_of_competence_policy": "PRE_TRADE_USER_CONFIRMATION_NOT_DAILY_RESEARCH_BLOCKER",
-      "decision_authority": "RESEARCH_QUALITY_ONLY",
-      "quality_gate_application": "FORMAL_NEW_CANDIDATE_RESEARCH_GATE",
-      "action_eligibility": "RESEARCH_ONLY_VALUATION_TOO_HIGH",
-      "valuation_input_collection": {
-        "as_of": "2026-11-20",
-        "status": "COMPLETE",
-        "gaps": [],
-        "price_basis": "adjusted_close",
-        "inputs": {
-          "adjusted_close": 1102.1500244140625
-        },
-        "sources": [
-          "https://investor.costco.com/news/news-details/2026/Costco-Wholesale-Corporation-Reports-Fourth-Quarter-and-Fiscal-Year-2026-Operating-Results/",
-          "https://www.sec.gov/Archives/edgar/data/909832/000090983226000093/cost-20260830.htm",
-          "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
-        ],
-        "decision_authority": "REVIEWED_SOURCE_BACKED_VALUATION_MODEL",
-        "price_source": {
-          "provider": "yahoo_finance_adjusted_batch",
-          "symbol": "COST",
-          "as_of": "2026-11-20",
-          "url": "https://finance.yahoo.com/quote/COST/history/"
-        },
-        "price_observation": {
-          "date": "2026-11-20",
-          "adjusted_close": 1102.1500244140625,
-          "raw_close": 1102.1500244140625,
-          "provider": "yahoo_finance_adjusted_batch"
-        },
-        "price_sha256": "d20c9bd50b8f88ad6cd1c8d0d2dff3b9f02ece5f8031837bdfcc6c3719efd2e9",
-        "official_reference_status": "VERIFIED",
-        "fundamental_fetch_status": "REVIEWED_OFFICIAL_REFERENCE",
-        "company_name": "Costco Wholesale Corporation",
-        "official_reference": {
-          "symbol": "COST",
-          "company_name": "Costco Wholesale Corporation",
-          "published_at": "2026-10-07",
-          "reviewed_as_of": "2026-11-21",
-          "valid_through": "2027-01-05",
-          "sources": [
-            "https://investor.costco.com/news/news-details/2026/Costco-Wholesale-Corporation-Reports-Fourth-Quarter-and-Fiscal-Year-2026-Operating-Results/",
-            "https://www.sec.gov/Archives/edgar/data/909832/000090983226000093/cost-20260830.htm",
-            "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
-          ],
-          "reported_facts": {
-            "period": "FY2026",
-            "revenue_million": 303154,
-            "net_sales_million": 297247,
-            "membership_fees_million": 5907,
-            "net_income_million": 9226,
-            "reported_diluted_eps": 20.76,
-            "tariff_refund_benefit_eps": 0.15,
-            "normalized_diluted_eps": 20.61,
-            "warehouses": 939
-          },
-          "model_gaps": [],
-          "refresh_on": [
-            "NEW_EARNINGS_OR_GUIDANCE",
-            "MATERIAL_CORPORATE_EVENT",
-            "REFERENCE_EXPIRY"
-          ],
-          "valuation_model": {
-            "method": "FY26_NORMALIZED_GAAP_DILUTED_PE_WITH_CASH_CONVERSION_STRESS",
-            "denominator": 20.61,
-            "currency": "USD",
-            "share_basis": "listed_security",
-            "normalization_bridge": {
-              "formula": "FY2026 reported diluted EPS 20.76 less disclosed non-recurring tariff-refund benefit 0.15",
-              "inputs": [
-                20.76,
-                -0.15
-              ],
-              "limitations": "Historical normalized EPS, not issuer FY2027 guidance; the tariff adjustment is the only disclosed non-recurring EPS item removed."
-            },
-            "denominator_source": [
-              "https://investor.costco.com/news/news-details/2026/Costco-Wholesale-Corporation-Reports-Fourth-Quarter-and-Fiscal-Year-2026-Operating-Results/",
-              "https://www.sec.gov/Archives/edgar/data/909832/000090983226000093/cost-20260830.htm"
-            ],
-            "fair_range": [
-              9.958214778051842,
-              18.223173317198103
-            ],
-            "scenarios": [
-              {
-                "name": "conservative",
-                "years": 5,
-                "growth": 0.07,
-                "required_return": 0.12,
-                "terminal_growth": 0.02,
-                "cash_conversion": 0.7,
-                "terminal_cash_conversion": 0.85
-              },
-              {
-                "name": "base",
-                "years": 5,
-                "growth": 0.11,
-                "required_return": 0.1,
-                "terminal_growth": 0.03,
-                "cash_conversion": 0.85,
-                "terminal_cash_conversion": 0.9
-              }
-            ],
-            "assumption_authority": "ONECOOL_ANALYST_NOT_ISSUER_GUIDANCE",
-            "research_grade": "SCREENING_SCENARIO_NOT_FULL_DCF",
-            "policy_version": "onecool_equity_two_stage_screen_v1",
-            "rationale": "Membership renewal economics, warehouse expansion and recurring fee income support durable growth; retail margin sensitivity, wage and merchandise costs, international execution and reinvestment justify 7%/11% growth and stressed cash conversion scenarios.",
-            "fair_range_rationale": "Five-year 7%/11% growth, 70%/85% interim cash conversion, 85%/90% terminal conversion, 12%/10% required return and 2%/3% terminal growth are Onecool screening assumptions selected without reference to the current share price.",
-            "fair_range_sources": [
-              "https://investor.costco.com/news/news-details/2026/Costco-Wholesale-Corporation-Reports-Fourth-Quarter-and-Fiscal-Year-2026-Operating-Results/",
-              "https://www.sec.gov/Archives/edgar/data/909832/000090983226000093/cost-20260830.htm",
-              "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
-            ]
-          },
-          "source_review": {
-            "status": "VERIFIED_CURRENT_OFFICIAL",
-            "checked_at": "2026-11-21T04:05:00+00:00",
-            "information_cutoff": "2026-11-20",
-            "conclusion": "FY2026 10-K and issuer results replace the failed live Company Facts request and provide a current reproducible denominator."
-          }
-        }
-      },
-      "lynch_research": {
-        "version": "onecool_lynch_research_v1",
-        "company_type": {
-          "status": "PROVISIONAL",
-          "primary": "FAST_GROWER",
-          "candidates": [
-            "FAST_GROWER"
-          ],
-          "evidence": [
-            {
-              "field": "verified_quality_gates",
-              "value": [
-                "structural_growth_runway",
-                "financial_quality"
-              ],
-              "interpretation": "FAST_GROWTH_CANDIDATE_NOT_DURABILITY_PROOF"
-            }
-          ],
-          "unresolved_categories": [
-            "SLOW_GROWER",
-            "STALWART",
-            "CYCLICAL",
-            "TURNAROUND",
-            "ASSET_PLAY"
-          ]
-        },
-        "investment_story": {
-          "status": "EVIDENCE_ONLY",
-          "evidence": [
-            {
-              "field": "competitive_advantage",
-              "value": "PASS",
-              "as_of": "2026-10-07",
-              "rationale": "Membership-fee economics, purchasing scale and a 939-warehouse network support recurring traffic, customer retention and price leadership.",
-              "sources": [
-                "https://investor.costco.com/news/news-details/2026/Costco-Wholesale-Corporation-Reports-Fourth-Quarter-and-Fiscal-Year-2026-Operating-Results/",
-                "https://www.sec.gov/Archives/edgar/data/909832/000090983226000093/cost-20260830.htm"
-              ]
-            },
-            {
-              "field": "structural_growth_runway",
-              "value": "PASS",
-              "as_of": "2026-10-07",
-              "rationale": "FY2026 net sales rose 10.1%, membership fees rose 11.0%, digitally enabled sales rose 20.9%, and the warehouse base expanded to 939, supporting a source-backed growth runway.",
-              "sources": [
-                "https://investor.costco.com/news/news-details/2026/Costco-Wholesale-Corporation-Reports-Fourth-Quarter-and-Fiscal-Year-2026-Operating-Results/",
-                "https://www.sec.gov/Archives/edgar/data/909832/000090983226000093/cost-20260830.htm"
-              ]
-            },
-            {
-              "field": "financial_quality",
-              "value": "PASS",
-              "as_of": "2026-10-07",
-              "rationale": "FY2026 revenue was $303.154 billion, net income $9.226 billion and diluted EPS $20.76; the 10-K received an unqualified audit opinion and reported effective internal control.",
-              "sources": [
-                "https://investor.costco.com/news/news-details/2026/Costco-Wholesale-Corporation-Reports-Fourth-Quarter-and-Fiscal-Year-2026-Operating-Results/",
-                "https://www.sec.gov/Archives/edgar/data/909832/000090983226000093/cost-20260830.htm"
-              ]
-            },
-            {
-              "field": "business_risk_and_governance",
-              "value": "PASS",
-              "as_of": "2026-10-07",
-              "rationale": "The 10-K identifies merchandise, wage, supply-chain, cybersecurity, international and regulatory risks; the audit and internal-control opinions disclose no current issue that invalidates research eligibility.",
-              "sources": [
-                "https://www.sec.gov/Archives/edgar/data/909832/000090983226000093/cost-20260830.htm"
-              ]
-            },
-            {
-              "field": "valuation",
-              "value": "FAIL",
-              "as_of": "2026-11-20",
-              "rationale": "Membership renewal economics, warehouse expansion and recurring fee income support durable growth; retail margin sensitivity, wage and merchandise costs, international execution and reinvestment justify 7%/11% growth and stressed cash conversion scenarios.",
-              "sources": [
-                "https://investor.costco.com/news/news-details/2026/Costco-Wholesale-Corporation-Reports-Fourth-Quarter-and-Fiscal-Year-2026-Operating-Results/",
-                "https://www.sec.gov/Archives/edgar/data/909832/000090983226000093/cost-20260830.htm",
                 "https://github.com/onecool-tw/OnecoolOS/blob/main/docs/operations/us-valuation-inputs.md"
               ]
             }
@@ -1516,26 +1138,8 @@
     {
       "symbol": "CRWD",
       "technical_confidence": 100,
-      "reason": "Reviewed nonpositive prior EPS; growth comparison is not meaningful under the existing rule",
-      "assessment_status": "RULE_EXCLUDED",
-      "reviewed_evidence": {
-        "symbol": "CRWD",
-        "status": "NONPOSITIVE_COMPARISON_BASE",
-        "review_status": "VERIFIED",
-        "period_end": "2026-07-31",
-        "prior_period_end": "2025-07-31",
-        "current_eps": 0.01,
-        "prior_eps": -0.07,
-        "published_as_of": "2026-08-27",
-        "valid_through": "2026-11-20",
-        "source_url": "https://ir.crowdstrike.com/news-releases/news-release-details/crowdstrike-reports-second-quarter-fiscal-year-2027-financial/",
-        "reviewed_as_of": "2026-10-30",
-        "accounting_basis": "us-gaap",
-        "currency": "USD",
-        "review_note": "Official Q2 FY2027 GAAP diluted EPS was 0.01 versus -0.07. The negative comparison base makes EPS growth inapplicable; rule-excluded until superseded by newer official results."
-      },
-      "fundamental_fetch_status": "RULE_EXCLUDED_REVIEWED",
-      "latest_fetch_attempt_status": "SEC_FETCH_FAILED",
+      "reason": "fundamental validation unavailable",
+      "fundamental_fetch_status": "SEC_FETCH_FAILED",
       "fundamental_validation_detail": "SEC_FETCH_FAILED"
     },
     {
@@ -1588,101 +1192,86 @@
     },
     {
       "symbol": "SNDK",
-      "technical_confidence": 100,
-      "reason": "Reviewed nonpositive prior EPS; growth comparison is not meaningful under the existing rule",
-      "assessment_status": "RULE_EXCLUDED",
-      "reviewed_evidence": {
-        "symbol": "SNDK",
-        "status": "NONPOSITIVE_COMPARISON_BASE",
-        "review_status": "VERIFIED",
-        "period_end": "2026-07-03",
-        "prior_period_end": "2025-06-27",
-        "current_eps": 73.76,
-        "prior_eps": -11.32,
-        "published_as_of": "2026-08-05",
-        "valid_through": "2027-01-25",
-        "source_url": "https://investor.sandisk.com/news-releases/news-release-details/sandisk-reports-fiscal-fourth-quarter-2026-financial-results",
-        "reviewed_as_of": "2026-10-31",
-        "review_note": "Official FY2026 GAAP diluted EPS was 73.76 versus FY2025 -11.32. The annual comparison base remains negative after the Q1 FY2027 release, so EPS growth is inapplicable and SNDK remains rule-excluded.",
-        "next_earnings_source": "https://www.sandisk.com/company/newsroom/press-releases/2026/2026-09-29-sandisk-to-report-first-quarter-fiscal-year-2027-results-on-october-29-2026",
-        "comparison_scope": "annual_eps"
-      },
-      "fundamental_fetch_status": "RULE_EXCLUDED_REVIEWED",
-      "latest_fetch_attempt_status": "SEC_FETCH_FAILED",
-      "fundamental_validation_detail": "SEC_FETCH_FAILED"
+      "technical_confidence": 10,
+      "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated; fundamental validation unavailable",
+      "fundamental_fetch_status": "NOT_REQUESTED"
     },
     {
       "symbol": "SNOW",
       "technical_confidence": 100,
-      "reason": "Reviewed nonpositive prior EPS; growth comparison is not meaningful under the existing rule",
-      "assessment_status": "RULE_EXCLUDED",
-      "reviewed_evidence": {
-        "symbol": "SNOW",
-        "status": "NONPOSITIVE_COMPARISON_BASE",
-        "review_status": "VERIFIED",
-        "period_end": "2026-07-31",
-        "prior_period_end": "2025-07-31",
-        "current_eps": -0.55,
-        "prior_eps": -0.89,
-        "published_as_of": "2026-09-04",
-        "valid_through": "2026-11-20",
-        "source_url": "https://investors.snowflake.com/financials/quarterly-results/default.aspx",
-        "reviewed_as_of": "2026-10-30",
-        "accounting_basis": "us-gaap",
-        "currency": "USD",
-        "review_note": "Official comparative GAAP EPS remained negative in the latest available quarter. The nonpositive comparison base makes EPS growth inapplicable; rule-excluded until superseded by newer official results."
-      },
-      "fundamental_fetch_status": "RULE_EXCLUDED_REVIEWED",
-      "latest_fetch_attempt_status": "SEC_FETCH_FAILED",
+      "reason": "fundamental validation unavailable",
+      "fundamental_fetch_status": "SEC_FETCH_FAILED",
+      "fundamental_validation_detail": "SEC_FETCH_FAILED"
+    },
+    {
+      "symbol": "SPOT",
+      "technical_confidence": 100,
+      "reason": "fundamental validation unavailable",
+      "fundamental_fetch_status": "SEC_FETCH_FAILED",
       "fundamental_validation_detail": "SEC_FETCH_FAILED"
     },
     {
       "symbol": "SYM",
       "technical_confidence": 100,
-      "reason": "Reviewed nonpositive prior EPS; growth comparison is not meaningful under the existing rule",
-      "assessment_status": "RULE_EXCLUDED",
-      "reviewed_evidence": {
-        "symbol": "SYM",
-        "status": "NONPOSITIVE_COMPARISON_BASE",
-        "review_status": "VERIFIED",
-        "period_end": "2026-06-27",
-        "prior_period_end": "2025-06-28",
-        "current_eps": 0.09,
-        "prior_eps": -0.04,
-        "published_as_of": "2026-08-05",
-        "valid_through": "2026-11-22",
-        "source_url": "https://ir.symbotic.com/news-releases/news-release-details/symbotic-reports-third-quarter-fiscal-year-2026-results",
-        "reviewed_as_of": "2026-11-07",
-        "accounting_basis": "us-gaap",
-        "currency": "USD",
-        "review_note": "Official Q3 FY2026 GAAP diluted EPS was 0.09 versus -0.04. The negative comparison base makes EPS growth inapplicable; rule-excluded through the November 22 close and superseded by the November 23 results.",
-        "next_earnings_source": "https://ir.symbotic.com/news-releases/news-release-details/symbotic-announces-date-reporting-fourth-quarter-and-fiscal-3"
-      },
-      "fundamental_fetch_status": "RULE_EXCLUDED_REVIEWED",
-      "latest_fetch_attempt_status": "SEC_FETCH_FAILED",
+      "reason": "fundamental validation unavailable",
+      "fundamental_fetch_status": "SEC_FETCH_FAILED",
       "fundamental_validation_detail": "SEC_FETCH_FAILED"
+    },
+    {
+      "symbol": "TSM",
+      "technical_confidence": 100,
+      "reason": "fundamental validation unavailable",
+      "fundamental_fetch_status": "SEC_FETCH_FAILED",
+      "fundamental_validation_detail": "SEC_FETCH_FAILED"
+    },
+    {
+      "symbol": "V",
+      "technical_confidence": 65,
+      "reason": "invalid OHLCV or adjusted close; liquidity cannot be calculated",
+      "fundamental_fetch_status": "REVIEWED_OFFICIAL_REFERENCE"
+    },
+    {
+      "symbol": "VRT",
+      "technical_confidence": 65,
+      "reason": "invalid OHLCV or adjusted close; liquidity cannot be calculated",
+      "fundamental_fetch_status": "CACHED_POINT_IN_TIME_SEC_VERIFIED"
     }
   ],
-  "rule_excluded_count": 7,
+  "rule_excluded_count": 3,
   "rule_excluded_symbols": [
     "BA",
-    "CRWD",
     "MRVL",
-    "PANW",
+    "PANW"
+  ],
+  "data_validation_failed_count": 8,
+  "data_validation_failed_symbols": [
+    "CRWD",
     "SNDK",
     "SNOW",
-    "SYM"
+    "SPOT",
+    "SYM",
+    "TSM",
+    "V",
+    "VRT"
   ],
-  "data_validation_failed_count": 0,
-  "data_validation_failed_symbols": [],
   "assessment_count": 70,
   "unassessed_count": 0,
   "assessment_status": "COMPLETE",
   "price_fetch_diagnostics": {
     "SNDK": {
-      "status": "RECOVERED_FROM_VERIFIED_ADJUSTED_HISTORY_CACHE",
-      "observations": 252,
-      "last_date": "2026-11-20"
+      "status": "TECHNICAL_DATA_VALIDATION_FAILED",
+      "observations": 446,
+      "last_date": "2026-11-23",
+      "missing_spy_sessions": 1,
+      "missing_spy_dates": [
+        "2026-11-20"
+      ],
+      "missing_day_retry_status": "EMPTY_RESPONSE",
+      "raw_window_retry_status": "INVALID_ADJUSTED_ROW",
+      "tiingo_retry_status": "ANCHOR_UNAVAILABLE",
+      "alpha_full_window_status": "NOT_ATTEMPTED",
+      "tiingo_full_window_status": "NOT_ATTEMPTED",
+      "verified_history_cache_status": "PRIOR_SESSION"
     }
   },
   "fundamental_fetch_status": {
@@ -1739,9 +1328,9 @@
     "PLTR": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
     "QCOM": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
     "RTX": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
-    "SPOT": "REVIEWED_OFFICIAL_REFERENCE",
+    "SPOT": "SEC_FETCH_FAILED",
     "THC": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
-    "TSM": "REVIEWED_OFFICIAL_REFERENCE",
+    "TSM": "SEC_FETCH_FAILED",
     "TSLA": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
     "UBER": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
     "V": "REVIEWED_OFFICIAL_REFERENCE",
@@ -1751,15 +1340,15 @@
     "WMT": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
     "XYZ": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
     "GD": "REVIEWED_OFFICIAL_REFERENCE",
-    "BABA": "REVIEWED_OFFICIAL_REFERENCE",
+    "BABA": "SEC_FETCH_FAILED",
     "SWKS": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
     "RH": "REVIEWED_OFFICIAL_REFERENCE",
     "UPBD": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
     "BA": "RULE_EXCLUDED_REVIEWED",
-    "CRWD": "RULE_EXCLUDED_REVIEWED",
-    "SNDK": "RULE_EXCLUDED_REVIEWED",
-    "SNOW": "RULE_EXCLUDED_REVIEWED",
-    "SYM": "RULE_EXCLUDED_REVIEWED"
+    "CRWD": "SEC_FETCH_FAILED",
+    "SNDK": "NOT_REQUESTED",
+    "SNOW": "SEC_FETCH_FAILED",
+    "SYM": "SEC_FETCH_FAILED"
   },
   "valuation_input_refresh_status": "COMPLETED_WITH_PER_SYMBOL_STATUS",
   "super_growth_quality_gate": {
@@ -1767,7 +1356,7 @@
     "scope": "NEW_US_STOCK_CANDIDATES_ONLY",
     "bucket_counts": {
       "A": 0,
-      "B": 3,
+      "B": 2,
       "C": 1,
       "REJECT": 0,
       "INNOVATION_OPTION": 0,
