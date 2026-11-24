@@ -28,9 +28,9 @@
     "daily_membership_mutation": false,
     "change_control": "VERSION_BUMP_AND_AUDIT_RECORD_REQUIRED"
   },
-  "validated_count": 59,
+  "validated_count": 61,
   "coverage_status": "COMPLETE_WITH_VALIDATION_FAILURES",
-  "validated_coverage_pct": 84.29,
+  "validated_coverage_pct": 87.14,
   "research_scope": "FULL_UNIVERSE_ASSESSED_VALIDATED_SUBSET_RANKED",
   "minimum_technical_confidence": 90,
   "formal_breakout_count": 0,
@@ -43,7 +43,7 @@
         "https://data.sec.gov/api/xbrl/companyfacts/CIK0001551152.json"
       ],
       "fundamentals_published_as_of": "2026-08-03",
-      "liquidity_average_50d_usd": 1426167783.93,
+      "liquidity_average_50d_usd": 1426718662.74,
       "liquidity_minimum_50d_usd": 20000000,
       "liquidity_status": "PASSED",
       "new_entry_eligible": true,
@@ -402,7 +402,7 @@
         "https://data.sec.gov/api/xbrl/companyfacts/CIK0000320193.json"
       ],
       "fundamentals_published_as_of": "2026-07-31",
-      "liquidity_average_50d_usd": 14885360365.73,
+      "liquidity_average_50d_usd": 14898504846.23,
       "liquidity_minimum_50d_usd": 20000000,
       "liquidity_status": "PASSED",
       "new_entry_eligible": true,
@@ -770,7 +770,7 @@
         "https://data.sec.gov/api/xbrl/companyfacts/CIK0000882095.json"
       ],
       "fundamentals_published_as_of": "2026-08-06",
-      "liquidity_average_50d_usd": 985602649.76,
+      "liquidity_average_50d_usd": 986125047.51,
       "liquidity_minimum_50d_usd": 20000000,
       "liquidity_status": "PASSED",
       "new_entry_eligible": true,
@@ -1192,9 +1192,28 @@
     },
     {
       "symbol": "SNDK",
-      "technical_confidence": 10,
-      "reason": "fewer than 252 observations; price cutoff mismatch; duplicate or unsorted dates; invalid OHLCV or adjusted close; liquidity cannot be calculated; fundamental validation unavailable",
-      "fundamental_fetch_status": "NOT_REQUESTED"
+      "technical_confidence": 100,
+      "reason": "Reviewed nonpositive prior EPS; growth comparison is not meaningful under the existing rule",
+      "assessment_status": "RULE_EXCLUDED",
+      "reviewed_evidence": {
+        "symbol": "SNDK",
+        "status": "NONPOSITIVE_COMPARISON_BASE",
+        "review_status": "VERIFIED",
+        "period_end": "2026-07-03",
+        "prior_period_end": "2025-06-27",
+        "current_eps": 73.76,
+        "prior_eps": -11.32,
+        "published_as_of": "2026-08-05",
+        "valid_through": "2027-01-25",
+        "source_url": "https://investor.sandisk.com/news-releases/news-release-details/sandisk-reports-fiscal-fourth-quarter-2026-financial-results",
+        "reviewed_as_of": "2026-10-31",
+        "review_note": "Official FY2026 GAAP diluted EPS was 73.76 versus FY2025 -11.32. The annual comparison base remains negative after the Q1 FY2027 release, so EPS growth is inapplicable and SNDK remains rule-excluded.",
+        "next_earnings_source": "https://www.sandisk.com/company/newsroom/press-releases/2026/2026-09-29-sandisk-to-report-first-quarter-fiscal-year-2027-results-on-october-29-2026",
+        "comparison_scope": "annual_eps"
+      },
+      "fundamental_fetch_status": "RULE_EXCLUDED_REVIEWED",
+      "latest_fetch_attempt_status": "SEC_FETCH_FAILED",
+      "fundamental_validation_detail": "SEC_FETCH_FAILED"
     },
     {
       "symbol": "SNOW",
@@ -1223,55 +1242,30 @@
       "reason": "fundamental validation unavailable",
       "fundamental_fetch_status": "SEC_FETCH_FAILED",
       "fundamental_validation_detail": "SEC_FETCH_FAILED"
-    },
-    {
-      "symbol": "V",
-      "technical_confidence": 65,
-      "reason": "invalid OHLCV or adjusted close; liquidity cannot be calculated",
-      "fundamental_fetch_status": "REVIEWED_OFFICIAL_REFERENCE"
-    },
-    {
-      "symbol": "VRT",
-      "technical_confidence": 65,
-      "reason": "invalid OHLCV or adjusted close; liquidity cannot be calculated",
-      "fundamental_fetch_status": "CACHED_POINT_IN_TIME_SEC_VERIFIED"
     }
   ],
-  "rule_excluded_count": 3,
+  "rule_excluded_count": 4,
   "rule_excluded_symbols": [
     "BA",
     "MRVL",
-    "PANW"
+    "PANW",
+    "SNDK"
   ],
-  "data_validation_failed_count": 8,
+  "data_validation_failed_count": 5,
   "data_validation_failed_symbols": [
     "CRWD",
-    "SNDK",
     "SNOW",
     "SPOT",
     "SYM",
-    "TSM",
-    "V",
-    "VRT"
+    "TSM"
   ],
   "assessment_count": 70,
   "unassessed_count": 0,
   "assessment_status": "COMPLETE",
   "price_fetch_diagnostics": {
     "SNDK": {
-      "status": "TECHNICAL_DATA_VALIDATION_FAILED",
-      "observations": 446,
-      "last_date": "2026-11-23",
-      "missing_spy_sessions": 1,
-      "missing_spy_dates": [
-        "2026-11-20"
-      ],
-      "missing_day_retry_status": "EMPTY_RESPONSE",
-      "raw_window_retry_status": "INVALID_ADJUSTED_ROW",
-      "tiingo_retry_status": "ANCHOR_UNAVAILABLE",
-      "alpha_full_window_status": "NOT_ATTEMPTED",
-      "tiingo_full_window_status": "NOT_ATTEMPTED",
-      "verified_history_cache_status": "PRIOR_SESSION"
+      "status": "YAHOO_CHART_REQUEST_OR_VALIDATION_FAILED",
+      "error_type": "ValueError"
     }
   },
   "fundamental_fetch_status": {
@@ -1346,7 +1340,7 @@
     "UPBD": "CACHED_POINT_IN_TIME_SEC_VERIFIED",
     "BA": "RULE_EXCLUDED_REVIEWED",
     "CRWD": "SEC_FETCH_FAILED",
-    "SNDK": "NOT_REQUESTED",
+    "SNDK": "RULE_EXCLUDED_REVIEWED",
     "SNOW": "SEC_FETCH_FAILED",
     "SYM": "SEC_FETCH_FAILED"
   },
