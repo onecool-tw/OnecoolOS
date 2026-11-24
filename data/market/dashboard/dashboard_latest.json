@@ -1,10 +1,10 @@
 {
   "schema_version": "1.9",
   "module": "Onecool Market Dashboard",
-  "generated_at": "2026-11-24T03:47:53.603206+00:00",
+  "generated_at": "2026-11-24T03:54:18.455407+00:00",
   "expected_as_of": "2026-11-23",
   "data_status": "READY",
-  "last_successful_update_at": "2026-11-24T03:47:53.603206+00:00",
+  "last_successful_update_at": "2026-11-24T03:54:18.455407+00:00",
   "index_cta_basis": {
     "method": "ETF/index proxies; shared CTA engine",
     "mappings": {
@@ -747,11 +747,11 @@
       "market": "CONTEXT",
       "theme": "us_dollar",
       "as_of": "2026-11-23",
-      "current_price": 104.261002,
-      "sma50": 101.98202,
-      "sma200": 100.079555,
-      "weekly_ma30": 100.7295,
-      "weekly_ma50": 99.8521,
+      "current_price": 104.264999,
+      "sma50": 101.9821,
+      "sma200": 100.079575,
+      "weekly_ma30": 100.729633,
+      "weekly_ma50": 99.85218,
       "trend": "BULLISH",
       "cta": "BUY",
       "confidence": 100,
@@ -762,7 +762,7 @@
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2026-04-08",
         "periods_since_cross": 162,
-        "spread_pct": 1.900953,
+        "spread_pct": 1.901012,
         "phase": "AGING"
       },
       "weekly_cross": {
@@ -771,7 +771,7 @@
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2026-04-02",
         "periods_since_cross": 34,
-        "spread_pct": 0.8787,
+        "spread_pct": 0.878753,
         "phase": "ACTIVE"
       }
     },
@@ -876,13 +876,13 @@
         "expected_as_of": "2026-11-23",
         "as_of": "2026-11-23",
         "data_status": "READY",
-        "value": 104.26100158691406,
+        "value": 104.26499938964844,
         "unit": "index_points",
         "price_basis": "adjusted_close",
         "decision_authority": "SHORT_TERM_CONTEXT_ONLY",
         "source": "yahoo_finance_raw",
         "source_url": "https://finance.yahoo.com/quote/DX-Y.NYB/history/",
-        "observation_sha256": "5f0f1d49e479f8699308d0c5a2a95ae725fac5ea540f4cf28702c2cf2b966e8d"
+        "observation_sha256": "c67df0a84be16a58438c23a90aff9154aa150c12f2dc36e2fa4222aafc177464"
       },
       {
         "symbol": "US10Y",
@@ -2331,8 +2331,27 @@
       {
         "symbol": "SNOW",
         "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
-        "fundamental_fetch_status": "SEC_FETCH_FAILED",
+        "reason": "Reviewed nonpositive prior EPS; growth comparison is not meaningful under the existing rule",
+        "assessment_status": "RULE_EXCLUDED",
+        "reviewed_evidence": {
+          "symbol": "SNOW",
+          "status": "NONPOSITIVE_COMPARISON_BASE",
+          "review_status": "VERIFIED",
+          "period_end": "2026-07-31",
+          "prior_period_end": "2025-07-31",
+          "current_eps": -0.55,
+          "prior_eps": -0.89,
+          "published_as_of": "2026-09-04",
+          "valid_through": "2026-12-02",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1640147/000164014726000033/fy2027q2earnings.htm",
+          "reviewed_as_of": "2026-10-30",
+          "accounting_basis": "us-gaap",
+          "currency": "USD",
+          "review_note": "Official comparative GAAP EPS remained negative in the latest available quarter. The nonpositive comparison base makes EPS growth inapplicable; rule-excluded until superseded by newer official results.",
+          "next_earnings_source": "https://www.snowflake.com/en/news/press-releases/fy27-q3-earnings-date-announcement/"
+        },
+        "fundamental_fetch_status": "RULE_EXCLUDED_REVIEWED",
+        "latest_fetch_attempt_status": "SEC_FETCH_FAILED",
         "fundamental_validation_detail": "SEC_FETCH_FAILED"
       },
       {
@@ -2345,8 +2364,27 @@
       {
         "symbol": "SYM",
         "technical_confidence": 100,
-        "reason": "fundamental validation unavailable",
-        "fundamental_fetch_status": "SEC_FETCH_FAILED",
+        "reason": "Reviewed nonpositive prior EPS; growth comparison is not meaningful under the existing rule",
+        "assessment_status": "RULE_EXCLUDED",
+        "reviewed_evidence": {
+          "symbol": "SYM",
+          "status": "NONPOSITIVE_COMPARISON_BASE",
+          "review_status": "VERIFIED",
+          "period_end": "2026-06-27",
+          "prior_period_end": "2025-06-28",
+          "current_eps": 0.09,
+          "prior_eps": -0.04,
+          "published_as_of": "2026-08-05",
+          "valid_through": "2026-11-23",
+          "source_url": "https://ir.symbotic.com/news-releases/news-release-details/symbotic-reports-third-quarter-fiscal-year-2026-results",
+          "reviewed_as_of": "2026-11-07",
+          "accounting_basis": "us-gaap",
+          "currency": "USD",
+          "review_note": "Q3 was the latest available at the November 23 regular close; Q4 was released after that close.",
+          "next_earnings_source": "https://ir.symbotic.com/news-releases/news-release-details/symbotic-announces-date-reporting-fourth-quarter-and-fiscal-3"
+        },
+        "fundamental_fetch_status": "RULE_EXCLUDED_REVIEWED",
+        "latest_fetch_attempt_status": "SEC_FETCH_FAILED",
         "fundamental_validation_detail": "SEC_FETCH_FAILED"
       },
       {
@@ -2357,19 +2395,19 @@
         "fundamental_validation_detail": "SEC_FETCH_FAILED"
       }
     ],
-    "rule_excluded_count": 4,
+    "rule_excluded_count": 6,
     "rule_excluded_symbols": [
       "BA",
       "MRVL",
       "PANW",
-      "SNDK"
+      "SNDK",
+      "SNOW",
+      "SYM"
     ],
-    "data_validation_failed_count": 5,
+    "data_validation_failed_count": 3,
     "data_validation_failed_symbols": [
       "CRWD",
-      "SNOW",
       "SPOT",
-      "SYM",
       "TSM"
     ],
     "assessment_count": 70,
@@ -2455,8 +2493,8 @@
       "BA": "RULE_EXCLUDED_REVIEWED",
       "CRWD": "SEC_FETCH_FAILED",
       "SNDK": "RULE_EXCLUDED_REVIEWED",
-      "SNOW": "SEC_FETCH_FAILED",
-      "SYM": "SEC_FETCH_FAILED"
+      "SNOW": "RULE_EXCLUDED_REVIEWED",
+      "SYM": "RULE_EXCLUDED_REVIEWED"
     },
     "valuation_input_refresh_status": "COMPLETED_WITH_PER_SYMBOL_STATUS",
     "super_growth_quality_gate": {
