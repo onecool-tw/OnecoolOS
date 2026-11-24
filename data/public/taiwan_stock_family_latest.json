@@ -13,7 +13,7 @@
   "sources": {
     "dashboard": {
       "path": "data/market/dashboard/dashboard_latest.json",
-      "sha256": "3ae140b556cc03cfa45ef4fd2930b3064e12b16ccec7513e5cbc2312dfb7ab87"
+      "sha256": "6e4807aa6fb9da9c3f1453b0d5af59f2cf030470aebe94d978c5c1ef54dc4207"
     },
     "screen": {
       "path": "data/market/taiwan_stock_intelligence/screen_latest.json",
@@ -21,18 +21,18 @@
     },
     "cta": {
       "path": "data/market/taiwan_stock_intelligence/cta/cta_latest.json",
-      "sha256": "7d1d463840ec8a85bd3618c2f1727fd93af67ac418704ddb265351ada1b624f5"
+      "sha256": "5fbaabfb186763f6ad8ef4cd2178e47e687d2ef158b15ecba0eadbe9440eff05"
     },
     "context": {
       "path": "data/market/taiwan_stock_intelligence/daily_context_latest.json",
-      "sha256": "c7758d54f26d4346d9999e3c4c21756da6eaf004abaa92d67ab7f00d7417a247"
+      "sha256": "7486549e1d1d7d9a2a633d85360b1317d885d647993397841b8e4a36faf80ffb"
     }
   },
   "source_generated_at": {
-    "dashboard": "2026-11-24T06:58:13.023226+00:00",
+    "dashboard": "2026-11-24T07:38:33.061401+00:00",
     "screen": null,
-    "cta": "2026-11-24T07:00:03.339496+00:00",
-    "context": "2026-11-24T07:00:06.745580+00:00"
+    "cta": "2026-11-24T07:39:42.683183+00:00",
+    "context": "2026-11-24T07:39:46.250703+00:00"
   },
   "screen_as_of": "2026-11-23",
   "display_status": "STALE",
@@ -63,13 +63,13 @@
   },
   "candidate_action_gate": "WATCH_ONLY_STALE_OR_MISSING_SCREEN",
   "market_pressure": {
-    "as_of": "2026-11-23",
+    "as_of": "2026-11-24",
     "status": "CURRENT",
     "light": "RED",
     "action": "PAUSE_NEW_EXPOSURE",
     "reason": [
-      "Retain RED: TAIEX rebounded 778.60 to 36811.89, but only one session after the 11/20 new closing low. TWSE FMTQIK volume 15947613387, turnover TWD 1113.743bn. VERIFIED LAST_1_MIN_AVG volatility rose from 52.20 to 55.47; two consecutive sessions without retrigger plus improved volatility and derivatives are not satisfied.",
-      "December TX regular close 36576 gives basis -235.89 versus spot; foreign TX OI net -103432 (long 14599, short 118031), worse than -97863. TXO volume/OI PCR 54.21/30.90%. Institutions sold TWD 51.177bn (CNA). Official 11/20 financing TWD 435.227bn, change -49.141bn, accepted publication lag. A single rebound and policy measures cannot release RED."
+      "Retain RED: TAIEX rose 3310.46 to 40122.35 without a new closing low; TWSE FMTQIK volume 13198964496 and turnover TWD432.560bn. Same-day VERIFIED LAST_1_MIN_AVG volatility improved from 55.47 to 26.07, but November 23 had deteriorating volatility and derivatives, so two consecutive sessions of relief are not established. No direct release after the rebound.",
+      "December TX regular close 40324 gives basis +201.65 versus spot, but the contract closed at its daily upper limit and normal price discovery is constrained. Foreign TX OI long12852/short116034/net-103182 improved only250 contracts from-103432. TXO volume/OI PCR65.30/45.96%; no single PCR move establishes relief. Institutions sold TWD123.011bn (foreign-50.390bn, investment+8.404bn, dealers-81.025bn), worse than-51.177bn. Official11/23 financing TWD433.808bn, change-1.420bn, accepted publication lag. Combined pressure has not persistently cleared."
     ],
     "confirmed_inputs": {
       "spot": true,
@@ -81,13 +81,13 @@
       "foreign_futures_oi": true
     },
     "input_data_as_of": {
-      "spot": "2026-11-23",
-      "futures": "2026-11-23",
-      "pcr": "2026-11-23",
-      "volatility": "2026-11-23",
-      "institutional_flow": "2026-11-23",
-      "margin": "2026-11-20",
-      "foreign_futures_oi": "2026-11-23"
+      "spot": "2026-11-24",
+      "futures": "2026-11-24",
+      "pcr": "2026-11-24",
+      "volatility": "2026-11-24",
+      "institutional_flow": "2026-11-24",
+      "margin": "2026-11-23",
+      "foreign_futures_oi": "2026-11-24"
     },
     "previous_light": "RED",
     "changed": false,
@@ -96,7 +96,7 @@
   },
   "market_pressure_freshness": {
     "expected_as_of": "2026-11-24",
-    "as_of": "2026-11-23",
+    "as_of": "2026-11-24",
     "source_status": "CURRENT",
     "status": "STALE_LAST_KNOWN",
     "same_day_current": false,
@@ -106,7 +106,6 @@
     "status": "UPDATE_INCOMPLETE",
     "issues": [
       "SCREEN_EXPECTED_AS_OF_MISMATCH",
-      "MARKET_PRESSURE_AS_OF_MISMATCH",
       "REPORT_READINESS_NOT_READY"
     ],
     "rule": "EMAIL_REQUIRES_CURRENT_MARKET_PRESSURE_AND_CURRENT_LOCAL_MARKET_ASIA_CTA"
@@ -134,7 +133,7 @@
   "market_pressure_inputs": {
     "schema_version": "1.0",
     "module": "Onecool Taiwan Official Market Pressure Inputs",
-    "generated_at": "2026-11-24T06:59:44.508287+00:00",
+    "generated_at": "2026-11-24T07:39:24.736569+00:00",
     "requested_as_of": "2026-11-24",
     "status": "READY",
     "attempts_used": 1,
