@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import time
 from dataclasses import asdict
 from pathlib import Path
 
@@ -30,9 +31,19 @@ def fetch_yahoo_daily(symbol: str, *, period: str = "10d") -> list[DailyBar]:
 
     import yfinance as yf
 
-    frame = yf.Ticker(symbol).history(
-        period=period, auto_adjust=False, actions=True
-    )
+    from yfinance.exceptions import YFRateLimitError
+
+    ticker = yf.Ticker(symbol)
+    delays = (5, 15, 35)
+    for attempt in range(len(delays) + 1):
+        try:
+            frame = ticker.history(period=period, auto_adjust=False, actions=True)
+            break
+        except YFRateLimitError:
+            if attempt == len(delays):
+                raise
+            print(f"Yahoo rate limited {symbol}; retrying after {delays[attempt]}s.", flush=True)
+            time.sleep(delays[attempt])
     if frame.empty:
         raise ETFCTAError(f"Yahoo returned no history for {symbol}.")
     bars = []
