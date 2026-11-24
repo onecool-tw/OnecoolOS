@@ -1,24 +1,24 @@
 {
   "report_id": "taiwan",
   "report_date": "2026-11-24",
-  "generated_at": "2026-11-24T18:06:50+08:00",
-  "execution_slot": "18:00",
-  "execution_status": "PARTIAL",
+  "generated_at": "2026-11-24T19:03:32+08:00",
+  "execution_slot": "19:00",
+  "execution_status": "SUCCESS",
   "delivery_status": "PREPARED",
-  "writeback_status": "UNKNOWN",
+  "writeback_status": "VERIFIED",
   "expected_as_of": "2026-11-24",
   "actual_data_as_of": {
-    "screen": "2026-11-23",
+    "screen": "2026-11-24",
     "cta": "2026-11-24",
     "pressure": "2026-11-24",
     "margin": "2026-11-23"
   },
   "market_pressure_status": "CURRENT",
   "market_pressure_readback_status": "VERIFIED",
-  "persistence_workflow_completion_status": "UNKNOWN",
-  "snapshot_status": "UPDATE_INCOMPLETE",
-  "snapshot_sha256": "79088408dba32fc5ecdcfdc3eef636a58a2ee74bc3033d1971dae4568a6844f6",
-  "private_evidence_sha256": "141d7951fe60a5f943b22335614bff124a1496c5b3926ff69cd6448b53f41dbe",
+  "persistence_workflow_completion_status": "VERIFIED",
+  "snapshot_status": "VERIFIED",
+  "snapshot_sha256": "17d7e4f6a302ca4eb47d099211a713666f8a67d31f0cd7729639b1bdf3d6189b",
+  "private_evidence_sha256": "2cbeff3025d955ceebb6e10b81b21f9756796325b589f8c4dd9043c9f670e37c",
   "regression_status": "PASS_CURRENT_CODE_HASHES_VERIFIED",
   "channels": {
     "conversation": {
@@ -27,14 +27,18 @@
       "evidence_sha256": null
     },
     "email": {
-      "status": "UNKNOWN",
-      "observed_at": null,
-      "evidence_sha256": null
+      "status": "DELIVERED",
+      "observed_at": "2026-11-24T19:03:32+08:00",
+      "evidence_sha256": "edbd0f417d4d0042ffa2ea489d8359e735c836ca8f0755c4b94bdbacdf6e9870",
+      "snapshot_sha256": "17d7e4f6a302ca4eb47d099211a713666f8a67d31f0cd7729639b1bdf3d6189b",
+      "recipient_count": 1,
+      "successful_recipient_count": 1
     },
     "artifact": {
-      "status": "UNKNOWN",
-      "observed_at": null,
-      "evidence_sha256": null
+      "status": "DELIVERED",
+      "observed_at": "2026-11-24T19:02:50+08:00",
+      "evidence_sha256": "49190aa0af7fa46381e7dfbc267f250038ade1f969adc9390a13917c65c94699",
+      "snapshot_sha256": "17d7e4f6a302ca4eb47d099211a713666f8a67d31f0cd7729639b1bdf3d6189b"
     }
   },
   "completed_steps": [
@@ -42,15 +46,16 @@
     "Same-day official pressure inputs verified; volatility LAST_1_MIN_AVG26.07; official11/23margin acceptedLAGGED",
     "FormalRED evaluated once; mailbox written; SSOT as_of/status/light/action and Snapshot pressure read back consistent",
     "200 current individual CTA; last successful screen11/23 preserved; source joins and regression baseline/current code hashes verified",
-    "Private continuation evidence persisted; no report or email delivered at18"
+    "Private continuation evidence persisted; no report or email delivered at18",
+    "Screen11/24 and Asia/context readiness READY; verified completed producer jobs and required steps including200-stock background CTA",
+    "Persistence workflow completed success; same-day formal pressure reused without recalculation/rewrite",
+    "Final Snapshot source joins/dates/rank/score/valuation/action checked; regression/code verification retained",
+    "Final report persisted privately and fully read back with content SHA256 verified",
+    "Final Snapshot reread and version hashed; sent-folder dedup empty; all authorized recipients positive send acknowledgement"
   ],
   "pending_steps": [
-    "Screen11/24 price/valuation cutoff and READY health/context; existing final18:32retry remains pending",
-    "Direct completed producer job evidence: Dashboard and Stock Screen including Maintain background CTA; standalone Taiwan CTA excluded",
-    "Direct persistence job completion evidence; readback effect is verified",
-    "Final Snapshot after current Screen; must align pressure.as_of with screen_as_of",
-    "19:00 final report save/full readback/SHA256, final Snapshot dedup and authorized email, one conversation report"
+    "Conversation acknowledgement remains UNKNOWN until independently observed"
   ],
   "failed_steps": [],
-  "next_action": "At19 start with latest existing Screen retry and required producer jobs; resume from first missing step. Reuse verified11/24CURRENTRED without recalculation or rewrite. Do not send stale/current-date-mismatched Snapshot. If Screen remains incomplete, deliver dated fail-closed report with missing items; pause email. Conversation remains UNKNOWN until actual acknowledgement."
+  "next_action": "Observe final conversation delivery only. Do not resend verified final-version email, rebuild the verified artifact or recalculate/rewrite same-day CURRENT pressure."
 }
