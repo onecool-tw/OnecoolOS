@@ -1,10 +1,10 @@
 {
   "schema_version": "1.9",
   "module": "Onecool Market Dashboard",
-  "generated_at": "2026-11-24T06:13:15.874430+00:00",
+  "generated_at": "2026-11-24T06:58:13.023226+00:00",
   "expected_as_of": "2026-11-23",
   "data_status": "READY",
-  "last_successful_update_at": "2026-11-24T06:13:15.874430+00:00",
+  "last_successful_update_at": "2026-11-24T06:58:13.023226+00:00",
   "index_cta_basis": {
     "method": "ETF/index proxies; shared CTA engine",
     "mappings": {
@@ -21,21 +21,21 @@
       "South Korea": "069500"
     },
     "as_of": {
-      "Japan": "2026-11-20",
-      "South Korea": "2026-11-23"
+      "Japan": "2026-11-24",
+      "South Korea": "2026-11-24"
     },
     "freshness": {
       "Japan": {
         "symbol": "1306",
-        "as_of": "2026-11-20",
-        "expected_as_of": "2026-11-20",
+        "as_of": "2026-11-24",
+        "expected_as_of": "2026-11-24",
         "update_status": "CURRENT",
         "reason": "matches latest completed local session"
       },
       "South Korea": {
         "symbol": "069500",
-        "as_of": "2026-11-23",
-        "expected_as_of": "2026-11-23",
+        "as_of": "2026-11-24",
+        "expected_as_of": "2026-11-24",
         "update_status": "CURRENT",
         "reason": "matches latest completed local session"
       }
@@ -368,12 +368,12 @@
       "provider_symbol": "1306.T",
       "market": "JP",
       "theme": "broad_market",
-      "as_of": "2026-11-20",
-      "current_price": 386.200012,
-      "sma50": 420.665999,
-      "sma200": 403.290451,
-      "weekly_ma30": 415.887022,
-      "weekly_ma50": 399.699195,
+      "as_of": "2026-11-24",
+      "current_price": 395.899994,
+      "sma50": 419.981998,
+      "sma200": 403.4352,
+      "weekly_ma30": 416.178294,
+      "weekly_ma50": 400.566651,
       "trend": "BULLISH",
       "cta": "HOLD",
       "confidence": 50,
@@ -383,8 +383,8 @@
         "cross_status": "NONE",
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2025-06-18",
-        "periods_since_cross": 347,
-        "spread_pct": 4.308445,
+        "periods_since_cross": 348,
+        "spread_pct": 4.101476,
         "phase": "AGING"
       },
       "weekly_cross": {
@@ -392,24 +392,24 @@
         "cross_status": "NONE",
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2025-03-14",
-        "periods_since_cross": 88,
-        "spread_pct": 4.050002,
+        "periods_since_cross": 89,
+        "spread_pct": 3.89739,
         "phase": "AGING"
       },
       "update_status": "CURRENT",
-      "source_data_as_of": "2026-11-20"
+      "source_data_as_of": "2026-11-24"
     },
     {
       "symbol": "069500",
       "provider_symbol": "069500.KS",
       "market": "KR",
       "theme": "broad_market",
-      "as_of": "2026-11-23",
-      "current_price": 73770.0,
-      "sma50": 95073.370421,
-      "sma200": 101589.140487,
-      "weekly_ma30": 108793.911999,
-      "weekly_ma50": 97001.233977,
+      "as_of": "2026-11-24",
+      "current_price": 78660.0,
+      "sma50": 94407.75821,
+      "sma200": 101604.961693,
+      "weekly_ma30": 108956.911999,
+      "weekly_ma50": 97099.033977,
       "trend": "MIXED",
       "cta": "WATCH",
       "confidence": 75,
@@ -419,8 +419,8 @@
         "cross_status": "NONE",
         "last_cross_status": "DEATH",
         "last_cross_date": "2026-11-06",
-        "periods_since_cross": 11,
-        "spread_pct": -6.413845,
+        "periods_since_cross": 12,
+        "spread_pct": -7.083516,
         "phase": "ACTIVE"
       },
       "weekly_cross": {
@@ -429,11 +429,11 @@
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2025-07-04",
         "periods_since_cross": 73,
-        "spread_pct": 12.157245,
+        "spread_pct": 12.212148,
         "phase": "AGING"
       },
       "update_status": "CURRENT",
-      "source_data_as_of": "2026-11-23"
+      "source_data_as_of": "2026-11-24"
     },
     {
       "symbol": "BABA",
@@ -2529,21 +2529,6 @@
     },
     "publication_status": "CURRENT"
   },
-  "corporate_action_validation": [
-    {
-      "symbol": "SOXX",
-      "status": "MATCHED",
-      "source_a": "yahoo_finance_raw",
-      "source_b": "alpha_vantage",
-      "as_of": "2026-11-23"
-    },
-    {
-      "symbol": "NVDA",
-      "status": "MATCHED",
-      "source_a": "yahoo_finance_raw",
-      "source_b": "alpha_vantage",
-      "as_of": "2026-11-23"
-    }
-  ],
+  "corporate_action_validation": [],
   "provider_fallback_policy": "yahoo_finance_raw_primary; alpha_vantage_core_price_fallback; tiingo_parallel_verified_terminal_scan_repair; coinbase_verified_btc_completed_day_repair; partial_current_scan_only_with_explicit_validation_failures; last_successful_cache_on_failure"
 }
