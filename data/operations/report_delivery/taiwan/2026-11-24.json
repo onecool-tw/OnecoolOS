@@ -32,13 +32,15 @@
       "evidence_sha256": "edbd0f417d4d0042ffa2ea489d8359e735c836ca8f0755c4b94bdbacdf6e9870",
       "snapshot_sha256": "17d7e4f6a302ca4eb47d099211a713666f8a67d31f0cd7729639b1bdf3d6189b",
       "recipient_count": 1,
-      "successful_recipient_count": 1
+      "successful_recipient_count": 1,
+      "artifact_sha256_at_send": "49190aa0af7fa46381e7dfbc267f250038ade1f969adc9390a13917c65c94699"
     },
     "artifact": {
       "status": "DELIVERED",
-      "observed_at": "2026-11-24T19:02:50+08:00",
-      "evidence_sha256": "49190aa0af7fa46381e7dfbc267f250038ade1f969adc9390a13917c65c94699",
-      "snapshot_sha256": "17d7e4f6a302ca4eb47d099211a713666f8a67d31f0cd7729639b1bdf3d6189b"
+      "observed_at": "2026-11-24T11:16:27.866Z",
+      "evidence_sha256": "f78f31978164356ed034b2dbe222c49a3cdce655cddafd004088387fa4ffa43b",
+      "snapshot_sha256": "17d7e4f6a302ca4eb47d099211a713666f8a67d31f0cd7729639b1bdf3d6189b",
+      "previous_content_sha256": "49190aa0af7fa46381e7dfbc267f250038ade1f969adc9390a13917c65c94699"
     }
   },
   "completed_steps": [
@@ -57,5 +59,12 @@
     "Conversation acknowledgement remains UNKNOWN until independently observed"
   ],
   "failed_steps": [],
-  "next_action": "Observe final conversation delivery only. Do not resend verified final-version email, rebuild the verified artifact or recalculate/rewrite same-day CURRENT pressure."
+  "next_action": "Observe final conversation delivery only. Do not resend verified final-version email, rebuild the verified artifact or recalculate/rewrite same-day CURRENT pressure.",
+  "owner_presentation_revision": {
+    "status": "VERIFIED",
+    "reason": "User authorized fixed institutional/derivatives/margin sections; original report identity replaced and full readback matched",
+    "snapshot_changed": false,
+    "signals_changed": false,
+    "email_resent": false
+  }
 }
