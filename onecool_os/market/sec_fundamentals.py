@@ -3,7 +3,8 @@
 Never substitutes adjusted earnings, YTD EPS, or a different currency.
 Same-day filings are excluded because Company Facts only supplies filing dates.
 """
-from datetime import date
+from datetime import date, datetime, time
+from zoneinfo import ZoneInfo
 from math import isfinite
 
 TAGS = {
@@ -173,6 +174,19 @@ def fill_missing_fundamentals(client, histories, fundamentals, expected_as_of, c
     return details
 
 
+def _reviewed_publication_eligible(row, expected):
+    published = date.fromisoformat(row['published_as_of'])
+    if published < expected:
+        return True
+    if published != expected or not row.get('published_by') or not row.get('publication_time_source', '').startswith('https://'):
+        return False
+    timestamp = datetime.fromisoformat(row['published_by'])
+    if timestamp.utcoffset() is None:
+        return False
+    eastern = timestamp.astimezone(ZoneInfo('America/New_York'))
+    return eastern.date() == expected and eastern.time() < time(9, 30)
+
+
 def annotate_reviewed_exclusions(scan, reviewed, expected_as_of, sec_details=None):
     """Explain reviewed rule exclusions without relabeling them as scored stocks."""
     expected = date.fromisoformat(expected_as_of)
@@ -183,7 +197,8 @@ def annotate_reviewed_exclusions(scan, reviewed, expected_as_of, sec_details=Non
             if (row['review_status'] == 'VERIFIED' and row['status'] == 'NONPOSITIVE_COMPARISON_BASE'
                 and (float(row['prior_eps']) <= 0 or float(row['current_eps']) <= 0)
                 and row['source_url'].startswith('https://')
-                and date.fromisoformat(row['published_as_of']) < expected <= date.fromisoformat(row['valid_through'])
+                and _reviewed_publication_eligible(row, expected)
+                and expected <= date.fromisoformat(row['valid_through'])
                 and 0 <= (expected-period).days <= (550 if row.get('comparison_scope') == 'annual_eps' else 180)
                 and 350 <= (period-date.fromisoformat(row['prior_period_end'])).days <= 380):
                 rules[row['symbol']] = row
