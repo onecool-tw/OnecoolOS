@@ -1,10 +1,10 @@
 {
   "schema_version": "1.9",
   "module": "Onecool Market Dashboard",
-  "generated_at": "2026-11-25T04:58:28.664793+00:00",
+  "generated_at": "2026-11-25T05:26:35.796550+00:00",
   "expected_as_of": "2026-11-24",
   "data_status": "READY",
-  "last_successful_update_at": "2026-11-25T04:58:28.664793+00:00",
+  "last_successful_update_at": "2026-11-25T05:26:35.796550+00:00",
   "index_cta_basis": {
     "method": "ETF/index proxies; shared CTA engine",
     "mappings": {
@@ -233,11 +233,11 @@
       "market": "US",
       "theme": "small_cap",
       "as_of": "2026-11-24",
-      "current_price": 2684.941895,
-      "sma50": 2791.166431,
-      "sma200": 2813.284659,
-      "weekly_ma30": 2881.297078,
-      "weekly_ma50": 2772.79605,
+      "current_price": 2684.939941,
+      "sma50": 2791.166392,
+      "sma200": 2813.28465,
+      "weekly_ma30": 2881.297013,
+      "weekly_ma50": 2772.796011,
       "trend": "MIXED",
       "cta": "WATCH",
       "confidence": 75,
@@ -248,7 +248,7 @@
         "last_cross_status": "DEATH",
         "last_cross_date": "2026-11-18",
         "periods_since_cross": 4,
-        "spread_pct": -0.786207,
+        "spread_pct": -0.786208,
         "phase": "CONFIRMED"
       },
       "weekly_cross": {
@@ -257,7 +257,7 @@
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2025-10-31",
         "periods_since_cross": 56,
-        "spread_pct": 3.913055,
+        "spread_pct": 3.913054,
         "phase": "AGING"
       }
     },
@@ -747,11 +747,11 @@
       "market": "CONTEXT",
       "theme": "us_dollar",
       "as_of": "2026-11-24",
-      "current_price": 103.986,
-      "sma50": 102.06992,
-      "sma200": 100.11513,
-      "weekly_ma30": 100.720333,
-      "weekly_ma50": 99.8466,
+      "current_price": 103.809998,
+      "sma50": 102.0664,
+      "sma200": 100.11425,
+      "weekly_ma30": 100.714467,
+      "weekly_ma50": 99.84308,
       "trend": "BULLISH",
       "cta": "BUY",
       "confidence": 100,
@@ -762,7 +762,7 @@
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2026-04-08",
         "periods_since_cross": 163,
-        "spread_pct": 1.952542,
+        "spread_pct": 1.949922,
         "phase": "AGING"
       },
       "weekly_cross": {
@@ -771,7 +771,7 @@
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2026-04-02",
         "periods_since_cross": 34,
-        "spread_pct": 0.875076,
+        "spread_pct": 0.872756,
         "phase": "ACTIVE"
       }
     },
@@ -848,27 +848,26 @@
     }
   ],
   "us_session_cutoff_policy": "exclude_current_New_York_daily_bar_until_16:15_America/New_York",
-  "excluded_incomplete_us_session": null,
+  "excluded_incomplete_us_session": "2026-11-25",
   "us_short_term_risk_context": {
     "schema_version": "1.0",
     "expected_as_of": "2026-11-24",
     "price_basis": "adjusted_close",
-    "data_status": "READY",
+    "data_status": "PARTIAL",
     "decision_authority": "SHORT_TERM_CONTEXT_ONLY_NO_CTA_OVERRIDE",
     "results": [
       {
         "symbol": "VIX",
         "provider_symbol": "^VIX",
         "expected_as_of": "2026-11-24",
-        "as_of": "2026-11-24",
-        "data_status": "READY",
-        "value": 26.360000610351562,
+        "as_of": null,
+        "data_status": "UNKNOWN",
+        "value": null,
         "unit": "index_points",
         "price_basis": "adjusted_close",
         "decision_authority": "SHORT_TERM_CONTEXT_ONLY",
-        "source": "yahoo_finance_raw",
-        "source_url": "https://finance.yahoo.com/quote/^VIX/history/",
-        "observation_sha256": "bd18db5f888f2fd9eaab943f75bbdafe7173bfd5691bbee6a27a072db3723d05"
+        "error_type": "ValueError",
+        "data_gap": "RISK_OHLC_OR_SOURCE_INVALID"
       },
       {
         "symbol": "DXY",
@@ -876,13 +875,13 @@
         "expected_as_of": "2026-11-24",
         "as_of": "2026-11-24",
         "data_status": "READY",
-        "value": 103.98600006103516,
+        "value": 103.80999755859375,
         "unit": "index_points",
         "price_basis": "adjusted_close",
         "decision_authority": "SHORT_TERM_CONTEXT_ONLY",
         "source": "yahoo_finance_raw",
         "source_url": "https://finance.yahoo.com/quote/DX-Y.NYB/history/",
-        "observation_sha256": "20e4303c75ff668e9435ea566c999db9884d5f0ef325b3e783b3e2963a75c0af"
+        "observation_sha256": "3881d42e598054e9c873fdefbe6b32706747cecae60e4c5896dd82b953183eb9"
       },
       {
         "symbol": "US10Y",
@@ -918,13 +917,13 @@
         "expected_as_of": "2026-11-24",
         "as_of": "2026-11-24",
         "data_status": "READY",
-        "value": 8832.5009765625,
+        "value": 8832.5,
         "unit": "index_points",
         "price_basis": "adjusted_close",
         "decision_authority": "SHORT_TERM_CONTEXT_ONLY",
         "source": "yahoo_finance_raw",
         "source_url": "https://finance.yahoo.com/quote/^SOX/history/",
-        "observation_sha256": "1f8ed39c3344369a51d4b6a3e8499ceb19aa1bd3f9c9d79c087d4844a5dc30fa"
+        "observation_sha256": "a2470cd3061a8bec26543dd665d71fd4b6885cbffc673ec045e646423d882ae4"
       }
     ]
   },
