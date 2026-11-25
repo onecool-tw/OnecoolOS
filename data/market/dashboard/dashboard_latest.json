@@ -1,10 +1,10 @@
 {
   "schema_version": "1.9",
   "module": "Onecool Market Dashboard",
-  "generated_at": "2026-11-25T03:33:07.227817+00:00",
+  "generated_at": "2026-11-25T03:35:18.409299+00:00",
   "expected_as_of": "2026-11-24",
   "data_status": "READY",
-  "last_successful_update_at": "2026-11-25T03:33:07.227817+00:00",
+  "last_successful_update_at": "2026-11-25T03:35:18.409299+00:00",
   "index_cta_basis": {
     "method": "ETF/index proxies; shared CTA engine",
     "mappings": {
@@ -747,11 +747,11 @@
       "market": "CONTEXT",
       "theme": "us_dollar",
       "as_of": "2026-11-24",
-      "current_price": 103.914001,
-      "sma50": 102.06848,
-      "sma200": 100.11477,
-      "weekly_ma30": 100.717933,
-      "weekly_ma50": 99.84516,
+      "current_price": 103.910004,
+      "sma50": 102.0684,
+      "sma200": 100.11475,
+      "weekly_ma30": 100.7178,
+      "weekly_ma50": 99.84508,
       "trend": "BULLISH",
       "cta": "BUY",
       "confidence": 100,
@@ -762,7 +762,7 @@
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2026-04-08",
         "periods_since_cross": 163,
-        "spread_pct": 1.95147,
+        "spread_pct": 1.951411,
         "phase": "AGING"
       },
       "weekly_cross": {
@@ -771,7 +771,7 @@
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2026-04-02",
         "periods_since_cross": 34,
-        "spread_pct": 0.874127,
+        "spread_pct": 0.874074,
         "phase": "ACTIVE"
       }
     },
@@ -876,13 +876,13 @@
         "expected_as_of": "2026-11-24",
         "as_of": "2026-11-24",
         "data_status": "READY",
-        "value": 103.91400146484375,
+        "value": 103.91000366210938,
         "unit": "index_points",
         "price_basis": "adjusted_close",
         "decision_authority": "SHORT_TERM_CONTEXT_ONLY",
         "source": "yahoo_finance_raw",
         "source_url": "https://finance.yahoo.com/quote/DX-Y.NYB/history/",
-        "observation_sha256": "fade6026b784361a088e0b892a2c89a89b1e16c47edaf8e7bee2b2c284257a34"
+        "observation_sha256": "01bdae5de879f36e520ac1eabd962ffb96e14d8891e4cadd889f0af5e6df9016"
       },
       {
         "symbol": "US10Y",
@@ -3138,8 +3138,9 @@
     "assessment_status": "COMPLETE",
     "price_fetch_diagnostics": {
       "SNDK": {
-        "status": "YAHOO_CHART_REQUEST_OR_VALIDATION_FAILED",
-        "error_type": "ValueError"
+        "status": "RECOVERED_FROM_VERIFIED_ADJUSTED_HISTORY_CACHE",
+        "observations": 252,
+        "last_date": "2026-11-24"
       }
     },
     "fundamental_fetch_status": {
