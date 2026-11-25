@@ -1,0 +1,60 @@
+{
+  "report_id": "taiwan",
+  "report_date": "2026-11-25",
+  "generated_at": "2026-11-25T10:02:42.522Z",
+  "execution_slot": "18:00",
+  "execution_status": "PARTIAL",
+  "delivery_status": "PREPARED",
+  "writeback_status": "UNKNOWN",
+  "expected_as_of": "2026-11-25",
+  "actual_data_as_of": {
+    "screen": "2026-11-24",
+    "cta": "2026-11-24",
+    "pressure": "2026-11-24",
+    "margin": "2026-11-24",
+    "volatility": "2026-11-24",
+    "spot": "2026-11-25",
+    "futures": "2026-11-25"
+  },
+  "market_pressure_status": "WRITE_FAILED",
+  "market_pressure_readback_status": "NOT_ATTEMPTED_MISSING_CURRENT_INPUTS",
+  "previous_pressure_as_of": "2026-11-24",
+  "previous_pressure_light": "RED",
+  "persistence_workflow_completion_status": "NOT_STARTED",
+  "snapshot_status": "STALE_FOR_EXPECTED_SESSION",
+  "private_evidence_sha256": "30e48ed33deba8ff8c019397c49829dc65c3ddb8efca33c81b55645e7e692555",
+  "channels": {
+    "conversation": {
+      "status": "UNKNOWN",
+      "observed_at": null,
+      "evidence_sha256": null
+    },
+    "email": {
+      "status": "UNKNOWN",
+      "observed_at": null,
+      "evidence_sha256": null
+    },
+    "artifact": {
+      "status": "UNKNOWN",
+      "observed_at": null,
+      "evidence_sha256": null
+    }
+  },
+  "completed_steps": [
+    "Read main health,context,Snapshot,Dashboard,Screen,CTA,official inputs and persistence/delivery contracts",
+    "Confirmed cached READY flags correspond11/24, not11/25; Asia healthBLOCKED; no false same-day freshness or unchanged-ranking claim",
+    "Verified11/25spot, regularTX202612 and foreignTXOI; obtained dated institutional summary;11/24margin remains verified latest observed",
+    "Preserved last valid CTA and historical formalRED without recalculation or rewriting as today'sCURRENT",
+    "Saved private continuation evidence; no conversation report or email at18"
+  ],
+  "failed_steps": [
+    "Same-day volatility not present in official cache; PCR official page timeout; current-session formal pressure not evaluated/written"
+  ],
+  "pending_steps": [
+    "Read required producer recovery jobs and latest existing retries; final stock-screen retry scheduled18:32; actual job stateUNKNOWN",
+    "Refresh/verify official11/25LAST_1_MIN_AVG and PCR; reconcile rounded institutional totals",
+    "Complete current Screen/CTA/health and final Snapshot; evaluate/write/readback today'spressure once when inputsREADY",
+    "At19save/readback full report, final-version dedup/email only if allgatesPASS; otherwise deliver missing-items failclosedreport"
+  ],
+  "next_action": "At19start with producer recovery evidence and same-day official input cache. Do not treat11/24READY orREDas11/25CURRENT. No second CTA/pressure model; no new schedule; bounded poll actual queued/in_progress jobs. Email remains paused until final validation."
+}
