@@ -1,12 +1,12 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-11-25T05:29:40.409674+00:00",
+  "generated_at": "2026-11-25T08:58:12.452609+00:00",
   "taipei_date": "2026-11-25",
-  "status": "READY",
+  "status": "BLOCKED",
   "scope_status": {
     "morning": "READY",
-    "asia": "READY",
+    "asia": "BLOCKED",
     "weekly": "READY"
   },
   "report_delivery": {
@@ -30,7 +30,7 @@
       },
       {
         "report_id": "us",
-        "expected_report_date": "2026-11-24",
+        "expected_report_date": "2026-11-25",
         "status": "PARTIAL",
         "channels": {
           "conversation": "UNKNOWN",
@@ -45,7 +45,7 @@
       },
       {
         "report_id": "fund",
-        "expected_report_date": "2026-11-24",
+        "expected_report_date": "2026-11-25",
         "status": "PARTIAL",
         "channels": {
           "conversation": "UNKNOWN",
@@ -77,11 +77,11 @@
     "policy": "Data readiness does not prove report delivery. Never infer email success from a generated draft."
   },
   "end_to_end_status": "NOT_FULLY_VERIFIED",
-  "action_readiness": "SAFE",
+  "action_readiness": "UNSAFE_FOR_AFFECTED_REPORTS",
   "counts": {
-    "ready": 21,
+    "ready": 14,
     "partial": 0,
-    "blocked": 0
+    "blocked": 7
   },
   "modules": [
     {
@@ -177,8 +177,8 @@
       "label": "Taiwan 0050/2330 CTA",
       "scope": "asia",
       "critical": true,
-      "status": "READY",
-      "reason": "current Dashboard authority",
+      "status": "BLOCKED",
+      "reason": "0050 Dashboard date/CTA missing or invalid; expected 2026-11-25; 2330 Dashboard date/CTA missing or invalid; expected 2026-11-25",
       "observed_as_of": "2026-11-24",
       "recovery_workflow": "update-market-dashboard.yml",
       "retryable": true,
@@ -191,8 +191,8 @@
       "label": "Standalone Taiwan 0050/2330 CTA",
       "scope": "asia",
       "critical": false,
-      "status": "READY",
-      "reason": "current standalone CTA cache",
+      "status": "BLOCKED",
+      "reason": "standalone cutoff 2026-11-24; expected matching symbols in 2026-11-25 to 2026-11-25",
       "observed_as_of": "2026-11-24",
       "recovery_workflow": "update-taiwan-cta.yml",
       "retryable": true,
@@ -203,8 +203,8 @@
       "label": "Taiwan Stock Screen",
       "scope": "asia",
       "critical": true,
-      "status": "READY",
-      "reason": "current",
+      "status": "BLOCKED",
+      "reason": "data is stale",
       "observed_as_of": "2026-11-24",
       "recovery_workflow": "update-taiwan-stock-screen.yml",
       "retryable": true,
@@ -217,8 +217,8 @@
       "label": "Taiwan 200-stock CTA",
       "scope": "asia",
       "critical": true,
-      "status": "READY",
-      "reason": "200 stocks current",
+      "status": "BLOCKED",
+      "reason": "coverage incomplete or stale",
       "observed_as_of": "2026-11-24",
       "recovery_workflow": "update-taiwan-stock-screen.yml",
       "retryable": true,
@@ -231,8 +231,8 @@
       "label": "Taiwan Daily Context",
       "scope": "asia",
       "critical": true,
-      "status": "READY",
-      "reason": "current",
+      "status": "BLOCKED",
+      "reason": "data is stale",
       "observed_as_of": "2026-11-24",
       "recovery_workflow": "update-taiwan-stock-screen.yml",
       "retryable": true,
@@ -245,8 +245,8 @@
       "label": "Taiwan official pressure inputs",
       "scope": "asia",
       "critical": true,
-      "status": "READY",
-      "reason": "official input dates/statuses ready",
+      "status": "BLOCKED",
+      "reason": "pressure_inputs_wrong_requested_date; margin_not_current; volatility_not_current",
       "observed_as_of": "2026-11-24",
       "recovery_workflow": "update-taiwan-stock-screen.yml",
       "retryable": true,
@@ -259,8 +259,8 @@
       "label": "Japan/Korea CTA freshness",
       "scope": "asia",
       "critical": true,
-      "status": "READY",
-      "reason": "both local-market CTAs current",
+      "status": "BLOCKED",
+      "reason": "1306 CURRENT as_of 2026-11-24 expected 2026-11-25; 069500 CURRENT as_of 2026-11-24 expected 2026-11-25",
       "observed_as_of": "2026-11-24",
       "recovery_workflow": "update-market-dashboard.yml",
       "retryable": true,
@@ -382,8 +382,110 @@
       ]
     }
   ],
-  "issues": [],
-  "recovery_workflows": [],
-  "issue_fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+  "issues": [
+    {
+      "module_id": "taiwan_market_cta",
+      "label": "Taiwan 0050/2330 CTA",
+      "scope": "asia",
+      "critical": true,
+      "status": "BLOCKED",
+      "reason": "0050 Dashboard date/CTA missing or invalid; expected 2026-11-25; 2330 Dashboard date/CTA missing or invalid; expected 2026-11-25",
+      "observed_as_of": "2026-11-24",
+      "recovery_workflow": "update-market-dashboard.yml",
+      "retryable": true,
+      "impacted_reports": [
+        "台股日報"
+      ]
+    },
+    {
+      "module_id": "taiwan_standalone_cta",
+      "label": "Standalone Taiwan 0050/2330 CTA",
+      "scope": "asia",
+      "critical": false,
+      "status": "BLOCKED",
+      "reason": "standalone cutoff 2026-11-24; expected matching symbols in 2026-11-25 to 2026-11-25",
+      "observed_as_of": "2026-11-24",
+      "recovery_workflow": "update-taiwan-cta.yml",
+      "retryable": true,
+      "impacted_reports": []
+    },
+    {
+      "module_id": "taiwan_stock_screen",
+      "label": "Taiwan Stock Screen",
+      "scope": "asia",
+      "critical": true,
+      "status": "BLOCKED",
+      "reason": "data is stale",
+      "observed_as_of": "2026-11-24",
+      "recovery_workflow": "update-taiwan-stock-screen.yml",
+      "retryable": true,
+      "impacted_reports": [
+        "台股日報"
+      ]
+    },
+    {
+      "module_id": "taiwan_candidate_cta",
+      "label": "Taiwan 200-stock CTA",
+      "scope": "asia",
+      "critical": true,
+      "status": "BLOCKED",
+      "reason": "coverage incomplete or stale",
+      "observed_as_of": "2026-11-24",
+      "recovery_workflow": "update-taiwan-stock-screen.yml",
+      "retryable": true,
+      "impacted_reports": [
+        "台股日報"
+      ]
+    },
+    {
+      "module_id": "taiwan_daily_context",
+      "label": "Taiwan Daily Context",
+      "scope": "asia",
+      "critical": true,
+      "status": "BLOCKED",
+      "reason": "data is stale",
+      "observed_as_of": "2026-11-24",
+      "recovery_workflow": "update-taiwan-stock-screen.yml",
+      "retryable": true,
+      "impacted_reports": [
+        "台股日報"
+      ]
+    },
+    {
+      "module_id": "taiwan_pressure_inputs",
+      "label": "Taiwan official pressure inputs",
+      "scope": "asia",
+      "critical": true,
+      "status": "BLOCKED",
+      "reason": "pressure_inputs_wrong_requested_date; margin_not_current; volatility_not_current",
+      "observed_as_of": "2026-11-24",
+      "recovery_workflow": "update-taiwan-stock-screen.yml",
+      "retryable": true,
+      "impacted_reports": [
+        "台股日報"
+      ]
+    },
+    {
+      "module_id": "asia_country_cta",
+      "label": "Japan/Korea CTA freshness",
+      "scope": "asia",
+      "critical": true,
+      "status": "BLOCKED",
+      "reason": "1306 CURRENT as_of 2026-11-24 expected 2026-11-25; 069500 CURRENT as_of 2026-11-24 expected 2026-11-25",
+      "observed_as_of": "2026-11-24",
+      "recovery_workflow": "update-market-dashboard.yml",
+      "retryable": true,
+      "impacted_reports": [
+        "台股日報",
+        "基金週報"
+      ]
+    }
+  ],
+  "recovery_workflows": [
+    "update-market-dashboard.yml",
+    "update-taiwan-cta.yml",
+    "update-taiwan-stock-screen.yml"
+  ],
+  "issue_fingerprint": "82c343a8b991b09b16f4a7b8cff82cc75b2bf89f35fb07cf71498c68736a5906",
   "policy": "Health monitoring only; never changes CTA, rankings, or investment decisions."
 }
