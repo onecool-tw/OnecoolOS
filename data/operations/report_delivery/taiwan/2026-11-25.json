@@ -1,28 +1,27 @@
 {
   "report_id": "taiwan",
   "report_date": "2026-11-25",
-  "generated_at": "2026-11-25T10:02:42.522Z",
-  "execution_slot": "18:00",
-  "execution_status": "PARTIAL",
+  "generated_at": "2026-11-25T11:07:13.953Z",
+  "execution_slot": "19:00",
+  "execution_status": "SUCCESS",
   "delivery_status": "PREPARED",
-  "writeback_status": "UNKNOWN",
+  "writeback_status": "VERIFIED",
   "expected_as_of": "2026-11-25",
   "actual_data_as_of": {
-    "screen": "2026-11-24",
-    "cta": "2026-11-24",
-    "pressure": "2026-11-24",
+    "screen": "2026-11-25",
+    "cta": "2026-11-25",
+    "pressure": "2026-11-25",
     "margin": "2026-11-24",
-    "volatility": "2026-11-24",
+    "volatility": "2026-11-25",
     "spot": "2026-11-25",
     "futures": "2026-11-25"
   },
-  "market_pressure_status": "WRITE_FAILED",
-  "market_pressure_readback_status": "NOT_ATTEMPTED_MISSING_CURRENT_INPUTS",
-  "previous_pressure_as_of": "2026-11-24",
-  "previous_pressure_light": "RED",
-  "persistence_workflow_completion_status": "NOT_STARTED",
-  "snapshot_status": "STALE_FOR_EXPECTED_SESSION",
-  "private_evidence_sha256": "30e48ed33deba8ff8c019397c49829dc65c3ddb8efca33c81b55645e7e692555",
+  "market_pressure_status": "CURRENT",
+  "market_pressure_readback_status": "VERIFIED",
+  "persistence_workflow_completion_status": "SUCCESS",
+  "snapshot_status": "VERIFIED_FINAL",
+  "snapshot_sha256": "c79b6d7d817be16cde9810ee139a8c040af51a1623c3f5537f5e50c61dcef5e3",
+  "private_evidence_sha256": "6298f3d325b98fedaec8130e02c787f2c2bc8b30d7939062ae39260609ddc24a",
   "channels": {
     "conversation": {
       "status": "UNKNOWN",
@@ -30,31 +29,39 @@
       "evidence_sha256": null
     },
     "email": {
-      "status": "UNKNOWN",
-      "observed_at": null,
-      "evidence_sha256": null
+      "status": "DELIVERED",
+      "observed_at": "2026-11-25T11:07:13.953Z",
+      "evidence_sha256": "d00d7aabe198ae49fd1102ce808fa4d4a413b95ad71236cbe51cb262a03ad183",
+      "snapshot_sha256": "c79b6d7d817be16cde9810ee139a8c040af51a1623c3f5537f5e50c61dcef5e3",
+      "all_required_recipients_verified": true
     },
     "artifact": {
-      "status": "UNKNOWN",
-      "observed_at": null,
-      "evidence_sha256": null
+      "status": "DELIVERED",
+      "observed_at": "2026-11-25T11:07:13.953Z",
+      "evidence_sha256": "0494a0447d1de1272783cc2aaa4457a13b65194ff997ceb260a84ededb69ddc7",
+      "writeback_status": "VERIFIED",
+      "snapshot_sha256": "c79b6d7d817be16cde9810ee139a8c040af51a1623c3f5537f5e50c61dcef5e3"
     }
   },
+  "prior_execution": {
+    "execution_slot": "18:00",
+    "execution_status": "PARTIAL",
+    "private_evidence_sha256": "30e48ed33deba8ff8c019397c49829dc65c3ddb8efca33c81b55645e7e692555",
+    "missing_at_18": [
+      "Same-day volatility not present in official cache; PCR official page timeout; current-session formal pressure not evaluated/written"
+    ]
+  },
   "completed_steps": [
-    "Read main health,context,Snapshot,Dashboard,Screen,CTA,official inputs and persistence/delivery contracts",
-    "Confirmed cached READY flags correspond11/24, not11/25; Asia healthBLOCKED; no false same-day freshness or unchanged-ranking claim",
-    "Verified11/25spot, regularTX202612 and foreignTXOI; obtained dated institutional summary;11/24margin remains verified latest observed",
-    "Preserved last valid CTA and historical formalRED without recalculation or rewriting as today'sCURRENT",
-    "Saved private continuation evidence; no conversation report or email at18"
+    "Required Dashboard and Screen producers completed successfully including full-universe background CTA",
+    "Same-day VERIFIED official LAST_1_MIN_AVG and publication-lagged margin read",
+    "Formal pressure mailbox persisted and exact date/status/light/action readback VERIFIED",
+    "Final Snapshot matches official sources and passed final hash reread",
+    "Private report saved and full readback/hash VERIFIED",
+    "Final-version sent-folder dedup completed; all required Gmail acknowledgements received"
   ],
-  "failed_steps": [
-    "Same-day volatility not present in official cache; PCR official page timeout; current-session formal pressure not evaluated/written"
-  ],
+  "failed_steps": [],
   "pending_steps": [
-    "Read required producer recovery jobs and latest existing retries; final stock-screen retry scheduled18:32; actual job stateUNKNOWN",
-    "Refresh/verify official11/25LAST_1_MIN_AVG and PCR; reconcile rounded institutional totals",
-    "Complete current Screen/CTA/health and final Snapshot; evaluate/write/readback today'spressure once when inputsREADY",
-    "At19save/readback full report, final-version dedup/email only if allgatesPASS; otherwise deliver missing-items failclosedreport"
+    "Observe final conversation acknowledgement independently; no automatic resend"
   ],
-  "next_action": "At19start with producer recovery evidence and same-day official input cache. Do not treat11/24READY orREDas11/25CURRENT. No second CTA/pressure model; no new schedule; bounded poll actual queued/in_progress jobs. Email remains paused until final validation."
+  "next_action": "No data, artifact or email recovery pending. Conversation acknowledgement remains UNKNOWN until independently observed; preserve final Snapshot version and never resend on conversation UNKNOWN alone."
 }
