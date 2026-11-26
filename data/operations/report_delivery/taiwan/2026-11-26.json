@@ -1,0 +1,64 @@
+{
+  "report_id": "taiwan",
+  "report_date": "2026-11-26",
+  "generated_at": "2026-11-26T10:06:17.053Z",
+  "execution_slot": "18:00",
+  "execution_status": "PARTIAL",
+  "delivery_status": "PREPARED",
+  "writeback_status": "UNKNOWN",
+  "expected_as_of": "2026-11-26",
+  "actual_data_as_of": {
+    "screen": "2026-11-25",
+    "cta": "2026-11-25",
+    "pressure": "2026-11-25",
+    "margin": "2026-11-25",
+    "volatility": "2026-11-25",
+    "spot": "2026-11-26",
+    "futures": "2026-11-26",
+    "pcr": "2026-11-26",
+    "institutional_flow": "2026-11-26",
+    "foreign_tx_oi": null
+  },
+  "market_pressure_status": "WRITE_FAILED",
+  "market_pressure_readback_status": "NOT_ATTEMPTED_MISSING_CURRENT_INPUTS",
+  "previous_pressure_as_of": "2026-11-25",
+  "previous_pressure_light": "RED",
+  "persistence_workflow_completion_status": "NOT_STARTED",
+  "snapshot_status": "STALE_FOR_EXPECTED_SESSION",
+  "private_evidence_sha256": "da79c14391a031ee62aa2fb824750bb73204360b1952bb6aba35a3bf1d62527d",
+  "channels": {
+    "conversation": {
+      "status": "UNKNOWN",
+      "observed_at": null,
+      "evidence_sha256": null
+    },
+    "email": {
+      "status": "UNKNOWN",
+      "observed_at": null,
+      "evidence_sha256": null
+    },
+    "artifact": {
+      "status": "UNKNOWN",
+      "observed_at": null,
+      "evidence_sha256": null
+    }
+  },
+  "completed_steps": [
+    "Read latest main health,context,Snapshot,Dashboard,Screen,CTA,official inputs and contracts",
+    "Verified actual producer jobs including Maintain background CTA; latest observed completed runs are pre-close and publish11/25, not current11/26 evidence",
+    "Verified11/26 official spot,regularTX202612,PCR,institutional data; retained dated11/25margin and identified source backfill",
+    "Verified regression PASS and all current code/prompt hashes",
+    "Saved private continuation checkpoint; no conversation report or email at18"
+  ],
+  "failed_steps": [
+    "Same-day official input cache and Screen/CTA not yet published;11/26volatility cache missing; foreignTXOI official queries returned no rows",
+    "No formal11/26pressure written; final Snapshot and report delivery gates incomplete"
+  ],
+  "pending_steps": [
+    "Re-read latest required producer retries including existing18:32Screen; bounded poll any queued/in_progress runs",
+    "Require11/26VERIFIED LAST_1_MIN_AVG and verify foreignTXOI; refresh final data gates",
+    "Evaluate current pressure once only when inputs verified, then mailbox/persistence/readback; preserve same-dayCURRENT on recovery",
+    "At19verify final Snapshot,save/readback complete owner report,final-version dedup/email only if all gates pass; otherwise report explicit missing items"
+  ],
+  "next_action": "Resume at current-session producer recovery and official input cache. Prior11/25READY and formalRED remain dated historical evidence. Do not recalculate CTA,create a schedule,send old-version email,or treat UNKNOWN as0."
+}
