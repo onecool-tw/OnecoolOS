@@ -1,31 +1,30 @@
 {
   "report_id": "taiwan",
   "report_date": "2026-11-26",
-  "generated_at": "2026-11-26T10:06:17.053Z",
-  "execution_slot": "18:00",
-  "execution_status": "PARTIAL",
+  "generated_at": "2026-11-26T11:04:16.635Z",
+  "execution_slot": "19:00",
+  "execution_status": "SUCCESS",
   "delivery_status": "PREPARED",
-  "writeback_status": "UNKNOWN",
+  "writeback_status": "VERIFIED",
   "expected_as_of": "2026-11-26",
   "actual_data_as_of": {
-    "screen": "2026-11-25",
-    "cta": "2026-11-25",
-    "pressure": "2026-11-25",
+    "screen": "2026-11-26",
+    "cta": "2026-11-26",
+    "pressure": "2026-11-26",
     "margin": "2026-11-25",
-    "volatility": "2026-11-25",
+    "volatility": "2026-11-26",
     "spot": "2026-11-26",
     "futures": "2026-11-26",
     "pcr": "2026-11-26",
     "institutional_flow": "2026-11-26",
-    "foreign_tx_oi": null
+    "foreign_tx_oi": "2026-11-26"
   },
-  "market_pressure_status": "WRITE_FAILED",
-  "market_pressure_readback_status": "NOT_ATTEMPTED_MISSING_CURRENT_INPUTS",
-  "previous_pressure_as_of": "2026-11-25",
-  "previous_pressure_light": "RED",
-  "persistence_workflow_completion_status": "NOT_STARTED",
-  "snapshot_status": "STALE_FOR_EXPECTED_SESSION",
-  "private_evidence_sha256": "da79c14391a031ee62aa2fb824750bb73204360b1952bb6aba35a3bf1d62527d",
+  "market_pressure_status": "CURRENT",
+  "market_pressure_readback_status": "VERIFIED",
+  "persistence_workflow_completion_status": "SUCCESS",
+  "snapshot_status": "VERIFIED_FINAL",
+  "snapshot_sha256": "b32d0960c5a5d5a8dce31157ffe5312214cf91bc7789efee3ccde5b1e8ccff07",
+  "private_evidence_sha256": "218b0e5e097fc29c239dd012c9cfff5b3436c6b649552bd914c9ff4816f24edf",
   "channels": {
     "conversation": {
       "status": "UNKNOWN",
@@ -33,32 +32,36 @@
       "evidence_sha256": null
     },
     "email": {
-      "status": "UNKNOWN",
-      "observed_at": null,
-      "evidence_sha256": null
+      "status": "DELIVERED",
+      "observed_at": "2026-11-26T11:04:16.635Z",
+      "evidence_sha256": "cfbbcb562bdcaf7ff4f2ece522299a101a8fe2c7e9725a4e33157733d75a85e5",
+      "snapshot_sha256": "b32d0960c5a5d5a8dce31157ffe5312214cf91bc7789efee3ccde5b1e8ccff07",
+      "all_required_recipients_verified": true
     },
     "artifact": {
-      "status": "UNKNOWN",
-      "observed_at": null,
-      "evidence_sha256": null
+      "status": "DELIVERED",
+      "observed_at": "2026-11-26T11:04:16.635Z",
+      "evidence_sha256": "e599d8d9a8dbce205dfd52ccd07deb7ddd5ba14a75d4fc7b4427b580df678a48",
+      "snapshot_sha256": "b32d0960c5a5d5a8dce31157ffe5312214cf91bc7789efee3ccde5b1e8ccff07",
+      "writeback_status": "VERIFIED"
     }
   },
+  "prior_execution": {
+    "execution_slot": "18:00",
+    "execution_status": "PARTIAL",
+    "private_evidence_sha256": "da79c14391a031ee62aa2fb824750bb73204360b1952bb6aba35a3bf1d62527d"
+  },
   "completed_steps": [
-    "Read latest main health,context,Snapshot,Dashboard,Screen,CTA,official inputs and contracts",
-    "Verified actual producer jobs including Maintain background CTA; latest observed completed runs are pre-close and publish11/25, not current11/26 evidence",
-    "Verified11/26 official spot,regularTX202612,PCR,institutional data; retained dated11/25margin and identified source backfill",
-    "Verified regression PASS and all current code/prompt hashes",
-    "Saved private continuation checkpoint; no conversation report or email at18"
+    "Required Dashboard and Screen producers completed successfully; full-universe backgroundCTA step success verified",
+    "Same-day VERIFIED official LAST_1_MIN_AVG and publication-lagged margin validated; official foreignTXOI recovered",
+    "Formal pressure evaluated once,mailbox persistence completed and readback VERIFIED",
+    "Final Snapshot checked against SSOT/CTA/Screen; final hash reread unchanged",
+    "Private complete owner report saved and full readback/hash VERIFIED",
+    "Final-version sent-folder dedup completed; all required Gmail success acknowledgements retained privately"
   ],
-  "failed_steps": [
-    "Same-day official input cache and Screen/CTA not yet published;11/26volatility cache missing; foreignTXOI official queries returned no rows",
-    "No formal11/26pressure written; final Snapshot and report delivery gates incomplete"
-  ],
+  "failed_steps": [],
   "pending_steps": [
-    "Re-read latest required producer retries including existing18:32Screen; bounded poll any queued/in_progress runs",
-    "Require11/26VERIFIED LAST_1_MIN_AVG and verify foreignTXOI; refresh final data gates",
-    "Evaluate current pressure once only when inputs verified, then mailbox/persistence/readback; preserve same-dayCURRENT on recovery",
-    "At19verify final Snapshot,save/readback complete owner report,final-version dedup/email only if all gates pass; otherwise report explicit missing items"
+    "Observe final conversation acknowledgement independently; never infer from artifact/email success"
   ],
-  "next_action": "Resume at current-session producer recovery and official input cache. Prior11/25READY and formalRED remain dated historical evidence. Do not recalculate CTA,create a schedule,send old-version email,or treat UNKNOWN as0."
+  "next_action": "No market-data,artifact or email recovery pending. Keep conversation UNKNOWN until actual acknowledgement observed; no automatic resend on conversation UNKNOWN alone."
 }
