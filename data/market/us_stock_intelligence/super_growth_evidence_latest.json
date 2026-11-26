@@ -3947,26 +3947,81 @@
           "data_gap": "PRE_TRADE_USER_CONFIRMATION_ONLY"
         },
         "valuation": {
-          "status": "UNKNOWN",
+          "status": "FAIL",
           "as_of": "2026-11-25",
-          "rationale": "Current-session valuation model not yet validated.",
-          "sources": []
+          "price_as_of": "2026-11-25",
+          "valid_through": "2026-11-25",
+          "method": "TTM_GAAP_PE_WITH_CASH_CONVERSION_STRESS",
+          "rationale": "Payments network and services support growth; fee regulation and litigation constrain cash conversion.",
+          "sources": [
+            "https://www.sec.gov/Archives/edgar/data/1403161/000140316126000126/q42026earningsrelease.htm"
+          ],
+          "price_source": {
+            "provider": "yahoo_finance_adjusted_batch",
+            "symbol": "V",
+            "as_of": "2026-11-25",
+            "url": "https://finance.yahoo.com/quote/V/history/"
+          },
+          "denominator_source": [
+            "https://www.sec.gov/Archives/edgar/data/1403161/000140316126000126/q42026earningsrelease.htm"
+          ],
+          "fair_range_rationale": "Onecool analyst scenarios, not issuer guidance.",
+          "fair_range_sources": [
+            "https://www.sec.gov/Archives/edgar/data/1403161/000140316126000126/q42026earningsrelease.htm"
+          ],
+          "normalization_bridge": {
+            "formula": "FY2026 as-reported diluted EPS",
+            "inputs": [
+              12.32
+            ],
+            "limitations": "Retains reported legal, severance and tax effects."
+          },
+          "policy_version": "onecool_equity_two_stage_screen_v1",
+          "assumption_authority": "ONECOOL_ANALYST_NOT_ISSUER_GUIDANCE",
+          "scenarios": [
+            {
+              "name": "conservative",
+              "years": 5,
+              "growth": 0.08,
+              "required_return": 0.12,
+              "terminal_growth": 0.02,
+              "cash_conversion": 0.65,
+              "terminal_cash_conversion": 0.85
+            },
+            {
+              "name": "base",
+              "years": 5,
+              "growth": 0.12,
+              "required_return": 0.1,
+              "terminal_growth": 0.03,
+              "cash_conversion": 0.75,
+              "terminal_cash_conversion": 0.9
+            }
+          ],
+          "research_grade": "SCREENING_SCENARIO_NOT_FULL_DCF",
+          "inputs": {
+            "price": 424.3900146484375,
+            "denominator": 12.32,
+            "multiple": 34.44724144873681,
+            "fair_range": [
+              10.146422449537393,
+              18.450906757437085
+            ]
+          }
         }
       },
       "valuation_input_collection": {
         "as_of": "2026-11-25",
-        "status": "PARTIAL",
-        "gaps": [
-          "SEC_COMPANYFACTS_FETCH_OR_IDENTITY_VALIDATION_FAILED"
-        ],
+        "status": "COMPLETE",
+        "gaps": [],
         "price_basis": "adjusted_close",
         "inputs": {
           "adjusted_close": 424.3900146484375
         },
         "sources": [
-          "https://data.sec.gov/api/xbrl/companyfacts/CIK0001403161.json"
+          "https://www.sec.gov/Archives/edgar/data/1403161/000140316126000126/q42026earningsrelease.htm"
         ],
-        "decision_authority": "REFERENCE_INPUTS_ONLY_NOT_FAIR_VALUE",
+        "decision_authority": "REVIEWED_SOURCE_BACKED_VALUATION_MODEL",
         "price_source": {
           "provider": "yahoo_finance_adjusted_batch",
           "symbol": "V",
@@ -3980,8 +4035,80 @@
           "provider": "yahoo_finance_adjusted_batch"
         },
         "price_sha256": "59d12831832c1bc67f3e9900b32a238dcd66c35d0a5ffe8cd781b60139a7cd90",
-        "fundamental_fetch_status": "FETCH_FAILED",
-        "fetch_error_type": "HTTPError"
+        "official_reference_status": "VERIFIED",
+        "fundamental_fetch_status": "REVIEWED_OFFICIAL_REFERENCE",
+        "company_name": "Visa Inc.",
+        "official_reference": {
+          "symbol": "V",
+          "company_name": "Visa Inc.",
+          "published_at": "2026-10-27",
+          "valid_through": "2027-01-22",
+          "reviewed_as_of": "2026-11-26",
+          "sources": [
+            "https://www.sec.gov/Archives/edgar/data/1403161/000140316126000126/q42026earningsrelease.htm"
+          ],
+          "reported_facts": {
+            "FY26_GAAP_diluted_EPS": 12.32
+          },
+          "model_gaps": [],
+          "refresh_on": [
+            "NEW_EARNINGS_OR_GUIDANCE",
+            "MATERIAL_CORPORATE_EVENT",
+            "REFERENCE_EXPIRY"
+          ],
+          "valuation_model": {
+            "method": "TTM_GAAP_PE_WITH_CASH_CONVERSION_STRESS",
+            "denominator": 12.32,
+            "currency": "USD",
+            "share_basis": "listed_security",
+            "normalization_bridge": {
+              "formula": "FY2026 as-reported diluted EPS",
+              "inputs": [
+                12.32
+              ],
+              "limitations": "Retains reported legal, severance and tax effects."
+            },
+            "denominator_source": [
+              "https://www.sec.gov/Archives/edgar/data/1403161/000140316126000126/q42026earningsrelease.htm"
+            ],
+            "fair_range": [
+              10.146422449537393,
+              18.450906757437085
+            ],
+            "scenarios": [
+              {
+                "name": "conservative",
+                "years": 5,
+                "growth": 0.08,
+                "required_return": 0.12,
+                "terminal_growth": 0.02,
+                "cash_conversion": 0.65,
+                "terminal_cash_conversion": 0.85
+              },
+              {
+                "name": "base",
+                "years": 5,
+                "growth": 0.12,
+                "required_return": 0.1,
+                "terminal_growth": 0.03,
+                "cash_conversion": 0.75,
+                "terminal_cash_conversion": 0.9
+              }
+            ],
+            "assumption_authority": "ONECOOL_ANALYST_NOT_ISSUER_GUIDANCE",
+            "research_grade": "SCREENING_SCENARIO_NOT_FULL_DCF",
+            "policy_version": "onecool_equity_two_stage_screen_v1",
+            "rationale": "Payments network and services support growth; fee regulation and litigation constrain cash conversion.",
+            "fair_range_rationale": "Onecool analyst scenarios, not issuer guidance.",
+            "fair_range_sources": [
+              "https://www.sec.gov/Archives/edgar/data/1403161/000140316126000126/q42026earningsrelease.htm"
+            ]
+          },
+          "source_review": {
+            "status": "VERIFIED_CURRENT_OFFICIAL",
+            "information_cutoff": "2026-11-25"
+          }
+        }
       },
       "company_name": "Visa Inc.",
       "sector": "Financial Services",
