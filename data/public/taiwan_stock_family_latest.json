@@ -13,26 +13,26 @@
   "sources": {
     "dashboard": {
       "path": "data/market/dashboard/dashboard_latest.json",
-      "sha256": "2a53b7adda6b826d05d832aacbdcefbe849bf75698972eab2ff6919dd7cd8c16"
+      "sha256": "665b642b2f343da247e75df98e764e72f0c995c90a525b27d790ecd1d0ca6a61"
     },
     "screen": {
       "path": "data/market/taiwan_stock_intelligence/screen_latest.json",
-      "sha256": "3838462da5504514ef9908f551882ddd5153b7bf9c673de9bab29b999f0bb1c0"
+      "sha256": "c1ee11c9cb2cb50a56acb36da0da4cc6db63809e9dc55fb6a0de654b608e0171"
     },
     "cta": {
       "path": "data/market/taiwan_stock_intelligence/cta/cta_latest.json",
-      "sha256": "c857487e4af2d9bf713c7947175fca3a0f2c8fb1f8ef25927ee6596dae83c1f0"
+      "sha256": "0f9c7c0cce6eedaf9d061d1d3ba33b0a2d4c3b5ba2417db1073f80d68847276a"
     },
     "context": {
       "path": "data/market/taiwan_stock_intelligence/daily_context_latest.json",
-      "sha256": "e122b1da2a6305781d14632691d307d4a39d465f8375c0781fffd07c50b937d7"
+      "sha256": "e00bafe17769057260719fef66166856c829bc7ff2f5969c59c72dd3accdde2d"
     }
   },
   "source_generated_at": {
-    "dashboard": "2026-11-25T11:46:53.691990+00:00",
+    "dashboard": "2026-11-26T04:40:09.484677+00:00",
     "screen": null,
-    "cta": "2026-11-25T17:57:29.708253+00:00",
-    "context": "2026-11-25T17:57:34.054791+00:00"
+    "cta": "2026-11-26T04:43:32.547822+00:00",
+    "context": "2026-11-26T04:43:35.895927+00:00"
   },
   "screen_as_of": "2026-11-25",
   "display_status": "CURRENT",
@@ -96,8 +96,10 @@
     "consumer_action": "PAUSE_NEW_EXPOSURE"
   },
   "final_delivery_readiness": {
-    "status": "READY",
-    "issues": [],
+    "status": "UPDATE_INCOMPLETE",
+    "issues": [
+      "MARKET_PRESSURE_INPUTS_NOT_READY"
+    ],
     "rule": "EMAIL_REQUIRES_CURRENT_MARKET_PRESSURE_AND_CURRENT_LOCAL_MARKET_ASIA_CTA"
   },
   "asia_cta_readiness": {
@@ -115,19 +117,24 @@
     "consumer_rule": "STALE_OR_UNKNOWN_ASIA_CTA_BLOCKS_FINAL_EMAIL"
   },
   "market_pressure_input_readiness": {
-    "status": "READY",
+    "status": "UPDATE_INCOMPLETE",
     "expected_as_of": "2026-11-25",
-    "issues": [],
+    "issues": [
+      "volatility_fetch_failed",
+      "volatility_not_current"
+    ],
     "consumer_rule": "FINAL_EMAIL_REQUIRES_READY; MARGIN_MAY_USE_VERIFIED_OFFICIAL_LAG_BEFORE_21:30; NEVER_RECOMPUTE_PRESSURE_LIGHT"
   },
   "market_pressure_inputs": {
     "schema_version": "1.0",
     "module": "Onecool Taiwan Official Market Pressure Inputs",
-    "generated_at": "2026-11-25T17:57:13.011153+00:00",
+    "generated_at": "2026-11-26T04:43:19.320704+00:00",
     "requested_as_of": "2026-11-25",
-    "status": "READY",
-    "attempts_used": 1,
-    "issues": [],
+    "status": "UPDATE_INCOMPLETE",
+    "attempts_used": 3,
+    "issues": [
+      "volatility:FETCH_FAILED"
+    ],
     "sources": {
       "margin": {
         "status": "VERIFIED",
@@ -153,11 +160,11 @@
         "source_url": "https://www.twse.com.tw/rwd/zh/marginTrading/MI_MARGN?date=20261125&selectType=MS&response=json"
       },
       "volatility": {
-        "status": "VERIFIED",
-        "as_of": "2026-11-25",
-        "value": 58.28,
-        "value_basis": "LAST_1_MIN_AVG",
-        "error": null,
+        "status": "FETCH_FAILED",
+        "as_of": null,
+        "value": null,
+        "error": "HTTPError",
+        "download_error": "HTTPError",
         "download_url": "https://www.taifex.com.tw/cht/7/getVixData?filesname=20261125",
         "source_url": "https://www.taifex.com.tw/cht/7/vixMinNew"
       }
