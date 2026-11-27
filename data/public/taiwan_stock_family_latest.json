@@ -13,26 +13,26 @@
   "sources": {
     "dashboard": {
       "path": "data/market/dashboard/dashboard_latest.json",
-      "sha256": "09549a3e5222b87ff507d76f776794cd5c3d833a8082b33c2f14ca7c1d0d32d9"
+      "sha256": "2ca40a2262889d751cba1f118e9a688c7ea455e70dc5a71560e09e174b7deed6"
     },
     "screen": {
       "path": "data/market/taiwan_stock_intelligence/screen_latest.json",
-      "sha256": "4522b21a1b9f697e53f83c7bf7e24092f2b3823c9817a45bd0e73dffa1bf35bc"
+      "sha256": "fed10e34a3861e9e6920f53013d78bb45bb030cb600d968f67bcda5f32486831"
     },
     "cta": {
       "path": "data/market/taiwan_stock_intelligence/cta/cta_latest.json",
-      "sha256": "3f54617ca7da8dde07faf3dd7b31e1cb3a3e7440c66616abf0bbd692e382e5c7"
+      "sha256": "ea82fd065e1a5067e09f9aadf33e6ea7f873a19c9cd02c3fa48b0b3f8399f8a4"
     },
     "context": {
       "path": "data/market/taiwan_stock_intelligence/daily_context_latest.json",
-      "sha256": "fe9567f7204ce9ba7c9690f5e24042551d21d3d8bffb68144f9d3bf6db7380f0"
+      "sha256": "824c9b000709120a3d945ae240de09409d08f112e7c54fdb141f419b8de94ef5"
     }
   },
   "source_generated_at": {
-    "dashboard": "2026-11-27T10:36:12.196570+00:00",
+    "dashboard": "2026-11-27T11:27:27.223849+00:00",
     "screen": null,
-    "cta": "2026-11-27T10:40:06.045057+00:00",
-    "context": "2026-11-27T10:40:10.720670+00:00"
+    "cta": "2026-11-27T17:28:54.278091+00:00",
+    "context": "2026-11-27T17:29:02.310667+00:00"
   },
   "screen_as_of": "2026-11-27",
   "display_status": "CURRENT",
@@ -123,37 +123,34 @@
   "market_pressure_inputs": {
     "schema_version": "1.0",
     "module": "Onecool Taiwan Official Market Pressure Inputs",
-    "generated_at": "2026-11-27T10:39:49.307130+00:00",
+    "generated_at": "2026-11-27T17:28:44.331789+00:00",
     "requested_as_of": "2026-11-27",
     "status": "READY",
-    "attempts_used": 1,
+    "attempts_used": 2,
     "issues": [],
     "sources": {
       "margin": {
         "status": "VERIFIED",
-        "as_of": "2026-11-26",
+        "as_of": "2026-11-27",
         "metrics": {
           "融資(交易單位)": {
-            "previous": 9383489.0,
-            "current": 8826430.0,
-            "change": -557059.0
+            "previous": 8826426.0,
+            "current": 8724920.0,
+            "change": -101506.0
           },
           "融券(交易單位)": {
-            "previous": 169365.0,
-            "current": 173621.0,
-            "change": 4256.0
+            "previous": 173621.0,
+            "current": 184790.0,
+            "change": 11169.0
           },
           "融資金額(仟元)": {
-            "previous": 434137987.0,
-            "current": 434484476.0,
-            "change": 346489.0
+            "previous": 434484476.0,
+            "current": 430171978.0,
+            "change": -4312498.0
           }
         },
         "error": null,
-        "official_lag_accepted": true,
-        "availability_basis": "LATEST_OFFICIAL_BEFORE_SAME_DAY_PUBLICATION",
-        "requested_as_of": "2026-11-27",
-        "source_url": "https://www.twse.com.tw/rwd/zh/marginTrading/MI_MARGN?date=20261126&selectType=MS&response=json"
+        "source_url": "https://www.twse.com.tw/rwd/zh/marginTrading/MI_MARGN?date=20261127&selectType=MS&response=json"
       },
       "volatility": {
         "status": "VERIFIED",
@@ -216,7 +213,7 @@
         "status": "NORMAL",
         "label": "正常",
         "as_of": "2026Q3",
-        "observed_at": "2026-11-26T11:33:37.571411+00:00",
+        "observed_at": "2026-11-27T17:28:57.157070+00:00",
         "source_url": "https://mopsov.twse.com.tw/server-java/t164sb01?step=1&CO_ID=2408&SYEAR=2026&SSEASON=3&REPORT_ID=C",
         "source_sha256": "61d1e7b93cade308b71e45ef02278857f8b3bc27c1586fadac4329f999a32e4e",
         "scope": "CONSOLIDATED_THREE_STATEMENTS",
@@ -496,7 +493,7 @@
         "status": "REVIEW",
         "label": "需留意",
         "as_of": "2026Q3",
-        "observed_at": "2026-11-26T11:33:37.571411+00:00",
+        "observed_at": "2026-11-27T17:28:57.157070+00:00",
         "source_url": "https://mopsov.twse.com.tw/server-java/t164sb01?step=1&CO_ID=2603&SYEAR=2026&SSEASON=3&REPORT_ID=C",
         "source_sha256": "dfd22bead21f76773553dac689ed1a6b59a5df20be1ee6efaa01467a11c38863",
         "scope": "CONSOLIDATED_THREE_STATEMENTS",
@@ -1061,7 +1058,7 @@
         "status": "REVIEW",
         "label": "需留意",
         "as_of": "2026Q3",
-        "observed_at": "2026-11-26T11:33:37.571411+00:00",
+        "observed_at": "2026-11-27T17:28:57.157070+00:00",
         "source_url": "https://mopsov.twse.com.tw/server-java/t164sb01?step=1&CO_ID=2317&SYEAR=2026&SSEASON=3&REPORT_ID=C",
         "source_sha256": "e36c31ebf16711b7e002489bf8d2c6f16211dfb208a50bb790c29293e7a0e1c4",
         "scope": "CONSOLIDATED_THREE_STATEMENTS",
@@ -1338,7 +1335,7 @@
         "status": "REVIEW",
         "label": "需留意",
         "as_of": "2026Q3",
-        "observed_at": "2026-11-26T11:33:37.571411+00:00",
+        "observed_at": "2026-11-27T17:28:57.157070+00:00",
         "source_url": "https://mopsov.twse.com.tw/server-java/t164sb01?step=1&CO_ID=2357&SYEAR=2026&SSEASON=3&REPORT_ID=C",
         "source_sha256": "837d8ddb330a4d30dad2d5ebd9158f430fe3b61b6f9af52c6453f851f8d94e3c",
         "scope": "CONSOLIDATED_THREE_STATEMENTS",
