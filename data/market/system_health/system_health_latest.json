@@ -1,12 +1,12 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-11-27T10:13:52.183532+00:00",
+  "generated_at": "2026-11-27T10:35:26.611500+00:00",
   "taipei_date": "2026-11-27",
-  "status": "BLOCKED",
+  "status": "READY",
   "scope_status": {
     "morning": "READY",
-    "asia": "BLOCKED",
+    "asia": "READY",
     "weekly": "READY"
   },
   "report_delivery": {
@@ -68,11 +68,11 @@
     "policy": "Data readiness does not prove report delivery. Never infer email success from a generated draft."
   },
   "end_to_end_status": "NOT_FULLY_VERIFIED",
-  "action_readiness": "UNSAFE_FOR_AFFECTED_REPORTS",
+  "action_readiness": "SAFE",
   "counts": {
-    "ready": 19,
+    "ready": 21,
     "partial": 0,
-    "blocked": 2
+    "blocked": 0
   },
   "modules": [
     {
@@ -168,9 +168,9 @@
       "label": "Taiwan 0050/2330 CTA",
       "scope": "asia",
       "critical": true,
-      "status": "BLOCKED",
-      "reason": "0050 Dashboard date/CTA missing or invalid; expected 2026-11-27; 2330 Dashboard date/CTA missing or invalid; expected 2026-11-27",
-      "observed_as_of": "2026-11-26",
+      "status": "READY",
+      "reason": "current Dashboard authority",
+      "observed_as_of": "2026-11-27",
       "recovery_workflow": "update-market-dashboard.yml",
       "retryable": true,
       "impacted_reports": [
@@ -250,9 +250,9 @@
       "label": "Japan/Korea CTA freshness",
       "scope": "asia",
       "critical": true,
-      "status": "BLOCKED",
-      "reason": "1306 CURRENT as_of 2026-11-26 expected 2026-11-27; 069500 CURRENT as_of 2026-11-26 expected 2026-11-27",
-      "observed_as_of": "2026-11-26",
+      "status": "READY",
+      "reason": "both local-market CTAs current",
+      "observed_as_of": "2026-11-27",
       "recovery_workflow": "update-market-dashboard.yml",
       "retryable": true,
       "impacted_reports": [
@@ -373,40 +373,8 @@
       ]
     }
   ],
-  "issues": [
-    {
-      "module_id": "taiwan_market_cta",
-      "label": "Taiwan 0050/2330 CTA",
-      "scope": "asia",
-      "critical": true,
-      "status": "BLOCKED",
-      "reason": "0050 Dashboard date/CTA missing or invalid; expected 2026-11-27; 2330 Dashboard date/CTA missing or invalid; expected 2026-11-27",
-      "observed_as_of": "2026-11-26",
-      "recovery_workflow": "update-market-dashboard.yml",
-      "retryable": true,
-      "impacted_reports": [
-        "台股日報"
-      ]
-    },
-    {
-      "module_id": "asia_country_cta",
-      "label": "Japan/Korea CTA freshness",
-      "scope": "asia",
-      "critical": true,
-      "status": "BLOCKED",
-      "reason": "1306 CURRENT as_of 2026-11-26 expected 2026-11-27; 069500 CURRENT as_of 2026-11-26 expected 2026-11-27",
-      "observed_as_of": "2026-11-26",
-      "recovery_workflow": "update-market-dashboard.yml",
-      "retryable": true,
-      "impacted_reports": [
-        "台股日報",
-        "基金週報"
-      ]
-    }
-  ],
-  "recovery_workflows": [
-    "update-market-dashboard.yml"
-  ],
-  "issue_fingerprint": "55783b6cbfad83b94fcb5e8ffccd9a7a3b9d0bb8c77aa2e2396291f771b1b3bc",
+  "issues": [],
+  "recovery_workflows": [],
+  "issue_fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
   "policy": "Health monitoring only; never changes CTA, rankings, or investment decisions."
 }
