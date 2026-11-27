@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-11-27T03:37:24.775934+00:00",
+  "generated_at": "2026-11-27T04:30:29.457508+00:00",
   "taipei_date": "2026-11-27",
   "status": "BLOCKED",
   "scope_status": {
@@ -104,9 +104,9 @@
       "label": "Bitcoin completed UTC day",
       "scope": "morning",
       "critical": true,
-      "status": "BLOCKED",
-      "reason": "BTC date/CTA missing or invalid; expected 2026-11-26 through 2026-11-26",
-      "observed_as_of": "2026-11-25",
+      "status": "READY",
+      "reason": "current",
+      "observed_as_of": "2026-11-26",
       "recovery_workflow": "update-market-dashboard.yml",
       "retryable": true,
       "impacted_reports": [
@@ -147,9 +147,9 @@
       "label": "ETF CTA",
       "scope": "morning",
       "critical": true,
-      "status": "READY",
-      "reason": "all symbols current",
-      "observed_as_of": "2026-11-25",
+      "status": "BLOCKED",
+      "reason": "non-current symbols: RXI, IXC",
+      "observed_as_of": "2026-11-26",
       "recovery_workflow": "update-etf-cta.yml",
       "retryable": true,
       "impacted_reports": [
@@ -384,14 +384,14 @@
   ],
   "issues": [
     {
-      "module_id": "bitcoin_daily",
-      "label": "Bitcoin completed UTC day",
+      "module_id": "etf_cta",
+      "label": "ETF CTA",
       "scope": "morning",
       "critical": true,
       "status": "BLOCKED",
-      "reason": "BTC date/CTA missing or invalid; expected 2026-11-26 through 2026-11-26",
-      "observed_as_of": "2026-11-25",
-      "recovery_workflow": "update-market-dashboard.yml",
+      "reason": "non-current symbols: RXI, IXC",
+      "observed_as_of": "2026-11-26",
+      "recovery_workflow": "update-etf-cta.yml",
       "retryable": true,
       "impacted_reports": [
         "基金日報",
@@ -400,8 +400,8 @@
     }
   ],
   "recovery_workflows": [
-    "update-market-dashboard.yml"
+    "update-etf-cta.yml"
   ],
-  "issue_fingerprint": "7b7561a097560195eb6fb1d15037013c5e15c8526d8e858465cd6462eb046c0c",
+  "issue_fingerprint": "2f09d4a41079bbc988fc38fa499672debc4061fc60e3ef08f17a4a61035d5aed",
   "policy": "Health monitoring only; never changes CTA, rankings, or investment decisions."
 }
