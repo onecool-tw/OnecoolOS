@@ -22,23 +22,7 @@
   },
   "action_refreshes": [
     {
-      "symbol": "AIQ",
-      "reason": "weekly"
-    },
-    {
-      "symbol": "SMIN",
-      "reason": "weekly"
-    },
-    {
-      "symbol": "RING",
-      "reason": "weekly"
-    },
-    {
-      "symbol": "IBB",
-      "reason": "weekly"
-    },
-    {
-      "symbol": "PICK",
+      "symbol": "GLD",
       "reason": "weekly"
     }
   ],
@@ -80,10 +64,22 @@
     },
     {
       "symbol": "RXI",
+      "dataset": "corporate_actions",
+      "status": "STALE",
+      "reason": "alpha_vantage_daily_quota"
+    },
+    {
+      "symbol": "RXI",
       "dataset": "daily_price",
       "status": "CURRENT",
       "source": "yahoo",
       "as_of": "2026-11-25"
+    },
+    {
+      "symbol": "IXC",
+      "dataset": "corporate_actions",
+      "status": "STALE",
+      "reason": "alpha_vantage_daily_quota"
     },
     {
       "symbol": "IXC",
@@ -104,7 +100,7 @@
       "dataset": "daily_price",
       "status": "CURRENT",
       "source": "yahoo_cl_f_fallback",
-      "as_of": "2026-11-25",
+      "as_of": "2026-11-26",
       "reason": "primary_older_as_of:2026-11-24"
     }
   ],
@@ -268,9 +264,9 @@
     {
       "symbol": "RXI",
       "as_of": "2026-11-25",
-      "price": 194.628998,
-      "daily_50ma": 191.61478,
-      "daily_200ma": 194.897101,
+      "price": 194.630005,
+      "daily_50ma": 191.6148,
+      "daily_200ma": 194.897106,
       "weekly_30ma": 194.799692,
       "weekly_50ma": 196.88765,
       "cta": "SELL",
@@ -282,7 +278,7 @@
         "last_cross_status": "DEATH",
         "last_cross_date": "2026-04-02",
         "periods_since_cross": 164,
-        "spread_pct": -1.68413,
+        "spread_pct": -1.684122,
         "phase": "AGING"
       },
       "weekly_cross": {
@@ -357,10 +353,10 @@
     },
     {
       "symbol": "WTI",
-      "as_of": "2026-11-25",
-      "price": 84.339996,
-      "daily_50ma": 92.8872,
-      "daily_200ma": 89.74865,
+      "as_of": "2026-11-26",
+      "price": 85.720001,
+      "daily_50ma": 92.5502,
+      "daily_200ma": 89.85855,
       "weekly_30ma": 90.278,
       "weekly_50ma": 84.5142,
       "cta": "BUY",
@@ -371,8 +367,8 @@
         "cross_status": "NONE",
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2026-03-09",
-        "periods_since_cross": 183,
-        "spread_pct": 3.497044,
+        "periods_since_cross": 184,
+        "spread_pct": 2.99543,
         "phase": "AGING"
       },
       "weekly_cross": {
