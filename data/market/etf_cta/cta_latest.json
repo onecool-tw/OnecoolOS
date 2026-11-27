@@ -20,12 +20,7 @@
       "phase": "NEW, CONFIRMED, ACTIVE, AGING"
     }
   },
-  "action_refreshes": [
-    {
-      "symbol": "GLD",
-      "reason": "weekly"
-    }
-  ],
+  "action_refreshes": [],
   "data_status": [
     {
       "symbol": "AIQ",
@@ -64,22 +59,10 @@
     },
     {
       "symbol": "RXI",
-      "dataset": "corporate_actions",
-      "status": "STALE",
-      "reason": "alpha_vantage_daily_quota"
-    },
-    {
-      "symbol": "RXI",
       "dataset": "daily_price",
       "status": "CURRENT",
       "source": "yahoo",
       "as_of": "2026-11-25"
-    },
-    {
-      "symbol": "IXC",
-      "dataset": "corporate_actions",
-      "status": "STALE",
-      "reason": "alpha_vantage_daily_quota"
     },
     {
       "symbol": "IXC",
@@ -100,8 +83,8 @@
       "dataset": "daily_price",
       "status": "CURRENT",
       "source": "yahoo_cl_f_fallback",
-      "as_of": "2026-11-26",
-      "reason": "primary_older_as_of:2026-11-24"
+      "as_of": "2026-11-27",
+      "reason": "primary_failed:ETFCTAError"
     }
   ],
   "auxiliary_confirmation_policy": {
@@ -353,12 +336,12 @@
     },
     {
       "symbol": "WTI",
-      "as_of": "2026-11-26",
+      "as_of": "2026-11-27",
       "price": 85.720001,
-      "daily_50ma": 92.5502,
-      "daily_200ma": 89.85855,
-      "weekly_30ma": 90.278,
-      "weekly_50ma": 84.5142,
+      "daily_50ma": 92.2586,
+      "daily_200ma": 89.9719,
+      "weekly_30ma": 89.622667,
+      "weekly_50ma": 85.0764,
       "cta": "BUY",
       "reason": "Weekly golden cross remains confirmed or active.",
       "price_basis": "locally_adjusted_close",
@@ -367,8 +350,8 @@
         "cross_status": "NONE",
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2026-03-09",
-        "periods_since_cross": 184,
-        "spread_pct": 2.99543,
+        "periods_since_cross": 185,
+        "spread_pct": 2.541571,
         "phase": "AGING"
       },
       "weekly_cross": {
@@ -376,8 +359,8 @@
         "cross_status": "NONE",
         "last_cross_status": "GOLDEN",
         "last_cross_date": "2026-03-27",
-        "periods_since_cross": 34,
-        "spread_pct": 6.819919,
+        "periods_since_cross": 35,
+        "spread_pct": 5.343746,
         "phase": "ACTIVE"
       }
     }
