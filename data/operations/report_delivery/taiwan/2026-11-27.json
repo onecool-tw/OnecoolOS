@@ -1,15 +1,15 @@
 {
   "report_id": "taiwan",
   "report_date": "2026-11-27",
-  "generated_at": "2026-11-27T10:13:07.223Z",
-  "execution_slot": "18:00",
-  "execution_status": "PARTIAL",
+  "generated_at": "2026-11-27T11:01:10.533Z",
+  "execution_slot": "19:00",
+  "execution_status": "SUCCESS",
   "delivery_status": "PREPARED",
-  "writeback_status": "UNKNOWN",
+  "writeback_status": "VERIFIED",
   "expected_as_of": "2026-11-27",
   "actual_data_as_of": {
     "screen": "2026-11-27",
-    "cta": "2026-11-27;0050/2330 Dashboard11/26",
+    "cta": "2026-11-27",
     "pressure": "2026-11-27",
     "margin": "2026-11-26",
     "volatility": "2026-11-27",
@@ -20,12 +20,11 @@
     "foreign_tx_oi": "2026-11-27"
   },
   "market_pressure_status": "CURRENT",
-  "market_pressure_readback_status": "VERIFIED",
-  "previous_pressure_as_of": "2026-11-26",
-  "previous_pressure_light": "RED",
-  "persistence_workflow_completion_status": "SUCCESS",
-  "snapshot_status": "UPDATE_INCOMPLETE_DASHBOARD_CTA_PENDING",
-  "private_evidence_sha256": "1c0f5f3bc4b3c80ebde19d221bc772d05d857a5136623161e167e79d0b258b4b",
+  "market_pressure_readback_status": "VERIFIED_REUSED_SAME_DAY_18_RESULT",
+  "persistence_workflow_completion_status": "SUCCESS_AT18_NO_REWRITE",
+  "snapshot_status": "VERIFIED_FINAL",
+  "snapshot_sha256": "8741beba6ac70b613103df904f68c5908f411ffca15a10a8384d48a7041a81cd",
+  "private_evidence_sha256": "2dbf4ceb505206ec07c4beed65ee8e2a1a64d7ae466c3ffad7dc80f198d55d02",
   "channels": {
     "conversation": {
       "status": "UNKNOWN",
@@ -33,34 +32,37 @@
       "evidence_sha256": null
     },
     "email": {
-      "status": "UNKNOWN",
-      "observed_at": null,
-      "evidence_sha256": null
+      "status": "DELIVERED",
+      "observed_at": "2026-11-27T11:01:10.533Z",
+      "evidence_sha256": "79c9b53ec1835d24327fa3be9f6db1fbed4ee7d558ef873af7b42463001ebb2d",
+      "snapshot_sha256": "8741beba6ac70b613103df904f68c5908f411ffca15a10a8384d48a7041a81cd",
+      "all_required_recipients_verified": true
     },
     "artifact": {
-      "status": "UNKNOWN",
-      "observed_at": null,
-      "evidence_sha256": null
+      "status": "DELIVERED",
+      "observed_at": "2026-11-27T11:01:10.533Z",
+      "evidence_sha256": "6c4c400413c2c37bb09b3e39119cd12ec09db8b70937fefc3ade6ef75d631c26",
+      "snapshot_sha256": "8741beba6ac70b613103df904f68c5908f411ffca15a10a8384d48a7041a81cd",
+      "writeback_status": "VERIFIED"
     }
   },
+  "prior_execution": {
+    "execution_slot": "18:00",
+    "execution_status": "PARTIAL",
+    "private_evidence_sha256": "1c0f5f3bc4b3c80ebde19d221bc772d05d857a5136623161e167e79d0b258b4b",
+    "pressure_readback": "VERIFIED"
+  },
   "completed_steps": [
-    "Read main health,context,Snapshot,Dashboard,Screen,CTA,official cache and contracts",
-    "Verified actual producer jobs including Maintain background CTA; current outputs remain11/26 despite pre-close completed jobs",
-    "Verified11/27 official spot,regularTX202612,PCR,institutional data and foreignTXOI; retained dated11/26margin and source backfill",
-    "Verified regression PASS and all current code/prompt hashes",
-    "Saved private continuation evidence; no report notification or email at18",
-    "Recovered required Screen job after safe publication refusal; full200backgroundCTA and official input refresh steps succeeded",
-    "Validated11/27VERIFIED LAST_1_MIN_AVG51.93; evaluated formal pressure once asRED",
-    "Mailbox persistence completed success; exact date/status/light/action readback and Snapshot pressure match VERIFIED"
+    "Required Dashboard and Screen producer completion verified including full200backgroundCTA success",
+    "Same-day formal pressure reused exactly from18; no recalculation or mailbox rewrite",
+    "Current Asia/Screen/CTA/official inputs and final Snapshot joins verified",
+    "Regression/current code hashes and8period comparable score median/MAD checks verified",
+    "Complete private owner report saved and full readback/hash VERIFIED",
+    "Final Snapshot reread unchanged; final-version sent-folder dedup and all required Gmail acknowledgements verified"
   ],
-  "failed_steps": [
-    "Initial Screen publication conflicted with overlapping cache updates; recomputation retry succeeded",
-    "Final Dashboard current CTA and final Snapshot gate remain incomplete at bounded poll"
-  ],
+  "failed_steps": [],
   "pending_steps": [
-    "At19 resume pending Dashboard producer and subsequent Screen/context refresh; re-read all final gates",
-    "Reuse same-day verified CURRENT pressure verbatim; no recalculation or mailbox rewrite",
-    "Save/readback full owner report; final Snapshot hash dedup and email only after all final gates"
+    "Observe final conversation acknowledgement independently; do not infer from artifact/email success"
   ],
-  "next_action": "At19start with pending Dashboard/current0050/2330 and Asia CTA evidence. Formal11/27CURRENT RED is already persisted/readbackVERIFIED and must be reused. No conversation report or email at18. Keep artifact/email UNKNOWN until actual delivery verification."
+  "next_action": "No data,artifact or email recovery pending. Conversation remains UNKNOWN until real acknowledgement observed; never resend email or rebuild artifact for conversation UNKNOWN alone."
 }
