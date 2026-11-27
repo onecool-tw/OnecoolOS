@@ -13,7 +13,7 @@
   "sources": {
     "dashboard": {
       "path": "data/market/dashboard/dashboard_latest.json",
-      "sha256": "388ea688fdcbe4d934943cda331ec7ab622739e339aaced4e20e331b2d278f33"
+      "sha256": "09549a3e5222b87ff507d76f776794cd5c3d833a8082b33c2f14ca7c1d0d32d9"
     },
     "screen": {
       "path": "data/market/taiwan_stock_intelligence/screen_latest.json",
@@ -21,38 +21,35 @@
     },
     "cta": {
       "path": "data/market/taiwan_stock_intelligence/cta/cta_latest.json",
-      "sha256": "4511692afa0c5e1f2105588e20a280e25d34136b903e8d5c0954e877e6a5b13a"
+      "sha256": "3f54617ca7da8dde07faf3dd7b31e1cb3a3e7440c66616abf0bbd692e382e5c7"
     },
     "context": {
       "path": "data/market/taiwan_stock_intelligence/daily_context_latest.json",
-      "sha256": "8019ae7b683971b86806a6294b4313aa5101989336e9c5ac6157c08a312520e0"
+      "sha256": "fe9567f7204ce9ba7c9690f5e24042551d21d3d8bffb68144f9d3bf6db7380f0"
     }
   },
   "source_generated_at": {
-    "dashboard": "2026-11-27T05:03:53.651061+00:00",
+    "dashboard": "2026-11-27T10:36:12.196570+00:00",
     "screen": null,
-    "cta": "2026-11-27T10:10:39.552292+00:00",
-    "context": "2026-11-27T10:10:45.436643+00:00"
+    "cta": "2026-11-27T10:40:06.045057+00:00",
+    "context": "2026-11-27T10:40:10.720670+00:00"
   },
   "screen_as_of": "2026-11-27",
   "display_status": "CURRENT",
   "report_readiness": {
-    "status": "UPDATE_INCOMPLETE",
+    "status": "READY",
     "expected_as_of": "2026-11-27",
     "screen_as_of": "2026-11-27",
     "taiwan_cta_dates": {
-      "0050": "2026-11-26",
-      "2330": "2026-11-26",
+      "0050": "2026-11-27",
+      "2330": "2026-11-27",
       "2408": "2026-11-27",
       "2603": "2026-11-27",
       "2344": "2026-11-27",
       "2317": "2026-11-27",
       "2357": "2026-11-27"
     },
-    "issues": [
-      "dashboard_0050_not_current",
-      "dashboard_2330_not_current"
-    ],
+    "issues": [],
     "scope": "TAIWAN_PRICE_VALUATION_AND_CTA_ONLY",
     "consumer_rule": "INCOMPLETE_MEANS_NO_NEW_EXPOSURE_AND_NO_UNCHANGED_RANKING_CLAIM",
     "asia_and_margin_policy": "KEEP_ACTUAL_LOCAL_SOURCE_DATES"
@@ -99,21 +96,19 @@
     "consumer_action": "PAUSE_NEW_EXPOSURE"
   },
   "final_delivery_readiness": {
-    "status": "UPDATE_INCOMPLETE",
-    "issues": [
-      "REPORT_READINESS_NOT_READY"
-    ],
+    "status": "READY",
+    "issues": [],
     "rule": "EMAIL_REQUIRES_CURRENT_MARKET_PRESSURE_AND_CURRENT_LOCAL_MARKET_ASIA_CTA"
   },
   "asia_cta_readiness": {
     "status": "READY",
     "symbols": {
       "1306": {
-        "as_of": "2026-11-26",
+        "as_of": "2026-11-27",
         "update_status": "CURRENT"
       },
       "069500": {
-        "as_of": "2026-11-26",
+        "as_of": "2026-11-27",
         "update_status": "CURRENT"
       }
     },
@@ -128,7 +123,7 @@
   "market_pressure_inputs": {
     "schema_version": "1.0",
     "module": "Onecool Taiwan Official Market Pressure Inputs",
-    "generated_at": "2026-11-27T10:10:29.536091+00:00",
+    "generated_at": "2026-11-27T10:39:49.307130+00:00",
     "requested_as_of": "2026-11-27",
     "status": "READY",
     "attempts_used": 1,
@@ -175,31 +170,31 @@
   "market_cta": {
     "0050": {
       "symbol": "0050",
-      "as_of": "2026-11-26",
+      "as_of": "2026-11-27",
       "cta": "HOLD",
       "trend": "BULLISH"
     },
     "2330": {
       "symbol": "2330",
-      "as_of": "2026-11-26",
+      "as_of": "2026-11-27",
       "cta": "HOLD",
       "trend": "BULLISH"
     },
     "1306": {
       "symbol": "1306",
-      "as_of": "2026-11-26",
+      "as_of": "2026-11-27",
       "cta": "HOLD",
       "trend": "BULLISH",
       "update_status": "CURRENT",
-      "source_data_as_of": "2026-11-26"
+      "source_data_as_of": "2026-11-27"
     },
     "069500": {
       "symbol": "069500",
-      "as_of": "2026-11-26",
+      "as_of": "2026-11-27",
       "cta": "WATCH",
       "trend": "MIXED",
       "update_status": "CURRENT",
-      "source_data_as_of": "2026-11-26"
+      "source_data_as_of": "2026-11-27"
     }
   },
   "top5": [
