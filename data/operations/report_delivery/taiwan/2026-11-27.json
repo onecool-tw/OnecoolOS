@@ -1,0 +1,64 @@
+{
+  "report_id": "taiwan",
+  "report_date": "2026-11-27",
+  "generated_at": "2026-11-27T10:07:05.232Z",
+  "execution_slot": "18:00",
+  "execution_status": "PARTIAL",
+  "delivery_status": "PREPARED",
+  "writeback_status": "UNKNOWN",
+  "expected_as_of": "2026-11-27",
+  "actual_data_as_of": {
+    "screen": "2026-11-26",
+    "cta": "2026-11-26",
+    "pressure": "2026-11-26",
+    "margin": "2026-11-26",
+    "volatility": "2026-11-26",
+    "spot": "2026-11-27",
+    "futures": "2026-11-27",
+    "pcr": "2026-11-27",
+    "institutional_flow": "2026-11-27",
+    "foreign_tx_oi": "2026-11-27"
+  },
+  "market_pressure_status": "WRITE_FAILED",
+  "market_pressure_readback_status": "NOT_ATTEMPTED_MISSING_CURRENT_INPUTS",
+  "previous_pressure_as_of": "2026-11-26",
+  "previous_pressure_light": "RED",
+  "persistence_workflow_completion_status": "NOT_STARTED",
+  "snapshot_status": "STALE_FOR_EXPECTED_SESSION",
+  "private_evidence_sha256": "3cb68f950a74ae934514e2d97caee64ad3b8599222a5d26436ceeb40e2f6edcb",
+  "channels": {
+    "conversation": {
+      "status": "UNKNOWN",
+      "observed_at": null,
+      "evidence_sha256": null
+    },
+    "email": {
+      "status": "UNKNOWN",
+      "observed_at": null,
+      "evidence_sha256": null
+    },
+    "artifact": {
+      "status": "UNKNOWN",
+      "observed_at": null,
+      "evidence_sha256": null
+    }
+  },
+  "completed_steps": [
+    "Read main health,context,Snapshot,Dashboard,Screen,CTA,official cache and contracts",
+    "Verified actual producer jobs including Maintain background CTA; current outputs remain11/26 despite pre-close completed jobs",
+    "Verified11/27 official spot,regularTX202612,PCR,institutional data and foreignTXOI; retained dated11/26margin and source backfill",
+    "Verified regression PASS and all current code/prompt hashes",
+    "Saved private continuation evidence; no report notification or email at18"
+  ],
+  "failed_steps": [
+    "Current-session Screen/CTA/officialvolatility cache not yet published; cached11/26READY cannot establish11/27readiness",
+    "No formal11/27pressure persistence or final Snapshot yet"
+  ],
+  "pending_steps": [
+    "Read latest required producer retries including existing18:32Screen; bounded poll queued/in_progress jobs",
+    "Require11/27VERIFIED LAST_1_MIN_AVG, current CTA/Screen/health gates",
+    "Evaluate pressure once when ready; mailbox/persistence/readback,final Snapshot,complete report/readback",
+    "At19final-version dedup/email only if all gates pass; otherwise deliver explicit missing-items report"
+  ],
+  "next_action": "Resume from current-session producer recovery and official input cache. Preserve prior11/26formalRED with actual date; do not recalculate CTA,use stale volatility,send old-version email or create schedule."
+}
