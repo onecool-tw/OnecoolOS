@@ -1,7 +1,7 @@
 {
   "schema_version": "1.0",
   "module": "Onecool Unified Schedule Health",
-  "generated_at": "2026-11-28T04:47:10.853022+00:00",
+  "generated_at": "2026-11-28T07:39:48.934804+00:00",
   "taipei_date": "2026-11-28",
   "status": "READY",
   "scope_status": {
@@ -30,13 +30,7 @@
       },
       {
         "report_id": "us",
-        "expected_report_date": "2026-11-27",
-        "status": "UNKNOWN",
-        "reason": "No verifiable receipt for the latest completed reporting window"
-      },
-      {
-        "report_id": "fund",
-        "expected_report_date": "2026-11-27",
+        "expected_report_date": "2026-11-28",
         "status": "PARTIAL",
         "channels": {
           "conversation": "UNKNOWN",
@@ -48,6 +42,12 @@
         "failed_channels": [],
         "next_action": "Observe actual delivered message acknowledgement; do not resend solely because acknowledgement is unknown",
         "reason": "Missing acknowledgement is unverified, not proof of failed delivery"
+      },
+      {
+        "report_id": "fund",
+        "expected_report_date": "2026-11-28",
+        "status": "UNKNOWN",
+        "reason": "Invalid or unverifiable receipt"
       },
       {
         "report_id": "home",
