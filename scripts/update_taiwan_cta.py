@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import time
 from collections.abc import Callable
 from dataclasses import asdict
 from datetime import UTC, datetime, timedelta
@@ -32,13 +33,27 @@ TAIWAN_CTA_SYMBOLS = {
 }
 
 
+class YahooRateLimited(ETFCTAError):
+    """Yahoo remained rate limited after bounded retries."""
+
+
 def fetch_yahoo_daily(symbol: str, *, period: str = "10d", start=None, end=None) -> list[DailyBar]:
     """Fetch raw Yahoo daily bars for a Taiwan-listed symbol."""
 
     import yfinance as yf
+    from yfinance.exceptions import YFRateLimitError
 
     window = {"period": period} if start is None else {"start": start, "end": end}
-    frame = yf.Ticker(symbol).history(auto_adjust=False, actions=True, **window)
+    ticker = yf.Ticker(symbol)
+    for delay in (5, 15, 35, None):
+        try:
+            frame = ticker.history(auto_adjust=False, actions=True, **window)
+            break
+        except YFRateLimitError as exc:
+            if delay is None:
+                raise YahooRateLimited(f"Yahoo rate limit persisted for {symbol}") from exc
+            print(f"Yahoo rate limited {symbol}; retrying after {delay}s.", flush=True)
+            time.sleep(delay)
     if frame.empty:
         raise ETFCTAError(f"Yahoo returned no history for {symbol}.")
     bars = []
@@ -115,17 +130,28 @@ def update(
                     f"{symbol} history is missing; rerun with --allow-bootstrap."
                 )
             existing = fetcher(provider_symbol, period="5y")
-        incoming = fetcher(provider_symbol, period="10d")
+        yahoo_limited = False
+        try:
+            incoming = fetcher(provider_symbol, period="10d")
+        except YahooRateLimited as exc:
+            print(f"{exc}; checking cached history and TWSE.", flush=True)
+            incoming = []
+            yahoo_limited = True
         history = merge_and_adjust(
             completed_daily_bars(existing, "TW", now),
             completed_daily_bars(incoming, "TW", now),
         )
-        if history[-1].trading_date < expected and fetcher is fetch_yahoo_daily:
-            dated = fetcher(
-                provider_symbol, start=expected - timedelta(days=14),
-                end=expected + timedelta(days=1),
-            )
-            history = merge_and_adjust(history, completed_daily_bars(dated, "TW", now))
+        if (history[-1].trading_date < expected
+                and fetcher is fetch_yahoo_daily and not yahoo_limited):
+            try:
+                dated = fetcher(
+                    provider_symbol, start=expected - timedelta(days=14),
+                    end=expected + timedelta(days=1),
+                )
+            except YahooRateLimited as exc:
+                print(f"{exc}; checking TWSE.", flush=True)
+            else:
+                history = merge_and_adjust(history, completed_daily_bars(dated, "TW", now))
         if history[-1].trading_date < expected and fetcher is fetch_yahoo_daily:
             official = fetch_twse_missing_session(symbol, expected, history[-1])
             history = merge_and_adjust(history, [official])
